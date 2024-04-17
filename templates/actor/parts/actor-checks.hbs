@@ -1,0 +1,40 @@
+<ol class='items-list'>
+  <li class='item flexrow items-header'>
+    <div class='item-name'>{{localize "SW25.Check"}}</div>
+    <div class='item-checkbase item-element'>{{localize "SW25.Basenumber"}}</div>
+    <div class='item-scmod'>{{localize "SW25.Modifier"}}</div>
+    <div class='item-controls'>
+      <a
+        class='item-control item-create'
+        title='{{localize "DOCUMENT.Create" type='Check'}}'
+        data-type='check'
+      >
+        <i class='fas fa-plus'></i>
+        {{localize 'DOCUMENT.New' type=''}}
+      </a>
+    </div>
+  </li>
+  {{#each checks as |item id|}}
+    <li class='item flexrow' data-item-id='{{item._id}}'>
+      <label class='item-name item-checklabel {{#if (eq system.checkmethod "power")}}power{{/if}}rollable resource-label' data-roll="{{item.system.formula}}{{#unless (eq system.checkmethod "power")}}+{{item.system.checkbase}}{{/unless}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}"><h4>{{item.name}}</h4></label>
+      <label class='item-checkbase align-center {{#if (eq system.checkmethod "power")}}power{{/if}}rollable resource-label item-element' data-roll="{{item.system.formula}}{{#unless (eq system.checkmethod "power")}}+{{item.system.checkbase}}{{/unless}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}">
+        {{item.system.checkbase}}
+      </label>
+      <div class='item-checkmod item-prop input'><input class="cm-change" type="text" name="checkmodInput" value="{{item.system.checkmod}}" data-dtype="Number"/></div>
+      <div class='item-controls'>
+        <a
+          class='item-control item-edit'
+          title='{{localize "DOCUMENT.Update" type='check'}}'
+        >
+          <i class='fas fa-edit'></i>
+        </a>
+        <a
+          class='item-control item-delete'
+          title='{{localize "DOCUMENT.Delete" type='check'}}'
+        >
+          <i class='fas fa-trash'></i>
+        </a>
+      </div>
+    </li>
+  {{/each}}
+</ol>

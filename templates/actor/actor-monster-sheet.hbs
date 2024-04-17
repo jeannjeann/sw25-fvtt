@@ -1,0 +1,137 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+      <div class="resources grid grid-4col">
+        <div class="resource flexcol flex-group-center gap-s">
+          <div>
+            {{localize "SW25.Monlevel"}}<br><span class="resource-label-l">{{system.monlevel}}</span>
+          </div>
+          <div class="flexrow align-bottom">
+            <label for="system.hp.value" class="resource-label-l">{{localize "SW25.Hp"}}</label>
+            <input class="resource-label-l" type="text" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
+            <span class="align-bottom">/{{system.hp.max}}</span>
+          </div>
+          <div class="flexrow align-bottom">
+            <label for="system.mp.value" class="resource-label-l">{{localize "SW25.Mp"}}</label>
+            <input class="resource-label-l" type="text" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
+            <span class="align-bottom">/{{system.mp.max}}</span>
+          </div>
+        </div>
+        <div class="flexcol flex-between grid-span-3">
+          <div class="flexrow grid grid-4col nogapmargin">
+            <span class="grid-span-2"><b>{{localize "SW25.Monster.Type"}}: </b>{{system.type}}</span>
+            <span class="grid-span-2"><b>{{localize "SW25.Monster.Intelligence"}}: </b>{{system.intelligence}}</span>
+            <span class="grid-span-2"><b>{{localize "SW25.Monster.Perception"}}: </b>{{system.perception}}</span>
+            <span class="grid-span-2"><b>{{localize "SW25.Monster.Reaction"}}: </b>{{system.reaction}}</span>
+            <span class="grid-span-4"><b>{{localize "SW25.Monster.Language"}}: </b>{{system.language}}</span>
+            <span class="grid-span-3"><b>{{localize "SW25.Monster.Habitat"}}: </b>{{system.habitat}}</span>
+            <span>{{#if system.showimp}}<b>{{localize "SW25.Monster.Impurity"}}: </b>{{system.impurity}}{{/if}}</span>
+            <span class="grid-span-2"><b>{{localize "SW25.Monster.Popularity"}} / {{localize "SW25.Monster.Weakpoint"}} : </b>{{system.popularity}} / {{system.weakpoint}}</span>
+            <span class="grid-span-2"><b>{{localize "SW25.Monster.Weakness"}}: </b>{{system.weakness}}</span>
+            <span><b>{{localize "SW25.Monster.Preemptive"}}: </b>{{system.preemptive}}</span>
+            <span class="grid-span-3"><b>{{localize "SW25.Monster.Move"}}: </b>{{system.move}}</span>
+            {{#if system.showpt}}
+            <span class="grid-span-4"><b>{{localize "SW25.Monster.Part"}}: </b>{{system.part}} <b>{{localize "SW25.Monster.Corepart"}}: </b>{{system.corepart}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="ability">{{localize "SW25.Monster.Ability"}}</a>
+    <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
+    <a class="item" data-tab="details">{{localize "SW25.Details"}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Owned Ability Tab --}}
+    <div class="tab ability" data-group="primary" data-tab="ability">
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-monsterabilities.hbs"}}
+      </div>
+      <div class="margin-m" style="display: flex; align-items: center;">
+        <input type="checkbox" name="system.usespell" data-dtype="Boolean" {{#if system.usespell}} checked {{/if}}/>
+        <label for="system.usespell">{{localize "SW25.Monster.Usespell"}}</label>
+      </div>
+      {{#if system.usespell}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-monsterspells.hbs"}}
+      </div>
+      {{/if}}
+    </div>
+
+    {{!-- Biography Tab --}}
+    <div class="tab biography" data-group="primary" data-tab="description">
+      <div>
+        {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
+      </div>
+      <div>
+        <b>{{localize "SW25.Monster.Loot"}}</b><br>
+        {{{system.loot}}}
+      </div>
+    </div>
+
+    {{!-- Owned Details Tab --}}
+    <div class="tab items" data-group="primary" data-tab="details">
+      <div class="flexcol">
+        <div class="flexrow grid grid-5col">
+          <div class="flex-group-center nogapmargin">
+            <div>
+              <span style="text-align: center;"><b>{{localize "SW25.Monlevel"}}</b><br><input style="max-width: calc(50% - 7px); text-align: center;" type="text" name="system.monlevel" value="{{system.monlevel}}" data-dtype="Number"/></span>
+            </div>
+            <div>
+              <span style="text-align: center;"><b>{{localize "SW25.Max"}}{{localize "SW25.Hp"}}</b><br><input style="max-width: calc(50% - 7px); text-align: center;" type="text" name="system.hp.max" value="{{system.hp.max}}" data-dtype="Number"/></span>
+            </div>
+            <div>
+              <span style="text-align: center;"><b>{{localize "SW25.Max"}}{{localize "SW25.Mp"}}</b><br><input style="max-width: calc(50% - 7px); text-align: center;" type="text" name="system.mp.max" value="{{system.mp.max}}" data-dtype="Number"/></span>
+            </div>
+          </div>
+          <div class="flexcol grid-span-4">
+            <div><b>{{localize "SW25.Overview"}}</b></div>
+            <div style="border: 1px solid gray; padding: 2px; border-radius: 5px;">
+              {{editor system.overview target="system.overview" rollData=rollData button=true owner=owner editable=editable}}
+            </div>
+          </div>
+        </div>
+        <div class="flexrow grid grid-10col">
+          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Monster.Type"}}</b><br><input type="text" name="system.type" value="{{system.type}}" data-dtype="String"/></span>
+          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Monster.Intelligence"}}</b><br><input type="text" name="system.intelligence" value="{{system.intelligence}}" data-dtype="String"/></span>
+          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Monster.Perception"}}</b><br><input type="text" name="system.perception" value="{{system.perception}}" data-dtype="String"/></span>
+          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Monster.Reaction"}}</b><br><input type="text" name="system.reaction" value="{{system.reaction}}" data-dtype="String"/></span>
+          <span style="text-align: center;"><b>{{localize "SW25.Monster.Impurity"}}</b><br><input type="text" name="system.impurity" value="{{system.impurity}}" data-dtype="Number"/></span>
+          <span></span>
+          <span class="grid-span-5" style="text-align: center;"><b>{{localize "SW25.Monster.Language"}}</b><br><input type="text" name="system.language" value="{{system.language}}" data-dtype="String"/></span>
+          <span class="grid-span-4" style="text-align: center;"><b>{{localize "SW25.Monster.Habitat"}}</b><br><input type="text" name="system.habitat" value="{{system.habitat}}" data-dtype="String"/></span>
+          <span></span>
+          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Monster.Popularity"}} / {{localize "SW25.Monster.Weakpoint"}}</b><br><input style="max-width: calc(40% - 7px);" type="text" name="system.popularity" value="{{system.popularity}}" data-dtype="Number"/>/<input style="max-width: calc(40% - 7px);" type="text" name="system.weakpoint" value="{{system.weakpoint}}" data-dtype="Number"/></span>
+          <span class="grid-span-4" style="text-align: center;"><b>{{localize "SW25.Monster.Weakness"}}</b><br><input type="text" name="system.weakness" value="{{system.weakness}}" data-dtype="String"/></span>
+          <span style="text-align: center;"><b>{{localize "SW25.Monster.Preemptive"}}</b><br><input type="text" name="system.preemptive" value="{{system.preemptive}}" data-dtype="Number"/></span>
+          <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Monster.Move"}}</b><br><input type="text" name="system.move" value="{{system.move}}" data-dtype="String"/></span>
+          <span class="grid-span-4" style="text-align: center;"><b>{{localize "SW25.Monster.Part"}}</b><br><input type="text" name="system.part" value="{{system.part}}" data-dtype="String"/></span>
+          <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Monster.Corepart"}}</b><br><input type="text" name="system.corepart" value="{{system.corepart}}" data-dtype="String"/></span>
+          <div class="flexcol grid-span-10">
+            <div><b>{{localize "SW25.Monster.Loot"}}</b></div>
+            <div style="border: 1px solid gray; padding: 2px; border-radius: 5px;">
+              {{editor system.loot target="system.loot" rollData=rollData button=true owner=owner editable=editable}}
+            </div>
+          </div>
+       </div>
+        <div class="margin-m">
+          <b>{{localize "SW25.Gminfo"}}</b>
+          {{editor system.gminfo target="system.gminfo" rollData=rollData button=true owner=owner editable=editable}}
+        </div>
+      </div>
+    </div>
+
+  </section>
+</form>
+

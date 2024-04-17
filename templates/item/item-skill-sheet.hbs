@@ -1,0 +1,99 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+      <div class="grid grid-2col">
+        <div class="flexrow flex-group-left resource">
+          <label class="resource-label">{{localize "SW25.Item.Skill.Skilllevel"}}</label>
+          <span class="resource-label-l">{{system.skilllevel}}</span>
+        </div>
+        <div class="flexrow flex-group-right resource">
+          <label class="resource-label">{{localize "SW25.Item.Skill.Skillexp"}}</label>
+          <span class="resource-label">{{system.skillexp}}</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
+    <a class="item" data-tab="details">{{localize "SW25.Details"}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body" style="height: 65%;">
+
+    {{!-- Description Tab --}}
+    <div class="tab description" data-group="primary" data-tab="description">
+      <section class="grid grid-4col">
+        <aside class="sidebar flex-between">
+          <div class="flexcol">
+            <span><b>{{localize "SW25.Check"}}{{localize "SW25.Basenumber"}}</b></span>
+            <div class="flexrow">
+              <span style="text-align: right;">{{localize "SW25.Modifier"}}</span>
+              <input class="resource-label" style="text-align: center;" type="text" name="system.skillmod" value="{{system.skillmod}}" data-dtype="Number"/>
+            </div>
+            <hr>
+            <div class="flexrow flex-group-right">
+              <span class="resource-label flexlarge">{{localize "SW25.Ability.Dex.long"}}</span>
+              <span class="resource-label flexlarge" style="text-align: left;">: {{system.skillbase.dex}}</span>
+            </div>
+            <div class="flexrow flex-group-right">
+              <span class="resource-label flexlarge">{{localize "SW25.Ability.Agi.long"}}</span>
+              <span class="resource-label flexlarge" style="text-align: left;">: {{system.skillbase.agi}}</span>
+            </div>
+            <div class="flexrow flex-group-right">
+              <span class="resource-label flexlarge">{{localize "SW25.Ability.Str.long"}}</span>
+              <span class="resource-label flexlarge" style="text-align: left;">: {{system.skillbase.str}}</span>
+            </div>
+            <div class="flexrow flex-group-right">
+              <span class="resource-label flexlarge">{{localize "SW25.Ability.Vit.long"}}</span>
+              <span class="resource-label flexlarge" style="text-align: left;">: {{system.skillbase.vit}}</span>
+            </div>
+            <div class="flexrow flex-group-right">
+              <span class="resource-label flexlarge">{{localize "SW25.Ability.Int.long"}}</span>
+              <span class="resource-label flexlarge" style="text-align: left;">: {{system.skillbase.int}}</span>
+            </div>
+            <div class="flexrow flex-group-right">
+              <span class="resource-label flexlarge">{{localize "SW25.Ability.Mnd.long"}}</span>
+              <span class="resource-label flexlarge" style="text-align: left;">: {{system.skillbase.mnd}}</span>
+            </div>
+          </div>
+        </aside>
+        <section class="main grid-span-3">
+          <span><b>{{localize "SW25.Description"}}</b></span>
+          {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
+        </section>
+      </section>
+    </div>
+
+    {{!-- Details Tab --}}
+    <div class="tab details" data-group="primary" data-tab="details">
+      <div class="flexrow grid grid-8col nogapmargin">
+        <span style="text-align: center;"><b>{{localize "SW25.Item.Skill.Skilllevel"}}</b><br><input type="text" name="system.skilllevel" value="{{system.skilllevel}}" data-dtype="Number"/></span>
+        <span style="text-align: center;"><b>{{localize "SW25.Item.Skill.Exptable"}}</b><br>
+          <select name="system.exptable">
+            {{#select system.exptable}}
+            <option value="-">-</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            {{/select}}
+          </select>
+        </span>
+        <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Skill.Skilltype"}}</b><br>
+          <select name="system.skilltype">
+            {{#select system.skilltype}}
+            <option value="-">-</option>
+            <option value="fighterskill">{{localize "SW25.Item.Skill.Fighterskill"}}</option>
+            <option value="magicuserskill">{{localize "SW25.Item.Skill.Magicuserskill"}}</option>
+            <option value="otherskill">{{localize "SW25.Item.Skill.Otherskill"}}</option>
+            <option value="commonskill">{{localize "SW25.Item.Skill.Commonskill"}}</option>
+            {{/select}}
+          </select>
+        </span>
+      </div>
+    </div>
+  </section>
+</form>

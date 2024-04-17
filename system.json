@@ -1,0 +1,72 @@
+{
+  "id": "sw25",
+  "title": "Sword World 2.5",
+  "description": "ソード・ワールド 2.5 システム",
+  "authors": [
+    {
+      "name": "Jean.N"
+    }
+  ],
+  "url": "https://github.com/jeannjeann/sw25-fvtt",
+  "license": "LICENSE.txt",
+  "readme": "README.md",
+  "changelog": "CHANGELOG.md",
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/sw25/assets/sw25fvtt.png",
+      "thumbnail": "systems/sw25/assets/sw25fvtt.png"
+    }
+  ],
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": 11,
+    "verified": "11.315"
+  },
+  "esmodules": ["module/sw25.mjs"],
+  "styles": ["css/sw25.css"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "ja",
+      "name": "日本語(Japanese)",
+      "path": "lang/ja.json"
+    }
+  ], 
+  "packs": [
+    {
+      "name": "actor",
+      "label": "Actor (Sample)",
+      "system": "SW25",
+      "type": "Actor",
+      "path": "packs/actor"
+    },
+    {
+      "name": "item",
+      "label": "Item (Sample)",
+      "system": "SW25",
+      "type": "Item",
+      "path": "packs/item"
+    },
+    {
+      "name": "manual",
+      "label": "Manual",
+      "system": "SW25",
+      "type": "JournalEntry",
+      "path": "packs/manual"
+    }
+  ],
+  "packFolders": [],
+  "socket": false,
+  "manifest": "https://github.com/jeannjeann/sw25-fvtt/releases/latest/download/system.json",
+  "download": "https://github.com/jeannjeann/sw25-fvtt/releases/latest/download/system.zip",
+  "background": "systems/sw25/assets/sw25fvtt.png",
+  "gridDistance": 1,
+  "gridUnits": "m",
+  "primaryTokenAttribute": "hp",
+  "secondaryTokenAttribute": "mp"
+}

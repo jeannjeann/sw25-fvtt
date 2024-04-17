@@ -1,0 +1,517 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+      <div class="resources grid grid-4col">
+        <div class="resource flexcol flex-between flex-group-center gap-s">
+          <div class="flexrow align-bottom">
+            <label for="system.hp.value" class="resource-label-l">{{localize "SW25.Hp"}}</label>
+            <input class="resource-label-l" type="text" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
+            <span class="align-bottom">/{{system.hp.max}}</span>
+          </div>
+          <div class="flexrow align-bottom">
+            <label for="system.mp.value" class="resource-label-l">{{localize "SW25.Mp"}}</label>
+            <input class="resource-label-l" type="text" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
+            <span class="align-bottom">/{{system.mp.max}}</span>
+          </div>
+          <div class="flexrow flex-group-center">
+            <label for="system.attributes.fumble" class="resource-label-s align-right">{{localize "SW25.Attributes.Fumble"}}:</label>
+            <div class='input flexrow flex-group-center' style="flex: 1 0 20px;">
+              <a class="adjustment-button" data-action="decrease" data-property="system.attributes.fumble">
+                <i class="fas fa-minus"></i>
+              </a>
+              <input type="number" name="system.attributes.fumble" value="{{system.attributes.fumble}}" data-dtype="Number"/>
+              <a class="adjustment-button" data-action="increase" data-property="system.attributes.fumble">
+                <i class="fas fa-plus"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="resource flexcol flex-between flex-group-center">
+          <label for="system.attributes.advlevel.value" class="resource-label">{{localize "SW25.Attributes.Advlevel"}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <span class="resource-label-l">{{system.attributes.advlevel.value}}</span>
+          </div>
+          <div class="resource-content flexrow flex-group-right">
+            <label for="system.attributes.grace" class="resource-label-s">{{localize "SW25.Attributes.Grace"}}:</label>
+            <span><input type="checkbox" name="system.attributes.grace" data-dtype="Boolean" {{#if system.attributes.grace}} checked {{/if}}/></span>
+          </div>
+        </div>
+
+        <div class="flexcol flex-between grid-span-2">
+          <div class="flexrow flex-between">
+            <span>{{localize "SW25.Attributes.Age"}}: <b>{{system.attributes.age}}</b></span>
+            <span>{{localize "SW25.Attributes.Gender"}}: <b>{{system.attributes.gender}}</b></span>
+            <span>{{localize "SW25.Attributes.Impurity"}}: <b>{{system.attributes.impurity}}</b></span>
+          </div>
+          <div class="flexrow flex-left">
+            <span>{{localize "SW25.Race"}}: <b>{{system.race}}</b></span>
+          </div>
+          <div class="flexrow flex-left">
+            <span>{{localize "SW25.Attributes.Honer.Rank"}}: <b>{{system.attributes.honer.rank}}</b></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    {{!-- Default tab is specified in actor-sheet.mjs --}}
+    <a class="item" data-tab="abilityskill">{{localize "SW25.Abilityskill"}}</a>
+    <a class="item" data-tab="check">{{localize "SW25.Check"}}</a>
+    <a class="item" data-tab="battle">{{localize "SW25.Battle"}}</a>
+    <a class="item" data-tab="features">{{localize "SW25.Features"}}</a>
+    <a class="item" data-tab="spells">{{localize "SW25.Spells"}}</a>
+{{!--
+    <a class="item" data-tab="effects">{{localize "SW25.Effects"}}</a>
+--}}
+    <a class="item" data-tab="items">{{localize "SW25.Items"}}</a>
+    <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Ability&Skill Tab --}}
+    <div class="tab abilityskill" data-group="primary" data-tab="abilityskill">
+      <section class="grid grid-5col margin-s">
+        <aside class="sidebar grid-span-2">
+          <div class="abilities flexcol">
+            {{#each system.abilities as |ability key|}}
+            <div class="flexrow flex-group-bottom margin-s">
+              <div class="flexcol align-bottom">
+                <label class="resource-label-s">{{ability.basename}}</label>
+                <input class="resource-label-s" type="text" name="system.abilities.{{key}}.valuebase" value="{{ability.valuebase}}" data-dtype="Number"/>
+              </div>
+              <div class="flexcol align-bottom">
+                <label class="resource-label-s">{{localize "SW25.Ability.Growth"}}</label>
+                <input class="resource-label-s" type="text" name="system.abilities.{{key}}.valuegrowth" value="{{ability.valuegrowth}}" data-dtype="Number"/>
+              </div>
+              <div class="flexcol align-bottom">
+                <label class="resource-label-s">{{localize "SW25.Ability.Modify"}}</label>
+                <input class="resource-label-s" type="text" name="system.abilities.{{key}}.valuemodify" value="{{ability.valuemodify}}" data-dtype="Number"/>
+              </div>
+              <div class="flexcol align-bottom">
+                <label for="system.abilities.{{key}}.value" class="resource-label flexlarge" data-label="{{ability.label}}">{{ability.label}}</label>
+                <span class="ability-mod resource-label-l" data-label="{{ability.label}}">{{ability.value}} ({{numberFormat ability.mod decimals=0 sign=true}})</span>
+              </div>
+            </div>
+            {{/each}}
+          <div class="ability flexrow flex-group-center margin-l">
+              <div class="flexcol">
+              <label class="resource-label-s flexlarge">{{localize "SW25.Ability.Technique"}}</label>
+              <input class="resource-label-s" type="text" name="system.abilities.dex.racevalue" value="{{system.abilities.dex.racevalue}}" data-dtype="Number"/>
+            </div>
+              <div class="flexcol">
+              <label class="resource-label-s flexlarge">{{localize "SW25.Ability.Body"}}</label>
+              <input class="resource-label-s" type="text" name="system.abilities.str.racevalue" value="{{system.abilities.str.racevalue}}" data-dtype="Number"/>
+            </div>
+              <div class="flexcol">
+              <label class="resource-label-s flexlarge">{{localize "SW25.Ability.Heart"}}</label>
+              <input class="resource-label-s" type="text" name="system.abilities.int.racevalue" value="{{system.abilities.int.racevalue}}" data-dtype="Number"/>
+            </div>
+          </div>
+        </aside>
+        <section class="main grid-span-3">
+          <div class="grid grid-3col nogapmargin">
+            <div class="flexcol nogapmargin">
+              <span class="resource-label-s" style="text-align: center;">{{localize "SW25.Hpmod"}} <input style="max-width: calc(35% - 7px); max-height: 80%;" type="text" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/></span>
+              <span class="resource-label-s" style="text-align: center;">{{localize "SW25.Mpmod"}} <input style="max-width: calc(35% - 7px); max-height: 80%;" type="text" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/></span>
+            </div>
+            <div class="grid-span-2 flex-group-right" style="display: flex; align-items: flex-end;">
+              {{localize "SW25.Attributes.Exp"}} [ {{localize "SW25.Attributes.Useexp"}}: {{#if (gt system.attributes.useexp system.attributes.totalexp)}}<span class="warning-text">{{/if}}{{system.attributes.useexp}}{{#if (gt system.attributes.useexp system.attributes.totalexp)}}</span>{{/if}}<span> / {{localize "SW25.Attributes.Totalexp"}}: {{system.attributes.totalexp}} ]</span>
+            </div>
+          </div>
+          <div>
+            {{> "systems/sw25/templates/actor/parts/actor-skills.hbs"}}
+          </div>
+        </section>
+
+      </section>
+    </div>
+
+    {{!-- Check Tab --}}
+    <div class="tab check" data-group="primary" data-tab="check">
+      <section class="grid grid-5col margin-s">
+        <aside class="sidebar grid-span-2">
+          {{> "systems/sw25/templates/actor/parts/actor-checks.hbs"}}
+        </aside>
+        <section class="main grid-span-3">
+          {{> "systems/sw25/templates/actor/parts/actor-checkskills.hbs"}}
+        </section>
+
+      </section>
+    </div>
+
+    {{!--  Battle Tab --}}
+    <div class="tab battle flexcol" data-group="primary" data-tab="battle">
+      <div class="grid grid-5col margin-s">
+        <div class="grid-span-2">
+          {{> "systems/sw25/templates/actor/parts/actor-battlechecks.hbs"}}
+        </div>
+        <div class="flexcol grid-span-3">
+          <div class="flexrow grid grid-5col gap-m nomargin">
+            <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Attributes.Move"}}({{localize "SW25.Attributes.Limitedmove"}}/{{localize "SW25.Attributes.Normalmove"}}/{{localize "SW25.Attributes.Maxmove"}})</b><br>  {{system.attributes.move.limited}} m / {{system.attributes.move.normal}} m / {{system.attributes.move.max}} m</span>
+            <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Attributes.Movemod"}}</b> <input style="max-width: calc(40% - 7px);" type="text" name="system.attributes.move.movemod" value="{{system.attributes.move.movemod}}" data-dtype="Number"/></span>
+            <span class="rollable" style="text-align: center;" data-roll="{{system.itemhitformula}}+{{system.itemhitbase}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Weapon.Hit"}})" data-pt="{{system.itempowertable}}"><b>{{localize "SW25.Item.Weapon.Hit"}}</b><br>{{system.itemhitbase}}</span>
+            <span class="powerrollable" style="text-align: center;" data-roll="{{system.itempowerformula}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Power"}})" data-pt="{{system.itempowertable}}"><b>{{localize "SW25.Item.Power"}}</b><br>k{{system.itempower}}{{#if system.itemcvalue}}@{{system.itemcvalue}}{{/if}}{{#if system.itempowerbase}}+{{system.itempowerbase}}{{/if}}</span>
+            <span class="rollable" style="text-align: center;" data-roll="2d6+{{system.dodgebase}}" data-label="{{localize "SW25.Item.Armor.Dodge"}}" data-pt=""><b>{{localize "SW25.Item.Armor.Dodge"}}</b><br>{{system.dodgebase}}</span>
+            <span style="text-align: center;"><b>{{localize "SW25.Attributes.Protectionpoint.long"}}</b><br>{{system.attributes.protectionpoint}}{{#if system.attributes.dreduce}} ({{system.itempp}}+{{system.attributes.dreduce}}){{/if}}</span>
+            <span style="text-align: center;"><b>{{localize "SW25.Attributes.Magicprotection.long"}}</b><br>{{system.attributes.magicprotection}}{{#if system.attributes.dreduce}} ({{system.itemmpp}}+{{system.attributes.dreduce}}){{/if}}</span>
+          </div>
+          <div>
+            {{> "systems/sw25/templates/actor/parts/actor-resources.hbs"}}
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-12col gap-s">
+        <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Item.Weapon.Hit"}}{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(40% - 7px); text-align: center;" type="text" name="system.attributes.hitmod" value="{{system.attributes.hitmod}}" data-dtype="Number"/></span>
+        <span class="grid-span-2" style="text-align: right;"><b>D{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(40% - 7px); text-align: center;" type="text" name="system.attributes.dmod" value="{{system.attributes.dmod}}" data-dtype="Number"/></span>
+        <span class="grid-span-8" style="text-align: right;">
+          <select name="system.hitweapon">
+            {{#select system.hitweapon}}
+            <option value="-">{{localize "SW25.Selecthitweapon"}}</option>
+            {{#each battleweapons as |item id|}}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </span>
+        <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Item.Armor.Dodge"}}{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(40% - 7px); text-align: center;" type="text" name="system.attributes.dodgemod" value="{{system.attributes.dodgemod}}" data-dtype="Number"/></span>
+        <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Attributes.Protectionpoint.abbr"}}{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(40% - 7px); text-align: center;" type="text" name="system.attributes.ppmod" value="{{system.attributes.ppmod}}" data-dtype="Number"/></span>
+        <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Attributes.Magicprotection.abbr"}}{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(40% - 7px); text-align: center;" type="text" name="system.attributes.mppmod" value="{{system.attributes.mppmod}}" data-dtype="Number"/></span>
+        <span class="grid-span-2" style="text-align: right;"><b>D{{localize "SW25.Reduce"}}</b> <input style="max-width: calc(40% - 7px); text-align: center;" type="text" name="system.attributes.dreduce" value="{{system.attributes.dreduce}}" data-dtype="Number"/></span>
+        <span class="grid-span-4" style="text-align: right;">
+          <select name="system.dodgeskill">
+            {{#select system.dodgeskill}}
+            <option value="-">{{localize "SW25.Selectdodgeskill"}}</option>
+            {{#each skills as |item id|}}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </span>
+      </div>
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-battleweapons.hbs"}}
+      </div>
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-battlearmors.hbs"}}
+      </div>
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-battleaccessories.hbs"}}
+      </div>
+    </div>
+
+    {{!-- Owned Features Tab --}}
+    <div class="tab features" data-group="primary" data-tab="features">
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-raceabilities.hbs"}}
+      </div>
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-combatabilities.hbs"}}
+      </div>
+      {{#if eashow}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-enhancearts.hbs"}}
+      </div>
+      {{else}}{{#if system.attributes.showfeature}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-enhancearts.hbs"}}
+      </div>
+      {{/if}}{{/if}}
+      {{#if msshow}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-magicalsongs.hbs"}}
+      </div>
+      {{else}}{{#if system.attributes.showfeature}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-magicalsongs.hbs"}}
+      </div>
+      {{/if}}{{/if}}
+      {{#if rtshow}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-ridingtricks.hbs"}}
+      </div>
+      {{else}}{{#if system.attributes.showfeature}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-ridingtricks.hbs"}}
+      </div>
+      {{/if}}{{/if}}
+      {{#if atshow}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-alchemytechs.hbs"}}
+      </div>
+      {{else}}{{#if system.attributes.showfeature}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-alchemytechs.hbs"}}
+      </div>
+      {{/if}}{{/if}}
+      {{#if pashow}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-phaseareas.hbs"}}
+      </div>
+      {{else}}{{#if system.attributes.showfeature}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-phaseareas.hbs"}}
+      </div>
+      {{/if}}{{/if}}
+      {{#if tcshow}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-tactics.hbs"}}
+      </div>
+      {{else}}{{#if system.attributes.showfeature}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-tactics.hbs"}}
+      </div>
+      {{/if}}{{/if}}
+      <div class="margin-m" style="display: flex; align-items: center;">
+        <input type="checkbox" name="system.attributes.showfeature" data-dtype="Boolean" {{#if system.attributes.showfeature}} checked {{/if}}/>
+        <label for="system.attributes.showfeature">{{localize "SW25.Attributes.Showfeature"}}</label>
+      </div>
+    </div>
+
+
+    {{!-- Owned Spells Tab --}}
+    <div class="tab spells" data-group="primary" data-tab="spells">
+      {{#if scshow}}
+      <div class="grid grid-12col">
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.scpower}}" data-label="{{localize "SW25.Item.Spell.Sorcerer"}}" data-pt="">{{localize "SW25.Item.Spell.Sorcerer"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.scpower}}" data-label="{{localize "SW25.Item.Spell.Sorcerer"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.scpower}}</span>
+        <span class="grid-span-2"></span>
+        <span class="grid-span-4" style="text-align: right;">
+          <select name="system.scskill">
+            {{#select system.scskill}}
+            <option value="-">{{localize "SW25.Selectspellskill"}}</option>
+            {{#each skills as |item id|}}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </span>
+        <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.scmod" value="{{system.attributes.scmod}}" data-dtype="Number"/></span>
+      </div>
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-spells-sorcerer.hbs"}}
+      </div>
+      {{/if}}
+      {{#if cnshow}}
+      <div class="grid grid-12col">
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.cnpower}}" data-label="{{localize "SW25.Item.Spell.Conjurer"}}" data-pt="">{{localize "SW25.Item.Spell.Conjurer"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.cnpower}}" data-label="{{localize "SW25.Item.Spell.Conjurer"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.cnpower}}</span>
+        <span class="grid-span-2"></span>
+        <span class="grid-span-4" style="text-align: right;">
+          <select name="system.cnskill">
+            {{#select system.cnskill}}
+            <option value="-">{{localize "SW25.Selectspellskill"}}</option>
+            {{#each skills as |item id|}}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </span>
+        <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.cnmod" value="{{system.attributes.cnmod}}" data-dtype="Number"/></span>
+      </div>
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-spells-conjurer.hbs"}}
+      </div>
+      {{/if}}
+      {{#if wzshow}}
+      <div class="grid grid-12col">
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.wzpower}}" data-label="{{localize "SW25.Item.Spell.Wizard"}}" data-pt="">{{localize "SW25.Item.Spell.Wizard"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.wzpower}}" data-label="{{localize "SW25.Item.Spell.Wizard"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.wzpower}}</span>
+        <span class="grid-span-2"></span>
+        <span class="grid-span-4" style="text-align: right;">
+          <select name="system.wzskill">
+            {{#select system.wzskill}}
+            <option value="-">{{localize "SW25.Selectspellskill"}}</option>
+            {{#each skills as |item id|}}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </span>
+        <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.wzmod" value="{{system.attributes.wzmod}}" data-dtype="Number"/></span>
+      </div>
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-spells-wizard.hbs"}}
+      </div>
+      {{/if}}
+      {{#if prshow}}
+      <div class="grid grid-12col">
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.prpower}}" data-label="{{localize "SW25.Item.Spell.Priest"}}" data-pt="">{{localize "SW25.Item.Spell.Priest"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.prpower}}" data-label="{{localize "SW25.Item.Spell.Priest"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.prpower}}</span>
+        <span class="grid-span-2"></span>
+        <span class="grid-span-4" style="text-align: right;">
+          <select name="system.prskill">
+            {{#select system.prskill}}
+            <option value="-">{{localize "SW25.Selectspellskill"}}</option>
+            {{#each skills as |item id|}}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </span>
+        <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.prmod" value="{{system.attributes.prmod}}" data-dtype="Number"/></span>
+      </div>
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-spells-priest.hbs"}}
+      </div>
+      {{/if}}
+      {{#if mtshow}}
+      <div class="grid grid-12col">
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.mtpower}}" data-label="{{localize "SW25.Item.Spell.Magitech"}}" data-pt="">{{localize "SW25.Item.Spell.Magitech"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.mtpower}}" data-label="{{localize "SW25.Item.Spell.Magitech"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.mtpower}}</span>
+        <span class="grid-span-2"></span>
+        <span class="grid-span-4" style="text-align: right;">
+          <select name="system.mtskill">
+            {{#select system.mtskill}}
+            <option value="-">{{localize "SW25.Selectspellskill"}}</option>
+            {{#each skills as |item id|}}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </span>
+        <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.mtmod" value="{{system.attributes.mtmod}}" data-dtype="Number"/></span>
+      </div>
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-spells-magitech.hbs"}}
+      </div>
+      {{/if}}
+      {{#if frshow}}
+      <div class="grid grid-12col">
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.frpower}}" data-label="{{localize "SW25.Item.Spell.Fairy"}}" data-pt="">{{localize "SW25.Item.Spell.Fairy"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.frpower}}" data-label="{{localize "SW25.Item.Spell.Fairy"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.frpower}}</span>
+        <span class="grid-span-2"></span>
+        <span class="grid-span-4" style="text-align: right;">
+          <select name="system.frskill">
+            {{#select system.frskill}}
+            <option value="-">{{localize "SW25.Selectspellskill"}}</option>
+            {{#each skills as |item id|}}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </span>
+        <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.frmod" value="{{system.attributes.frmod}}" data-dtype="Number"/></span>
+      </div>
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-spells-fairy.hbs"}}
+      </div>
+      {{/if}}
+      {{#if drshow}}
+      <div class="grid grid-12col">
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.drpower}}" data-label="{{localize "SW25.Item.Spell.Druid"}}" data-pt="">{{localize "SW25.Item.Spell.Druid"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.drpower}}" data-label="{{localize "SW25.Item.Spell.Druid"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.drpower}}</span>
+        <span class="grid-span-2"></span>
+        <span class="grid-span-4" style="text-align: right;">
+          <select name="system.drskill">
+            {{#select system.drskill}}
+            <option value="-">{{localize "SW25.Selectspellskill"}}</option>
+            {{#each skills as |item id|}}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </span>
+        <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.drmod" value="{{system.attributes.drmod}}" data-dtype="Number"/></span>
+      </div>
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-spells-druid.hbs"}}
+      </div>
+      {{/if}}
+      {{#if dmshow}}
+      <div class="grid grid-12col">
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.dmpower}}" data-label="{{localize "SW25.Item.Spell.Daemon"}}" data-pt="">{{localize "SW25.Item.Spell.Daemon"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.dmpower}}" data-label="{{localize "SW25.Item.Spell.Daemon"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.dmpower}}</span>
+        <span class="grid-span-2"></span>
+        <span class="grid-span-4" style="text-align: right;">
+          <select name="system.dmskill">
+            {{#select system.dmskill}}
+            <option value="-">{{localize "SW25.Selectspellskill"}}</option>
+            {{#each skills as |item id|}}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </span>
+        <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.dmmod" value="{{system.attributes.dmmod}}" data-dtype="Number"/></span>
+      </div>
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-spells-daemon.hbs"}}
+      </div>
+      {{/if}}
+      <div class="margin-m" style="display: flex; align-items: center;">
+        <input type="checkbox" name="system.attributes.showspell" data-dtype="Boolean" {{#if system.attributes.showspell}} checked {{/if}}/>
+        <label for="system.attributes.showspell">{{localize "SW25.Attributes.Showspell"}}</label>
+      </div>
+      {{#if system.attributes.showspell}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-spells.hbs"}}
+      </div>
+      {{/if}}
+    </div>
+
+    {{!-- Active Effects Tab --}}
+    <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+      {{> "systems/sw25/templates/actor/parts/actor-effects.hbs"}}
+    </div>
+
+    {{!-- Owned Items Tab --}}
+    <div class="tab items" data-group="primary" data-tab="items">
+      <div class="flexcol margin-s">
+        <div class="grid grid-4col nogapmargin">
+          <div class="grid-span-3"></div>
+          <div class="flexrow resource-label flex-group-right">{{localize "SW25.Mymoney"}} <input style="max-width: calc(60% - 7px);" type="text" name="system.money" value="{{system.money}}" data-dtype="Number"/> G</div>
+        </div>
+        <div>
+          {{> "systems/sw25/templates/actor/parts/actor-items.hbs"}}
+        </div>
+        <div>
+          {{> "systems/sw25/templates/actor/parts/actor-weapons.hbs"}}
+        </div>
+        <div>
+          {{> "systems/sw25/templates/actor/parts/actor-armors.hbs"}}
+        </div>
+        <div>
+          {{> "systems/sw25/templates/actor/parts/actor-accessories.hbs"}}
+        </div>
+      </div>
+    </div>
+
+    {{!-- Biography Tab --}}
+    <div class="tab biography flexcol" data-group="primary" data-tab="description">
+      <div class="grid grid-5col margin-s">
+        <div class="grid-span-2">
+          {{> "systems/sw25/templates/actor/parts/actor-languages.hbs"}}
+        </div>
+        <div class="flexcol grid-span-3">
+          <div class="flexrow grid grid-6col nogapmargin">
+            <span style="text-align: center;"><b>{{localize "SW25.Attributes.Age"}}</b><br><input type="text" name="system.attributes.age" value="{{system.attributes.age}}" data-dtype="Number"/></span>
+            <span style="text-align: center;"><b>{{localize "SW25.Attributes.Gender"}}</b><br><input type="text" name="system.attributes.gender" value="{{system.attributes.gender}}" data-dtype="String"/></span>
+            <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Race"}}</b><br><input type="text" name="system.race" value="{{system.race}}" data-dtype="String"/></span>
+            <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Attributes.Born"}}</b><br><input type="text" name="system.attributes.born" value="{{system.attributes.born}}" data-dtype="String"/></span>
+            <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Attributes.Faith"}}</b><br><input type="text" name="system.attributes.faith" value="{{system.attributes.faith}}" data-dtype="String"/></span>
+            <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Attributes.Honer.Rank"}}</b><br><input type="text" name="system.attributes.honer.rank" value="{{system.attributes.honer.rank}}" data-dtype="String"/></span>
+            <span style="text-align: center;"><b>{{localize "SW25.Attributes.Honer.Label"}}</b><br><input type="text" name="system.attributes.honer.value" value="{{system.attributes.honer.value}}" data-dtype="Number"/></span>
+            <span style="text-align: center;"><b>{{localize "SW25.Attributes.Impurity"}}</b><br><input type="text" name="system.attributes.impurity" value="{{system.attributes.impurity}}" data-dtype="Number"/></span>
+            <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Attributes.Exp"}}</b><br><input type="text" name="system.attributes.totalexp" value="{{system.attributes.totalexp}}" data-dtype="Number"/></span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span><b>{{localize "SW25.Biography"}}</b></span>
+        {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
+      </div>
+    </div>
+
+  </section>
+</form>
+
