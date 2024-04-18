@@ -90,6 +90,10 @@
       "Heart": "Heart",
       "Bonus": "Mod"
     },
+    "Npc": {
+      "Unidentifiednpc": "Unidentified NPC"
+    },
+    "Unidentifiedname": "Dispkay name for Limited player",
     "Monlevel": "Monster Level",
     "Monster": {
       "Type": "Type",
@@ -108,7 +112,8 @@
       "Corepart": "Core Part",
       "Ability": "Ability",
       "Loot": "Loot",
-      "Usespell": "Use Spells"
+      "Usespell": "Use Spells",
+      "Unidentifiedmon": "Unidentified Monster"
     },
     "SheetLabels": {
       "Actor": "SW25 Actor Sheet",

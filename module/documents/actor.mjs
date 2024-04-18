@@ -246,8 +246,23 @@ export class SW25Actor extends Actor {
   _prepareNpcData(actorData) {
     if (actorData.type !== "npc") return;
 
-    // Make modifications to data here. For example:
     const systemData = actorData.system;
+
+    // Visible data trigger
+    const userId = game.user.id;
+    if (
+      actorData.ownership[userId] === 1 ||
+      (typeof actorData.ownership[userId] === "undefined" &&
+        actorData.ownership.default === 1)
+    ) {
+      systemData.limited = true;
+      if (systemData.udname == null || systemData.udname == "") {
+        systemData.udname = game.i18n.localize("SW25.Npc.Unidentifiednpc");
+      }
+      actorData.name = systemData.udname;
+    } else systemData.limited = false;
+    if (game.user.isGM === true) systemData.isgm = true;
+    else systemData.isgm = false;
   }
 
   /**
@@ -256,9 +271,25 @@ export class SW25Actor extends Actor {
   _prepareMonsterData(actorData) {
     if (actorData.type !== "monster") return;
 
-    // Make modifications to data here. For example:
     const systemData = actorData.system;
 
+    // Visible data trigger
+    const userId = game.user.id;
+    if (
+      actorData.ownership[userId] === 1 ||
+      (typeof actorData.ownership[userId] === "undefined" &&
+        actorData.ownership.default === 1)
+    ) {
+      systemData.limited = true;
+      if (systemData.udname == null || systemData.udname == "") {
+        systemData.udname = game.i18n.localize("SW25.Monster.Unidentifiedmon");
+      }
+      actorData.name = systemData.udname;
+    } else systemData.limited = false;
+    if (game.user.isGM === true) systemData.isgm = true;
+    else systemData.isgm = false;
+
+    // Make modifiy
     systemData.exp = systemData.monlevel * 10;
 
     if (systemData.impurity == 0 || systemData.impurity == null)

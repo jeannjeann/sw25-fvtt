@@ -90,6 +90,10 @@
       "Heart": "心",
       "Bonus": "ボーナス"
     },
+    "Npc": {
+      "Unidentifiednpc": "不明のNPC"
+    },
+    "Unidentifiedname": "限定的PLへの表示名",
     "Monlevel": "魔物レベル",
     "Monster": {
       "Type": "種別",
@@ -108,7 +112,8 @@
       "Corepart": "コア部位",
       "Ability": "魔物能力",
       "Loot": "戦利品",
-      "Usespell": "魔法使用"
+      "Usespell": "魔法使用",
+      "Unidentifiedmon": "不明の魔物"
     },
     "SheetLabels": {
       "Actor": "SW25キャラクターシート",

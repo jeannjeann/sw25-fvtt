@@ -145,7 +145,10 @@
     "npc": {
       "templates": ["base"],
       "overview": "",
-      "gminfo": ""
+      "gminfo": "",
+      "limited": false,
+      "isgm": false,
+      "udname": ""
     },
     "monster": {
       "templates": ["base"],
@@ -153,6 +156,8 @@
       "exp": 0,
       "overview": "",
       "gminfo": "",
+      "pp": 0,
+      "mpp": 0,
       "type": "",
       "intelligence": "",
       "perception": "",
@@ -170,7 +175,10 @@
       "loot": "",
       "showimp": false,
       "showpt": false,
-      "usespell": false
+      "usespell": false,
+      "limited": false,
+      "isgm": false,
+      "udname": ""
     }
   },
   "Item": {

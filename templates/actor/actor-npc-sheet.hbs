@@ -1,5 +1,6 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
+  {{#unless system.limited}}
   {{!-- Sheet Header --}}
   <header class="sheet-header">
     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
@@ -58,13 +59,33 @@
             </div>
           </div>
         </div>
-        <div class="margin-m">
-          <b>{{localize "SW25.Gminfo"}}</b>
-          {{editor system.gminfo target="system.gminfo" rollData=rollData button=true owner=owner editable=editable}}
+        {{#if system.isgm}}
+        <div class="flexcol margin-m">
+          <div><b>{{localize "SW25.Gminfo"}}</b></div>
+          <span style="text-align: left;">{{localize "SW25.Unidentifiedname"}}<input style="max-width: calc(50% - 7px); text-align: left;" type="text" name="system.udname" value="{{system.udname}}" data-dtype="String"/></span>
+          <div>{{editor system.gminfo target="system.gminfo" rollData=rollData button=true owner=owner editable=editable}}</div>
         </div>
+        {{/if}}
       </div>
     </div>
 
   </section>
+  {{/unless}}
+
+  {{#if system.limited}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+      <div class="resources grid grid-4col">
+        <div></div>
+        <div class="grid-span-3">
+          <b>{{localize "SW25.Overview"}}</b><br>{{{system.overview}}}
+        </div>
+      </div>
+    </div>
+  </header>
+  {{/if}}
+
 </form>
 
