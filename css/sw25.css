@@ -480,6 +480,13 @@
   flex: 0.5 4 10px;
   padding: 0 2px;
 }
+.sw25 .item-description {
+  display: none;
+  -webkit-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  width: 100%;
+}
 
 .sw25 .effects .item .effect-source,
 .sw25 .effects .item .effect-duration,

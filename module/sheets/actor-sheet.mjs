@@ -431,6 +431,9 @@ export class SW25ActorSheet extends ActorSheet {
       });
     }
 
+    // Open item details
+    html.find(".item-label").click(this._showItemDetails.bind(this));
+
     // Change Input Area
     html.on("change", ".qt-change", this._changeQuantity.bind(this));
     html.on("change", ".sl-change", this._changeSkillLevel.bind(this));
@@ -618,6 +621,16 @@ export class SW25ActorSheet extends ActorSheet {
     ChatMessage.create(chatData);
 
     return roll;
+  }
+
+  async _showItemDetails(event) {
+    event.preventDefault();
+    const toggler = $(event.currentTarget);
+    const item = toggler.parents(".item");
+    const description = item.find(".item-description");
+
+    toggler.toggleClass("open", false);
+    description.slideToggle();
   }
 
   async _onAdjustmentButton(event) {
