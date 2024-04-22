@@ -998,6 +998,35 @@ export class SW25Item extends Item {
         rolls: [roll.fakeResult],
       };
 
+      let showhalf = true;
+      let shownoc = true;
+      if (roll.halfPow == 1) {
+        showhalf = false;
+        shownoc = false;
+      }
+      if (roll.cValue == 100 || chatExtraRoll == null) shownoc = false;
+
+      chatData.flags = {
+        formula: chatFormula,
+        tooltip: await roll.fakeResult.getTooltip(),
+        power: chatPower,
+        lethalTech: chatLethalTech,
+        criticalRay: chatCriticalRay,
+        pharmTool: chatPharmTool,
+        result: chatResult,
+        mod: chatMod,
+        half: chatHalf,
+        results: chatResults,
+        total: chatTotal,
+        extraRoll: chatExtraRoll,
+        fumble: chatFumble,
+        orghalf: roll.halfPowMod,
+        orgtotal: chatTotal,
+        orgextraRoll: chatExtraRoll,
+        showhalf: showhalf,
+        shownoc: shownoc,
+      };
+
       chatData.content = await renderTemplate(
         "systems/sw25/templates/roll/roll-power.hbs",
         {
@@ -1014,6 +1043,8 @@ export class SW25Item extends Item {
           total: chatTotal,
           extraRoll: chatExtraRoll,
           fumble: chatFumble,
+          showhalf: showhalf,
+          shownoc: shownoc,
         }
       );
 
