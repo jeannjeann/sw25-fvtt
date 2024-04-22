@@ -22,6 +22,18 @@
                     </ol>
                 </div>
             </section>
+            <div class="flexrow">
+                {{#if showhalf}}
+                <button class="buttonclick" data-buttontype="buttonhalf">
+                    {{#if halfdone}}<span style="color: #0f6f0f;">✔</span>{{/if}}{{localize "SW25.Item.Halfpow"}}
+                </button>
+                {{/if}}
+                {{#if shownoc}}
+                <button class="buttonclick" data-buttontype="buttonnoc">
+                    {{#if nocdone}}<span style="color: #0f6f0f;">✔</span>{{/if}}{{localize "SW25.Item.Noc"}}
+                </button>
+                {{/if}}
+            </div>
         </div>
         <h4 class="dice-total">
             {{#if extraRoll}} <span style="color: #0f6f0f; font-size:0.7em;">{{extraRoll}}{{localize "SW25.Extraroll"}} ▶ </span>{{/if}}

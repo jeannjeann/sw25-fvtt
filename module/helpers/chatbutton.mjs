@@ -9,10 +9,7 @@ export async function chatButton(chatMessage, buttonType) {
   const itemId = chatMessage.flags.itemid;
   const item = actor.items.get(itemId);
 
-  const label1 = item.system.label1;
-  const label2 = item.system.label2;
-  const label3 = item.system.label3;
-  const labelmonpow = item.system.labelmonpow;
+  console.log(chatMessage);
 
   // Item roll button
   if (
@@ -22,6 +19,11 @@ export async function chatButton(chatMessage, buttonType) {
     buttonType == "buttoncheck3" ||
     buttonType == "buttonpower"
   ) {
+    const label1 = item.system.label1;
+    const label2 = item.system.label2;
+    const label3 = item.system.label3;
+    const labelmonpow = item.system.labelmonpow;
+
     // Roll Setting
     if (buttonType == "buttoncheck1") {
       item.system.checkbase = item.system.checkbase1;
@@ -100,8 +102,6 @@ export async function chatButton(chatMessage, buttonType) {
       buttonType == "buttoncheck3"
     ) {
       const rollData = item.getRollData();
-
-      console.log(rollData);
 
       if (buttonType == "buttoncheck1") label = label + " (" + label1 + ")";
       else if (buttonType == "buttoncheck2")
@@ -204,6 +204,35 @@ export async function chatButton(chatMessage, buttonType) {
         rolls: [roll.fakeResult],
       };
 
+      let showhalf = true;
+      let shownoc = true;
+      if (roll.halfPow == 1) {
+        showhalf = false;
+        shownoc = false;
+      }
+      if (roll.cValue == 100 || chatExtraRoll == null) shownoc = false;
+
+      chatData.flags = {
+        formula: chatFormula,
+        tooltip: await roll.fakeResult.getTooltip(),
+        power: chatPower,
+        lethalTech: chatLethalTech,
+        criticalRay: chatCriticalRay,
+        pharmTool: chatPharmTool,
+        result: chatResult,
+        mod: chatMod,
+        half: chatHalf,
+        results: chatResults,
+        total: chatTotal,
+        extraRoll: chatExtraRoll,
+        fumble: chatFumble,
+        orghalf: roll.halfPowMod,
+        orgtotal: chatTotal,
+        orgextraRoll: chatExtraRoll,
+        showhalf: showhalf,
+        shownoc: shownoc,
+      };
+
       chatData.content = await renderTemplate(
         "systems/sw25/templates/roll/roll-power.hbs",
         {
@@ -220,12 +249,152 @@ export async function chatButton(chatMessage, buttonType) {
           total: chatTotal,
           extraRoll: chatExtraRoll,
           fumble: chatFumble,
+          showhalf: showhalf,
+          shownoc: shownoc,
         }
       );
 
       ChatMessage.create(chatData);
 
       return roll;
+    }
+  }
+  if (buttonType == "buttonhalf") {
+    let newtotal =
+      Math.ceil((chatMessage.flags.result[0] + chatMessage.flags.mod) / 2) +
+      chatMessage.flags.orghalf;
+    let newextraRoll = null;
+    if (chatMessage.flags.dohalf == false || chatMessage.flags.dohalf == null) {
+      let chatData = {
+        flags: { dohalf: true, noc: false },
+        content: await renderTemplate(
+          "systems/sw25/templates/roll/roll-power.hbs",
+          {
+            formula: chatMessage.flags.formula,
+            tooltip: chatMessage.flags.tooltip,
+            power: chatMessage.flags.power,
+            lethalTech: chatMessage.flags.lethalTech,
+            criticalRay: chatMessage.flags.criticalRay,
+            pharmTool: chatMessage.flags.pharmTool,
+            result: chatMessage.flags.result,
+            mod: chatMessage.flags.mod,
+            half: chatMessage.flags.orghalf,
+            results: chatMessage.flags.results,
+            total: newtotal,
+            extraRoll: newextraRoll,
+            fumble: chatMessage.flags.fumble,
+            halfdone: true,
+            showhalf: chatMessage.flags.showhalf,
+            nocdone: chatMessage.flags.nocdone,
+            shownoc: chatMessage.flags.shownoc,
+          }
+        ),
+      };
+      await chatMessage.update({
+        content: chatData.content,
+        flags: chatData.flags,
+      });
+      return;
+    }
+    if (chatMessage.flags.dohalf == true) {
+      let chatData = {
+        flags: { dohalf: false, noc: false },
+        content: await renderTemplate(
+          "systems/sw25/templates/roll/roll-power.hbs",
+          {
+            formula: chatMessage.flags.formula,
+            tooltip: chatMessage.flags.tooltip,
+            power: chatMessage.flags.power,
+            lethalTech: chatMessage.flags.lethalTech,
+            criticalRay: chatMessage.flags.criticalRay,
+            pharmTool: chatMessage.flags.pharmTool,
+            result: chatMessage.flags.result,
+            mod: chatMessage.flags.mod,
+            half: chatMessage.flags.half,
+            results: chatMessage.flags.results,
+            total: chatMessage.flags.total,
+            extraRoll: chatMessage.flags.extraRoll,
+            fumble: chatMessage.flags.fumble,
+            halfdone: false,
+            showhalf: chatMessage.flags.showhalf,
+            nocdone: chatMessage.flags.nocdone,
+            shownoc: chatMessage.flags.shownoc,
+          }
+        ),
+      };
+      await chatMessage.update({
+        content: chatData.content,
+        flags: chatData.flags,
+      });
+      return;
+    }
+  }
+  if (buttonType == "buttonnoc") {
+    let newtotal = chatMessage.flags.result[0] + chatMessage.flags.mod;
+    let newextraRoll = null;
+    if (chatMessage.flags.noc == false || chatMessage.flags.noc == null) {
+      let chatData = {
+        flags: { noc: true, dohalf: false },
+        content: await renderTemplate(
+          "systems/sw25/templates/roll/roll-power.hbs",
+          {
+            formula: chatMessage.flags.formula,
+            tooltip: chatMessage.flags.tooltip,
+            power: chatMessage.flags.power,
+            lethalTech: chatMessage.flags.lethalTech,
+            criticalRay: chatMessage.flags.criticalRay,
+            pharmTool: chatMessage.flags.pharmTool,
+            result: chatMessage.flags.result,
+            mod: chatMessage.flags.mod,
+            half: chatMessage.flags.half,
+            results: chatMessage.flags.results,
+            total: newtotal,
+            extraRoll: newextraRoll,
+            fumble: chatMessage.flags.fumble,
+            halfdone: chatMessage.flags.halfdone,
+            showhalf: chatMessage.flags.showhalf,
+            nocdone: true,
+            shownoc: chatMessage.flags.shownoc,
+          }
+        ),
+      };
+      await chatMessage.update({
+        content: chatData.content,
+        flags: chatData.flags,
+      });
+      return;
+    }
+    if (chatMessage.flags.noc == true) {
+      let chatData = {
+        flags: { noc: false, dohalf: false },
+        content: await renderTemplate(
+          "systems/sw25/templates/roll/roll-power.hbs",
+          {
+            formula: chatMessage.flags.formula,
+            tooltip: chatMessage.flags.tooltip,
+            power: chatMessage.flags.power,
+            lethalTech: chatMessage.flags.lethalTech,
+            criticalRay: chatMessage.flags.criticalRay,
+            pharmTool: chatMessage.flags.pharmTool,
+            result: chatMessage.flags.result,
+            mod: chatMessage.flags.mod,
+            half: chatMessage.flags.half,
+            results: chatMessage.flags.results,
+            total: chatMessage.flags.total,
+            extraRoll: chatMessage.flags.extraRoll,
+            fumble: chatMessage.flags.fumble,
+            halfdone: chatMessage.flags.halfdone,
+            showhalf: chatMessage.flags.showhalf,
+            nocdone: false,
+            shownoc: chatMessage.flags.shownoc,
+          }
+        ),
+      };
+      await chatMessage.update({
+        content: chatData.content,
+        flags: chatData.flags,
+      });
+      return;
     }
   }
 }
