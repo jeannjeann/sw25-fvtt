@@ -133,6 +133,7 @@
       "Formula": "ダイス式",
       "Power": "威力",
       "Cvalue": "C値",
+      "Noc": "Cなし",
       "Powertable": "威力表",
       "Particularmod": "特殊処理",
       "Halfpow": "半減",
