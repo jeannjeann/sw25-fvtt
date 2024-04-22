@@ -7,6 +7,7 @@ import { SW25ItemSheet } from "./sheets/item-sheet.mjs";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { SW25 } from "./helpers/config.mjs";
+import { chatButton } from "./helpers/chatbutton.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -74,6 +75,26 @@ Handlebars.registerHelper("toLowerCase", function (str) {
 Hooks.once("ready", function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
+
+  // Chat message button
+  Hooks.on("renderChatMessage", (chatMessage, html, data) => {
+    //html.on("click", ".buttonclick", function () {
+    html.find(".buttonclick").click(function () {
+      const button = $(this);
+      const buttonType = button.data("buttontype");
+      chatButton(chatMessage, buttonType);
+    });
+  });
+  // Add listener to past message
+  $(".chat-message .buttonclick").each((index, element) => {
+    const messageId = $(element).closest(".message").attr("data-message-id");
+    $(element).on("click", (event) => {
+      const chatMessage = game.messages.get(messageId);
+      const button = $(event.currentTarget);
+      const buttonType = button.data("buttontype");
+      chatButton(chatMessage, buttonType);
+    });
+  });
 });
 
 /* -------------------------------------------- */

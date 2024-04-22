@@ -847,16 +847,25 @@ export class SW25Item extends Item {
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     const rollMode = game.settings.get("core", "rollMode");
+    const usedice = item.system.usedice;
+    const usedice1 = item.system.usedice1;
+    const usedice2 = item.system.usedice2;
+    const usedice3 = item.system.usedice3;
+    const label0 = game.i18n.localize("SW25.Check");
+    const label1 = item.system.label1;
+    const label2 = item.system.label2;
+    const label3 = item.system.label3;
+    const labelmonpow = item.system.labelmonpow;
+    const usepower = item.system.usepower;
     let label = `${item.name}`;
+    let powlabel = game.i18n.localize("SW25.Item.Power");
 
-    if (this.system.clickitem == "dice1")
-      label = label + " (" + `${item.system.label1}` + ")";
-    if (this.system.clickitem == "dice2")
-      label = label + " (" + `${item.system.label2}` + ")";
-    if (this.system.clickitem == "dice3")
-      label = label + " (" + `${item.system.label3}` + ")";
-    if (this.type == "monsterability")
-      label = label + " (" + `${item.system.labelmonpow}` + ")";
+    if (this.system.clickitem == "dice") label = label + " (" + label0 + ")";
+    if (this.system.clickitem == "dice1") label = label + " (" + label1 + ")";
+    if (this.system.clickitem == "dice2") label = label + " (" + label2 + ")";
+    if (this.system.clickitem == "dice3") label = label + " (" + label3 + ")";
+    if (this.type == "monsterability") powlabel = labelmonpow;
+    if (this.system.clickitem == "power") label = label + " (" + powlabel + ")";
 
     if (this.system.clickitem == "all") {
       let chatData = {
@@ -871,8 +880,22 @@ export class SW25Item extends Item {
         "systems/sw25/templates/roll/roll-item.hbs",
         {
           description: chatDescription,
+          usedice: usedice,
+          usedice1: usedice1,
+          usedice2: usedice2,
+          usedice3: usedice3,
+          label0: label0,
+          label1: label1,
+          label2: label2,
+          label3: label3,
+          usepower: usepower,
+          powlabel: powlabel,
         }
       );
+
+      chatData.flags = {
+        itemid: item._id,
+      };
 
       ChatMessage.create(chatData);
     }

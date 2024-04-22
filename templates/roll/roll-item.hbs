@@ -1,4 +1,9 @@
 {{#if flavor}}<span class="flavor-text">{{flavor}}</span>{{/if}}
 {{#if description}}{{{description}}}{{/if}}
 <div class="flexrow">
+    {{#if usedice}}<button class="buttonclick" data-buttontype="buttoncheck">{{localize "SW25.Check"}}</button>{{/if}}
+    {{#if usedice1}}<button class="buttonclick" data-buttontype="buttoncheck1">{{label1}}</button>{{/if}}
+    {{#if usedice2}}<button class="buttonclick" data-buttontype="buttoncheck2">{{label2}}</button>{{/if}}
+    {{#if usedice3}}<button class="buttonclick" data-buttontype="buttoncheck3">{{label3}}</button>{{/if}}
+    {{#if usepower}}<button class="buttonclick" data-buttontype="buttonpower">{{powlabel}}</button>{{/if}}
 </div>
