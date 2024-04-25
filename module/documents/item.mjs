@@ -920,12 +920,23 @@ export class SW25Item extends Item {
         rolls: [roll],
       };
 
+      let chatapply = "-";
+      if (this.system.clickitem == "dice") chatapply = this.system.applycheck;
+      if (this.system.clickitem == "dice1") chatapply = this.system.applycheck1;
+      if (this.system.clickitem == "dice2") chatapply = this.system.applycheck2;
+      if (this.system.clickitem == "dice3") chatapply = this.system.applycheck3;
+
       let chatFormula = roll.formula;
       let chatCritical = null;
       let chatFumble = null;
       let chatTotal = roll.total;
       if (roll.terms[0].total == 12) chatCritical = 1;
       if (roll.terms[0].total == 2) chatFumble = 1;
+
+      chatData.flags = {
+        total: chatTotal,
+        apply: chatapply,
+      };
 
       chatData.content = await renderTemplate(
         "systems/sw25/templates/roll/roll-check.hbs",
@@ -935,6 +946,7 @@ export class SW25Item extends Item {
           critical: chatCritical,
           fumble: chatFumble,
           total: chatTotal,
+          apply: chatapply,
         }
       );
 
@@ -1005,6 +1017,7 @@ export class SW25Item extends Item {
         shownoc = false;
       }
       if (roll.cValue == 100 || chatExtraRoll == null) shownoc = false;
+      let chatapply = this.system.applypower;
 
       chatData.flags = {
         formula: chatFormula,
@@ -1025,6 +1038,7 @@ export class SW25Item extends Item {
         orgextraRoll: chatExtraRoll,
         showhalf: showhalf,
         shownoc: shownoc,
+        apply: chatapply,
       };
 
       chatData.content = await renderTemplate(
@@ -1045,6 +1059,7 @@ export class SW25Item extends Item {
           fumble: chatFumble,
           showhalf: showhalf,
           shownoc: shownoc,
+          apply: chatapply,
         }
       );
 

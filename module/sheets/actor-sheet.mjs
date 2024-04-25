@@ -518,6 +518,12 @@ export class SW25ActorSheet extends ActorSheet {
       if (roll.terms[0].total == 12) chatCritical = 1;
       if (roll.terms[0].total == 2) chatFumble = 1;
 
+      let chatapply = dataset.apply;
+      chatData.flags = {
+        total: roll.total,
+        apply: chatapply,
+      };
+
       chatData.content = await renderTemplate(
         "systems/sw25/templates/roll/roll-check.hbs",
         {
@@ -526,6 +532,7 @@ export class SW25ActorSheet extends ActorSheet {
           critical: chatCritical,
           fumble: chatFumble,
           total: roll.total,
+          apply: chatapply,
         }
       );
 
@@ -606,6 +613,7 @@ export class SW25ActorSheet extends ActorSheet {
       shownoc = false;
     }
     if (roll.cValue == 100 || chatExtraRoll == null) shownoc = false;
+    let chatapply = dataset.apply;
 
     chatData.flags = {
       formula: chatFormula,
@@ -626,6 +634,7 @@ export class SW25ActorSheet extends ActorSheet {
       orgextraRoll: chatExtraRoll,
       showhalf: showhalf,
       shownoc: shownoc,
+      apply: chatapply,
     };
 
     chatData.content = await renderTemplate(
@@ -646,6 +655,7 @@ export class SW25ActorSheet extends ActorSheet {
         fumble: chatFumble,
         showhalf: showhalf,
         shownoc: shownoc,
+        apply: chatapply,
       }
     );
 

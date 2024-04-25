@@ -10,3 +10,22 @@
         </h4>
     </div>
 </div>
+{{#if (eq apply "on")}}
+<div>
+    <div class="flexrow">
+        <button class="buttonclick" data-buttontype="buttonpd" style="font-size:0.8em;">
+            <span style="color: #0f6f0f;">✔</span>{{localize "SW25.Item.pd"}}
+        </button>
+        <button class="buttonclick" data-buttontype="buttonmd" style="font-size:0.8em;">
+            <span style="color: #0f6f0f;">✔</span>{{localize "SW25.Item.md"}}
+        </button>
+        <span></span>
+        <button class="buttonclick" data-buttontype="buttonhr" style="font-size:0.8em;">
+            <span style="color: #0f6f0f;">✔</span>{{localize "SW25.Item.hr"}}
+        </button>
+        <button class="buttonclick" data-buttontype="buttonmr" style="font-size:0.8em;">
+            <span style="color: #0f6f0f;">✔</span>{{localize "SW25.Item.mr"}}
+        </button>
+    </div>
+</div>
+{{/if}}

@@ -1,14 +1,14 @@
-2024/04/22-21:54:32.854 5830 Recovering log #153
-2024/04/22-21:54:32.858 5830 Delete type=0 #153
-2024/04/22-21:54:32.859 5830 Delete type=3 #151
-2024/04/22-21:55:45.175 63dc Level-0 table #158: started
-2024/04/22-21:55:45.178 63dc Level-0 table #158: 28908 bytes OK
-2024/04/22-21:55:45.178 63dc Delete type=0 #156
-2024/04/22-21:55:45.179 63dc Manual compaction at level-0 from '!journal!kf7e6dre1Bhn8SE9' @ 72057594037927935 : 1 .. '!journal.pages!kf7e6dre1Bhn8SE9.3CUD6vHifZ01Uqxa' @ 0 : 0; will stop at '!journal.pages!kf7e6dre1Bhn8SE9.3CUD6vHifZ01Uqxa' @ 7 : 1
-2024/04/22-21:55:45.180 63dc Compacting 1@0 + 1@1 files
-2024/04/22-21:55:45.183 63dc Generated table #159@0: 2 keys, 14986 bytes
-2024/04/22-21:55:45.183 63dc Compacted 1@0 + 1@1 files => 14986 bytes
-2024/04/22-21:55:45.183 63dc compacted to: files[ 0 1 0 0 0 0 0 ]
-2024/04/22-21:55:45.184 63dc Delete type=2 #150
-2024/04/22-21:55:45.185 63dc Delete type=2 #158
-2024/04/22-21:55:45.186 63dc Manual compaction at level-0 from '!journal.pages!kf7e6dre1Bhn8SE9.3CUD6vHifZ01Uqxa' @ 7 : 1 .. '!journal.pages!kf7e6dre1Bhn8SE9.3CUD6vHifZ01Uqxa' @ 0 : 0; will stop at (end)
+2024/04/25-09:07:21.867 2d3c Recovering log #157
+2024/04/25-09:07:21.870 2d3c Delete type=0 #157
+2024/04/25-09:07:21.871 2d3c Delete type=3 #155
+2024/04/25-09:47:08.079 31a0 Level-0 table #163: started
+2024/04/25-09:47:08.082 31a0 Level-0 table #163: 30557 bytes OK
+2024/04/25-09:47:08.082 31a0 Delete type=0 #161
+2024/04/25-09:47:08.087 31a0 Manual compaction at level-0 from '!journal!kf7e6dre1Bhn8SE9' @ 72057594037927935 : 1 .. '!journal.pages!kf7e6dre1Bhn8SE9.3CUD6vHifZ01Uqxa' @ 0 : 0; will stop at '!journal.pages!kf7e6dre1Bhn8SE9.3CUD6vHifZ01Uqxa' @ 11 : 1
+2024/04/25-09:47:08.087 31a0 Compacting 1@0 + 1@1 files
+2024/04/25-09:47:08.089 31a0 Generated table #164@0: 2 keys, 15623 bytes
+2024/04/25-09:47:08.089 31a0 Compacted 1@0 + 1@1 files => 15623 bytes
+2024/04/25-09:47:08.089 31a0 compacted to: files[ 0 1 0 0 0 0 0 ]
+2024/04/25-09:47:08.090 31a0 Delete type=2 #159
+2024/04/25-09:47:08.091 31a0 Delete type=2 #163
+2024/04/25-09:47:08.095 31a0 Manual compaction at level-0 from '!journal.pages!kf7e6dre1Bhn8SE9.3CUD6vHifZ01Uqxa' @ 11 : 1 .. '!journal.pages!kf7e6dre1Bhn8SE9.3CUD6vHifZ01Uqxa' @ 0 : 0; will stop at (end)

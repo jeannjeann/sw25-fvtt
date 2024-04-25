@@ -213,7 +213,12 @@
         "halfpowmod": "",
         "lethaltech": "",
         "criticalray": "",
-        "pharmtool": ""
+        "pharmtool": "",
+        "applycheck": "-",
+        "applycheck1": "-",
+        "applycheck2": "-",
+        "applycheck3": "-",
+        "applypower": "on"
       },
       "battle": {
         "equip": true,

@@ -9,8 +9,6 @@ export async function chatButton(chatMessage, buttonType) {
   const itemId = chatMessage.flags.itemid;
   const item = actor.items.get(itemId);
 
-  console.log(chatMessage);
-
   // Item roll button
   if (
     buttonType == "buttoncheck" ||
@@ -94,6 +92,7 @@ export async function chatButton(chatMessage, buttonType) {
     const speaker = ChatMessage.getSpeaker({ actor: actor });
     const rollMode = game.settings.get("core", "rollMode");
     let label = `${item.name}`;
+    let chatapply = "-";
 
     if (
       buttonType == "buttoncheck" ||
@@ -103,12 +102,19 @@ export async function chatButton(chatMessage, buttonType) {
     ) {
       const rollData = item.getRollData();
 
-      if (buttonType == "buttoncheck1") label = label + " (" + label1 + ")";
-      else if (buttonType == "buttoncheck2")
+      if (buttonType == "buttoncheck1") {
+        label = label + " (" + label1 + ")";
+        chatapply = item.system.applycheck1;
+      } else if (buttonType == "buttoncheck2") {
         label = label + " (" + label2 + ")";
-      else if (buttonType == "buttoncheck3")
+        chatapply = item.system.applycheck2;
+      } else if (buttonType == "buttoncheck3") {
         label = label + " (" + label3 + ")";
-      else label = label + " (" + game.i18n.localize("SW25.Check") + ")";
+        chatapply = item.system.applycheck3;
+      } else {
+        label = label + " (" + game.i18n.localize("SW25.Check") + ")";
+        chatapply = item.system.applycheck;
+      }
 
       let formula = item.system.formula + "+" + item.system.checkbase;
 
@@ -130,6 +136,11 @@ export async function chatButton(chatMessage, buttonType) {
       if (roll.terms[0].total == 12) chatCritical = 1;
       if (roll.terms[0].total == 2) chatFumble = 1;
 
+      chatData.flags = {
+        total: chatTotal,
+        apply: chatapply,
+      };
+
       chatData.content = await renderTemplate(
         "systems/sw25/templates/roll/roll-check.hbs",
         {
@@ -138,6 +149,7 @@ export async function chatButton(chatMessage, buttonType) {
           critical: chatCritical,
           fumble: chatFumble,
           total: chatTotal,
+          apply: chatapply,
         }
       );
 
@@ -211,6 +223,7 @@ export async function chatButton(chatMessage, buttonType) {
         shownoc = false;
       }
       if (roll.cValue == 100 || chatExtraRoll == null) shownoc = false;
+      let chatapply = item.system.applypower;
 
       chatData.flags = {
         formula: chatFormula,
@@ -231,6 +244,7 @@ export async function chatButton(chatMessage, buttonType) {
         orgextraRoll: chatExtraRoll,
         showhalf: showhalf,
         shownoc: shownoc,
+        apply: chatapply,
       };
 
       chatData.content = await renderTemplate(
@@ -251,6 +265,7 @@ export async function chatButton(chatMessage, buttonType) {
           fumble: chatFumble,
           showhalf: showhalf,
           shownoc: shownoc,
+          apply: chatapply,
         }
       );
 
@@ -266,7 +281,12 @@ export async function chatButton(chatMessage, buttonType) {
     let newextraRoll = null;
     if (chatMessage.flags.dohalf == false || chatMessage.flags.dohalf == null) {
       let chatData = {
-        flags: { dohalf: true, noc: false },
+        flags: {
+          dohalf: true,
+          noc: false,
+          apply: chatMessage.flags.apply,
+          total: newtotal,
+        },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
           {
@@ -287,6 +307,7 @@ export async function chatButton(chatMessage, buttonType) {
             showhalf: chatMessage.flags.showhalf,
             nocdone: chatMessage.flags.nocdone,
             shownoc: chatMessage.flags.shownoc,
+            apply: chatMessage.flags.apply,
           }
         ),
       };
@@ -298,7 +319,12 @@ export async function chatButton(chatMessage, buttonType) {
     }
     if (chatMessage.flags.dohalf == true) {
       let chatData = {
-        flags: { dohalf: false, noc: false },
+        flags: {
+          dohalf: false,
+          noc: false,
+          apply: chatMessage.flags.apply,
+          total: chatMessage.flags.orgtotal,
+        },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
           {
@@ -312,13 +338,14 @@ export async function chatButton(chatMessage, buttonType) {
             mod: chatMessage.flags.mod,
             half: chatMessage.flags.half,
             results: chatMessage.flags.results,
-            total: chatMessage.flags.total,
+            total: chatMessage.flags.orgtotal,
             extraRoll: chatMessage.flags.extraRoll,
             fumble: chatMessage.flags.fumble,
             halfdone: false,
             showhalf: chatMessage.flags.showhalf,
             nocdone: chatMessage.flags.nocdone,
             shownoc: chatMessage.flags.shownoc,
+            apply: chatMessage.flags.apply,
           }
         ),
       };
@@ -334,7 +361,12 @@ export async function chatButton(chatMessage, buttonType) {
     let newextraRoll = null;
     if (chatMessage.flags.noc == false || chatMessage.flags.noc == null) {
       let chatData = {
-        flags: { noc: true, dohalf: false },
+        flags: {
+          noc: true,
+          dohalf: false,
+          apply: chatMessage.flags.apply,
+          total: newtotal,
+        },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
           {
@@ -355,6 +387,7 @@ export async function chatButton(chatMessage, buttonType) {
             showhalf: chatMessage.flags.showhalf,
             nocdone: true,
             shownoc: chatMessage.flags.shownoc,
+            apply: chatMessage.flags.apply,
           }
         ),
       };
@@ -366,7 +399,12 @@ export async function chatButton(chatMessage, buttonType) {
     }
     if (chatMessage.flags.noc == true) {
       let chatData = {
-        flags: { noc: false, dohalf: false },
+        flags: {
+          noc: false,
+          dohalf: false,
+          apply: chatMessage.flags.apply,
+          total: chatMessage.flags.orgtotal,
+        },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
           {
@@ -380,13 +418,14 @@ export async function chatButton(chatMessage, buttonType) {
             mod: chatMessage.flags.mod,
             half: chatMessage.flags.half,
             results: chatMessage.flags.results,
-            total: chatMessage.flags.total,
+            total: chatMessage.flags.orgtotal,
             extraRoll: chatMessage.flags.extraRoll,
             fumble: chatMessage.flags.fumble,
             halfdone: chatMessage.flags.halfdone,
             showhalf: chatMessage.flags.showhalf,
             nocdone: false,
             shownoc: chatMessage.flags.shownoc,
+            apply: chatMessage.flags.apply,
           }
         ),
       };
@@ -396,5 +435,90 @@ export async function chatButton(chatMessage, buttonType) {
       });
       return;
     }
+  }
+  if (
+    buttonType == "buttonpd" ||
+    buttonType == "buttonmd" ||
+    buttonType == "buttonhr" ||
+    buttonType == "buttonmr"
+  ) {
+    const targetedToken = game.user.targets;
+    if (targetedToken.size === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Notargetwarn"));
+      return;
+    } else if (targetedToken.size > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multitargetwarn"));
+      return;
+    }
+    const targetActors = [];
+    targetedToken.forEach((token) => {
+      targetActors.push(token.actor);
+    });
+    const targetActor = targetActors[0];
+    let targetHP = targetActor.system.hp.value;
+    let targetMP = targetActor.system.mp.value;
+    let targetMaxHP = targetActor.system.hp.max;
+    let targetMaxMP = targetActor.system.mp.max;
+    let targetPP = 0;
+    let targetMPP = 0;
+    if (targetActor.type == "character") {
+      targetPP = targetActor.system.attributes.protectionpoint;
+      targetMPP = targetActor.system.attributes.magicprotection;
+    } else if (targetActor.type == "monster") {
+      targetPP = targetActor.system.pp;
+      targetMPP = targetActor.system.mpp;
+    }
+    let resultHP = targetHP;
+    let resultMP = targetMP;
+
+    let resultValue = chatMessage.flags.total;
+    let differenceValue = 0;
+
+    if (buttonType == "buttonpd") {
+      resultHP = targetHP - Math.max(0, resultValue - targetPP);
+      differenceValue = targetHP - resultHP;
+    }
+    if (buttonType == "buttonmd") {
+      resultHP = targetHP - Math.max(0, resultValue - targetMPP);
+      differenceValue = targetHP - resultHP;
+    }
+    if (buttonType == "buttonhr") {
+      if (targetHP + resultValue < targetMaxHP) {
+        resultHP = targetHP + resultValue;
+      } else resultHP = targetMaxHP;
+      differenceValue = resultHP - targetHP;
+    }
+    if (buttonType == "buttonmr") {
+      if (targetMP + resultValue < targetMaxMP) {
+        resultMP = targetMP + resultValue;
+      } else resultMP = targetMaxMP;
+      differenceValue = resultMP - targetMP;
+    }
+
+    targetActor.update({
+      "system.hp.value": resultHP,
+      "system.mp.value": resultMP,
+    });
+
+    const speaker = ChatMessage.getSpeaker({ actor: actor });
+    const rollMode = game.settings.get("core", "rollMode");
+    let label = `${chatMessage.flavor}`;
+
+    let chatData = {
+      speaker: speaker,
+      flavor: label,
+      rollMode: rollMode,
+    };
+
+    chatData.content = await renderTemplate(
+      "systems/sw25/templates/roll/roll-apply.hbs",
+      {
+        value: differenceValue,
+        target: targetActor.name,
+        type: buttonType,
+      }
+    );
+
+    ChatMessage.create(chatData);
   }
 }
