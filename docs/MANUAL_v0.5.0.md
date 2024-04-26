@@ -1,330 +1,323 @@
-# 簡易マニュアル　ソード・ワールド 2.5
+# Simplified Manual for Sword World 2.5
 
 ## PC
 
-### ヘッダー部分
-キャラのサマリーが表示される領域です。
-- 名前、キャラ画像、現在HP、現在MP、1ゾロ、恩寵有無を操作可能です。
-- それ以外の部分は他の入力欄から自動で反映されます。
+### Header Section
+This is the area where the character summary is displayed.
+- Name, character image, current HP, current MP, Fumbles, and Grace or no Grace can be adjusted.
+- The rest of the fields are automatically reflected from other input fields.
 
-### タブ
-- 各アイテム一覧で、技能、判定、リソース、言語を除くアイテムの名前クリックで説明が展開します。
-- アイテム一覧に新規作成、編集、削除ボタンがないリストでは、説明展開時に編集、削除ボタンが表示されます。
+### Tabs
+- In each item list, click on the name of any item (except skills, dice rolls, resources, and languages) to expand its description.
+- For listings that do not have a New, Edit, or Delete button in the item list, the Edit and Delete buttons will appear when the description is expanded.
 
-#### 能力値・技能タブ
-主に作成時、成長時に使用するタブです。
-- 能力値欄（左）
-  - 心・技・体、A～F、成長、修正を入力することで能力値とボーナスが自動で計算されます。
-- 最大HP・最大MP修正（右上）
-  - 自動で計算された値に修正を加える時に入力してください。特技やアイテム、魔法などで変化した場合を想定しています。（自動計算を実装したい）
-- 技能欄（右下）
-  - 技能が一覧で表示されます。アイコンクリックで説明の内容がチャットに表示されます。
-  - 一覧からレベルの増減、編集、削除、新規作成が行えます。
-  - アイテムからのドラッグでも追加できます。
-  - 使用経験値は自動で計算されます。
-  - 詳細は下記のアイテム説明を確認してください。
+#### Ability Values and Skills (Class) Tab
+These tabs are mainly used during creation and growth.
+- Ability Value column (left)
+  - Ability values and bonuses are automatically calculated by entering Mind, Skill, Body, A-F, Growth, and Modifications.
+- Maximum HP and MP modifiers (upper right)
+  - Enter when making modifications to the automatically calculated values. This is intended for cases where the value has been changed by special skills, items, magic, etc. (I would like to implement automatic calculation)
+- Skill (Class) column (lower right)
+  - Class are listed. Clicking on the icon will display the description in chat.
+  - You can increase, decrease, edit, delete, or create new levels from the list.
+  - You can also add classes by dragging them from an item.
+  - Experience used is automatically calculated.
+  - Please check the item description below for details.
 
-#### 判定タブ
-主にセッションの通常時（戦闘以外）中に使用するであろうタブです。
-- 判定欄（左）
-  - 各種判定を登録できます。行為判定、威力ロールが可能です。
-  - 一覧から修正値の入力、編集、削除、新規作成が行えます。
-  - 表示されている基準値は、判定の場合は2d6に加える値、威力ロールの場合はロール後に加える値です。修正欄の入力内容はこの値に反映されます。
-  - アイテム名、基準値のクリックで該当のロールを行います。
-  - 生命抵抗、精神抵抗などの基本的な判定や、先制、まもちき、判定パック、魔法行使などの技能に関連する頻用判定を登録することで利便性をあげるための一覧です。
-  - 生命抵抗、精神抵抗、先制、まもちきは個人の経験上すべてのキャラで作成しておくことをオススメします。
-  - 自由に作成できるので、スカウトの先制とウォーリーダーの先制を両方用意するなど、柔軟に運用してください。
-  - 詳細は下記のアイテム説明を確認してください。
+#### Judgment (Check) Tab
+These are tabs that would be used mainly during the normal (non-combat) part of the session.
+- Check column (left)
+  - Various checks can be registered. You can make an action check and a power roll.
+  - You can enter, edit, delete, and create new values from the list.
+  - The base value displayed is the value added to 2d6 in the case of judgments, and the value added after the roll in the case of power rolls. The entries in the modification column will be reflected in this value.
+  - Click on the item name and base value to make the corresponding roll.
+  - This list is intended to increase convenience by registering basic checks such as Fortitude and Willpower, as well as frequently used checks related to skills such as Initiative, Monster Knowledge, Check Package, and Spellcasting.
+  - It is recommended that Fortitude, Willpower, Initiative, and Monster Knowledge be created for all characters based on personal experience.
+  - Since you can create these items freely, please be flexible in using them, for example, prepare both Scout's and Tactician's Initiative.
+  - Check the item descriptions below for more details.    
+- General-purpose class check column (right)
+  - This column is used to easily perform a "XX class level + XX bonus" check that combines the classes owned with each ability value bonus.
+  - The automatically calculated base value is displayed. Click on the number to make the appropriate roll.
+  - You can specify a modified value for each skill unit.
 
-- 汎用技能判定欄（右）
-  - 所有している技能と各能力値ボーナスを組み合わせた「○○技能レベル+○○ボーナス」という判定を簡単に行うための欄です。
-  - 自動で計算された基準値が表示されています。数字のクリックで該当のロールを行います。
-  - 各技能単位で修正値を指定できます。
+#### Battle Tab
+This tab is primarily intended to be used during combat.
+- Check column (upper left)
+  - Of the check items registered in the Check tab, only those items with "Combat" checked in the item details are displayed.
+  - It is convenient to register roles that are frequently used in combat.
+  - New creation, editing, and deletion cannot be performed from this column. Please do so from the list on the Check tab.
+- Combat-related information column (upper right)
+  - Movement power is displayed. It can be modified. The modification is to the normal movement.
+  - Hit and power will reflect the values of the weapon selected in the middle column for various modifiers. The various modifier columns will be reflected.
+  - Evasion is the value of evasion by the skill selected in the modifiers column. The modifiers are reflected.
+  - Click to roll for hit, power, and evasion.
+  - The values of defense (PP) and magic defense (MPP) are displayed. The values of the various modifier columns will be reflected. The modified value of damage reduction (D reduction) is also reflected; if D reduction is entered, it will be displayed as "Total value (original value + D reduction value)".
+- Correction column (middle)
+  - Allows entry of various modifications. The modifications will be reflected in the "Combat Related Information" column.
+  - The weapon to be used for accuracy and power can be selected in the Combat Information column.
+  - Select the skill to be used for evasion in the Combat Information column.
+- Equipment column
+  - Weapons, armor, and ornaments with the "Equipped" checkbox in the item details will be displayed.
+  - You cannot create, edit, or delete items from this column. Please do so from the list in the "Equipment" tab.
+  - The behavior when clicking on the icon can be set in the details. By default, the chat display will show the description of the weapon.
+  - Click to roll the accuracy and power sections of the weapon list. The values in the various modifier fields are reflected.
+  - When using a sub-weapon or using a weapon in a different way (e.g. 2H with an ambidextrous weapon), this direct click may be more convenient than changing the weapon of choice.
 
-#### 戦闘タブ
-主に戦闘時に使用することを想定しているタブです。
-- 判定欄（上左）
-  - 判定タブに登録した判定アイテムのうち、アイテムの詳細で「戦闘」にチェックのあるアイテムのみを表示します。
-  - 戦闘時によく使うロールを登録しておくと便利です。
-  - この欄からの新規作成、編集、削除は行えません。判定タブの一覧から行ってください。
-- 戦闘関連情報欄（上右上）
-  - 移動力が表示されています。修正も可能です。修正は通常移動への修正値となります。
-  - 命中、威力は中段の各種修正欄で選択した武器の値が反映されます。各種修正欄が反映されます。
-  - 回避は各種修正欄で選択した技能による回避の値となります。各種修正欄が反映されます。
-  - 命中、威力、回避はクリックでロール可能です。
-  - 防護点、魔法防御の値が表示されます。各種修正欄の値が反映されます。ダメージ軽減（D軽減）の修正値も反映されます。D軽減が入力されている場合「合計値（元の値+D軽減値）」という表示になります。
-- 各種修正欄（中）
-  - 各種修正の入力が可能です。戦闘関連情報欄へ反映されます。
-  - 戦闘関連情報欄の命中、威力で使用する武器を選択できます。
-  - 戦闘関連情報欄の回避に用いる技能を選択できます。
-- 装備品欄
-  - アイテムの詳細で「装備」にチェックを入れた武器、防具、装飾品が表示されます。
-  - 編集、削除を行う場合は説明を展開するか、所持品タブの一覧から行ってください。
-  - 新規作成はメインメニューから各アイテムを作成するか、所持品タブの一覧の新規ボタンから行ってください。
-  - アイコンクリック時の動作は詳細から設定できます。デフォルトでは説明内容のチャット表示となっています。
-  - 武器一覧の命中、威力の部分はクリックでロールできます。各種修正欄の値が反映されます。
-  - サブ武器や、武器を別の方法で使用する（両用武器で2Hなど）時などは、選択武器を変更するよりこちらの直接クリックの方が便利かもしれません。
+#### Features Tab
+This tab displays race characteristics and combat skills, as well as Techniques, Spellsongs and Finales, Stunts, Evocations, Aspects, Strategems and Maneuvers, etc.
+- New, edit, and delete can be performed.
+- If you don't have any of the Classes listed, they will not be displayed, except for the race and combat skills. If you check the "Show Blank Groups" checkbox, a list of items that you do not possess will also be displayed. If you want to create a new item, please use this option.
+  - The behavior when clicking on icons can be configured from Details. By default, the chat display shows the description of the item.
+- Some items can be checked in "Use Dice Roll" and "Use Power Table" in the details. When checked, "Dice Roll" and "Power" are displayed in the list, and the corresponding roll can be performed by clicking on the checkbox. Please use this function when necessary, for example, for checks on the usage of spellsongs, etc., or for power rolls.
+- Action types are automatically displayed in front of the name. The following types are displayed: Always (○), Major (▶), Minor (≫), Combat Preparation (△), and Declaration (□).
 
-#### 特技等タブ
-種族特徴、戦闘特技の他、練技、呪歌・終律、騎芸、賦術、相域、鼓砲・陣率が表示されるタブです。
-- 新規作成、編集、削除が行えます。
-- 種族特徴と戦闘特技以外は、所持していない場合は一覧が表示されません。「空欄グループを表示」にチェックを入れると所持していないアイテムの一覧も表示されます。新規作成したい場合、こちらを利用してください。
- - アイコンクリック時の動作は詳細から設定できます。デフォルトでは説明内容のチャット表示となっています。
-- 詳細で「判定使用」「威力表使用」にチェックを入れることが可能なアイテムがあります。チェックを入れると一覧に「判定」「威力」が表示され、クリックで該当のロールを行えます。呪歌などの行使判定や威力ロールなど、必要に応じて利用してください。
-- 特技などの動作タイプは名前の前に自動で表示されます。常時型「○」、主動作型「▶」、補助動作型「≫」、戦闘準備型「△」、宣言型「□」です。
+#### Magic (Spells) Tab
+This tab displays information about magic.
+- The list is divided for each magic system. Selecting a magic system in the item details will be reflected in the list.
+- The magic system and magic power are displayed at the top of the list. By clicking on the item, you can determine whether or not to use it. To make the dice roll in chat, you need to select the Class to be used. There is also an input box for modifications.
+- Items cannot be created, edited, or deleted from the list by magic system. Please go to "Show All Spell".
+- The behavior when clicking on icons can be configured in the details. By default, the description is displayed in the chat.
+- Some items can be checked in "Use Dice" and "Use Power List" in the details. When checked, "Dice Check" and "Power" are displayed in the list, and the corresponding roll can be performed by clicking on it. Since the rolls can be exercised from the top of the list, please use mainly the power rolls as necessary.
+- If you check the "Show All Spell" checkbox, a list of all the magic items in your possession will be displayed, regardless of the system. You can also click on icons and roll from "Spellcasting" and "Power".
+- New creation, editing, and deletion can only be done from the "Show All Spell" list.
+- The magic operation type is automatically displayed before the name. The following types of magic are displayed: Always (○), Major (▶), Minor (≫), Combat Ready (△), and Declared (□).
 
-#### 魔法タブ
-魔法に関する情報が表示されるタブです。
-- 各系統の魔法ごとに一覧が分かれています。アイテムの詳細で系統を選択することで一覧に反映されます。
-- 一覧上部に系統名、魔力が表示されます。クリックすることで行使判定が行えます。右に表示される判定を行うには使用技能の選択が必要です。修正がある場合の入力欄もあります。
-- 系統ごとの一覧で編集、削除を行う場合は説明を展開するか、「全魔法リスト」から行ってください。
-- 新規作成はメインメニューから魔法アイテムを作成するか、「全魔法リスト」の新規ボタンから行ってください。
-- アイコンクリック時の動作は詳細から設定できます。デフォルトでは説明内容のチャット表示となっています。
-- 詳細で「判定使用」「威力表使用」にチェックを入れることが可能なアイテムがあります。チェックを入れると一覧に「判定」「威力」が表示され、クリックで該当のロールを行えます。行使は一覧上部から行えるので、主に威力ロールなどを必要に応じて利用してください。
-  - 一部の特殊なダメージ値算出の魔法は、威力表の数字を工夫して対応できる場合があります。その場合でも、1ゾロは強制的に0を算出するようになっているためマニュアルで計算してください。
-- 「全魔法リスト表示」にチェックを入れると、系統にかかわらず所持している全魔法をリスト表示します。アイコンクリックや「行使」「威力」からのロールも可能です。
-- 新規作成、編集、削除は「全魔法リスト」からしか行えません。
-- 魔法の動作タイプは名前の前に自動で表示されます。常時型「○」、主動作型「▶」、補助動作型「≫」、戦闘準備型「△」、宣言型「□」です。
+#### Possessions (Items) Tab
+This tab displays items in your possession, including equipment.
+- There is a field for entering the amount of money you have. There is no automatic calculation function. (To be implemented)
+- New creation, editing, and deletion of each item can be performed. Weapons, armor, and ornaments can be created here. You cannot do this from the combat tab.
+- Item List
+  - By checking the "Use Dice Roll" and "Use Power Table" checkboxes in the details, "Dice Check" and "Power" will appear in the list, and you can perform the corresponding roll by clicking on them. Use this function for medicinal herbs and the like.
+  - The behavior when clicking on the icon can be set in the "Details" menu. By default, the chat display is the description of the item.
+- Weapons, Armor, and Decorations
+  - There is an "Equip" checkbox in the list. Checked items are displayed in the combat tab.
+  - (Weapons, armor, and ornaments do not display "Dice Check" and "Power" even if "Use Dice Roll" and "Use Power Table" are checked in the details.
+  - The behavior when clicking on icons can be set in the details. By default, the chat display will show the description of the item.
 
-#### 所持品タブ
-装備品を含む所持アイテムが表示されるタブです。
-- 所持金入力欄があります。自動計算機能はありません。（実装したい）
-- 各アイテムの新規作成、編集、削除が行えます。武器、防具、装飾品はここから行ってください。戦闘タブからは行えません。
-- アイテム一覧
-  - 詳細で「判定使用」「威力表使用」にチェックを入れることで一覧に「判定」「威力」が表示され、クリックで該当のロールを行えます。薬草類などで利用してください。
-  - アイコンクリック時の動作は詳細から設定できます。デフォルトでは説明内容のチャット表示となっています。
-- 武器、防具、装飾品
-  - 一覧に「装備」チェック欄があります。チェックされたアイテムは戦闘タブに表示されます。
-  - 武器、防具、装飾品は詳細で「判定使用」「威力表使用」にチェックを入れても「判定」「威力」は表示されません
-  - アイコンクリック時の動作は詳細から設定できます。デフォルトでは説明内容のチャット表示となっています。
-
-#### 説明タブ
-言語、その他の設定、メモなどが表示されるタブです。
-- 言語欄（上左）
-  - 言語の新規作成、編集、削除が行えます。
-  - 「会話「読文」のチェックが行えます。
-- 設定欄（上右）
-  - 各データの入力を行う欄です。ヘッダー部分に反映されます。
-  - 獲得経験値は総経験値の値入力欄です。技能欄に反映されます。
-- 容姿・経歴・その他メモ欄（下）
-  - 自由記載欄です。
+#### Description Tab
+This tab displays language, other settings, notes, etc.
+- Language column (upper left)
+  - Languages can be created, edited, and deleted.
+  - You can check the "Conversation "Reading" checkbox.
+- Settings (upper right)
+  - This is where you can enter data. The data will be reflected in the header section.
+  - Experience gained is the field for entering the total experience value. It is reflected in the skill column.
+- Appearance, career, and other notes column (bottom)
+  - This is a field for free description.
 
 ## NPC
-- HP、MP、概要、説明、GM用メモが記載できます。
-- 限定的権限では概要のみが表示されます。
-- 限定的権限時の表示名を設定できます。
-- GM用メモはGMにのみ表示されます。
+- HP, MP, summary, description, and notes for GM can be listed.
+- Only the summary is displayed with limited privileges.
+- You can set the display name for limited privileges.
+- Notes for GM will be displayed only for GM.
 
-## 魔物
-魔物データが入力できます。
+## Monster
+Monster data can be entered.
 
-### ヘッダー部分
-魔物のサマリーが表示される領域です。
-- 名前、魔物画像、現在HP、現在MPを操作可能です。
-- それ以外の部分は他の詳細タブの入力欄から自動で反映されます。
-- 限定的権限では概要のみが表示されます。
-- 魔物知識判定について
-  - 限定的権限で概要のみが表示されます。
-  - まもちき前や、まもちき失敗時は限定者権限にしておくとデータが秘匿されます。
-  - まもちき成功で閲覧者権限にするとデータがプレイヤーから見えるようになります。
-  - 画像は限定的権限のプレイヤーにもそのまま表示されます。
+### Header Section
+This is the area where the monster summary is displayed.
+- Name, monster image, current HP, and current MP can be manipulated.
+- The rest of the information is automatically reflected from the input fields in the other detail tabs.
+- With limited privileges, only the summary is displayed.
+- About Monster Knowledge Check
+  - Only a summary is displayed with limited privileges.
+  - If you have limited privileges before or after a successful Monster Knowledge Check, the data will be kept secret.
+  - If the player is granted "Viewer" privileges after a successful Monster Knowledge Check, the data will be visible to the player.
+  - The image will be displayed as it is to the player with limited privileges.
 
-#### 魔物能力タブ
-魔物の各種能力が表示されるタブです。
-- 生命抵抗、精神抵抗はこのアイテムを使用してください。全魔物で必須となります。
-- アイコンクリック時の動作は詳細から設定できます。デフォルトでは説明内容のチャット表示となっています。
-- 能力の動作タイプは名前の前に自動で表示されます。常時型「○」、主動作型「▶」、補助動作型「≫」、戦闘準備型「△」、宣言型「□」です。
-- 詳細で「判定1～3」「威力表」にチェックを入れることでそれぞれのラベル名が表示され、クリックで該当のロールを行えます。必要に応じて利用してください。
-- 各判定で詳細から「固定値」にチェックを入れると、ダイス結果が自動的に「7」に固定され、ロール結果が固定値として表示されます。
-- 基本能力（通常の攻撃など）もこのアイテムを使用してください。
-  - 命中、打撃、回避の3つの判定を使用することになります。それぞれラベルに「命中」「打撃」「回避」と付けると可読性が高くなります。
-  - HP、MP、防護点、魔法防御は別枠での入力になります。
-- 対抗可能な能力もこのアイテムを使用してください。
-  - 判定のいずれかにチェックを入れることで行使判定が可能です。ラベルに「行使」などと付けて使用してください。固定値の使用も可能です。
-  - 抵抗や抵抗結果は備考欄に「回避／消滅」というように入力すると可読性が高くなります。
-- 多部位魔物を1つのトークンで表現することはできません。（実装したい）
-  - メインのトークンと他の部位のトークンを別々に用意し、複数のトークンで運用してください。
-  - 全身へ影響する能力などは備考欄への記載を活用してください。
-- 魔法について
-  - 魔力は魔物能力として登録することを想定しています。
-  - 個々の魔法はPCと同じアイテムが使用できます。魔物能力で表現することも可能です。
-  - PCと同じアイテムを使用する場合は「魔法使用」にチェックを入れ、魔法の一覧を表示させて使用してください。
-  - 判定修正に魔物の魔力を入力して使用してください。
-  - 技能と能力値は「-」を選択しないとダイスが振れないので注意してください。
-- 各アイテム一覧ではアイテムの名前クリックで説明が展開します。
+#### Monster Ability Tab
+This tab displays the various abilities of monsters.
+- Use this item for Fortitude and Willpower. This item is required for all monsters.
+- The behavior when clicking on the icon can be set from Details. By default, the description is displayed in the chat.
+- The ability's behavior type is automatically displayed before its name. The following types are available: Always "○", Major Action "▶", Minor Action "≫", Combat Preparation "△", and Declaration "□".
+- By checking the "Check 1-3" and "Power Table" checkboxes in the details, the respective label names are displayed, and the corresponding roll can be performed by clicking on them. Use as necessary.
+- By checking the "Fixed Value" checkbox under Details for each check, the dice result is automatically fixed at "7" and the roll result is displayed as a fixed value.
+- Use this item for basic abilities (e.g., normal attacks) as well.
+  - Three checks will be used: Accuracy, Damage, and Evasion. Labeling each as "Accuracy," "Damage," and "Evasion" will increase readability.
+  - HP, MP, defense (protective points), and magic defense are entered separately.
+- Resistable abilities should also use this item.
+  - Using Dice Rolls can be made by checking one of the Checks. Use a label with "Spellcasting" or something similar. Fixed values can also be used.
+  - Resistance and resistance results can be entered in the remarks field as "evade/neg" to increase readability.
+- Multi-part demons cannot be represented by a single token. (To be implemented)
+  - Please prepare separate tokens for the main token and other parts of the body, and operate with multiple tokens.
+  - For abilities that affect the whole body, etc., please use the description in the remarks column.
+- **About Magic**
+  - Magic is intended to be registered as a magical ability.
+  - Individual magic can use the same items as PCs. It can also be expressed as a magical ability.
+  - If you want to use the same items as the PCs, check the "Use Magic" checkbox to display the list of magic and use it.
+  - Enter the magic power of the monster in the check modifier and use it.
+  - Please note that skills and ability values cannot be diced unless "-" is selected.
 
-#### 説明タブ
-- 自由記載欄です。魔物の概説などを想定しています。
-- 詳細タブで記載した戦利品表も表示されます。
+#### Description Tab
+- This is a free description field. This is intended for general descriptions of the demon.
+- The loot list described in the Details Tab will also be displayed.
 
-#### 詳細タブ
-各種データを入力するタブです。
-- GM用メモはGMにのみ表示されます。
-- 限定的権限時の表示名を設定できます。
+#### Details Tab
+Tab for entering various data.
+- Notes for GM will be displayed only to the GM.
+- You can set the display name for limited privileges.
 
-## 各種アイテム
-各アイテムは詳細設定が可能です。主に詳細タブから行います。一部例外を除き、共通する項目があります。
-- 説明タブ
-  - アイテムの説明入力欄です。自由記載欄です。設定によって、アイコンクリックでチャットに表示するように設定できます。
-  - 大部分のアイテムはキャラクターシートの一覧において、アイテム名クリックで説明が展開されます。
-- アイコンクリック時
-  - 一覧でアイコンをクリックした時の挙動を選択できます。説明のチャット表示やダイスロールが選択できます。
-  - 「すべて」選択時には説明と有効にしているロールを行うボタンが表示されます。
-- 判定使用、威力表使用
-  - チェックで一覧からロールが可能になります。また、チェックすることで設定項目が表示されます。
-- 判定設定
-  - 判定に使用する技能、能力値ボーナス、修正を指定できます。
-  - 「適用あり」を設定した場合、ロール結果に各種適用ボタンが表示されます。
-  - 「ダイス変更」にチェックを入れると2d6以外のダイスを使用できます。固定値を指定することも可能です。
-- 威力表設定
-  - 判定に使用する技能、能力値ボーナス、修正、威力、クリティカル値（C値）、威力表内容を設定します。
-    - 威力表が空欄かつ汎用威力表のデータがある場合、汎用威力表を参照します。
-  - 「適用あり」を設定した場合、ロール結果に各種適用ボタンが表示されます。
-  - 「半減」にチェックで結果の半減処理を行います。
-  - 「特殊処理」にチェックで半減後の修正値、必殺の増加値（通常は1）、クリレイの増加値、薬師道具の出目（通常は4）、首切り刀（通常は5）を設定できます。
-    - 首切り刀の設定は、汎用威力表で対応する威力値の存在が前提となります。
+## Various Items
+Each item can be configured in detail. This is done mainly from the Details tab. With a few exceptions, some items are common.
 
-### 武器
-- 装備チェック、カテゴリ、ランク、タイプ、用法、専用化、必筋、命中修正、追加ダメージ、射程が設定可能です。
-- 判定、威力表とも使用することになるアイテムです。
-- 専用化によるボーナスは自動で反映されません。（実装したい）
-- 複数の用法がある武器に関しては、用法ごとに別アイテムとして作成すると便利です。
+- Description tab
+  - Description field for the item. Free description field. Depending on the settings, this field will be displayed in the chat when the icon is clicked.
+- When icon is clicked
+  - You can select the behavior when the icon is clicked in the list. You can choose to display the description in the chat or roll a die.
+- Use Dice Roll, Use Power Table
+  - Checking the checkbox enables the roll from the list. Also, by checking the checkbox, the setting items will be displayed.
+- Use Dice Settings
+  - You can specify the class, ability value bonuses, and modifiers to be used for the dice roll. Also, check the "Custom Dice" checkbox to use dice other than 2d6. Fixed values can also be specified.
+- Power Table Settings
+  - Set the class, ability value bonus, modifier, power, critical value (C value), and power table content to be used for the dice roll.
+  - Check "Halve" to halve the result.
+  - The "Special Treatment (Particular)" checkbox allows you to set the modified value after halving, the increased value of Lethal Strike (usually 1), the increased value of Critical Ray, and the roll of the Apothecary's Tool (usually 4).
+  - The calculation of Executioner's Blade cannot currently be handled. Please refer to the stakes and modify the values manually.
+  - If the power table is blank, it should refer to the generic power table to get the value. (Not implemented yet, after implementation, Executioner's Blade can be handled)
 
-### 防具・盾
-- 鎧、盾は同じカテゴリのアイテムです。
-- 装備チェック、カテゴリ、ランク、専用化、必筋、回避修正、防護点、魔法防御が設定可能です。
-- 判定も威力も基本的には使用しないアイテムです。
-- 専用化によるボーナスは自動で反映されません。（実装したい）
+### Weapons
+- Equipment checks, categories, ranks, types, usages, specializations, minimum Strength, hit modifiers, additional damage, and ranges can be set.
+- These are items that will be used with both the check and power tables.
+- Bonuses due to specialization are not automatically reflected. (We would like to implement)
+- For weapons with multiple usages, it would be useful to create a separate item for each usage.
 
-### 装飾品
-- 装備チェック、部位、専用化が設定可能です。
-- 判定も威力も基本的には使用しないアイテムです。
-- 同一部位への装備の制限などは実装していないので手動で管理してください。
-- 専用化によるボーナスは自動で反映されません。（実装したい）
+### Armor and Shields
+- Armor and shields are items in the same category.
+- Equipment checks, categories, ranks, specializations, minimum strength, evasion modifiers, protection points (defense), and magic protection can be set.
+- Both dice roll and power are basically not used for these items.
+- Bonuses from specialization are not automatically reflected. (To be implemented)
 
-### アイテム
-- 数量、価格が入力可能です。
-- 判定、威力を組み合わせて各アイテムにあわせ、柔軟に使用してください。
+### Accessories
+- Equipment checks, part to be equipped on, and specializations can be set up.
+- Both the check and the power of the item are basically not used.
+- Please manage manually as we have not implemented any restrictions on equipping the same part of the body.
+- Bonuses for exclusive use are not automatically reflected. (We would like to implement)
 
-### 魔法
-- 魔法系統、レベル、動作タイプ、MP消費、対象、射程／形状、時間、抵抗、属性、概要が設定可能です。
-- 判定、威力を組み合わせて柔軟に使用してください。
-- 魔法系統を選択しないとキャラクターシートの一覧に正常に表示されません。
-- 神聖魔法では、セイクリッド系とヴァイス系の選択、特殊神聖魔法の入力欄が追加されます。
-- 魔動機術ではマギスフィアの入力欄が追加されます。
-- 妖精魔法では種別と（必要時に）属性の入力欄が追加されます。
-- 森羅魔法では生命抵抗で対抗するチェック欄が追加されます。
+### Item
+- Quantity and price can be entered.
+- Please use flexibly by combining dice roll and power to suit each item.
 
-### 練技
-- 動作タイプ、レベル、MP消費、時間、概要が設定可能です。
-- バフ効果の自動適用には対応していません。（実装したい）
+### Spell
+- Magic system, level, action type, MP consumption, target, range/shape, duration, resistance, type, and summary can be set.
+- Please use flexibly by combining dice roll and power.
+- If you do not select a magic system, it will not appear correctly in the list on the character sheet.
+- In Divine Magic, selection of Sacred and Vice systems, and input fields for special divine magic will be added.
+- In Magitech, an entry field for Magisphere will be added.
+- In Fairy Magic, an input field for type and (when necessary) attribute will be added.
+- In Nature Magic, a checkbox for countering with life resistance (Fortitude) will be added.
 
-### 呪歌・終律
-- 呪歌・終律選択、レベル、抵抗、属性、歌唱、ペット、楽素条件、発生楽素、追加楽素、巧奏値、追加楽素、 消費楽素、概要が設定できます。
-- 呪歌、終律の種別により設定項目が変化します。
-- 楽素のリソース消費は自動化していません。（実装したいけどたぶん出来ない）
+### Technique (Enhance Art)
+- Action type, level, MP consumption, duration, and summary can be set.
+- Automatic application of buff effects is not supported. (Would like to implement)
 
-### 騎芸
-- 動作タイプ、レベル、前提、対応、適用部位、概要が設定可能です。
+### Spellsongs・Finale (Magical Song)
+- The following items can be set: spellsong and finale selection, level, resistance, type, singing, pets, Rhythm Conditions, Base Rhythm, Extra Rhythm, Flourish Value, Extra Rhythm, Consumed Rhythm, and summary.
+- The setting items change depending on the type of spellsong and finale.
+- The resource consumption of Rhythm is not automated. (I would like to implement it, but probably can't.)
 
-### 賦術
-- 動作タイプ、レベル、対象、射程／形状、時間、抵抗、消費カード、概要が設定可能です。
-- バフ効果の自動適用には対応していません。（実装したい）
-- カードのリソース消費は自動化していません。（実装したいけどたぶん出来ない）
+### Stunts (Riding Trick)
+- Action type, level, prerequisite, compatible mount, applicable part, and summary can be set.
 
-### 相域
-- 命脈タイプ、消費命脈、時間、属性、レベル、概要が設定可能です。
-- バフ効果の自動適用には対応していません。（実装したい）
-- 命脈のリソース消費は自動化していません。（実装したいけどたぶん出来ない）
+### Evocations (Alchemy Tech)
+- Action type, level, target, range/area, duration, resistance, Card cost, and summary can be set.
+- Automatic application of buff effects is not supported. (To be implemented)
+- Resource consumption of Cards is not automated. (Would like to implement, but probably can't)
 
-### 鼓砲・陣率
-- 鼓砲・陣率選択、動作タイプ、レベル、消費陣気、系統、ランク、蓄積陣気、前提、条件、概要が設定できます。
-- 鼓砲、陣率の種別により設定項目が変化します。
-- バフ効果の自動適用には対応していません。（実装したい）
-- 陣気のリソース変化は自動化していません。（実装したいけどたぶん出来ない）
+### Aspects (Phase Area)
+- The Qi type, Qi cost, duration, type, level, and summary can be set.
+- Automatic application of buff effects is not supported. (To be implemented)
+- Resource consumption of Qi is not automated. (Would like to implement, but probably can't)
 
-### 判定
-- 例外アイテムとなり、アイコンクリック機能はありません。
-- キャラクターシートでの名前、値のクリック時の動作を選択できます。
-- 「戦闘」にチェックを入れると戦闘タブにも表示されます。
+### Strategems・Maneuvers (Tactics)
+- You can set the Strategems (Drum) and Maneuver (Camp), action type, level, Edge cost, Type (Line), rank, accumulated Edge, prerequisites, conditions, and summary.
+- The setting items change depending on whether Strategem or Maneuver is selected.
+- Automatic application of buff effects is not supported. (To be implemented)
+- Resource change of Edge is not automated. (Would like to implement, but probably can't)
 
-### リソース
-- 数量、価格、説明のみ入力可能です。
+### Check
+- It is an unique item and does not have an icon click function.
+- You can select the behavior when clicking on the name and value on the character sheet.
+- If "Combat" is checked, it will also appear on the Combat tab.
 
-### 戦闘特技
-- 種別、動作タイプ、条件、条件内容、使用、適用、リスク、概要が入力できます。
-- ヴァグランツ特技、バトダン追加特技の対応もチェック可能です。
-- 流派もこのアイテムを使用します。
-  - 「秘伝」にチェックすると流派名、必要名誉点、秘伝タイプ、限定条件が入力可能になります。
+### Resource
+- Only quantity, price, and description can be entered.
 
-### 技能
-- レベル、経験値テーブル、技能分類が設定できます。
-- 経験値テーブルを設定いていれば、消費経験値は自動で計算されます。
-- 分類は、とくに魔法使い系技能でMPの計算に使用するので正しく設定してください。
+### Combat Feat (Combat Ability)
+- Type, action type, prerequisite, prerequisite contents, use, application, risk, and summary can be entered.
+- You can also check for support of Vagrant Feat and additional Battle Dancer Feat.
+- Schools also use this item.
+  - If "Secret" is checked, the name of the school, required reputation, secret type, and prerequisite conditions can be entered.
 
-### 種族特徴
-- 残数、説明を設定できます。
-- 残数は使用回数に制限がある特徴な億での利用を想定しています。
+### Class (Skill)
+- Level, experience table, and class type can be set.
+- If the experience table is set, experience consumption is automatically calculated.
+- The class type is used to calculate MP, especially for wizard skills, so be sure to set it correctly.
 
-### 言語
-- 「会話」「読文」のチェックが可能です。
+### Racial Ability (Race Ability)
+- Remaining uses and description can be set.
+- The remaining number is intended for use with abilities that have a limited number of uses.
 
-### 魔物能力
-- 動作タイプ、備考が設定可能です。
-- 魔物には生命抵抗、精神抵抗の項目がありません。この能力で用意してください。
-- 基本能力（通常の攻撃など）もこのアイテムを使用してください。
-  - 命中、打撃、回避の3つの判定を使用することになります。それぞれラベルに「命中」「打撃」「回避」と付けると可読性が高くなります。
-- 対抗可能な能力もこのアイテムを使用してください。
-  - 判定のいずれかにチェックを入れることで行使判定が可能です。ラベルに「行使」などと付けて使用してください。固定値の使用も可能です。
-  - 抵抗や抵抗結果は備考欄に「回避／消滅」というように入力すると可読性が高くなります。
-- 魔法について
-  - 魔力は魔物能力アイテムとして登録することを想定しています。
-  - 個々の魔法はPCと同じアイテムが使用できますが、魔物能力で表現することも可能です。
-- 備考欄は、そのほかにも柔軟に使用してください。一覧に表示されます。
-- 通常のアイテムと異なり、判定が最大3種使用できます。
-- 判定、威力にラベル入力欄があります。ラベル名は一覧で表示されるクリックロールが可能な部分のラベルになります。
-- 判定では基準値、修正値の設定の他、固定値チェックをすればダイスの出目が7に固定され、ダイス変更で別種のダイスの利用も可能です。
-- ほとんどの魔物能力はこのアイテムで対応可能なはずなので、柔軟に使用してください。
+### Language
+- "Spoken" and "Written" checks are available.
 
-## ダイスロール
+### Monster Ability
+- Action type and remarks can be entered.
+- There are no items for Fortitude and Willpower for demons. Please record them with this ability.
+- Use this item for basic abilities (e.g., normal attacks) as well.
+  - Three judgments will be used: accuracy, damage, and evasion. Labeling each as "accuracy," "damage," and "evasion" will increase readability.
+  - For defense (protection points), enter "defense:5" in the remarks field of the item to make it appear in the list and increase readability.
+- Use this item for resistable abilities as well.
+  - Dice Rolls can be made by checking one of the Checks. Use a label with "Spellcasting" or something similar. Fixed values can also be used.
+  - Resistance and resistance results can be entered in the remarks field as "evade/neg" to increase readability.
+- About magic
+  - Magic is intended to be registered as a magical ability item.
+  - Individual magic can use the same items as PCs, but it can also be expressed as a monster ability.
+- The Remarks field should be used flexibly in addition to that. It will appear on the list.
+- Unlike normal items, up to three types of judgments can be used.
+- There is a label input field for checks and power. The label name will be the label of the click-rollable part displayed in the list.
+- For checks, in addition to setting a base value and a modified value, a fixed value check will fix the dice roll to 7, and a different type of dice can be used by using custom.
+- Most monster abilities should be able to be handled with this item, so use it flexibly.
 
-### 威力ロール
-- ロール結果のチャット表示をクリックで展開した時に「半減」「Cなし」ボタンが表示されます。
-- 「半減」ボタンクリックでクリティカルなし、ダメージ半減、半減後ダメージ有効で結果を計算して再表示します。再度クリックで元に戻ります。
-- 「Cなし」ボタンクリックで、クリティカルなしの結果を計算して再表示します。再度クリックで元に戻ります。
-- アイテムの詳細で半減を設定した状態でのロール結果では「半減」ボタンは表示されません。追加ロールを行う可能性があるため、対応していません。
-- アイテムの詳細でクリティカルしない設定をした状態でのロール結果では「Cなし」ボタンは表示されません。追加ロールを行う可能性があるため、対応していません。
-- クリティカルしなかった結果には「Cなし」ボタンは表示されません。
+## Dice Rolls
 
-### 結果適用
-- 各アイテムの判定、威力ロールの設定で「適用あり」を設定した場合、ロール結果に各種適用ボタンが表示されます。
-- ターゲットを1つ選択し、適用ボタンをクリックすることでHPやMPの増減を行います（複数ターゲットには対応していません）。
-  - 「✔物D」ボタン　物理ダメージとして適用し、対象のHPを減少させます。表示されるダメージは対象の防護点の適用後の値です。
-  - 「✔魔D」ボタン　魔法ダメージとして適用し、対象のHPを減少させます。表示されるダメージは対象の魔法防御の適用後の値です。
-  - 「✔HP回」ボタン　HP回復として適用し、対象のHPを増加させます。最大値を越えません。
-  - 「✔MP回」ボタン　MP回復として適用し、対象のMPを増加させます。最大値を越えません。
+### Power Rolls
+- When the chat display of the roll result is expanded by clicking on it, the "Half Critical" and "No C" buttons are displayed.
+- Clicking on the "Half Critical" button will calculate and redisplay the results with no critical, half damage, and be half damage effective. Click it again to return the results to the original state.
+- Clicking on the "No C" will calculate and redisplay the result without criticals. Click it again to return the results to the original state.
+- The "Half Critical" button is not displayed in the roll results if "Half" is checked in the item's details. This is not supported due to the possibility of additional rolls.
+- The "No C" button is not displayed in the roll result when the item is set to not have a critical value in the item details. This is not supported due to the possibility of additional rolls.
+- The "No C" button is not displayed for results that are not critical.
 
-### 汎用威力表
-- アイテムの威力表が空欄の場合、汎用威力表を参照して結果を表示します。
-- 参照の優先順位は、アイテム設定→ワールドの汎用威力表→辞典の汎用威力表、となります。
-  - 辞典内での参照順は辞典名のアルファベット順です。
-  - 参照される汎用威力表は、資料名「Reference Data」のページ名「Reference Power Table」です。
-- 汎用威力表の編集について
-  - ワールド内の資料または添付以外の辞典に、添付辞典の「Reference Data」をコピーして編集することを推奨します。
-  - 添付以外の辞典にコピーする際は、参照優先順位があるため、その辞典名を添付の辞典名「Reference」よりアルファベット順で前に来るようにしてください（アンダーバーを先頭に付けるなど）。
-  - HTML構造が崩れると認識しないので、該当の欄に数字のみを入力してください。スペースなどの混入に注意してください。
-  - **注意！！**　添付辞典のロックを解除して編集しても参照されますが、システムアップデート時に初期化されます。
-- 汎用威力表の編集内容は、ワールドログイン時に更新されます。編集後はリロードしてください。
+### Results Application
+- When "Apply" is set in the dice and power roll settings for each item, various buttons are displayed in the roll results that can be applied to a targeted actor.
+- Select one target and click the relevant button as described below to increase or decrease HP or MP (multiple targets are not supported).
+  - [✔ PD] Physical damage is applied to the target and their HP is reduced. The damage displayed is the value after applying the target's defense (protection points).
+  - [✔ MD] Magical damage is applied to the target and their HP is reduced. The damage displayed is the value after the applying the target's magic defense.
+  - [✔ HPR] HP Recovery is applied to the target and their HP is increased. This will not increase the target's HP value above their maximum value.
+  - [✔ MPR] MP Recovery is applied to the target and their MP is increased. This will not increase the target's MP value above their maximum value.
 
-## 注意事項
-- 現状ではセッションに使用できる、という程度の最低限の実装です。
-- α版です。バグが残存している可能性はかなり高いです。
-- エラー対応甘いです、常識的な数値を入れるようにしてください。
-- 警告がコンソールに出ますが、動作に問題がないためひとまず放置しています。
-- Modとの相性などはほとんど検証していません。「Dice So Nice!」には対応済み。
-- 英語ではレイアウト確認していません。 The layout has not been validated in an English environment.
-- NPCと魔物の限定的権限で、アイコンや画像は変更されません。
-- 戦闘に関する実装は行っていません。行動順に関しては主導で行うか、Modの導入をオススメします。
-- 行動順をサポートするModの一例（ポップコーンイニシアチブが向いているのではないかと個人的には思う）
-  - ポップコーンタイプ「Lancer Initiative」「Just Popcorn Initiative」
-  - グループタイプ「Group Initiative」「Combat Tracker Extensions」
+### Generic Power Table
+- If the item's power table is blank, the generic power table is referenced and the result is displayed.
+- The order of referencing is Item Settings → Generic Power Table in the world → Generic Power Table in the dictionary.
+  - The order of reference in the dictionary is alphabetical order of the dictionary name.
+  - The referenced generic power table is the page name "Reference Power Table" of the document name "Reference Data.
+- Editing the Generic Power Table
+  - It is recommended that you copy and edit the "Reference Data" of the attached dictionaries to other dictionaries or documents in the world.
+  - When copying to a non-attached dictionary, please make sure that the dictionary name comes before the attached dictionary name "Reference" in alphabetical order (e.g., prefixed with an underscore) due to the reference priority.
+  - Please enter only numbers in the appropriate fields, as they will not be recognized if the HTML structure is broken. Be careful not to include spaces, etc.
+  - **Attention! ** Even if you unlock the attached dictionary and edit it, it will still be referenced, but it will be initialized at the time of system update.
+- The edited contents of the generic power table will be updated at world login. Please reload after editing.
+
+## Precautions
+- Currently, it is a minimal implementation that can be used for sessions.
+- This is an alpha version. It is quite likely that bugs remain.
+- Error handling is lax.
+- A warning message appears on the console, but since there is no problem with the operation, it has been left alone for the time being.
+- We have not tested the compatibility with the mod. It is compatible with "Dice So Nice!
+- The layout has not been validated in English.
+- Limited permissions for NPCs and monsters, icons and images will not be changed.
+- Combat has not been implemented. We recommend that you take the initiative regarding the order of actions or install mods.
+- An example of a mod that supports the order of action (I personally think that Popcorn Initiative is suited for this)
+  - Popcorn type "Lancer Initiative" and "Just Popcorn Initiative
+  - Group type "Group Initiative" and "Combat Tracker Extensions"
+
