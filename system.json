@@ -58,6 +58,13 @@
       "system": "SW25",
       "type": "JournalEntry",
       "path": "packs/manual"
+    },
+    {
+      "name": "reference",
+      "label": "Reference",
+      "system": "SW25",
+      "type": "JournalEntry",
+      "path": "packs/reference"
     }
   ],
   "packFolders": [],

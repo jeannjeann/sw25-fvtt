@@ -1,5 +1,7 @@
 // Power Roll
 
+import { rpt } from "../sw25.mjs";
+
 /**
  * Execute a custom roll and return the result.
  */
@@ -32,16 +34,24 @@ export function powerRoll(formula, powertable) {
   }
   let fakeDiceResults = diceResults;
 
-  if (total == 2) fumble = 1;
-
   if (lethalTech != 0) total = Number(total) + Number(lethalTech);
   if (criticalRay != 0) total = Number(total) + Number(criticalRay);
   if (total > 12) total = 12;
 
-  powerResult += powertable[total];
+  let ptv = powertable[total];
+  if (powertable[total] == null || powertable[total] == 0) {
+    ptv = rpt[power][total - 3];
+  }
+
+  if (total == 2) {
+    fumble = 1;
+    ptv = 0;
+  }
+
+  powerResult += ptv;
 
   let eachPowerResult = [];
-  eachPowerResult.push(powertable[total]);
+  eachPowerResult.push(ptv);
 
   while (total >= cValue) {
     rollCount++;
@@ -63,8 +73,13 @@ export function powerRoll(formula, powertable) {
       total = Number(total) + Number(lethalTech);
     if (total > 12) total = 12;
 
-    powerResult += powertable[total];
-    eachPowerResult.push(powertable[total]);
+    ptv = powertable[total];
+    if (powertable[total] == null || powertable[total] == 0) {
+      ptv = rpt[power][total - 3];
+    }
+
+    powerResult += ptv;
+    eachPowerResult.push(ptv);
   }
 
   let diceNumber = (rollCount + 1) * 2;

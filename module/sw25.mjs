@@ -9,6 +9,9 @@ import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { SW25 } from "./helpers/config.mjs";
 import { chatButton } from "./helpers/chatbutton.mjs";
 
+// Export variable.
+export const rpt = {};
+
 /* -------------------------------------------- */
 /*  Init Hook                                   */
 /* -------------------------------------------- */
@@ -72,7 +75,7 @@ Handlebars.registerHelper("toLowerCase", function (str) {
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
-Hooks.once("ready", function () {
+Hooks.once("ready", async function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
 
@@ -94,6 +97,61 @@ Hooks.once("ready", function () {
       const buttonType = button.data("buttontype");
       chatButton(chatMessage, buttonType);
     });
+  });
+
+  // Prepare reference data from journal or compendium
+  const entryName = "Reference Data";
+
+  async function findEntryInCompendium(entryName) {
+    const packs = game.packs
+      .filter((p) => p.documentClass.documentName === "JournalEntry")
+      .sort((a, b) => a.metadata.label.localeCompare(b.metadata.label));
+    for (const pack of packs) {
+      const index = await pack.getIndex();
+      const entryIndex = index.find((e) => e.name === entryName);
+      if (entryIndex) {
+        const compEntry = await pack.getDocument(entryIndex._id);
+        return compEntry;
+      }
+    }
+    return null;
+  }
+
+  let entry = game.journal.getName(entryName);
+  if (!entry) {
+    entry = await findEntryInCompendium(entryName);
+  }
+  if (!entry) return;
+
+  // Find power table journal
+  const ptPageTitle = "Reference Power Table";
+  let ptPage = entry.pages.contents.find((p) => p.name === ptPageTitle);
+  if (!ptPage) {
+    entry = await findEntryInCompendium(entryName);
+    if (entry) {
+      ptPage = entry.pages.contents.find((p) => p.name === ptPageTitle);
+    }
+  }
+  if (!ptPage) return;
+
+  // Prepare reference power table
+  const ptParser = new DOMParser();
+  const ptHtmlString = ptPage.text.content;
+  const ptDoc = ptParser.parseFromString(ptHtmlString, "text/html");
+
+  const ptDivs = ptDoc.querySelectorAll("div.pt-item");
+  let power = "";
+
+  ptDivs.forEach((div, index) => {
+    const ptText = div.querySelector("p").textContent;
+    const ptValue = Number(ptText);
+
+    if (index % 11 === 0) {
+      power = ptText;
+      rpt[power] = [];
+    } else {
+      rpt[power].push(ptValue);
+    }
   });
 });
 
