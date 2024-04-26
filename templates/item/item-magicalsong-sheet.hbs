@@ -270,18 +270,20 @@
           </div>
           <div style="display: {{#if system.showpowmod}}block{{else}}none{{/if}};">
             <div class="flexcol">
-              <div class="flexrow grid grid-8col">
+              <div class="flexrow grid grid-10col">
                 <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Halfpowmod"}}</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.halfpowmod" value="{{system.halfpowmod}}" data-dtype="Number"/></span>
-                <span style="text-align: center;"><b>{{localize "SW25.Item.Lethaltech"}}</b><br><input type="text" name="system.lethaltech" value="{{system.lethaltech}}" data-dtype="Number"/></span>
+                <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Lethaltech"}}</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.lethaltech" value="{{system.lethaltech}}" data-dtype="Number"/></span>
                 <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Criticalray"}}</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.criticalray" value="{{system.criticalray}}" data-dtype="Number"/></span>
                 <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Pharmtool"}}</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.pharmtool" value="{{system.pharmtool}}" data-dtype="Number"/></span>
+                <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Powup"}}</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.powup" value="{{system.powup}}" data-dtype="Number"/></span>
               </div>
               <div>
-                *クリティカルなしはの判定はC値を「13」以上に設定<br>
-                *半減有効時は自動的にCなし、半減無効時の半減後修正は無視<br>
-                *必殺、クリレイ、薬師道具は空欄または「0」で無効<br>
-                *薬師道具は固定する出目を入力（通常は「4」）<br>
-                *薬師道具の値はクリティカル時の追加ロールでは無視<br>
+                {{localize "SW25.Item.Cwarn"}}<br>
+                {{localize "SW25.Item.halfwarn"}}<br>
+                {{localize "SW25.Item.Nullwarn"}}<br>
+                {{localize "SW25.Item.Pharmwarn"}}<br>
+                {{localize "SW25.Item.Pharmwarn2"}}<br>
+                {{localize "SW25.Item.Powupwarn"}}<br>
               </div>
             </div>
           </div>

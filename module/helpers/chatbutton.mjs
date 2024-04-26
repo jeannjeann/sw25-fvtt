@@ -64,6 +64,8 @@ export async function chatButton(chatMessage, buttonType) {
       if (item.system.pharmtool == null || item.system.pharmtool == 0)
         pharmtool = 0;
       else pharmtool = item.system.pharmtool;
+      if (item.system.powup == null || item.system.powup == 0) powup = 0;
+      else powup = item.system.powup;
 
       item.system.powertable = [
         item.system.power,
@@ -85,6 +87,7 @@ export async function chatButton(chatMessage, buttonType) {
         lethaltech,
         criticalray,
         pharmtool,
+        powup,
       ];
     }
 
@@ -163,7 +166,6 @@ export async function chatButton(chatMessage, buttonType) {
         label = label + " (" + labelmonpow + ")";
       else label = label + " (" + game.i18n.localize("SW25.Item.Power") + ")";
       const formula = item.system.formula;
-      //const powertable = this.system.powertable.split(",").map(Number);
       const powertable = item.system.powertable;
 
       let roll = powerRoll(formula, powertable);
@@ -173,11 +175,13 @@ export async function chatButton(chatMessage, buttonType) {
       let lethalTechFormula = "";
       let criticalRayFormula = "";
       let pharmToolFormula = "";
+      let powupFormula = "";
       if (roll.cValue == 100) cValueFormula = "@13";
       if (roll.halfPow == 1) halfFormula = "h+" + roll.halfPowMod;
       if (roll.lethalTech != 0) lethalTechFormula = "#" + roll.lethalTech;
       if (roll.criticalRay != 0) criticalRayFormula = "$+" + roll.criticalRay;
       if (roll.pharmTool != 0) pharmToolFormula = "tf" + roll.pharmTool;
+      if (roll.powup != 0) powUpFormula = "r" + roll.powup;
 
       let chatFormula =
         "k" +
@@ -188,12 +192,14 @@ export async function chatButton(chatMessage, buttonType) {
         lethalTechFormula +
         criticalRayFormula +
         pharmToolFormula +
+        powupFormula +
         halfFormula;
 
       let chatPower = roll.power;
       let chatLethalTech = null;
       let chatCriticalRay = null;
       let chatPharmTool = null;
+      let chatPowup = null;
       let chatResult = roll.eachPowerResult;
       let chatMod = roll.powMod;
       let chatHalf = null;
@@ -205,6 +211,7 @@ export async function chatButton(chatMessage, buttonType) {
       if (roll.lethalTech != 0) chatLethalTech = roll.lethalTech;
       if (roll.criticalRay != 0) chatCriticalRay = roll.criticalRay;
       if (roll.pharmTool != 0) chatPharmTool = roll.pharmTool;
+      if (roll.powup != 0) chatPowup = roll.powup;
       if (roll.rollCount > 0) chatExtraRoll = roll.rollCount;
       if (roll.fumble == 1) chatFumble = roll.fumble;
 
@@ -232,6 +239,7 @@ export async function chatButton(chatMessage, buttonType) {
         lethalTech: chatLethalTech,
         criticalRay: chatCriticalRay,
         pharmTool: chatPharmTool,
+        powup: chatPowup,
         result: chatResult,
         mod: chatMod,
         half: chatHalf,
@@ -256,6 +264,7 @@ export async function chatButton(chatMessage, buttonType) {
           lethalTech: chatLethalTech,
           criticalRay: chatCriticalRay,
           pharmTool: chatPharmTool,
+          powup: chatPowup,
           result: chatResult,
           mod: chatMod,
           half: chatHalf,

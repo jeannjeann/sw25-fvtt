@@ -17,6 +17,7 @@ export function powerRoll(formula, powertable) {
   let lethalTech = powertable[16];
   let criticalRay = powertable[17];
   let pharmTool = powertable[18];
+  let powup = powertable[19];
 
   if (cValue == null || cValue == 0) cValue = 10;
   if (cValue < 8) cValue = 8;
@@ -73,9 +74,15 @@ export function powerRoll(formula, powertable) {
       total = Number(total) + Number(lethalTech);
     if (total > 12) total = 12;
 
-    ptv = powertable[total];
-    if (powertable[total] == null || powertable[total] == 0) {
-      ptv = rpt[power][total - 3];
+    if (powup != 0) {
+      let uppow = power + powup * rollCount;
+      if (uppow > 100) uppow = 100;
+      ptv = rpt[uppow][total - 3];
+    } else {
+      ptv = powertable[total];
+      if (powertable[total] == null || powertable[total] == 0) {
+        ptv = rpt[power][total - 3];
+      }
     }
 
     powerResult += ptv;
@@ -110,5 +117,6 @@ export function powerRoll(formula, powertable) {
     lethalTech,
     criticalRay,
     pharmTool,
+    powup,
   };
 }

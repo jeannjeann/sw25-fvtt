@@ -221,7 +221,7 @@ export class SW25Item extends Item {
       systemData.formula = "2d6";
     }
 
-    let halfpow, halfpowmod, lethaltech, criticalray, pharmtool;
+    let halfpow, halfpowmod, lethaltech, criticalray, pharmtool, powup;
     if (systemData.halfpow == true) halfpow = 1;
     else halfpow = 0;
     if (systemData.halfpowmod == null || systemData.halfpowmod == 0)
@@ -236,6 +236,8 @@ export class SW25Item extends Item {
     if (systemData.pharmtool == null || systemData.pharmtool == 0)
       pharmtool = 0;
     else pharmtool = systemData.pharmtool;
+    if (systemData.powup == null || systemData.powup == 0) powup = 0;
+    else powup = systemData.powup;
 
     systemData.powertable = [
       systemData.power,
@@ -257,6 +259,7 @@ export class SW25Item extends Item {
       lethaltech,
       criticalray,
       pharmtool,
+      powup,
     ];
   }
 
@@ -501,7 +504,7 @@ export class SW25Item extends Item {
       systemData.checkformula3 = systemData.customformula3;
     else systemData.checkformula3 = "2d6";
 
-    let halfpow, halfpowmod, lethaltech, criticalray, pharmtool;
+    let halfpow, halfpowmod, lethaltech, criticalray, pharmtool, powup;
     if (systemData.halfpow == true) halfpow = 1;
     else halfpow = 0;
     if (systemData.halfpowmod == null || systemData.halfpowmod == 0)
@@ -516,6 +519,8 @@ export class SW25Item extends Item {
     if (systemData.pharmtool == null || systemData.pharmtool == 0)
       pharmtool = 0;
     else pharmtool = systemData.pharmtool;
+    if (systemData.powup == null || systemData.powup == 0) powup = 0;
+    else powup = systemData.powup;
 
     systemData.powertable = [
       systemData.power,
@@ -537,6 +542,7 @@ export class SW25Item extends Item {
       lethaltech,
       criticalray,
       pharmtool,
+      powup,
     ];
   }
 
@@ -957,7 +963,6 @@ export class SW25Item extends Item {
 
     if (this.system.clickitem == "power") {
       const formula = this.system.formula;
-      //const powertable = this.system.powertable.split(",").map(Number);
       const powertable = this.system.powertable;
 
       let roll = powerRoll(formula, powertable);
@@ -967,11 +972,13 @@ export class SW25Item extends Item {
       let lethalTechFormula = "";
       let criticalRayFormula = "";
       let pharmToolFormula = "";
+      let powupFormula = "";
       if (roll.cValue == 100) cValueFormula = "@13";
       if (roll.halfPow == 1) halfFormula = "h+" + roll.halfPowMod;
       if (roll.lethalTech != 0) lethalTechFormula = "#" + roll.lethalTech;
       if (roll.criticalRay != 0) criticalRayFormula = "$+" + roll.criticalRay;
       if (roll.pharmTool != 0) pharmToolFormula = "tf" + roll.pharmTool;
+      if (roll.powup != 0) powupFormula = "r" + roll.powup;
 
       let chatFormula =
         "k" +
@@ -982,12 +989,14 @@ export class SW25Item extends Item {
         lethalTechFormula +
         criticalRayFormula +
         pharmToolFormula +
+        powupFormula +
         halfFormula;
 
       let chatPower = roll.power;
       let chatLethalTech = null;
       let chatCriticalRay = null;
       let chatPharmTool = null;
+      let chatPowup = null;
       let chatResult = roll.eachPowerResult;
       let chatMod = roll.powMod;
       let chatHalf = null;
@@ -999,6 +1008,7 @@ export class SW25Item extends Item {
       if (roll.lethalTech != 0) chatLethalTech = roll.lethalTech;
       if (roll.criticalRay != 0) chatCriticalRay = roll.criticalRay;
       if (roll.pharmTool != 0) chatPharmTool = roll.pharmTool;
+      if (roll.powup != 0) chatPowup = roll.powup;
       if (roll.rollCount > 0) chatExtraRoll = roll.rollCount;
       if (roll.fumble == 1) chatFumble = roll.fumble;
 
@@ -1026,6 +1036,7 @@ export class SW25Item extends Item {
         lethalTech: chatLethalTech,
         criticalRay: chatCriticalRay,
         pharmTool: chatPharmTool,
+        powup: chatPowup,
         result: chatResult,
         mod: chatMod,
         half: chatHalf,
@@ -1050,6 +1061,7 @@ export class SW25Item extends Item {
           lethalTech: chatLethalTech,
           criticalRay: chatCriticalRay,
           pharmTool: chatPharmTool,
+          powup: chatPowup,
           result: chatResult,
           mod: chatMod,
           half: chatHalf,

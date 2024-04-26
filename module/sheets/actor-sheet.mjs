@@ -563,11 +563,13 @@ export class SW25ActorSheet extends ActorSheet {
     let lethalTechFormula = "";
     let criticalRayFormula = "";
     let pharmToolFormula = "";
+    let powupFormula = "";
     if (roll.cValue == 100) cValueFormula = "@13";
     if (roll.halfPow == 1) halfFormula = "h+" + roll.halfPowMod;
     if (roll.lethalTech != 0) lethalTechFormula = "#" + roll.lethalTech;
     if (roll.criticalRay != 0) criticalRayFormula = "$+" + roll.criticalRay;
     if (roll.pharmTool != 0) pharmToolFormula = "tf" + roll.pharmTool;
+    if (roll.powup != 0) powupFormula = "r" + roll.powup;
 
     let chatFormula =
       "k" +
@@ -578,12 +580,14 @@ export class SW25ActorSheet extends ActorSheet {
       lethalTechFormula +
       criticalRayFormula +
       pharmToolFormula +
+      powupFormula +
       halfFormula;
 
     let chatPower = roll.power;
     let chatLethalTech = null;
     let chatCriticalRay = null;
     let chatPharmTool = null;
+    let chatPowup = null;
     let chatResult = roll.eachPowerResult;
     let chatMod = roll.powMod;
     let chatHalf = null;
@@ -595,6 +599,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (roll.lethalTech != 0) chatLethalTech = roll.lethalTech;
     if (roll.criticalRay != 0) chatCriticalRay = roll.criticalRay;
     if (roll.pharmTool != 0) chatPharmTool = roll.pharmTool;
+    if (roll.powup != 0) chatPowup = roll.powup;
     if (roll.rollCount > 0) chatExtraRoll = roll.rollCount;
     if (roll.fumble == 1) chatFumble = roll.fumble;
 
@@ -622,6 +627,7 @@ export class SW25ActorSheet extends ActorSheet {
       lethalTech: chatLethalTech,
       criticalRay: chatCriticalRay,
       pharmTool: chatPharmTool,
+      powup: chatPowup,
       result: chatResult,
       mod: chatMod,
       half: chatHalf,
@@ -646,6 +652,7 @@ export class SW25ActorSheet extends ActorSheet {
         lethalTech: chatLethalTech,
         criticalRay: chatCriticalRay,
         pharmTool: chatPharmTool,
+        powup: chatPowup,
         result: chatResult,
         mod: chatMod,
         half: chatHalf,
