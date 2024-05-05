@@ -17,6 +17,7 @@ URL
 
 ## 対応言語
 - 日本語（[Jean.N](https://github.com/jeannjeann)）
+- English ([kuouvadis](https://github.com/kuouvadis))
 
 ## 作者
 - [Jean.N](https://github.com/jeannjeann)

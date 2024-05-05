@@ -1,9 +1,13 @@
 # CHANGELOG
 
+## 0.5.1
+- English localization by [kuouvadis](https://github.com/kuouvadis)
+- add English manual by [kuouvadis](https://github.com/kuouvadis)
+
 ## 0.5.0
- - 汎用威力表に対応
- - 威力ロールでの首切り刀対応
- - マニュアルアップデート
+- 汎用威力表に対応
+- 威力ロールでの首切り刀対応
+- マニュアルアップデート
 
 ## 0.4.0
 - ロール結果をターゲットアクターに適用する機能を追加
