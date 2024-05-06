@@ -18,7 +18,7 @@
       "thumbnail": "systems/sw25/assets/sw25fvtt.png"
     }
   ],
-  "version": "0.5.2",
+  "version": "0.5.1",
   "compatibility": {
     "minimum": 11,
     "verified": "11.315"
@@ -65,13 +65,6 @@
       "system": "SW25",
       "type": "JournalEntry",
       "path": "packs/reference"
-    },
-    {
-      "name": "macro",
-      "label": "Support Macro",
-      "system": "SW25",
-      "type": "Macro",
-      "path": "packs/macro"
     }
   ],
   "packFolders": [],

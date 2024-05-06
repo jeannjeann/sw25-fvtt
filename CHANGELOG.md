@@ -1,8 +1,5 @@
 # CHANGELOG
 
-## 0.5.2
-- ゆとシートIIから一部データをインポートするマクロを同梱
-
 ## 0.5.1
 - English localization by [kuouvadis](https://github.com/kuouvadis)
 - add English manual by [kuouvadis](https://github.com/kuouvadis)
