@@ -51,6 +51,7 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="ability">{{localize "SW25.Monster.Ability"}}</a>
+    <a class="item" data-tab="effects">{{localize "SW25.Effects"}}</a>
     <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
     <a class="item" data-tab="details">{{localize "SW25.Details"}}</a>
   </nav>
@@ -72,6 +73,11 @@
         {{> "systems/sw25/templates/actor/parts/actor-monsterspells.hbs"}}
       </div>
       {{/if}}
+    </div>
+
+    {{!-- Active Effects Tab --}}
+    <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+      {{> "systems/sw25/templates/actor/parts/actor-effects.hbs"}}
     </div>
 
     {{!-- Biography Tab --}}
