@@ -2,6 +2,7 @@
 
 ## 0.5.2
 - ゆとシートIIから一部データをインポートするマクロを同梱
+- マニュアルアップデート
 
 ## 0.5.1
 - English localization by [kuouvadis](https://github.com/kuouvadis)
