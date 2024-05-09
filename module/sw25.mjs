@@ -81,7 +81,6 @@ Hooks.once("ready", async function () {
 
   // Chat message button
   Hooks.on("renderChatMessage", (chatMessage, html, data) => {
-    //html.on("click", ".buttonclick", function () {
     html.find(".buttonclick").click(function () {
       const button = $(this);
       const buttonType = button.data("buttontype");

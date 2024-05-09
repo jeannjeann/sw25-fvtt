@@ -25,11 +25,22 @@
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
+{{!--
+    <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
+--}}
     <a class="item" data-tab="details">{{localize "SW25.Details"}}</a>
+{{!--
+    <a class="item" data-tab="effects">{{localize "SW25.Effects"}}</a>
+--}}
   </nav>
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
+    </div>
 
     {{!-- Detail Tab --}}
     <div class="tab details" data-group="primary" data-tab="details">
@@ -151,5 +162,11 @@
         </div>
       </div>
     </div>
+
+    {{!-- Effects Tab --}}
+    <div class="tab effects" data-group="primary" data-tab="effects">
+      {{> "systems/sw25/templates/item/parts/item-effects.hbs"}}
+    </div>
+
   </section>
 </form>

@@ -186,7 +186,7 @@
     "templates": {
       "base": {
         "description": "",
-        "clickitem": "description"
+        "clickitem": "all"
       },
       "item": {
         "quantity": 1,

@@ -4,9 +4,9 @@
       <h3 class="item-name effect-name flexrow">{{localize section.label}}</h3>
       <div class="effect-source">{{localize "SW25.Effect.Source"}}</div>
       <div class="effect-source">{{localize "EFFECT.TabDuration"}}</div>
-      <div class="item-controls effect-controls flexrow">
+      <div class="item-controls effect-controls flexrow" style="flex: 0 0 70px;">
         <a class="effect-control" data-action="create" title="{{localize 'DOCUMENT.Create' type="Effect"}}">
-          <i class="fas fa-plus"></i> {{localize "DOCUMENT.New" type="Effect"}}
+          <i class="fas fa-plus"></i> {{localize "DOCUMENT.New" type=""}}
         </a>
       </div>
     </li>
@@ -20,7 +20,7 @@
         </div>
         <div class="effect-source">{{effect.sourceName}}</div>
         <div class="effect-duration">{{effect.duration.label}}</div>
-        <div class="item-controls effect-controls flexrow">
+        <div class="item-controls effect-controls flexrow" style="flex: 0 0 70px;">
           <a class="effect-control" data-action="toggle" title="{{localize 'SW25.Effect.Toggle'}}">
             <i class="fas {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
           </a>

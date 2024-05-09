@@ -41,7 +41,7 @@ export class SW25Actor extends Actor {
   /**
    * Prepare Character type specific data
    */
-  _prepareCharacterData(actorData) {
+  async _prepareCharacterData(actorData) {
     if (actorData.type !== "character") return;
 
     // Make modifications to data here. For example:
@@ -108,6 +108,7 @@ export class SW25Actor extends Actor {
     }
 
     //Calculate Battle Data
+    await this.update({});
     this.items.forEach((item) => {
       if (item.type == "weapon") {
         if (item.name == systemData.hitweapon) {
@@ -125,36 +126,42 @@ export class SW25Actor extends Actor {
 
     systemData.itemdodge = 0;
     systemData.itempp = 0;
+    systemData.barepp = 0;
     systemData.itemmpp = 0;
+    systemData.barempp = 0;
     systemData.skillagidodge = 0;
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.dodgeskill) {
-          systemData.skillagidodge = item.system.skillbase.agi;
+          systemData.skillagidodge = Number(item.system.skillbase.agi);
         }
       }
     });
     this.items.forEach((item) => {
       if (item.type == "armor") {
         if (item.system.equip == true) {
-          systemData.itemdodge += item.system.dodge;
-          systemData.itempp += item.system.pp;
-          systemData.itemmpp += item.system.mpp;
+          systemData.itemdodge += Number(item.system.dodge);
+          systemData.itempp += Number(item.system.pp);
+          systemData.itemmpp += Number(item.system.mpp);
         }
       }
     });
     systemData.dodgebase =
-      systemData.skillagidodge +
-      systemData.itemdodge +
-      systemData.attributes.dodgemod;
+      Number(systemData.skillagidodge) +
+      Number(systemData.itemdodge) +
+      Number(systemData.attributes.dodgemod);
     systemData.attributes.protectionpoint =
-      systemData.itempp +
-      systemData.attributes.ppmod +
-      systemData.attributes.dreduce;
+      Number(systemData.itempp) +
+      Number(systemData.attributes.ppmod) +
+      Number(systemData.attributes.dreduce);
+    systemData.barepp =
+      Number(systemData.itempp) + Number(systemData.attributes.ppmod);
     systemData.attributes.magicprotection =
-      systemData.itemmpp +
-      systemData.attributes.mppmod +
-      systemData.attributes.dreduce;
+      Number(systemData.itemmpp) +
+      Number(systemData.attributes.mppmod) +
+      Number(systemData.attributes.dreduce);
+    systemData.barempp =
+      Number(systemData.itemmpp) + Number(systemData.attributes.mppmod);
 
     //Calculate Spell Data
     this.items.forEach((item) => {

@@ -49,7 +49,7 @@ export async function chatButton(chatMessage, buttonType) {
     }
     if (buttonType == "buttonpower") {
       item.system.formula = "2d6";
-      let halfpow, halfpowmod, lethaltech, criticalray, pharmtool;
+      let halfpow, halfpowmod, lethaltech, criticalray, pharmtool, powup;
       if (item.system.halfpow == true) halfpow = 1;
       else halfpow = 0;
       if (item.system.halfpowmod == null || item.system.halfpowmod == 0)

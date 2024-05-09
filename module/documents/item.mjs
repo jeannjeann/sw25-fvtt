@@ -40,11 +40,13 @@ export class SW25Item extends Item {
     this._prepareMonsterabilityData(itemData);
   }
 
-  _prepareSkillData(itemData) {
+  async _prepareSkillData(itemData) {
     if (itemData.type !== "skill") return;
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
+    const actor = game.actors.get(itemData.actor._id);
+    await actor.update({});
     const actorData = itemData.actor.system;
 
     //Calculate SkillBase
@@ -121,13 +123,19 @@ export class SW25Item extends Item {
       ];
       systemData.skillexp = expB[systemData.skilllevel];
     }
+
+    // Sheet refresh
+    await itemData.update({});
+    if (itemData.sheet.rendered)
+      await itemData.sheet.render(true, { focus: false });
   }
 
-  _prepareCheckData(itemData) {
+  async _prepareCheckData(itemData) {
     if (itemData.type !== "check") return;
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
+    const actor = game.actors.get(itemData.actor._id);
     const actorData = itemData.actor.system;
     const actoritemData = itemData.actor.items;
 
@@ -157,6 +165,7 @@ export class SW25Item extends Item {
       }
     });
 
+    await actor.update({});
     let abimod = 0;
     if (systemData.checkabi == "dex")
       abimod = Math.floor(
@@ -261,9 +270,16 @@ export class SW25Item extends Item {
       pharmtool,
       powup,
     ];
+
+    // Sheet refresh
+    await actor.update({});
+    if (actor.sheet.rendered) await actor.sheet.render(true, { focus: false });
+    await itemData.update({});
+    if (itemData.sheet.rendered)
+      await itemData.sheet.render(true, { focus: false });
   }
 
-  _prepareItemRollData(itemData) {
+  async _prepareItemRollData(itemData) {
     if (
       itemData.type !== "weapon" &&
       itemData.type !== "armor" &&
@@ -284,6 +300,7 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
+    const actor = game.actors.get(itemData.actor._id);
     const actorData = itemData.actor.system;
     const actoritemData = itemData.actor.items;
 
@@ -328,6 +345,7 @@ export class SW25Item extends Item {
       }
     });
 
+    await actor.update({});
     let checkabimod = 0;
     let powerabimod = 0;
     if (systemData.checkabi == "dex")
@@ -449,6 +467,61 @@ export class SW25Item extends Item {
         systemData.powerbase + systemData.dmod + actorData.attributes.dmod;
     }
 
+    if (itemData.type == "spell") {
+      switch (systemData.type) {
+        case "sorcerer":
+          systemData.checkbase =
+            systemData.checkbase + actorData.attributes.scmod;
+          systemData.powerbase =
+            systemData.powerbase + actorData.attributes.scmod;
+          break;
+        case "conjurer":
+          systemData.checkbase =
+            systemData.checkbase + actorData.attributes.cnmod;
+          systemData.powerbase =
+            systemData.powerbase + actorData.attributes.cnmod;
+          break;
+        case "wizard":
+          systemData.checkbase =
+            systemData.checkbase + actorData.attributes.wzmod;
+          systemData.powerbase =
+            systemData.powerbase + actorData.attributes.wzmod;
+          break;
+        case "priest":
+          systemData.checkbase =
+            systemData.checkbase + actorData.attributes.prmod;
+          systemData.powerbase =
+            systemData.powerbase + actorData.attributes.prmod;
+          break;
+        case "magitech":
+          systemData.checkbase =
+            systemData.checkbase + actorData.attributes.mtmod;
+          systemData.powerbase =
+            systemData.powerbase + actorData.attributes.mtmod;
+          break;
+        case "fairy":
+          systemData.checkbase =
+            systemData.checkbase + actorData.attributes.frmod;
+          systemData.powerbase =
+            systemData.powerbase + actorData.attributes.frmod;
+          break;
+        case "druid":
+          systemData.checkbase =
+            systemData.checkbase + actorData.attributes.drmod;
+          systemData.powerbase =
+            systemData.powerbase + actorData.attributes.drmod;
+          break;
+        case "daemon":
+          systemData.checkbase =
+            systemData.checkbase + actorData.attributes.dmmod;
+          systemData.powerbase =
+            systemData.powerbase + actorData.attributes.dmmod;
+          break;
+        default:
+          break;
+      }
+    }
+
     // Roll Setting
     if (systemData.clickitem == "all") systemData.formula = "2d6";
     if (systemData.clickitem == "dice") {
@@ -544,6 +617,13 @@ export class SW25Item extends Item {
       pharmtool,
       powup,
     ];
+
+    // Sheet refresh
+    await actor.update({});
+    if (actor.sheet.rendered) await actor.sheet.render(true, { focus: false });
+    await itemData.update({});
+    if (itemData.sheet.rendered)
+      await itemData.sheet.render(true, { focus: false });
   }
 
   _prepareItemData(itemData) {}
