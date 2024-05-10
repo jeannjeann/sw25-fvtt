@@ -36,6 +36,9 @@
         <div class="powerrollable" style="flex: 0 0 40px; display: {{#if system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{localize "SW25.Item.Power"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}">
           <b>{{localize "SW25.Item.Power"}}</b>
         </div>
+        <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
+          <b>{{localize "SW25.Effects"}}</b>
+        </div>
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 120px;">
           {{system.support}}
         </div>

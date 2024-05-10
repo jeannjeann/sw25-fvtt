@@ -530,4 +530,67 @@ export async function chatButton(chatMessage, buttonType) {
 
     ChatMessage.create(chatData);
   }
+
+  if (buttonType == "buttoneffect") {
+    const targetEffects = item.effects;
+    const targetActorName = [];
+    const transferEffectName = [];
+    const targetedToken = game.user.targets;
+    if (targetedToken.size === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Notargetwarn"));
+      return;
+    }
+
+    // Target Actor
+    const targetActors = [];
+    targetedToken.forEach((token) => {
+      targetActors.push(token.actor);
+
+      // Actor name stock for chat message
+      const actorName = token.actor.name;
+      targetActorName.push({ actorName });
+    });
+
+    // Effect name stock for chat message
+    targetEffects.forEach((effect) => {
+      const effectName = effect.name;
+      transferEffectName.push({ effectName });
+    });
+
+    // Apply
+    targetActors.forEach((targetActor) => {
+      targetEffects.forEach((effect) => {
+        const transferEffect = duplicate(effect);
+        transferEffect.disabled = false;
+        targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
+      });
+    });
+
+    // Chat message
+    const speaker = ChatMessage.getSpeaker({ actor: actor });
+    let label = game.i18n.localize("SW25.Effectslong");
+    let chatActorName = "";
+    let chatEffectName = "";
+
+    for (let i = 0; i < targetActorName.length; i++) {
+      chatActorName += ">>> " + targetActorName[i].actorName + "<br>";
+    }
+    for (let i = 0; i < transferEffectName.length; i++) {
+      chatEffectName += transferEffectName[i].effectName + "<br>";
+    }
+
+    let chatData = {
+      speaker: speaker,
+      flavor: label,
+    };
+    chatData.content = await renderTemplate(
+      "systems/sw25/templates/roll/effect-apply.hbs",
+      {
+        targetActorName: chatActorName,
+        transferEffectName: chatEffectName,
+      }
+    );
+
+    ChatMessage.create(chatData);
+  }
 }

@@ -40,6 +40,9 @@
         <div class="powerrollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{item.system.labelmonpow}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}">
           <b>{{item.system.labelmonpow}}:k{{item.system.power}}@{{item.system.cvalue}}+{{item.system.powerbase}}</b>
         </div>
+        <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
+          <b>{{localize "SW25.Effects"}}</b>
+        </div>
         <div style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.remark}}block{{else}}none{{/if}};"><b>{{item.system.remark}}</b></div>
         <div class='item-controls'>
           <a

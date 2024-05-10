@@ -14,6 +14,7 @@
     "Features": "特技等",
     "Spells": "魔法",
     "Effects": "バフ",
+    "Effectslong": "バフ・デバフ",
     "Description": "説明",
     "Details": "詳細",
     "Abilityname": "能力値",
@@ -389,7 +390,7 @@
       }
     },
     "Effect": {
-      "Source": "ソース",
+      "Source": "参照元",
       "Toggle": "有効／無効",
       "Temporary": "一時バフ・デバフ",
       "Passive": "常時バフ・デバフ",

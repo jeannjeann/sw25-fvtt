@@ -303,6 +303,8 @@ export class SW25Item extends Item {
     const actor = game.actors.get(itemData.actor._id);
     const actorData = itemData.actor.system;
     const actoritemData = itemData.actor.items;
+    if (itemData.effects.size > 0) systemData.useeffect = true;
+    else systemData.useeffect = false;
 
     // Calculate Base Number
 
@@ -943,6 +945,7 @@ export class SW25Item extends Item {
     const label3 = item.system.label3;
     const labelmonpow = item.system.labelmonpow;
     const usepower = item.system.usepower;
+    const useeffect = item.system.useeffect;
     let label = `${item.name}`;
     let powlabel = game.i18n.localize("SW25.Item.Power");
 
@@ -975,6 +978,7 @@ export class SW25Item extends Item {
           label2: label2,
           label3: label3,
           usepower: usepower,
+          useeffect: useeffect,
           powlabel: powlabel,
         }
       );
