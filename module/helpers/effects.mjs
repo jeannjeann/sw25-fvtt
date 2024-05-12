@@ -20,7 +20,10 @@ export function onManageActiveEffect(event, owner) {
           icon: "icons/svg/aura.svg",
           origin: owner.uuid,
           "duration.rounds":
-            li.dataset.effectType === "temporary" ? 1 : undefined,
+            li.dataset.effectType === "temporary" ||
+            li.dataset.effectType === "inactive"
+              ? 1
+              : undefined,
           disabled: li.dataset.effectType === "inactive",
         },
       ]);

@@ -124,7 +124,8 @@
     },
     "SheetLabels": {
       "Actor": "SW25キャラクターシート",
-      "Item": "SW25アイテムシート"
+      "Item": "SW25アイテムシート",
+      "ActiveEffect": "SW25バフデバフシート"
     },
     "Item": {
       "Clickitem": "アイコンクリック時",

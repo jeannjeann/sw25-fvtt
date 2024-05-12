@@ -124,7 +124,8 @@
     },
     "SheetLabels": {
       "Actor": "SW25 Actor Sheet",
-      "Item": "SW25 Item Sheet"
+      "Item": "SW25 Item Sheet",
+      "ActiveEffect": "SW25 Effect Sheet"
     },
     "Item": {
       "Clickitem": "Icon Click",

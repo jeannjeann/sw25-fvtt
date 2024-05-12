@@ -4,6 +4,7 @@ import { SW25Item } from "./documents/item.mjs";
 // Import sheet classes.
 import { SW25ActorSheet } from "./sheets/actor-sheet.mjs";
 import { SW25ItemSheet } from "./sheets/item-sheet.mjs";
+import { SW25ActiveEffectConfig } from "./sheets/active-effect-config.mjs";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { SW25 } from "./helpers/config.mjs";
@@ -57,6 +58,18 @@ Hooks.once("init", function () {
     makeDefault: true,
     label: "SW25.SheetLabels.Item",
   });
+
+  // Register Active effect sheet Class
+  DocumentSheetConfig.unregisterSheet(ActiveEffect, "core", ActiveEffectConfig);
+  DocumentSheetConfig.registerSheet(
+    ActiveEffect,
+    "sw25",
+    SW25ActiveEffectConfig,
+    {
+      makeDefault: true,
+      label: "SW25.SheetLabels.ActiveEffect",
+    }
+  );
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();

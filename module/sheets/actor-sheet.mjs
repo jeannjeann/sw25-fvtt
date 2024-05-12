@@ -13,7 +13,7 @@ export class SW25ActorSheet extends ActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["sw25", "sheet", "actor"],
-      width: 600,
+      width: 700,
       height: 600,
       tabs: [
         {

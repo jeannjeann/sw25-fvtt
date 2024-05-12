@@ -12,7 +12,7 @@ export class SW25ItemSheet extends ItemSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["sw25", "sheet", "item"],
-      width: 520,
+      width: 620,
       height: 480,
       tabs: [
         {
