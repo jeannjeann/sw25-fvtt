@@ -11,4 +11,17 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
       template: "systems/sw25/templates/effect/active-effect-config.hbs",
     });
   }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async getData() {
+    // Retrieve base data structure.
+    const context = await super.getData();
+
+    // Use a safe clone of the actor data for further operations.
+    const effectData = context.data;
+
+    return context;
+  }
 }

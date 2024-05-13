@@ -35,8 +35,9 @@ export function powerRoll(formula, powertable) {
   }
   let fakeDiceResults = diceResults;
 
-  if (lethalTech != 0) total = Number(total) + Number(lethalTech);
-  if (criticalRay != 0) total = Number(total) + Number(criticalRay);
+  if (lethalTech != 0 && total != 2) total = Number(total) + Number(lethalTech);
+  if (criticalRay != 0 && total != 2)
+    total = Number(total) + Number(criticalRay);
   if (total > 12) total = 12;
 
   let ptv = powertable[total];
@@ -84,6 +85,8 @@ export function powerRoll(formula, powertable) {
         ptv = rpt[power][total - 3];
       }
     }
+
+    if (total == 2) ptv = 0;
 
     powerResult += ptv;
     eachPowerResult.push(ptv);

@@ -532,6 +532,7 @@ export async function chatButton(chatMessage, buttonType) {
   }
 
   if (buttonType == "buttoneffect") {
+    const orgActor = actor.name;
     const targetEffects = item.effects;
     const targetActorName = [];
     const transferEffectName = [];
@@ -562,6 +563,7 @@ export async function chatButton(chatMessage, buttonType) {
       targetEffects.forEach((effect) => {
         const transferEffect = duplicate(effect);
         transferEffect.disabled = false;
+        transferEffect.sourceName = orgActor;
         targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
       });
     });

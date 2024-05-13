@@ -1,6 +1,7 @@
 // Import document classes.
 import { SW25Actor } from "./documents/actor.mjs";
 import { SW25Item } from "./documents/item.mjs";
+import { SW25ActiveEffect } from "./documents/active-effect.mjs";
 // Import sheet classes.
 import { SW25ActorSheet } from "./sheets/actor-sheet.mjs";
 import { SW25ItemSheet } from "./sheets/item-sheet.mjs";
@@ -23,6 +24,7 @@ Hooks.once("init", function () {
   game.sw25 = {
     SW25Actor,
     SW25Item,
+    SW25ActiveEffect,
     rollItemMacro,
   };
 
@@ -41,6 +43,7 @@ Hooks.once("init", function () {
   // Define custom Document classes
   CONFIG.Actor.documentClass = SW25Actor;
   CONFIG.Item.documentClass = SW25Item;
+  CONFIG.ActiveEffect.documentClass = SW25ActiveEffect;
 
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item

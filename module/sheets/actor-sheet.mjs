@@ -680,6 +680,7 @@ export class SW25ActorSheet extends ActorSheet {
     const item = this.actor.items.get(
       changeItem.parents(".item")[0].dataset.itemId
     );
+    const orgActor = this.actor.name;
     const targetEffects = item.effects;
     const targetActorName = [];
     const transferEffectName = [];
@@ -710,6 +711,7 @@ export class SW25ActorSheet extends ActorSheet {
       targetEffects.forEach((effect) => {
         const transferEffect = duplicate(effect);
         transferEffect.disabled = false;
+        transferEffect.sourceName = orgActor;
         targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
       });
     });

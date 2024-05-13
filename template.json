@@ -140,7 +140,9 @@
           "valuemodify": 0,
           "racevalue": ""
         }
-      }
+      },
+      "lt": 0,
+      "cr": 0
     },
     "npc": {
       "templates": ["base"],
@@ -208,6 +210,8 @@
         "customdice": false,
         "customformula": "",
         "powertable": [],
+        "power": null,
+        "cvalue": null,
         "showpowmod": false,
         "halfpow": false,
         "halfpowmod": "",

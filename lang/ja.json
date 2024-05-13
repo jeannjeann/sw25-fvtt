@@ -395,7 +395,26 @@
       "Toggle": "有効／無効",
       "Temporary": "一時バフ・デバフ",
       "Passive": "常時バフ・デバフ",
-      "Inactive": "無効バフ・デバフ"
+      "Inactive": "無効バフ・デバフ",
+      "TotalEffects": "バフ・デバフ合計",
+      "DirectInput": "直接入力",
+      "HitMod": "命中修正",
+      "DamageMod": "ダメージ修正",
+      "LethalTech": "必殺攻撃",
+      "CriticalRay": "クリレイ",
+      "DodgeMod": "回避修正",
+      "PpMod": "防護修正",
+      "MppMod": "魔法防御修正",
+      "Dreduce": "ダメージ軽減",
+      "HpMod": "最大HP修正",
+      "MpMod": "最大MP修正",
+      "DexValueModify": "能力値(器用度)",
+      "AgiValueModify": "能力値(敏捷度)",
+      "StrValueModify": "能力値(筋力)",
+      "VitValueModify": "能力値(生命力)",
+      "IntValueModify": "能力値(知力)",
+      "MndValueModify": "能力値(精神力)",
+      "MoveMod": "移動力修正"
     }
   },
 

@@ -109,8 +109,32 @@
         <ol class="changes-list">
             {{#each data.changes as |change i|}}
             <li class="effect-change flexrow" data-index="{{i}}">
-                <div class="key">
+               <div class="key">
+                    <select name="changes.{{i}}.key">
+                    {{#select change.key}}
+                    <option value="">-</option>
+                    <option value="system.attributes.hitmod" {{#if (eq change.key "system.attributes.hitmod")}}selected{{/if}}>{{localize "SW25.Effect.HitMod"}}</option>
+                    <option value="system.attributes.dmod" {{#if (eq change.key "system.attributes.dmod")}}selected{{/if}}>{{localize "SW25.Effect.DamageMod"}}</option>
+                    <option value="system.lt" {{#if (eq change.key "system.lt")}}selected{{/if}}>{{localize "SW25.Effect.LethalTech"}}</option>
+                    <option value="system.cr" {{#if (eq change.key "system.cr")}}selected{{/if}}>{{localize "SW25.Effect.CriticalRay"}}</option>
+                    <option value="system.attributes.dodgemod" {{#if (eq change.key "system.attributes.dodgemod")}}selected{{/if}}>{{localize "SW25.Effect.DodgeMod"}}</option>
+                    <option value="system.attributes.ppmod" {{#if (eq change.key "system.attributes.ppmod")}}selected{{/if}}>{{localize "SW25.Effect.PpMod"}}</option>
+                    <option value="system.attributes.mppmod" {{#if (eq change.key "system.attributes.mppmod")}}selected{{/if}}>{{localize "SW25.Effect.MppMod"}}</option>
+                    <option value="system.attributes.dreduce" {{#if (eq change.key "system.attributes.dreduce")}}selected{{/if}}>{{localize "SW25.Effect.Dreduce"}}</option>
+                    <option value="system.hp.hpmod" {{#if (eq change.key "system.hp.hpmod")}}selected{{/if}}>{{localize "SW25.Effect.HpMod"}}</option>
+                    <option value="system.mp.mpmod" {{#if (eq change.key "system.mp.mpmod")}}selected{{/if}}>{{localize "SW25.Effect.MpMod"}}</option>
+                    <option value="system.abilities.dex.valuemodify" {{#if (eq change.key "system.abilities.dex.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.DexValueModify"}}</option>
+                    <option value="system.abilities.agi.valuemodify" {{#if (eq change.key "system.abilities.agi.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.AgiValueModify"}}</option>
+                    <option value="system.abilities.str.valuemodify" {{#if (eq change.key "system.abilities.str.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.StrValueModify"}}</option>
+                    <option value="system.abilities.vit.valuemodify" {{#if (eq change.key "system.abilities.vit.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.VitValueModify"}}</option>
+                    <option value="system.abilities.int.valuemodify" {{#if (eq change.key "system.abilities.int.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.IntValueModify"}}</option>
+                    <option value="system.abilities.mnd.valuemodify" {{#if (eq change.key "system.abilities.mnd.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.MndValueModify"}}</option>
+                    <option value="system.attributes.move.movemod" {{#if (eq change.key "system.attributes.move.movemod")}}selected{{/if}}>{{localize "SW25.Effect.MoveMod"}}</option>
+                    {{/select}}
+                    </select>
+{{!--
                     <input type="text" name="changes.{{i}}.key" value="{{change.key}}"/>
+--}}
                 </div>
                 <div class="mode">
                     <select name="changes.{{i}}.mode" data-dtype="Number">
