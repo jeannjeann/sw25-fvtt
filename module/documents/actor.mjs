@@ -46,6 +46,7 @@ export class SW25Actor extends Actor {
 
     // Make modifications to data here. For example:
     const systemData = actorData.system;
+    await this.update({});
 
     //Calcurate Exp & AdvLevel & MgLevel
     this.items.forEach((item) => {
@@ -108,7 +109,6 @@ export class SW25Actor extends Actor {
     }
 
     //Calculate Battle Data
-    await this.update({});
     this.items.forEach((item) => {
       if (item.type == "weapon") {
         if (item.name == systemData.hitweapon) {
@@ -120,11 +120,11 @@ export class SW25Actor extends Actor {
           systemData.itemcvalue = item.system.cvalue;
           systemData.itempowerbase = item.system.powerbase;
           systemData.itempowertable = item.system.powertable;
+          systemData.itempowertable[16] += systemData.lt;
+          systemData.itempowertable[17] += systemData.cr;
         }
       }
     });
-    systemData.itempowertable[16] += systemData.lt;
-    systemData.itempowertable[17] += systemData.cr;
 
     systemData.itemdodge = 0;
     systemData.itempp = 0;
@@ -285,6 +285,14 @@ export class SW25Actor extends Actor {
     let totalint = null;
     let totalmnd = null;
     let totalmovemod = null;
+    let totalscmod = null;
+    let totalcnmod = null;
+    let totalwzmod = null;
+    let totalprmod = null;
+    let totalmtmod = null;
+    let totalfrmod = null;
+    let totaldrmod = null;
+    let totaldmmod = null;
     effectsChange.forEach((effectList) => {
       effectList.forEach((effects) => {
         if (effects.key == "system.attributes.hitmod")
@@ -319,6 +327,22 @@ export class SW25Actor extends Actor {
           totalmnd += Number(effects.value);
         if (effects.key == "system.attributes.move.movemod")
           totalmovemod += Number(effects.value);
+        if (effects.key == "system.attributes.scmod")
+          totalscmod += Number(effects.value);
+        if (effects.key == "system.attributes.cnmod")
+          totalcnmod += Number(effects.value);
+        if (effects.key == "system.attributes.wzmod")
+          totalwzmod += Number(effects.value);
+        if (effects.key == "system.attributes.prmod")
+          totalprmod += Number(effects.value);
+        if (effects.key == "system.attributes.mtmod")
+          totalmtmod += Number(effects.value);
+        if (effects.key == "system.attributes.frmod")
+          totalfrmod += Number(effects.value);
+        if (effects.key == "system.attributes.drmod")
+          totaldrmod += Number(effects.value);
+        if (effects.key == "system.attributes.dmmod")
+          totaldmmod += Number(effects.value);
       });
     });
 
@@ -339,6 +363,14 @@ export class SW25Actor extends Actor {
     systemData.totalint = totalint;
     systemData.totalmnd = totalmnd;
     systemData.totalmovemod = totalmovemod;
+    systemData.totalscmod = totalscmod;
+    systemData.totalcnmod = totalcnmod;
+    systemData.totalwzmod = totalwzmod;
+    systemData.totalprmod = totalprmod;
+    systemData.totalmtmod = totalmtmod;
+    systemData.totalfrmod = totalfrmod;
+    systemData.totaldrmod = totaldrmod;
+    systemData.totaldmmod = totaldmmod;
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
     if (totallt > 0) systemData.totallt = "+" + totallt;
@@ -356,6 +388,14 @@ export class SW25Actor extends Actor {
     if (totalint > 0) systemData.totalint = "+" + totalint;
     if (totalmnd > 0) systemData.totalmnd = "+" + totalmnd;
     if (totalmovemod > 0) systemData.totalmovemod = "+" + totalmovemod;
+    if (totalscmod > 0) systemData.totalscmod = "+" + totalscmod;
+    if (totalcnmod > 0) systemData.totalcnmod = "+" + totalcnmod;
+    if (totalwzmod > 0) systemData.totalwzmod = "+" + totalwzmod;
+    if (totalprmod > 0) systemData.totalprmod = "+" + totalprmod;
+    if (totalmtmod > 0) systemData.totalmtmod = "+" + totalmtmod;
+    if (totalfrmod > 0) systemData.totalfrmod = "+" + totalfrmod;
+    if (totaldrmod > 0) systemData.totaldrmod = "+" + totaldrmod;
+    if (totaldmmod > 0) systemData.totaldmmod = "+" + totaldmmod;
 
     // Sheet refresh
     if (actorData.sheet.rendered)

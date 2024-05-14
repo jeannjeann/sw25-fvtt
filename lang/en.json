@@ -415,7 +415,15 @@
       "VitValueModify": "Ability(Vit)",
       "IntValueModify": "Ability(Int)",
       "MndValueModify": "Ability(Spi)",
-      "MoveMod": "Move Mod"
+      "MoveMod": "Move Mod",
+      "ScMod": "Truespeech Pow",
+      "CnMod": "Spiritualism Pow",
+      "WzMod": "Deep Magic Pow",
+      "PrMod": "Divine Pow",
+      "MtMod": "Magitech Pow",
+      "FrMod": "Fairy Pow",
+      "DrMod": "Druid Pow",
+      "DmMod": "Summoning Pow"
     }
   },
 

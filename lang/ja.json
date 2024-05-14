@@ -414,7 +414,15 @@
       "VitValueModify": "能力値(生命力)",
       "IntValueModify": "能力値(知力)",
       "MndValueModify": "能力値(精神力)",
-      "MoveMod": "移動力修正"
+      "MoveMod": "移動力修正",
+      "ScMod": "真語魔法魔力",
+      "CnMod": "操霊魔法魔力",
+      "WzMod": "深智魔法魔力",
+      "PrMod": "神聖魔法魔力",
+      "MtMod": "魔動機術魔力",
+      "FrMod": "妖精魔法魔力",
+      "DrMod": "森羅魔法魔力",
+      "DmMod": "召異魔法魔力"
     }
   },
 
