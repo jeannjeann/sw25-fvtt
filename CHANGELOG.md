@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.1
+- update English localization by [kuouvadis](https://github.com/kuouvadis)
+- update English manual by [kuouvadis](https://github.com/kuouvadis)
+
 ## 0.6.0
 - バフ・デバフ機能実装
 - マニュアルアップデート

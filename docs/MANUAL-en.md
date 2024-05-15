@@ -405,7 +405,7 @@ You can set the duration in the Effect Duration (Turns) field.
 
 ### YutoSheetII Import Macro
 - (https://yutorize.2-d.jp/ytsheet/sw2.5/)
-- [yt2import] Macro has been included to import from YutoSheetII.
+- [yt2import]Macro has been included to import from YutoSheetII.
   - Prepare a JSON output file from the YutoSheetII website.
   - Use the macro, select the JSON YutoSheetII file, and then click on import.
 - Notes
