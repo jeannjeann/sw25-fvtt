@@ -11,20 +11,20 @@ This is the area where the character summary is displayed.
 - In each item list, click on the name of any item (except skills, dice rolls, resources, and languages) to expand its description.
 - For listings that do not have a New, Edit, or Delete button in the item list, the Edit and Delete buttons will appear when the description is expanded.
 
-#### Ability Values and Skills (Class) Tab
+#### Ability & Class Tab
 These tabs are mainly used during creation and growth.
 - Ability Value column (left)
   - Ability values and bonuses are automatically calculated by entering Mind, Skill, Body, A-F, Growth, and Modifications.
 - Maximum HP and MP modifiers (upper right)
   - Enter when making modifications to the automatically calculated values. This is intended for cases where the value has been changed by special skills, items, magic, etc. (I would like to implement automatic calculation)
-- Skill (Class) column (lower right)
+- Class column (lower right)
   - Class are listed. Clicking on the icon will display the description in chat.
   - You can increase, decrease, edit, delete, or create new levels from the list.
   - You can also add classes by dragging them from an item.
   - Experience used is automatically calculated.
   - Please check the item description below for details.
 
-#### Judgment (Check) Tab
+#### Check Tab
 These are tabs that would be used mainly during the normal (non-combat) part of the session.
 - Check column (left)
   - Various checks can be registered. You can make an action check and a power roll.
@@ -59,7 +59,7 @@ This tab is primarily intended to be used during combat.
 - Equipment column
   - Weapons, armor, and ornaments with the "Equipped" checkbox in the item details will be displayed.
   - You cannot create, edit, or delete items from this column. Please do so from the list in the "Equipment" tab.
-  - The behavior when clicking on the icon can be set in the details. By default, the chat display will show the description of the weapon.
+  - The behavior when clicking on the icon can be set in the details. The default selection is "All", which displays the description, "Check", "Power", and "Effects" (if applicable) button in chat.
   - Click to roll the accuracy and power sections of the weapon list. The values in the various modifier fields are reflected.
   - When using a sub-weapon or using a weapon in a different way (e.g. 2H with an ambidextrous weapon), this direct click may be more convenient than changing the weapon of choice.
 
@@ -67,32 +67,48 @@ This tab is primarily intended to be used during combat.
 This tab displays race characteristics and combat skills, as well as Techniques, Spellsongs and Finales, Stunts, Evocations, Aspects, Strategems and Maneuvers, etc.
 - New, edit, and delete can be performed.
 - If you don't have any of the Classes listed, they will not be displayed, except for the race and combat skills. If you check the "Show Blank Groups" checkbox, a list of items that you do not possess will also be displayed. If you want to create a new item, please use this option.
-  - The behavior when clicking on icons can be configured from Details. By default, the chat display shows the description of the item.
+  - The behavior when clicking on icons can be configured from Details. The default selection is "All", which displays the description, "Check", "Power", and "Effects" (if applicable) button in chat.
 - Some items can be checked in "Use Dice Roll" and "Use Power Table" in the details. When checked, "Dice Roll" and "Power" are displayed in the list, and the corresponding roll can be performed by clicking on the checkbox. Please use this function when necessary, for example, for checks on the usage of spellsongs, etc., or for power rolls.
+- If you have set up "Effects" in the item's details, "Effects" will appear beside the item in your character sheet.
 - Action types are automatically displayed in front of the name. The following types are displayed: Always (○), Major (▶), Minor (≫), Combat Preparation (△), and Declaration (□).
 
-#### Magic (Spells) Tab
+#### Spells Tab
 This tab displays information about magic.
 - The list is divided for each magic system. Selecting a magic system in the item details will be reflected in the list.
 - The magic system and magic power are displayed at the top of the list. By clicking on the item, you can determine whether or not to use it. To make the dice roll in chat, you need to select the Class to be used. There is also an input box for modifications.
 - Items cannot be created, edited, or deleted from the list by magic system. Please go to "Show All Spell".
-- The behavior when clicking on icons can be configured in the details. By default, the description is displayed in the chat.
+- The behavior when clicking on icons can be configured in the details. The default selection is "All", which displays the description, "Check", "Power", and "Effects" (if applicable) button in chat.
 - Some items can be checked in "Use Dice" and "Use Power List" in the details. When checked, "Dice Check" and "Power" are displayed in the list, and the corresponding roll can be performed by clicking on it. Since the rolls can be exercised from the top of the list, please use mainly the power rolls as necessary.
 - If you check the "Show All Spell" checkbox, a list of all the magic items in your possession will be displayed, regardless of the system. You can also click on icons and roll from "Spellcasting" and "Power".
 - New creation, editing, and deletion can only be done from the "Show All Spell" list.
 - The magic operation type is automatically displayed before the name. The following types of magic are displayed: Always (○), Major (▶), Minor (≫), Combat Ready (△), and Declared (□).
 
-#### Possessions (Items) Tab
+#### Effects Tab
+This tab displays information about effects on the character, such as buffs and debuffs.
+- Effects Summary (top)
+  - Displays the total modified value of effects currently applied.
+  - Effects are automatically applied to rolls and other actions.
+  - The total is automatically calculated each time you toggle the enable/disable status.
+- List of effects (below)
+  - Lists temporary, permanent, disabled effects.
+  - You can create, edit, and delete the effects, as well as toggle their activation and deactivation.
+  - The reference source is displayed as the item name for item-derived buffs, and the character name for buffs created on the character sheet.
+  - If a temporary effect has a duration set, the remaining time will be displayed only during combat.
+- ** Attention! ** The effects of Special and Critical Ray only apply to the selected weapon.
+
+#### Items Tab
 This tab displays items in your possession, including equipment.
 - There is a field for entering the amount of money you have. There is no automatic calculation function. (To be implemented)
 - New creation, editing, and deletion of each item can be performed. Weapons, armor, and ornaments can be created here. You cannot do this from the combat tab.
 - Item List
   - By checking the "Use Dice Roll" and "Use Power Table" checkboxes in the details, "Dice Check" and "Power" will appear in the list, and you can perform the corresponding roll by clicking on them. Use this function for medicinal herbs and the like.
-  - The behavior when clicking on the icon can be set in the "Details" menu. By default, the chat display is the description of the item.
+  - If you have set up “Effects” in the item's Details, “Effects” will appear in the list next to the item and you can apply those effects to your character.
+  - The behavior when clicking on the icon can be set in the "Details" menu. The default selection is "All", which displays the description, "Check", "Power", and "Effects" (if applicable) button in chat.
 - Weapons, Armor, and Decorations
   - There is an "Equip" checkbox in the list. Checked items are displayed in the combat tab.
   - (Weapons, armor, and ornaments do not display "Dice Check" and "Power" even if "Use Dice Roll" and "Use Power Table" are checked in the details.
-  - The behavior when clicking on icons can be set in the details. By default, the chat display will show the description of the item.
+  - If you have set up “Effects” in the equipment's Details, “Effects” will appear in the list next to the equipment and you can apply those effects to your character.
+  - The behavior when clicking on icons can be set in the details. The default selection is "All", which displays the description, "Check", "Power", and "Effects" (if applicable) button in chat.
 
 #### Description Tab
 This tab displays language, other settings, notes, etc.
@@ -128,9 +144,10 @@ This is the area where the monster summary is displayed.
 #### Monster Ability Tab
 This tab displays the various abilities of monsters.
 - Use this item for Fortitude and Willpower. This item is required for all monsters.
-- The behavior when clicking on the icon can be set from Details. By default, the description is displayed in the chat.
+- The behavior when clicking on the icon can be set from Details. The default selection is "All", which displays the description, "Check", "Power", and "Effects" (if applicable) button in chat.
 - The ability's behavior type is automatically displayed before its name. The following types are available: Always "○", Major Action "▶", Minor Action "≫", Combat Preparation "△", and Declaration "□".
 - By checking the "Check 1-3" and "Power Table" checkboxes in the details, the respective label names are displayed, and the corresponding roll can be performed by clicking on them. Use as necessary.
+- If you have set up “Effects” in the ability's Details, “Effects” will appear in the list next to the ability and you can apply those effects to the monster.
 - By checking the "Fixed Value" checkbox under Details for each check, the dice result is automatically fixed at "7" and the roll result is displayed as a fixed value.
 - Use this item for basic abilities (e.g., normal attacks) as well.
   - Three checks will be used: Accuracy, Damage, and Evasion. Labeling each as "Accuracy," "Damage," and "Evasion" will increase readability.
@@ -148,6 +165,11 @@ This tab displays the various abilities of monsters.
   - Enter the magic power of the monster in the check modifier and use it.
   - Please note that skills and ability values cannot be diced unless "-" is selected.
 
+#### Effects Tab
+Effects will be listed similar to the PC sheet, but the Effects Summary will not be displayed at the top.
+- **Note** Effects only apply automatically to PCs. Applying effects to monsters does not change their rolls.
+- This can be used to manage elapsed time.
+
 #### Description Tab
 - This is a free description field. This is intended for general descriptions of the demon.
 - The loot list described in the Details Tab will also be displayed.
@@ -164,6 +186,7 @@ Each item can be configured in detail. This is done mainly from the Details tab.
   - Description field for the item. Free description field. Depending on the settings, this field will be displayed in the chat when the icon is clicked.
 - When icon is clicked
   - You can select the behavior when the icon is clicked in the list. You can choose to display the description in the chat or roll a die.
+  - When “All” is selected, you will see the description, a button to make any enabled rolls, and a button to apply effects.
 - Use Dice Roll, Use Power Table
   - Checking the checkbox enables the roll from the list. Also, by checking the checkbox, the setting items will be displayed.
 - Use Dice Settings
@@ -174,6 +197,9 @@ Each item can be configured in detail. This is done mainly from the Details tab.
   - The "Special Treatment (Particular)" checkbox allows you to set the modified value after halving, the increased value of Lethal Strike (usually 1), the increased value of Critical Ray, and the roll of the Apothecary's Tool (usually 4).
   - The calculation of Executioner's Blade cannot currently be handled. Please refer to the stakes and modify the values manually.
   - If the power table is blank, it should refer to the generic power table to get the value. (Not implemented yet, after implementation, Executioner's Blade can be handled)
+- Effects Tab
+  - Effects can be applied to items.
+  - Effects on items are automatically applied to the PC that possesses the item.
 
 ### Weapons
 - Equipment checks, categories, ranks, types, usages, specializations, minimum Strength, hit modifiers, additional damage, and ranges can be set.
@@ -185,53 +211,56 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 - Armor and shields are items in the same category.
 - Equipment checks, categories, ranks, specializations, minimum strength, evasion modifiers, protection points (defense), and magic protection can be set.
 - Both dice roll and power are basically not used for these items.
-- Bonuses from specialization are not automatically reflected. (To be implemented)
+- The bonus from Personal Items are automatically reflected if an Effect is set. The check to Personal Items only changes the list display.
 
 ### Accessories
 - Equipment checks, part to be equipped on, and specializations can be set up.
 - Both the check and the power of the item are basically not used.
 - Please manage manually as we have not implemented any restrictions on equipping the same part of the body.
-- Bonuses for exclusive use are not automatically reflected. (We would like to implement)
+- The bonus from Personal Items are automatically reflected if an Effect is set. The check to Personal Items only changes the list display.
 
 ### Item
 - Quantity and price can be entered.
 - Please use flexibly by combining dice roll and power to suit each item.
 
-### Spell
+### Spells
 - Magic system, level, action type, MP consumption, target, range/shape, duration, resistance, type, and summary can be set.
 - Please use flexibly by combining dice roll and power.
 - If you do not select a magic system, it will not appear correctly in the list on the character sheet.
 - In Divine Magic, selection of Sacred and Vice systems, and input fields for special divine magic will be added.
 - In Magitech, an entry field for Magisphere will be added.
 - In Fairy Magic, an input field for type and (when necessary) attribute will be added.
-- In Nature Magic, a checkbox for countering with life resistance (Fortitude) will be added.
+- In Nature Magic, a checkbox for countering with Fortitude will be added.
+- Some spells are easier to manage if an Effect is prepared to apply a buff or debuff.
 
-### Technique (Enhance Art)
+### Technique
 - Action type, level, MP consumption, duration, and summary can be set.
-- Automatic application of buff effects is not supported. (Would like to implement)
+- Automatic application of effects can be applied by using the Effects in the Details section.
 
-### Spellsongs・Finale (Magical Song)
+### Spellsongs・Finale
 - The following items can be set: spellsong and finale selection, level, resistance, type, singing, pets, Rhythm Conditions, Base Rhythm, Extra Rhythm, Flourish Value, Extra Rhythm, Consumed Rhythm, and summary.
 - The setting items change depending on the type of spellsong and finale.
-- The resource consumption of Rhythm is not automated. (I would like to implement it, but probably can't.)
+- Some songs are easier to manage if an Effect is prepared to apply a buff or debuff.
+- The resource consumption of Rhythm is not automated. (Would like to implement, but probably can't)
 
-### Stunts (Riding Trick)
+### Stunts
 - Action type, level, prerequisite, compatible mount, applicable part, and summary can be set.
+- Some Stunts are easier to manage if an Effect is prepared to apply a buff or debuff.
 
-### Evocations (Alchemy Tech)
+### Evocations
 - Action type, level, target, range/area, duration, resistance, Card cost, and summary can be set.
-- Automatic application of buff effects is not supported. (To be implemented)
+- Automatic application of effects can be applied by using the Effects in the Details section.
 - Resource consumption of Cards is not automated. (Would like to implement, but probably can't)
 
-### Aspects (Phase Area)
+### Aspects
 - The Qi type, Qi cost, duration, type, level, and summary can be set.
-- Automatic application of buff effects is not supported. (To be implemented)
+- Automatic application of effects can be applied by using the Effects in the Details section.
 - Resource consumption of Qi is not automated. (Would like to implement, but probably can't)
 
-### Strategems・Maneuvers (Tactics)
-- You can set the Strategems (Drum) and Maneuver (Camp), action type, level, Edge cost, Type (Line), rank, accumulated Edge, prerequisites, conditions, and summary.
+### Strategems・Maneuvers
+- You can set the Strategems and Maneuver, action type, level, Edge cost, Type (Line), rank, accumulated Edge, prerequisites, conditions, and summary.
 - The setting items change depending on whether Strategem or Maneuver is selected.
-- Automatic application of buff effects is not supported. (To be implemented)
+- Automatic application of effects can be applied by using the Effects in the Details section.
 - Resource change of Edge is not automated. (Would like to implement, but probably can't)
 
 ### Check
@@ -242,20 +271,22 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 ### Resource
 - Only quantity, price, and description can be entered.
 
-### Combat Feat (Combat Ability)
+### Combat Feat
 - Type, action type, prerequisite, prerequisite contents, use, application, risk, and summary can be entered.
 - You can also check for support of Vagrant Feat and additional Battle Dancer Feat.
 - Schools also use this item.
   - If "Secret" is checked, the name of the school, required reputation, secret type, and prerequisite conditions can be entered.
+- Some Feats are easier to manage if an Effect is prepared to apply a buff or debuff.
 
-### Class (Skill)
+### Class
 - Level, experience table, and class type can be set.
 - If the experience table is set, experience consumption is automatically calculated.
 - The class type is used to calculate MP, especially for wizard skills, so be sure to set it correctly.
 
-### Racial Ability (Race Ability)
+### Racial Ability
 - Remaining uses and description can be set.
 - The remaining number is intended for use with abilities that have a limited number of uses.
+- Some abilities are easier to manage if an Effect is prepared to apply a buff or debuff.
 
 ### Language
 - "Spoken" and "Written" checks are available.
@@ -276,6 +307,7 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 - Unlike normal items, up to three types of judgments can be used.
 - There is a label input field for checks and power. The label name will be the label of the click-rollable part displayed in the list.
 - For checks, in addition to setting a base value and a modified value, a fixed value check will fix the dice roll to 7, and a different type of dice can be used by using custom.
+- Some abilities can be prepared with Effects to make them more manageable, but the effects only automatically apply to PCs.
 - Most monster abilities should be able to be handled with this item, so use it flexibly.
 
 ## Dice Rolls
@@ -308,16 +340,90 @@ Each item can be configured in detail. This is done mainly from the Details tab.
   - **Attention! ** Even if you unlock the attached dictionary and edit it, it will still be referenced, but it will be initialized at the time of system update.
 - The edited contents of the generic power table will be updated at world login. Please reload after editing.
 
+## Effects
+
+### Effects Classification (Buffs and Debuffs)
+- As a general rule, we assume that Effects are set on items, which are then applied to characters when they possess them.
+- It is also possible to create effects  on the character sheet and apply them directly to the character.
+
+#### Temporary Effects
+- Effects that are active and have a duration of application.
+- Useful for magic, Personal Items, and Combat Feats that have a duration.
+- It can be toggled on and off.
+- You can change the classification to always active by leaving the duration blank.
+
+#### Passive Effects
+- Effects that are active and have no duration.
+- It is useful for accessories, racial traits, and the effects of any Personal Items.
+- It can be toggled on and off.
+- You can change the classification to temporary by entering a duration.
+
+#### Inactive Effects
+- These are temporary Effects and passive Effects that have been disabled.
+- New Effects created under this list are created as disabled temporary Effects.
+
+### Effects Settings
+
+#### Details Tab
+- You can set the color of the icon and the description of the Effect.
+- Checking "Effect Suspended" has the same function as enabling/disabling it in the list.
+- Effects from items will have a check box to indicate whether or not they should be applied to the character who possesses them or not.
+
+#### Duration Tab
+You can set the duration in the Effect Duration (Turns) field.
+- It is recommended to use the setting in turns, as setting it in seconds does not affect the functionality.
+- The starting turn is automatically entered during combat, but can also be changed manually.
+- The “Times Up” mod can be used to automatically decrease the duration of the turn setting.
+  - Since the rule “the effect lasts until the beginning of the character's own turn” is unique to Sword World cannot be applied, there will be a slight discrepancy if this mod is used.
+
+#### Effects Tab
+- Multiple effects can be created for a single buff/debuff by clicking the + Button.
+- At this time, the attribute keys to which effects are automatically applied to are limited to those listed in the pull-down menu.
+- Negative values can also be entered for effect values.
+
+### How to Apply Effects
+
+#### Applied to Your Own Character
+- Enable the Effect in the Effects tab to apply if to your character.
+
+#### Applied to Other Characters
+- Target the character you wish to apply the Effect to. Multiple targets can be selected and applied to at the same time.
+- After selecting the target, click on the Effects button in the list of your character sheet or the Effect button in the chat box to apply the Effects to the target.
+- The applied Effects can be viewed in the Effects tab of the character. They can be enabled or disabled on a character-by-character basis.
+- If more than one Effect is applied to an item, they will all be applied. Unnecessary Effects should be manually removed after application.
+- Temporary Effects that are disabled will be activated upon application.
+
+### Notes on Effects
+- Currently, Effects can only be applied to PCs, e.g., PC to PC or demon to PC.
+- In the case of PC -> monster, monster -> monster, etc., the Effect will not be applied to the monster, but will be displayed in the Effects tab. This can be used to manage the duration of the Effect.
+- Most of the attribute keys that can be used for Effects have an entry field on the character sheet, and the field changes when the Effect is applied.
+- Please note that we do not manage duplicates of the same Effects, so beware of unintended duplicates.
+- ** Attention! ** When an Effect is applied, the corresponding input field cannot be changed by direct input. If you want to change it, deactivate the Effect, make the change, and then reactivate the Effect.
+- **Note! ** The Effects of Personal Items and Critical Ray only apply to the selected weapon.
+
+## Macro Support
+
+### YutoSheetII Import Macro
+- (https://yutorize.2-d.jp/ytsheet/sw2.5/)
+- [yt2import] Macro has been included to import from YutoSheetII.
+  - Prepare a JSON output file from the YutoSheetII website.
+  - Use the macro, select the JSON YutoSheetII file, and then click on import.
+- Notes
+  - Only PCs and monsters are supported.
+  - Currently, data treated as items (such as skills, checks, abilities, magic, equipment, items, language, etc) will not be imported (to be implemented in the future).
+  - Monsters also currently do not import HP, MP, Defense, Magic Defense, or any abilities or magic (to be implemented in the future).
+  - Data that is not imported must be manually set after the file is imported.
+
 ## Precautions
-- Currently, it is a minimal implementation that can be used for sessions.
-- This is an alpha version. It is quite likely that bugs remain.
+- The functions that can be used for FVTT-like sessions have been implemented.
+- This is a beta version. There is a high possibility that some bugs may remain.
 - Error handling is lax.
 - A warning message appears on the console, but since there is no problem with the operation, it has been left alone for the time being.
-- We have not tested the compatibility with the mod. It is compatible with "Dice So Nice!
+- We have not tested the compatibility with the mod. It is compatible with "Dice So Nice!" and "Times Up"
 - The layout has not been validated in English.
 - Limited permissions for NPCs and monsters, icons and images will not be changed.
-- Combat has not been implemented. We recommend that you take the initiative regarding the order of actions or install mods.
+- We recommend using the “Times Up” mod to manage the duration of buffs and debuffs.
+- Combat has not been implemented. We recommend that you take initiative manually or install mods.
 - An example of a mod that supports the order of action (I personally think that Popcorn Initiative is suited for this)
   - Popcorn type "Lancer Initiative" and "Just Popcorn Initiative
   - Group type "Group Initiative" and "Combat Tracker Extensions"
-
