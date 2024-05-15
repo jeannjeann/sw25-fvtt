@@ -75,7 +75,7 @@
     }
   ],
   "packFolders": [],
-  "socket": false,
+  "socket": true,
   "manifest": "https://github.com/jeannjeann/sw25-fvtt/releases/latest/download/system.json",
   "download": "https://github.com/jeannjeann/sw25-fvtt/releases/latest/download/system.zip",
   "background": "systems/sw25/assets/sw25fvtt.png",

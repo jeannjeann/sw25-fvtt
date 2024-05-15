@@ -168,6 +168,18 @@ Hooks.once("ready", async function () {
       rpt[power].push(ptValue);
     }
   });
+
+  // Token change hook
+  game.socket.on("system.sw25", (data) => {
+    if (!game.user.isGM) return;
+    const targetToken = canvas.tokens.get(data.targetToken);
+    const target = targetToken.actor;
+    if (!target) return;
+    target.update({
+      "system.hp.value": data.resultHP,
+      "system.mp.value": data.resultMP,
+    });
+  });
 });
 
 /* -------------------------------------------- */

@@ -451,16 +451,16 @@ export async function chatButton(chatMessage, buttonType) {
     buttonType == "buttonhr" ||
     buttonType == "buttonmr"
   ) {
-    const targetedToken = game.user.targets;
-    if (targetedToken.size === 0) {
+    const targetTokens = game.user.targets;
+    if (targetTokens.size === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Notargetwarn"));
       return;
-    } else if (targetedToken.size > 1) {
+    } else if (targetTokens.size > 1) {
       ui.notifications.warn(game.i18n.localize("SW25.Multitargetwarn"));
       return;
     }
     const targetActors = [];
-    targetedToken.forEach((token) => {
+    targetTokens.forEach((token) => {
       targetActors.push(token.actor);
     });
     const targetActor = targetActors[0];
@@ -504,10 +504,21 @@ export async function chatButton(chatMessage, buttonType) {
       differenceValue = resultMP - targetMP;
     }
 
-    targetActor.update({
-      "system.hp.value": resultHP,
-      "system.mp.value": resultMP,
-    });
+    const targetTokenId = Array.from(targetTokens, (target) => target.id);
+    if (game.user.isGM) {
+      const targetToken = canvas.tokens.get(targetTokenId[0]);
+      const target = targetToken.actor;
+      target.update({
+        "system.hp.value": resultHP,
+        "system.mp.value": resultMP,
+      });
+    } else {
+      game.socket.emit("system.sw25", {
+        targetToken: targetTokenId[0],
+        resultHP: resultHP,
+        resultMP: resultMP,
+      });
+    }
 
     const speaker = ChatMessage.getSpeaker({ actor: actor });
     const rollMode = game.settings.get("core", "rollMode");
@@ -536,15 +547,15 @@ export async function chatButton(chatMessage, buttonType) {
     const targetEffects = item.effects;
     const targetActorName = [];
     const transferEffectName = [];
-    const targetedToken = game.user.targets;
-    if (targetedToken.size === 0) {
+    const targetTokens = game.user.targets;
+    if (targetTokens.size === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Notargetwarn"));
       return;
     }
 
     // Target Actor
     const targetActors = [];
-    targetedToken.forEach((token) => {
+    targetTokens.forEach((token) => {
       targetActors.push(token.actor);
 
       // Actor name stock for chat message
