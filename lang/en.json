@@ -397,7 +397,7 @@
       "Temporary": "Temporary Effects",
       "Passive": "Passive Effects",
       "Inactive": "Inactive Effects",
-      "TotalEffects": "Total Effects",
+      "TotalEffects": "Effects Summary",
       "DirectInput": "Direct Input",
       "HitMod": "Accuracy Mod",
       "DamageMod": "DMG Mod",
@@ -416,14 +416,14 @@
       "IntValueModify": "Ability(Int)",
       "MndValueModify": "Ability(Spi)",
       "MoveMod": "Move Mod",
-      "ScMod": "Truespeech Pow",
-      "CnMod": "Spiritualism Pow",
-      "WzMod": "Deep Magic Pow",
-      "PrMod": "Divine Pow",
-      "MtMod": "Magitech Pow",
-      "FrMod": "Fairy Pow",
-      "DrMod": "Druid Pow",
-      "DmMod": "Summoning Pow"
+      "ScMod": "Truespeech MPow",
+      "CnMod": "Spiritualism MPow",
+      "WzMod": "Deep Magic MPow",
+      "PrMod": "Divine MPow",
+      "MtMod": "Magitech MPow",
+      "FrMod": "Fairy MPow",
+      "DrMod": "Druid MPow",
+      "DmMod": "Summoning MPow"
     }
   },
 
