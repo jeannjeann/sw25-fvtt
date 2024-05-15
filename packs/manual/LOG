@@ -1,14 +1,16 @@
-2024/05/14-21:15:48.037 2e28 Recovering log #234
-2024/05/14-21:15:48.043 2e28 Delete type=0 #234
-2024/05/14-21:15:48.044 2e28 Delete type=3 #232
-2024/05/14-21:17:56.029 e94 Level-0 table #239: started
-2024/05/14-21:17:56.034 e94 Level-0 table #239: 43322 bytes OK
-2024/05/14-21:17:56.035 e94 Delete type=0 #237
-2024/05/14-21:17:56.036 e94 Manual compaction at level-0 from '!journal!kf7e6dre1Bhn8SE9' @ 72057594037927935 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at '!journal.pages!kf7e6dre1Bhn8SE9.3CUD6vHifZ01Uqxa' @ 26 : 1
-2024/05/14-21:17:56.036 e94 Compacting 1@0 + 1@1 files
-2024/05/14-21:17:56.040 e94 Generated table #240@0: 4 keys, 44254 bytes
-2024/05/14-21:17:56.041 e94 Compacted 1@0 + 1@1 files => 44254 bytes
-2024/05/14-21:17:56.043 e94 compacted to: files[ 0 1 0 0 0 0 0 ]
-2024/05/14-21:17:56.043 e94 Delete type=2 #178
-2024/05/14-21:17:56.044 e94 Delete type=2 #239
-2024/05/14-21:17:56.045 e94 Manual compaction at level-0 from '!journal.pages!kf7e6dre1Bhn8SE9.3CUD6vHifZ01Uqxa' @ 26 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at (end)
+2024/05/15-16:28:11.195 5890 Recovering log #238
+2024/05/15-16:28:11.195 5890 Recovering log #256
+2024/05/15-16:28:11.199 5890 Delete type=0 #238
+2024/05/15-16:28:11.200 5890 Delete type=0 #256
+2024/05/15-16:28:11.201 5890 Delete type=3 #236
+2024/05/15-16:30:14.655 64dc Level-0 table #259: started
+2024/05/15-16:30:14.658 64dc Level-0 table #259: 43469 bytes OK
+2024/05/15-16:30:14.658 64dc Delete type=0 #257
+2024/05/15-16:30:14.659 64dc Manual compaction at level-0 from '!journal!kf7e6dre1Bhn8SE9' @ 72057594037927935 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 30 : 1
+2024/05/15-16:30:14.659 64dc Compacting 1@0 + 1@1 files
+2024/05/15-16:30:14.662 64dc Generated table #260@0: 4 keys, 51545 bytes
+2024/05/15-16:30:14.662 64dc Compacted 1@0 + 1@1 files => 51545 bytes
+2024/05/15-16:30:14.662 64dc compacted to: files[ 0 1 0 0 0 0 0 ]
+2024/05/15-16:30:14.662 64dc Delete type=2 #240
+2024/05/15-16:30:14.663 64dc Delete type=2 #259
+2024/05/15-16:30:14.667 64dc Manual compaction at level-0 from '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 30 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at (end)
