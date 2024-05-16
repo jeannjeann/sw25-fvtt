@@ -707,14 +707,25 @@ export class SW25ActorSheet extends ActorSheet {
     });
 
     // Apply
-    targetActors.forEach((targetActor) => {
-      targetEffects.forEach((effect) => {
-        const transferEffect = duplicate(effect);
-        transferEffect.disabled = false;
-        transferEffect.sourceName = orgActor;
-        targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
+    const targetTokens = game.user.targets;
+    const targetTokenId = Array.from(targetTokens, (target) => target.id);
+    if (game.user.isGM) {
+      targetActors.forEach((targetActor) => {
+        targetEffects.forEach((effect) => {
+          const transferEffect = duplicate(effect);
+          transferEffect.disabled = false;
+          transferEffect.sourceName = orgActor;
+          targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
+        });
       });
-    });
+    } else {
+      game.socket.emit("system.sw25", {
+        method: "applyEffect",
+        targetTokens: targetTokenId,
+        targetEffects: targetEffects,
+        orgActor: orgActor,
+      });
+    }
 
     // Chat message
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });

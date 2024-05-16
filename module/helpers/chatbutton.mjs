@@ -514,6 +514,7 @@ export async function chatButton(chatMessage, buttonType) {
       });
     } else {
       game.socket.emit("system.sw25", {
+        method: "applyRoll",
         targetToken: targetTokenId[0],
         resultHP: resultHP,
         resultMP: resultMP,
@@ -570,14 +571,24 @@ export async function chatButton(chatMessage, buttonType) {
     });
 
     // Apply
-    targetActors.forEach((targetActor) => {
-      targetEffects.forEach((effect) => {
-        const transferEffect = duplicate(effect);
-        transferEffect.disabled = false;
-        transferEffect.sourceName = orgActor;
-        targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
+    const targetTokenId = Array.from(targetTokens, (target) => target.id);
+    if (game.user.isGM) {
+      targetActors.forEach((targetActor) => {
+        targetEffects.forEach((effect) => {
+          const transferEffect = duplicate(effect);
+          transferEffect.disabled = false;
+          transferEffect.sourceName = orgActor;
+          targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
+        });
       });
-    });
+    } else {
+      game.socket.emit("system.sw25", {
+        method: "applyEffect",
+        targetTokens: targetTokenId,
+        targetEffects: targetEffects,
+        orgActor: orgActor,
+      });
+    }
 
     // Chat message
     const speaker = ChatMessage.getSpeaker({ actor: actor });

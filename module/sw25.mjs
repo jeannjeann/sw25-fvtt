@@ -169,16 +169,38 @@ Hooks.once("ready", async function () {
     }
   });
 
-  // Token change hook
+  // Token apply hook
   game.socket.on("system.sw25", (data) => {
     if (!game.user.isGM) return;
-    const targetToken = canvas.tokens.get(data.targetToken);
-    const target = targetToken.actor;
-    if (!target) return;
-    target.update({
-      "system.hp.value": data.resultHP,
-      "system.mp.value": data.resultMP,
-    });
+
+    // Apply roll
+    if (data.method == "applyRoll") {
+      const targetToken = canvas.tokens.get(data.targetToken);
+      const target = targetToken.actor;
+      if (!target) return;
+      target.update({
+        "system.hp.value": data.resultHP,
+        "system.mp.value": data.resultMP,
+      });
+    }
+
+    // Apply effect
+    if (data.method == "applyEffect") {
+      const targetTokens = data.targetTokens.map((tokenId) =>
+        canvas.tokens.get(tokenId)
+      );
+      const target = targetTokens.map((token) => token.actor);
+      const targetEffects = data.targetEffects;
+      const orgActor = data.orgActor;
+      target.forEach((targetActor) => {
+        targetEffects.forEach((effect) => {
+          const transferEffect = duplicate(effect);
+          transferEffect.disabled = false;
+          transferEffect.sourceName = orgActor;
+          targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
+        });
+      });
+    }
   });
 });
 
