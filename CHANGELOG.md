@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.6.2
+- bug fix（他キャラクターへのロール結果適用とバフ適用のバグフィックス）
+
 ## 0.6.1
 - update English localization by [kuouvadis](https://github.com/kuouvadis)
 - update English manual by [kuouvadis](https://github.com/kuouvadis)
