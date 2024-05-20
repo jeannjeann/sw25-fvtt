@@ -83,7 +83,7 @@ export class SW25Actor extends Actor {
         ability.valuebase +
         ability.valuegrowth +
         ability.valuemodify;
-      ability.mod = Math.floor(ability.value / 6);
+      ability.mod = Math.floor(ability.value / 6) + Number(ability.efmodify);
       ability.advbase =
         ability.mod +
         systemData.attributes.advlevel.value +
@@ -284,6 +284,12 @@ export class SW25Actor extends Actor {
     let totalvit = null;
     let totalint = null;
     let totalmnd = null;
+    let totaldexmod = null;
+    let totalagimod = null;
+    let totalstrmod = null;
+    let totalvitmod = null;
+    let totalintmod = null;
+    let totalmndmod = null;
     let totalmovemod = null;
     let totalscmod = null;
     let totalcnmod = null;
@@ -325,6 +331,18 @@ export class SW25Actor extends Actor {
           totalint += Number(effects.value);
         if (effects.key == "system.abilities.mnd.valuemodify")
           totalmnd += Number(effects.value);
+        if (effects.key == "system.abilities.dex.efmodify")
+          totaldexmod += Number(effects.value);
+        if (effects.key == "system.abilities.agi.efmodify")
+          totalagimod += Number(effects.value);
+        if (effects.key == "system.abilities.str.efmodify")
+          totalstrmod += Number(effects.value);
+        if (effects.key == "system.abilities.vit.efmodify")
+          totalvitmod += Number(effects.value);
+        if (effects.key == "system.abilities.int.efmodify")
+          totalintmod += Number(effects.value);
+        if (effects.key == "system.abilities.mnd.efmodify")
+          totalmndmod += Number(effects.value);
         if (effects.key == "system.attributes.move.movemod")
           totalmovemod += Number(effects.value);
         if (effects.key == "system.attributes.scmod")
@@ -362,6 +380,12 @@ export class SW25Actor extends Actor {
     systemData.totalvit = totalvit;
     systemData.totalint = totalint;
     systemData.totalmnd = totalmnd;
+    systemData.totaldexmod = totaldexmod;
+    systemData.totalagimod = totalagimod;
+    systemData.totalstrmod = totalstrmod;
+    systemData.totalvitmod = totalvitmod;
+    systemData.totalintmod = totalintmod;
+    systemData.totalmndmod = totalmndmod;
     systemData.totalmovemod = totalmovemod;
     systemData.totalscmod = totalscmod;
     systemData.totalcnmod = totalcnmod;
@@ -387,6 +411,12 @@ export class SW25Actor extends Actor {
     if (totalvit > 0) systemData.totalvit = "+" + totalvit;
     if (totalint > 0) systemData.totalint = "+" + totalint;
     if (totalmnd > 0) systemData.totalmnd = "+" + totalmnd;
+    if (totaldexmod > 0) systemData.totaldexmod = "+" + totaldexmod;
+    if (totalagimod > 0) systemData.totalagimod = "+" + totalagimod;
+    if (totalstrmod > 0) systemData.totalstrmod = "+" + totalstrmod;
+    if (totalvitmod > 0) systemData.totalvitmod = "+" + totalvitmod;
+    if (totalintmod > 0) systemData.totalintmod = "+" + totalintmod;
+    if (totalmndmod > 0) systemData.totalmndmod = "+" + totalmndmod;
     if (totalmovemod > 0) systemData.totalmovemod = "+" + totalmovemod;
     if (totalscmod > 0) systemData.totalscmod = "+" + totalscmod;
     if (totalcnmod > 0) systemData.totalcnmod = "+" + totalcnmod;
@@ -430,10 +460,11 @@ export class SW25Actor extends Actor {
   /**
    * Prepare Monster type specific data.
    */
-  _prepareMonsterData(actorData) {
+  async _prepareMonsterData(actorData) {
     if (actorData.type !== "monster") return;
 
     const systemData = actorData.system;
+    await this.update({});
 
     // Visible data trigger
     const userId = game.user.id;
@@ -454,12 +485,206 @@ export class SW25Actor extends Actor {
     // Make modifiy
     systemData.exp = systemData.monlevel * 10;
 
+    systemData.hp.max = Number(systemData.hpbase) + Number(systemData.hp.hpmod);
+    systemData.mp.max = Number(systemData.mpbase) + Number(systemData.mp.mpmod);
+    systemData.pp =
+      Number(systemData.ppbase) +
+      Number(systemData.attributes.ppmod) +
+      Number(systemData.attributes.dreduce);
+    systemData.mpp =
+      Number(systemData.mppbase) +
+      Number(systemData.attributes.mppmod) +
+      Number(systemData.attributes.dreduce);
+
     if (systemData.impurity == 0 || systemData.impurity == null)
       systemData.showimp = false;
     else systemData.showimp = true;
     if (systemData.part == 0 || systemData.part == null)
       systemData.showpt = false;
     else systemData.showpt = true;
+
+    // Calculate active effect
+    let actorEffects = actorData.effects;
+    let itemEffects = [];
+    this.items.forEach((item) => {
+      itemEffects.push(...item.effects);
+    });
+    let allEffects = [...actorEffects, ...itemEffects];
+    let activeEffects = allEffects.filter(
+      (effect) => effect.disabled === false
+    );
+
+    let effectsChange = activeEffects.map((effect) => {
+      return effect.changes.map((change) => {
+        return {
+          key: change.key,
+          value: Number(change.value),
+        };
+      });
+    });
+
+    let totalhitmod = null;
+    let totaldmod = null;
+    let totallt = null;
+    let totalcr = null;
+    let totaldodgemod = null;
+    let totalppmod = null;
+    let totalmppmod = null;
+    let totaldreduce = null;
+    let totalhpmod = null;
+    let totalmpmod = null;
+    let totaldex = null;
+    let totalagi = null;
+    let totalstr = null;
+    let totalvit = null;
+    let totalint = null;
+    let totalmnd = null;
+    let totaldexmod = null;
+    let totalagimod = null;
+    let totalstrmod = null;
+    let totalvitmod = null;
+    let totalintmod = null;
+    let totalmndmod = null;
+    let totalmovemod = null;
+    let totalscmod = null;
+    let totalcnmod = null;
+    let totalwzmod = null;
+    let totalprmod = null;
+    let totalmtmod = null;
+    let totalfrmod = null;
+    let totaldrmod = null;
+    let totaldmmod = null;
+    effectsChange.forEach((effectList) => {
+      effectList.forEach((effects) => {
+        if (effects.key == "system.attributes.hitmod")
+          totalhitmod += Number(effects.value);
+        if (effects.key == "system.attributes.dmod")
+          totaldmod += Number(effects.value);
+        if (effects.key == "system.lt") totallt += Number(effects.value);
+        if (effects.key == "system.cr") totalcr += Number(effects.value);
+        if (effects.key == "system.attributes.dodgemod")
+          totaldodgemod += Number(effects.value);
+        if (effects.key == "system.attributes.ppmod")
+          totalppmod += Number(effects.value);
+        if (effects.key == "system.attributes.mppmod")
+          totalmppmod += Number(effects.value);
+        if (effects.key == "system.attributes.dreduce")
+          totaldreduce += Number(effects.value);
+        if (effects.key == "system.hp.hpmod")
+          totalhpmod += Number(effects.value);
+        if (effects.key == "system.mp.mpmod")
+          totalmpmod += Number(effects.value);
+        if (effects.key == "system.abilities.dex.valuemodify")
+          totaldex += Number(effects.value);
+        if (effects.key == "system.abilities.agi.valuemodify")
+          totalagi += Number(effects.value);
+        if (effects.key == "system.abilities.str.valuemodify")
+          totalstr += Number(effects.value);
+        if (effects.key == "system.abilities.vit.valuemodify")
+          totalvit += Number(effects.value);
+        if (effects.key == "system.abilities.int.valuemodify")
+          totalint += Number(effects.value);
+        if (effects.key == "system.abilities.mnd.valuemodify")
+          totalmnd += Number(effects.value);
+        if (effects.key == "system.abilities.dex.efmodify")
+          totaldexmod += Number(effects.value);
+        if (effects.key == "system.abilities.agi.efmodify")
+          totalagimod += Number(effects.value);
+        if (effects.key == "system.abilities.str.efmodify")
+          totalstrmod += Number(effects.value);
+        if (effects.key == "system.abilities.vit.efmodify")
+          totalvitmod += Number(effects.value);
+        if (effects.key == "system.abilities.int.efmodify")
+          totalintmod += Number(effects.value);
+        if (effects.key == "system.abilities.mnd.efmodify")
+          totalmndmod += Number(effects.value);
+        if (effects.key == "system.attributes.move.movemod")
+          totalmovemod += Number(effects.value);
+        if (effects.key == "system.attributes.scmod")
+          totalscmod += Number(effects.value);
+        if (effects.key == "system.attributes.cnmod")
+          totalcnmod += Number(effects.value);
+        if (effects.key == "system.attributes.wzmod")
+          totalwzmod += Number(effects.value);
+        if (effects.key == "system.attributes.prmod")
+          totalprmod += Number(effects.value);
+        if (effects.key == "system.attributes.mtmod")
+          totalmtmod += Number(effects.value);
+        if (effects.key == "system.attributes.frmod")
+          totalfrmod += Number(effects.value);
+        if (effects.key == "system.attributes.drmod")
+          totaldrmod += Number(effects.value);
+        if (effects.key == "system.attributes.dmmod")
+          totaldmmod += Number(effects.value);
+      });
+    });
+
+    systemData.totalhitmod = totalhitmod;
+    systemData.totaldmod = totaldmod;
+    systemData.totallt = totallt;
+    systemData.totalcr = totalcr;
+    systemData.totaldodgemod = totaldodgemod;
+    systemData.totalppmod = totalppmod;
+    systemData.totalmppmod = totalmppmod;
+    systemData.totaldreduce = totaldreduce;
+    systemData.totalhpmod = totalhpmod;
+    systemData.totalmpmod = totalmpmod;
+    systemData.totaldex = totaldex;
+    systemData.totalagi = totalagi;
+    systemData.totalstr = totalstr;
+    systemData.totalvit = totalvit;
+    systemData.totalint = totalint;
+    systemData.totalmnd = totalmnd;
+    systemData.totaldexmod = totaldexmod;
+    systemData.totalagimod = totalagimod;
+    systemData.totalstrmod = totalstrmod;
+    systemData.totalvitmod = totalvitmod;
+    systemData.totalintmod = totalintmod;
+    systemData.totalmndmod = totalmndmod;
+    systemData.totalmovemod = totalmovemod;
+    systemData.totalscmod = totalscmod;
+    systemData.totalcnmod = totalcnmod;
+    systemData.totalwzmod = totalwzmod;
+    systemData.totalprmod = totalprmod;
+    systemData.totalmtmod = totalmtmod;
+    systemData.totalfrmod = totalfrmod;
+    systemData.totaldrmod = totaldrmod;
+    systemData.totaldmmod = totaldmmod;
+    if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
+    if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
+    if (totallt > 0) systemData.totallt = "+" + totallt;
+    if (totalcr > 0) systemData.totalcr = "+" + totalcr;
+    if (totaldodgemod > 0) systemData.totaldodgemod = "+" + totaldodgemod;
+    if (totalppmod > 0) systemData.totalppmod = "+" + totalppmod;
+    if (totalmppmod > 0) systemData.totalmppmod = "+" + totalmppmod;
+    if (totaldreduce > 0) systemData.totaldreduce = "+" + totaldreduce;
+    if (totalhpmod > 0) systemData.totalhpmod = "+" + totalhpmod;
+    if (totalmpmod > 0) systemData.totalmpmod = "+" + totalmpmod;
+    if (totaldex > 0) systemData.totaldex = "+" + totaldex;
+    if (totalagi > 0) systemData.totalagi = "+" + totalagi;
+    if (totalstr > 0) systemData.totalstr = "+" + totalstr;
+    if (totalvit > 0) systemData.totalvit = "+" + totalvit;
+    if (totalint > 0) systemData.totalint = "+" + totalint;
+    if (totalmnd > 0) systemData.totalmnd = "+" + totalmnd;
+    if (totaldexmod > 0) systemData.totaldexmod = "+" + totaldexmod;
+    if (totalagimod > 0) systemData.totalagimod = "+" + totalagimod;
+    if (totalstrmod > 0) systemData.totalstrmod = "+" + totalstrmod;
+    if (totalvitmod > 0) systemData.totalvitmod = "+" + totalvitmod;
+    if (totalintmod > 0) systemData.totalintmod = "+" + totalintmod;
+    if (totalmndmod > 0) systemData.totalmndmod = "+" + totalmndmod;
+    if (totalmovemod > 0) systemData.totalmovemod = "+" + totalmovemod;
+    if (totalscmod > 0) systemData.totalscmod = "+" + totalscmod;
+    if (totalcnmod > 0) systemData.totalcnmod = "+" + totalcnmod;
+    if (totalwzmod > 0) systemData.totalwzmod = "+" + totalwzmod;
+    if (totalprmod > 0) systemData.totalprmod = "+" + totalprmod;
+    if (totalmtmod > 0) systemData.totalmtmod = "+" + totalmtmod;
+    if (totalfrmod > 0) systemData.totalfrmod = "+" + totalfrmod;
+    if (totaldrmod > 0) systemData.totaldrmod = "+" + totaldrmod;
+    if (totaldmmod > 0) systemData.totaldmmod = "+" + totaldmmod;
+
+    // Sheet refresh
+    if (actorData.sheet.rendered)
+      await actorData.sheet.render(true, { focus: false });
   }
 
   /**

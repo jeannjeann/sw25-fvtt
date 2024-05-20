@@ -442,6 +442,10 @@ export class SW25ActorSheet extends ActorSheet {
     html.on("change", ".sl-change", this._changeSkillLevel.bind(this));
     html.on("change", ".sc-change", this._changeSkillMod.bind(this));
     html.on("change", ".cm-change", this._changeCheckMod.bind(this));
+    html.on("change", ".cm1-change", this._changeCheckMod1.bind(this));
+    html.on("change", ".cm2-change", this._changeCheckMod2.bind(this));
+    html.on("change", ".cm3-change", this._changeCheckMod3.bind(this));
+    html.on("change", ".pm-change", this._changePowerMod.bind(this));
     html.on("change", ".eq-change", this._changeEquip.bind(this));
     html.on("change", ".rd-change", this._changeReading.bind(this));
     html.on("change", ".cv-change", this._changeConversation.bind(this));
@@ -903,6 +907,66 @@ export class SW25ActorSheet extends ActorSheet {
   }
   async _updateCheckmod(item, checkmod) {
     await item.update({ "system.checkmod": checkmod });
+  }
+
+  async _changeCheckMod1(event) {
+    event.preventDefault();
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+    let newCheckMod = Number(event.currentTarget.value);
+    if (newCheckMod == 0) newCheckMod = null;
+    item.update({ "system.checkmod1": newCheckMod });
+  }
+  async _updateCheckmod(item, checkmod) {
+    await item.update({ "system.checkmod1": checkmod });
+  }
+
+  async _changeCheckMod2(event) {
+    event.preventDefault();
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+    let newCheckMod = Number(event.currentTarget.value);
+    if (newCheckMod == 0) newCheckMod = null;
+    item.update({ "system.checkmod2": newCheckMod });
+  }
+  async _updateCheckmod(item, checkmod) {
+    await item.update({ "system.checkmod2": checkmod });
+  }
+
+  async _changeCheckMod3(event) {
+    event.preventDefault();
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+    let newCheckMod = Number(event.currentTarget.value);
+    if (newCheckMod == 0) newCheckMod = null;
+    item.update({ "system.checkmod3": newCheckMod });
+  }
+  async _updateCheckmod(item, checkmod) {
+    await item.update({ "system.checkmod3": checkmod });
+  }
+
+  async _changePowerMod(event) {
+    event.preventDefault();
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+    let newPowerMod = Number(event.currentTarget.value);
+    if (newPowerMod == 0) newPowerMod = null;
+    item.update({ "system.powermod": newPowerMod });
+  }
+  async _updatePowermod(item, powermod) {
+    await item.update({ "system.powermod": powermod });
   }
 
   async _changeEquip(event) {

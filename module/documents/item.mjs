@@ -55,7 +55,8 @@ export class SW25Item extends Item {
         actorData.abilities.dex.valuebase +
         actorData.abilities.dex.valuegrowth +
         actorData.abilities.dex.valuemodify) /
-        6
+        6 +
+        Number(actorData.abilities.dex.efmodify)
     );
     systemData.skillbase.dex =
       systemData.skilllevel + dexmod + systemData.skillmod;
@@ -64,7 +65,8 @@ export class SW25Item extends Item {
         actorData.abilities.agi.valuebase +
         actorData.abilities.agi.valuegrowth +
         actorData.abilities.agi.valuemodify) /
-        6
+        6 +
+        Number(actorData.abilities.agi.efmodify)
     );
     systemData.skillbase.agi =
       systemData.skilllevel + agimod + systemData.skillmod;
@@ -73,7 +75,8 @@ export class SW25Item extends Item {
         actorData.abilities.str.valuebase +
         actorData.abilities.str.valuegrowth +
         actorData.abilities.str.valuemodify) /
-        6
+        6 +
+        Number(actorData.abilities.str.efmodify)
     );
     systemData.skillbase.str =
       systemData.skilllevel + strmod + systemData.skillmod;
@@ -82,7 +85,8 @@ export class SW25Item extends Item {
         actorData.abilities.vit.valuebase +
         actorData.abilities.vit.valuegrowth +
         actorData.abilities.vit.valuemodify) /
-        6
+        6 +
+        Number(actorData.abilities.vit.efmodify)
     );
     systemData.skillbase.vit =
       systemData.skilllevel + vitmod + systemData.skillmod;
@@ -91,7 +95,8 @@ export class SW25Item extends Item {
         actorData.abilities.int.valuebase +
         actorData.abilities.int.valuegrowth +
         actorData.abilities.int.valuemodify) /
-        6
+        6 +
+        Number(actorData.abilities.int.efmodify)
     );
     systemData.skillbase.int =
       systemData.skilllevel + intmod + systemData.skillmod;
@@ -100,7 +105,8 @@ export class SW25Item extends Item {
         actorData.abilities.mnd.valuebase +
         actorData.abilities.mnd.valuegrowth +
         actorData.abilities.mnd.valuemodify) /
-        6
+        6 +
+        Number(actorData.abilities.mnd.efmodify)
     );
     systemData.skillbase.mnd =
       systemData.skilllevel + mndmod + systemData.skillmod;
@@ -173,7 +179,8 @@ export class SW25Item extends Item {
           actorData.abilities.dex.valuebase +
           actorData.abilities.dex.valuegrowth +
           actorData.abilities.dex.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.dex.efmodify)
       );
     if (systemData.checkabi == "agi")
       abimod = Math.floor(
@@ -181,7 +188,8 @@ export class SW25Item extends Item {
           actorData.abilities.agi.valuebase +
           actorData.abilities.agi.valuegrowth +
           actorData.abilities.agi.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.agi.efmodify)
       );
     if (systemData.checkabi == "str")
       abimod = Math.floor(
@@ -189,7 +197,8 @@ export class SW25Item extends Item {
           actorData.abilities.str.valuebase +
           actorData.abilities.str.valuegrowth +
           actorData.abilities.str.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.str.efmodify)
       );
     if (systemData.checkabi == "vit")
       abimod = Math.floor(
@@ -197,7 +206,8 @@ export class SW25Item extends Item {
           actorData.abilities.vit.valuebase +
           actorData.abilities.vit.valuegrowth +
           actorData.abilities.vit.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.vit.efmodify)
       );
     if (systemData.checkabi == "int")
       abimod = Math.floor(
@@ -205,7 +215,8 @@ export class SW25Item extends Item {
           actorData.abilities.int.valuebase +
           actorData.abilities.int.valuegrowth +
           actorData.abilities.int.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.int.efmodify)
       );
     if (systemData.checkabi == "mnd")
       abimod = Math.floor(
@@ -213,7 +224,8 @@ export class SW25Item extends Item {
           actorData.abilities.mnd.valuebase +
           actorData.abilities.mnd.valuegrowth +
           actorData.abilities.mnd.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.mnd.efmodify)
       );
 
     systemData.checkbase =
@@ -356,7 +368,8 @@ export class SW25Item extends Item {
           actorData.abilities.dex.valuebase +
           actorData.abilities.dex.valuegrowth +
           actorData.abilities.dex.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.dex.efmodify)
       );
     if (systemData.checkabi == "agi")
       checkabimod = Math.floor(
@@ -364,7 +377,8 @@ export class SW25Item extends Item {
           actorData.abilities.agi.valuebase +
           actorData.abilities.agi.valuegrowth +
           actorData.abilities.agi.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.agi.efmodify)
       );
     if (systemData.checkabi == "str")
       checkabimod = Math.floor(
@@ -372,7 +386,8 @@ export class SW25Item extends Item {
           actorData.abilities.str.valuebase +
           actorData.abilities.str.valuegrowth +
           actorData.abilities.str.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.str.efmodify)
       );
     if (systemData.checkabi == "vit")
       checkabimod = Math.floor(
@@ -380,7 +395,8 @@ export class SW25Item extends Item {
           actorData.abilities.vit.valuebase +
           actorData.abilities.vit.valuegrowth +
           actorData.abilities.vit.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.vit.efmodify)
       );
     if (systemData.checkabi == "int")
       checkabimod = Math.floor(
@@ -388,7 +404,8 @@ export class SW25Item extends Item {
           actorData.abilities.int.valuebase +
           actorData.abilities.int.valuegrowth +
           actorData.abilities.int.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.int.efmodify)
       );
     if (systemData.checkabi == "mnd")
       checkabimod = Math.floor(
@@ -396,7 +413,8 @@ export class SW25Item extends Item {
           actorData.abilities.mnd.valuebase +
           actorData.abilities.mnd.valuegrowth +
           actorData.abilities.mnd.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.mnd.efmodify)
       );
     if (systemData.powerabi == "dex")
       powerabimod = Math.floor(
@@ -404,7 +422,8 @@ export class SW25Item extends Item {
           actorData.abilities.dex.valuebase +
           actorData.abilities.dex.valuegrowth +
           actorData.abilities.dex.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.dex.efmodify)
       );
     if (systemData.powerabi == "agi")
       powerabimod = Math.floor(
@@ -412,7 +431,8 @@ export class SW25Item extends Item {
           actorData.abilities.agi.valuebase +
           actorData.abilities.agi.valuegrowth +
           actorData.abilities.agi.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.agi.efmodify)
       );
     if (systemData.powerabi == "str")
       powerabimod = Math.floor(
@@ -420,7 +440,8 @@ export class SW25Item extends Item {
           actorData.abilities.str.valuebase +
           actorData.abilities.str.valuegrowth +
           actorData.abilities.str.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.str.efmodify)
       );
     if (systemData.powerabi == "vit")
       powerabimod = Math.floor(
@@ -428,7 +449,8 @@ export class SW25Item extends Item {
           actorData.abilities.vit.valuebase +
           actorData.abilities.vit.valuegrowth +
           actorData.abilities.vit.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.vit.efmodify)
       );
     if (systemData.powerabi == "int")
       powerabimod = Math.floor(
@@ -436,7 +458,8 @@ export class SW25Item extends Item {
           actorData.abilities.int.valuebase +
           actorData.abilities.int.valuegrowth +
           actorData.abilities.int.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.int.efmodify)
       );
     if (systemData.powerabi == "mnd")
       powerabimod = Math.floor(
@@ -444,7 +467,8 @@ export class SW25Item extends Item {
           actorData.abilities.mnd.valuebase +
           actorData.abilities.mnd.valuegrowth +
           actorData.abilities.mnd.valuemodify) /
-          6
+          6 +
+          Number(actorData.abilities.mnd.efmodify)
       );
 
     systemData.checkbase =

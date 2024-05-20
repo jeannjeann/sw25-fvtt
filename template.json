@@ -93,6 +93,7 @@
           "valuebase": "",
           "valuegrowth": 0,
           "valuemodify": 0,
+          "efmodify": 0,
           "racevalue": ""
         },
         "agi": {
@@ -102,6 +103,7 @@
           "valuebase": "",
           "valuegrowth": 0,
           "valuemodify": 0,
+          "efmodify": 0,
           "racevalue": ""
         },
         "str": {
@@ -111,6 +113,7 @@
           "valuebase": "",
           "valuegrowth": 0,
           "valuemodify": 0,
+          "efmodify": 0,
           "racevalue": ""
         },
         "vit": {
@@ -120,6 +123,7 @@
           "valuebase": "",
           "valuegrowth": 0,
           "valuemodify": 0,
+          "efmodify": 0,
           "racevalue": ""
         },
         "int": {
@@ -129,6 +133,7 @@
           "valuebase": "",
           "valuegrowth": 0,
           "valuemodify": 0,
+          "efmodify": 0,
           "racevalue": ""
         },
         "mnd": {
@@ -138,6 +143,7 @@
           "valuebase": "",
           "valuegrowth": 0,
           "valuemodify": 0,
+          "efmodify": 0,
           "racevalue": ""
         }
       },
@@ -158,6 +164,15 @@
       "exp": 0,
       "overview": "",
       "gminfo": "",
+      "hpbase": 0,
+      "mpbase": 0,
+      "ppbase": 0,
+      "mppbase": 0,
+      "attributes": {
+        "ppmod": 0,
+        "mppmod": 0,
+        "dreduce": 0
+      },
       "pp": 0,
       "mpp": 0,
       "type": "",
@@ -198,11 +213,11 @@
         "checkbase": 0,
         "checkskill": "-",
         "checkabi": "-",
-        "checkmod": "",
+        "checkmod": 0,
         "powerbase": 0,
         "powerskill": "-",
         "powerabi": "-",
-        "powermod": "",
+        "powermod": 0,
         "skilllist": "",
         "usepower": false,
         "usedice": false,
