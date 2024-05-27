@@ -448,6 +448,7 @@ export async function chatButton(chatMessage, buttonType) {
   if (
     buttonType == "buttonpd" ||
     buttonType == "buttonmd" ||
+    buttonType == "buttoncd" ||
     buttonType == "buttonhr" ||
     buttonType == "buttonmr"
   ) {
@@ -489,6 +490,10 @@ export async function chatButton(chatMessage, buttonType) {
     }
     if (buttonType == "buttonmd") {
       resultHP = targetHP - Math.max(0, resultValue - targetMPP);
+      differenceValue = targetHP - resultHP;
+    }
+    if (buttonType == "buttoncd") {
+      resultHP = targetHP - resultValue;
       differenceValue = targetHP - resultHP;
     }
     if (buttonType == "buttonhr") {

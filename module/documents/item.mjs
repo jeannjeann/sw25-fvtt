@@ -472,9 +472,9 @@ export class SW25Item extends Item {
       );
 
     systemData.checkbase =
-      Number(systemData.checkmod) + checklevelmod + checkabimod;
+      Number(systemData.checkmod) + Number(checklevelmod) + Number(checkabimod);
     systemData.powerbase =
-      Number(systemData.powermod) + powerlevelmod + powerabimod;
+      Number(systemData.powermod) + Number(powerlevelmod) + Number(powerabimod);
 
     systemData.checkbase1 =
       Number(systemData.checkbasemod1) + Number(systemData.checkmod1);

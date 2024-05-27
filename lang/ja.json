@@ -46,6 +46,7 @@
     "Use": "使用",
     "Pdamage": "ダメージ (物理)",
     "Mdamage": "ダメージ (魔法)",
+    "Cdamage": "ダメージ (確定)",
     "Recovery": "回復",
 
     "Notargetwarn": "ターゲットが指定されていません",
@@ -137,6 +138,7 @@
       "applyon": "適用あり",
       "pd": "物D",
       "md": "魔D",
+      "cd": "確D",
       "hr": "HP回",
       "mr": "MP回",
       "Price": "価格",

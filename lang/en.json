@@ -46,6 +46,7 @@
     "Use": "Use",
     "Pdamage": "Damage (Physical)",
     "Mdamage": "Damage (Magic)",
+    "Cdamage": "Damage (Determined)",
     "Recovery": "Recovery",
 
     "Notargetwarn": "No targets selected.",
@@ -137,6 +138,7 @@
       "applyon": "Apply",
       "pd": "PDMG",
       "md": "MDMG",
+      "cd": "CDMG",
       "hr": "HPR",
       "mr": "MPR",
       "Price": "Price",
