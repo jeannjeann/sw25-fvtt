@@ -488,60 +488,64 @@ export class SW25Item extends Item {
 
     if (itemData.type == "weapon") {
       systemData.checkbase =
-        systemData.checkbase + systemData.hit + actorData.attributes.hitmod;
+        Number(systemData.checkbase) +
+        Number(systemData.hit) +
+        Number(actorData.attributes.hitmod);
       systemData.powerbase =
-        systemData.powerbase + systemData.dmod + actorData.attributes.dmod;
+        Number(systemData.powerbase) +
+        Number(systemData.dmod) +
+        Number(actorData.attributes.dmod);
     }
 
     if (itemData.type == "spell") {
       switch (systemData.type) {
         case "sorcerer":
           systemData.checkbase =
-            systemData.checkbase + actorData.attributes.scmod;
+            Number(systemData.checkbase) + Number(actorData.attributes.scmod);
           systemData.powerbase =
-            systemData.powerbase + actorData.attributes.scmod;
+            Number(systemData.powerbase) + Number(actorData.attributes.scmod);
           break;
         case "conjurer":
           systemData.checkbase =
-            systemData.checkbase + actorData.attributes.cnmod;
+            Number(systemData.checkbase) + Number(actorData.attributes.cnmod);
           systemData.powerbase =
-            systemData.powerbase + actorData.attributes.cnmod;
+            Number(systemData.powerbase) + Number(actorData.attributes.cnmod);
           break;
         case "wizard":
           systemData.checkbase =
-            systemData.checkbase + actorData.attributes.wzmod;
+            Number(systemData.checkbase) + Number(actorData.attributes.wzmod);
           systemData.powerbase =
-            systemData.powerbase + actorData.attributes.wzmod;
+            Number(systemData.powerbase) + Number(actorData.attributes.wzmod);
           break;
         case "priest":
           systemData.checkbase =
-            systemData.checkbase + actorData.attributes.prmod;
+            Number(systemData.checkbase) + Number(actorData.attributes.prmod);
           systemData.powerbase =
-            systemData.powerbase + actorData.attributes.prmod;
+            Number(systemData.powerbase) + Number(actorData.attributes.prmod);
           break;
         case "magitech":
           systemData.checkbase =
-            systemData.checkbase + actorData.attributes.mtmod;
+            Number(systemData.checkbase) + Number(actorData.attributes.mtmod);
           systemData.powerbase =
-            systemData.powerbase + actorData.attributes.mtmod;
+            Number(systemData.powerbase) + Number(actorData.attributes.mtmod);
           break;
         case "fairy":
           systemData.checkbase =
-            systemData.checkbase + actorData.attributes.frmod;
+            Number(systemData.checkbase) + Number(actorData.attributes.frmod);
           systemData.powerbase =
-            systemData.powerbase + actorData.attributes.frmod;
+            Number(systemData.powerbase) + Number(actorData.attributes.frmod);
           break;
         case "druid":
           systemData.checkbase =
-            systemData.checkbase + actorData.attributes.drmod;
+            Number(systemData.checkbase) + Number(actorData.attributes.drmod);
           systemData.powerbase =
-            systemData.powerbase + actorData.attributes.drmod;
+            Number(systemData.powerbase) + Number(actorData.attributes.drmod);
           break;
         case "daemon":
           systemData.checkbase =
-            systemData.checkbase + actorData.attributes.dmmod;
+            Number(systemData.checkbase) + Number(actorData.attributes.dmmod);
           systemData.powerbase =
-            systemData.powerbase + actorData.attributes.dmmod;
+            Number(systemData.powerbase) + Number(actorData.attributes.dmmod);
           break;
         default:
           break;
