@@ -202,6 +202,60 @@ Hooks.once("ready", async function () {
       });
     }
   });
+
+  // preCreateActor hook
+  Hooks.on("preCreateActor", (actor, options, userId) => {
+    // Set default token
+    let displayName = 0;
+    let actorLink = false;
+    let appendNumber = false;
+    let prependAdjective = false;
+    let disposition = 0;
+    let displayBars = 0;
+    switch (actor.type) {
+      case "character":
+        displayName = 50;
+        actorLink = true;
+        appendNumber = false;
+        prependAdjective = false;
+        disposition = 1;
+        displayBars = 50;
+        break;
+      case "npc":
+        displayName = 30;
+        actorLink = true;
+        appendNumber = false;
+        prependAdjective = false;
+        disposition = 0;
+        displayBars = 0;
+        break;
+      case "monster":
+        displayName = 30;
+        actorLink = false;
+        appendNumber = true;
+        prependAdjective = true;
+        disposition = -1;
+        displayBars = 40;
+        break;
+      default:
+        displayName = 0;
+        actorLink = false;
+        appendNumber = false;
+        prependAdjective = false;
+        disposition = 0;
+        displayBars = 0;
+    }
+
+    // Update actor
+    actor.updateSource({
+      "prototypeToken.displayName": displayName,
+      "prototypeToken.actorLink": actorLink,
+      "prototypeToken.appendNumber": appendNumber,
+      "prototypeToken.prependAdjective": prependAdjective,
+      "prototypeToken.disposition": disposition,
+      "prototypeToken.displayBars": displayBars,
+    });
+  });
 });
 
 /* -------------------------------------------- */

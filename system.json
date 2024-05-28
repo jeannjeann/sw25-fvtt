@@ -20,8 +20,9 @@
   ],
   "version": "0.6.4",
   "compatibility": {
-    "minimum": 11,
-    "verified": "11.315"
+    "minimum": "11",
+    "verified": "11.315",
+    "maximum": "11"
   },
   "esmodules": ["module/sw25.mjs"],
   "styles": ["css/sw25.css"],
