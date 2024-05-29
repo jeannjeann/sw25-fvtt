@@ -432,6 +432,19 @@
       "FrMod": "Fairy MPow",
       "DrMod": "Druid MPow",
       "DmMod": "Summoning MPow"
+    },
+    "Config": {
+      "ResVit": "Fortitude",
+      "ResMnd": "Willpower",
+      "Init": "Initiative",
+      "MKnow": "Monster Knowledge",
+      "MonRes": "Resist",
+      "MonResVit": "Fortitude",
+      "MonResMnd": "Willpower",
+      "MonWp": "Attack",
+      "MonHit": "Accuracy",
+      "MonDmg": "Damage",
+      "MonDge": "Evasion"
     }
   },
 

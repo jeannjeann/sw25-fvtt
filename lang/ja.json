@@ -431,6 +431,19 @@
       "FrMod": "妖精魔法魔力",
       "DrMod": "森羅魔法魔力",
       "DmMod": "召異魔法魔力"
+    },
+    "Config": {
+      "ResVit": "生命抵抗力",
+      "ResMnd": "精神抵抗力",
+      "Init": "先制",
+      "MKnow": "魔物知識",
+      "MonRes": "抵抗判定",
+      "MonResVit": "生命",
+      "MonResMnd": "精神",
+      "MonWp": "武器など",
+      "MonHit": "命中",
+      "MonDmg": "打撃",
+      "MonDge": "回避"
     }
   },
 

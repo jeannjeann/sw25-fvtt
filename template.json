@@ -380,7 +380,7 @@
     },
     "check": {
       "templates": ["base", "roll"],
-      "checfixmod": "",
+      "checkfixmod": "",
       "showbtcheck": false,
       "checkmethod": "normal"
   },

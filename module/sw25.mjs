@@ -256,6 +256,97 @@ Hooks.once("ready", async function () {
       "prototypeToken.displayBars": displayBars,
     });
   });
+
+  // createActor hook
+  Hooks.on("createActor", async (actor, options, userId) => {
+    // Default item data
+    let itemData = [];
+    if (actor.type == "character") {
+      itemData = [
+        {
+          name: game.i18n.localize("SW25.Config.ResVit"),
+          type: "check",
+          system: {
+            description: "",
+            checkskill: "adv",
+            checkabi: "vit",
+            showbtcheck: true,
+          },
+        },
+        {
+          name: game.i18n.localize("SW25.Config.ResMnd"),
+          type: "check",
+          system: {
+            description: "",
+            checkskill: "adv",
+            checkabi: "mnd",
+            showbtcheck: true,
+          },
+        },
+        {
+          name: game.i18n.localize("SW25.Config.Init"),
+          type: "check",
+          system: {
+            description: "",
+            checkskill: "-",
+            checkabi: "-",
+            showbtcheck: true,
+          },
+        },
+        {
+          name: game.i18n.localize("SW25.Config.MKnow"),
+          type: "check",
+          system: {
+            description: "",
+            checkskill: "-",
+            checkabi: "-",
+            showbtcheck: true,
+          },
+        },
+      ];
+    }
+    if (actor.type == "monster") {
+      itemData = [
+        {
+          name: game.i18n.localize("SW25.Config.MonRes"),
+          type: "monsterability",
+          system: {
+            description: "",
+            usedice1: true,
+            label1: game.i18n.localize("SW25.Config.MonResVit"),
+            usefix1: true,
+            applycheck1: false,
+            usedice2: true,
+            label2: game.i18n.localize("SW25.Config.MonResMnd"),
+            usefix2: true,
+            applycheck2: false,
+          },
+        },
+        {
+          name: game.i18n.localize("SW25.Config.MonWp"),
+          type: "monsterability",
+          system: {
+            description: "",
+            usedice1: true,
+            label1: game.i18n.localize("SW25.Config.MonHit"),
+            usefix1: true,
+            applycheck1: false,
+            usedice2: true,
+            label2: game.i18n.localize("SW25.Config.MonDmg"),
+            usefix2: false,
+            applycheck2: true,
+            usedice3: true,
+            label3: game.i18n.localize("SW25.Config.MonDge"),
+            usefix3: true,
+            applycheck3: false,
+          },
+        },
+      ];
+    }
+
+    // Set default item
+    let item = await Item.create(itemData, { parent: actor });
+  });
 });
 
 /* -------------------------------------------- */
