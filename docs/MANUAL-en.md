@@ -1,4 +1,4 @@
-# Simplified Manual for Sword World 2.5
+# Simplified Manual for Sword World 2.5 v0.6.7
 
 ## PC
 
@@ -325,9 +325,9 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 ### Results Application
 - When "Apply" is set in the dice and power roll settings for each item, various buttons are displayed in the roll results that can be applied to a targeted actor.
 - Select one target and click the relevant button as described below to increase or decrease HP or MP (multiple targets are not supported).
-  - [✔ PDMG] Physical damage is applied to the target and their HP is reduced. The damage displayed is the value after applying the target's defense (protection points).
-  - [✔ MDMG] Magical damage is applied to the target and their HP is reduced. The damage displayed is the value after the applying the target's magic defense.
-  - [✔ FDMG] Fixed damage is applied to the target and their HP is reduced. The damage is applied directly to the target.
+  - [✔ PDMG]Physical damage is applied to the target and their HP is reduced. The damage displayed is the value after applying the target's defense (protection points).
+  - [✔ MDMG]Magical damage is applied to the target and their HP is reduced. The damage displayed is the value after the applying the target's magic defense.
+  - [✔ FDMG]Fixed damage is applied to the target and their HP is reduced. The damage is applied directly to the target.
   - [✔ HPR]HP Recovery is applied to the target and their HP is increased. This will not increase the target's HP value above their maximum value.
   - [✔ MPR]MP Recovery is applied to the target and their MP is increased. This will not increase the target's MP value above their maximum value.
 
@@ -342,6 +342,12 @@ Each item can be configured in detail. This is done mainly from the Details tab.
   - Please enter only numbers in the appropriate fields, as they will not be recognized if the HTML structure is broken. Be careful not to include spaces, etc.
   - **Attention! ** Even if you unlock the attached dictionary and edit it, it will still be referenced, but it will be initialized at the time of system update.
 - The edited contents of the generic power table will be updated at world login. Please reload after editing.
+- The Japanese description of the Reference Power Table is as follows.There is no problem in deleting or changing the description of the copied Reference Power Table.
+  - P column is the Power Value
+  - Duplicate the attached "Reference Data" into your world, local compendiums, etc. for editing is recommended.
+  - When duplicating the data in your own dictionaries, the name of the dictionary should be alphabetical order from "Reference" (e.g., with an underscore at the beginning).
+  - Refreshing is required after editing.
+  - Caution!　Attached compendiums will be initialized upon a system update!
 
 ## Effects
 
@@ -409,7 +415,7 @@ You can set the duration in the Effect Duration (Turns) field.
 - Without "Chat COmmander", the custom commands are unavailable but the other functions can still be used.
 
 ### Chat Commands for Power Rolls
-- The following commands are all valid for making a power roll, "/powerroll", "/rollpow", "/rpow", "/rp", "/pow".
+- The following commands are all valid for making a power roll, "/powerroll", "/powroll", "/powr", "/rollpower", "/rollpow", "/rpow", "/rp", "/pow".
 - Power Rolls can be made from the Chat input field by typing the Power Roll expression after the command.
 - You may enter commentary text after the power roll expression.
 - All outputs will be displayed as if they had the "apply" button enabled.
