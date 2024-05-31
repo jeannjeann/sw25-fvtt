@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.6.7
+- マニュアルアップデート
+- update English localization by [kuouvadis](https://github.com/kuouvadis)
+- update English manual by [kuouvadis](https://github.com/kuouvadis)
+- bug fix
+
 ## 0.6.6
 - 威力ロール用チャットコマンドを追加（要「Chat Commander」モジュール）
 - マニュアルアップデート

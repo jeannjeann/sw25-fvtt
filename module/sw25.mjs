@@ -358,7 +358,15 @@ Hooks.once("ready", async function () {
     console.log("Enable custom chat commands");
     game.chatCommands.register({
       name: "/powerroll",
-      aliases: ["/rollpower", "/rollpow", "/rpow", "/rp", "/pow"],
+      aliases: [
+        "/powroll",
+        "/powr",
+        "/rollpower",
+        "/rollpow",
+        "/rpow",
+        "/rp",
+        "/pow",
+      ],
       module: "_chatcommands",
       description: "Roll power table.",
       callback: async (chat, parameters, messageData) => {
