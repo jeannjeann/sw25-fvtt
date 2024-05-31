@@ -10,6 +10,7 @@ import { SW25ActiveEffectConfig } from "./sheets/active-effect-config.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { SW25 } from "./helpers/config.mjs";
 import { chatButton } from "./helpers/chatbutton.mjs";
+import { customCommand } from "./helpers/customcommand.mjs";
 
 // Export variable.
 export const rpt = {};
@@ -347,6 +348,28 @@ Hooks.once("ready", async function () {
     // Set default item
     let item = await Item.create(itemData, { parent: actor });
   });
+
+  // Custom chat command
+  let customCommandModule = "_chatcommands";
+  let chatcommands =
+    game.modules.has(customCommandModule) &&
+    game.modules.get(customCommandModule).active;
+  if (chatcommands) {
+    console.log("Enable custom chat commands");
+    game.chatCommands.register({
+      name: "/powerroll",
+      aliases: ["/rollpower", "/rollpow", "/rpow", "/rp", "/pow"],
+      module: "_chatcommands",
+      description: "Roll power table.",
+      callback: async (chat, parameters, messageData) => {
+        let command = "/powerroll";
+        await customCommand(command, messageData, parameters);
+        return;
+      },
+    });
+  } else {
+    console.log("Disable custom chat commands");
+  }
 });
 
 /* -------------------------------------------- */
