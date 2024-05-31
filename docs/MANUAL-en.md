@@ -32,7 +32,8 @@ These are tabs that would be used mainly during the normal (non-combat) part of 
   - The base value displayed is the value added to 2d6 in the case of judgments, and the value added after the roll in the case of power rolls. The entries in the modification column will be reflected in this value.
   - Click on the item name and base value to make the corresponding roll.
   - This list is intended to increase convenience by registering basic checks such as Fortitude and Willpower, as well as frequently used checks related to skills such as Initiative, Monster Knowledge, Check Package, and Spellcasting.
-  - It is recommended that Fortitude, Willpower, Initiative, and Monster Knowledge be created for all characters based on personal experience.
+  - It is recommended that Fortitude, Willpower, Initiative, and Monster Knowledge be created during character creation.
+  - Initiative and Monster Knowledge must be set to the Class used and ability value.
   - Since you can create these items freely, please be flexible in using them, for example, prepare both Scout's and Tactician's Initiative.
   - Check the item descriptions below for more details.    
 - General-purpose class check column (right)
@@ -143,19 +144,20 @@ This is the area where the monster summary is displayed.
 
 #### Monster Ability Tab
 This tab displays the various abilities of monsters.
-- Use this item for Fortitude and Willpower. This item is required for all monsters.
+- Use this item for Fortitude and Willpower. It is automatically added when the monster is created, but must still be manually set.
 - The behavior when clicking on the icon can be set from Details. The default selection is "All", which displays the description, "Check", "Power", and "Effects" (if applicable) button in chat.
 - The ability's behavior type is automatically displayed before its name. The following types are available: Always "○", Major Action "▶", Minor Action "≫", Combat Preparation "△", and Declaration "□".
 - By checking the "Check 1-3" and "Power Table" checkboxes in the details, the respective label names are displayed, and the corresponding roll can be performed by clicking on them. Use as necessary.
 - If you have set up “Effects” in the ability's Details, “Effects” will appear in the list next to the ability and you can apply those effects to the monster.
 - By checking the "Fixed Value" checkbox under Details for each check, the dice result is automatically fixed at "7" and the roll result is displayed as a fixed value.
-- Use this item for basic abilities (e.g., normal attacks) as well.
-  - Three checks will be used: Accuracy, Damage, and Evasion. Labeling each as "Accuracy," "Damage," and "Evasion" will increase readability.
+- If you have enabled Check and Power Roll, the modified value input box will also be displayed.
+- Use this item for basic abilities (e.g., normal attacks) as well. It is automatically added when the monster is created, but must still be manually set.
+  - Three checks will be used: Accuracy, Damage, and Evasion. Manual input is required.
   - HP, MP, defense (protective points), and magic defense are entered separately.
 - Resistable abilities should also use this item.
   - Using Dice Rolls can be made by checking one of the Checks. Use a label with "Spellcasting" or something similar. Fixed values can also be used.
   - Resistance and resistance results can be entered in the remarks field as "evade/neg" to increase readability.
-- Multi-part demons cannot be represented by a single token. (To be implemented)
+- Multi-part monsters cannot be represented by a single token. (To be implemented)
   - Please prepare separate tokens for the main token and other parts of the body, and operate with multiple tokens.
   - For abilities that affect the whole body, etc., please use the description in the remarks column.
 - **About Magic**
@@ -166,12 +168,12 @@ This tab displays the various abilities of monsters.
   - Please note that skills and ability values cannot be diced unless "-" is selected.
 
 #### Effects Tab
-Effects will be listed similar to the PC sheet, but the Effects Summary will not be displayed at the top.
-- **Note** Effects only apply automatically to PCs. Applying effects to monsters does not change their rolls.
+Effects will be listed similar to the PC sheet, but only those that are valid will be shown, such as with Effects Summary totals.
+- **Note** Only some Effects will be applied to monsters (Max HP Modifier, Max MP Modifier, Defense Modifier, Magic Defense Modifier). Others will be ignored.
 - This can be used to manage elapsed time.
 
 #### Description Tab
-- This is a free description field. This is intended for general descriptions of the demon.
+- This is a free description field. This is intended for general descriptions of the monster.
 - The loot list described in the Details Tab will also be displayed.
 
 #### Details Tab
@@ -293,7 +295,7 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 
 ### Monster Ability
 - Action type and remarks can be entered.
-- There are no items for Fortitude and Willpower for demons. Please record them with this ability.
+- There are no items for Fortitude and Willpower for monsters. Please record them with this ability.
 - Use this item for basic abilities (e.g., normal attacks) as well.
   - Three judgments will be used: accuracy, damage, and evasion. Labeling each as "accuracy," "damage," and "evasion" will increase readability.
   - For defense (protection points), enter "defense:5" in the remarks field of the item to make it appear in the list and increase readability.
@@ -307,7 +309,7 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 - Unlike normal items, up to three types of judgments can be used.
 - There is a label input field for checks and power. The label name will be the label of the click-rollable part displayed in the list.
 - For checks, in addition to setting a base value and a modified value, a fixed value check will fix the dice roll to 7, and a different type of dice can be used by using custom.
-- Some abilities can be prepared with Effects to make them more manageable, but the effects only automatically apply to PCs.
+- Some abilities can be prepared with Effects to make them more manageable, but the effects are only partially applied.
 - Most monster abilities should be able to be handled with this item, so use it flexibly.
 
 ## Dice Rolls
@@ -323,8 +325,9 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 ### Results Application
 - When "Apply" is set in the dice and power roll settings for each item, various buttons are displayed in the roll results that can be applied to a targeted actor.
 - Select one target and click the relevant button as described below to increase or decrease HP or MP (multiple targets are not supported).
-  - [✔ PD]Physical damage is applied to the target and their HP is reduced. The damage displayed is the value after applying the target's defense (protection points).
-  - [✔ MD]Magical damage is applied to the target and their HP is reduced. The damage displayed is the value after the applying the target's magic defense.
+  - [✔ PDMG] Physical damage is applied to the target and their HP is reduced. The damage displayed is the value after applying the target's defense (protection points).
+  - [✔ MDMG] Magical damage is applied to the target and their HP is reduced. The damage displayed is the value after the applying the target's magic defense.
+  - [✔ FDMG] Fixed damage is applied to the target and their HP is reduced. The damage is applied directly to the target.
   - [✔ HPR]HP Recovery is applied to the target and their HP is increased. This will not increase the target's HP value above their maximum value.
   - [✔ MPR]MP Recovery is applied to the target and their MP is increased. This will not increase the target's MP value above their maximum value.
 
@@ -394,12 +397,35 @@ You can set the duration in the Effect Duration (Turns) field.
 - Temporary Effects that are disabled will be activated upon application.
 
 ### Notes on Effects
-- Currently, Effects can only be applied to PCs, e.g., PC to PC or demon to PC.
-- In the case of PC -> monster, monster -> monster, etc., the Effect will not be applied to the monster, but will be displayed in the Effects tab. This can be used to manage the duration of the Effect.
+- Currently, Effects can only be applied to PCs, e.g., PC->PC or monster->PC.
+- In the case of PC->monster, monster->monster, etc., only some effects (Max HP Modifier, Max MP Modifier, Defense Modifier, Magic Defense Modifier) will be applied to the monster. Others will be ignored. This can be used to manage the duration of the effect.
 - Most of the attribute keys that can be used for Effects have an entry field on the character sheet, and the field changes when the Effect is applied.
 - Please note that we do not manage duplicates of the same Effects, so beware of unintended duplicates.
-- ** Attention! ** When an Effect is applied, the corresponding input field cannot be changed by direct input. If you want to change it, deactivate the Effect, make the change, and then reactivate the Effect.
+- ** Attention! ** If you want to change the Effect, you must first deactivate the Effect, make the change, and then reactivate it.
 - **Note! ** The Effects of Personal Items and Critical Ray only apply to the selected weapon.
+
+## Chat Commands (Custom Commands)
+- The following commands all require the "Chat Commander" Module to be enabled.
+- Without "Chat COmmander", the custom commands are unavailable but the other functions can still be used.
+
+### Chat Commands for Power Rolls
+- The following commands are all valid for making a power roll, "/powerroll", "/rollpow", "/rpow", "/rp", "/pow".
+- Power Rolls can be made from the Chat input field by typing the Power Roll expression after the command.
+- You may enter commentary text after the power roll expression.
+- All outputs will be displayed as if they had the "apply" button enabled.
+- **Caution** You must prepare the Reference Power Table in order to use the Power roll expression.
+
+#### Format for Power Roll Expressions
+- Replace <x> with any number in the following roll expression descriptions.
+- The format is adapted from BCDice notation,but the behavior has been modified.
+- "k<x>" Refers to the Power (required, e.g. k10 for Power 10)
+- "@<x>" Refers to the Critical Value of the roll. (optional. If omitted, will default to 10, e.g. k10@10)
+- "+<x>" and "-<x>" Refers to the roll's modification value. (optional, e.g. k10+2)
+- "h", "h+<x>", "h-<x>" Refers to halving the Power Roll, and also adding or subtracting a modified value after taking the halved Power Roll. (optional, crit value will default to 13, e.g., k10+2h k10+2h-1).
+- "#<x>" Refers to increasing the Power Roll by 1 step for special attacks, such as Lethal Strike. (optional, usually 1, e.g., k10@10+2#1).
+- "$+<x>", "$-<x>" Refers to the value of the Power modifier for a Critical Ray (optional, e.g., k10+2$+2).
+- "tf<x>" Refers to fixing one dice to the X number and rolling the second dice, such as when using the Apothecary's Tools (optional, usually 4, e.g., k10@13tf4 is equal to rolling 1d6+4 on Power 10 Table).
+- "r<x>” Refers the power table increase when using the Executioner's Blade (optional, usually 5, e.g., k10@10+2r5).
 
 ## Macro Support
 
@@ -419,10 +445,11 @@ You can set the duration in the Effect Duration (Turns) field.
 - This is a beta version. There is a high possibility that some bugs may remain.
 - Error handling is lax.
 - A warning message appears on the console, but since there is no problem with the operation, it has been left alone for the time being.
-- We have not tested the compatibility with the mod. It is compatible with "Dice So Nice!" and "Times Up"
+- We have not tested the compatibility with the mod. It is compatible with "Dice So Nice!", "Times Up", and "Chat Commander"
 - The layout has not been validated in English.
 - Limited permissions for NPCs and monsters, icons and images will not be changed.
 - We recommend using the “Times Up” mod to manage the duration of buffs and debuffs.
+- "Chat Commander" is required to use Custom Chat Commands.
 - Combat has not been implemented. We recommend that you take initiative manually or install mods.
 - An example of a mod that supports the order of action (I personally think that Popcorn Initiative is suited for this)
   - Popcorn type "Lancer Initiative" and "Just Popcorn Initiative
