@@ -389,6 +389,7 @@ You can set the duration in the Effect Duration (Turns) field.
 - Multiple effects can be created for a single buff/debuff by clicking the + Button.
 - At this time, the attribute keys to which effects are automatically applied to are limited to those listed in the pull-down menu.
 - Negative values can also be entered for effect values.
+- ** Attention! ** If an effect has no attribute key set, it cannot be saved (it can be saved by setting or deleting the corresponding effect).
 
 ### How to Apply Effects
 
