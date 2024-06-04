@@ -400,6 +400,7 @@
       "Inactive": "無効バフ・デバフ",
       "TotalEffects": "バフ・デバフ合計",
       "Battle": "戦闘関連",
+      "Check": "判定",
       "Parameter": "能力値",
       "MagicPower": "魔力",
       "DirectInput": "直接入力",
@@ -475,6 +476,54 @@
       "raceability": "種族特徴",
       "language": "言語",
       "monsterability": "魔物能力"
+    }
+  },
+
+  "SETTING": {
+    "effectVitResPC":{
+      "name": "生命抵抗力の判定アイテム名",
+      "hint": "生命抵抗力判定バフ適用対象の設定（PC用）、省略可、デフォルトおよび省力時：",
+      "default": "生命抵抗力"
+    },
+    "effectMndResPC":{
+      "name": "精神抵抗力の判定アイテム名",
+      "hint": "精神抵抗力判定バフ適用対象の設定（PC用）、省略可、デフォルトおよび省力時：",
+      "default": "精神抵抗力"
+    },
+    "effectInitPC":{
+      "name": "先制判定の判定アイテム名",
+      "hint": "先制判定バフ適用対象の設定（PC用）、省略可、デフォルトおよび省力時：",
+      "default": "先制"
+    },
+    "effectMKnowPC":{
+      "name": "魔物知識の判定アイテム名",
+      "hint": "魔物知識判定バフ適用対象の設定（PC用）、省略可、デフォルトおよび省力時：",
+      "default": "魔物知識"
+    },
+    "effectVitResMon":{
+      "name": "生命抵抗力のラベル名",
+      "hint": "生命抵抗力判定バフ適用対象の設定（魔物用）、省略可、デフォルトおよび省力時：",
+      "default": "生命"
+    },
+    "effectMndResMon":{
+      "name": "精神抵抗力のラベル名",
+      "hint": "精神抵抗力判定バフ適用対象の設定（魔物用）、省略可、デフォルトおよび省力時：",
+      "default": "精神"
+    },
+    "effectHitMon":{
+      "name": "命中力判定のラベル名",
+      "hint": "命中力判定バフ適用対象の設定（魔物用）、省略可、デフォルトおよび省力時：",
+      "default": "命中"
+    },
+    "effectDmgMon":{
+      "name": "打撃点判定のラベル名",
+      "hint": "打撃点判定バフ適用対象の設定（魔物用）、省略可、デフォルトおよび省力時：",
+      "default": "打撃"
+    },
+    "effectDodgeMon":{
+      "name": "回避力判定のラベル名",
+      "hint": "回避力判定バフ適用対象の設定（魔物用）、省略可、デフォルトおよび省力時：",
+      "default": "回避"
     }
   }
 }

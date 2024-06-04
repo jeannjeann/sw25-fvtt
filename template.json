@@ -17,7 +17,16 @@
         "race": "",
         "biography": ""
       },
-      "money": 0
+      "money": 0,
+      "effect":{
+        "vitres": "",
+        "mndres": "",
+        "init": "",
+        "mknow": "",
+        "hit": "",
+        "dmg": "",
+        "dodge": ""
+      }
     },
     "character": {
       "templates": ["base"],

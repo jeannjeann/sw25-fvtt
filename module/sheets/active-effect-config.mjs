@@ -20,9 +20,9 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
     const context = await super.getData();
 
     // Use a safe clone of the actor data for further operations.
-    const effectData = context.data;
+    const effectData = context.effect;
 
-    // Set  keyClassification of exsisting keys
+    // Set  keyClassification and kename of exsisting keys
     for (let i = 0; i < effectData.changes.length; i++) {
       let change = effectData.changes[i];
       switch (change.key) {
@@ -36,6 +36,7 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.dreduce":
         case "system.attributes.move.movemod":
           change.keyClassification = "battle";
+          change.keyname = change.key.replace(/^system\./, "");
           break;
         case "system.hp.hpmod":
         case "system.mp.mpmod":
@@ -52,6 +53,7 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.abilities.int.efmodify":
         case "system.abilities.mnd.efmodify":
           change.keyClassification = "parameter";
+          change.keyname = change.key.replace(/^system\./, "");
           break;
         case "system.attributes.scmod":
         case "system.attributes.cnmod":
@@ -62,15 +64,22 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.drmod":
         case "system.attributes.dmmod":
           change.keyClassification = "magicpower";
+          change.keyname = change.key.replace(/^system\./, "");
+          break;
+        case "system.":
+          change.key = "";
           break;
         case null:
         case "":
+          change.keyname = "";
           break;
         default:
           change.keyClassification = "input";
           break;
       }
     }
+
+    let effectVitResPC = game.settings.get("sw25", "effectVitResPC");
 
     return context;
   }
@@ -81,6 +90,7 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
     html
       .find(".select-keyClassification")
       .change(this._selectKeyClassification.bind(this));
+    html.find(".select-keyname").change(this._selectKeyname.bind(this));
   }
 
   async _selectKeyClassification(event) {
@@ -93,7 +103,29 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
     const keytData = effectData.changes[index];
 
     keytData.keyClassification = selected;
+    keytData.keyname = "";
     keytData.key = "";
+
+    if (effectData.sheet.rendered)
+      await effectData.sheet.render(true, { focus: false });
+  }
+
+  async _selectKeyname(event) {
+    event.preventDefault();
+    const selected = $(event.currentTarget).val();
+    const index = $(event.currentTarget)
+      .closest(".effect-change")
+      .data("index");
+    const effectData = this.object;
+    const keytData = effectData.changes[index];
+    const changeData = duplicate(effectData.changes); // Create a copy of changes array
+
+    keytData.keyname = selected;
+    keytData.key = "system." + selected;
+    changeData[index].keyname = selected;
+    changeData[index].key = "system." + selected;
+
+    await this.object.update({ changeData });
 
     if (effectData.sheet.rendered)
       await effectData.sheet.render(true, { focus: false });

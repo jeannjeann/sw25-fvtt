@@ -12,5 +12,38 @@ export class SW25ActiveEffect extends ActiveEffect {
   /** @override */
   prepareDerivedData() {
     // preparation methods overridden (such as prepareBaseData()).
+    const effectData = this;
+  }
+
+  /** @override */
+  async update(data, options = {}) {
+    if (data.changes) {
+      data.changes = SW25ActiveEffect.applyChangeData(data.changes);
+    }
+    return super.update(data, options);
+  }
+
+  /** @override */
+  static async create(data, options = {}) {
+    if (data.changes) {
+      data.changes = SW25ActiveEffect.applyChangeData(data.changes);
+    }
+    return super.create(data, options);
+  }
+
+  static applyChangeData(changes) {
+    return changes.map((change) => {
+      if (!change.keyClassification) {
+        change.keyClassification = "";
+      }
+      if (!change.keyname) {
+        change.keyname = "";
+      }
+      if (!change.key) {
+        if (change.keyname != "") change.key = "system." + change.keyname;
+        else change.key = "";
+      }
+      return change;
+    });
   }
 }

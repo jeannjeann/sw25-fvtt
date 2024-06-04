@@ -6,10 +6,8 @@ import { powerRoll } from "./powerroll.mjs";
 export async function chatButton(chatMessage, buttonType) {
   const actorId = chatMessage.speaker.actor;
   const actor = game.actors.get(actorId);
-  if (chatMessage.flags.itemid) {
-    const itemId = chatMessage.flags.itemid;
-    const item = actor.items.get(itemId);
-  }
+  const itemId = chatMessage.flags.itemid;
+  const item = actor.items.get(itemId);
 
   // Item roll button
   if (

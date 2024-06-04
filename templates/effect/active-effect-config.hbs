@@ -114,60 +114,68 @@
                     {{#select change.keyClassification}}
                     <option value="">-</option>
                     <option value="battle" {{#if (eq change.keyClassification "battle")}}selected{{/if}}>{{localize "SW25.Effect.Battle"}}</option>
+                    <option value="check" {{#if (eq change.keyClassification "check")}}selected{{/if}}>{{localize "SW25.Effect.Check"}}</option>
                     <option value="parameter" {{#if (eq change.keyClassification "parameter")}}selected{{/if}}>{{localize "SW25.Effect.Parameter"}}</option>
                     <option value="magicpower" {{#if (eq change.keyClassification "magicpower")}}selected{{/if}}>{{localize "SW25.Effect.MagicPower"}}</option>
                     <option value="input" {{#if (eq change.keyClassification "input")}}selected{{/if}}>{{localize "SW25.Effect.DirectInput"}}</option>
                     {{/select}}
                     </select>
                     {{#if (eq change.keyClassification "battle")}}
-                        <select name="changes.{{i}}.key">
-                        {{#select change.key}}
+                        <select name="changes.{{i}}.keyname" class="select-keyname">
+                        {{#select change.keyname}}
                         <option value="">-</option>
-                        <option value="system.attributes.hitmod" {{#if (eq change.key "system.attributes.hitmod")}}selected{{/if}}>{{localize "SW25.Effect.HitMod"}}</option>
-                        <option value="system.attributes.dmod" {{#if (eq change.key "system.attributes.dmod")}}selected{{/if}}>{{localize "SW25.Effect.DamageMod"}}</option>
-                        <option value="system.lt" {{#if (eq change.key "system.lt")}}selected{{/if}}>{{localize "SW25.Effect.LethalTech"}}</option>
-                        <option value="system.cr" {{#if (eq change.key "system.cr")}}selected{{/if}}>{{localize "SW25.Effect.CriticalRay"}}</option>
-                        <option value="system.attributes.dodgemod" {{#if (eq change.key "system.attributes.dodgemod")}}selected{{/if}}>{{localize "SW25.Effect.DodgeMod"}}</option>
-                        <option value="system.attributes.ppmod" {{#if (eq change.key "system.attributes.ppmod")}}selected{{/if}}>{{localize "SW25.Effect.PpMod"}}</option>
-                        <option value="system.attributes.mppmod" {{#if (eq change.key "system.attributes.mppmod")}}selected{{/if}}>{{localize "SW25.Effect.MppMod"}}</option>
-                        <option value="system.attributes.dreduce" {{#if (eq change.key "system.attributes.dreduce")}}selected{{/if}}>{{localize "SW25.Effect.Dreduce"}}</option>
-                        <option value="system.attributes.move.movemod" {{#if (eq change.key "system.attributes.move.movemod")}}selected{{/if}}>{{localize "SW25.Effect.MoveMod"}}</option>
+                        <option value="attributes.hitmod" {{#if (eq change.keyname "attributes.hitmod")}}selected{{/if}}>{{localize "SW25.Effect.HitMod"}}</option>
+                        <option value="attributes.dmod" {{#if (eq change.keyname "attributes.dmod")}}selected{{/if}}>{{localize "SW25.Effect.DamageMod"}}</option>
+                        <option value="lt" {{#if (eq change.keyname "lt")}}selected{{/if}}>{{localize "SW25.Effect.LethalTech"}}</option>
+                        <option value="cr" {{#if (eq change.keyname "cr")}}selected{{/if}}>{{localize "SW25.Effect.CriticalRay"}}</option>
+                        <option value="attributes.dodgemod" {{#if (eq change.keyname "attributes.dodgemod")}}selected{{/if}}>{{localize "SW25.Effect.DodgeMod"}}</option>
+                        <option value="attributes.ppmod" {{#if (eq change.keyname "attributes.ppmod")}}selected{{/if}}>{{localize "SW25.Effect.PpMod"}}</option>
+                        <option value="attributes.mppmod" {{#if (eq change.keyname "attributes.mppmod")}}selected{{/if}}>{{localize "SW25.Effect.MppMod"}}</option>
+                        <option value="attributes.dreduce" {{#if (eq change.keyname "attributes.dreduce")}}selected{{/if}}>{{localize "SW25.Effect.Dreduce"}}</option>
+                        <option value="attributes.move.movemod" {{#if (eq change.keyname "attributes.move.movemod")}}selected{{/if}}>{{localize "SW25.Effect.MoveMod"}}</option>
+                        {{/select}}
+                        </select>
+                    {{/if}}
+                    {{#if (eq change.keyClassification "check")}}
+                        <select name="changes.{{i}}.keyname" class="select-keyname">
+                        {{#select change.keyname}}
+                        <option value="">-</option>
                         {{/select}}
                         </select>
                     {{/if}}
                     {{#if (eq change.keyClassification "parameter")}}
-                        <select name="changes.{{i}}.key">
-                        {{#select change.key}}
+                        <select name="changes.{{i}}.keyname" class="select-keyname">
+                        {{#select change.keyname}}
                         <option value="">-</option>
-                        <option value="system.hp.hpmod" {{#if (eq change.key "system.hp.hpmod")}}selected{{/if}}>{{localize "SW25.Effect.HpMod"}}</option>
-                        <option value="system.mp.mpmod" {{#if (eq change.key "system.mp.mpmod")}}selected{{/if}}>{{localize "SW25.Effect.MpMod"}}</option>
-                        <option value="system.abilities.dex.valuemodify" {{#if (eq change.key "system.abilities.dex.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.DexValueModify"}}</option>
-                        <option value="system.abilities.agi.valuemodify" {{#if (eq change.key "system.abilities.agi.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.AgiValueModify"}}</option>
-                        <option value="system.abilities.str.valuemodify" {{#if (eq change.key "system.abilities.str.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.StrValueModify"}}</option>
-                        <option value="system.abilities.vit.valuemodify" {{#if (eq change.key "system.abilities.vit.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.VitValueModify"}}</option>
-                        <option value="system.abilities.int.valuemodify" {{#if (eq change.key "system.abilities.int.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.IntValueModify"}}</option>
-                        <option value="system.abilities.mnd.valuemodify" {{#if (eq change.key "system.abilities.mnd.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.MndValueModify"}}</option>
-                        <option value="system.abilities.dex.efmodify" {{#if (eq change.key "system.abilities.dex.efmodify")}}selected{{/if}}>{{localize "SW25.Effect.DexModModify"}}</option>
-                        <option value="system.abilities.agi.efmodify" {{#if (eq change.key "system.abilities.agi.efmodify")}}selected{{/if}}>{{localize "SW25.Effect.AgiModModify"}}</option>
-                        <option value="system.abilities.str.efmodify" {{#if (eq change.key "system.abilities.str.efmodify")}}selected{{/if}}>{{localize "SW25.Effect.StrModModify"}}</option>
-                        <option value="system.abilities.vit.efmodify" {{#if (eq change.key "system.abilities.vit.efmodify")}}selected{{/if}}>{{localize "SW25.Effect.VitModModify"}}</option>
-                        <option value="system.abilities.int.efmodify" {{#if (eq change.key "system.abilities.int.efmodify")}}selected{{/if}}>{{localize "SW25.Effect.IntModModify"}}</option>
-                        <option value="system.abilities.mnd.efmodify" {{#if (eq change.key "system.abilities.mnd.efmodify")}}selected{{/if}}>{{localize "SW25.Effect.MndModModify"}}</option>
+                        <option value="hp.hpmod" {{#if (eq change.keyname "hp.hpmod")}}selected{{/if}}>{{localize "SW25.Effect.HpMod"}}</option>
+                        <option value="mp.mpmod" {{#if (eq change.keyname "mp.mpmod")}}selected{{/if}}>{{localize "SW25.Effect.MpMod"}}</option>
+                        <option value="abilities.dex.valuemodify" {{#if (eq change.keyname "abilities.dex.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.DexValueModify"}}</option>
+                        <option value="abilities.agi.valuemodify" {{#if (eq change.keyname "abilities.agi.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.AgiValueModify"}}</option>
+                        <option value="abilities.str.valuemodify" {{#if (eq change.keyname "abilities.str.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.StrValueModify"}}</option>
+                        <option value="abilities.vit.valuemodify" {{#if (eq change.keyname "abilities.vit.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.VitValueModify"}}</option>
+                        <option value="abilities.int.valuemodify" {{#if (eq change.keyname "abilities.int.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.IntValueModify"}}</option>
+                        <option value="abilities.mnd.valuemodify" {{#if (eq change.keyname "abilities.mnd.valuemodify")}}selected{{/if}}>{{localize "SW25.Effect.MndValueModify"}}</option>
+                        <option value="abilities.dex.efmodify" {{#if (eq change.keyname "abilities.dex.efmodify")}}selected{{/if}}>{{localize "SW25.Effect.DexModModify"}}</option>
+                        <option value="abilities.agi.efmodify" {{#if (eq change.keyname "abilities.agi.efmodify")}}selected{{/if}}>{{localize "SW25.Effect.AgiModModify"}}</option>
+                        <option value="abilities.str.efmodify" {{#if (eq change.keyname "abilities.str.efmodify")}}selected{{/if}}>{{localize "SW25.Effect.StrModModify"}}</option>
+                        <option value="abilities.vit.efmodify" {{#if (eq change.keyname "abilities.vit.efmodify")}}selected{{/if}}>{{localize "SW25.Effect.VitModModify"}}</option>
+                        <option value="abilities.int.efmodify" {{#if (eq change.keyname "abilities.int.efmodify")}}selected{{/if}}>{{localize "SW25.Effect.IntModModify"}}</option>
+                        <option value="abilities.mnd.efmodify" {{#if (eq change.keyname "abilities.mnd.efmodify")}}selected{{/if}}>{{localize "SW25.Effect.MndModModify"}}</option>
                         {{/select}}
                         </select>
                     {{/if}}
                     {{#if (eq change.keyClassification "magicpower")}}
-                        <select name="changes.{{i}}.key">
-                        {{#select change.key}}
+                        <select name="changes.{{i}}.keyname" class="select-keyname">
+                        {{#select change.keyname}}
                         <option value="">-</option>
-                        <option value="system.attributes.scmod" {{#if (eq change.key "system.attributes.scmod")}}selected{{/if}}>{{localize "SW25.Effect.ScMod"}}</option>
-                        <option value="system.attributes.cnmod" {{#if (eq change.key "system.attributes.cnmod")}}selected{{/if}}>{{localize "SW25.Effect.CnMod"}}</option>
-                        <option value="system.attributes.wzmod" {{#if (eq change.key "system.attributes.wzmod")}}selected{{/if}}>{{localize "SW25.Effect.WzMod"}}</option>
-                        <option value="system.attributes.prmod" {{#if (eq change.key "system.attributes.prmod")}}selected{{/if}}>{{localize "SW25.Effect.PrMod"}}</option>
-                        <option value="system.attributes.mtmod" {{#if (eq change.key "system.attributes.mtmod")}}selected{{/if}}>{{localize "SW25.Effect.MtMod"}}</option>
-                        <option value="system.attributes.frmod" {{#if (eq change.key "system.attributes.frmod")}}selected{{/if}}>{{localize "SW25.Effect.FrMod"}}</option>
-                        <option value="system.attributes.drmod" {{#if (eq change.key "system.attributes.drmod")}}selected{{/if}}>{{localize "SW25.Effect.DrMod"}}</option>
-                        <option value="system.attributes.dmmod" {{#if (eq change.key "system.attributes.dnmod")}}selected{{/if}}>{{localize "SW25.Effect.DmMod"}}</option>
+                        <option value="attributes.scmod" {{#if (eq change.keyname "attributes.scmod")}}selected{{/if}}>{{localize "SW25.Effect.ScMod"}}</option>
+                        <option value="attributes.cnmod" {{#if (eq change.keyname "attributes.cnmod")}}selected{{/if}}>{{localize "SW25.Effect.CnMod"}}</option>
+                        <option value="attributes.wzmod" {{#if (eq change.keyname "attributes.wzmod")}}selected{{/if}}>{{localize "SW25.Effect.WzMod"}}</option>
+                        <option value="attributes.prmod" {{#if (eq change.keyname "attributes.prmod")}}selected{{/if}}>{{localize "SW25.Effect.PrMod"}}</option>
+                        <option value="attributes.mtmod" {{#if (eq change.keyname "attributes.mtmod")}}selected{{/if}}>{{localize "SW25.Effect.MtMod"}}</option>
+                        <option value="attributes.frmod" {{#if (eq change.keyname "attributes.frmod")}}selected{{/if}}>{{localize "SW25.Effect.FrMod"}}</option>
+                        <option value="attributes.drmod" {{#if (eq change.keyname "attributes.drmod")}}selected{{/if}}>{{localize "SW25.Effect.DrMod"}}</option>
+                        <option value="attributes.dmmod" {{#if (eq change.keyname "attributes.dnmod")}}selected{{/if}}>{{localize "SW25.Effect.DmMod"}}</option>
                         {{/select}}
                         </select>
                     {{/if}}

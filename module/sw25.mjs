@@ -96,6 +96,98 @@ Hooks.once("ready", async function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
 
+  // Resister gamesystem settings.
+  game.settings.register("sw25", "effectVitResPC", {
+    name: game.i18n.localize("SETTING.effectVitResPC.name"),
+    hint:
+      game.i18n.localize("SETTING.effectVitResPC.hint") +
+      game.i18n.localize("SETTING.effectVitResPC.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectVitResPC.default"),
+  });
+  game.settings.register("sw25", "effectMndResPC", {
+    name: game.i18n.localize("SETTING.effectMndResPC.name"),
+    hint:
+      game.i18n.localize("SETTING.effectMndResPC.hint") +
+      game.i18n.localize("SETTING.effectMndResPC.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectMndResPC.default"),
+  });
+  game.settings.register("sw25", "effectInitPC", {
+    name: game.i18n.localize("SETTING.effectInitPC.name"),
+    hint:
+      game.i18n.localize("SETTING.effectInitPC.hint") +
+      game.i18n.localize("SETTING.effectInitPC.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectInitPC.default"),
+  });
+  game.settings.register("sw25", "effectMKnowPC", {
+    name: game.i18n.localize("SETTING.effectMKnowPC.name"),
+    hint:
+      game.i18n.localize("SETTING.effectMKnowPC.hint") +
+      game.i18n.localize("SETTING.effectMKnowPC.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectMKnowPC.default"),
+  });
+  game.settings.register("sw25", "effectVitResMon", {
+    name: game.i18n.localize("SETTING.effectVitResMon.name"),
+    hint:
+      game.i18n.localize("SETTING.effectVitResMon.hint") +
+      game.i18n.localize("SETTING.effectVitResMon.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectVitResMon.default"),
+  });
+  game.settings.register("sw25", "effectMndResMon", {
+    name: game.i18n.localize("SETTING.effectMndResMon.name"),
+    hint:
+      game.i18n.localize("SETTING.effectMndResMon.hint") +
+      game.i18n.localize("SETTING.effectMndResMon.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectMndResMon.default"),
+  });
+  game.settings.register("sw25", "effectHitMon", {
+    name: game.i18n.localize("SETTING.effectHitMon.name"),
+    hint:
+      game.i18n.localize("SETTING.effectHitMon.hint") +
+      game.i18n.localize("SETTING.effectHitMon.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectHitMon.default"),
+  });
+  game.settings.register("sw25", "effectDmgMon", {
+    name: game.i18n.localize("SETTING.effectDmgMon.name"),
+    hint:
+      game.i18n.localize("SETTING.effectDmgMon.hint") +
+      game.i18n.localize("SETTING.effectDmgMon.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectDmgMon.default"),
+  });
+  game.settings.register("sw25", "effectDodgeMon", {
+    name: game.i18n.localize("SETTING.effectDodgeMon.name"),
+    hint:
+      game.i18n.localize("SETTING.effectDodgeMon.hint") +
+      game.i18n.localize("SETTING.effectDodgeMon.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectDodgeMon.default"),
+  });
+
   // Chat message button
   Hooks.on("renderChatMessage", (chatMessage, html, data) => {
     html.find(".buttonclick").click(function () {

@@ -401,6 +401,7 @@
       "Inactive": "Inactive Effects",
       "TotalEffects": "Effects Summary",
       "Battle": "Battle",
+      "Check": "Check",
       "Parameter": "Ability",
       "MagicPower": "MagicPower",
       "DirectInput": "Direct Input",
@@ -476,6 +477,54 @@
       "raceability": "Race Ability",
       "language": "Language",
       "monsterability": "Monster Ability"
+    }
+  },
+
+  "SETTING": {
+    "effectVitResPC":{
+      "name": "Item name of Fortitude",
+      "hint": "Fortitude effect target settings (for Player Character), default and when omitted : ",
+      "default": "Fortitude"
+    },
+    "effectMndResPC":{
+      "name": "Item name of Willpower",
+      "hint": "Willpower effect target settings (for Player Character), default and when omitted : ",
+      "default": "Willpower"
+    },
+    "effectInitPC":{
+      "name": "Item name of Initiative",
+      "hint": "Initiative effect target settings (for Player Character), default and when omitted : ",
+      "default": "Initiative"
+    },
+    "effectMKnowPC":{
+      "name": "Item name of Monster Knowledge",
+      "hint": "Monster Knowledge effect target settings (for Player Character), default and when omitted : ",
+      "default": "Monster Knowledge"
+    },
+    "effectVitResMon":{
+      "name": "Label of Fortitude",
+      "hint": "Fortitude effect target settings (for Monster), default and when omitted : ",
+      "default": "Fortitude"
+    },
+    "effectMndResMon":{
+      "name": "Label of Willpower",
+      "hint": "Willpower effect target settings (for Monster), default and when omitted : ",
+      "default": "Willpower"
+    },
+    "effectHitMon":{
+      "name": "Label of Accuracy",
+      "hint": "Accuracy effect target settings (for Monster), default and when omitted : ",
+      "default": "Accuracy"
+    },
+    "effectDmgMon":{
+      "name": "Label of Damage",
+      "hint": "Damage effect target settings (for Monster), default and when omitted : ",
+      "default": "Damage"
+    },
+    "effectDodgeMon":{
+      "name": "Label of Evasion",
+      "hint": "Evasion effect target settings (for Monster), default and when omitted : ",
+      "default": "Evasion"
     }
   }
 }

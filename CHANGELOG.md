@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.7.0
+- ゲーム設定を新設（バフ・デバフ用の設定項目を追加）
+- バフ・デバフのUIを変更
+- バフ・デバフの適用範囲を拡大
+- マニュアルアップデート
+- bug fix
+
 ## 0.6.7
 - マニュアルアップデート
 - update English localization by [kuouvadis](https://github.com/kuouvadis)
