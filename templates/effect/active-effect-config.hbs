@@ -140,6 +140,12 @@
                         <select name="changes.{{i}}.keyname" class="select-keyname">
                         {{#select change.keyname}}
                         <option value="">-</option>
+                        <option value="effect.vitres" {{#if (eq change.keyname "effect.vitres")}}selected{{/if}}>{{localize "SW25.Config.ResVit"}}</option>
+                        <option value="effect.mndres" {{#if (eq change.keyname "effect.mndres")}}selected{{/if}}>{{localize "SW25.Config.ResMnd"}}</option>
+                        <option value="effect.init" {{#if (eq change.keyname "effect.init")}}selected{{/if}}>{{localize "SW25.Config.Init"}}</option>
+                        <option value="effect.mknow" {{#if (eq change.keyname "effect.mknow")}}selected{{/if}}>{{localize "SW25.Config.MKnow"}}</option>
+                        <option value="effect.allck" {{#if (eq change.keyname "effect.allck")}}selected{{/if}}>{{localize "SW25.Config.AllCk"}}</option>
+                        <option value="effect.allsk" {{#if (eq change.keyname "effect.allsk")}}selected{{/if}}>{{localize "SW25.Config.AllSk"}}</option>
                         {{/select}}
                         </select>
                     {{/if}}
@@ -176,6 +182,7 @@
                         <option value="attributes.frmod" {{#if (eq change.keyname "attributes.frmod")}}selected{{/if}}>{{localize "SW25.Effect.FrMod"}}</option>
                         <option value="attributes.drmod" {{#if (eq change.keyname "attributes.drmod")}}selected{{/if}}>{{localize "SW25.Effect.DrMod"}}</option>
                         <option value="attributes.dmmod" {{#if (eq change.keyname "attributes.dnmod")}}selected{{/if}}>{{localize "SW25.Effect.DmMod"}}</option>
+                        <option value="effect.allmgp" {{#if (eq change.keyname "effect.allmgp")}}selected{{/if}}>{{localize "SW25.Config.AllMgp"}}</option>
                         {{/select}}
                         </select>
                     {{/if}}

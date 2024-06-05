@@ -38,6 +38,15 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
           change.keyClassification = "battle";
           change.keyname = change.key.replace(/^system\./, "");
           break;
+        case "system.effect.vitres":
+        case "system.effect.mndres":
+        case "system.effect.init":
+        case "system.effect.mknow":
+        case "system.effect.allck":
+        case "system.effect.allsk":
+          change.keyClassification = "check";
+          change.keyname = change.key.replace(/^system\./, "");
+          break;
         case "system.hp.hpmod":
         case "system.mp.mpmod":
         case "system.abilities.dex.valuemodify":
@@ -63,6 +72,7 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.frmod":
         case "system.attributes.drmod":
         case "system.attributes.dmmod":
+        case "system.effect.allmgp":
           change.keyClassification = "magicpower";
           change.keyname = change.key.replace(/^system\./, "");
           break;
@@ -78,8 +88,6 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
           break;
       }
     }
-
-    let effectVitResPC = game.settings.get("sw25", "effectVitResPC");
 
     return context;
   }

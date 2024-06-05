@@ -442,13 +442,16 @@
       "ResMnd": "Willpower",
       "Init": "Initiative",
       "MKnow": "Monster Knowledge",
+      "AllCk": "All Check",
+      "AllSk": "All Skill Check",
       "MonRes": "Resist",
       "MonResVit": "Fortitude",
       "MonResMnd": "Willpower",
       "MonWp": "Attack",
       "MonHit": "Accuracy",
       "MonDmg": "Damage",
-      "MonDge": "Evasion"
+      "MonDge": "Evasion",
+      "AllMgp": "All Magic Power"
     }
   },
 
@@ -525,6 +528,46 @@
       "name": "Label of Evasion",
       "hint": "Evasion effect target settings (for Monster), default and when omitted : ",
       "default": "Evasion"
+    },
+    "effectScpMon":{
+      "name": "Label of Truespeech Spell",
+      "hint": "Truespeech Spell effect target settings (for Monster), default and when omitted : ",
+      "default": "TruespeechMP"
+    },
+    "effectCnpMon":{
+      "name": "Label of Spiritualism Spell",
+      "hint": "Spiritualism Spell effect target settings (for Monster), default and when omitted : ",
+      "default": "SpiritualismMP"
+    },
+    "effectWzpMon":{
+      "name": "Label of Deep Magic Spell",
+      "hint": "Deep Magic Spell effect target settings (for Monster), default and when omitted : ",
+      "default": "DeepMagicMP"
+    },
+    "effectPrpMon":{
+      "name": "Label of Divine Spell",
+      "hint": "Divine Spell effect target settings (for Monster), default and when omitted : ",
+      "default": "DivineMP"
+    },
+    "effectMtpMon":{
+      "name": "Label of Magitech Spell",
+      "hint": "Magitech Spell effect target settings (for Monster), default and when omitted : ",
+      "default": "MagitechMP"
+    },
+    "effectFrpMon":{
+      "name": "Label of Fairy Spell",
+      "hint": "Fairy Spell effect target settings (for Monster), default and when omitted : ",
+      "default": "FairyMP"
+    },
+    "effectDrpMon":{
+      "name": "Label of Druid Spell",
+      "hint": "Druid Spell effect target settings (for Monster), default and when omitted : ",
+      "default": "DruidMP"
+    },
+    "effectDmpMon":{
+      "name": "Label of Summoning Art",
+      "hint": "Summoning Art effect target settings (for Monster), default and when omitted : ",
+      "default": "SummoningMP"
     }
   }
 }

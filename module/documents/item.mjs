@@ -1,4 +1,23 @@
 import { powerRoll } from "../helpers/powerroll.mjs";
+import {
+  effectVitResPC,
+  effectMndResPC,
+  effectInitPC,
+  effectMKnowPC,
+  effectVitResMon,
+  effectMndResMon,
+  effectHitMon,
+  effectDmgMon,
+  effectDodgeMon,
+  effectScpMon,
+  effectCnpMon,
+  effectWzpMon,
+  effectPrpMon,
+  effectMtpMon,
+  effectFrpMon,
+  effectDrpMon,
+  effectDmpMon,
+} from "../sw25.mjs";
 
 /**
  * Extend the basic Item with some very simple modifications.
@@ -50,6 +69,11 @@ export class SW25Item extends Item {
     const actorData = itemData.actor.system;
 
     //Calculate SkillBase
+    if (!actorData.effect) systemData.efallskmod = 0;
+    else if (actorData.effect.allsk)
+      systemData.efallskmod = Number(actorData.effect.allsk);
+    else systemData.efallskmod = 0;
+
     const dexmod = Math.floor(
       (actorData.abilities.dex.racevalue +
         actorData.abilities.dex.valuebase +
@@ -59,7 +83,14 @@ export class SW25Item extends Item {
         Number(actorData.abilities.dex.efmodify)
     );
     systemData.skillbase.dex =
-      systemData.skilllevel + dexmod + systemData.skillmod;
+      Number(systemData.skilllevel) +
+      Number(dexmod) +
+      Number(systemData.skillmod) +
+      Number(systemData.efallskmod);
+    systemData.skillbase.dexnef =
+      Number(systemData.skilllevel) +
+      Number(dexmod) +
+      Number(systemData.skillmod);
     const agimod = Math.floor(
       (actorData.abilities.dex.racevalue +
         actorData.abilities.agi.valuebase +
@@ -69,7 +100,14 @@ export class SW25Item extends Item {
         Number(actorData.abilities.agi.efmodify)
     );
     systemData.skillbase.agi =
-      systemData.skilllevel + agimod + systemData.skillmod;
+      Number(systemData.skilllevel) +
+      Number(agimod) +
+      Number(systemData.skillmod) +
+      Number(systemData.efallskmod);
+    systemData.skillbase.aginef =
+      Number(systemData.skilllevel) +
+      Number(agimod) +
+      Number(systemData.skillmod);
     const strmod = Math.floor(
       (actorData.abilities.str.racevalue +
         actorData.abilities.str.valuebase +
@@ -79,7 +117,14 @@ export class SW25Item extends Item {
         Number(actorData.abilities.str.efmodify)
     );
     systemData.skillbase.str =
-      systemData.skilllevel + strmod + systemData.skillmod;
+      Number(systemData.skilllevel) +
+      Number(strmod) +
+      Number(systemData.skillmod) +
+      Number(systemData.efallskmod);
+    systemData.skillbase.strnef =
+      Number(systemData.skilllevel) +
+      Number(strmod) +
+      Number(systemData.skillmod);
     const vitmod = Math.floor(
       (actorData.abilities.str.racevalue +
         actorData.abilities.vit.valuebase +
@@ -89,7 +134,14 @@ export class SW25Item extends Item {
         Number(actorData.abilities.vit.efmodify)
     );
     systemData.skillbase.vit =
-      systemData.skilllevel + vitmod + systemData.skillmod;
+      Number(systemData.skilllevel) +
+      Number(vitmod) +
+      Number(systemData.skillmod) +
+      Number(systemData.efallskmod);
+    systemData.skillbase.vitnef =
+      Number(systemData.skilllevel) +
+      Number(vitmod) +
+      Number(systemData.skillmod);
     const intmod = Math.floor(
       (actorData.abilities.int.racevalue +
         actorData.abilities.int.valuebase +
@@ -99,7 +151,14 @@ export class SW25Item extends Item {
         Number(actorData.abilities.int.efmodify)
     );
     systemData.skillbase.int =
-      systemData.skilllevel + intmod + systemData.skillmod;
+      Number(systemData.skilllevel) +
+      Number(intmod) +
+      Number(systemData.skillmod) +
+      Number(systemData.efallskmod);
+    systemData.skillbase.intnef =
+      Number(systemData.skilllevel) +
+      Number(intmod) +
+      Number(systemData.skillmod);
     const mndmod = Math.floor(
       (actorData.abilities.int.racevalue +
         actorData.abilities.mnd.valuebase +
@@ -109,7 +168,14 @@ export class SW25Item extends Item {
         Number(actorData.abilities.mnd.efmodify)
     );
     systemData.skillbase.mnd =
-      systemData.skilllevel + mndmod + systemData.skillmod;
+      Number(systemData.skilllevel) +
+      Number(mndmod) +
+      Number(systemData.skillmod) +
+      Number(systemData.efallskmod);
+    systemData.skillbase.mndnef =
+      Number(systemData.skilllevel) +
+      Number(mndmod) +
+      Number(systemData.skillmod);
 
     // Calculate Exp
     if (systemData.exptable == "-") {
@@ -228,11 +294,40 @@ export class SW25Item extends Item {
           Number(actorData.abilities.mnd.efmodify)
       );
 
+    if (!actorData.effect) systemData.efckmod = 0;
+    else {
+      switch (itemData.name) {
+        case effectVitResPC:
+          if (actorData.effect.vitres)
+            systemData.efckmod = Number(actorData.effect.vitres);
+          break;
+        case effectMndResPC:
+          if (actorData.effect.mndres)
+            systemData.efckmod = Number(actorData.effect.mndres);
+          break;
+        case effectInitPC:
+          if (actorData.effect.init)
+            systemData.efckmod = Number(actorData.effect.init);
+          break;
+        case effectMKnowPC:
+          if (actorData.effect.mknow)
+            systemData.efckmod = Number(actorData.effect.mknow);
+          break;
+        default:
+          systemData.efckmod = 0;
+          break;
+      }
+      if (actorData.effect.allck)
+        systemData.efallckmod = Number(actorData.effect.allck);
+    }
+
     systemData.checkbase =
       Number(systemData.checkmod) +
       Number(systemData.checkfixmod) +
-      levelmod +
-      abimod;
+      Number(systemData.efckmod) +
+      Number(systemData.efallckmod) +
+      Number(levelmod) +
+      Number(abimod);
 
     // Roll Setting
     if (systemData.checkmethod == "normal") systemData.formula = "2d6";
@@ -498,6 +593,15 @@ export class SW25Item extends Item {
     }
 
     if (itemData.type == "spell") {
+      if (!actorData.effect) systemData.efallmgpmod = 0;
+      else if (actorData.effect.allmgp)
+        systemData.efallmgpmod = Number(actorData.effect.allmgp);
+      else systemData.efallmgpmod = 0;
+      systemData.checkbase =
+        Number(systemData.checkbase) + Number(systemData.efallmgpmod);
+      systemData.powerbase =
+        Number(systemData.powerbase) + Number(systemData.efallmgpmod);
+
       switch (systemData.type) {
         case "sorcerer":
           systemData.checkbase =
@@ -549,6 +653,121 @@ export class SW25Item extends Item {
           break;
         default:
           break;
+      }
+    }
+
+    if (itemData.type == "monsterability") {
+      if (!actorData.effect) {
+        systemData.efmod = 0;
+        systemData.efallckmod = 0;
+        systemData.efallmgpmod = 0;
+      } else {
+        for (let i = 1; i <= 3; i++) {
+          if (actorData.effect.allck)
+            systemData.efallckmod = Number(actorData.effect.allck);
+          else systemData.efallckmod = 0;
+          if (actorData.effect.allmgp)
+            systemData.efallmgpmod = Number(actorData.effect.allmgp);
+          else systemData.efallmgpmod = 0;
+          systemData.efmod = 0;
+          switch (itemData.system[`label${i}`]) {
+            case effectVitResMon:
+              if (actorData.effect.vitres)
+                systemData.efmod = Number(actorData.effect.vitres);
+              break;
+            case effectMndResMon:
+              if (actorData.effect.mndres)
+                systemData.efmod = Number(actorData.effect.mndres);
+              break;
+            case effectHitMon:
+              if (actorData.attributes.hitmod)
+                systemData.efmod = Number(actorData.attributes.hitmod);
+              break;
+            case effectDmgMon:
+              if (actorData.attributes.dmod)
+                systemData.efmod = Number(actorData.attributes.dmod);
+              systemData.efallckmod = 0;
+              break;
+            case effectDodgeMon:
+              if (actorData.attributes.dodgemod)
+                systemData.efmod = Number(actorData.attributes.dodgemod);
+              break;
+            case effectScpMon:
+              if (actorData.attributes.scmod)
+                systemData.efmod =
+                  Number(actorData.attributes.scmod) +
+                  Number(systemData.efallmgpmod);
+              else systemData.efmod = Number(systemData.efallmgpmod);
+              systemData.efallckmod = 0;
+              break;
+            case effectCnpMon:
+              if (actorData.attributes.cnmod)
+                systemData.efmod =
+                  Number(actorData.attributes.cnmod) +
+                  Number(systemData.efallmgpmod);
+              else systemData.efmod = Number(systemData.efallmgpmod);
+              systemData.efallckmod = 0;
+              break;
+            case effectWzpMon:
+              if (actorData.attributes.wzmod)
+                systemData.efmod =
+                  Number(actorData.attributes.wzmod) +
+                  Number(systemData.efallmgpmod);
+              else systemData.efmod = Number(systemData.efallmgpmod);
+              systemData.efallckmod = 0;
+              break;
+            case effectPrpMon:
+              if (actorData.attributes.prmod)
+                systemData.efmod =
+                  Number(actorData.attributes.prmod) +
+                  Number(systemData.efallmgpmod);
+              else systemData.efmod = Number(systemData.efallmgpmod);
+              systemData.efallckmod = 0;
+              break;
+            case effectMtpMon:
+              if (actorData.attributes.mtmod)
+                systemData.efmod =
+                  Number(actorData.attributes.mtmod) +
+                  Number(systemData.efallmgpmod);
+              else systemData.efmod = Number(systemData.efallmgpmod);
+              systemData.efallckmod = 0;
+              break;
+            case effectFrpMon:
+              if (actorData.attributes.frmod)
+                systemData.efmod =
+                  Number(actorData.attributes.frmod) +
+                  Number(systemData.efallmgpmod);
+              else systemData.efmod = Number(systemData.efallmgpmod);
+              systemData.efallckmod = 0;
+              break;
+            case effectDrpMon:
+              if (actorData.attributes.drmod)
+                systemData.efmod =
+                  Number(actorData.attributes.drmod) +
+                  Number(systemData.efallmgpmod);
+              else systemData.efmod = Number(systemData.efallmgpmod);
+              systemData.efallckmod = 0;
+              break;
+            case effectDmpMon:
+              if (actorData.attributes.dmmod)
+                systemData.efmod =
+                  Number(actorData.attributes.dmmod) +
+                  Number(systemData.efallmgpmod);
+              else systemData.efmod = Number(systemData.efallmgpmod);
+              systemData.efallckmod = 0;
+              break;
+            default:
+              systemData.efmod = 0;
+              break;
+          }
+          systemData[`checkbase${i}`] =
+            Number(systemData[`checkbasemod${i}`]) +
+            Number(systemData[`checkmod${i}`]) +
+            Number(systemData.efmod) +
+            Number(systemData.efallckmod);
+          systemData[`checkbasefix${i}`] =
+            Number(systemData[`checkbase${i}`]) + 7;
+        }
       }
     }
 

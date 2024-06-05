@@ -14,6 +14,23 @@ import { customCommand } from "./helpers/customcommand.mjs";
 
 // Export variable.
 export const rpt = {};
+export let effectVitResPC,
+  effectMndResPC,
+  effectInitPC,
+  effectMKnowPC,
+  effectVitResMon,
+  effectMndResMon,
+  effectHitMon,
+  effectDmgMon,
+  effectDodgeMon,
+  effectScpMon,
+  effectCnpMon,
+  effectWzpMon,
+  effectPrpMon,
+  effectMtpMon,
+  effectFrpMon,
+  effectDrpMon,
+  effectDmpMon;
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -106,7 +123,11 @@ Hooks.once("ready", async function () {
     config: true,
     type: String,
     default: game.i18n.localize("SETTING.effectVitResPC.default"),
+    onChange: (value) => {
+      effectVitResPC = value;
+    },
   });
+  effectVitResPC = game.settings.get("sw25", "effectVitResPC");
   game.settings.register("sw25", "effectMndResPC", {
     name: game.i18n.localize("SETTING.effectMndResPC.name"),
     hint:
@@ -116,7 +137,11 @@ Hooks.once("ready", async function () {
     config: true,
     type: String,
     default: game.i18n.localize("SETTING.effectMndResPC.default"),
+    onChange: (value) => {
+      effectMndResPC = value;
+    },
   });
+  effectMndResPC = game.settings.get("sw25", "effectMndResPC");
   game.settings.register("sw25", "effectInitPC", {
     name: game.i18n.localize("SETTING.effectInitPC.name"),
     hint:
@@ -126,7 +151,11 @@ Hooks.once("ready", async function () {
     config: true,
     type: String,
     default: game.i18n.localize("SETTING.effectInitPC.default"),
+    onChange: (value) => {
+      effectInitPC = value;
+    },
   });
+  effectInitPC = game.settings.get("sw25", "effectInitPC");
   game.settings.register("sw25", "effectMKnowPC", {
     name: game.i18n.localize("SETTING.effectMKnowPC.name"),
     hint:
@@ -136,7 +165,11 @@ Hooks.once("ready", async function () {
     config: true,
     type: String,
     default: game.i18n.localize("SETTING.effectMKnowPC.default"),
+    onChange: (value) => {
+      effectMKnowPC = value;
+    },
   });
+  effectMKnowPC = game.settings.get("sw25", "effectMKnowPC");
   game.settings.register("sw25", "effectVitResMon", {
     name: game.i18n.localize("SETTING.effectVitResMon.name"),
     hint:
@@ -146,7 +179,11 @@ Hooks.once("ready", async function () {
     config: true,
     type: String,
     default: game.i18n.localize("SETTING.effectVitResMon.default"),
+    onChange: (value) => {
+      effectVitResMon = value;
+    },
   });
+  effectVitResMon = game.settings.get("sw25", "effectVitResMon");
   game.settings.register("sw25", "effectMndResMon", {
     name: game.i18n.localize("SETTING.effectMndResMon.name"),
     hint:
@@ -156,7 +193,11 @@ Hooks.once("ready", async function () {
     config: true,
     type: String,
     default: game.i18n.localize("SETTING.effectMndResMon.default"),
+    onChange: (value) => {
+      effectMndResMon = value;
+    },
   });
+  effectMndResMon = game.settings.get("sw25", "effectMndResMon");
   game.settings.register("sw25", "effectHitMon", {
     name: game.i18n.localize("SETTING.effectHitMon.name"),
     hint:
@@ -166,7 +207,11 @@ Hooks.once("ready", async function () {
     config: true,
     type: String,
     default: game.i18n.localize("SETTING.effectHitMon.default"),
+    onChange: (value) => {
+      effectHitMon = value;
+    },
   });
+  effectHitMon = game.settings.get("sw25", "effectHitMon");
   game.settings.register("sw25", "effectDmgMon", {
     name: game.i18n.localize("SETTING.effectDmgMon.name"),
     hint:
@@ -176,7 +221,11 @@ Hooks.once("ready", async function () {
     config: true,
     type: String,
     default: game.i18n.localize("SETTING.effectDmgMon.default"),
+    onChange: (value) => {
+      effectDmgMon = value;
+    },
   });
+  effectDmgMon = game.settings.get("sw25", "effectDmgMon");
   game.settings.register("sw25", "effectDodgeMon", {
     name: game.i18n.localize("SETTING.effectDodgeMon.name"),
     hint:
@@ -186,7 +235,123 @@ Hooks.once("ready", async function () {
     config: true,
     type: String,
     default: game.i18n.localize("SETTING.effectDodgeMon.default"),
+    onChange: (value) => {
+      effectDodgeMon = value;
+    },
   });
+  effectDodgeMon = game.settings.get("sw25", "effectDodgeMon");
+  game.settings.register("sw25", "effectScpMon", {
+    name: game.i18n.localize("SETTING.effectScpMon.name"),
+    hint:
+      game.i18n.localize("SETTING.effectScpMon.hint") +
+      game.i18n.localize("SETTING.effectScpMon.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectScpMon.default"),
+    onChange: (value) => {
+      effectScpMon = value;
+    },
+  });
+  effectScpMon = game.settings.get("sw25", "effectScpMon");
+  game.settings.register("sw25", "effectCnpMon", {
+    name: game.i18n.localize("SETTING.effectCnpMon.name"),
+    hint:
+      game.i18n.localize("SETTING.effectCnpMon.hint") +
+      game.i18n.localize("SETTING.effectCnpMon.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectCnpMon.default"),
+    onChange: (value) => {
+      effectCnpMon = value;
+    },
+  });
+  effectCnpMon = game.settings.get("sw25", "effectCnpMon");
+  game.settings.register("sw25", "effectWzpMon", {
+    name: game.i18n.localize("SETTING.effectWzpMon.name"),
+    hint:
+      game.i18n.localize("SETTING.effectWzpMon.hint") +
+      game.i18n.localize("SETTING.effectWzpMon.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectWzpMon.default"),
+    onChange: (value) => {
+      effectWzpMon = value;
+    },
+  });
+  effectWzpMon = game.settings.get("sw25", "effectWzpMon");
+  game.settings.register("sw25", "effectPrpMon", {
+    name: game.i18n.localize("SETTING.effectPrpMon.name"),
+    hint:
+      game.i18n.localize("SETTING.effectPrpMon.hint") +
+      game.i18n.localize("SETTING.effectPrpMon.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectPrpMon.default"),
+    onChange: (value) => {
+      effectPrpMon = value;
+    },
+  });
+  effectPrpMon = game.settings.get("sw25", "effectPrpMon");
+  game.settings.register("sw25", "effectMtpMon", {
+    name: game.i18n.localize("SETTING.effectMtpMon.name"),
+    hint:
+      game.i18n.localize("SETTING.effectMtpMon.hint") +
+      game.i18n.localize("SETTING.effectMtpMon.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectMtpMon.default"),
+    onChange: (value) => {
+      effectMtpMon = value;
+    },
+  });
+  effectMtpMon = game.settings.get("sw25", "effectMtpMon");
+  game.settings.register("sw25", "effectFrpMon", {
+    name: game.i18n.localize("SETTING.effectFrpMon.name"),
+    hint:
+      game.i18n.localize("SETTING.effectFrpMon.hint") +
+      game.i18n.localize("SETTING.effectFrpMon.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectFrpMon.default"),
+    onChange: (value) => {
+      effectFrpMon = value;
+    },
+  });
+  effectFrpMon = game.settings.get("sw25", "effectFrpMon");
+  game.settings.register("sw25", "effectDrpMon", {
+    name: game.i18n.localize("SETTING.effectDrpMon.name"),
+    hint:
+      game.i18n.localize("SETTING.effectDrpMon.hint") +
+      game.i18n.localize("SETTING.effectDrpMon.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectDrpMon.default"),
+    onChange: (value) => {
+      effectDrpMon = value;
+    },
+  });
+  effectDrpMon = game.settings.get("sw25", "effectDrpMon");
+  game.settings.register("sw25", "effectDmpMon", {
+    name: game.i18n.localize("SETTING.effectDmpMon.name"),
+    hint:
+      game.i18n.localize("SETTING.effectDmpMon.hint") +
+      game.i18n.localize("SETTING.effectDmpMon.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectDmpMon.default"),
+    onChange: (value) => {
+      effectDmpMon = value;
+    },
+  });
+  effectDmpMon = game.settings.get("sw25", "effectDmpMon");
 
   // Chat message button
   Hooks.on("renderChatMessage", (chatMessage, html, data) => {

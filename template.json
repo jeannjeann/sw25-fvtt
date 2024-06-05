@@ -18,14 +18,19 @@
         "biography": ""
       },
       "money": 0,
+      "efallskadvmod": 0,
+      "efallmgpacmod": 0,
       "effect":{
-        "vitres": "",
-        "mndres": "",
-        "init": "",
-        "mknow": "",
-        "hit": "",
-        "dmg": "",
-        "dodge": ""
+        "vitres": 0,
+        "mndres": 0,
+        "init": 0,
+        "mknow": 0,
+        "allck": 0,
+        "allsk": 0,
+        "allmgp": 0,
+        "hit": 0,
+        "dmg": 0,
+        "dodge": 0
       }
     },
     "character": {
@@ -178,6 +183,9 @@
       "ppbase": 0,
       "mppbase": 0,
       "attributes": {
+        "hitmod": 0,
+        "dmod": 0,
+        "dodgemod": 0,
         "ppmod": 0,
         "mppmod": 0,
         "dreduce": 0,
@@ -324,7 +332,8 @@
       "magispfere": "",
       "fairytype": "-",
       "fairyprop": "-",
-      "hpresist": false
+      "hpresist": false,
+      "efallmgpmod": 0
     },
     "enhancearts": {
       "templates": ["base", "roll", "ability"],
@@ -391,7 +400,9 @@
       "templates": ["base", "roll"],
       "checkfixmod": "",
       "showbtcheck": false,
-      "checkmethod": "normal"
+      "checkmethod": "normal",
+      "efckmod": 0,
+      "efallckmod": 0
   },
     "resource": {
       "templates": ["base", "item", "roll"]
@@ -426,7 +437,8 @@
         "vit": "",
         "int": "",
         "mnd": ""
-      }
+      },
+      "efallskmod": 0
     },
     "raceability": {
       "templates": ["base"]
@@ -466,7 +478,10 @@
       "checkmod3": 0,
       "customdice3": false,
       "customformula3": "2d6",
-      "labelmonpow": "PowerLabel"
+      "labelmonpow": "PowerLabel",
+      "efmod": 0,
+      "efallckmod": 0,
+      "efallmgpmod": 0
     }
   }
 }
