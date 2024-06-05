@@ -1,7 +1,7 @@
 <ol class='items-list'>
   <li class='item flexrow items-header'>
     <div class='item-name'>{{localize "SW25.Resource"}}</div>
-    <div class='item-quantity item-element' style="flex: 0 0 80px;">{{localize "SW25.Quantity"}}</div>
+    <div class='item-quantity item-element' style="flex: 0 0 60px;">{{localize "SW25.Quantity"}}</div>
     <div class='item-controls'>
       <a
         class='item-control item-create'
@@ -17,14 +17,18 @@
     <li class='item' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
         <div class='item-name' style="flex: 3;"><h4 class="item-label">{{item.name}}</h4></div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 80px;">
+        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
+{{!--
           <a class="quantity-button" data-action="decrease" data-property="item.system.quantity">
             <i class="fas fa-minus"></i>
           </a>
+--}}
           <input class="qt-change" type="text" name="quantityInput" value="{{item.system.quantity}}" data-dtype="Number"/>
+{{!--
           <a class="quantity-button" data-action="increase" data-property="item.system.quantity">
             <i class="fas fa-plus"></i>
           </a>
+--}}
         </div>
         <div class='item-controls'>
           <a

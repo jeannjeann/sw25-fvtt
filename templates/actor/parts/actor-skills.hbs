@@ -1,7 +1,7 @@
 <ol class='items-list'>
   <li class='item flexrow items-header'>
     <div class='item-name'>{{localize "SW25.Skillname"}}</div>
-    <div class='item-skilllevel' style="flex: 0 0 100px;">{{localize "SW25.Item.Skill.Skilllevel"}}</div>
+    <div class='item-skilllevel' style="flex: 0 0 60px;">{{localize "SW25.Item.Skill.Skilllevel"}}</div>
     <div class='item-controls'>
       <a
         class='item-control item-create'
@@ -29,14 +29,18 @@
           </div>
           <h4>{{item.name}}</h4>
         </div>
-        <div class='item-skilllevel item-prop input flexrow flex-group-center' style="flex: 0 0 100px;">
+        <div class='item-skilllevel item-prop input flexrow flex-group-center' style="flex: 0 0 60px;">
+{{!--
           <a class="changesl-button" data-action="decrease" data-property="item.system.skilllevel">
             <i class="fas fa-minus"></i>
           </a>
+--}}
           <input class="sl-change" type="text" name="skilllevelInput" value="{{item.system.skilllevel}}" data-dtype="Number"/>
+{{!--
           <a class="changesl-button" data-action="increase" data-property="item.system.skilllevel">
             <i class="fas fa-plus"></i>
           </a>
+--}}
         </div>
         <div class='item-controls'>
           <a

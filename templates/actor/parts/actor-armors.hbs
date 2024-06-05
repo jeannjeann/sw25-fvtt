@@ -3,8 +3,8 @@
     <div class='item-element' style="flex: 0 0 40px;">{{localize "SW25.Item.Equip"}}</div>
     <div class='item-name'>{{localize "TYPES.Item.armor"}}</div>
     <div class='item-element' style="flex: 1 0 0;">{{localize "SW25.Item.Category"}}</div>
-    <div class='item-element' style="flex: 0 0 30px;">{{localize "SW25.Item.Reqstr"}}</div>
-    <div class='item-quantity item-element' style="flex: 0 0 70px;">{{localize "SW25.Quantity"}}</div>
+    <div class='item-element' style="flex: 0 0 50px;">{{localize "SW25.Item.Reqstr"}}</div>
+    <div class='item-quantity item-element' style="flex: 0 0 60px;">{{localize "SW25.Quantity"}}</div>
     <div class='item-controls'>
       <a
         class='item-control item-create'
@@ -41,17 +41,21 @@
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 1 0 0;">
           {{item.system.categoryname}}{{item.system.rank}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;">
+        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 50px;">
           {{item.system.reqstr}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 70px;">
+        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
+{{!--
           <a class="quantity-button" data-action="decrease" data-property="item.system.quantity">
             <i class="fas fa-minus"></i>
           </a>
+--}}
           <input class="qt-change" type="text" name="quantityInput" value="{{item.system.quantity}}" data-dtype="Number"/>
+{{!--
           <a class="quantity-button" data-action="increase" data-property="item.system.quantity">
             <i class="fas fa-plus"></i>
           </a>
+--}}
         </div>
         <div class='item-controls'>
           <a

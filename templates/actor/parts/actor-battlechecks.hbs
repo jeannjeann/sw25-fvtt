@@ -2,7 +2,7 @@
   <li class='item flexrow items-header'>
     <div class='item-name'>{{localize "SW25.Check"}}</div>
     <div class='item-checkbase item-element'>{{localize "SW25.Basenumber"}}</div>
-    <div class='item-scmod' style="flex: 0 0 80px;">{{localize "SW25.Modifier"}}</div>
+    <div class='item-scmod' style="flex: 0 0 50px;">{{localize "SW25.Modifier"}}</div>
   </li>
   {{#each battlechecks as |item id|}}
     <li class='item flexrow' data-item-id='{{item._id}}'>
@@ -11,14 +11,18 @@
         <label class='item-checkbase align-center {{#if (eq system.checkmethod "power")}}power{{/if}}rollable resource-label item-element' data-roll="{{item.system.formula}}{{#unless (eq system.checkmethod "power")}}+{{item.system.checkbase}}{{/unless}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{#if (eq system.checkmethod "power")}}{{system.applypower}}{{else}}{{system.applycheck}}{{/if}}">
           {{item.system.checkbase}}
         </label>
-        <div class='item-checkmod item-prop input flexrow flex-group-center' style="flex: 0 0 80px;">
+        <div class='item-checkmod item-prop input flexrow flex-group-center' style="flex: 0 0 50px;">
+{{!--
           <a class="checkmod-button" data-action="decrease" data-property="item.system.checkmod">
             <i class="fas fa-minus"></i>
           </a>
+--}}
           <input class="cm-change" type="text" name="checkmodInput" value="{{item.system.checkmod}}" data-dtype="Number"/>
+{{!--
           <a class="checkmod-button" data-action="increase" data-property="item.system.checkmod">
             <i class="fas fa-plus"></i>
           </a>
+--}}
         </div>
       </div>
     </li>
