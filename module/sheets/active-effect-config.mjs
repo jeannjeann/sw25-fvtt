@@ -26,15 +26,16 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
     for (let i = 0; i < effectData.changes.length; i++) {
       let change = effectData.changes[i];
       switch (change.key) {
-        case "system.attributes.hitmod":
-        case "system.attributes.dmod":
+        case "system.attributes.efhitmod":
+        case "system.attributes.efdmod":
+        case "system.effect.efcvalue":
         case "system.lt":
         case "system.cr":
-        case "system.attributes.dodgemod":
-        case "system.attributes.ppmod":
-        case "system.attributes.mppmod":
-        case "system.attributes.dreduce":
-        case "system.attributes.move.movemod":
+        case "system.attributes.efdodgemod":
+        case "system.attributes.efppmod":
+        case "system.attributes.efmppmod":
+        case "system.attributes.efdreduce":
+        case "system.attributes.move.efmovemod":
           change.keyClassification = "battle";
           change.keyname = change.key.replace(/^system\./, "");
           break;
@@ -47,14 +48,14 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
           change.keyClassification = "check";
           change.keyname = change.key.replace(/^system\./, "");
           break;
-        case "system.hp.hpmod":
-        case "system.mp.mpmod":
-        case "system.abilities.dex.valuemodify":
-        case "system.abilities.agi.valuemodify":
-        case "system.abilities.str.valuemodify":
-        case "system.abilities.vit.valuemodify":
-        case "system.abilities.int.valuemodify":
-        case "system.abilities.mnd.valuemodify":
+        case "system.hp.efhpmod":
+        case "system.mp.efmpmod":
+        case "system.abilities.dex.efvaluemodify":
+        case "system.abilities.agi.efvaluemodify":
+        case "system.abilities.str.efvaluemodify":
+        case "system.abilities.vit.efvaluemodify":
+        case "system.abilities.int.efvaluemodify":
+        case "system.abilities.mnd.efvaluemodify":
         case "system.abilities.dex.efmodify":
         case "system.abilities.agi.efmodify":
         case "system.abilities.str.efmodify":
@@ -64,14 +65,14 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
           change.keyClassification = "parameter";
           change.keyname = change.key.replace(/^system\./, "");
           break;
-        case "system.attributes.scmod":
-        case "system.attributes.cnmod":
-        case "system.attributes.wzmod":
-        case "system.attributes.prmod":
-        case "system.attributes.mtmod":
-        case "system.attributes.frmod":
-        case "system.attributes.drmod":
-        case "system.attributes.dmmod":
+        case "system.attributes.efscmod":
+        case "system.attributes.efcnmod":
+        case "system.attributes.efwzmod":
+        case "system.attributes.efprmod":
+        case "system.attributes.efmtmod":
+        case "system.attributes.effrmod":
+        case "system.attributes.efdrmod":
+        case "system.attributes.efdmmod":
         case "system.effect.allmgp":
           change.keyClassification = "magicpower";
           change.keyname = change.key.replace(/^system\./, "");

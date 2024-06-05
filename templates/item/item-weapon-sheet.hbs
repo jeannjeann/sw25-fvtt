@@ -24,7 +24,7 @@
           <label class="resource-label">{{localize "SW25.Item.Weapon.Hit"}}<br>{{system.hit}}</label>
         </div>
         <div class="resource">
-          <label class="resource-label">{{localize "SW25.Item.Power"}}<br>k{{system.power}}{{#if system.cvalue}}@{{system.cvalue}}{{/if}}{{#if system.dmod}}+{{system.dmod}}{{/if}}</label>
+          <label class="resource-label">{{localize "SW25.Item.Power"}}<br>k{{system.power}}{{#if system.totalcvalue}}@{{system.totalcvalue}}{{/if}}{{#if system.dmod}}+{{system.dmod}}{{/if}}</label>
         </div>
         <div class="resource grid-span-2">
           {{#if system.range}}<label class="resource-label">{{localize "SW25.Item.Weapon.Range"}}{{/if}}<br>{{system.range}}</label>

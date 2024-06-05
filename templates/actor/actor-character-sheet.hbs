@@ -160,8 +160,8 @@
             <span class="rollable" style="text-align: center;" data-roll="{{system.itemhitformula}}+{{system.itemhitbase}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Weapon.Hit"}})" data-pt="{{system.itempowertable}}"><b>{{localize "SW25.Item.Weapon.Hit"}}</b><br>{{system.itemhitbase}}</span>
             <span class="powerrollable" style="text-align: center;" data-roll="{{system.itempowerformula}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Power"}})" data-pt="{{system.itempowertable}}" data-apply="on"><b>{{localize "SW25.Item.Power"}}</b><br>k{{system.itempower}}{{#if system.itemcvalue}}@{{system.itemcvalue}}{{/if}}{{#if system.itempowerbase}}+{{system.itempowerbase}}{{/if}}</span>
             <span class="rollable" style="text-align: center;" data-roll="2d6+{{system.dodgebase}}" data-label="{{localize "SW25.Item.Armor.Dodge"}}" data-pt=""><b>{{localize "SW25.Item.Armor.Dodge"}}</b><br>{{system.dodgebase}}</span>
-            <span style="text-align: center;"><b>{{localize "SW25.Attributes.Protectionpoint.long"}}</b><br>{{system.attributes.protectionpoint}}{{#if system.attributes.dreduce}} ({{system.barepp}}+{{system.attributes.dreduce}}){{/if}}</span>
-            <span style="text-align: center;"><b>{{localize "SW25.Attributes.Magicprotection.long"}}</b><br>{{system.attributes.magicprotection}}{{#if system.attributes.dreduce}} ({{system.barempp}}+{{system.attributes.dreduce}}){{/if}}</span>
+            <span style="text-align: center;"><b>{{localize "SW25.Attributes.Protectionpoint.long"}}</b><br>{{system.attributes.protectionpoint}}{{#if system.baredreduce}} ({{system.barepp}}+{{system.baredreduce}}){{/if}}</span>
+            <span style="text-align: center;"><b>{{localize "SW25.Attributes.Magicprotection.long"}}</b><br>{{system.attributes.magicprotection}}{{#if system.baredreduce}} ({{system.barempp}}+{{system.baredreduce}}){{/if}}</span>
           </div>
           <div>
             {{> "systems/sw25/templates/actor/parts/actor-resources.hbs"}}
@@ -464,6 +464,7 @@
         <div class="grid grid-4col">
           {{#if system.totalhitmod}}<div><b>{{localize "SW25.Effect.HitMod"}}: {{system.totalhitmod}}</b></div>{{/if}}
           {{#if system.totaldmod}}<div><b>{{localize "SW25.Effect.DamageMod"}}: {{system.totaldmod}}</b></div>{{/if}}
+          {{#if system.totalcmod}}<div><b>{{localize "SW25.Effect.CMod"}}: {{system.totalcmod}}</b></div>{{/if}}
           {{#if system.totallt}}<div><b>{{localize "SW25.Effect.LethalTech"}}: {{system.totallt}}</b></div>{{/if}}
           {{#if system.totalcr}}<div><b>{{localize "SW25.Effect.CriticalRay"}}: {{system.totalcr}}</b></div>{{/if}}
           {{#if system.totaldodgemod}}<div><b>{{localize "SW25.Effect.DodgeMod"}}: {{system.totaldodgemod}}</b></div>{{/if}}

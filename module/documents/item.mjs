@@ -337,6 +337,15 @@ export class SW25Item extends Item {
       systemData.formula = "2d6";
     }
 
+    if (!actorData.effect) actorData.efcmod = 0;
+    else if (actorData.effect.efcvalue)
+      actorData.efcmod = Number(actorData.effect.efcvalue);
+    else actorData.efcmod = 0;
+    if (systemData.cvalue == null || systemData.cvalue == 0)
+      systemData.cvalue = 10;
+    systemData.totalcvalue =
+      Number(systemData.cvalue) + Number(actorData.efcmod);
+
     let halfpow, halfpowmod, lethaltech, criticalray, pharmtool, powup;
     if (systemData.halfpow == true) halfpow = 1;
     else halfpow = 0;
@@ -357,7 +366,7 @@ export class SW25Item extends Item {
 
     systemData.powertable = [
       systemData.power,
-      systemData.cvalue,
+      systemData.totalcvalue,
       0,
       systemData.pt3,
       systemData.pt4,
@@ -585,11 +594,13 @@ export class SW25Item extends Item {
       systemData.checkbase =
         Number(systemData.checkbase) +
         Number(systemData.hit) +
-        Number(actorData.attributes.hitmod);
+        Number(actorData.attributes.hitmod) +
+        Number(actorData.attributes.efhitmod);
       systemData.powerbase =
         Number(systemData.powerbase) +
         Number(systemData.dmod) +
-        Number(actorData.attributes.dmod);
+        Number(actorData.attributes.dmod) +
+        Number(actorData.attributes.efdmod);
     }
 
     if (itemData.type == "spell") {
@@ -605,51 +616,99 @@ export class SW25Item extends Item {
       switch (systemData.type) {
         case "sorcerer":
           systemData.checkbase =
-            Number(systemData.checkbase) + Number(actorData.attributes.scmod);
+            Number(systemData.checkbase) +
+            Number(
+              actorData.attributes.scmod + Number(actorData.attributes.efscmod)
+            );
           systemData.powerbase =
-            Number(systemData.powerbase) + Number(actorData.attributes.scmod);
+            Number(systemData.powerbase) +
+            Number(
+              actorData.attributes.scmod + Number(actorData.attributes.efscmod)
+            );
           break;
         case "conjurer":
           systemData.checkbase =
-            Number(systemData.checkbase) + Number(actorData.attributes.cnmod);
+            Number(systemData.checkbase) +
+            Number(
+              actorData.attributes.cnmod + Number(actorData.attributes.efcnmod)
+            );
           systemData.powerbase =
-            Number(systemData.powerbase) + Number(actorData.attributes.cnmod);
+            Number(systemData.powerbase) +
+            Number(
+              actorData.attributes.cnmod + Number(actorData.attributes.efcnmod)
+            );
           break;
         case "wizard":
           systemData.checkbase =
-            Number(systemData.checkbase) + Number(actorData.attributes.wzmod);
+            Number(systemData.checkbase) +
+            Number(
+              actorData.attributes.wzmod + Number(actorData.attributes.efwzmod)
+            );
           systemData.powerbase =
-            Number(systemData.powerbase) + Number(actorData.attributes.wzmod);
+            Number(systemData.powerbase) +
+            Number(
+              actorData.attributes.wzmod + Number(actorData.attributes.efwzmod)
+            );
           break;
         case "priest":
           systemData.checkbase =
-            Number(systemData.checkbase) + Number(actorData.attributes.prmod);
+            Number(systemData.checkbase) +
+            Number(
+              actorData.attributes.prmod + Number(actorData.attributes.efprmod)
+            );
           systemData.powerbase =
-            Number(systemData.powerbase) + Number(actorData.attributes.prmod);
+            Number(systemData.powerbase) +
+            Number(
+              actorData.attributes.prmod + Number(actorData.attributes.efprmod)
+            );
           break;
         case "magitech":
           systemData.checkbase =
-            Number(systemData.checkbase) + Number(actorData.attributes.mtmod);
+            Number(systemData.checkbase) +
+            Number(
+              actorData.attributes.mtmod + Number(actorData.attributes.efmtmod)
+            );
           systemData.powerbase =
-            Number(systemData.powerbase) + Number(actorData.attributes.mtmod);
+            Number(systemData.powerbase) +
+            Number(
+              actorData.attributes.mtmod + Number(actorData.attributes.efmtmod)
+            );
           break;
         case "fairy":
           systemData.checkbase =
-            Number(systemData.checkbase) + Number(actorData.attributes.frmod);
+            Number(systemData.checkbase) +
+            Number(
+              actorData.attributes.frmod + Number(actorData.attributes.effrmod)
+            );
           systemData.powerbase =
-            Number(systemData.powerbase) + Number(actorData.attributes.frmod);
+            Number(systemData.powerbase) +
+            Number(
+              actorData.attributes.frmod + Number(actorData.attributes.effrmod)
+            );
           break;
         case "druid":
           systemData.checkbase =
-            Number(systemData.checkbase) + Number(actorData.attributes.drmod);
+            Number(systemData.checkbase) +
+            Number(
+              actorData.attributes.drmod + Number(actorData.attributes.efdrmod)
+            );
           systemData.powerbase =
-            Number(systemData.powerbase) + Number(actorData.attributes.drmod);
+            Number(systemData.powerbase) +
+            Number(
+              actorData.attributes.drmod + Number(actorData.attributes.efdrmod)
+            );
           break;
         case "daemon":
           systemData.checkbase =
-            Number(systemData.checkbase) + Number(actorData.attributes.dmmod);
+            Number(systemData.checkbase) +
+            Number(
+              actorData.attributes.dmmod + Number(actorData.attributes.efdmmod)
+            );
           systemData.powerbase =
-            Number(systemData.powerbase) + Number(actorData.attributes.dmmod);
+            Number(systemData.powerbase) +
+            Number(
+              actorData.attributes.dmmod + Number(actorData.attributes.efdmmod)
+            );
           break;
         default:
           break;
@@ -680,78 +739,78 @@ export class SW25Item extends Item {
                 systemData.efmod = Number(actorData.effect.mndres);
               break;
             case effectHitMon:
-              if (actorData.attributes.hitmod)
-                systemData.efmod = Number(actorData.attributes.hitmod);
+              if (actorData.attributes.efhitmod)
+                systemData.efmod = Number(actorData.attributes.efhitmod);
               break;
             case effectDmgMon:
-              if (actorData.attributes.dmod)
-                systemData.efmod = Number(actorData.attributes.dmod);
+              if (actorData.attributes.efdmod)
+                systemData.efmod = Number(actorData.attributes.efdmod);
               systemData.efallckmod = 0;
               break;
             case effectDodgeMon:
-              if (actorData.attributes.dodgemod)
-                systemData.efmod = Number(actorData.attributes.dodgemod);
+              if (actorData.attributes.efdodgemod)
+                systemData.efmod = Number(actorData.attributes.efdodgemod);
               break;
             case effectScpMon:
-              if (actorData.attributes.scmod)
+              if (actorData.attributes.efscmod)
                 systemData.efmod =
-                  Number(actorData.attributes.scmod) +
+                  Number(actorData.attributes.efscmod) +
                   Number(systemData.efallmgpmod);
               else systemData.efmod = Number(systemData.efallmgpmod);
               systemData.efallckmod = 0;
               break;
             case effectCnpMon:
-              if (actorData.attributes.cnmod)
+              if (actorData.attributes.efcnmod)
                 systemData.efmod =
-                  Number(actorData.attributes.cnmod) +
+                  Number(actorData.attributes.efcnmod) +
                   Number(systemData.efallmgpmod);
               else systemData.efmod = Number(systemData.efallmgpmod);
               systemData.efallckmod = 0;
               break;
             case effectWzpMon:
-              if (actorData.attributes.wzmod)
+              if (actorData.attributes.efwzmod)
                 systemData.efmod =
-                  Number(actorData.attributes.wzmod) +
+                  Number(actorData.attributes.efwzmod) +
                   Number(systemData.efallmgpmod);
               else systemData.efmod = Number(systemData.efallmgpmod);
               systemData.efallckmod = 0;
               break;
             case effectPrpMon:
-              if (actorData.attributes.prmod)
+              if (actorData.attributes.efprmod)
                 systemData.efmod =
-                  Number(actorData.attributes.prmod) +
+                  Number(actorData.attributes.efprmod) +
                   Number(systemData.efallmgpmod);
               else systemData.efmod = Number(systemData.efallmgpmod);
               systemData.efallckmod = 0;
               break;
             case effectMtpMon:
-              if (actorData.attributes.mtmod)
+              if (actorData.attributes.efmtmod)
                 systemData.efmod =
-                  Number(actorData.attributes.mtmod) +
+                  Number(actorData.attributes.efmtmod) +
                   Number(systemData.efallmgpmod);
               else systemData.efmod = Number(systemData.efallmgpmod);
               systemData.efallckmod = 0;
               break;
             case effectFrpMon:
-              if (actorData.attributes.frmod)
+              if (actorData.attributes.effrmod)
                 systemData.efmod =
-                  Number(actorData.attributes.frmod) +
+                  Number(actorData.attributes.effrmod) +
                   Number(systemData.efallmgpmod);
               else systemData.efmod = Number(systemData.efallmgpmod);
               systemData.efallckmod = 0;
               break;
             case effectDrpMon:
-              if (actorData.attributes.drmod)
+              if (actorData.attributes.efdrmod)
                 systemData.efmod =
-                  Number(actorData.attributes.drmod) +
+                  Number(actorData.attributes.efdrmod) +
                   Number(systemData.efallmgpmod);
               else systemData.efmod = Number(systemData.efallmgpmod);
               systemData.efallckmod = 0;
               break;
             case effectDmpMon:
-              if (actorData.attributes.dmmod)
+              if (actorData.attributes.efdmmod)
                 systemData.efmod =
-                  Number(actorData.attributes.dmmod) +
+                  Number(actorData.attributes.efdmmod) +
                   Number(systemData.efallmgpmod);
               else systemData.efmod = Number(systemData.efallmgpmod);
               systemData.efallckmod = 0;
@@ -826,6 +885,16 @@ export class SW25Item extends Item {
       systemData.checkformula3 = systemData.customformula3;
     else systemData.checkformula3 = "2d6";
 
+    if (!actorData.effect) actorData.efcmod = 0;
+    else if (actorData.effect.efcvalue)
+      actorData.efcmod = Number(actorData.effect.efcvalue);
+    else actorData.efcmod = 0;
+    if (systemData.cvalue == null || systemData.cvalue == 0)
+      systemData.cvalue = 10;
+    if (itemData.type == "spell") actorData.efcmod = 0;
+    systemData.totalcvalue =
+      Number(systemData.cvalue) + Number(actorData.efcmod);
+
     let halfpow, halfpowmod, lethaltech, criticalray, pharmtool, powup;
     if (systemData.halfpow == true) halfpow = 1;
     else halfpow = 0;
@@ -846,7 +915,7 @@ export class SW25Item extends Item {
 
     systemData.powertable = [
       systemData.power,
-      systemData.cvalue,
+      systemData.totalcvalue,
       0,
       systemData.pt3,
       systemData.pt4,

@@ -49,6 +49,17 @@ export async function chatButton(chatMessage, buttonType) {
     }
     if (buttonType == "buttonpower") {
       item.system.formula = "2d6";
+
+      if (!actor.system.effect) actor.system.efcmod = 0;
+      else if (actor.system.effect.efcvalue)
+        actor.system.efcmod = Number(actor.system.effect.efcvalue);
+      else actor.system.efcmod = 0;
+      if (item.system.cvalue == null || item.system.cvalue == 0)
+        item.system.cvalue = 10;
+      if (item.type == "spell") actor.system.efcmod = 0;
+      item.system.totalcvalue =
+        Number(item.system.cvalue) + Number(actor.system.efcmod);
+
       let halfpow, halfpowmod, lethaltech, criticalray, pharmtool, powup;
       if (item.system.halfpow == true) halfpow = 1;
       else halfpow = 0;
@@ -69,7 +80,7 @@ export async function chatButton(chatMessage, buttonType) {
 
       item.system.powertable = [
         item.system.power,
-        item.system.cvalue,
+        item.system.totalcvalue,
         0,
         item.system.pt3,
         item.system.pt4,

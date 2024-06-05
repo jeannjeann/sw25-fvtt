@@ -29,7 +29,7 @@
           {{item.system.checkbase}}
         </div>
         <div class='powerrollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 90px;" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{localize "SW25.Item.Power"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}">
-          k{{system.power}}{{#if system.cvalue}}@{{system.cvalue}}{{/if}}{{#if system.powerbase}}+{{system.powerbase}}{{/if}}
+          k{{system.power}}{{#if system.totalcvalue}}@{{system.totalcvalue}}{{/if}}{{#if system.powerbase}}+{{system.powerbase}}{{/if}}
         </div>
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 70px;">
           {{item.system.range}}

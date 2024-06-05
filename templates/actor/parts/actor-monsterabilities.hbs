@@ -41,7 +41,7 @@
         </div>
           <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if system.usedice3}}block{{else}}none{{/if}};"><input class="cm3-change" type="text" name="checkmodInput" value="{{item.system.checkmod3}}" data-dtype="Number"/></div>
         <div class="powerrollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{item.system.labelmonpow}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}">
-          <b>{{item.system.labelmonpow}}:k{{item.system.power}}@{{item.system.cvalue}}+{{item.system.powerbase}}</b>
+          <b>{{item.system.labelmonpow}}:k{{item.system.power}}{{#if item.system.totalcvalue}}@{{item.system.totalcvalue}}{{/if}}{{#if item.system.powerbase}}+{{item.system.powerbase}}{{/if}}</b>
         </div>
           <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if system.usepower}}block{{else}}none{{/if}};"><input class="pm-change" type="text" name="checkmodInput" value="{{item.system.powermod}}" data-dtype="Number"/></div>
         <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">

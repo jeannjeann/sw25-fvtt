@@ -407,6 +407,7 @@
       "DirectInput": "Direct Input",
       "HitMod": "Accuracy Mod",
       "DamageMod": "DMG Mod",
+      "CMod": "Crit Mod",
       "LethalTech": "LethalStrike",
       "CriticalRay": "CriticalRay",
       "DodgeMod": "Evasion Mod",

@@ -87,7 +87,8 @@ export class SW25Actor extends Actor {
         ability.racevalue +
         ability.valuebase +
         ability.valuegrowth +
-        ability.valuemodify;
+        ability.valuemodify +
+        ability.efvaluemodify;
       ability.mod = Math.floor(ability.value / 6) + Number(ability.efmodify);
       ability.advbase =
         Number(ability.mod) +
@@ -98,20 +99,26 @@ export class SW25Actor extends Actor {
 
     //Calculate HP & MP & Move
     systemData.hp.max =
-      systemData.abilities.vit.value +
-      systemData.attributes.advlevel.value * 3 +
-      Number(systemData.hp.hpmod);
+      Number(systemData.abilities.vit.value) +
+      Number(systemData.attributes.advlevel.value) * 3 +
+      Number(systemData.hp.hpmod) +
+      Number(systemData.hp.efhpmod);
     systemData.mp.max =
-      systemData.abilities.mnd.value +
-      systemData.attributes.mglevel.value * 3 +
-      Number(systemData.mp.mpmod);
+      Number(systemData.abilities.mnd.value) +
+      Number(systemData.attributes.mglevel.value) * 3 +
+      Number(systemData.mp.mpmod) +
+      Number(systemData.mp.efmpmod);
     systemData.attributes.move.limited = 3;
     systemData.attributes.move.normal =
-      systemData.abilities.agi.value +
-      Number(systemData.attributes.move.movemod);
-    systemData.attributes.move.max = systemData.attributes.move.normal * 3;
+      Number(systemData.abilities.agi.value) +
+      Number(systemData.attributes.move.movemod) +
+      Number(systemData.attributes.move.efmovemod);
+    systemData.attributes.move.max =
+      Number(systemData.attributes.move.normal) * 3;
     if (systemData.attributes.move.normal < 3) {
-      systemData.attributes.move.limited = systemData.attributes.move.normal;
+      systemData.attributes.move.limited = Number(
+        systemData.attributes.move.normal
+      );
     }
 
     //Calculate Battle Data
@@ -123,7 +130,14 @@ export class SW25Actor extends Actor {
           systemData.itemhitbase = item.system.checkbase;
           systemData.itempowerformula = item.system.powerformula;
           systemData.itempower = item.system.power;
-          systemData.itemcvalue = item.system.cvalue;
+          if (!systemData.effect) systemData.efcmod = 0;
+          else if (systemData.effect.efcvalue)
+            systemData.efcmod = Number(systemData.effect.efcvalue);
+          else systemData.efcmod = 0;
+          if (item.system.cvalue == null || item.system.cvalue == 0)
+            item.system.cvalue = 10;
+          systemData.itemcvalue =
+            Number(item.system.cvalue) + Number(systemData.efcmod);
           systemData.itempowerbase = item.system.powerbase;
           systemData.itempowertable = item.system.powertable;
           systemData.itempowertable[16] += systemData.lt;
@@ -137,6 +151,7 @@ export class SW25Actor extends Actor {
     systemData.barepp = 0;
     systemData.itemmpp = 0;
     systemData.barempp = 0;
+    systemData.baredreduce = 0;
     systemData.skillagidodge = 0;
     this.items.forEach((item) => {
       if (item.type == "skill") {
@@ -157,19 +172,31 @@ export class SW25Actor extends Actor {
     systemData.dodgebase =
       Number(systemData.skillagidodge) +
       Number(systemData.itemdodge) +
-      Number(systemData.attributes.dodgemod);
+      Number(systemData.attributes.dodgemod) +
+      Number(systemData.attributes.efdodgemod);
     systemData.attributes.protectionpoint =
       Number(systemData.itempp) +
       Number(systemData.attributes.ppmod) +
-      Number(systemData.attributes.dreduce);
+      Number(systemData.attributes.efppmod) +
+      Number(systemData.attributes.dreduce) +
+      Number(systemData.attributes.efdreduce);
     systemData.barepp =
-      Number(systemData.itempp) + Number(systemData.attributes.ppmod);
+      Number(systemData.itempp) +
+      Number(systemData.attributes.ppmod) +
+      Number(systemData.attributes.efppmod);
     systemData.attributes.magicprotection =
       Number(systemData.itemmpp) +
       Number(systemData.attributes.mppmod) +
-      Number(systemData.attributes.dreduce);
+      Number(systemData.attributes.efmppmod) +
+      Number(systemData.attributes.dreduce) +
+      Number(systemData.attributes.efdreduce);
     systemData.barempp =
-      Number(systemData.itemmpp) + Number(systemData.attributes.mppmod);
+      Number(systemData.itemmpp) +
+      Number(systemData.attributes.mppmod) +
+      Number(systemData.attributes.efmppmod);
+    systemData.baredreduce =
+      Number(systemData.attributes.dreduce) +
+      Number(systemData.attributes.efdreduce);
 
     //Calculate Spell Data
     if (!systemData.effect) systemData.efallmgpacmod = 0;
@@ -187,6 +214,7 @@ export class SW25Actor extends Actor {
     systemData.attributes.scpower =
       Number(systemData.scbase) +
       Number(systemData.attributes.scmod) +
+      Number(systemData.attributes.efscmod) +
       Number(systemData.efallmgpacmod);
     this.items.forEach((item) => {
       if (item.type == "skill") {
@@ -198,6 +226,7 @@ export class SW25Actor extends Actor {
     systemData.attributes.cnpower =
       Number(systemData.cnbase) +
       Number(systemData.attributes.cnmod) +
+      Number(systemData.attributes.efcnmod) +
       Number(systemData.efallmgpacmod);
     this.items.forEach((item) => {
       if (item.type == "skill") {
@@ -209,6 +238,7 @@ export class SW25Actor extends Actor {
     systemData.attributes.wzpower =
       Number(systemData.wzbase) +
       Number(systemData.attributes.wzmod) +
+      Number(systemData.attributes.efwzmod) +
       Number(systemData.efallmgpacmod);
     this.items.forEach((item) => {
       if (item.type == "skill") {
@@ -220,6 +250,7 @@ export class SW25Actor extends Actor {
     systemData.attributes.prpower =
       Number(systemData.prbase) +
       Number(systemData.attributes.prmod) +
+      Number(systemData.attributes.efprmod) +
       Number(systemData.efallmgpacmod);
     this.items.forEach((item) => {
       if (item.type == "skill") {
@@ -231,6 +262,7 @@ export class SW25Actor extends Actor {
     systemData.attributes.mtpower =
       Number(systemData.mtbase) +
       Number(systemData.attributes.mtmod) +
+      Number(systemData.attributes.efmtmod) +
       Number(systemData.efallmgpacmod);
     this.items.forEach((item) => {
       if (item.type == "skill") {
@@ -242,6 +274,7 @@ export class SW25Actor extends Actor {
     systemData.attributes.frpower =
       Number(systemData.frbase) +
       Number(systemData.attributes.frmod) +
+      Number(systemData.attributes.effrmod) +
       Number(systemData.efallmgpacmod);
     this.items.forEach((item) => {
       if (item.type == "skill") {
@@ -253,6 +286,7 @@ export class SW25Actor extends Actor {
     systemData.attributes.drpower =
       Number(systemData.drbase) +
       Number(systemData.attributes.drmod) +
+      Number(systemData.attributes.efdrmod) +
       Number(systemData.efallmgpacmod);
     this.items.forEach((item) => {
       if (item.type == "skill") {
@@ -264,6 +298,7 @@ export class SW25Actor extends Actor {
     systemData.attributes.dmpower =
       Number(systemData.dmbase) +
       Number(systemData.attributes.dmmod) +
+      Number(systemData.attributes.efdmmod) +
       Number(systemData.efallmgpacmod);
 
     // Calculate active effect
@@ -288,6 +323,7 @@ export class SW25Actor extends Actor {
 
     let totalhitmod = null;
     let totaldmod = null;
+    let totalcmod = null;
     let totallt = null;
     let totalcr = null;
     let totaldodgemod = null;
@@ -326,21 +362,23 @@ export class SW25Actor extends Actor {
     let totalallmgp = null;
     effectsChange.forEach((effectList) => {
       effectList.forEach((effects) => {
-        if (effects.key == "system.attributes.hitmod")
+        if (effects.key == "system.attributes.efhitmod")
           totalhitmod += Number(effects.value);
-        if (effects.key == "system.attributes.dmod")
+        if (effects.key == "system.attributes.efdmod")
           totaldmod += Number(effects.value);
+        if (effects.key == "system.effect.efcvalue")
+          totalcmod += Number(effects.value);
         if (effects.key == "system.lt") totallt += Number(effects.value);
         if (effects.key == "system.cr") totalcr += Number(effects.value);
-        if (effects.key == "system.attributes.dodgemod")
+        if (effects.key == "system.attributes.efdodgemod")
           totaldodgemod += Number(effects.value);
-        if (effects.key == "system.attributes.ppmod")
+        if (effects.key == "system.attributes.efppmod")
           totalppmod += Number(effects.value);
-        if (effects.key == "system.attributes.mppmod")
+        if (effects.key == "system.attributes.efmppmod")
           totalmppmod += Number(effects.value);
-        if (effects.key == "system.attributes.dreduce")
+        if (effects.key == "system.attributes.efdreduce")
           totaldreduce += Number(effects.value);
-        if (effects.key == "system.attributes.move.movemod")
+        if (effects.key == "system.attributes.move.efmovemod")
           totalmovemod += Number(effects.value);
         if (effects.key == "system.effect.vitres")
           totalvitres += Number(effects.value);
@@ -354,21 +392,21 @@ export class SW25Actor extends Actor {
           totalallck += Number(effects.value);
         if (effects.key == "system.effect.allsk")
           totalallsk += Number(effects.value);
-        if (effects.key == "system.hp.hpmod")
+        if (effects.key == "system.hp.efhpmod")
           totalhpmod += Number(effects.value);
-        if (effects.key == "system.mp.mpmod")
+        if (effects.key == "system.mp.efmpmod")
           totalmpmod += Number(effects.value);
-        if (effects.key == "system.abilities.dex.valuemodify")
+        if (effects.key == "system.abilities.dex.efvaluemodify")
           totaldex += Number(effects.value);
-        if (effects.key == "system.abilities.agi.valuemodify")
+        if (effects.key == "system.abilities.agi.efvaluemodify")
           totalagi += Number(effects.value);
-        if (effects.key == "system.abilities.str.valuemodify")
+        if (effects.key == "system.abilities.str.efvaluemodify")
           totalstr += Number(effects.value);
-        if (effects.key == "system.abilities.vit.valuemodify")
+        if (effects.key == "system.abilities.vit.efvaluemodify")
           totalvit += Number(effects.value);
-        if (effects.key == "system.abilities.int.valuemodify")
+        if (effects.key == "system.abilities.int.efvaluemodify")
           totalint += Number(effects.value);
-        if (effects.key == "system.abilities.mnd.valuemodify")
+        if (effects.key == "system.abilities.mnd.efvaluemodify")
           totalmnd += Number(effects.value);
         if (effects.key == "system.abilities.dex.efmodify")
           totaldexmod += Number(effects.value);
@@ -382,21 +420,21 @@ export class SW25Actor extends Actor {
           totalintmod += Number(effects.value);
         if (effects.key == "system.abilities.mnd.efmodify")
           totalmndmod += Number(effects.value);
-        if (effects.key == "system.attributes.scmod")
+        if (effects.key == "system.attributes.efscmod")
           totalscmod += Number(effects.value);
-        if (effects.key == "system.attributes.cnmod")
+        if (effects.key == "system.attributes.efcnmod")
           totalcnmod += Number(effects.value);
-        if (effects.key == "system.attributes.wzmod")
+        if (effects.key == "system.attributes.efwzmod")
           totalwzmod += Number(effects.value);
-        if (effects.key == "system.attributes.prmod")
+        if (effects.key == "system.attributes.efprmod")
           totalprmod += Number(effects.value);
-        if (effects.key == "system.attributes.mtmod")
+        if (effects.key == "system.attributes.efmtmod")
           totalmtmod += Number(effects.value);
-        if (effects.key == "system.attributes.frmod")
+        if (effects.key == "system.attributes.effrmod")
           totalfrmod += Number(effects.value);
-        if (effects.key == "system.attributes.drmod")
+        if (effects.key == "system.attributes.efdrmod")
           totaldrmod += Number(effects.value);
-        if (effects.key == "system.attributes.dmmod")
+        if (effects.key == "system.attributes.efdmmod")
           totaldmmod += Number(effects.value);
         if (effects.key == "system.effect.allmgp")
           totalallmgp += Number(effects.value);
@@ -405,6 +443,7 @@ export class SW25Actor extends Actor {
 
     systemData.totalhitmod = totalhitmod;
     systemData.totaldmod = totaldmod;
+    systemData.totalcmod = totalcmod;
     systemData.totallt = totallt;
     systemData.totalcr = totalcr;
     systemData.totaldodgemod = totaldodgemod;
@@ -443,6 +482,7 @@ export class SW25Actor extends Actor {
     systemData.totalallmgp = totalallmgp;
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
+    if (totalcmod > 0) systemData.totalcmod = "+" + totalcmod;
     if (totallt > 0) systemData.totallt = "+" + totallt;
     if (totalcr > 0) systemData.totalcr = "+" + totalcr;
     if (totaldodgemod > 0) systemData.totaldodgemod = "+" + totaldodgemod;
@@ -538,16 +578,26 @@ export class SW25Actor extends Actor {
     // Make modifiy
     systemData.exp = systemData.monlevel * 10;
 
-    systemData.hp.max = Number(systemData.hpbase) + Number(systemData.hp.hpmod);
-    systemData.mp.max = Number(systemData.mpbase) + Number(systemData.mp.mpmod);
+    systemData.hp.max =
+      Number(systemData.hpbase) +
+      Number(systemData.hp.hpmod) +
+      Number(systemData.hp.efhpmod);
+    systemData.mp.max =
+      Number(systemData.mpbase) +
+      Number(systemData.mp.mpmod) +
+      Number(systemData.mp.efmpmod);
     systemData.pp =
       Number(systemData.ppbase) +
       Number(systemData.attributes.ppmod) +
-      Number(systemData.attributes.dreduce);
+      Number(systemData.attributes.efppmod) +
+      Number(systemData.attributes.dreduce) +
+      Number(systemData.attributes.efdreduce);
     systemData.mpp =
       Number(systemData.mppbase) +
       Number(systemData.attributes.mppmod) +
-      Number(systemData.attributes.dreduce);
+      Number(systemData.attributes.efmppmod) +
+      Number(systemData.attributes.dreduce) +
+      Number(systemData.attributes.efdreduce);
 
     if (systemData.impurity == 0 || systemData.impurity == null)
       systemData.showimp = false;
@@ -578,6 +628,7 @@ export class SW25Actor extends Actor {
 
     let totalhitmod = null;
     let totaldmod = null;
+    let totalcmod = null;
     let totallt = null;
     let totalcr = null;
     let totaldodgemod = null;
@@ -616,21 +667,23 @@ export class SW25Actor extends Actor {
     let totalallmgp = null;
     effectsChange.forEach((effectList) => {
       effectList.forEach((effects) => {
-        if (effects.key == "system.attributes.hitmod")
+        if (effects.key == "system.attributes.efhitmod")
           totalhitmod += Number(effects.value);
-        if (effects.key == "system.attributes.dmod")
+        if (effects.key == "system.attributes.efdmod")
           totaldmod += Number(effects.value);
+        if (effects.key == "system.effect.efcvalue")
+          totalcmod += Number(effects.value);
         if (effects.key == "system.lt") totallt += Number(effects.value);
         if (effects.key == "system.cr") totalcr += Number(effects.value);
-        if (effects.key == "system.attributes.dodgemod")
+        if (effects.key == "system.attributes.efdodgemod")
           totaldodgemod += Number(effects.value);
-        if (effects.key == "system.attributes.ppmod")
+        if (effects.key == "system.attributes.efppmod")
           totalppmod += Number(effects.value);
-        if (effects.key == "system.attributes.mppmod")
+        if (effects.key == "system.attributes.efmppmod")
           totalmppmod += Number(effects.value);
-        if (effects.key == "system.attributes.dreduce")
+        if (effects.key == "system.attributes.efdreduce")
           totaldreduce += Number(effects.value);
-        if (effects.key == "system.attributes.move.movemod")
+        if (effects.key == "system.attributes.move.efmovemod")
           totalmovemod += Number(effects.value);
         if (effects.key == "system.effect.vitres")
           totalvitres += Number(effects.value);
@@ -644,21 +697,21 @@ export class SW25Actor extends Actor {
           totalallck += Number(effects.value);
         if (effects.key == "system.effect.allsk")
           totalallsk += Number(effects.value);
-        if (effects.key == "system.hp.hpmod")
+        if (effects.key == "system.hp.efhpmod")
           totalhpmod += Number(effects.value);
-        if (effects.key == "system.mp.mpmod")
+        if (effects.key == "system.mp.efmpmod")
           totalmpmod += Number(effects.value);
-        if (effects.key == "system.abilities.dex.valuemodify")
+        if (effects.key == "system.abilities.dex.efvaluemodify")
           totaldex += Number(effects.value);
-        if (effects.key == "system.abilities.agi.valuemodify")
+        if (effects.key == "system.abilities.agi.efvaluemodify")
           totalagi += Number(effects.value);
-        if (effects.key == "system.abilities.str.valuemodify")
+        if (effects.key == "system.abilities.str.efvaluemodify")
           totalstr += Number(effects.value);
-        if (effects.key == "system.abilities.vit.valuemodify")
+        if (effects.key == "system.abilities.vit.efvaluemodify")
           totalvit += Number(effects.value);
-        if (effects.key == "system.abilities.int.valuemodify")
+        if (effects.key == "system.abilities.int.efvaluemodify")
           totalint += Number(effects.value);
-        if (effects.key == "system.abilities.mnd.valuemodify")
+        if (effects.key == "system.abilities.mnd.efvaluemodify")
           totalmnd += Number(effects.value);
         if (effects.key == "system.abilities.dex.efmodify")
           totaldexmod += Number(effects.value);
@@ -672,21 +725,21 @@ export class SW25Actor extends Actor {
           totalintmod += Number(effects.value);
         if (effects.key == "system.abilities.mnd.efmodify")
           totalmndmod += Number(effects.value);
-        if (effects.key == "system.attributes.scmod")
+        if (effects.key == "system.attributes.efscmod")
           totalscmod += Number(effects.value);
-        if (effects.key == "system.attributes.cnmod")
+        if (effects.key == "system.attributes.efcnmod")
           totalcnmod += Number(effects.value);
-        if (effects.key == "system.attributes.wzmod")
+        if (effects.key == "system.attributes.efwzmod")
           totalwzmod += Number(effects.value);
-        if (effects.key == "system.attributes.prmod")
+        if (effects.key == "system.attributes.efprmod")
           totalprmod += Number(effects.value);
-        if (effects.key == "system.attributes.mtmod")
+        if (effects.key == "system.attributes.efmtmod")
           totalmtmod += Number(effects.value);
-        if (effects.key == "system.attributes.frmod")
+        if (effects.key == "system.attributes.effrmod")
           totalfrmod += Number(effects.value);
-        if (effects.key == "system.attributes.drmod")
+        if (effects.key == "system.attributes.efdrmod")
           totaldrmod += Number(effects.value);
-        if (effects.key == "system.attributes.dmmod")
+        if (effects.key == "system.attributes.efdmmod")
           totaldmmod += Number(effects.value);
         if (effects.key == "system.effect.allmgp")
           totalallmgp += Number(effects.value);
@@ -695,6 +748,7 @@ export class SW25Actor extends Actor {
 
     systemData.totalhitmod = totalhitmod;
     systemData.totaldmod = totaldmod;
+    systemData.totalcmod = totalcmod;
     systemData.totallt = totallt;
     systemData.totalcr = totalcr;
     systemData.totaldodgemod = totaldodgemod;
@@ -733,6 +787,7 @@ export class SW25Actor extends Actor {
     systemData.totalallmgp = totalallmgp;
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
+    if (totalcmod > 0) systemData.totalcmod = "+" + totalcmod;
     if (totallt > 0) systemData.totallt = "+" + totallt;
     if (totalcr > 0) systemData.totalcr = "+" + totalcr;
     if (totaldodgemod > 0) systemData.totaldodgemod = "+" + totaldodgemod;

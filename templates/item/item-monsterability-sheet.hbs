@@ -24,7 +24,7 @@
         {{/if}}
         {{#if system.usepower}}
         <div class="grid-span-6">
-          <b>{{system.labelmonpow}}</b> : k{{system.power}}@{{system.cvalue}}+{{system.powerbase}}
+          <b>{{system.labelmonpow}}</b> : k{{system.power}}{{#if system.totalcvalue}}@{{system.totalcvalue}}{{/if}}{{#if system.powerbase}}+{{system.powerbase}}{{/if}}
         </div>
         {{/if}}
         {{#if system.remark}}
