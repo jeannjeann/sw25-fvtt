@@ -1,14 +1,12 @@
-2024/05/31-15:51:07.054 a28 Recovering log #278
-2024/05/31-15:51:07.057 a28 Delete type=0 #278
-2024/05/31-15:51:07.058 a28 Delete type=3 #276
-2024/05/31-15:53:43.170 62e4 Level-0 table #284: started
-2024/05/31-15:53:43.173 62e4 Level-0 table #284: 58952 bytes OK
-2024/05/31-15:53:43.174 62e4 Delete type=0 #282
-2024/05/31-15:53:43.175 62e4 Manual compaction at level-0 from '!journal!kf7e6dre1Bhn8SE9' @ 72057594037927935 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 46 : 1
-2024/05/31-15:53:43.175 62e4 Compacting 1@0 + 1@1 files
-2024/05/31-15:53:43.178 62e4 Generated table #285@0: 4 keys, 58952 bytes
-2024/05/31-15:53:43.178 62e4 Compacted 1@0 + 1@1 files => 58952 bytes
-2024/05/31-15:53:43.178 62e4 compacted to: files[ 0 1 0 0 0 0 0 ]
-2024/05/31-15:53:43.178 62e4 Delete type=2 #280
-2024/05/31-15:53:43.179 62e4 Delete type=2 #284
-2024/05/31-15:53:43.182 62e4 Manual compaction at level-0 from '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 46 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at (end)
+2024/06/05-22:55:05.524 32e4 Delete type=3 #1
+2024/06/05-23:14:40.004 4d40 Level-0 table #298: started
+2024/06/05-23:14:40.007 4d40 Level-0 table #298: 61027 bytes OK
+2024/06/05-23:14:40.007 4d40 Delete type=0 #296
+2024/06/05-23:14:40.010 4d40 Manual compaction at level-0 from '!journal!kf7e6dre1Bhn8SE9' @ 72057594037927935 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 46 : 1
+2024/06/05-23:14:40.010 4d40 Compacting 2@0 + 0@1 files
+2024/06/05-23:14:40.013 4d40 Generated table #299@0: 4 keys, 61305 bytes
+2024/06/05-23:14:40.013 4d40 Compacted 2@0 + 0@1 files => 61305 bytes
+2024/06/05-23:14:40.014 4d40 compacted to: files[ 0 1 0 0 0 0 0 ]
+2024/06/05-23:14:40.014 4d40 Delete type=2 #285
+2024/06/05-23:14:40.015 4d40 Delete type=2 #298
+2024/06/05-23:14:40.017 4d40 Manual compaction at level-0 from '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 46 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at (end)

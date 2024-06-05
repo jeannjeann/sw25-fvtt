@@ -1,14 +1,8 @@
-2024/05/31-09:52:58.922 2438 Recovering log #273
-2024/05/31-09:52:58.926 2438 Delete type=0 #273
-2024/05/31-09:52:58.926 2438 Delete type=3 #271
-2024/05/31-09:54:16.104 26f0 Level-0 table #279: started
-2024/05/31-09:54:16.107 26f0 Level-0 table #279: 29230 bytes OK
-2024/05/31-09:54:16.108 26f0 Delete type=0 #277
-2024/05/31-09:54:16.109 26f0 Manual compaction at level-0 from '!journal!kf7e6dre1Bhn8SE9' @ 72057594037927935 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at '!journal.pages!kf7e6dre1Bhn8SE9.3CUD6vHifZ01Uqxa' @ 42 : 1
-2024/05/31-09:54:16.109 26f0 Compacting 1@0 + 1@1 files
-2024/05/31-09:54:16.112 26f0 Generated table #280@0: 4 keys, 54436 bytes
-2024/05/31-09:54:16.112 26f0 Compacted 1@0 + 1@1 files => 54436 bytes
-2024/05/31-09:54:16.112 26f0 compacted to: files[ 0 1 0 0 0 0 0 ]
-2024/05/31-09:54:16.112 26f0 Delete type=2 #275
-2024/05/31-09:54:16.114 26f0 Delete type=2 #279
-2024/05/31-09:54:16.119 26f0 Manual compaction at level-0 from '!journal.pages!kf7e6dre1Bhn8SE9.3CUD6vHifZ01Uqxa' @ 42 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at (end)
+2024/06/05-22:55:05.502 32e4 Log #283: 0 ops saved to Table #293 OK
+2024/06/05-22:55:05.503 32e4 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/000283.log: OK
+2024/06/05-22:55:05.504 32e4 Log #292: 0 ops saved to Table #294 OK
+2024/06/05-22:55:05.505 32e4 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/000292.log: OK
+2024/06/05-22:55:05.506 32e4 Table #285: 4 entries OK
+2024/06/05-22:55:05.508 32e4 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/MANIFEST-000281: OK
+2024/06/05-22:55:05.509 32e4 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/MANIFEST-000290: OK
+2024/06/05-22:55:05.513 32e4 **** Repaired leveldb D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual; recovered 1 files; 58952 bytes. Some data may have been lost. ****
