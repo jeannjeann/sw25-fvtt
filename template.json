@@ -21,6 +21,7 @@
       },
       "money": 0,
       "efcmod": 0,
+      "efspcmod": 0,
       "efallskadvmod": 0,
       "efallmgpacmod": 0,
       "effect":{
@@ -34,6 +35,7 @@
         "hit": 0,
         "dmg": 0,
         "efcvalue": 0,
+        "efspellcvalue": 0,
         "dodge": 0
       }
     },

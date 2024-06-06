@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.7.1
+- バフ・デバフ属性キーに魔法C値修正を追加
+- マニュアルアップデート
+- update English localization by [kuouvadis](https://github.com/kuouvadis)
+- update English manual by [kuouvadis](https://github.com/kuouvadis)
+- bug fix
+
 ## 0.7.0
 - UIを一部変更
 - ゲーム設定を新設（バフ・デバフ用の設定項目を追加）

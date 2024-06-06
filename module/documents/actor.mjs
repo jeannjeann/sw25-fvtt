@@ -130,12 +130,12 @@ export class SW25Actor extends Actor {
           systemData.itemhitbase = item.system.checkbase;
           systemData.itempowerformula = item.system.powerformula;
           systemData.itempower = item.system.power;
+          if (item.system.cvalue == null || item.system.cvalue == 0)
+            item.system.cvalue = 10;
           if (!systemData.effect) systemData.efcmod = 0;
           else if (systemData.effect.efcvalue)
             systemData.efcmod = Number(systemData.effect.efcvalue);
           else systemData.efcmod = 0;
-          if (item.system.cvalue == null || item.system.cvalue == 0)
-            item.system.cvalue = 10;
           systemData.itemcvalue =
             Number(item.system.cvalue) + Number(systemData.efcmod);
           systemData.itempowerbase = item.system.powerbase;
@@ -324,6 +324,7 @@ export class SW25Actor extends Actor {
     let totalhitmod = null;
     let totaldmod = null;
     let totalcmod = null;
+    let totalspcmod = null;
     let totallt = null;
     let totalcr = null;
     let totaldodgemod = null;
@@ -368,6 +369,8 @@ export class SW25Actor extends Actor {
           totaldmod += Number(effects.value);
         if (effects.key == "system.effect.efcvalue")
           totalcmod += Number(effects.value);
+        if (effects.key == "system.effect.efspellcvalue")
+          totalspcmod += Number(effects.value);
         if (effects.key == "system.lt") totallt += Number(effects.value);
         if (effects.key == "system.cr") totalcr += Number(effects.value);
         if (effects.key == "system.attributes.efdodgemod")
@@ -444,6 +447,7 @@ export class SW25Actor extends Actor {
     systemData.totalhitmod = totalhitmod;
     systemData.totaldmod = totaldmod;
     systemData.totalcmod = totalcmod;
+    systemData.totalspcmod = totalspcmod;
     systemData.totallt = totallt;
     systemData.totalcr = totalcr;
     systemData.totaldodgemod = totaldodgemod;
@@ -483,6 +487,7 @@ export class SW25Actor extends Actor {
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
     if (totalcmod > 0) systemData.totalcmod = "+" + totalcmod;
+    if (totalspcmod > 0) systemData.totalspcmod = "+" + totalspcmod;
     if (totallt > 0) systemData.totallt = "+" + totallt;
     if (totalcr > 0) systemData.totalcr = "+" + totalcr;
     if (totaldodgemod > 0) systemData.totaldodgemod = "+" + totaldodgemod;
@@ -629,6 +634,7 @@ export class SW25Actor extends Actor {
     let totalhitmod = null;
     let totaldmod = null;
     let totalcmod = null;
+    let totalspcmod = null;
     let totallt = null;
     let totalcr = null;
     let totaldodgemod = null;
@@ -673,6 +679,8 @@ export class SW25Actor extends Actor {
           totaldmod += Number(effects.value);
         if (effects.key == "system.effect.efcvalue")
           totalcmod += Number(effects.value);
+        if (effects.key == "system.effect.efspellcvalue")
+          totalspcmod += Number(effects.value);
         if (effects.key == "system.lt") totallt += Number(effects.value);
         if (effects.key == "system.cr") totalcr += Number(effects.value);
         if (effects.key == "system.attributes.efdodgemod")
@@ -749,6 +757,7 @@ export class SW25Actor extends Actor {
     systemData.totalhitmod = totalhitmod;
     systemData.totaldmod = totaldmod;
     systemData.totalcmod = totalcmod;
+    systemData.totalspcmod = totalspcmod;
     systemData.totallt = totallt;
     systemData.totalcr = totalcr;
     systemData.totaldodgemod = totaldodgemod;
@@ -788,6 +797,7 @@ export class SW25Actor extends Actor {
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
     if (totalcmod > 0) systemData.totalcmod = "+" + totalcmod;
+    if (totalspcmod > 0) systemData.totalspcmod = "+" + totalspcmod;
     if (totallt > 0) systemData.totallt = "+" + totallt;
     if (totalcr > 0) systemData.totalcr = "+" + totalcr;
     if (totaldodgemod > 0) systemData.totaldodgemod = "+" + totaldodgemod;

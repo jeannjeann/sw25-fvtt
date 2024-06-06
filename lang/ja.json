@@ -407,6 +407,7 @@
       "HitMod": "命中修正",
       "DamageMod": "ダメージ修正",
       "CMod": "C値修正",
+      "SpCMod": "魔法C値修正",
       "LethalTech": "必殺攻撃",
       "CriticalRay": "クリレイ",
       "DodgeMod": "回避修正",

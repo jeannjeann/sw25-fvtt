@@ -337,12 +337,12 @@ export class SW25Item extends Item {
       systemData.formula = "2d6";
     }
 
+    if (systemData.cvalue == null || systemData.cvalue == 0)
+      systemData.cvalue = 10;
     if (!actorData.effect) actorData.efcmod = 0;
     else if (actorData.effect.efcvalue)
       actorData.efcmod = Number(actorData.effect.efcvalue);
     else actorData.efcmod = 0;
-    if (systemData.cvalue == null || systemData.cvalue == 0)
-      systemData.cvalue = 10;
     systemData.totalcvalue =
       Number(systemData.cvalue) + Number(actorData.efcmod);
 
@@ -885,13 +885,18 @@ export class SW25Item extends Item {
       systemData.checkformula3 = systemData.customformula3;
     else systemData.checkformula3 = "2d6";
 
+    if (systemData.cvalue == null || systemData.cvalue == 0)
+      systemData.cvalue = 10;
     if (!actorData.effect) actorData.efcmod = 0;
     else if (actorData.effect.efcvalue)
       actorData.efcmod = Number(actorData.effect.efcvalue);
     else actorData.efcmod = 0;
-    if (systemData.cvalue == null || systemData.cvalue == 0)
-      systemData.cvalue = 10;
-    if (itemData.type == "spell") actorData.efcmod = 0;
+    if (itemData.type == "spell") {
+      if (!actorData.effect) actorData.efcmod = 0;
+      else if (actorData.effect.efspellcvalue)
+        actorData.efcmod = Number(actorData.effect.efspellcvalue);
+      else actorData.efcmod = 0;
+    }
     systemData.totalcvalue =
       Number(systemData.cvalue) + Number(actorData.efcmod);
 

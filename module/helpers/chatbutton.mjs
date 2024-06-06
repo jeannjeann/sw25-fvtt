@@ -50,13 +50,18 @@ export async function chatButton(chatMessage, buttonType) {
     if (buttonType == "buttonpower") {
       item.system.formula = "2d6";
 
+      if (item.system.cvalue == null || item.system.cvalue == 0)
+        item.system.cvalue = 10;
       if (!actor.system.effect) actor.system.efcmod = 0;
       else if (actor.system.effect.efcvalue)
         actor.system.efcmod = Number(actor.system.effect.efcvalue);
       else actor.system.efcmod = 0;
-      if (item.system.cvalue == null || item.system.cvalue == 0)
-        item.system.cvalue = 10;
-      if (item.type == "spell") actor.system.efcmod = 0;
+      if (item.type == "spell") {
+        if (!actor.system.effect) actor.system.efcmod = 0;
+        else if (actor.system.effect.efspellcvalue)
+          actor.system.efcmod = Number(actor.system.effect.efspellcvalue);
+        else actor.system.efcmod = 0;
+      }
       item.system.totalcvalue =
         Number(item.system.cvalue) + Number(actor.system.efcmod);
 

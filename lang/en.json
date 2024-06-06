@@ -408,6 +408,7 @@
       "HitMod": "Accuracy Mod",
       "DamageMod": "DMG Mod",
       "CMod": "Crit Mod",
+      "SpCMod": "Spell Crit Mod",
       "LethalTech": "LethalStrike",
       "CriticalRay": "CriticalRay",
       "DodgeMod": "Evasion Mod",
