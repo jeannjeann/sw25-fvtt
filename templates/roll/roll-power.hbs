@@ -26,12 +26,15 @@
             <div class="flexrow">
                 {{#if showhalf}}
                 <button class="buttonclick" data-buttontype="buttonhalf">
-                    {{#if halfdone}}<span style="color: #0f6f0f;">✔</span>{{/if}}{{localize "SW25.Item.Halfpow"}}
+                    {{#if halfdone}}<span style="color: #0f6f0f;">✔</span>{{/if}}<span style="font-size: 0.8em;">{{localize "SW25.Item.Halfpow"}}</span>
                 </button>
                 {{/if}}
                 {{#if shownoc}}
+                <button class="buttonclick" data-buttontype="buttonhalfc">
+                    {{#if halfcdone}}<span style="color: #0f6f0f;">✔</span>{{/if}}<span style="font-size: 0.8em;">{{localize "SW25.Item.HalfpowC"}}</span>
+                </button>
                 <button class="buttonclick" data-buttontype="buttonnoc">
-                    {{#if nocdone}}<span style="color: #0f6f0f;">✔</span>{{/if}}{{localize "SW25.Item.Noc"}}
+                    {{#if nocdone}}<span style="color: #0f6f0f;">✔</span>{{/if}}<span style="font-size: 0.8em;">{{localize "SW25.Item.Noc"}}</span>
                 </button>
                 {{/if}}
             </div>

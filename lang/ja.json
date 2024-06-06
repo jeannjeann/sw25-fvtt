@@ -129,6 +129,9 @@
       "ActiveEffect": "SW25バフデバフシート"
     },
     "Item": {
+      "CheckB": "判定",
+      "PowerB": "威力",
+      "EffectB": "バフ",
       "Clickitem": "アイコンクリック時",
       "All": "すべて",
       "Powerroll": "威力ロール",
@@ -150,6 +153,7 @@
       "Power": "威力",
       "Cvalue": "C値",
       "Noc": "Cなし",
+      "HalfpowC": "半減（C）",
       "Powertable": "威力表",
       "Particularmod": "特殊処理",
       "Halfpow": "半減",

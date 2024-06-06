@@ -61,10 +61,9 @@ export async function customCommand(command, messageData, parameters) {
       } else lethalTech = 0;
       let criticalRayOn = powformula.includes("$");
       if (criticalRayOn) {
-        criticalRay = powformula
-          .match(/(\$\+|\$-)(\d+)/g)
-          .map((match) => match.replace("$", ""));
-        powformula = powformula.replace(/(\$\+|\$-)(\d+)/g, "");
+        let cr = powformula.match(/(\$\+|\$-|\$f)(\d+)/);
+        criticalRay = cr ? cr[0].replace("$", "") : "";
+        powformula = powformula.replace(/(\$\+|\$-|\$f)(\d+)/g, "");
       } else criticalRay = 0;
       let pharmToolOn = powformula.includes("tf");
       if (pharmToolOn) {
@@ -91,7 +90,7 @@ export async function customCommand(command, messageData, parameters) {
       powertable[14] = Number(halfpow);
       powertable[15] = Number(halfpowmod);
       powertable[16] = Number(lethalTech);
-      powertable[17] = Number(criticalRay);
+      powertable[17] = criticalRay;
       powertable[18] = Number(pharmTool);
       powertable[19] = Number(powup);
 
@@ -108,7 +107,7 @@ export async function customCommand(command, messageData, parameters) {
       if (roll.cValue == 100) cValueFormula = "@13";
       if (roll.halfPow == 1) halfFormula = "h+" + roll.halfPowMod;
       if (roll.lethalTech != 0) lethalTechFormula = "#" + roll.lethalTech;
-      if (roll.criticalRay != 0) criticalRayFormula = "$+" + roll.criticalRay;
+      if (roll.criticalRay != 0) criticalRayFormula = "$" + roll.criticalRay;
       if (roll.pharmTool != 0) pharmToolFormula = "tf" + roll.pharmTool;
       if (roll.powup != 0) powupFormula = "r" + roll.powup;
 

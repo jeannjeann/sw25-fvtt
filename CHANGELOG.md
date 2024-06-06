@@ -2,9 +2,12 @@
 
 ## 0.7.1
 - バフ・デバフ属性キーに魔法C値修正を追加
+- 威力ロール後の操作ボタンにクリティカル有効な半減ボタンを追加
+- 威力ロールのクリレイパラメーターにオプション追加（運命変転に対応）
 - マニュアルアップデート
 - update English localization by [kuouvadis](https://github.com/kuouvadis)
 - update English manual by [kuouvadis](https://github.com/kuouvadis)
+- UI fix
 - bug fix
 
 ## 0.7.0

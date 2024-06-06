@@ -141,7 +141,10 @@ export class SW25Actor extends Actor {
           systemData.itempowerbase = item.system.powerbase;
           systemData.itempowertable = item.system.powertable;
           systemData.itempowertable[16] += systemData.lt;
-          systemData.itempowertable[17] += systemData.cr;
+          if (!/^f\d+$/.test(systemData.itempowertable[17])) {
+            systemData.itempowertable[17] =
+              Number(systemData.itempowertable[17]) + systemData.cr;
+          }
         }
       }
     });

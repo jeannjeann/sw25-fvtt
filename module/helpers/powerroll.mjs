@@ -9,15 +9,18 @@ export function powerRoll(formula, powertable) {
   let powerResult = 0;
   let rollCount = 0;
   let fumble = 0;
-  let power = powertable[0];
-  let cValue = powertable[1];
-  let powMod = powertable[13];
-  let halfPow = powertable[14];
-  let halfPowMod = powertable[15];
-  let lethalTech = powertable[16];
+  let power = Number(powertable[0]);
+  let cValue = Number(powertable[1]);
+  for (let i = 2; i <= 12; i++) {
+    powertable[i] = Number(powertable[i]);
+  }
+  let powMod = Number(powertable[13]);
+  let halfPow = Number(powertable[14]);
+  let halfPowMod = Number(powertable[15]);
+  let lethalTech = Number(powertable[16]);
   let criticalRay = powertable[17];
-  let pharmTool = powertable[18];
-  let powup = powertable[19];
+  let pharmTool = Number(powertable[18]);
+  let powup = Number(powertable[19]);
 
   if (cValue == null || cValue == 0) cValue = 10;
   if (cValue < 8) cValue = 8;
@@ -33,11 +36,23 @@ export function powerRoll(formula, powertable) {
     diceResults[0] = Number(pharmTool);
     total = diceResults[1] + Number(pharmTool);
   }
+
   let fakeDiceResults = diceResults;
 
-  if (lethalTech != 0 && total != 2) total = Number(total) + Number(lethalTech);
-  if (criticalRay != 0 && total != 2)
-    total = Number(total) + Number(criticalRay);
+  if (lethalTech != 0 && total != 2) {
+    total = Number(total) + Number(lethalTech);
+    if (total < 2) total = 3;
+  }
+  if (criticalRay && criticalRay != 0 && total != 2) {
+    if (/^f\d+$/.test(criticalRay)) {
+      let fixresults = criticalRay.substring(1);
+      total = Number(fixresults);
+      if (total < 1) total = 2;
+    } else {
+      total = Number(total) + Number(criticalRay);
+      if (total < 2) total = 3;
+    }
+  }
   if (total > 12) total = 12;
 
   let ptv = powertable[total];
