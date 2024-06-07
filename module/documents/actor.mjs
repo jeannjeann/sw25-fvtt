@@ -1,3 +1,4 @@
+import { effectInitPC } from "../sw25.mjs";
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
@@ -528,6 +529,15 @@ export class SW25Actor extends Actor {
     if (totaldmmod > 0) systemData.totaldmmod = "+" + totaldmmod;
     if (totalallmgp > 0) systemData.totalallmgp = "+" + totalallmgp;
 
+    // Set initiative formula
+    systemData.initiativeFormula = "2d6";
+    this.items.forEach((item) => {
+      if (item.name == effectInitPC) {
+        systemData.initiativeFormula =
+          item.system.formula + "+" + item.system.checkbase;
+      }
+    });
+
     // Sheet refresh
     if (actorData.sheet.rendered)
       await actorData.sheet.render(true, { focus: false });
@@ -556,6 +566,9 @@ export class SW25Actor extends Actor {
     } else systemData.limited = false;
     if (game.user.isGM === true) systemData.isgm = true;
     else systemData.isgm = false;
+
+    // Set initiative formula
+    systemData.initiativeFormula = "0";
   }
 
   /**
@@ -837,6 +850,9 @@ export class SW25Actor extends Actor {
     if (totaldrmod > 0) systemData.totaldrmod = "+" + totaldrmod;
     if (totaldmmod > 0) systemData.totaldmmod = "+" + totaldmmod;
     if (totalallmgp > 0) systemData.totalallmgp = "+" + totalallmgp;
+
+    // Set initiative formula
+    systemData.initiativeFormula = String(systemData.preemptive);
 
     // Sheet refresh
     if (actorData.sheet.rendered)

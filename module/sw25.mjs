@@ -2,6 +2,7 @@
 import { SW25Actor } from "./documents/actor.mjs";
 import { SW25Item } from "./documents/item.mjs";
 import { SW25ActiveEffect } from "./documents/active-effect.mjs";
+import { SW25Combat } from "./documents/combat.mjs";
 // Import sheet classes.
 import { SW25ActorSheet } from "./sheets/actor-sheet.mjs";
 import { SW25ItemSheet } from "./sheets/item-sheet.mjs";
@@ -43,25 +44,18 @@ Hooks.once("init", function () {
     SW25Actor,
     SW25Item,
     SW25ActiveEffect,
+    SW25Combat,
     rollItemMacro,
   };
 
   // Add custom constants for configuration.
   CONFIG.SW25 = SW25;
 
-  /**
-   * Set an initiative formula for the system
-   * @type {String}
-   */
-  CONFIG.Combat.initiative = {
-    formula: "2d6",
-    decimals: 2,
-  };
-
   // Define custom Document classes
   CONFIG.Actor.documentClass = SW25Actor;
   CONFIG.Item.documentClass = SW25Item;
   CONFIG.ActiveEffect.documentClass = SW25ActiveEffect;
+  CONFIG.Combat.documentClass = SW25Combat;
 
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item
@@ -113,7 +107,7 @@ Hooks.once("ready", async function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
 
-  // Resister gamesystem settings.
+  // Prepare gamesystem settings.
   game.settings.register("sw25", "effectVitResPC", {
     name: game.i18n.localize("SETTING.effectVitResPC.name"),
     hint:

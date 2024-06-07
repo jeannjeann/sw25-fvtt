@@ -502,7 +502,7 @@
     },
     "effectInitPC":{
       "name": "Item name of Initiative",
-      "hint": "Initiative effect target settings (for Player Character), default and when omitted : ",
+      "hint": "Initiative effect target and initiative fomula settings (for Player Character), default and when omitted : ",
       "default": "Initiative"
     },
     "effectMKnowPC":{
