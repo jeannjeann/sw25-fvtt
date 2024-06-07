@@ -513,9 +513,23 @@ Hooks.once("ready", async function () {
   Hooks.on("createActor", async (actor, options, userId) => {
     // Default item data
     let itemData = [];
+    let resvit = false;
+    let resmnd = false;
+    let init = false;
+    let mknow = false;
+    let monres = false;
+    let monwp = false;
     if (actor.type == "character") {
-      itemData = [
-        {
+      actor.items.forEach((item) => {
+        if (item.name == game.i18n.localize("SW25.Config.ResVit"))
+          resvit = true;
+        if (item.name == game.i18n.localize("SW25.Config.ResMnd"))
+          resmnd = true;
+        if (item.name == game.i18n.localize("SW25.Config.Init")) init = true;
+        if (item.name == game.i18n.localize("SW25.Config.MKnow")) mknow = true;
+      });
+      if (!resvit) {
+        itemData.push({
           name: game.i18n.localize("SW25.Config.ResVit"),
           type: "check",
           system: {
@@ -524,8 +538,10 @@ Hooks.once("ready", async function () {
             checkabi: "vit",
             showbtcheck: true,
           },
-        },
-        {
+        });
+      }
+      if (!resmnd) {
+        itemData.push({
           name: game.i18n.localize("SW25.Config.ResMnd"),
           type: "check",
           system: {
@@ -534,8 +550,10 @@ Hooks.once("ready", async function () {
             checkabi: "mnd",
             showbtcheck: true,
           },
-        },
-        {
+        });
+      }
+      if (!init) {
+        itemData.push({
           name: game.i18n.localize("SW25.Config.Init"),
           type: "check",
           system: {
@@ -544,8 +562,10 @@ Hooks.once("ready", async function () {
             checkabi: "-",
             showbtcheck: true,
           },
-        },
-        {
+        });
+      }
+      if (!mknow) {
+        itemData.push({
           name: game.i18n.localize("SW25.Config.MKnow"),
           type: "check",
           system: {
@@ -554,12 +574,22 @@ Hooks.once("ready", async function () {
             checkabi: "-",
             showbtcheck: true,
           },
-        },
-      ];
+        });
+      }
     }
     if (actor.type == "monster") {
-      itemData = [
-        {
+      actor.items.forEach((item) => {
+        if (item.name == game.i18n.localize("SW25.Config.MonRes"))
+          monres = true;
+        if (
+          item.system.label1 == game.i18n.localize("SW25.Config.MonHit") &&
+          item.system.label2 == game.i18n.localize("SW25.Config.MonDmg") &&
+          item.system.label3 == game.i18n.localize("SW25.Config.MonDge")
+        )
+          monwp = true;
+      });
+      if (!monres) {
+        itemData.push({
           name: game.i18n.localize("SW25.Config.MonRes"),
           type: "monsterability",
           system: {
@@ -573,8 +603,10 @@ Hooks.once("ready", async function () {
             usefix2: true,
             applycheck2: false,
           },
-        },
-        {
+        });
+      }
+      if (!monwp) {
+        itemData.push({
           name: game.i18n.localize("SW25.Config.MonWp"),
           type: "monsterability",
           system: {
@@ -592,8 +624,8 @@ Hooks.once("ready", async function () {
             usefix3: true,
             applycheck3: false,
           },
-        },
-      ];
+        });
+      }
     }
 
     // Set default item
