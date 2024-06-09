@@ -170,13 +170,27 @@ async function sbmonimport() {
         // アクター作成
         Actor.create(actorData)
           .then((actor) => {
-            return actor.createEmbeddedDocuments("Item", itemData).then(() => {
-              ui.notifications.info(`「${actor.name}」が作成されました。`);
-            });
+            setTimeout(() => {
+              let existingItems = actor.items.map((item) => item.id);
+              actor
+                .deleteEmbeddedDocuments("Item", existingItems)
+                .then(() => {
+                  return actor.createEmbeddedDocuments("Item", itemData);
+                })
+                .then(() => {
+                  ui.notifications.info(`「${actor.name}」が作成されました。`);
+                })
+                .catch((error) => {
+                  console.error(error);
+                  ui.notifications.error(
+                    "アイテムの削除または追加中にエラーが発生しました。"
+                  );
+                });
+            }, 500);
           })
-          .catch((err) => {
+          .catch((error) => {
+            console.error(error);
             ui.notifications.error("作成に失敗しました。");
-            console.error(err);
           });
       } catch (e) {
         ui.notifications.error("ファイル形式エラー");

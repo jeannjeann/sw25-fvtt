@@ -165,6 +165,7 @@
       "Cwarn": "* To disable Crits, set Crit as 13 or higher.",
       "halfwarn": "* When Half is enabled, Crits are disabled. When Half is disabled, After Half Modifications are ignored.",
       "Nullwarn": "* Lethal Strike, Critical Ray, and Apothecary Tools are disabled if blank or 0",
+      "Crwarn": "* CriticalRay fix the total roll result if fx (replace x with any number)",
       "Pharmwarn": "* For Apothecary Tools, enter a fixed number (usually 4)",
       "Pharmwarn2": "* Apothecary Tool values are ignored in additional rolls for critical hits.",
       "Powupwarn": "* For Executioner's Blade, enter the power increase value after a Crit (usually 5)",
