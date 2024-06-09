@@ -661,6 +661,24 @@ Hooks.once("ready", async function () {
   } else {
     console.log("Disable custom chat commands");
   }
+
+  // Item update hook
+  Hooks.on("updateItem", async (item, updateData, options, userId) => {
+    // Linking equip and effect
+    if (updateData.system && updateData.system.hasOwnProperty("equip")) {
+      for (let activeEffect of item.effects) {
+        if (updateData.system.equip) {
+          if (activeEffect.disabled) {
+            await activeEffect.update({ disabled: false });
+          }
+        } else {
+          if (!activeEffect.disabled) {
+            await activeEffect.update({ disabled: true });
+          }
+        }
+      }
+    }
+  });
 });
 
 /* -------------------------------------------- */

@@ -45,7 +45,7 @@ URL
 - 戦闘に関する実装は行っていません。行動順に関しては手動で行うか、Modの導入をオススメします。
 - 行動順をサポートするModの一例（ポップコーンイニシアチブが向いているのではないかと個人的には思う）
   - ポップコーンタイプ「Lancer Initiative」「Just Popcorn Initiative」
-  - グループタイプ「Group Initiative」「Combat Tracker Extensions」
+  - グループタイプ「Combat Tracker Extensions」「Combat Tracker Groups」
 
 ## 開発目標
 - β版目標：バグ潰し、UIブラッシュアップ
