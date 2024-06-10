@@ -2,7 +2,7 @@
 
 ![Foundry v11](https://img.shields.io/badge/foundry-v11-green)
 
-FVTT用ソード・ワールド2.5ゲームシステム（α版）
+FVTT用ソード・ワールド2.5ゲームシステム（β版）
 
 このシステムはBoilerplateテンプレートをベースにしています。
 
