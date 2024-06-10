@@ -1,4 +1,4 @@
-# Simplified Manual for Sword World 2.5 v0.6.7
+# Simplified Manual for Sword World 2.5 v0.7.1
 
 ## PC
 
