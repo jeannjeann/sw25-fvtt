@@ -82,7 +82,7 @@
       "Magicprotection": { "long": "MDEF", "abbr": "MDEF" },
       "Showfeature": "Show Empty Groups",
       "Showspell": "Show All Spell",
-      "Magicpower": "Magic Power"
+      "Magicpower": "MPwr"
     },
     "Ability": {
       "Dex": { "long": "Dexterity", "abbr": "dex" },
@@ -111,8 +111,8 @@
       "Impurity": "Soul Scar",
       "Language": "Language",
       "Habitat": "Habitat",
-      "Popularity": "Popularity",
-      "Weakpoint": "Weakness",
+      "Popularity": "P",
+      "Weakpoint": "W",
       "Weakness": "Weakpoint",
       "Preemptive": "Initiative",
       "Move": "Move",
@@ -129,6 +129,9 @@
       "ActiveEffect": "SW25 Effect Sheet"
     },
     "Item": {
+      "CheckB": "<CK>",
+      "PowerB": "<PWR>",
+      "EffectB": "<EFF>",
       "Clickitem": "Icon Click",
       "All": "Everything",
       "Powerroll": "Power Roll",
@@ -136,9 +139,9 @@
       "Onlydescription": "Description",
       "Noapply": "Do not Apply",
       "applyon": "Apply",
-      "pd": "PDMG",
-      "md": "MDMG",
-      "cd": "FDMG",
+      "pd": "PD",
+      "md": "MD",
+      "cd": "FD",
       "hr": "HPR",
       "mr": "MPR",
       "Price": "Price",
@@ -150,6 +153,7 @@
       "Power": "Power ",
       "Cvalue": "Crit",
       "Noc": "No Crit",
+      "HalfpowC": "Half(C)",
       "Powertable": "Power Table ",
       "Particularmod": "Modifications",
       "Halfpow": "Half",
@@ -161,6 +165,7 @@
       "Cwarn": "* To disable Crits, set Crit as 13 or higher.",
       "halfwarn": "* When Half is enabled, Crits are disabled. When Half is disabled, After Half Modifications are ignored.",
       "Nullwarn": "* Lethal Strike, Critical Ray, and Apothecary Tools are disabled if blank or 0",
+      "Crwarn": "* CriticalRay fix the total roll result if fx (replace x with any number)",
       "Pharmwarn": "* For Apothecary Tools, enter a fixed number (usually 4)",
       "Pharmwarn2": "* Apothecary Tool values are ignored in additional rolls for critical hits.",
       "Powupwarn": "* For Executioner's Blade, enter the power increase value after a Crit (usually 5)",
@@ -237,12 +242,12 @@
         "Bow": "Bow",
         "Crossbow": "Crossbow",
         "Gun": "Gun",
-        "Hit": "Accuracy",
+        "Hit": "Acc.",
         "Dmod": "Add'l Dmg",
         "Range": "Range"
       },
       "Armor": {
-        "Dodge": "Evasion",
+        "Dodge": "Eva.",
         "Nolimit": "No Limit",
         "Grapos": "Grappler May Equip",
         "Graonly": "Grappler Only",
@@ -267,14 +272,14 @@
       "Item": {
       },
       "Spell": {
-        "Sorcerer": "Truespeech Spell",
-        "Conjurer": "Spiritualism Spell",
-        "Wizard": "Deep Magic Spell",
-        "Priest": "Divine Spell",
-        "Magitech": "Magitech Spell",
-        "Fairy": "Fairy Spell",
-        "Druid": "Druid Spell",
-        "Daemon": "Summoning Art",
+        "Sorcerer": "Truespeech",
+        "Conjurer": "Spiritualism",
+        "Wizard": "Deep Magic",
+        "Priest": "Divine",
+        "Magitech": "Magitech",
+        "Fairy": "Fairy",
+        "Druid": "Nature",
+        "Daemon": "Summoning",
         "Faith": "Classification",
         "First": "First",
         "Second": "Second",
@@ -408,6 +413,7 @@
       "HitMod": "Accuracy Mod",
       "DamageMod": "DMG Mod",
       "CMod": "Crit Mod",
+      "SpCMod": "Spell Crit Mod",
       "LethalTech": "LethalStrike",
       "CriticalRay": "CriticalRay",
       "DodgeMod": "Evasion Mod",
@@ -435,7 +441,7 @@
       "PrMod": "Divine",
       "MtMod": "Magitech",
       "FrMod": "Fairy",
-      "DrMod": "Druid",
+      "DrMod": "Nature",
       "DmMod": "Summoning"
     },
     "Config": {
@@ -497,7 +503,7 @@
     },
     "effectInitPC":{
       "name": "Item name of Initiative",
-      "hint": "Initiative effect target settings (for Player Character), default and when omitted : ",
+      "hint": "Initiative effect target and initiative fomula settings (for Player Character), default and when omitted : ",
       "default": "Initiative"
     },
     "effectMKnowPC":{
@@ -561,9 +567,9 @@
       "default": "FairyMP"
     },
     "effectDrpMon":{
-      "name": "Label of Druid Spell",
-      "hint": "Druid Spell effect target settings (for Monster), default and when omitted : ",
-      "default": "DruidMP"
+      "name": "Label of Nature Spell",
+      "hint": "Nature Spell effect target settings (for Monster), default and when omitted : ",
+      "default": "NatureMP"
     },
     "effectDmpMon":{
       "name": "Label of Summoning Art",
