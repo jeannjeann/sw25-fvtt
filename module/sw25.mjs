@@ -2,6 +2,7 @@
 import { SW25Actor } from "./documents/actor.mjs";
 import { SW25Item } from "./documents/item.mjs";
 import { SW25ActiveEffect } from "./documents/active-effect.mjs";
+import { SW25Combat } from "./documents/combat.mjs";
 // Import sheet classes.
 import { SW25ActorSheet } from "./sheets/actor-sheet.mjs";
 import { SW25ItemSheet } from "./sheets/item-sheet.mjs";
@@ -43,25 +44,18 @@ Hooks.once("init", function () {
     SW25Actor,
     SW25Item,
     SW25ActiveEffect,
+    SW25Combat,
     rollItemMacro,
   };
 
   // Add custom constants for configuration.
   CONFIG.SW25 = SW25;
 
-  /**
-   * Set an initiative formula for the system
-   * @type {String}
-   */
-  CONFIG.Combat.initiative = {
-    formula: "2d6",
-    decimals: 2,
-  };
-
   // Define custom Document classes
   CONFIG.Actor.documentClass = SW25Actor;
   CONFIG.Item.documentClass = SW25Item;
   CONFIG.ActiveEffect.documentClass = SW25ActiveEffect;
+  CONFIG.Combat.documentClass = SW25Combat;
 
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item
@@ -113,7 +107,7 @@ Hooks.once("ready", async function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
 
-  // Resister gamesystem settings.
+  // Prepare gamesystem settings.
   game.settings.register("sw25", "effectVitResPC", {
     name: game.i18n.localize("SETTING.effectVitResPC.name"),
     hint:
@@ -519,9 +513,23 @@ Hooks.once("ready", async function () {
   Hooks.on("createActor", async (actor, options, userId) => {
     // Default item data
     let itemData = [];
+    let resvit = false;
+    let resmnd = false;
+    let init = false;
+    let mknow = false;
+    let monres = false;
+    let monwp = false;
     if (actor.type == "character") {
-      itemData = [
-        {
+      actor.items.forEach((item) => {
+        if (item.name == game.i18n.localize("SW25.Config.ResVit"))
+          resvit = true;
+        if (item.name == game.i18n.localize("SW25.Config.ResMnd"))
+          resmnd = true;
+        if (item.name == game.i18n.localize("SW25.Config.Init")) init = true;
+        if (item.name == game.i18n.localize("SW25.Config.MKnow")) mknow = true;
+      });
+      if (!resvit) {
+        itemData.push({
           name: game.i18n.localize("SW25.Config.ResVit"),
           type: "check",
           system: {
@@ -530,8 +538,10 @@ Hooks.once("ready", async function () {
             checkabi: "vit",
             showbtcheck: true,
           },
-        },
-        {
+        });
+      }
+      if (!resmnd) {
+        itemData.push({
           name: game.i18n.localize("SW25.Config.ResMnd"),
           type: "check",
           system: {
@@ -540,8 +550,10 @@ Hooks.once("ready", async function () {
             checkabi: "mnd",
             showbtcheck: true,
           },
-        },
-        {
+        });
+      }
+      if (!init) {
+        itemData.push({
           name: game.i18n.localize("SW25.Config.Init"),
           type: "check",
           system: {
@@ -550,8 +562,10 @@ Hooks.once("ready", async function () {
             checkabi: "-",
             showbtcheck: true,
           },
-        },
-        {
+        });
+      }
+      if (!mknow) {
+        itemData.push({
           name: game.i18n.localize("SW25.Config.MKnow"),
           type: "check",
           system: {
@@ -560,12 +574,22 @@ Hooks.once("ready", async function () {
             checkabi: "-",
             showbtcheck: true,
           },
-        },
-      ];
+        });
+      }
     }
     if (actor.type == "monster") {
-      itemData = [
-        {
+      actor.items.forEach((item) => {
+        if (item.name == game.i18n.localize("SW25.Config.MonRes"))
+          monres = true;
+        if (
+          item.system.label1 == game.i18n.localize("SW25.Config.MonHit") &&
+          item.system.label2 == game.i18n.localize("SW25.Config.MonDmg") &&
+          item.system.label3 == game.i18n.localize("SW25.Config.MonDge")
+        )
+          monwp = true;
+      });
+      if (!monres) {
+        itemData.push({
           name: game.i18n.localize("SW25.Config.MonRes"),
           type: "monsterability",
           system: {
@@ -579,8 +603,10 @@ Hooks.once("ready", async function () {
             usefix2: true,
             applycheck2: false,
           },
-        },
-        {
+        });
+      }
+      if (!monwp) {
+        itemData.push({
           name: game.i18n.localize("SW25.Config.MonWp"),
           type: "monsterability",
           system: {
@@ -598,8 +624,8 @@ Hooks.once("ready", async function () {
             usefix3: true,
             applycheck3: false,
           },
-        },
-      ];
+        });
+      }
     }
 
     // Set default item
@@ -635,6 +661,24 @@ Hooks.once("ready", async function () {
   } else {
     console.log("Disable custom chat commands");
   }
+
+  // Item update hook
+  Hooks.on("updateItem", async (item, updateData, options, userId) => {
+    // Linking equip and effect
+    if (updateData.system && updateData.system.hasOwnProperty("equip")) {
+      for (let activeEffect of item.effects) {
+        if (updateData.system.equip) {
+          if (activeEffect.disabled) {
+            await activeEffect.update({ disabled: false });
+          }
+        } else {
+          if (!activeEffect.disabled) {
+            await activeEffect.update({ disabled: true });
+          }
+        }
+      }
+    }
+  });
 });
 
 /* -------------------------------------------- */

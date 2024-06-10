@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 0.7.1
+- バフ・デバフ属性キーに魔法C値修正を追加
+- 装備品の装備チェックとバフ・デバフの連動機能追加
+- 威力ロール後の操作ボタンにクリティカル有効な半減ボタンを追加
+- 威力ロールのクリレイパラメーターにオプション追加（運命変転に対応）
+- キャラクターのイニシアチブロールを設定
+- ゆとシートIIインポートマクロの機能更新
+- マニュアルアップデート
+- update English localization by [kuouvadis](https://github.com/kuouvadis)
+- update English manual by [kuouvadis](https://github.com/kuouvadis)
+- UI fix
+- bug fix
+
 ## 0.7.0
 - UIを一部変更
 - ゲーム設定を新設（バフ・デバフ用の設定項目を追加）

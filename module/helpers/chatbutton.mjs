@@ -50,13 +50,18 @@ export async function chatButton(chatMessage, buttonType) {
     if (buttonType == "buttonpower") {
       item.system.formula = "2d6";
 
+      if (item.system.cvalue == null || item.system.cvalue == 0)
+        item.system.cvalue = 10;
       if (!actor.system.effect) actor.system.efcmod = 0;
       else if (actor.system.effect.efcvalue)
         actor.system.efcmod = Number(actor.system.effect.efcvalue);
       else actor.system.efcmod = 0;
-      if (item.system.cvalue == null || item.system.cvalue == 0)
-        item.system.cvalue = 10;
-      if (item.type == "spell") actor.system.efcmod = 0;
+      if (item.type == "spell") {
+        if (!actor.system.effect) actor.system.efcmod = 0;
+        else if (actor.system.effect.efspellcvalue)
+          actor.system.efcmod = Number(actor.system.effect.efspellcvalue);
+        else actor.system.efcmod = 0;
+      }
       item.system.totalcvalue =
         Number(item.system.cvalue) + Number(actor.system.efcmod);
 
@@ -190,7 +195,9 @@ export async function chatButton(chatMessage, buttonType) {
       if (roll.cValue == 100) cValueFormula = "@13";
       if (roll.halfPow == 1) halfFormula = "h+" + roll.halfPowMod;
       if (roll.lethalTech != 0) lethalTechFormula = "#" + roll.lethalTech;
-      if (roll.criticalRay != 0) criticalRayFormula = "$+" + roll.criticalRay;
+      if (roll.criticalRay > 0) criticalRayFormula = "$+" + roll.criticalRay;
+      else if (roll.criticalRay != 0)
+        criticalRayFormula = "$" + roll.criticalRay;
       if (roll.pharmTool != 0) pharmToolFormula = "tf" + roll.pharmTool;
       if (roll.powup != 0) powUpFormula = "r" + roll.powup;
 
@@ -303,6 +310,7 @@ export async function chatButton(chatMessage, buttonType) {
       let chatData = {
         flags: {
           dohalf: true,
+          dohalfc: false,
           noc: false,
           apply: chatMessage.flags.apply,
           total: newtotal,
@@ -341,6 +349,7 @@ export async function chatButton(chatMessage, buttonType) {
       let chatData = {
         flags: {
           dohalf: false,
+          dohalfc: false,
           noc: false,
           apply: chatMessage.flags.apply,
           total: chatMessage.flags.orgtotal,
@@ -376,14 +385,102 @@ export async function chatButton(chatMessage, buttonType) {
       return;
     }
   }
+  if (buttonType == "buttonhalfc") {
+    let newtotal =
+      Math.ceil((chatMessage.flags.results + chatMessage.flags.mod) / 2) +
+      chatMessage.flags.orghalf;
+    let newextraRoll = null;
+    if (
+      chatMessage.flags.dohalfc == false ||
+      chatMessage.flags.dohalfc == null
+    ) {
+      let chatData = {
+        flags: {
+          dohalf: false,
+          dohalfc: true,
+          noc: false,
+          apply: chatMessage.flags.apply,
+          total: newtotal,
+        },
+        content: await renderTemplate(
+          "systems/sw25/templates/roll/roll-power.hbs",
+          {
+            formula: chatMessage.flags.formula,
+            tooltip: chatMessage.flags.tooltip,
+            power: chatMessage.flags.power,
+            lethalTech: chatMessage.flags.lethalTech,
+            criticalRay: chatMessage.flags.criticalRay,
+            pharmTool: chatMessage.flags.pharmTool,
+            result: chatMessage.flags.result,
+            mod: chatMessage.flags.mod,
+            half: chatMessage.flags.orghalf,
+            results: chatMessage.flags.results,
+            total: newtotal,
+            extraRoll: newextraRoll,
+            fumble: chatMessage.flags.fumble,
+            halfcdone: true,
+            showhalf: chatMessage.flags.showhalf,
+            nocdone: chatMessage.flags.nocdone,
+            shownoc: chatMessage.flags.shownoc,
+            apply: chatMessage.flags.apply,
+          }
+        ),
+      };
+      await chatMessage.update({
+        content: chatData.content,
+        flags: chatData.flags,
+      });
+      return;
+    }
+    if (chatMessage.flags.dohalfc == true) {
+      let chatData = {
+        flags: {
+          dohalf: false,
+          dohalfc: false,
+          noc: false,
+          apply: chatMessage.flags.apply,
+          total: chatMessage.flags.orgtotal,
+        },
+        content: await renderTemplate(
+          "systems/sw25/templates/roll/roll-power.hbs",
+          {
+            formula: chatMessage.flags.formula,
+            tooltip: chatMessage.flags.tooltip,
+            power: chatMessage.flags.power,
+            lethalTech: chatMessage.flags.lethalTech,
+            criticalRay: chatMessage.flags.criticalRay,
+            pharmTool: chatMessage.flags.pharmTool,
+            result: chatMessage.flags.result,
+            mod: chatMessage.flags.mod,
+            half: chatMessage.flags.half,
+            results: chatMessage.flags.results,
+            total: chatMessage.flags.orgtotal,
+            extraRoll: chatMessage.flags.extraRoll,
+            fumble: chatMessage.flags.fumble,
+            halfcdone: false,
+            showhalf: chatMessage.flags.showhalf,
+            nocdone: chatMessage.flags.nocdone,
+            shownoc: chatMessage.flags.shownoc,
+            apply: chatMessage.flags.apply,
+          }
+        ),
+      };
+      await chatMessage.update({
+        content: chatData.content,
+        flags: chatData.flags,
+      });
+      return;
+    }
+  }
   if (buttonType == "buttonnoc") {
     let newtotal = chatMessage.flags.result[0] + chatMessage.flags.mod;
     let newextraRoll = null;
     if (chatMessage.flags.noc == false || chatMessage.flags.noc == null) {
       let chatData = {
         flags: {
-          noc: true,
           dohalf: false,
+          dohalfc: false,
+          noc: true,
           apply: chatMessage.flags.apply,
           total: newtotal,
         },
@@ -420,8 +517,9 @@ export async function chatButton(chatMessage, buttonType) {
     if (chatMessage.flags.noc == true) {
       let chatData = {
         flags: {
-          noc: false,
           dohalf: false,
+          dohalfc: false,
+          noc: false,
           apply: chatMessage.flags.apply,
           total: chatMessage.flags.orgtotal,
         },

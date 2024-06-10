@@ -29,6 +29,7 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.efhitmod":
         case "system.attributes.efdmod":
         case "system.effect.efcvalue":
+        case "system.effect.efspellcvalue":
         case "system.lt":
         case "system.cr":
         case "system.attributes.efdodgemod":

@@ -111,7 +111,7 @@
           <span class="grid-span-2" style="text-align: center;"><b>MP{{localize "SW25.Cost"}}</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.mpcost" value="{{system.mpcost}}" data-dtype="Number"/></span>
           <span class="grid-span-5" style="text-align: left;"><b>{{localize "SW25.Target"}}</b><br><input type="text" name="system.target" value="{{system.target}}" data-dtype="String"/></span>
           <span class="grid-span-5" style="text-align: left;"><b>{{localize "SW25.Rangeshape"}}</b><br><input type="text" name="system.rangeshape" value="{{system.rangeshape}}" data-dtype="String"/></span>
-          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Time"}} (R)</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.time" value="{{system.time}}" data-dtype="Number"/></span>
+          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Time"}} (R)</b><br><input style="max-width: calc(90% - 7px);" type="text" name="system.time" value="{{system.time}}" data-dtype="String"/></span>
           <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Resist"}}</b><br>
             <select name="system.resist">
               {{#select system.resist}}
@@ -330,7 +330,7 @@
               <div class="flexrow grid grid-10col">
                 <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Halfpowmod"}}</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.halfpowmod" value="{{system.halfpowmod}}" data-dtype="Number"/></span>
                 <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Lethaltech"}}</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.lethaltech" value="{{system.lethaltech}}" data-dtype="Number"/></span>
-                <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Criticalray"}}</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.criticalray" value="{{system.criticalray}}" data-dtype="Number"/></span>
+                <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Criticalray"}}</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.criticalray" value="{{system.criticalray}}" data-dtype="String"/></span>
                 <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Pharmtool"}}</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.pharmtool" value="{{system.pharmtool}}" data-dtype="Number"/></span>
                 <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Powup"}}</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.powup" value="{{system.powup}}" data-dtype="Number"/></span>
               </div>
@@ -338,6 +338,7 @@
                 {{localize "SW25.Item.Cwarn"}}<br>
                 {{localize "SW25.Item.halfwarn"}}<br>
                 {{localize "SW25.Item.Nullwarn"}}<br>
+                {{localize "SW25.Item.Crwarn"}}<br>
                 {{localize "SW25.Item.Pharmwarn"}}<br>
                 {{localize "SW25.Item.Pharmwarn2"}}<br>
                 {{localize "SW25.Item.Powupwarn"}}<br>
