@@ -32,8 +32,9 @@ These are tabs that would be used mainly during the normal (non-combat) part of 
   - The base value displayed is the value added to 2d6 in the case of judgments, and the value added after the roll in the case of power rolls. The entries in the modification column will be reflected in this value.
   - Click on the item name and base value to make the corresponding roll.
   - This list is intended to increase convenience by registering basic checks such as Fortitude and Willpower, as well as frequently used checks related to skills such as Initiative, Monster Knowledge, Check Package, and Spellcasting.
-  - It is recommended that Fortitude, Willpower, Initiative, and Monster Knowledge be created during character creation.
+  - Fortitude, Willpower, Initiative, and Monster Knowledge are created during character creation.
   - Initiative and Monster Knowledge must be set to the Class used and ability value.
+  - The item names determines the applicability of Active Effects.
   - Since you can create these items freely, please be flexible in using them, for example, prepare both Scout's and Tactician's Initiative.
   - Check the item descriptions below for more details.    
 - General-purpose class check column (right)
@@ -94,8 +95,10 @@ This tab displays information about effects on the character, such as buffs and 
   - Lists temporary, permanent, disabled effects.
   - You can create, edit, and delete the effects, as well as toggle their activation and deactivation.
   - The reference source is displayed as the item name for item-derived buffs, and the character name for buffs created on the character sheet.
-  - If a temporary effect has a duration set, the remaining time will be displayed only during combat.
-- ** Attention! ** The effects of Special and Critical Ray only apply to the selected weapon.
+  - If a temporary effect has a duration set, the time will only be displayed during combat.
+- ** Attention! ** The effects of Special Attacks and Critical Ray only apply to the selected weapon.
+- ** Attention! ** Some attribute keys for Active Effects will not be updated after loading the game World, but they will update themselves after you make any adjustments on the Character Sheet.
+  - Examples of adjustments: Turning on/off Grace, entering various modifiers, updating current HP values, turning Active Effects on/off, etc.
 
 #### Items Tab
 This tab displays items in your possession, including equipment.
@@ -169,8 +172,11 @@ This tab displays the various abilities of monsters.
 
 #### Effects Tab
 Effects will be listed similar to the PC sheet, but only those that are valid will be shown, such as with Effects Summary totals.
-- **Note** Only some Effects will be applied to monsters (Max HP Modifier, Max MP Modifier, Defense Modifier, Magic Defense Modifier). Others will be ignored.
+- Only Active Effects for monsters that show a total will have the change applied. Attribute key numbers that do not display totals will be ignored.
 - This can be used to manage elapsed time.
+- ** Attention! ** Some attribute keys for Active Effects will not be updated after loading the game World, but they will update themselves after you make any adjustments on the Character Sheet.
+  - Examples of adjustments: Turning on/off Grace, entering various modifiers, updating current HP values, turning Active Effects on/off, etc.
+
 
 #### Description Tab
 - This is a free description field. This is intended for general descriptions of the monster.
@@ -197,6 +203,7 @@ Each item can be configured in detail. This is done mainly from the Details tab.
   - Set the class, ability value bonus, modifier, power, critical value (C value), and power table content to be used for the dice roll.
   - Check "Halve" to halve the result.
   - The "Special Treatment (Particular)" checkbox allows you to set the modified value after halving, the increased value of Lethal Strike (usually 1), the increased value of Critical Ray, and the roll of the Apothecary's Tool (usually 4).
+  - Critical Ray "f<x>" (replace X with any number) This will make the first roll a fixed number equal to <x>. This function can also be used for the Human's "Change Fate" 
   - The calculation of Executioner's Blade cannot currently be handled. Please refer to the stakes and modify the values manually.
   - If the power table is blank, it should refer to the generic power table to get the value. (Not implemented yet, after implementation, Executioner's Blade can be handled)
 - Effects Tab
@@ -208,18 +215,21 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 - These are items that will be used with both the check and power tables.
 - Bonuses due to specialization are not automatically reflected. (We would like to implement)
 - For weapons with multiple usages, it would be useful to create a separate item for each usage.
+- Equipment checkboxes and Active Effect enable/disable are linked, but can also be toggled manually.
 
 ### Armor and Shields
 - Armor and shields are items in the same category.
 - Equipment checks, categories, ranks, specializations, minimum strength, evasion modifiers, protection points (defense), and magic protection can be set.
 - Both dice roll and power are basically not used for these items.
-- The bonus from Personal Items are automatically reflected if an Effect is set. The check to Personal Items only changes the list display.
+- The bonus from Personal Items are automatically reflected if an Effect is set. The checkbox to Personal Items only changes the list display.
+- Equipment checkboxes and Active Effect enable/disable are linked, but can also be toggled manually.
 
 ### Accessories
 - Equipment checks, part to be equipped on, and specializations can be set up.
 - Both the check and the power of the item are basically not used.
 - Please manage manually as we have not implemented any restrictions on equipping the same part of the body.
 - The bonus from Personal Items are automatically reflected if an Effect is set. The check to Personal Items only changes the list display.
+- Equipment checkboxes and Active Effect enable/disable are linked, but can also be toggled manually.
 
 ### Item
 - Quantity and price can be entered.
@@ -296,9 +306,11 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 ### Monster Ability
 - Action type and remarks can be entered.
 - There are no items for Fortitude and Willpower for monsters. Please record them with this ability.
+  - Fortitude and Willpower are automatically created.
+  - The label names "Fortitude" and "Willpower" are used to determine if some Active Effects are applicable.
 - Use this item for basic abilities (e.g., normal attacks) as well.
-  - Three judgments will be used: accuracy, damage, and evasion. Labeling each as "accuracy," "damage," and "evasion" will increase readability.
-  - For defense (protection points), enter "defense:5" in the remarks field of the item to make it appear in the list and increase readability.
+  - Three checks are automatically created: Accuracy, Damage, and Evasion.
+  - The label names "Accuracy", "Damage", and "Evasion" are used to determine if some Active Effects are applicable.
 - Use this item for resistable abilities as well.
   - Dice Rolls can be made by checking one of the Checks. Use a label with "Spellcasting" or something similar. Fixed values can also be used.
   - Resistance and resistance results can be entered in the remarks field as "evade/neg" to increase readability.
@@ -316,7 +328,8 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 
 ### Power Rolls
 - When the chat display of the roll result is expanded by clicking on it, the "Half Critical" and "No C" buttons are displayed.
-- Clicking on the "Half Critical" button will calculate and redisplay the results with no critical, half damage, and be half damage effective. Click it again to return the results to the original state.
+- Clicking on the "Half" button will calculate and redisplay the results with no critical, half damage, and be half damage effective. Click it again to return the results to the original state.
+- Clicking on the "Half Critical" button will calculate and redisplay the results with critical, half damage, and be half damage effective. Click it again to return the results to the original state. 
 - Clicking on the "No C" will calculate and redisplay the result without criticals. Click it again to return the results to the original state.
 - The "Half Critical" button is not displayed in the roll results if "Half" is checked in the item's details. This is not supported due to the possibility of additional rolls.
 - The "No C" button is not displayed in the roll result when the item is set to not have a critical value in the item details. This is not supported due to the possibility of additional rolls.
@@ -387,9 +400,16 @@ You can set the duration in the Effect Duration (Turns) field.
 
 #### Effects Tab
 - Multiple effects can be created for a single buff/debuff by clicking the + Button.
-- At this time, the attribute keys to which effects are automatically applied to are limited to those listed in the pull-down menu.
+- Please select the type and content of the attribute key from the pull-down menu. You can also enter keys by selecting “Direct Input”.
 - Negative values can also be entered for effect values.
-- ** Attention! ** If an effect has no attribute key set, it cannot be saved (it can be saved by setting or deleting the corresponding effect).
+- ** Attention! ** Regarding attribute keys (Translation note: This section is unclear)
+  - Crit value modification is not reflected in the power check of magic items. Please use the magic Crit value modifier for magic items.
+  - Special attacks and Critical Ray on PCs will only be applied to the weapon of choice.
+  - All items that have checks on PC are only reflected on the items on the left side of the Check tab. It does not apply to the skills on the left side, nor to hit, evade, magic, etc. on the Combat tab.
+  - All items that have checks on monsters are reflected on all items except for Accuracy and Magic.
+  - All skill checks for PCs will be reflected on the right side of the Check tab.
+  - Each Magic Power including All Magic Power is also reflected in the Power Check.
+  - All items that have checks, All Magic, and individual checks and magic are duplicated.
 
 ### How to Apply Effects
 
@@ -400,20 +420,27 @@ You can set the duration in the Effect Duration (Turns) field.
 - Target the character you wish to apply the Effect to. Multiple targets can be selected and applied to at the same time.
 - After selecting the target, click on the Effects button in the list of your character sheet or the Effect button in the chat box to apply the Effects to the target.
 - The applied Effects can be viewed in the Effects tab of the character. They can be enabled or disabled on a character-by-character basis.
-- If more than one Effect is applied to an item, they will all be applied. Unnecessary Effects should be manually removed after application.
+- If more than one Active Effect is applied to an item, they will all be applied. Unnecessary Active Effects should be manually removed after application.
 - Temporary Effects that are disabled will be activated upon application.
 
 ### Notes on Effects
-- Currently, Effects can only be applied to PCs, e.g., PC->PC or monster->PC.
-- In the case of PC->monster, monster->monster, etc., only some effects (Max HP Modifier, Max MP Modifier, Defense Modifier, Magic Defense Modifier) will be applied to the monster. Others will be ignored. This can be used to manage the duration of the effect.
-- Most of the attribute keys that can be used for Effects have an entry field on the character sheet, and the field changes when the Effect is applied.
+- All attribute key changes for Active Effects are only effective for PCs, e.g. PC to PC or Demon to PC.
+- Only some attribute keys are effective on monsters, while other keys are ignored, but can be used to manage duration, etc.
+- Attribute keys applied to monsters include:
+  - Combat-related: Accuracy modifier, Damage modifier, Crit Value modifier, Magic Crit Value modifier, Evasion modifier, Defense modifier, Magic Defense modifier, and Damage Reduction.
+  - Checks: Fortitude, Willpower, and all items with checks.
+  - Ability Scores: max HP modifier, max MP modifier.
+  - Magic: All items.
+  - It is unlikely that direct input of attribute keys will be used.
 - Please note that we do not manage duplicates of the same Effects, so beware of unintended duplicates.
-- ** Attention! ** If you want to change the Effect, you must first deactivate the Effect, make the change, and then reactivate it.
-- **Note! ** The Effects of Personal Items and Critical Ray only apply to the selected weapon.
+- ** Attention! ** The Effects of the Active Effects can only be seen in the total value of the Effects tab.
+- ** Attention! ** Some attribute keys for Active Effects will not be updated after loading the game World, but they will update themselves after you make any adjustments on the Character Sheet.
+  - Examples of adjustments: Turning on/off Grace, entering various modifiers, updating current HP values, turning Active Effects on/off, etc.
 
 ## Chat Commands (Custom Commands)
 - The following commands all require the "Chat Commander" Module to be enabled.
 - Without "Chat COmmander", the custom commands are unavailable but the other functions can still be used.
+- Note that it is not possible to output a rollable message enclosed in two brackets like the core roll command.
 
 ### Chat Commands for Power Rolls
 - The following commands are all valid for making a power roll, "/powerroll", "/powroll", "/powr", "/rollpower", "/rollpow", "/rpow", "/rp", "/pow".
@@ -431,8 +458,23 @@ You can set the duration in the Effect Duration (Turns) field.
 - "h", "h+<x>", "h-<x>" Refers to halving the Power Roll, and also adding or subtracting a modified value after taking the halved Power Roll. (optional, crit value will default to 13, e.g., k10+2h k10+2h-1).
 - "#<x>" Refers to increasing the Power Roll by 1 step for special attacks, such as Lethal Strike. (optional, usually 1, e.g., k10@10+2#1).
 - "$+<x>", "$-<x>" Refers to the value of the Power modifier for a Critical Ray (optional, e.g., k10+2$+2).
+- "$f+<x>", refers to making the first roll a fixed number equal to <x>. This function can also be used for the Human's "Change Fate" 
 - "tf<x>" Refers to fixing one dice to the X number and rolling the second dice, such as when using the Apothecary's Tools (optional, usually 4, e.g., k10@13tf4 is equal to rolling 1d6+4 on Power 10 Table).
 - "r<x>” Refers the power table increase when using the Executioner's Blade (optional, usually 5, e.g., k10@10+2r5).
+
+## Game System Settings
+
+### Setting the target for Active Effects Application
+- Settings for PCs
+  - You can set the “item name” of the check item corresponding to the attribute key.
+  - The item name of the check item automatically created is the default.
+  - If the setting is changed, the item name must also be the same, otherwise the Active Effects will not be applied.
+Settings for Monsters
+  - You can set the “label name” of the monster ability corresponding to the attribute key. Item names are not taken into account.
+  - The default label name is the label name set for the automatically created monster ability.
+  - If you change the setting, the label name must also be the same, otherwise Active Effects will not be applied.
+  - If you change the setting, the label name must also be the same to apply the Active Effects.
+  - **Note! ** In the case of monster ability, it is confirmed through the label name, not by the item name. Please take caution.
 
 ## Macro Support
 
@@ -441,11 +483,16 @@ You can set the duration in the Effect Duration (Turns) field.
 - [yt2import]Macro has been included to import from YutoSheetII.
   - Prepare a JSON output file from the YutoSheetII website.
   - Use the macro, select the JSON YutoSheetII file, and then click on import.
+  - Data treated as items are searched in the order of “Item List in World” -> “Item List in Dictionary (Alphabetical Order)”, and if there is an item with a matching item name, the data is imported. If not, a new item is created.
 - Notes
   - Only PCs and monsters are supported.
-  - Currently, data treated as items (such as skills, checks, abilities, magic, equipment, items, language, etc) will not be imported (to be implemented in the future).
-  - Monsters also currently do not import HP, MP, Defense, Magic Defense, or any abilities or magic (to be implemented in the future).
-  - Data that is not imported must be manually set after the file is imported.
+  - Items and magic, except for equipment, are not imported.
+  - The initial language learned by races is only supported for the basic races. If a race is not imported, it must be added manually.
+  - Additional parts of accessories are not supported.
+  - In the case of monsters, the monster abilities and magic will not be imported. For multi-part monster, only the data of the first part will be imported.
+  - Newly created items without a matching item name will need to be set manually.
+  - Some items with imported data may also need to be set manually.
+  - Data that is not imported will need to be added manually.
 
 ## Precautions
 - The functions that can be used for FVTT-like sessions have been implemented.
@@ -460,4 +507,4 @@ You can set the duration in the Effect Duration (Turns) field.
 - Combat has not been implemented. We recommend that you take initiative manually or install mods.
 - An example of a mod that supports the order of action (I personally think that Popcorn Initiative is suited for this)
   - Popcorn type "Lancer Initiative" and "Just Popcorn Initiative
-  - Group type "Group Initiative" and "Combat Tracker Extensions"
+  - Group type "Combat Tracker Extensions" and "Combat Tracker Groups"
