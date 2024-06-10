@@ -242,7 +242,7 @@
         "Bow": "Bow",
         "Crossbow": "Crossbow",
         "Gun": "Gun",
-        "Hit": "Accu.",
+        "Hit": "Acc.",
         "Dmod": "Add'l Dmg",
         "Range": "Range"
       },
@@ -278,7 +278,7 @@
         "Priest": "Divine",
         "Magitech": "Magitech",
         "Fairy": "Fairy",
-        "Druid": "Druid",
+        "Druid": "Nature",
         "Daemon": "Summoning",
         "Faith": "Classification",
         "First": "First",
@@ -441,7 +441,7 @@
       "PrMod": "Divine",
       "MtMod": "Magitech",
       "FrMod": "Fairy",
-      "DrMod": "Druid",
+      "DrMod": "Nature",
       "DmMod": "Summoning"
     },
     "Config": {
@@ -567,9 +567,9 @@
       "default": "FairyMP"
     },
     "effectDrpMon":{
-      "name": "Label of Druid Spell",
-      "hint": "Druid Spell effect target settings (for Monster), default and when omitted : ",
-      "default": "DruidMP"
+      "name": "Label of Nature Spell",
+      "hint": "Nature Spell effect target settings (for Monster), default and when omitted : ",
+      "default": "NatureMP"
     },
     "effectDmpMon":{
       "name": "Label of Summoning Art",
