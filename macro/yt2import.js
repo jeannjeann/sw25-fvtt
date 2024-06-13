@@ -805,6 +805,8 @@ async function yt2import() {
           }
         }
         let itemDamage = data.status1Damage.replace(/\b2d6\b|\b2d\b/g, "");
+        let feature = data.skills.replace(/&lt;br&gt;/g, "<br>");
+        console.log(feature);
 
         actorData = {
           name: name,
@@ -870,6 +872,13 @@ async function yt2import() {
               checkbasemod3: data.status1Evasion,
               usefix3: true,
               applycheck3: false,
+            },
+          },
+          {
+            name: "全特殊能力",
+            type: "monsterability",
+            system: {
+              description: feature,
             },
           },
         ];

@@ -85,6 +85,42 @@ async function sbmonimport() {
           .trim();
         let biography = "　" + rawBio.replace(/\n/g, "<br>　");
 
+        let startFeatText = "特殊能力";
+        let endFeatText = "戦利品";
+        let startFeatIndex =
+          data.system.attributes.memo.value.indexOf(startFeatText);
+        let endFeatIndex =
+          data.system.attributes.memo.value.indexOf(endFeatText);
+        let rawFeat = data.system.attributes.memo.value
+          .substring(startFeatIndex + startFeatText.length, endFeatIndex)
+          .trim();
+        let feature = rawFeat.replace(/\n\n/g, "\n").replace(/\n/g, "<br>");
+
+        let part = null;
+        let cpart = null;
+        if (/部位数/.test(data.system.attributes.memo.value)) {
+          let startPartText = "部位数";
+          let endPartText = "コア部位";
+          let startPartIndex =
+            data.system.attributes.memo.value.indexOf(startPartText);
+          let endPartIndex =
+            data.system.attributes.memo.value.indexOf(endPartText);
+          let rawPart = data.system.attributes.memo.value
+            .substring(startPartIndex + startPartText.length, endPartIndex)
+            .trim();
+          part = rawPart.replace(/\n/g, "");
+          let startCPartText = "コア部位";
+          let endCPartText = "特殊能力";
+          let startCPartIndex =
+            data.system.attributes.memo.value.indexOf(startCPartText);
+          let endCPartIndex =
+            data.system.attributes.memo.value.indexOf(endCPartText);
+          let rawCPart = data.system.attributes.memo.value
+            .substring(startCPartIndex + startCPartText.length, endCPartIndex)
+            .trim();
+          cpart = rawCPart.replace(/\n/g, "");
+        }
+
         actorData = {
           name: data.name,
           type: "monster",
@@ -108,8 +144,8 @@ async function sbmonimport() {
             weakness: data.system.attributes.mons_weak.value,
             preemptive: data.system.attributes.mons_ini.value,
             move: data.system.attributes.mons_move2.value,
-            part: "",
-            corepart: "",
+            part: part,
+            corepart: cpart,
             biography: biography,
             loot: loot,
           },
@@ -163,6 +199,13 @@ async function sbmonimport() {
               checkbasemod3: data.system.attributes.mons_dodge_base.value,
               usefix3: true,
               applycheck3: false,
+            },
+          },
+          {
+            name: "全特殊能力",
+            type: "monsterability",
+            system: {
+              description: feature,
             },
           },
         ];
