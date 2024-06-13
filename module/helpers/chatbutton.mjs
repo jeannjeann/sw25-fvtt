@@ -199,7 +199,7 @@ export async function chatButton(chatMessage, buttonType) {
       else if (roll.criticalRay != 0)
         criticalRayFormula = "$" + roll.criticalRay;
       if (roll.pharmTool != 0) pharmToolFormula = "tf" + roll.pharmTool;
-      if (roll.powup != 0) powUpFormula = "r" + roll.powup;
+      if (roll.powup != 0) powupFormula = "r" + roll.powup;
 
       let chatFormula =
         "k" +
