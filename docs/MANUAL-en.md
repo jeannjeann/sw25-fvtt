@@ -1,4 +1,4 @@
-# Simplified Manual for Sword World 2.5 v0.7.1
+# Simplified Manual for Sword World 2.5 v0.7.2
 
 ## PC
 
@@ -57,7 +57,8 @@ This tab is primarily intended to be used during combat.
 - Correction column (middle)
   - Allows entry of various modifications. The modifications will be reflected in the "Combat Related Information" column.
   - The weapon to be used for accuracy and power can be selected in the Combat Information column.
-  - Select the skill to be used for evasion in the Combat Information column.
+  - Select the class to be used for accuracy and evasion in the default class set for the weapon.
+  - Select the class to be used for evasion in the Combat Information column.
 - Equipment column
   - Weapons, armor, and ornaments with the "Equipped" checkbox in the item details will be displayed.
   - You cannot create, edit, or delete items from this column. Please do so from the list in the "Equipment" tab.
@@ -213,6 +214,7 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 ### Weapons
 - Equipment checks, categories, ranks, types, usages, specializations, minimum Strength, hit modifiers, additional damage, and ranges can be set.
 - These are items that will be used with both the check and power tables.
+- If you have selected an attack class in the character's Combat tab, the selected class and default ability will automatically be chosen when classes and abilities for check and power are unselected. Note that they are not linked.
 - Bonuses due to specialization are not automatically reflected. (We would like to implement)
 - For weapons with multiple usages, it would be useful to create a separate item for each usage.
 - Equipment checkboxes and Active Effect enable/disable are linked, but can also be toggled manually.
@@ -238,6 +240,7 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 ### Spells
 - Magic system, level, action type, MP consumption, target, range/shape, duration, resistance, type, and summary can be set.
 - Please use flexibly by combining dice roll and power.
+- If you have selected an spell class in the character's Spell tab, the selected class and default ability will automatically be chosen when classes and abilities for check and power are unselected. Note that they are not linked.
 - If you do not select a magic system, it will not appear correctly in the list on the character sheet.
 - In Divine Magic, selection of Sacred and Vice systems, and input fields for special divine magic will be added.
 - In Magitech, an entry field for Magisphere will be added.

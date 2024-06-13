@@ -180,6 +180,15 @@
             {{/each}}
             {{/select}}
           </select>
+          <select name="system.attackskill">
+            {{#select system.attackskill}}
+            <option value="-">{{localize "SW25.Selectattackskill"}}</option>
+            {{#each skills as |item id|}}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+
         </span>
         <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Item.Armor.Dodge"}}{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(40% - 7px); text-align: center;" type="text" name="system.attributes.dodgemod" value="{{system.attributes.dodgemod}}" data-dtype="Number"/></span>
         <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Attributes.Protectionpoint.abbr"}}{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(40% - 7px); text-align: center;" type="text" name="system.attributes.ppmod" value="{{system.attributes.ppmod}}" data-dtype="Number"/></span>

@@ -70,6 +70,7 @@
         "useexp": 0,
         "totalexp": 3000,
         "hitweapon": "",
+        "attackskill": "",
         "dodgeskill": "",
         "protectionpoint": 0,
         "magicprotection": 0,

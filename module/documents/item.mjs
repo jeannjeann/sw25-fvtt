@@ -997,6 +997,16 @@ export class SW25Item extends Item {
         systemData.showskill = "";
       else systemData.showskill = systemData.checkskill;
     }
+
+    // Set default skill and ability
+    if (actorData.attackskill != "-") {
+      if (systemData.checkskill == "-")
+        systemData.checkskill = actorData.attackskill;
+      if (systemData.checkabi == "-") systemData.checkabi = "dex";
+      if (systemData.powerskill == "-")
+        systemData.powerskill = actorData.attackskill;
+      if (systemData.powerabi == "-") systemData.powerabi = "str";
+    }
   }
 
   _prepareAccessoryData(itemData) {
@@ -1224,6 +1234,88 @@ export class SW25Item extends Item {
         `SW25.Item.Spell.${i18nfairyprop}`
       );
     } else systemData.fairypropname = "-";
+
+    // Set default skill and ability
+    if (systemData.type == "sorcerer") {
+      if (actorData.scskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.scskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "int";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.scskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "int";
+      }
+    }
+    if (systemData.type == "conjurer") {
+      if (actorData.cnskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.cnskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "int";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.cnskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "int";
+      }
+    }
+    if (systemData.type == "wizard") {
+      if (actorData.wzskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.wzskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "int";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.wzskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "int";
+      }
+    }
+    if (systemData.type == "priest") {
+      if (actorData.prskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.prskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "int";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.prskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "int";
+      }
+    }
+    if (systemData.type == "magitech") {
+      if (actorData.mtskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.mtskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "int";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.mtskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "int";
+      }
+    }
+    if (systemData.type == "fairy") {
+      if (actorData.frskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.frskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "int";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.frskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "int";
+      }
+    }
+    if (systemData.type == "druid") {
+      if (actorData.drskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.drskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "int";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.drskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "int";
+      }
+    }
+    if (systemData.type == "daemon") {
+      if (actorData.dmskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.dmskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "int";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.dmskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "int";
+      }
+    }
   }
 
   _prepareMonsterabilityData(itemData) {}
