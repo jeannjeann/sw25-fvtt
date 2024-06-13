@@ -359,6 +359,9 @@ async function yt2import() {
             case "格闘":
               category = "grapple";
               break;
+            case "投擲":
+              category = "throw";
+              break;
             case "ボウ":
               category = "bow";
               break;

@@ -1,15 +1,17 @@
-2024/06/13-13:21:25.993 6fe0 Recovering log #75
-2024/06/13-13:21:25.996 6fe0 Delete type=0 #75
-2024/06/13-13:21:25.997 6fe0 Delete type=3 #73
-2024/06/13-13:22:04.335 1e48 Level-0 table #81: started
-2024/06/13-13:22:04.336 1e48 Level-0 table #81: 8691 bytes OK
-2024/06/13-13:22:04.337 1e48 Delete type=0 #79
-2024/06/13-13:22:04.338 1e48 Manual compaction at level-0 from '!macros!bvKHeXQPcyoBOrQU' @ 72057594037927935 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at (end)
-2024/06/13-13:22:04.338 1e48 Manual compaction at level-1 from '!macros!bvKHeXQPcyoBOrQU' @ 72057594037927935 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at '!macros!bvKHeXQPcyoBOrQU' @ 3 : 1
-2024/06/13-13:22:04.338 1e48 Compacting 1@1 + 1@2 files
-2024/06/13-13:22:04.340 1e48 Generated table #82@1: 1 keys, 8691 bytes
-2024/06/13-13:22:04.340 1e48 Compacted 1@1 + 1@2 files => 8691 bytes
-2024/06/13-13:22:04.340 1e48 compacted to: files[ 0 0 1 0 0 0 0 ]
-2024/06/13-13:22:04.340 1e48 Delete type=2 #77
-2024/06/13-13:22:04.341 1e48 Delete type=2 #81
-2024/06/13-13:22:04.347 1e48 Manual compaction at level-1 from '!macros!bvKHeXQPcyoBOrQU' @ 3 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at (end)
+2024/06/13-13:53:33.574 47d8 Recovering log #80
+2024/06/13-13:53:33.575 47d8 Recovering log #85
+2024/06/13-13:53:33.578 47d8 Delete type=0 #80
+2024/06/13-13:53:33.580 47d8 Delete type=0 #85
+2024/06/13-13:53:33.580 47d8 Delete type=3 #78
+2024/06/13-13:54:55.322 6b5c Level-0 table #88: started
+2024/06/13-13:54:55.329 6b5c Level-0 table #88: 8705 bytes OK
+2024/06/13-13:54:55.330 6b5c Delete type=0 #86
+2024/06/13-13:54:55.335 6b5c Manual compaction at level-0 from '!macros!bvKHeXQPcyoBOrQU' @ 72057594037927935 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at (end)
+2024/06/13-13:54:55.335 6b5c Manual compaction at level-1 from '!macros!bvKHeXQPcyoBOrQU' @ 72057594037927935 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at '!macros!bvKHeXQPcyoBOrQU' @ 4 : 1
+2024/06/13-13:54:55.335 6b5c Compacting 1@1 + 1@2 files
+2024/06/13-13:54:55.338 6b5c Generated table #89@1: 1 keys, 8705 bytes
+2024/06/13-13:54:55.338 6b5c Compacted 1@1 + 1@2 files => 8705 bytes
+2024/06/13-13:54:55.338 6b5c compacted to: files[ 0 0 1 0 0 0 0 ]
+2024/06/13-13:54:55.338 6b5c Delete type=2 #82
+2024/06/13-13:54:55.340 6b5c Delete type=2 #88
+2024/06/13-13:54:55.353 6b5c Manual compaction at level-1 from '!macros!bvKHeXQPcyoBOrQU' @ 4 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at (end)
