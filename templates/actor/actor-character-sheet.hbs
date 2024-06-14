@@ -2,16 +2,16 @@
 
   {{!-- Sheet Header --}}
   <header class="sheet-header">
-    <div class="adventurer-details">
+    <div class="adventurer-details textalign-center">
       <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-      <div class="flexcol textalign-center">
-        <label for="system.attributes.advlevel.value" class="resource-label">{{localize "SW25.Attributes.Advlevel"}}</label>
+      <div class="flexcol">
+        <label for="system.attributes.advlevel.value" class="resource-label nobreak">{{localize "SW25.Attributes.Advlevel"}}</label>
         <span class="adventurer-level">{{system.attributes.advlevel.value}}</span>
       </div>
     </div>
     <div class="header-fields flexrow">
       <div class="character-details">
-        <hr>
+        <hr class="nogapmargin">
         <div class="character-name">
           <label for="{{_id}}name" class="resource-label">{{localize "SW25.CharacterName"}}</label>
           <input id="{{_id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>

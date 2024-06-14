@@ -575,8 +575,8 @@ progress.mp-bar::-moz-progress-bar {
 /* Character sheet */
 .sw25 .sheet-header .adventurer-details {
   align-self: flex-start;
-  flex: 0 0 100px;
-  margin-right: var(--spacing-md);
+  flex: 0 0 105px;
+  margin-right: var(--spacing-sm);
 }
 .sw25 .sheet-header .adventurer-details .adventurer-level {
   font-size: 1.6rem;
