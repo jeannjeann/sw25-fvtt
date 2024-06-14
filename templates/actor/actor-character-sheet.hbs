@@ -81,38 +81,31 @@
       <section class="grid grid-5col margin-s">
         <aside class="sidebar grid-span-2">
           <div class="abilities flexcol">
-            {{#each system.abilities as |ability key|}}
-            <div class="flexrow flex-group-bottom margin-s">
-              <div class="flexcol align-bottom">
-                <label class="resource-label-s">{{ability.basename}}</label>
-                <input class="resource-label-s" type="text" name="system.abilities.{{key}}.valuebase" value="{{ability.valuebase}}" data-dtype="Number"/>
-              </div>
-              <div class="flexcol align-bottom">
-                <label class="resource-label-s">{{localize "SW25.Ability.Growth"}}</label>
-                <input class="resource-label-s" type="text" name="system.abilities.{{key}}.valuegrowth" value="{{ability.valuegrowth}}" data-dtype="Number"/>
-              </div>
-              <div class="flexcol align-bottom">
-                <label class="resource-label-s">{{localize "SW25.Ability.Modify"}}</label>
-                <input class="resource-label-s" type="text" name="system.abilities.{{key}}.valuemodify" value="{{ability.valuemodify}}" data-dtype="Number"/>
-              </div>
-              <div class="flexcol align-bottom">
-                <label for="system.abilities.{{key}}.value" class="resource-label flexlarge" data-label="{{ability.label}}">{{ability.label}}</label>
-                <span class="ability-mod resource-label-l" data-label="{{ability.label}}">{{ability.value}} ({{numberFormat ability.mod decimals=0 sign=true}})</span>
-              </div>
-            </div>
-            {{/each}}
-          <div class="ability flexrow flex-group-center margin-l">
-              <div class="flexcol">
-              <label class="resource-label-s flexlarge">{{localize "SW25.Ability.Technique"}}</label>
-              <input class="resource-label-s" type="text" name="system.abilities.dex.racevalue" value="{{system.abilities.dex.racevalue}}" data-dtype="Number"/>
-            </div>
-              <div class="flexcol">
-              <label class="resource-label-s flexlarge">{{localize "SW25.Ability.Body"}}</label>
-              <input class="resource-label-s" type="text" name="system.abilities.str.racevalue" value="{{system.abilities.str.racevalue}}" data-dtype="Number"/>
-            </div>
-              <div class="flexcol">
-              <label class="resource-label-s flexlarge">{{localize "SW25.Ability.Heart"}}</label>
-              <input class="resource-label-s" type="text" name="system.abilities.int.racevalue" value="{{system.abilities.int.racevalue}}" data-dtype="Number"/>
+            <div class="grid grid-5col">
+              {{#each system.abilities as |ability key|}}
+                {{#if (isEven @index)}}
+                  <div class="grid-row-span-2 textalign-center">
+                    <label class="resource-label-s">{{localizeAbility key}}</label>
+                    <input class="racevalue-input" type="number" name="system.abilities.{{key}}.racevalue" value="{{ability.racevalue}}" data-dtype="Number"/>
+                  </div>
+                {{/if}}
+                <div class="textalign-center">
+                  <label class="resource-label-s">{{ability.basename}}</label>
+                  <input class="resource-input" type="number" name="system.abilities.{{key}}.valuebase" value="{{ability.valuebase}}" data-dtype="Number"/>
+                </div>
+                <div class="textalign-center">
+                  <label class="growth-label" data-tooltip="{{localize "SW25.Ability.Growth"}}">{{growth @index}}</label>
+                  <input class="resource-input" type="number" name="system.abilities.{{key}}.valuegrowth" value="{{ability.valuegrowth}}" data-dtype="Number"/>
+                </div>
+                <div class="textalign-center">
+                  <label class="resource-label-s">{{localize "SW25.Ability.Modify"}}</label>
+                  <input class="resource-input" type="number" name="system.abilities.{{key}}.valuemodify" value="{{ability.valuemodify}}" data-dtype="Number"/>
+                </div>
+                <div class="textalign-center">
+                  <label for="system.abilities.{{key}}.value" class="resource-label flexlarge" data-label="{{ability.label}}">{{ability.label}}</label>
+                  <div class="ability-mod resource-label-l" data-label="{{ability.label}}">{{ability.value}} ({{numberFormat ability.mod decimals=0 sign=true}})</div>
+                </div>
+              {{/each}}
             </div>
           </div>
         </aside>
