@@ -1,4 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+/* Variables */
+:root {
+  --spacing-xxs: .1em;
+  --spacing-xs: .2em;
+  --spacing-sm: .4em;
+  --spacing-md: .8em;
+  --spacing-lg: 1.6em;
+  --spacing-xl: 3.2em;
+}
+
 /* Global styles */
 .window-app {
   font-family: "Roboto", sans-serif;
@@ -27,7 +38,7 @@
   display: grid;
   grid-column: span 2/span 2;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: var(--spacing-sm);
   margin: 10px 0;
   padding: 0;
 }
@@ -168,6 +179,10 @@
 
 .grid-span-12 {
   grid-column-end: span 12;
+}
+
+.grid-row-span-2 {
+  grid-row-end: span 2;
 }
 
 .grid-powertable {
@@ -367,11 +382,27 @@
 .sw25 .tox .tox-edit-area {
   padding: 0 8px;
 }
+.sw25 .abilities .grid.grid-5col {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) 2fr;
+  gap: var(--spacing-xs);
+  margin: 0;
+}
+.sw25 .racevalue-input {
+  height: calc(100% - 17px);
+}
+.sw25 .resource-input {
+  font-size: 0.7rem;
+  height: 1.5rem;
+}
 .sw25 .resource-label {
   font-weight: bold;
 }
 .sw25 .resource-label-s {
   font-size: 0.7em;
+}
+.sw25 .growth-label {
+  line-height: 11px;
+  vertical-align: middle;
 }
 .sw25 .resource-label-l {
   font-weight: bold;

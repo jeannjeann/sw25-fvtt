@@ -99,6 +99,38 @@ Handlebars.registerHelper("toLowerCase", function (str) {
   return str.toLowerCase();
 });
 
+Handlebars.registerHelper("isEven", function (num) {
+  return num % 2 === 0;
+});
+
+Handlebars.registerHelper("growth", function (idx) {
+  switch (idx) {
+    case 0:
+      return '⚀';
+    case 1:
+      return '⚁';
+    case 2:
+      return '⚂';
+    case 3:
+      return '⚃';
+    case 4:
+      return '⚄';
+    case 5:
+      return '⚅';
+  }
+});
+
+Handlebars.registerHelper("localizeAbility", function (ability) {
+  switch (ability) {
+    case "dex":
+      return game.i18n.localize("SW25.Ability.Technique");
+    case "str":
+      return game.i18n.localize("SW25.Ability.Body");
+    case "int":
+      return game.i18n.localize("SW25.Ability.Heart");
+  }
+});
+
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
