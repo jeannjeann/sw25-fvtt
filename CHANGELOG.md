@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.7.3
+- UI fix by [HikariNoTsurugi](https://github.com/HikariNoTsurugis)
+
 ## 0.7.2
 - ゆとシートIIインポートマクロ更新
 - 武器カテゴリに投擲追加

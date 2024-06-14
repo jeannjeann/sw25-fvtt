@@ -18,11 +18,11 @@
       "thumbnail": "systems/sw25/assets/sw25fvtt.png"
     }
   ],
-  "version": "0.7.2",
+  "version": "0.7.3",
   "compatibility": {
     "minimum": "11",
     "verified": "11.315",
-    "maximum": "12"
+    "maximum": "11"
   },
   "esmodules": ["module/sw25.mjs"],
   "styles": ["css/sw25.css"],

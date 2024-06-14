@@ -22,6 +22,10 @@ URL
 ## 作者
 - [Jean.N](https://github.com/jeannjeann)
 
+### 開発サポート
+- [kuouvadis](https://github.com/kuouvadis)
+- [HikariNoTsurugi](https://github.com/HikariNoTsurugis)
+
 ## 権利表記
 [MITライセンス](LICENSE.txt)
 
