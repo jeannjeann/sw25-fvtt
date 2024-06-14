@@ -22,7 +22,7 @@
   "compatibility": {
     "minimum": "11",
     "verified": "11.315",
-    "maximum": "11"
+    "maximum": "12"
   },
   "esmodules": ["module/sw25.mjs"],
   "styles": ["css/sw25.css"],

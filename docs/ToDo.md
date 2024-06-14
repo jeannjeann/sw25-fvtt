@@ -7,13 +7,18 @@
 ## 開発目標
 ### なるべく早めに
 - V12対応
+powerroll"NaN"
+select"selectOption"
+CONST.CHAT_MESSAGE_TYPES"CONST.CHAT_MESSAGE_STYLES"
+CONST.CHAT_MESSAGE_STYLES.ROLL"ChatMessage#rolls"
+Effect#icon"#img"
+gridDistance"grid.distance"
 - 「Token Action HUD」対応
 ### ゆっくり作業
 - システム設定項目　汎用威力表の設定での指定
 - 戦利品ロール対応
 - フェローシート
 - PCのフェロー化、NPCのフェロー化
-- バフとイニシアチブが初期に反映されない仕様の改善
 ### 気力があれば
 - ロールクリックのダイアログ表示オプション
 - 細かな例外ルールへの対応
@@ -31,6 +36,7 @@
 - 経験値テーブル分離と設定での指定
 - デフォルトアイコン変更
 - デフォルトのダイス式分離と設定での指定
+- バフとイニシアチブが初期に反映されない仕様の改善
 - 設定での限定権限の名前と画像の表示設定とデフォルト設定
 - 使い方説明の充実
 - Mod対応とか
