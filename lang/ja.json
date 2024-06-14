@@ -52,11 +52,10 @@
 
     "Notargetwarn": "ターゲットが指定されていません",
     "Multitargetwarn": "ターゲットが複数指定されています",
-            
+    
+    "CharacterName": "キャラクター名",
     "Hp": "HP",
     "Mp": "MP",
-    "Hpmod": "最大HP修正",
-    "Mpmod": "最大MP修正",
     "Race": "種族",
     "Biography": "容姿・経歴・その他メモ",
     "Languages": "言語",

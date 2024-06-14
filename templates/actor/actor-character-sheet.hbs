@@ -2,60 +2,108 @@
 
   {{!-- Sheet Header --}}
   <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-    <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
-      <div class="resources grid grid-4col">
-        <div class="resource flexcol flex-between flex-group-center gap-s">
-          <div class="flexrow align-bottom">
-            <label for="system.hp.value" class="resource-label-l">{{localize "SW25.Hp"}}</label>
-            <input class="resource-label-l" type="text" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
-            <span class="align-bottom">/{{system.hp.max}}</span>
+    <div class="adventurer-details">
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+      <div class="flexcol textalign-center">
+        <label for="system.attributes.advlevel.value" class="resource-label">{{localize "SW25.Attributes.Advlevel"}}</label>
+        <span class="adventurer-level">{{system.attributes.advlevel.value}}</span>
+      </div>
+    </div>
+    <div class="header-fields flexrow">
+      <div class="character-details">
+        <hr>
+        <div class="character-name">
+          <label for="{{_id}}name" class="resource-label">{{localize "SW25.CharacterName"}}</label>
+          <input id="{{_id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+        </div>
+        <hr>
+        <div class="character-details-secondary flexrow">
+          <div class="character-race">
+            <label for="{{_id}}race" class="resource-label">{{localize "SW25.Race"}}</label> 
+            <input id="{{id}}race" type="text" name="system.race" value="{{system.race}}" data-dtype="String"/>
           </div>
-          <div class="flexrow align-bottom">
-            <label for="system.mp.value" class="resource-label-l">{{localize "SW25.Mp"}}</label>
-            <input class="resource-label-l" type="text" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
-            <span class="align-bottom">/{{system.mp.max}}</span>
+          <div class="character-age textalign-center">
+            <label for="{{_id}}age" class="resource-label">{{localize "SW25.Attributes.Age"}}</label>
+            <input id="{{_id}}age" type="number" name="system.attributes.age" value="{{system.attributes.age}}" data-dtype="Number"/>
           </div>
-          <div class="flexrow flex-group-center">
-            <label for="system.attributes.fumble" class="resource-label-s align-right">{{localize "SW25.Attributes.Fumble"}}:</label>
-            <div class='input flexrow flex-group-center' style="flex: 1 0 20px;">
+          <div class="character-gender textalign-center">
+            <label for="{{_id}}gender" class="resource-label">{{localize "SW25.Attributes.Gender"}}</label>
+            <input id="{{_id}}gender" type="text" name="system.attributes.gender" value="{{system.attributes.gender}}" data-dtype="String"/>
+          </div>
+        </div>
+        <hr>
+        <div class="character-details-tertiary flexrow">
+          <div class="character-rank">
+            <label for="{{_id}}rank" class="resource-label">{{localize "SW25.Attributes.Honer.Rank"}}</label>
+            <input id="{{_id}}rank" type="text" name="system.attributes.honer.rank" value="{{system.attributes.honer.rank}}" data-dtype="String"/>
+          </div>
+          <div class="character-fumble textalign-center">
+            <label for="{{_id}}fumble" class="resource-label">{{localize "SW25.Attributes.Fumble"}}</label>
+            <div class="adjustable-container">
               <a class="adjustment-button" data-action="decrease" data-property="system.attributes.fumble">
                 <i class="fas fa-minus"></i>
               </a>
-              <input type="number" name="system.attributes.fumble" value="{{system.attributes.fumble}}" data-dtype="Number"/>
+              <input id="{{_id}}fumble" type="number" name="system.attributes.fumble" value="{{system.attributes.fumble}}" data-dtype="Number"/>
               <a class="adjustment-button" data-action="increase" data-property="system.attributes.fumble">
                 <i class="fas fa-plus"></i>
               </a>
             </div>
           </div>
-        </div>
-
-        <div class="resource flexcol flex-between flex-group-center">
-          <label for="system.attributes.advlevel.value" class="resource-label">{{localize "SW25.Attributes.Advlevel"}}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <span class="resource-label-l">{{system.attributes.advlevel.value}}</span>
-          </div>
-          <div class="resource-content flexrow flex-group-right">
-            <label for="system.attributes.grace" class="resource-label-s">{{localize "SW25.Attributes.Grace"}}:</label>
-            <span><input type="checkbox" name="system.attributes.grace" data-dtype="Boolean" {{#if system.attributes.grace}} checked {{/if}}/></span>
-          </div>
-        </div>
-
-        <div class="flexcol flex-between grid-span-2">
-          <div class="flexrow flex-between">
-            <span>{{localize "SW25.Attributes.Age"}}: <b>{{system.attributes.age}}</b></span>
-            <span>{{localize "SW25.Attributes.Gender"}}: <b>{{system.attributes.gender}}</b></span>
-            <span>{{localize "SW25.Attributes.Impurity"}}: <b>{{system.attributes.impurity}}</b></span>
-          </div>
-          <div class="flexrow flex-left">
-            <span>{{localize "SW25.Race"}}: <b>{{system.race}}</b></span>
-          </div>
-          <div class="flexrow flex-left">
-            <span>{{localize "SW25.Attributes.Honer.Rank"}}: <b>{{system.attributes.honer.rank}}</b></span>
+          <div class="character-impurity textalign-center">
+            <label for="{{_id}}impurity" class="resource-label">{{localize "SW25.Attributes.Impurity"}}</label>
+            <div class="adjustable-container">
+              <a class="adjustment-button" data-action="decrease" data-property="system.attributes.impurity">
+                <i class="fas fa-minus"></i>
+              </a>
+              <input id="{{_id}}impurity" type="number" name="system.attributes.impurity" value="{{system.attributes.impurity}}" data-dtype="Number"/>
+              <a class="adjustment-button" data-action="increase" data-property="system.attributes.impurity">
+                <i class="fas fa-plus"></i>
+              </a>
+            </div>
           </div>
         </div>
-
+        <hr>
+      </div>
+      <div class="header-resources">
+        <div class="resources grid grid-3col">
+          <label for="{{_id}}hp" class="resource-label">{{localize "SW25.Hp"}}: </label>
+          <div class="current-max-resource nobreak">
+            <input id="{{_id}}hp" type="number" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
+            /
+            <span>{{system.hp.max}}</span>
+          </div>
+          <div class="nobreak">
+            <label for="{{_id}}hpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
+            <input id="{{_id}}hpmod" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
+          </div>
+          <progress class="hp-bar grid-span-3" value="{{system.hp.value}}" max="{{system.hp.max}}"></progress>
+          <label for="{{_id}}mp" class="resource-label">{{localize "SW25.Mp"}}: </label>
+          <div class="current-max-resource nobreak">
+            <input id="{{_id}}mp" type="number" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
+            /
+            <span>{{system.mp.max}}</span>
+          </div>
+          <div class="nobreak">
+            <label for="{{_id}}mpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
+            <input id="{{_id}}mpmod" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
+          </div>
+          <progress class="mp-bar grid-span-3" value="{{system.mp.value}}" max="{{system.mp.max}}"></progress>
+        </div>
+        <div class="character-resources flexrow textalign-center">
+          <div class="character-honor">
+            <label for="{{_id}}honor" class="resource-label">{{localize "SW25.Attributes.Honer.Label"}}</label>
+            <input id="{{_id}}honor" type="number" name="system.attributes.honer.value" value="{{system.attributes.honer.value}}" data-dtype="Number"/>
+          </div>
+          <div class="character-experience">
+            <label for="{{_id}}exp" class="resource-label">{{localize "SW25.Attributes.Exp"}}</label>
+            <input id="{{_id}}exp" type="number" name="system.attributes.totalexp" value="{{system.attributes.totalexp}}" data-dtype="Number"/>
+          </div>
+          <div class="character-grace">
+            <label for="{{_id}}grace" class="resource-label">{{localize "SW25.Attributes.Grace"}}</label> <br>
+            <input id="{{_id}}grace" type="checkbox" name="system.attributes.grace" {{checked system.attributes.grace}} data-dtype="Boolean"/>
+          </div>
+        </div>
+        
       </div>
     </div>
   </header>
@@ -111,11 +159,7 @@
         </aside>
         <section class="main grid-span-3">
           <div class="grid grid-3col nogapmargin">
-            <div class="flexcol nogapmargin">
-              <span class="resource-label-s" style="text-align: center;">{{localize "SW25.Hpmod"}} <input style="max-width: calc(35% - 7px); max-height: 80%;" type="text" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/></span>
-              <span class="resource-label-s" style="text-align: center;">{{localize "SW25.Mpmod"}} <input style="max-width: calc(35% - 7px); max-height: 80%;" type="text" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/></span>
-            </div>
-            <div class="grid-span-2 flex-group-right" style="display: flex; align-items: flex-end;">
+            <div class="grid-span-3 flex-group-right" style="display: flex; align-items: flex-end;">
               {{localize "SW25.Attributes.Exp"}} [ {{localize "SW25.Attributes.Useexp"}}: {{#if (gt system.attributes.useexp system.attributes.totalexp)}}<span class="warning-text">{{/if}}{{system.attributes.useexp}}{{#if (gt system.attributes.useexp system.attributes.totalexp)}}</span>{{/if}}<span> / {{localize "SW25.Attributes.Totalexp"}}: {{system.attributes.totalexp}} ]</span>
             </div>
           </div>
@@ -541,15 +585,15 @@
         </div>
         <div class="flexcol grid-span-3">
           <div class="flexrow grid grid-6col nogapmargin">
-            <span style="text-align: center;"><b>{{localize "SW25.Attributes.Age"}}</b><br><input type="text" name="system.attributes.age" value="{{system.attributes.age}}" data-dtype="Number"/></span>
-            <span style="text-align: center;"><b>{{localize "SW25.Attributes.Gender"}}</b><br><input type="text" name="system.attributes.gender" value="{{system.attributes.gender}}" data-dtype="String"/></span>
-            <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Race"}}</b><br><input type="text" name="system.race" value="{{system.race}}" data-dtype="String"/></span>
+            {{!-- <span style="text-align: center;"><b>{{localize "SW25.Attributes.Age"}}</b><br><input type="text" name="system.attributes.age" value="{{system.attributes.age}}" data-dtype="Number"/></span> --}}
+            {{!-- <span style="text-align: center;"><b>{{localize "SW25.Attributes.Gender"}}</b><br><input type="text" name="system.attributes.gender" value="{{system.attributes.gender}}" data-dtype="String"/></span> --}}
+            {{!-- <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Race"}}</b><br><input type="text" name="system.race" value="{{system.race}}" data-dtype="String"/></span> --}}
             <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Attributes.Born"}}</b><br><input type="text" name="system.attributes.born" value="{{system.attributes.born}}" data-dtype="String"/></span>
             <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Attributes.Faith"}}</b><br><input type="text" name="system.attributes.faith" value="{{system.attributes.faith}}" data-dtype="String"/></span>
-            <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Attributes.Honer.Rank"}}</b><br><input type="text" name="system.attributes.honer.rank" value="{{system.attributes.honer.rank}}" data-dtype="String"/></span>
-            <span style="text-align: center;"><b>{{localize "SW25.Attributes.Honer.Label"}}</b><br><input type="text" name="system.attributes.honer.value" value="{{system.attributes.honer.value}}" data-dtype="Number"/></span>
-            <span style="text-align: center;"><b>{{localize "SW25.Attributes.Impurity"}}</b><br><input type="text" name="system.attributes.impurity" value="{{system.attributes.impurity}}" data-dtype="Number"/></span>
-            <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Attributes.Exp"}}</b><br><input type="text" name="system.attributes.totalexp" value="{{system.attributes.totalexp}}" data-dtype="Number"/></span>
+            {{!-- <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Attributes.Honer.Rank"}}</b><br><input type="text" name="system.attributes.honer.rank" value="{{system.attributes.honer.rank}}" data-dtype="String"/></span> --}}
+            {{!-- <span style="text-align: center;"><b>{{localize "SW25.Attributes.Honer.Label"}}</b><br><input type="text" name="system.attributes.honer.value" value="{{system.attributes.honer.value}}" data-dtype="Number"/></span> --}}
+            {{!-- <span style="text-align: center;"><b>{{localize "SW25.Attributes.Impurity"}}</b><br><input type="text" name="system.attributes.impurity" value="{{system.attributes.impurity}}" data-dtype="Number"/></span> --}}
+            {{!-- <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Attributes.Exp"}}</b><br><input type="text" name="system.attributes.totalexp" value="{{system.attributes.totalexp}}" data-dtype="Number"/></span> --}}
           </div>
         </div>
       </div>
