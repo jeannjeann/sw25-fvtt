@@ -24,7 +24,7 @@ URL
 
 ### 開発サポート
 - [kuouvadis](https://github.com/kuouvadis)
-- [HikariNoTsurugi](https://github.com/HikariNoTsurugis)
+- [HikariNoTsurugi](https://github.com/HikariNoTsurugi)
 
 ## 権利表記
 [MITライセンス](LICENSE.txt)

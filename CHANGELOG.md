@@ -1,7 +1,7 @@
 # CHANGELOG
 
 ## 0.7.3
-- UI fix by [HikariNoTsurugi](https://github.com/HikariNoTsurugis)
+- UI fix by [HikariNoTsurugi](https://github.com/HikariNoTsurugi)
 
 ## 0.7.2
 - ゆとシートIIインポートマクロ更新
