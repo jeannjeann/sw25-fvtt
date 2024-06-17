@@ -153,12 +153,6 @@ async function sbspellimport() {
               break;
             case "時間":
               time = param[i][1].replace(/"/g, "").trim();
-              let indextime = time.indexOf("ラウンド");
-              if (indextime !== -1) {
-                let numbers = time.substring(0, indextime).match(/\d+/g);
-                if (numbers && numbers.length > 0)
-                  time = numbers[numbers.length - 1];
-              }
               break;
             case "抵抗":
               let bareresist = param[i][1].replace(/"/g, "").trim();
