@@ -2,12 +2,14 @@
 
 /* Variables */
 :root {
-  --spacing-xxs: .1em;
-  --spacing-xs: .2em;
-  --spacing-sm: .4em;
-  --spacing-md: .8em;
-  --spacing-lg: 1.6em;
-  --spacing-xl: 3.2em;
+  --spacing-xxs: .1rem;
+  --spacing-xs: .2rem;
+  --spacing-sm: .4rem;
+  --spacing-md: .8rem;
+  --spacing-lg: 1.6rem;
+  --spacing-xl: 3.2rem;
+  --color-hp-meter: #6bb338;
+  --color-mp-meter: #08acff;
 }
 
 /* Global styles */
@@ -332,27 +334,60 @@
   font-weight: bold;
 }
 
+hr {
+  border: 0;
+  border-top: 1px solid var(--color-border-dark-1);
+  margin: var(--spacing-xs) 0 0 0;
+}
+progress {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+}
+progress.hp-bar,
+progress.mp-bar {
+  height: 4px;
+  margin: var(--spacing-xs) 0 var(--spacing-sm) 0;
+}
+progress.hp-bar::-webkit-progress-value {
+  background-color: var(--color-hp-meter);
+}
+progress.hp-bar::-moz-progress-bar {
+  background-color: var(--color-hp-meter);
+}
+progress.mp-bar::-webkit-progress-value {
+  background-color: var(--color-mp-meter);
+}
+progress.mp-bar::-moz-progress-bar {
+  background-color: var(--color-mp-meter);
+}
+.nobreak {
+  white-space: nowrap;
+}
+
 
 /* Styles limited to sw25 sheets */
+
+/* General sheet elements */
+.sw25 .adjustable-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sw25 .adjustable-container input {
+  flex: 0 0 2rem;
+  text-align: center;
+}
+.sw25 .adjustable-container .adjustment-button {
+  margin: 0 var(--spacing-xs);
+}
 .sw25 .item-form {
   font-family: "Roboto", sans-serif;
 }
 .sw25 .sheet-header {
   flex: 0 auto;
   overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-bottom: 10px;
-}
-.sw25 .sheet-header .profile-img {
-  flex: 0 0 100px;
-  height: 100px;
-  margin-right: 10px;
-}
-.sw25 .sheet-header .header-fields {
-  flex: 1;
 }
 .sw25 .sheet-header h1.charname {
   height: 50px;
@@ -535,4 +570,77 @@
 }
 .sw25 .effects .item .effect-controls {
   border: none;
+}
+
+/* Character sheet */
+.sw25 .sheet-header .adventurer-details {
+  align-self: flex-start;
+  flex: 0 0 105px;
+  margin-right: var(--spacing-sm);
+}
+.sw25 .sheet-header .adventurer-details .adventurer-level {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+.sw25 .sheet-header .profile-img {
+  height: 100px;
+  margin: 0;
+}
+.sw25 .sheet-header .header-fields {
+  align-self: flex-start;
+}
+.sw25 .sheet-header .header-fields .character-details {
+  flex: 0 0 300px;
+}
+.sw25 .sheet-header .header-fields .character-details .character-name,
+.sw25 .sheet-header .header-fields .character-details .character-details-secondary,
+.sw25 .sheet-header .header-fields .character-details .character-details-tertiary {
+  margin: 0 var(--spacing-xs);
+}
+.sw25 .sheet-header .header-fields .character-details .character-race {
+  flex: 0 0 60%;
+}
+.sw25 .sheet-header .header-fields .character-details .character-age {
+   flex: 0 0 15%;
+}
+.sw25 .sheet-header .header-fields .character-details .character-gender {
+  flex: 0 0 25%;
+}
+.sw25 .sheet-header .header-fields .character-details .character-rank {
+  flex: 0 0 50%;
+}
+.sw25 .sheet-header .header-fields .character-details .character-fumble {
+  flex: 0 0 25%;
+}
+.sw25 .sheet-header .header-fields .character-details .character-impurity {
+  flex: 0 0 25%;
+}
+.sw25 .sheet-header .header-resources {
+  margin: 0 var(--spacing-xs);
+  min-height: 125px;
+  position: relative;
+}
+.sw25 .sheet-header .header-fields .resources.grid {
+  grid-template-columns: 24px 1fr auto;
+  gap: 0 var(--spacing-xs);
+  margin: 0;
+}
+.sw25 .sheet-header .header-resources label {
+  height: var(--form-field-height);
+  line-height: var(--form-field-height);
+  vertical-align: middle;
+}
+.sw25 .sheet-header .header-resources .current-max-resource {
+  display: inline-block;
+}
+.sw25 .sheet-header .header-resources input {
+  text-align: center;
+  vertical-align: middle;
+}
+.sw25 .sheet-header .header-resources .resources input[type="number"] {
+  width: 2.5rem;
+}
+.sw25 .sheet-header .header-resources .character-resources {
+  position: absolute;
+  bottom: var(--spacing-xs);
 }
