@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.7.4
+- UI fix by [HikariNoTsurugi](https://github.com/HikariNoTsurugi)
+- UI minor fix
+- bug fix
+
 ## 0.7.3
 - UI fix by [HikariNoTsurugi](https://github.com/HikariNoTsurugi)
 

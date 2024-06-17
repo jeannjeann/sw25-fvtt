@@ -37,17 +37,9 @@
             <label for="{{_id}}rank" class="resource-label">{{localize "SW25.Attributes.Honer.Rank"}}</label>
             <input id="{{_id}}rank" type="text" name="system.attributes.honer.rank" value="{{system.attributes.honer.rank}}" data-dtype="String"/>
           </div>
-          <div class="character-fumble textalign-center">
-            <label for="{{_id}}fumble" class="resource-label">{{localize "SW25.Attributes.Fumble"}}</label>
-            <div class="adjustable-container">
-              <a class="adjustment-button" data-action="decrease" data-property="system.attributes.fumble">
-                <i class="fas fa-minus"></i>
-              </a>
-              <input id="{{_id}}fumble" type="number" name="system.attributes.fumble" value="{{system.attributes.fumble}}" data-dtype="Number"/>
-              <a class="adjustment-button" data-action="increase" data-property="system.attributes.fumble">
-                <i class="fas fa-plus"></i>
-              </a>
-            </div>
+          <div class="character-honor textalign-center">
+            <label for="{{_id}}honor" class="resource-label">{{localize "SW25.Attributes.Honer.Label"}}</label>
+            <input id="{{_id}}honor" type="number" name="system.attributes.honer.value" value="{{system.attributes.honer.value}}" data-dtype="Number"/>
           </div>
           <div class="character-impurity textalign-center">
             <label for="{{_id}}impurity" class="resource-label">{{localize "SW25.Attributes.Impurity"}}</label>
@@ -90,13 +82,21 @@
           <progress class="mp-bar grid-span-3" value="{{system.mp.value}}" max="{{system.mp.max}}"></progress>
         </div>
         <div class="character-resources flexrow textalign-center">
-          <div class="character-honor">
-            <label for="{{_id}}honor" class="resource-label">{{localize "SW25.Attributes.Honer.Label"}}</label>
-            <input id="{{_id}}honor" type="number" name="system.attributes.honer.value" value="{{system.attributes.honer.value}}" data-dtype="Number"/>
-          </div>
           <div class="character-experience">
             <label for="{{_id}}exp" class="resource-label">{{localize "SW25.Attributes.Exp"}}</label>
             <input id="{{_id}}exp" type="number" name="system.attributes.totalexp" value="{{system.attributes.totalexp}}" data-dtype="Number"/>
+          </div>
+          <div class="character-fumble">
+            <label for="{{_id}}fumble" class="resource-label">{{localize "SW25.Attributes.Fumble"}}</label>
+            <div class="adjustable-container">
+              <a class="adjustment-button" data-action="decrease" data-property="system.attributes.fumble">
+                <i class="fas fa-minus"></i>
+              </a>
+              <input id="{{_id}}fumble" type="number" name="system.attributes.fumble" value="{{system.attributes.fumble}}" data-dtype="Number"/>
+              <a class="adjustment-button" data-action="increase" data-property="system.attributes.fumble">
+                <i class="fas fa-plus"></i>
+              </a>
+            </div>
           </div>
           <div class="character-grace">
             <label for="{{_id}}grace" class="resource-label">{{localize "SW25.Attributes.Grace"}}</label> <br>
