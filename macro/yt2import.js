@@ -809,7 +809,6 @@ async function yt2import() {
         }
         let itemDamage = data.status1Damage.replace(/\b2d6\b|\b2d\b/g, "");
         let feature = data.skills.replace(/&lt;br&gt;/g, "<br>");
-        console.log(feature);
 
         actorData = {
           name: name,
