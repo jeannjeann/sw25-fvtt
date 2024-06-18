@@ -1,6 +1,5 @@
 ## Todo
 - bug fix
-- 魔物バフ
 
 ## 更新作業
 - マニュアル、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ

@@ -466,114 +466,116 @@ export class SW25Item extends Item {
     await actor.update({});
     let checkabimod = 0;
     let powerabimod = 0;
-    if (systemData.checkabi == "dex")
-      checkabimod = Math.floor(
-        (actorData.abilities.dex.racevalue +
-          actorData.abilities.dex.valuebase +
-          actorData.abilities.dex.valuegrowth +
-          actorData.abilities.dex.valuemodify) /
-          6 +
-          Number(actorData.abilities.dex.efmodify)
-      );
-    if (systemData.checkabi == "agi")
-      checkabimod = Math.floor(
-        (actorData.abilities.dex.racevalue +
-          actorData.abilities.agi.valuebase +
-          actorData.abilities.agi.valuegrowth +
-          actorData.abilities.agi.valuemodify) /
-          6 +
-          Number(actorData.abilities.agi.efmodify)
-      );
-    if (systemData.checkabi == "str")
-      checkabimod = Math.floor(
-        (actorData.abilities.str.racevalue +
-          actorData.abilities.str.valuebase +
-          actorData.abilities.str.valuegrowth +
-          actorData.abilities.str.valuemodify) /
-          6 +
-          Number(actorData.abilities.str.efmodify)
-      );
-    if (systemData.checkabi == "vit")
-      checkabimod = Math.floor(
-        (actorData.abilities.str.racevalue +
-          actorData.abilities.vit.valuebase +
-          actorData.abilities.vit.valuegrowth +
-          actorData.abilities.vit.valuemodify) /
-          6 +
-          Number(actorData.abilities.vit.efmodify)
-      );
-    if (systemData.checkabi == "int")
-      checkabimod = Math.floor(
-        (actorData.abilities.int.racevalue +
-          actorData.abilities.int.valuebase +
-          actorData.abilities.int.valuegrowth +
-          actorData.abilities.int.valuemodify) /
-          6 +
-          Number(actorData.abilities.int.efmodify)
-      );
-    if (systemData.checkabi == "mnd")
-      checkabimod = Math.floor(
-        (actorData.abilities.int.racevalue +
-          actorData.abilities.mnd.valuebase +
-          actorData.abilities.mnd.valuegrowth +
-          actorData.abilities.mnd.valuemodify) /
-          6 +
-          Number(actorData.abilities.mnd.efmodify)
-      );
-    if (systemData.powerabi == "dex")
-      powerabimod = Math.floor(
-        (actorData.abilities.dex.racevalue +
-          actorData.abilities.dex.valuebase +
-          actorData.abilities.dex.valuegrowth +
-          actorData.abilities.dex.valuemodify) /
-          6 +
-          Number(actorData.abilities.dex.efmodify)
-      );
-    if (systemData.powerabi == "agi")
-      powerabimod = Math.floor(
-        (actorData.abilities.dex.racevalue +
-          actorData.abilities.agi.valuebase +
-          actorData.abilities.agi.valuegrowth +
-          actorData.abilities.agi.valuemodify) /
-          6 +
-          Number(actorData.abilities.agi.efmodify)
-      );
-    if (systemData.powerabi == "str")
-      powerabimod = Math.floor(
-        (actorData.abilities.str.racevalue +
-          actorData.abilities.str.valuebase +
-          actorData.abilities.str.valuegrowth +
-          actorData.abilities.str.valuemodify) /
-          6 +
-          Number(actorData.abilities.str.efmodify)
-      );
-    if (systemData.powerabi == "vit")
-      powerabimod = Math.floor(
-        (actorData.abilities.str.racevalue +
-          actorData.abilities.vit.valuebase +
-          actorData.abilities.vit.valuegrowth +
-          actorData.abilities.vit.valuemodify) /
-          6 +
-          Number(actorData.abilities.vit.efmodify)
-      );
-    if (systemData.powerabi == "int")
-      powerabimod = Math.floor(
-        (actorData.abilities.int.racevalue +
-          actorData.abilities.int.valuebase +
-          actorData.abilities.int.valuegrowth +
-          actorData.abilities.int.valuemodify) /
-          6 +
-          Number(actorData.abilities.int.efmodify)
-      );
-    if (systemData.powerabi == "mnd")
-      powerabimod = Math.floor(
-        (actorData.abilities.int.racevalue +
-          actorData.abilities.mnd.valuebase +
-          actorData.abilities.mnd.valuegrowth +
-          actorData.abilities.mnd.valuemodify) /
-          6 +
-          Number(actorData.abilities.mnd.efmodify)
-      );
+    if (actor.type == "character") {
+      if (systemData.checkabi == "dex")
+        checkabimod = Math.floor(
+          (actorData.abilities.dex.racevalue +
+            actorData.abilities.dex.valuebase +
+            actorData.abilities.dex.valuegrowth +
+            actorData.abilities.dex.valuemodify) /
+            6 +
+            Number(actorData.abilities.dex.efmodify)
+        );
+      if (systemData.checkabi == "agi")
+        checkabimod = Math.floor(
+          (actorData.abilities.dex.racevalue +
+            actorData.abilities.agi.valuebase +
+            actorData.abilities.agi.valuegrowth +
+            actorData.abilities.agi.valuemodify) /
+            6 +
+            Number(actorData.abilities.agi.efmodify)
+        );
+      if (systemData.checkabi == "str")
+        checkabimod = Math.floor(
+          (actorData.abilities.str.racevalue +
+            actorData.abilities.str.valuebase +
+            actorData.abilities.str.valuegrowth +
+            actorData.abilities.str.valuemodify) /
+            6 +
+            Number(actorData.abilities.str.efmodify)
+        );
+      if (systemData.checkabi == "vit")
+        checkabimod = Math.floor(
+          (actorData.abilities.str.racevalue +
+            actorData.abilities.vit.valuebase +
+            actorData.abilities.vit.valuegrowth +
+            actorData.abilities.vit.valuemodify) /
+            6 +
+            Number(actorData.abilities.vit.efmodify)
+        );
+      if (systemData.checkabi == "int")
+        checkabimod = Math.floor(
+          (actorData.abilities.int.racevalue +
+            actorData.abilities.int.valuebase +
+            actorData.abilities.int.valuegrowth +
+            actorData.abilities.int.valuemodify) /
+            6 +
+            Number(actorData.abilities.int.efmodify)
+        );
+      if (systemData.checkabi == "mnd")
+        checkabimod = Math.floor(
+          (actorData.abilities.int.racevalue +
+            actorData.abilities.mnd.valuebase +
+            actorData.abilities.mnd.valuegrowth +
+            actorData.abilities.mnd.valuemodify) /
+            6 +
+            Number(actorData.abilities.mnd.efmodify)
+        );
+      if (systemData.powerabi == "dex")
+        powerabimod = Math.floor(
+          (actorData.abilities.dex.racevalue +
+            actorData.abilities.dex.valuebase +
+            actorData.abilities.dex.valuegrowth +
+            actorData.abilities.dex.valuemodify) /
+            6 +
+            Number(actorData.abilities.dex.efmodify)
+        );
+      if (systemData.powerabi == "agi")
+        powerabimod = Math.floor(
+          (actorData.abilities.dex.racevalue +
+            actorData.abilities.agi.valuebase +
+            actorData.abilities.agi.valuegrowth +
+            actorData.abilities.agi.valuemodify) /
+            6 +
+            Number(actorData.abilities.agi.efmodify)
+        );
+      if (systemData.powerabi == "str")
+        powerabimod = Math.floor(
+          (actorData.abilities.str.racevalue +
+            actorData.abilities.str.valuebase +
+            actorData.abilities.str.valuegrowth +
+            actorData.abilities.str.valuemodify) /
+            6 +
+            Number(actorData.abilities.str.efmodify)
+        );
+      if (systemData.powerabi == "vit")
+        powerabimod = Math.floor(
+          (actorData.abilities.str.racevalue +
+            actorData.abilities.vit.valuebase +
+            actorData.abilities.vit.valuegrowth +
+            actorData.abilities.vit.valuemodify) /
+            6 +
+            Number(actorData.abilities.vit.efmodify)
+        );
+      if (systemData.powerabi == "int")
+        powerabimod = Math.floor(
+          (actorData.abilities.int.racevalue +
+            actorData.abilities.int.valuebase +
+            actorData.abilities.int.valuegrowth +
+            actorData.abilities.int.valuemodify) /
+            6 +
+            Number(actorData.abilities.int.efmodify)
+        );
+      if (systemData.powerabi == "mnd")
+        powerabimod = Math.floor(
+          (actorData.abilities.int.racevalue +
+            actorData.abilities.mnd.valuebase +
+            actorData.abilities.mnd.valuegrowth +
+            actorData.abilities.mnd.valuemodify) /
+            6 +
+            Number(actorData.abilities.mnd.efmodify)
+        );
+    }
 
     systemData.checkbase =
       Number(systemData.checkmod) + Number(checklevelmod) + Number(checkabimod);
@@ -720,113 +722,118 @@ export class SW25Item extends Item {
         systemData.efmod = 0;
         systemData.efallckmod = 0;
         systemData.efallmgpmod = 0;
-      } else {
-        for (let i = 1; i <= 3; i++) {
-          if (actorData.effect.allck)
-            systemData.efallckmod = Number(actorData.effect.allck);
-          else systemData.efallckmod = 0;
-          if (actorData.effect.allmgp)
-            systemData.efallmgpmod = Number(actorData.effect.allmgp);
-          else systemData.efallmgpmod = 0;
-          systemData.efmod = 0;
-          switch (itemData.system[`label${i}`]) {
-            case effectVitResMon:
-              if (actorData.effect.vitres)
-                systemData.efmod = Number(actorData.effect.vitres);
-              break;
-            case effectMndResMon:
-              if (actorData.effect.mndres)
-                systemData.efmod = Number(actorData.effect.mndres);
-              break;
-            case effectHitMon:
-              if (actorData.attributes.efhitmod)
-                systemData.efmod = Number(actorData.attributes.efhitmod);
-              break;
-            case effectDmgMon:
-              if (actorData.attributes.efdmod)
-                systemData.efmod = Number(actorData.attributes.efdmod);
-              systemData.efallckmod = 0;
-              break;
-            case effectDodgeMon:
-              if (actorData.attributes.efdodgemod)
-                systemData.efmod = Number(actorData.attributes.efdodgemod);
-              break;
-            case effectScpMon:
-              if (actorData.attributes.efscmod)
-                systemData.efmod =
-                  Number(actorData.attributes.efscmod) +
-                  Number(systemData.efallmgpmod);
-              else systemData.efmod = Number(systemData.efallmgpmod);
-              systemData.efallckmod = 0;
-              break;
-            case effectCnpMon:
-              if (actorData.attributes.efcnmod)
-                systemData.efmod =
-                  Number(actorData.attributes.efcnmod) +
-                  Number(systemData.efallmgpmod);
-              else systemData.efmod = Number(systemData.efallmgpmod);
-              systemData.efallckmod = 0;
-              break;
-            case effectWzpMon:
-              if (actorData.attributes.efwzmod)
-                systemData.efmod =
-                  Number(actorData.attributes.efwzmod) +
-                  Number(systemData.efallmgpmod);
-              else systemData.efmod = Number(systemData.efallmgpmod);
-              systemData.efallckmod = 0;
-              break;
-            case effectPrpMon:
-              if (actorData.attributes.efprmod)
-                systemData.efmod =
-                  Number(actorData.attributes.efprmod) +
-                  Number(systemData.efallmgpmod);
-              else systemData.efmod = Number(systemData.efallmgpmod);
-              systemData.efallckmod = 0;
-              break;
-            case effectMtpMon:
-              if (actorData.attributes.efmtmod)
-                systemData.efmod =
-                  Number(actorData.attributes.efmtmod) +
-                  Number(systemData.efallmgpmod);
-              else systemData.efmod = Number(systemData.efallmgpmod);
-              systemData.efallckmod = 0;
-              break;
-            case effectFrpMon:
-              if (actorData.attributes.effrmod)
-                systemData.efmod =
-                  Number(actorData.attributes.effrmod) +
-                  Number(systemData.efallmgpmod);
-              else systemData.efmod = Number(systemData.efallmgpmod);
-              systemData.efallckmod = 0;
-              break;
-            case effectDrpMon:
-              if (actorData.attributes.efdrmod)
-                systemData.efmod =
-                  Number(actorData.attributes.efdrmod) +
-                  Number(systemData.efallmgpmod);
-              else systemData.efmod = Number(systemData.efallmgpmod);
-              systemData.efallckmod = 0;
-              break;
-            case effectDmpMon:
-              if (actorData.attributes.efdmmod)
-                systemData.efmod =
-                  Number(actorData.attributes.efdmmod) +
-                  Number(systemData.efallmgpmod);
-              else systemData.efmod = Number(systemData.efallmgpmod);
-              systemData.efallckmod = 0;
-              break;
-            default:
-              systemData.efmod = 0;
-              break;
-          }
-          systemData[`checkbase${i}`] =
-            Number(systemData[`checkbasemod${i}`]) +
-            Number(systemData[`checkmod${i}`]) +
-            Number(systemData.efmod) +
-            Number(systemData.efallckmod);
-          systemData[`checkbasefix${i}`] =
-            Number(systemData[`checkbase${i}`]) + 7;
+        actorData.effect = {
+          allck: "",
+          allmgp: "",
+          vitres: "",
+          mndres: "",
+        };
+      }
+      for (let i = 1; i <= 3; i++) {
+        if (actorData.effect.allck)
+          systemData.efallckmod = Number(actorData.effect.allck);
+        else systemData.efallckmod = 0;
+        if (actorData.effect.allmgp)
+          systemData.efallmgpmod = Number(actorData.effect.allmgp);
+        else systemData.efallmgpmod = 0;
+        systemData.efmod = 0;
+        switch (itemData.system[`label${i}`]) {
+          case effectVitResMon:
+            if (actorData.effect.vitres)
+              systemData.efmod = Number(actorData.effect.vitres);
+            break;
+          case effectMndResMon:
+            if (actorData.effect.mndres)
+              systemData.efmod = Number(actorData.effect.mndres);
+            break;
+          case effectHitMon:
+            if (actorData.attributes.efhitmod)
+              systemData.efmod = Number(actorData.attributes.efhitmod);
+            break;
+          case effectDmgMon:
+            if (actorData.attributes.efdmod)
+              systemData.efmod = Number(actorData.attributes.efdmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectDodgeMon:
+            if (actorData.attributes.efdodgemod)
+              systemData.efmod = Number(actorData.attributes.efdodgemod);
+            break;
+          case effectScpMon:
+            if (actorData.attributes.efscmod)
+              systemData.efmod =
+                Number(actorData.attributes.efscmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectCnpMon:
+            if (actorData.attributes.efcnmod)
+              systemData.efmod =
+                Number(actorData.attributes.efcnmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectWzpMon:
+            if (actorData.attributes.efwzmod)
+              systemData.efmod =
+                Number(actorData.attributes.efwzmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectPrpMon:
+            if (actorData.attributes.efprmod)
+              systemData.efmod =
+                Number(actorData.attributes.efprmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectMtpMon:
+            if (actorData.attributes.efmtmod)
+              systemData.efmod =
+                Number(actorData.attributes.efmtmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectFrpMon:
+            if (actorData.attributes.effrmod)
+              systemData.efmod =
+                Number(actorData.attributes.effrmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectDrpMon:
+            if (actorData.attributes.efdrmod)
+              systemData.efmod =
+                Number(actorData.attributes.efdrmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectDmpMon:
+            if (actorData.attributes.efdmmod)
+              systemData.efmod =
+                Number(actorData.attributes.efdmmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          default:
+            systemData.efmod = 0;
+            break;
         }
+        systemData[`checkbase${i}`] =
+          Number(systemData[`checkbasemod${i}`]) +
+          Number(systemData[`checkmod${i}`]) +
+          Number(systemData.efmod) +
+          Number(systemData.efallckmod);
+        systemData[`checkbasefix${i}`] =
+          Number(systemData[`checkbase${i}`]) + 7;
       }
     }
 

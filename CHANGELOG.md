@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.7.5
+- bug fix (Monster sheet, NPC sheet, Monster effect)
+
 ## 0.7.4
 - UI fix by [HikariNoTsurugi](https://github.com/HikariNoTsurugi)
 - UI minor fix
