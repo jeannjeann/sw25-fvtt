@@ -5,7 +5,7 @@ import { rpt } from "../sw25.mjs";
 /**
  * Execute a custom roll and return the result.
  */
-export function powerRoll(formula, powertable) {
+export async function powerRoll(formula, powertable) {
   let powerResult = 0;
   let rollCount = 0;
   let fumble = 0;
@@ -28,7 +28,7 @@ export function powerRoll(formula, powertable) {
 
   let result = new Roll(formula);
 
-  result.evaluate();
+  await result.evaluate();
   let results = result.terms[0].results;
   let diceResults = results.map((result) => result.result);
   let total = result.result;
@@ -73,7 +73,7 @@ export function powerRoll(formula, powertable) {
   while (total >= cValue) {
     rollCount++;
     result = new Roll(formula);
-    result.evaluate();
+    await result.evaluate();
     results = result.terms[0].results;
     diceResults = results.map((result) => result.result);
     total = result.result;
@@ -109,7 +109,7 @@ export function powerRoll(formula, powertable) {
 
   let diceNumber = (rollCount + 1) * 2;
   let fakeResult = new Roll(diceNumber + "d6");
-  fakeResult.evaluate();
+  await fakeResult.evaluate();
   for (let i = 0; i < fakeDiceResults.length; i++) {
     fakeResult.terms[0].results[i].result = fakeDiceResults[i];
   }

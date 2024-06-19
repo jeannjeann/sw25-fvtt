@@ -184,7 +184,7 @@ export async function chatButton(chatMessage, buttonType) {
       const formula = item.system.formula;
       const powertable = item.system.powertable;
 
-      let roll = powerRoll(formula, powertable);
+      let roll = await powerRoll(formula, powertable);
 
       let cValueFormula = "@" + roll.cValue;
       let halfFormula = "";

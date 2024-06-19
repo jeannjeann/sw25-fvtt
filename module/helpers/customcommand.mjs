@@ -95,7 +95,7 @@ export async function customCommand(command, messageData, parameters) {
       powertable[19] = Number(powup);
 
       // Power roll
-      let roll = powerRoll(formula, powertable);
+      let roll = await powerRoll(formula, powertable);
 
       const chatLabel = comment;
       let cValueFormula = "@" + roll.cValue;

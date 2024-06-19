@@ -1,5 +1,7 @@
 ## Todo
 - bug fix
+- アイコン変更
+- デフォルトアイコン変更
 
 ## 更新作業
 - マニュアル、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ
@@ -7,7 +9,7 @@
 ## 開発目標
 ### なるべく早めに
 - V12対応
-powerroll"NaN"
+*powerroll"NaN"
 select"selectOption"
 CONST.CHAT_MESSAGE_TYPES"CONST.CHAT_MESSAGE_STYLES"
 CONST.CHAT_MESSAGE_STYLES.ROLL"ChatMessage#rolls"
@@ -19,6 +21,7 @@ gridDistance"grid.distance"
 - 戦利品ロール対応
 - フェローシート
 - PCのフェロー化、NPCのフェロー化
+- クリファン検出を合計から各出目参照に変更
 ### 気力があれば
 - ロールクリックのダイアログ表示オプション（修正値など）
 - 半減クリック時のダイアログ表示オプション（半減後修正）

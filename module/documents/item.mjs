@@ -1469,7 +1469,7 @@ export class SW25Item extends Item {
       const formula = this.system.formula;
       const powertable = this.system.powertable;
 
-      let roll = powerRoll(formula, powertable);
+      let roll = await powerRoll(formula, powertable);
 
       let cValueFormula = "@" + roll.cValue;
       let halfFormula = "";

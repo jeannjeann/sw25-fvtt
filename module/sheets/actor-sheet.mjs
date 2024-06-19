@@ -563,7 +563,7 @@ export class SW25ActorSheet extends ActorSheet {
     const powertable = dataset.pt.split(",");
     //const powertable = dataset.pt.split(",").map(Number);
 
-    let roll = powerRoll(formula, powertable);
+    let roll = await powerRoll(formula, powertable);
 
     const chatLabel = `${dataset.label}`;
     let cValueFormula = "@" + roll.cValue;

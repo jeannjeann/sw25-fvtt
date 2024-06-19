@@ -18,11 +18,11 @@
       "thumbnail": "systems/sw25/assets/sw25fvtt.png"
     }
   ],
-  "version": "0.7.5",
+  "version": "0.8.0",
   "compatibility": {
     "minimum": "11",
     "verified": "11.315",
-    "maximum": "11"
+    "maximum": "12"
   },
   "esmodules": ["module/sw25.mjs"],
   "styles": ["css/sw25.css"],
@@ -77,8 +77,8 @@
   ],
   "packFolders": [],
   "socket": true,
-  "manifest": "https://github.com/jeannjeann/sw25-fvtt/releases/download/0.7.5/system.json",
-  "download": "https://github.com/jeannjeann/sw25-fvtt/releases/download/0.7.5/system.zip",
+  "manifest": "https://github.com/jeannjeann/sw25-fvtt/releases/download/0.8.0/system.json",
+  "download": "https://github.com/jeannjeann/sw25-fvtt/releases/download/0.8.0/system.zip",
   "background": "systems/sw25/assets/sw25fvtt.png",
   "gridDistance": 1,
   "gridUnits": "m",

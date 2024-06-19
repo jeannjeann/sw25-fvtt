@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.8.0
+- v12サポート（α版、警告残存）
+- Minor bug fix
+
 ## 0.7.5
 - bug fix (Monster sheet, NPC sheet, Monster effect)
 

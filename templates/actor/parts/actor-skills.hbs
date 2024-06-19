@@ -27,7 +27,7 @@
               />
             </a>
           </div>
-          <h4>{{item.name}}</h4>
+          <h4 class="item-label">{{item.name}}</h4>
         </div>
         <div class='item-skilllevel item-prop input flexrow flex-group-center' style="flex: 0 0 60px;">
 {{!--
@@ -55,6 +55,15 @@
           >
             <i class='fas fa-trash'></i>
           </a>
+        </div>
+      </div>
+      <div class="item-description nogapmargin">
+        <div class="flexrow">
+          <div style="flex: 0 0 60px;"></div>
+          <div style="font-size: 0.8em;">
+            {{{system.description}}}
+          </div>
+          <div style="flex: 0 0 50px;"></div>
         </div>
       </div>
     </li>
