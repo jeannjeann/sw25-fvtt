@@ -1,7 +1,8 @@
 ## Todo
 - bug fix
-- アイコン変更
-- デフォルトアイコン変更
+- 辞典アイコン変更
+- サンプル辞典折りたたみ整理
+- 大全の／全角化
 
 ## 更新作業
 - マニュアル、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ
@@ -14,7 +15,9 @@ select"selectOption"
 CONST.CHAT_MESSAGE_TYPES"CONST.CHAT_MESSAGE_STYLES"
 CONST.CHAT_MESSAGE_STYLES.ROLL"ChatMessage#rolls"
 Effect#icon"#img"
-gridDistance"grid.distance"
+{{colorPicker}}<color-picker>
+*gridDistance"grid.distance"
+- 棒読みちゃんNarratorTools対応、DualChatTab対応
 - 「Token Action HUD」対応
 ### ゆっくり作業
 - システム設定項目　汎用威力表の設定での指定

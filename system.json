@@ -37,7 +37,7 @@
       "name": "日本語(Japanese)",
       "path": "lang/ja.json"
     }
-  ], 
+  ],
   "packs": [
     {
       "name": "actor",
@@ -75,13 +75,41 @@
       "path": "packs/macro"
     }
   ],
-  "packFolders": [],
+  "packFolders": [
+    {
+      "name": "Sword World 2.5",
+      "sorting": "m",
+      "packs": [
+          "manual"
+      ],
+      "folders": [
+        {
+          "name": "Sample",
+          "sorting": "m",
+          "packs": [
+              "actor",
+              "item"
+          ]
+        },
+        {
+          "name": "Tools",
+          "sorting": "m",
+          "packs": [
+              "reference",
+              "macro"
+          ]
+        }
+      ]
+    }
+  ],
   "socket": true,
   "manifest": "https://github.com/jeannjeann/sw25-fvtt/releases/download/0.8.0/system.json",
   "download": "https://github.com/jeannjeann/sw25-fvtt/releases/download/0.8.0/system.zip",
   "background": "systems/sw25/assets/sw25fvtt.png",
-  "gridDistance": 1,
-  "gridUnits": "m",
+  "grid": {
+    "distance": 1,
+    "units": "m"
+  },
   "primaryTokenAttribute": "hp",
   "secondaryTokenAttribute": "mp"
 }

@@ -106,17 +106,17 @@ Handlebars.registerHelper("isEven", function (num) {
 Handlebars.registerHelper("growth", function (idx) {
   switch (idx) {
     case 0:
-      return '⚀';
+      return "⚀";
     case 1:
-      return '⚁';
+      return "⚁";
     case 2:
-      return '⚂';
+      return "⚂";
     case 3:
-      return '⚃';
+      return "⚃";
     case 4:
-      return '⚄';
+      return "⚄";
     case 5:
-      return '⚅';
+      return "⚅";
   }
 });
 
