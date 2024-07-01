@@ -1,30 +1,34 @@
 ## Todo
 - bug fix
 - 辞典アイコン変更
-- サンプル辞典折りたたみ整理
-- 大全の／全角化
+- 技能と種族特徴の二重メッセージ解決
+- 武器防具アクセの判定威力がリストに出てこない
+- 英語サンプル追加
+- powerRollエクスポート
+- TAH関数分離（onPowerroll）
+- TAH戦闘ロール、魔力、バフ、魔物能力
 
 ## 更新作業
 - マニュアル、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ
 
 ## 開発目標
 ### なるべく早めに
-- V12対応
-*powerroll"NaN"
-select"selectOption"
-CONST.CHAT_MESSAGE_TYPES"CONST.CHAT_MESSAGE_STYLES"
-CONST.CHAT_MESSAGE_STYLES.ROLL"ChatMessage#rolls"
-Effect#icon"#img"
-{{colorPicker}}<color-picker>
-*gridDistance"grid.distance"
-- 棒読みちゃんNarratorTools対応、DualChatTab対応
 - 「Token Action HUD」対応
+- V12対応
+    ~~powerroll"NaN"~~
+    select"selectOption"
+    CONST.CHAT_MESSAGE_TYPES"CONST.CHAT_MESSAGE_STYLES"
+    CONST.CHAT_MESSAGE_STYLES.ROLL"ChatMessage#rolls"
+    Effect#icon"#img"
+    {{colorPicker}}<color-picker>
+    ~~gridDistance"grid.distance"~~
 ### ゆっくり作業
-- システム設定項目　汎用威力表の設定での指定
 - 戦利品ロール対応
 - フェローシート
 - PCのフェロー化、NPCのフェロー化
 - クリファン検出を合計から各出目参照に変更
+- システム設定項目　汎用威力表の設定での指定
+- 棒読みちゃんNarratorTools右クリック対応
 ### 気力があれば
 - ロールクリックのダイアログ表示オプション（修正値など）
 - 半減クリック時のダイアログ表示オプション（半減後修正）
