@@ -18,7 +18,7 @@
       "thumbnail": "systems/sw25/assets/sw25fvtt.png"
     }
   ],
-  "version": "0.8.0",
+  "version": "0.8.1",
   "compatibility": {
     "minimum": "11",
     "verified": "11.315",
@@ -103,8 +103,8 @@
     }
   ],
   "socket": true,
-  "manifest": "https://github.com/jeannjeann/sw25-fvtt/releases/download/0.8.0/system.json",
-  "download": "https://github.com/jeannjeann/sw25-fvtt/releases/download/0.8.0/system.zip",
+  "manifest": "https://github.com/jeannjeann/sw25-fvtt/releases/download/0.8.1/system.json",
+  "download": "https://github.com/jeannjeann/sw25-fvtt/releases/download/0.8.1/system.zip",
   "background": "systems/sw25/assets/sw25fvtt.png",
   "grid": {
     "distance": 1,

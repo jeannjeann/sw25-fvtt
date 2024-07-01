@@ -3,6 +3,7 @@
 ## 0.8.1
 - Token Action HUDサポート
 - バフ・デバフ参照元表示修正
+- Add English sample
 - bug fix
 
 ## 0.8.0
