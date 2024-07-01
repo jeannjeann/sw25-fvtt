@@ -1,19 +1,15 @@
 ## Todo
 - bug fix
 - 辞典アイコン変更
-- 技能と種族特徴の二重メッセージ解決
 - 武器防具アクセの判定威力がリストに出てこない
+- バフ参照元バグ
 - 英語サンプル追加
-- powerRollエクスポート
-- TAH関数分離（onPowerroll）
-- TAH戦闘ロール、魔力、バフ、魔物能力
 
 ## 更新作業
 - マニュアル、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ
 
 ## 開発目標
 ### なるべく早めに
-- 「Token Action HUD」対応
 - V12対応
     ~~powerroll"NaN"~~
     select"selectOption"

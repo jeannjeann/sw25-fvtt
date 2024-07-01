@@ -397,6 +397,7 @@ export class SW25Item extends Item {
 
   async _prepareItemRollData(itemData) {
     if (
+      itemData.type !== "skill" &&
       itemData.type !== "weapon" &&
       itemData.type !== "armor" &&
       itemData.type !== "accessory" &&
@@ -410,6 +411,7 @@ export class SW25Item extends Item {
       itemData.type !== "tactics" &&
       itemData.type !== "resource" &&
       itemData.type !== "combatability" &&
+      itemData.type !== "raceability" &&
       itemData.type !== "monsterability"
     )
       return;

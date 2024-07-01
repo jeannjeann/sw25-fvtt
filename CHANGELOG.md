@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.8.1
+- Token Action HUDサポート
+- bug fix
+
 ## 0.8.0
 - v12サポート（α版、警告残存）
 - Minor bug fix
