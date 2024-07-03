@@ -631,11 +631,11 @@ Hooks.once("ready", async function () {
             usedice1: true,
             label1: game.i18n.localize("SW25.Config.MonResVit"),
             usefix1: true,
-            applycheck1: false,
+            applycheck1: "-",
             usedice2: true,
             label2: game.i18n.localize("SW25.Config.MonResMnd"),
             usefix2: true,
-            applycheck2: false,
+            applycheck2: "-",
           },
         });
       }
@@ -648,15 +648,15 @@ Hooks.once("ready", async function () {
             usedice1: true,
             label1: game.i18n.localize("SW25.Config.MonHit"),
             usefix1: true,
-            applycheck1: false,
+            applycheck1: "-",
             usedice2: true,
             label2: game.i18n.localize("SW25.Config.MonDmg"),
             usefix2: false,
-            applycheck2: true,
+            applycheck2: "on",
             usedice3: true,
             label3: game.i18n.localize("SW25.Config.MonDge"),
             usefix3: true,
-            applycheck3: false,
+            applycheck3: "-",
           },
         });
       }

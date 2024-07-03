@@ -41,8 +41,7 @@ FVTT用ソード・ワールド2.5ゲームシステム（β版）
 - β版です。バグが残存している可能性はかなり高いです。
 - エラー対応甘いです、常識的な数値を入れるようにしてください。
 - 警告がコンソールに出ますが、動作に問題がないためひとまず放置しています。
-- Modとの相性などはほとんど検証していません。「Dice So Nice!」「Times Up」「Chat Commander」は簡単に検証済み。
-- 英語ではレイアウト確認していません。 The layout has not been validated in an English environment.
+- Modとの相性などはほとんど検証していません。「Dice So Nice!」「Times Up」「Chat Commander」「Token Action HUD」は簡単に検証済み。
 - バフ・デバフの持続時間の管理には「Times Up」Modの使用をオススメします。
 - カスタムチャットコマンド使用には「Chat Commander」が必要です。
 - 戦闘に関する実装は行っていません。行動順に関しては手動で行うか、Modの導入をオススメします。
