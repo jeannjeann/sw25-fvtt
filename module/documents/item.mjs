@@ -958,7 +958,52 @@ export class SW25Item extends Item {
       await itemData.sheet.render(true, { focus: false });
   }
 
-  _prepareItemData(itemData) {}
+  _prepareItemData(itemData) {
+    if (itemData.type !== "item") return;
+
+    // Make modifications to data here. For example:
+    const systemData = itemData.system;
+    const actorData = itemData.actor.system;
+    const actoritemData = itemData.actor.items;
+
+    if (systemData.type != "-") {
+      const i18ntype =
+        systemData.type.charAt(0).toUpperCase() + systemData.type.slice(1);
+      systemData.typename = game.i18n.localize(`SW25.Item.Item.${i18ntype}`);
+    } else systemData.typename = game.i18n.localize(`SW25.Item.Item.General`);
+
+    // Set default skill and ability
+    if (systemData.type == "herb") {
+      if (actorData.herbskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.herbskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "dex";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.herbskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "dex";
+      }
+    }
+    if (systemData.type == "potion") {
+      if (actorData.potionskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.potionskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "int";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.potionskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "int";
+      }
+    }
+    if (systemData.type == "repair") {
+      if (actorData.repairskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.repairskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "dex";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.repairskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "dex";
+      }
+    }
+  }
   _prepareResourceData(itemData) {}
 
   _prepareWeaponData(itemData) {

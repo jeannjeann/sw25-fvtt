@@ -31,6 +31,10 @@
     "Selecthitweapon": "Select Attack Weapon",
     "Selectattackskill": "Select Attack Class",
     "Selectdodgeskill": "Select Dodge Class",
+    "Selectharbskill": "Select Harb Class",
+    "Selectpotionskill": "Select Potion Class",
+    "Selectrepairskill": "Select Repair Tool Class",
+    "Defaultitemskill": "Default Item Class",
     "Condition": "Condition",
     "Contents": " Contents",
     "Level": "Level",
@@ -271,6 +275,11 @@
         "Other": "Other"
       },
       "Item": {
+        "Type": "Type",
+        "General": "General",
+        "Herb": "Herb",
+        "Potion": "Potion",
+        "Repair": "Repair Tools"
       },
       "Spell": {
         "Sorcerer": "Truespeech",

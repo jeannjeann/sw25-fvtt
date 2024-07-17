@@ -72,6 +72,9 @@
         "hitweapon": "",
         "attackskill": "",
         "dodgeskill": "",
+        "harbskill": "",
+        "potionskill": "",
+        "repairskill": "",
         "protectionpoint": 0,
         "magicprotection": 0,
         "hitmod": 0,
@@ -288,6 +291,7 @@
       },
       "item": {
         "quantity": 1,
+        "type": "-",
         "price": ""
       },
       "roll": {
