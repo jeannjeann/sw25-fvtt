@@ -53,9 +53,12 @@
     "Mdamage": "Damage (Magic)",
     "Cdamage": "Damage (Fixed)",
     "Recovery": "Recovery",
+    "Shortage": "Shortage",
 
     "Notargetwarn": "No targets selected.",
     "Multitargetwarn": "Multi targets selected.",
+    "Noselectwarn": "No Token selected.",
+    "Multiselectwarn": "Multi Tokens selected.",
 
     "CharacterName": "Character Name",
     "Hp": "HP",
@@ -306,7 +309,8 @@
         "Fairywind": "Wind",
         "Fairylight": "Light",
         "Fairydark": "Dark",
-        "Hpresist": "Fortitude"
+        "Hpresist": "Fortitude",
+        "Meta": "Meta"
       },
       "Enhancearts": {
       },

@@ -325,8 +325,8 @@
     <div class="tab spells" data-group="primary" data-tab="spells">
       {{#if scshow}}
       <div class="grid grid-12col">
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.scpower}}" data-label="{{localize "SW25.Item.Spell.Sorcerer"}}" data-pt="">{{localize "SW25.Item.Spell.Sorcerer"}}</span>
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.scpower}}" data-label="{{localize "SW25.Item.Spell.Sorcerer"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.scpower}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.scpower}}" data-label="{{localize "SW25.Item.Spell.Sorcerer"}}" data-pt="" data-spell="on">{{localize "SW25.Item.Spell.Sorcerer"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.scpower}}" data-label="{{localize "SW25.Item.Spell.Sorcerer"}}" data-pt="" data-spell="on">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.scpower}}</span>
         <span class="grid-span-2"></span>
         <span class="grid-span-4" style="text-align: right;">
           <select name="system.scskill">
@@ -346,8 +346,8 @@
       {{/if}}
       {{#if cnshow}}
       <div class="grid grid-12col">
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.cnpower}}" data-label="{{localize "SW25.Item.Spell.Conjurer"}}" data-pt="">{{localize "SW25.Item.Spell.Conjurer"}}</span>
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.cnpower}}" data-label="{{localize "SW25.Item.Spell.Conjurer"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.cnpower}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.cnpower}}" data-label="{{localize "SW25.Item.Spell.Conjurer"}}" data-pt="" data-spell="on">{{localize "SW25.Item.Spell.Conjurer"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.cnpower}}" data-label="{{localize "SW25.Item.Spell.Conjurer"}}" data-pt="" data-spell="on">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.cnpower}}</span>
         <span class="grid-span-2"></span>
         <span class="grid-span-4" style="text-align: right;">
           <select name="system.cnskill">
@@ -367,8 +367,8 @@
       {{/if}}
       {{#if wzshow}}
       <div class="grid grid-12col">
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.wzpower}}" data-label="{{localize "SW25.Item.Spell.Wizard"}}" data-pt="">{{localize "SW25.Item.Spell.Wizard"}}</span>
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.wzpower}}" data-label="{{localize "SW25.Item.Spell.Wizard"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.wzpower}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.wzpower}}" data-label="{{localize "SW25.Item.Spell.Wizard"}}" data-pt="" data-spell="on">{{localize "SW25.Item.Spell.Wizard"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.wzpower}}" data-label="{{localize "SW25.Item.Spell.Wizard"}}" data-pt="" data-spell="on">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.wzpower}}</span>
         <span class="grid-span-2"></span>
         <span class="grid-span-4" style="text-align: right;">
           <select name="system.wzskill">
@@ -388,8 +388,8 @@
       {{/if}}
       {{#if prshow}}
       <div class="grid grid-12col">
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.prpower}}" data-label="{{localize "SW25.Item.Spell.Priest"}}" data-pt="">{{localize "SW25.Item.Spell.Priest"}}</span>
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.prpower}}" data-label="{{localize "SW25.Item.Spell.Priest"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.prpower}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.prpower}}" data-label="{{localize "SW25.Item.Spell.Priest"}}" data-pt="" data-spell="on">{{localize "SW25.Item.Spell.Priest"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.prpower}}" data-label="{{localize "SW25.Item.Spell.Priest"}}" data-pt="" data-spell="on">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.prpower}}</span>
         <span class="grid-span-2"></span>
         <span class="grid-span-4" style="text-align: right;">
           <select name="system.prskill">
@@ -409,8 +409,8 @@
       {{/if}}
       {{#if mtshow}}
       <div class="grid grid-12col">
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.mtpower}}" data-label="{{localize "SW25.Item.Spell.Magitech"}}" data-pt="">{{localize "SW25.Item.Spell.Magitech"}}</span>
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.mtpower}}" data-label="{{localize "SW25.Item.Spell.Magitech"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.mtpower}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.mtpower}}" data-label="{{localize "SW25.Item.Spell.Magitech"}}" data-pt="" data-spell="on">{{localize "SW25.Item.Spell.Magitech"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.mtpower}}" data-label="{{localize "SW25.Item.Spell.Magitech"}}" data-pt="" data-spell="on">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.mtpower}}</span>
         <span class="grid-span-2"></span>
         <span class="grid-span-4" style="text-align: right;">
           <select name="system.mtskill">
@@ -430,8 +430,8 @@
       {{/if}}
       {{#if frshow}}
       <div class="grid grid-12col">
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.frpower}}" data-label="{{localize "SW25.Item.Spell.Fairy"}}" data-pt="">{{localize "SW25.Item.Spell.Fairy"}}</span>
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.frpower}}" data-label="{{localize "SW25.Item.Spell.Fairy"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.frpower}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.frpower}}" data-label="{{localize "SW25.Item.Spell.Fairy"}}" data-pt="" data-spell="on">{{localize "SW25.Item.Spell.Fairy"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.frpower}}" data-label="{{localize "SW25.Item.Spell.Fairy"}}" data-pt="" data-spell="on">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.frpower}}</span>
         <span class="grid-span-2"></span>
         <span class="grid-span-4" style="text-align: right;">
           <select name="system.frskill">
@@ -451,8 +451,8 @@
       {{/if}}
       {{#if drshow}}
       <div class="grid grid-12col">
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.drpower}}" data-label="{{localize "SW25.Item.Spell.Druid"}}" data-pt="">{{localize "SW25.Item.Spell.Druid"}}</span>
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.drpower}}" data-label="{{localize "SW25.Item.Spell.Druid"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.drpower}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.drpower}}" data-label="{{localize "SW25.Item.Spell.Druid"}}" data-pt="" data-spell="on">{{localize "SW25.Item.Spell.Druid"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.drpower}}" data-label="{{localize "SW25.Item.Spell.Druid"}}" data-pt="" data-spell="on">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.drpower}}</span>
         <span class="grid-span-2"></span>
         <span class="grid-span-4" style="text-align: right;">
           <select name="system.drskill">
@@ -472,8 +472,8 @@
       {{/if}}
       {{#if dmshow}}
       <div class="grid grid-12col">
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.dmpower}}" data-label="{{localize "SW25.Item.Spell.Daemon"}}" data-pt="">{{localize "SW25.Item.Spell.Daemon"}}</span>
-        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.dmpower}}" data-label="{{localize "SW25.Item.Spell.Daemon"}}" data-pt="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.dmpower}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.dmpower}}" data-label="{{localize "SW25.Item.Spell.Daemon"}}" data-pt="" data-spell="on">{{localize "SW25.Item.Spell.Daemon"}}</span>
+        <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.dmpower}}" data-label="{{localize "SW25.Item.Spell.Daemon"}}" data-pt="" data-spell="on">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.dmpower}}</span>
         <span class="grid-span-2"></span>
         <span class="grid-span-4" style="text-align: right;">
           <select name="system.dmskill">

@@ -470,6 +470,16 @@ Hooks.once("ready", async function () {
       });
     }
 
+    // Apply MP cost
+    if (data.method == "applyMp") {
+      const targetToken = canvas.tokens.get(data.targetToken);
+      const target = targetToken.actor;
+      if (!target) return;
+      target.update({
+        "system.mp.value": data.resultMP,
+      });
+    }
+
     // Apply effect
     if (data.method == "applyEffect") {
       const targetTokens = data.targetTokens.map((tokenId) =>

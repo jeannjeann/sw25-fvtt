@@ -3,6 +3,7 @@ import {
   prepareActiveEffectCategories,
 } from "../helpers/effects.mjs";
 import { powerRoll } from "../helpers/powerroll.mjs";
+import { mpCost } from "../helpers/mpcost.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -424,6 +425,9 @@ export class SW25ActorSheet extends ActorSheet {
     // Apply effect.
     html.on("click", ".applyeffect", this._onApplyEffect.bind(this));
 
+    // Mp cost.
+    html.on("click", ".mpcost", this._onMpCost.bind(this));
+
     // Drag events for macros.
     if (this.actor.isOwner) {
       let handler = (ev) => this._onDragStart(ev);
@@ -526,9 +530,11 @@ export class SW25ActorSheet extends ActorSheet {
       if (roll.terms[0].total == 2) chatFumble = 1;
 
       let chatapply = dataset.apply;
+      let chatspell = dataset.spell;
       chatData.flags = {
         total: roll.total,
         apply: chatapply,
+        spell: chatspell,
       };
 
       chatData.content = await renderTemplate(
@@ -540,6 +546,7 @@ export class SW25ActorSheet extends ActorSheet {
           fumble: chatFumble,
           total: roll.total,
           apply: chatapply,
+          spell: chatspell,
         }
       );
 
@@ -759,6 +766,25 @@ export class SW25ActorSheet extends ActorSheet {
     );
 
     ChatMessage.create(chatData);
+  }
+
+  async _onMpCost(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+    const token = selectedTokens[0];
+    const cost = dataset.cost;
+    const name = dataset.label;
+    const meta = 1;
+    mpCost(token, cost, name, meta);
   }
 
   async _showItemDetails(event) {

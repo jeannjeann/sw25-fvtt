@@ -53,9 +53,12 @@
     "Mdamage": "ダメージ (魔法)",
     "Cdamage": "ダメージ (確定)",
     "Recovery": "回復",
+    "Shortage": "不足",
 
     "Notargetwarn": "ターゲットが指定されていません",
     "Multitargetwarn": "ターゲットが複数指定されています",
+    "Noselectwarn": "トークンが選択されていません",
+    "Multiselectwarn": "トークンが複数選択されています",
 
     "CharacterName": "キャラクター名",
     "Hp": "HP",
@@ -306,7 +309,8 @@
         "Fairywind": "風",
         "Fairylight": "光",
         "Fairydark": "闇",
-        "Hpresist": "生命"
+        "Hpresist": "生命",
+        "Meta": "拡大"
       },
       "Enhancearts": {
       },

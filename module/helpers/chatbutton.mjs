@@ -1,5 +1,6 @@
 // Chat button handler
 import { powerRoll } from "./powerroll.mjs";
+import { mpCost } from "./mpcost.mjs";
 /**
  * Execute  chat button click event and return the result.
  */
@@ -730,5 +731,33 @@ export async function chatButton(chatMessage, buttonType) {
     );
 
     ChatMessage.create(chatData);
+  }
+  if (buttonType == "buttonmp") {
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+    const token = selectedTokens[0];
+    const cost = item.system.mpcost;
+    const name = item.name;
+    const meta = 1;
+    mpCost(token, cost, name, meta);
+  }
+
+  if (buttonType == "buttonmeta") {
+    let token = canvas.tokens.get(chatMessage.flags.tokenId);
+    let cost = chatMessage.flags.cost;
+    let name = chatMessage.flags.name;
+    let meta;
+    if (chatMessage.flags.meta == false) meta = 2;
+    else meta = Number(chatMessage.flags.meta) + 1;
+    let chat = chatMessage;
+    let base = chatMessage.flags.base;
+
+    mpCost(token, cost, name, meta, chat, base);
   }
 }

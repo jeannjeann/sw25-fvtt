@@ -1,4 +1,5 @@
 import { powerRoll } from "../helpers/powerroll.mjs";
+import { mpCost } from "../helpers/mpcost.mjs";
 import {
   effectVitResPC,
   effectMndResPC,
@@ -1415,6 +1416,10 @@ export class SW25Item extends Item {
     const useeffect = item.system.useeffect;
     let label = `${item.name}`;
     let powlabel = game.i18n.localize("SW25.Item.Power");
+    let spell = false;
+    if (item.type == "spell") spell = true;
+    let enhancearts = false;
+    if (item.type == "enhancearts") spell = true;
 
     if (this.system.clickitem == "dice") label = label + " (" + label0 + ")";
     if (this.system.clickitem == "dice1") label = label + " (" + label1 + ")";
@@ -1436,6 +1441,8 @@ export class SW25Item extends Item {
         "systems/sw25/templates/roll/roll-item.hbs",
         {
           description: chatDescription,
+          spell: spell,
+          enhancearts: enhancearts,
           usedice: usedice,
           usedice1: usedice1,
           usedice2: usedice2,
@@ -1640,6 +1647,22 @@ export class SW25Item extends Item {
         rollMode: rollMode,
         content: item.system.description ?? "",
       });
+    }
+
+    if (this.system.clickitem == "mpcost" || !this.system.formula) {
+      const selectedTokens = canvas.tokens.controlled;
+      if (selectedTokens.length === 0) {
+        ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+        return;
+      } else if (selectedTokens.length > 1) {
+        ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+        return;
+      }
+      const token = selectedTokens[0];
+      const cost = item.system.mpcost;
+      const name = item.name;
+      const meta = 1;
+      mpCost(token, cost, name, meta);
     }
   }
 }
