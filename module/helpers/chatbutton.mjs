@@ -744,20 +744,22 @@ export async function chatButton(chatMessage, buttonType) {
     const token = selectedTokens[0];
     const cost = item.system.mpcost;
     const name = item.name;
+    const type = item.type;
     const meta = 1;
-    mpCost(token, cost, name, meta);
+    mpCost(token, cost, name, type, meta);
   }
 
   if (buttonType == "buttonmeta") {
     let token = canvas.tokens.get(chatMessage.flags.tokenId);
     let cost = chatMessage.flags.cost;
     let name = chatMessage.flags.name;
+    let type = chatMessage.flags.type;
     let meta;
     if (chatMessage.flags.meta == false) meta = 2;
     else meta = Number(chatMessage.flags.meta) + 1;
     let chat = chatMessage;
     let base = chatMessage.flags.base;
 
-    mpCost(token, cost, name, meta, chat, base);
+    mpCost(token, cost, name, type, meta, chat, base);
   }
 }

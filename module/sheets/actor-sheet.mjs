@@ -783,8 +783,9 @@ export class SW25ActorSheet extends ActorSheet {
     const token = selectedTokens[0];
     const cost = dataset.cost;
     const name = dataset.label;
+    const type = dataset.type;
     const meta = 1;
-    mpCost(token, cost, name, meta);
+    mpCost(token, cost, name, type, meta);
   }
 
   async _showItemDetails(event) {

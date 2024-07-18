@@ -1661,8 +1661,9 @@ export class SW25Item extends Item {
       const token = selectedTokens[0];
       const cost = item.system.mpcost;
       const name = item.name;
+      const type = item.type;
       const meta = 1;
-      mpCost(token, cost, name, meta);
+      mpCost(token, cost, name, type, meta);
     }
   }
 }

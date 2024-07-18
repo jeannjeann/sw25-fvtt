@@ -1,13 +1,15 @@
 /**
  * Execute  MP cost event and return the result.
  */
-export async function mpCost(token, cost, name, meta, chat, base) {
+export async function mpCost(token, cost, name, type, meta, chat, base) {
   const targetTokenId = token.id;
   const actor = token.actor;
   let targetMP = actor.system.mp.value;
   let resultValue = cost;
   let resultMP = targetMP;
   let chatResult = 0;
+  let metaB = false;
+  if (type == "spell") metaB = true;
 
   // Calculate MP
   if (targetMP - resultValue >= 0) {
@@ -49,6 +51,7 @@ export async function mpCost(token, cost, name, meta, chat, base) {
       {
         targetMP: targetMP,
         resultMP: chatResult,
+        metaB: metaB,
       }
     );
 
@@ -56,6 +59,7 @@ export async function mpCost(token, cost, name, meta, chat, base) {
       tokenId: targetTokenId,
       cost: cost,
       name: name,
+      type: type,
       meta: false,
       base: baseMP,
     };
@@ -63,10 +67,14 @@ export async function mpCost(token, cost, name, meta, chat, base) {
     ChatMessage.create(chatData);
   } else {
     let label = name + " (" + game.i18n.localize("SW25.Mp") + " x" + meta + ")";
+    let metaB = false;
+    if (type == "spell") metaB = true;
+
     let chatData = {
       flavor: label,
       flags: {
         meta: meta,
+        type: type,
       },
     };
     chatData.content = await renderTemplate(
@@ -74,6 +82,7 @@ export async function mpCost(token, cost, name, meta, chat, base) {
       {
         targetMP: base,
         resultMP: chatResult,
+        metaB: metaB,
       }
     );
     await chat.update(chatData);
