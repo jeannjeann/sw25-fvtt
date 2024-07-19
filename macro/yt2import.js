@@ -1062,6 +1062,11 @@ async function yt2import() {
               },
             },
           ];
+
+          abilityList = analysisFeature(feature);
+          for(const val of abilityList){
+            itemData.push(val);
+          }
           createActor(actorData, itemData);
         }
       }
@@ -1103,6 +1108,86 @@ function createActor(actorData, itemData){
       console.error(error);
       ui.notifications.error("作成に失敗しました。");
     });
+}
+
+// 魔物特殊能力解析
+function analysisFeature(feature){
+  const array = feature.split('<br>');
+  var parts = "";
+  const patternParts = /^●(.*)$/g;
+  const patternMagic = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)+(.*)[/／]魔力([0-9０-９]+).*$/g;
+  const patternSkill = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)+(.*)[/／]([0-9０-９]+)[0-9０-９\(\)（）]+[/／](.*)$/g;
+  
+  let ability = [];
+
+  for(const val of array){
+    var match = "";
+    
+    //部位判定
+    match = val.match(patternParts);
+    if(match != null){
+      parts = match[0];
+      continue;
+    }
+
+    //魔法判定
+    match = val.match(patternMagic);
+    if(match != null){
+      var split = match[0].split(patternMagic);
+      var name = parts != "" ? "[" + parts + "]" + split[1] + split[2] : split[1] + split[2];
+      var base = parseInt(toHalfWidth(split[3]),10);
+
+      ability.push(
+        {
+          name: name,
+          type: "monsterability",
+          system: {
+            usedice1: true,
+            label1: "魔力",
+            checkbasemod1: base,
+            usefix1: true,
+            applycheck1: false,
+          },
+        }
+      );
+      continue;
+    }
+
+    //特殊能力判定
+    match = val.match(patternSkill);
+    if(match != null){
+      var split = match[0].split(patternSkill);
+    	console.log(split);
+      var name = parts != "" ? "[" + parts + "]" + split[1] + split[2] : split[1] + split[2];
+      var base = parseInt(toHalfWidth(split[3]),10);
+
+      ability.push(
+        {
+          name: name,
+          type: "monsterability",
+          system: {
+            usedice1: true,
+            label1: "判定",
+            checkbasemod1: base,
+            usefix1: true,
+            applycheck1: false,
+            remark: split[4],
+          },
+        }
+      );
+      continue;
+    }
+  }
+  return ability;
+}
+
+// 全角半角変換関数
+function toHalfWidth(str) {
+  // 全角英数字を半角に変換
+  str = str.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
+    return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+  });
+  return str;
 }
 
 // HTMLデコード関数
