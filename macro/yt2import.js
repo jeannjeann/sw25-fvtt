@@ -1117,67 +1117,163 @@ function analysisFeature(feature){
   const patternParts = /^●(.*)$/g;
   const patternMagic = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)+(.*)[/／]魔力([0-9０-９]+).*$/g;
   const patternSkill = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)+(.*)[/／]([0-9０-９]+)[0-9０-９\(\)（）]+[/／](.*)$/g;
+  const patternSplit = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑).*$/g;
+  const patternConst = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*(\[常\]|○|◯|〇)(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*.*$/g;
+  const patternMain = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*(\[主\]|＞|▶|〆)(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*.*$/g;
+  const patternAux = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*(\[補\]|≫|>>|☆)(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*.*$/g;
+  const patternPrep = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*(\[戦\]|△)(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*.*$/g;
+  const patternDecia = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*(\[宣\]|🗨|□|☑)(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*.*$/g;
+  const patternReplace = /(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)/g;
   
   let ability = [];
 
+  var skill = ["","","","","",false,false,false,false,false,false,false];
+  var output = false;
+  
   for(const val of array){
     var match = "";
-    
-    //部位判定
+
+    // 能力区切り
+    match = val.match(patternSplit);
+    if(match != null && output){
+
+      ability.push(
+        {
+          name: skill[0],
+          type: "monsterability",
+          system: {
+            usedice1: skill[5],
+            label1: skill[1],
+            checkbasemod1: skill[2],
+            usefix1: skill[6],
+            applycheck1: false,
+            remark: skill[3],
+            description: skill[4],
+            constant: skill[7],
+            main: skill[8],
+            aux: skill[9],
+            prep: skill[10],
+            decla: skill[11]
+          },
+        }
+      );
+
+      skill = ["","","","","",false,false,false,false,false,false,false];
+      output = false;
+    }
+
+    // 常時特技
+    match = val.match(patternConst);
+    if(match != null){
+      skill[0] = match[0].replace(patternReplace, "");
+      skill[7] = true;
+      output = true;
+    }
+
+    // 主動作
+    match = val.match(patternMain);
+    if(match != null){
+      skill[0] = match[0].replace(patternReplace, "");
+      skill[8] = true;
+      output = true;
+    }
+
+    // 補助動作
+    match = val.match(patternAux);
+    if(match != null){
+      skill[0] = match[0].replace(patternReplace, "");
+      skill[9] = true;
+      output = true;
+    }
+
+    // 戦闘準備
+    match = val.match(patternPrep);
+    if(match != null){
+      skill[0] = match[0].replace(patternReplace, "");
+      skill[10] = true;
+      output = true;
+    }
+
+    // 宣言特技
+    match = val.match(patternDecia);
+    if(match != null){
+      skill[0] = match[0].replace(patternReplace, "");
+      skill[11] = true;
+      output = true;
+    }
+
+    // 部位判定
     match = val.match(patternParts);
     if(match != null){
       parts = match[0];
+      
+      skill = ["","","","","",false,false,false,false,false,false,false];
       continue;
     }
 
-    //魔法判定
+    // 魔法判定
     match = val.match(patternMagic);
     if(match != null){
       var split = match[0].split(patternMagic);
-      var name = parts != "" ? "[" + parts + "]" + split[1] + split[2] : split[1] + split[2];
-      var base = parseInt(toHalfWidth(split[3]),10);
+      skill[0] = parts != "" ? "[" + parts + "]" + split[2] : split[2];
+      skill[1] = "魔力";
+      skill[2] = parseInt(toHalfWidth(split[3]),10);
+      skill[3] = "";
+      skill[4] = match[0];
+      skill[5] = true;
+      skill[6] = true;
+      output = true;
 
-      ability.push(
-        {
-          name: name,
-          type: "monsterability",
-          system: {
-            usedice1: true,
-            label1: "魔力",
-            checkbasemod1: base,
-            usefix1: true,
-            applycheck1: false,
-          },
-        }
-      );
       continue;
     }
 
-    //特殊能力判定
+    // 特殊能力判定
     match = val.match(patternSkill);
     if(match != null){
       var split = match[0].split(patternSkill);
-    	console.log(split);
-      var name = parts != "" ? "[" + parts + "]" + split[1] + split[2] : split[1] + split[2];
-      var base = parseInt(toHalfWidth(split[3]),10);
 
-      ability.push(
-        {
-          name: name,
-          type: "monsterability",
-          system: {
-            usedice1: true,
-            label1: "判定",
-            checkbasemod1: base,
-            usefix1: true,
-            applycheck1: false,
-            remark: split[4],
-          },
-        }
-      );
+      skill[0] = parts != "" ? "[" + parts + "]" + split[2] : split[2];
+      skill[1] = "判定";
+      skill[2] = parseInt(toHalfWidth(split[3]),10);
+      skill[3] = split[4];
+      skill[4] = match[0];
+      skill[5] = true;
+      skill[6] = true;
+      output = true;
+
       continue;
     }
+    
+    skill[4] = skill[4] + "<br>"+ val;
+
   }
+
+  if(output){
+
+    ability.push(
+      {
+        name: skill[0],
+        type: "monsterability",
+        system: {
+          usedice1: skill[5],
+          label1: skill[1],
+          checkbasemod1: skill[2],
+          usefix1: skill[6],
+          applycheck1: false,
+          remark: skill[3],
+          description: skill[4],
+          constant: skill[7],
+          main: skill[8],
+          aux: skill[9],
+          prep: skill[10],
+          decla: skill[11]
+        },
+      }
+    );
+    
+    output = false;
+  }
+
   return ability;
 }
 
