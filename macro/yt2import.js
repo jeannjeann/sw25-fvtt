@@ -974,11 +974,13 @@ async function yt2import() {
         let actorNum = parseInt(data.partsNum,10) ? parseInt(data.partsNum,10) : 1;
 
         for (var i = 1; i <= actorNum; i++) {
-          let partsName = i == 1 ? name : name + "_" +  data["status" + i + "Style"];
+          let partsName = data["status" + i + "Style"];
+        	partsName = partsName.replace(/.*[\(（]/,"").replace(/[\)）].*/,"");
+          let actName = actorNum == 1 ? name : name + "_" +  partsName;
           let mountLv = parseInt(data.lvMin) ? parseInt(data.lv) - parseInt(data.lvMin) : 0;
           let access = mountLv == 0 ? i : i + "-" + (mountLv+1) ;
           actorData = {
-            name: partsName,
+            name: actName,
             type: "monster",
             system: {
               hp:{
@@ -1117,7 +1119,7 @@ function analysisFeature(feature){
   const patternParts = /^●(.*)$/g;
   const patternMagic = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)+(.*)[/／]魔力([0-9０-９]+).*$/g;
   const patternSkill = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)+(.*)[/／]([0-9０-９]+)[0-9０-９\(\)（）]+[/／](.*)$/g;
-  const patternSplit = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑).*$/g;
+  const patternSplit = /^(●|\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑).*$/g;
   const patternConst = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*(\[常\]|○|◯|〇)(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*.*$/g;
   const patternMain = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*(\[主\]|＞|▶|〆)(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*.*$/g;
   const patternAux = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*(\[補\]|≫|>>|☆)(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*.*$/g;
@@ -1205,7 +1207,7 @@ function analysisFeature(feature){
     // 部位判定
     match = val.match(patternParts);
     if(match != null){
-      parts = match[0];
+    	parts = "[" + match[0].replace("●","") + "]";
       
       skill = ["","","","","",false,false,false,false,false,false,false];
       continue;
@@ -1215,7 +1217,7 @@ function analysisFeature(feature){
     match = val.match(patternMagic);
     if(match != null){
       var split = match[0].split(patternMagic);
-      skill[0] = parts != "" ? "[" + parts + "]" + split[2] : split[2];
+      skill[0] = parts != "" ? parts + split[2] : split[2];
       skill[1] = "魔力";
       skill[2] = parseInt(toHalfWidth(split[3]),10);
       skill[3] = "";
@@ -1231,8 +1233,9 @@ function analysisFeature(feature){
     match = val.match(patternSkill);
     if(match != null){
       var split = match[0].split(patternSkill);
-
-      skill[0] = parts != "" ? "[" + parts + "]" + split[2] : split[2];
+    	console.log(split);
+    	console.log(match[0]);
+      skill[0] = parts != "" ? parts + split[2] : split[2];
       skill[1] = "判定";
       skill[2] = parseInt(toHalfWidth(split[3]),10);
       skill[3] = split[4];
