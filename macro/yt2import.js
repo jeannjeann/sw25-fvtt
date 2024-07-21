@@ -263,6 +263,165 @@ async function yt2import() {
               { name: "魔動機文明語", talk: true, read: true },
             ],
           },
+          {
+            race: "アルヴ",
+            lang: [
+              { name: "交易共通語", talk: true, read: true },
+              { name: "地方語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "シャドウ",
+            lang: [
+              { name: "交易共通語", talk: true, read: true },
+              { name: "シャドウ語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "ソレイユ",
+            lang: [
+              { name: "交易共通語", talk: true, read: true },
+              { name: "ソレイユ語", talk: true, read: false },
+            ],
+          },
+          {
+            race: "ウィークリング",
+            lang: [
+              { name: "交易共通語", talk: true, read: true },
+              { name: "魔動機文明語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "スプリガン",
+            lang: [
+              { name: "交易共通語", talk: true, read: true },
+              { name: "魔法文明語", talk: true, read: true },
+              { name: "巨人語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "アビスボーン",
+            lang: [
+              { name: "交易共通語", talk: true, read: true },
+              { name: "地方語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "ハイマン",
+            lang: [
+              { name: "交易共通語", talk: true, read: true },
+              { name: "魔法文明語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "フロウライト",
+            lang: [
+              { name: "交易共通語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "ディアボロ",
+            lang: [
+              { name: "交易共通語", talk: true, read: true },
+              { name: "魔神語", talk: true, read: false },
+            ],
+          },
+          {
+            race: "ドレイク",
+            lang: [
+              { name: "交易共通語", talk: true, read: true },
+              { name: "ドレイク語", talk: true, read: true },
+              { name: "汎用蛮族語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "バジリスク",
+            lang: [
+              { name: "交易共通語", talk: true, read: true },
+              { name: "バジリスク語", talk: true, read: true },
+              { name: "ドレイク語", talk: true, read: true },
+              { name: "汎用蛮族語", talk: true, read: true },
+              { name: "妖魔語", talk: true, read: false },
+            ],
+          },
+          {
+            race: "ダークトロール",
+            lang: [
+              { name: "汎用蛮族語", talk: true, read: true },
+              { name: "巨人語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "アルボル",
+            lang: [
+              { name: "交易共通語", talk: true, read: true },
+              { name: "汎用蛮族語", talk: true, read: true },
+              { name: "ドレイク語", talk: true, read: true },
+              { name: "妖精語", talk: true, read: false },
+            ],
+          },
+          {
+            race: "バーバヤガー",
+            lang: [
+              { name: "交易共通語", talk: true, read: true },
+              { name: "魔法文明語", talk: true, read: true },
+              { name: "汎用蛮族語", talk: true, read: true },
+              { name: "ドレイク語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "ケンタウロス",
+            lang: [
+              { name: "汎用蛮族語", talk: true, read: true },
+              { name: "ケンタウロス語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "シザースコーピオン",
+            lang: [
+              { name: "汎用蛮族語", talk: true, read: true },
+              { name: "アンドロスコーピオン語", talk: true, read: true },
+              { name: "魔動機文明語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "ドーン",
+            lang: [
+              { name: "汎用蛮族語", talk: true, read: true },
+              { name: "交易共通語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "コボルド",
+            lang: [
+              { name: "汎用蛮族語", talk: true, read: true },
+              { name: "交易共通語", talk: true, read: true },
+              { name: "妖魔語", talk: true, read: false },
+            ],
+          },
+          {
+            race: "ドレイクブロークン",
+            lang: [
+              { name: "汎用蛮族語", talk: true, read: true },
+              { name: "交易共通語", talk: true, read: true },
+              { name: "ドレイク語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "ラミア",
+            lang: [
+              { name: "汎用蛮族語", talk: true, read: true },
+              { name: "交易共通語", talk: true, read: true },
+              { name: "ドレイク語", talk: true, read: true },
+            ],
+          },
+          {
+            race: "ラルヴァ",
+            lang: [
+              { name: "地方語", talk: true, read: true },
+              { name: "交易共通語", talk: true, read: true },
+            ],
+          },
         ];
         for (let i = 0; i < defaultLang.length; i++) {
           if (
@@ -787,9 +946,11 @@ async function yt2import() {
             });
           }
         }
+        createActor(actorData, itemData);
+
       }
 
-      // Monster
+      // 魔物・騎獣データ
       if (data.monsterName != null) {
         let name = data.monsterName;
         if (data.characterName != null) name = data.characterName;
@@ -807,110 +968,109 @@ async function yt2import() {
             loot += num + " : " + item + "<br>";
           }
         }
-        let itemDamage = data.status1Damage.replace(/\b2d6\b|\b2d\b/g, "");
         let feature = data.skills.replace(/&lt;br&gt;/g, "<br>");
+        console.log(feature);
+        
+        let actorNum = parseInt(data.partsNum,10) ? parseInt(data.partsNum,10) : 1;
 
-        actorData = {
-          name: name,
-          type: "monster",
-          system: {
-            monlevel: data.lv,
-            hpbase: data.status1Hp,
-            mpbase: data.status1Mp,
-            ppbase: data.status1Defense,
-            type: data.taxa,
-            intelligence: data.intellect,
-            perception: data.perception,
-            reaction: data.disposition,
-            impurity: data.sin,
-            language: data.language,
-            habitat: data.habitat,
-            popularity: data.reputation,
-            weakpoint: data["reputation+"],
-            weakness: data.weakness,
-            preemptive: data.initiative,
-            move: data.mobility,
-            part: part,
-            corepart: data.coreParts,
-            biography: biography,
-            loot: loot,
-          },
-        };
-        itemData = [
-          {
-            name: "抵抗判定",
-            type: "monsterability",
+        for (var i = 1; i <= actorNum; i++) {
+          let partsName = i == 1 ? name : name + "_" +  data["status" + i + "Style"];
+          let mountLv = parseInt(data.lvMin) ? parseInt(data.lv) - parseInt(data.lvMin) : 0;
+          let access = mountLv == 0 ? i : i + "-" + (mountLv+1) ;
+          actorData = {
+            name: partsName,
+            type: "monster",
             system: {
-              description: "",
-              usedice1: true,
-              label1: "生命",
-              checkbasemod1: data.vitResist,
-              usefix1: true,
-              applycheck1: false,
-              usedice2: true,
-              label2: "精神",
-              checkbasemod2: data.mndResist,
-              usefix2: true,
-              applycheck2: false,
+              hp:{
+                value: data["status" + access + "Hp"],
+              },
+              mp:{
+                value: data["status" + access + "Mp"],
+              },
+              monlevel: data.lv,
+              hpbase: data["status" + access + "Hp"],
+              mpbase: data["status" + access + "Mp"],
+              ppbase: data["status" + access + "Defense"],
+              type: data.taxa,
+              intelligence: data.intellect,
+              perception: data.perception,
+              reaction: data.disposition,
+              impurity: data.sin,
+              language: data.language,
+              habitat: data.habitat,
+              popularity: data.reputation,
+              weakpoint: data["reputation+"],
+              weakness: data.weakness,
+              preemptive: data.initiative,
+              move: data.mobility,
+              part: part,
+              corepart: data.coreParts,
+              biography: biography,
+              loot: loot,
             },
-          },
-          {
-            name: data.status1Style,
-            type: "monsterability",
-            system: {
-              description: "",
-              usedice1: true,
-              label1: "命中",
-              checkbasemod1: data.status1Accuracy,
-              usefix1: true,
-              applycheck1: false,
-              usedice2: true,
-              label2: "打撃",
-              checkbasemod2: itemDamage,
-              usefix2: false,
-              applycheck2: true,
-              usedice3: true,
-              label3: "回避",
-              checkbasemod3: data.status1Evasion,
-              usefix3: true,
-              applycheck3: false,
+          };
+          
+          let itemDamage = data["status" + access + "Damage"].replace(/\b2d6\b|\b2d\b/g, "");
+          let vitResist = data.vitResist ? data.vitResist : data["status" + access + "Vit"];
+          let mndResist = data.mndResist ? data.mndResist : data["status" + access + "Mnd"];
+          
+          itemData = [
+            {
+              name: "抵抗判定",
+              type: "monsterability",
+              system: {
+                description: "",
+                usedice1: true,
+                label1: "生命",
+                checkbasemod1: vitResist,
+                usefix1: true,
+                applycheck1: false,
+                usedice2: true,
+                label2: "精神",
+                checkbasemod2: mndResist,
+                usefix2: true,
+                applycheck2: false,
+              },
             },
-          },
-          {
-            name: "全特殊能力",
-            type: "monsterability",
-            system: {
-              description: feature,
+            {
+              name: data["status" + i + "Style"],
+              type: "monsterability",
+              system: {
+                description: "",
+                usedice1: true,
+                label1: "命中",
+                checkbasemod1: data["status" + access + "Accuracy"],
+                usefix1: true,
+                applycheck1: false,
+                usedice2: true,
+                label2: "打撃",
+                checkbasemod2: itemDamage,
+                usefix2: false,
+                applycheck2: true,
+                usedice3: true,
+                label3: "回避",
+                checkbasemod3: data["status" + access + "Evasion"],
+                usefix3: true,
+                applycheck3: false,
+              },
             },
-          },
-        ];
+            {
+              name: "全特殊能力",
+              type: "monsterability",
+              system: {
+                description: feature,
+              },
+            },
+          ];
+
+          abilityList = analysisFeature(feature);
+          for(const val of abilityList){
+            itemData.push(val);
+          }
+          createActor(actorData, itemData);
+        }
       }
 
-      // アクター作成
-      Actor.create(actorData)
-        .then((actor) => {
-          setTimeout(() => {
-            let existingItems = actor.items.map((item) => item.id);
-            actor
-              .deleteEmbeddedDocuments("Item", existingItems)
-              .then(() => {
-                return actor.createEmbeddedDocuments("Item", itemData);
-              })
-              .then(() => {
-                ui.notifications.info(`「${actor.name}」が作成されました。`);
-              })
-              .catch((error) => {
-                console.error(error);
-                ui.notifications.error(
-                  "アイテムの削除または追加中にエラーが発生しました。"
-                );
-              });
-          }, 500);
-        })
-        .catch((error) => {
-          console.error(error);
-          ui.notifications.error("作成に失敗しました。");
-        });
     } catch (e) {
       ui.notifications.error("ファイル形式エラー");
       console.error(e);
@@ -919,6 +1079,211 @@ async function yt2import() {
   if (fileInput) {
     reader.readAsText(fileInput);
   }
+}
+
+// アクター作成
+function createActor(actorData, itemData){
+
+  Actor.create(actorData)
+    .then((actor) => {
+      setTimeout(() => {
+        let existingItems = actor.items.map((item) => item.id);
+        actor
+          .deleteEmbeddedDocuments("Item", existingItems)
+          .then(() => {
+            return actor.createEmbeddedDocuments("Item", itemData);
+          })
+          .then(() => {
+            ui.notifications.info(`「${actor.name}」が作成されました。`);
+          })
+          .catch((error) => {
+            console.error(error);
+            ui.notifications.error(
+              "アイテムの削除または追加中にエラーが発生しました。"
+            );
+          });
+      }, 500);
+    })
+    .catch((error) => {
+      console.error(error);
+      ui.notifications.error("作成に失敗しました。");
+    });
+}
+
+// 魔物特殊能力解析
+function analysisFeature(feature){
+  const array = feature.split('<br>');
+  var parts = "";
+  const patternParts = /^●(.*)$/g;
+  const patternMagic = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)+(.*)[/／]魔力([0-9０-９]+).*$/g;
+  const patternSkill = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)+(.*)[/／]([0-9０-９]+)[0-9０-９\(\)（）]+[/／](.*)$/g;
+  const patternSplit = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑).*$/g;
+  const patternConst = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*(\[常\]|○|◯|〇)(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*.*$/g;
+  const patternMain = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*(\[主\]|＞|▶|〆)(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*.*$/g;
+  const patternAux = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*(\[補\]|≫|>>|☆)(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*.*$/g;
+  const patternPrep = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*(\[戦\]|△)(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*.*$/g;
+  const patternDecia = /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*(\[宣\]|🗨|□|☑)(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)*.*$/g;
+  const patternReplace = /(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑)/g;
+  
+  let ability = [];
+
+  var skill = ["","","","","",false,false,false,false,false,false,false];
+  var output = false;
+  
+  for(const val of array){
+    var match = "";
+
+    // 能力区切り
+    match = val.match(patternSplit);
+    if(match != null && output){
+
+      ability.push(
+        {
+          name: skill[0],
+          type: "monsterability",
+          system: {
+            usedice1: skill[5],
+            label1: skill[1],
+            checkbasemod1: skill[2],
+            usefix1: skill[6],
+            applycheck1: false,
+            remark: skill[3],
+            description: skill[4],
+            constant: skill[7],
+            main: skill[8],
+            aux: skill[9],
+            prep: skill[10],
+            decla: skill[11]
+          },
+        }
+      );
+
+      skill = ["","","","","",false,false,false,false,false,false,false];
+      output = false;
+    }
+
+    // 常時特技
+    match = val.match(patternConst);
+    if(match != null){
+      skill[0] = match[0].replace(patternReplace, "");
+      skill[7] = true;
+      output = true;
+    }
+
+    // 主動作
+    match = val.match(patternMain);
+    if(match != null){
+      skill[0] = match[0].replace(patternReplace, "");
+      skill[8] = true;
+      output = true;
+    }
+
+    // 補助動作
+    match = val.match(patternAux);
+    if(match != null){
+      skill[0] = match[0].replace(patternReplace, "");
+      skill[9] = true;
+      output = true;
+    }
+
+    // 戦闘準備
+    match = val.match(patternPrep);
+    if(match != null){
+      skill[0] = match[0].replace(patternReplace, "");
+      skill[10] = true;
+      output = true;
+    }
+
+    // 宣言特技
+    match = val.match(patternDecia);
+    if(match != null){
+      skill[0] = match[0].replace(patternReplace, "");
+      skill[11] = true;
+      output = true;
+    }
+
+    // 部位判定
+    match = val.match(patternParts);
+    if(match != null){
+      parts = match[0];
+      
+      skill = ["","","","","",false,false,false,false,false,false,false];
+      continue;
+    }
+
+    // 魔法判定
+    match = val.match(patternMagic);
+    if(match != null){
+      var split = match[0].split(patternMagic);
+      skill[0] = parts != "" ? "[" + parts + "]" + split[2] : split[2];
+      skill[1] = "魔力";
+      skill[2] = parseInt(toHalfWidth(split[3]),10);
+      skill[3] = "";
+      skill[4] = match[0];
+      skill[5] = true;
+      skill[6] = true;
+      output = true;
+
+      continue;
+    }
+
+    // 特殊能力判定
+    match = val.match(patternSkill);
+    if(match != null){
+      var split = match[0].split(patternSkill);
+
+      skill[0] = parts != "" ? "[" + parts + "]" + split[2] : split[2];
+      skill[1] = "判定";
+      skill[2] = parseInt(toHalfWidth(split[3]),10);
+      skill[3] = split[4];
+      skill[4] = match[0];
+      skill[5] = true;
+      skill[6] = true;
+      output = true;
+
+      continue;
+    }
+    
+    skill[4] = skill[4] + "<br>"+ val;
+
+  }
+
+  if(output){
+
+    ability.push(
+      {
+        name: skill[0],
+        type: "monsterability",
+        system: {
+          usedice1: skill[5],
+          label1: skill[1],
+          checkbasemod1: skill[2],
+          usefix1: skill[6],
+          applycheck1: false,
+          remark: skill[3],
+          description: skill[4],
+          constant: skill[7],
+          main: skill[8],
+          aux: skill[9],
+          prep: skill[10],
+          decla: skill[11]
+        },
+      }
+    );
+    
+    output = false;
+  }
+
+  return ability;
+}
+
+// 全角半角変換関数
+function toHalfWidth(str) {
+  // 全角英数字を半角に変換
+  str = str.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
+    return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+  });
+  return str;
 }
 
 // HTMLデコード関数
