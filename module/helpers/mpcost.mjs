@@ -37,7 +37,7 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
   if (meta == 1) {
     const speaker = ChatMessage.getSpeaker({ actor: actor });
     const rollMode = game.settings.get("core", "rollMode");
-    let label = name + " (" + game.i18n.localize("SW25.Mp") + ")";
+    let label = name + " (" + game.i18n.localize("SW25.Mp") + cost + ")";
     let baseMP = targetMP;
 
     let chatData = {
@@ -66,7 +66,8 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
 
     ChatMessage.create(chatData);
   } else {
-    let label = name + " (" + game.i18n.localize("SW25.Mp") + " x" + meta + ")";
+    let label =
+      name + " (" + game.i18n.localize("SW25.Mp") + cost + " x" + meta + ")";
     let metaB = false;
     if (type == "spell") metaB = true;
 

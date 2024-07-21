@@ -109,7 +109,7 @@
           <input type="checkbox" name="system.aux" data-dtype="Boolean" {{#if system.aux}} checked {{/if}}/></span>
           <span class="grid-span-2"  style="text-align: center;"><label for="system.prep"><b>{{localize "SW25.Item.Prep"}}</b></label><br>
           <input type="checkbox" name="system.prep" data-dtype="Boolean" {{#if system.prep}} checked {{/if}}/></span>
-          <span class="grid-span-2" style="text-align: center;"><b>MP{{localize "SW25.Cost"}}</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.mpcost" value="{{system.mpcost}}" data-dtype="Number"/></span>
+          <span class="grid-span-2" style="text-align: center;"><b>MP{{localize "SW25.Cost"}}</b><br><input style="max-width: calc(50% - 7px);" type="text" name="system.basempcost" value="{{system.basempcost}}" data-dtype="Number"/></span>
           <span class="grid-span-5" style="text-align: left;"><b>{{localize "SW25.Target"}}</b><br><input type="text" name="system.target" value="{{system.target}}" data-dtype="String"/></span>
           <span class="grid-span-5" style="text-align: left;"><b>{{localize "SW25.Rangeshape"}}</b><br><input type="text" name="system.rangeshape" value="{{system.rangeshape}}" data-dtype="String"/></span>
           <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Time"}}</b><br><input style="max-width: calc(90% - 7px);" type="text" name="system.time" value="{{system.time}}" data-dtype="String"/></span>
@@ -144,6 +144,7 @@
               <option value="mentalw">{{localize "SW25.Item.Mentalw"}}</option>
               <option value="curse">{{localize "SW25.Item.Curse"}}</option>
               <option value="curseMental">{{localize "SW25.Item.CurseMental"}}</option>
+              <option value="mentalPoison">{{localize "SW25.Item.MentalPoison"}}</option>
               <option value="other">{{localize "SW25.Item.Other"}}</option>
               {{/select}}
             </select>

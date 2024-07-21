@@ -630,6 +630,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.scmod + Number(actorData.attributes.efscmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmpsc);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "conjurer":
           systemData.checkbase =
@@ -642,6 +645,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.cnmod + Number(actorData.attributes.efcnmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmpcn);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "wizard":
           systemData.checkbase =
@@ -654,6 +660,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.wzmod + Number(actorData.attributes.efwzmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmpwz);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "priest":
           systemData.checkbase =
@@ -666,6 +675,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.prmod + Number(actorData.attributes.efprmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmppr);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "magitech":
           systemData.checkbase =
@@ -678,6 +690,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.mtmod + Number(actorData.attributes.efmtmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmpmt);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "fairy":
           systemData.checkbase =
@@ -690,6 +705,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.frmod + Number(actorData.attributes.effrmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmpfr);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "druid":
           systemData.checkbase =
@@ -702,6 +720,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.drmod + Number(actorData.attributes.efdrmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmpdr);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "daemon":
           systemData.checkbase =
@@ -714,6 +735,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.dmmod + Number(actorData.attributes.efdmmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmpdm);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         default:
           break;
