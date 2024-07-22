@@ -1,17 +1,12 @@
-2024/06/13-13:53:33.574 47d8 Recovering log #80
-2024/06/13-13:53:33.575 47d8 Recovering log #85
-2024/06/13-13:53:33.578 47d8 Delete type=0 #80
-2024/06/13-13:53:33.580 47d8 Delete type=0 #85
-2024/06/13-13:53:33.580 47d8 Delete type=3 #78
-2024/06/13-13:54:55.322 6b5c Level-0 table #88: started
-2024/06/13-13:54:55.329 6b5c Level-0 table #88: 8705 bytes OK
-2024/06/13-13:54:55.330 6b5c Delete type=0 #86
-2024/06/13-13:54:55.335 6b5c Manual compaction at level-0 from '!macros!bvKHeXQPcyoBOrQU' @ 72057594037927935 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at (end)
-2024/06/13-13:54:55.335 6b5c Manual compaction at level-1 from '!macros!bvKHeXQPcyoBOrQU' @ 72057594037927935 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at '!macros!bvKHeXQPcyoBOrQU' @ 4 : 1
-2024/06/13-13:54:55.335 6b5c Compacting 1@1 + 1@2 files
-2024/06/13-13:54:55.338 6b5c Generated table #89@1: 1 keys, 8705 bytes
-2024/06/13-13:54:55.338 6b5c Compacted 1@1 + 1@2 files => 8705 bytes
-2024/06/13-13:54:55.338 6b5c compacted to: files[ 0 0 1 0 0 0 0 ]
-2024/06/13-13:54:55.338 6b5c Delete type=2 #82
-2024/06/13-13:54:55.340 6b5c Delete type=2 #88
-2024/06/13-13:54:55.353 6b5c Manual compaction at level-1 from '!macros!bvKHeXQPcyoBOrQU' @ 4 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at (end)
+2024/07/21-16:51:13.547 1cb4 Delete type=3 #1
+2024/07/21-16:56:29.075 4c0 Level-0 table #94: started
+2024/07/21-16:56:29.078 4c0 Level-0 table #94: 11536 bytes OK
+2024/07/21-16:56:29.080 4c0 Delete type=0 #92
+2024/07/21-16:56:29.092 4c0 Manual compaction at level-0 from '!macros!bvKHeXQPcyoBOrQU' @ 72057594037927935 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at '!macros!bvKHeXQPcyoBOrQU' @ 4 : 1
+2024/07/21-16:56:29.092 4c0 Compacting 2@0 + 0@1 files
+2024/07/21-16:56:29.095 4c0 Generated table #95@0: 1 keys, 11536 bytes
+2024/07/21-16:56:29.096 4c0 Compacted 2@0 + 0@1 files => 11536 bytes
+2024/07/21-16:56:29.097 4c0 compacted to: files[ 0 1 0 0 0 0 0 ]
+2024/07/21-16:56:29.097 4c0 Delete type=2 #89
+2024/07/21-16:56:29.098 4c0 Delete type=2 #94
+2024/07/21-16:56:29.103 4c0 Manual compaction at level-0 from '!macros!bvKHeXQPcyoBOrQU' @ 4 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at (end)

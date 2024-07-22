@@ -1,10 +1,14 @@
 // ゆとシートIIインポートマクロ
 async function yt2import() {
   // ダイアログ
+  let abilist = false;
+  let monabi = false;
   let fileInput = await new Promise((resolve) => {
     let dialogContent = `
       <p>JSONファイル(ゆとシートII出力)を選択してください:</p>
-      <input type="file" id="json-file-input" accept=".json" style="width: 100%;" />
+      <p><input type="file" id="json-file-input" accept=".json" style="width: 100%;" /></p>
+      <p><input id="abilist" type="checkbox" data-dtype="Boolean" checked/><label for="abilist">魔物能力を一覧としてインポート</label></p>
+      <p><input id="monabi" type="checkbox" data-dtype="Boolean" checked/><label for="monabi">魔物能力を個別アイテムとしてインポート</label></p>
     `;
 
     new Dialog({
@@ -16,6 +20,8 @@ async function yt2import() {
           label: "インポート",
           callback: (html) => {
             let file = html.find("#json-file-input")[0].files[0];
+            abilist = html.find("#abilist")[0].checked;
+            monabi = html.find("#monabi")[0].checked;
             if (!file) {
               ui.notifications.warn("ファイルが選択されていません。");
               return;
@@ -966,7 +972,6 @@ async function yt2import() {
           }
         }
         let feature = data.skills.replace(/&lt;br&gt;/g, "<br>");
-        console.log(feature);
 
         let biography = convertHtmlFromFeature(feature);
 
@@ -1075,7 +1080,23 @@ async function yt2import() {
           abilityList = analysisFeature(feature);
           for (const val of abilityList) {
             itemData.push(val);
+
+          if (monabi) {
+            abilityList = analysisFeature(feature);
+            for (const val of abilityList) {
+              itemData.push(val);
+            }
           }
+          if (abilist) {
+            itemData.push({
+              name: "全特殊能力",
+              type: "monsterability",
+              system: {
+                description: feature,
+              },
+            });
+          }
+
           createActor(actorData, itemData);
         }
       }
@@ -1391,5 +1412,5 @@ async function findEntryInCompendium(type, entryName) {
   return null;
 }
 
-// マクロを実行
+// マクロ実行
 yt2import();

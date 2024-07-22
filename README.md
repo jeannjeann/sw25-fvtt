@@ -23,6 +23,7 @@ FVTT用ソード・ワールド2.5ゲームシステム（β版）
 ### 開発サポート
 - [kuouvadis](https://github.com/kuouvadis)
 - [HikariNoTsurugi](https://github.com/HikariNoTsurugi)
+- [keyslock](https://github.com/keyslock)
 
 ## 権利表記
 [MITライセンス](LICENSE.txt)
