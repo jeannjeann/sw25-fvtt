@@ -842,7 +842,10 @@ async function yt2import() {
         let combatability = [];
         for (let i in data) {
           if (i.startsWith("combatFeats")) {
-            combatability.push(data[i]);
+            combatfeats = data[i].split(",");
+            for(const val of combatfeats){
+              combatability.push(val);
+            }
           }
         }
         for (let i = 0; i < combatability.length; i++) {
