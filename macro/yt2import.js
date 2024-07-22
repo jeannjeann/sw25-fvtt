@@ -840,6 +840,7 @@ async function yt2import() {
         }
         // 戦闘特技追加
         let combatability = [];
+        let metafinalsong = false;
         for (let i in data) {
           if (i.startsWith("combatFeats")) {
             combatfeats = data[i].split(",");
@@ -852,6 +853,9 @@ async function yt2import() {
           let matchItem = game.items.find(
             (item) => item.name === combatability[i]
           );
+          if(combatability[i] == "終律増強"){
+            metafinalsong = true;
+          }
           if (!matchItem) {
             matchItem = await findEntryInCompendium("Item", combatability[i]);
           }
@@ -883,6 +887,9 @@ async function yt2import() {
           }
           if (matchItem) {
             let setData = duplicate(matchItem);
+            if(setData.system.usepower){
+              setData.system.powerskill = "エンハンサー";
+            }
             itemData.push(setData);
           } else {
             itemData.push({
@@ -906,6 +913,16 @@ async function yt2import() {
           }
           if (matchItem) {
             let setData = duplicate(matchItem);
+            if(setData.system.usepower){
+              setData.system.powerskill = "バード";
+              // 終律増強
+              if(metafinalsong && setData.system.type == "final"){
+                setData.system.power = parseInt(setData.system.power) + 10;
+              }
+            }
+            if(setData.system.usedice){
+              setData.system.checkskill = "バード";
+            }
             itemData.push(setData);
           } else {
             itemData.push({
@@ -932,6 +949,9 @@ async function yt2import() {
           }
           if (matchItem) {
             let setData = duplicate(matchItem);
+            if(setData.system.usedice){
+              setData.system.checkskill = "ライダー";
+            }
             itemData.push(setData);
           } else {
             itemData.push({
@@ -957,6 +977,9 @@ async function yt2import() {
           }
           if (matchItem) {
             let setData = duplicate(matchItem);
+            if(setData.system.usedice){
+              setData.system.checkskill = "アルケミスト";
+            }
             itemData.push(setData);
           } else {
             itemData.push({
