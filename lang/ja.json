@@ -31,6 +31,10 @@
     "Selecthitweapon": "攻撃武器を選択",
     "Selectattackskill": "攻撃技能を選択",
     "Selectdodgeskill": "回避技能を選択",
+    "Selectharbskill": "薬草技能を選択",
+    "Selectpotionskill": "ポーション技能を選択",
+    "Selectrepairskill": "修理具技能を選択",
+    "Defaultitemskill": "アイテム初期技能",
     "Condition": "条件",
     "Contents": "内容",
     "Level": "レベル",
@@ -49,9 +53,12 @@
     "Mdamage": "ダメージ (魔法)",
     "Cdamage": "ダメージ (確定)",
     "Recovery": "回復",
+    "Shortage": "不足",
 
     "Notargetwarn": "ターゲットが指定されていません",
     "Multitargetwarn": "ターゲットが複数指定されています",
+    "Noselectwarn": "トークンが選択されていません",
+    "Multiselectwarn": "トークンが複数選択されています",
 
     "CharacterName": "キャラクター名",
     "Hp": "HP",
@@ -208,6 +215,7 @@
       "Mentalw": "精神効果(弱)",
       "Curse": "呪い",
       "CurseMental": "呪い+精神",
+      "MentalPoison": "精神効果、毒",
       "Other": "その他",
       "Fandw": "炎かつ風",
       "Iandt": "水・氷かつ雷",
@@ -271,6 +279,11 @@
         "Other": "その他"
       },
       "Item": {
+        "Type": "分類",
+        "General": "一般品",
+        "Herb": "薬草",
+        "Potion": "ポーション",
+        "Repair": "修理具"
       },
       "Spell": {
         "Sorcerer": "真語魔法",
@@ -297,7 +310,8 @@
         "Fairywind": "風",
         "Fairylight": "光",
         "Fairydark": "闇",
-        "Hpresist": "生命"
+        "Hpresist": "生命",
+        "Meta": "拡大"
       },
       "Enhancearts": {
       },
@@ -409,6 +423,7 @@
       "Check": "判定",
       "Parameter": "能力値",
       "MagicPower": "魔力",
+      "MPSave": "MP軽減",
       "DirectInput": "直接入力",
       "HitMod": "命中修正",
       "DamageMod": "ダメージ修正",

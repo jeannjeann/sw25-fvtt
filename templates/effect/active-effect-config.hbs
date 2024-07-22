@@ -117,6 +117,7 @@
                     <option value="check" {{#if (eq change.keyClassification "check")}}selected{{/if}}>{{localize "SW25.Effect.Check"}}</option>
                     <option value="parameter" {{#if (eq change.keyClassification "parameter")}}selected{{/if}}>{{localize "SW25.Effect.Parameter"}}</option>
                     <option value="magicpower" {{#if (eq change.keyClassification "magicpower")}}selected{{/if}}>{{localize "SW25.Effect.MagicPower"}}</option>
+                    <option value="mpsave" {{#if (eq change.keyClassification "mpsave")}}selected{{/if}}>{{localize "SW25.Effect.MPSave"}}</option>
                     <option value="input" {{#if (eq change.keyClassification "input")}}selected{{/if}}>{{localize "SW25.Effect.DirectInput"}}</option>
                     {{/select}}
                     </select>
@@ -185,6 +186,21 @@
                         <option value="attributes.efdrmod" {{#if (eq change.keyname "attributes.efdrmod")}}selected{{/if}}>{{localize "SW25.Effect.DrMod"}}</option>
                         <option value="attributes.efdmmod" {{#if (eq change.keyname "attributes.efdnmod")}}selected{{/if}}>{{localize "SW25.Effect.DmMod"}}</option>
                         <option value="effect.allmgp" {{#if (eq change.keyname "effect.allmgp")}}selected{{/if}}>{{localize "SW25.Config.AllMgp"}}</option>
+                        {{/select}}
+                        </select>
+                    {{/if}}
+                    {{#if (eq change.keyClassification "mpsave")}}
+                        <select name="changes.{{i}}.keyname" class="select-keyname">
+                        {{#select change.keyname}}
+                        <option value="">-</option>
+                        <option value="attributes.efmpsc" {{#if (eq change.keyname "attributes.efmpsc")}}selected{{/if}}>{{localize "SW25.Effect.ScMod"}}</option>
+                        <option value="attributes.efmpcn" {{#if (eq change.keyname "attributes.efmpcn")}}selected{{/if}}>{{localize "SW25.Effect.CnMod"}}</option>
+                        <option value="attributes.efmpwz" {{#if (eq change.keyname "attributes.efmpwz")}}selected{{/if}}>{{localize "SW25.Effect.WzMod"}}</option>
+                        <option value="attributes.efmppr" {{#if (eq change.keyname "attributes.efmppr")}}selected{{/if}}>{{localize "SW25.Effect.PrMod"}}</option>
+                        <option value="attributes.efmpmt" {{#if (eq change.keyname "attributes.efmpmt")}}selected{{/if}}>{{localize "SW25.Effect.MtMod"}}</option>
+                        <option value="attributes.efmpfr" {{#if (eq change.keyname "attributes.efmpfr")}}selected{{/if}}>{{localize "SW25.Effect.FrMod"}}</option>
+                        <option value="attributes.efmpdr" {{#if (eq change.keyname "attributes.efmpdr")}}selected{{/if}}>{{localize "SW25.Effect.DrMod"}}</option>
+                        <option value="attributes.efmpdm" {{#if (eq change.keyname "attributes.efmpdm")}}selected{{/if}}>{{localize "SW25.Effect.DmMod"}}</option>
                         {{/select}}
                         </select>
                     {{/if}}

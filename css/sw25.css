@@ -35,6 +35,12 @@
   cursor: pointer;
 }
 
+.mpcost:hover, .mpcost:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+
 .grid,
 .grid-2col {
   display: grid;
@@ -643,4 +649,22 @@ progress.mp-bar::-moz-progress-bar {
 .sw25 .sheet-header .header-resources .character-resources {
   position: absolute;
   bottom: var(--spacing-xs);
+}
+
+.desc {
+  text-indent: 1em;
+}
+
+.box h3 {
+  margin: 1.3em .3em 0;
+  line-height: 1.2;
+  font-size: 110%;
+  font-weight: bold;
+}
+.box h4 {
+  position: relative;
+  margin: 1.3em .5em 0;
+  line-height: 1.2;
+  font-size: 105%;
+  font-weight: bold;
 }

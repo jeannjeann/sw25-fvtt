@@ -31,6 +31,10 @@
     "Selecthitweapon": "Select Attack Weapon",
     "Selectattackskill": "Select Attack Class",
     "Selectdodgeskill": "Select Dodge Class",
+    "Selectharbskill": "Select Harb Class",
+    "Selectpotionskill": "Select Potion Class",
+    "Selectrepairskill": "Select Repair Tool Class",
+    "Defaultitemskill": "Default Item Class",
     "Condition": "Condition",
     "Contents": " Contents",
     "Level": "Level",
@@ -49,9 +53,12 @@
     "Mdamage": "Damage (Magic)",
     "Cdamage": "Damage (Fixed)",
     "Recovery": "Recovery",
+    "Shortage": "Shortage",
 
     "Notargetwarn": "No targets selected.",
     "Multitargetwarn": "Multi targets selected.",
+    "Noselectwarn": "No Token selected.",
+    "Multiselectwarn": "Multi Tokens selected.",
 
     "CharacterName": "Character Name",
     "Hp": "HP",
@@ -208,6 +215,7 @@
       "Mentalw": "Psychic (Weak)",
       "Curse": "Curse",
       "CurseMental": "Curse+Psychic",
+      "MentalPoison": "Psychic, Poison",
       "Other": "Other",
       "Fandw": "Fire and Wind",
       "Iandt": "Ice/Water and Thunder",
@@ -271,6 +279,11 @@
         "Other": "Other"
       },
       "Item": {
+        "Type": "Type",
+        "General": "General",
+        "Herb": "Herb",
+        "Potion": "Potion",
+        "Repair": "Repair Tools"
       },
       "Spell": {
         "Sorcerer": "Truespeech",
@@ -297,7 +310,8 @@
         "Fairywind": "Wind",
         "Fairylight": "Light",
         "Fairydark": "Dark",
-        "Hpresist": "Fortitude"
+        "Hpresist": "Fortitude",
+        "Meta": "Meta"
       },
       "Enhancearts": {
       },
@@ -410,6 +424,7 @@
       "Check": "Check",
       "Parameter": "Ability",
       "MagicPower": "MagicPower",
+      "MPSave": "MP Save",
       "DirectInput": "Direct Input",
       "HitMod": "Accuracy Mod",
       "DamageMod": "DMG Mod",

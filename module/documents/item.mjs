@@ -1,4 +1,5 @@
 import { powerRoll } from "../helpers/powerroll.mjs";
+import { mpCost } from "../helpers/mpcost.mjs";
 import {
   effectVitResPC,
   effectMndResPC,
@@ -629,6 +630,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.scmod + Number(actorData.attributes.efscmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmpsc);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "conjurer":
           systemData.checkbase =
@@ -641,6 +645,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.cnmod + Number(actorData.attributes.efcnmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmpcn);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "wizard":
           systemData.checkbase =
@@ -653,6 +660,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.wzmod + Number(actorData.attributes.efwzmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmpwz);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "priest":
           systemData.checkbase =
@@ -665,6 +675,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.prmod + Number(actorData.attributes.efprmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmppr);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "magitech":
           systemData.checkbase =
@@ -677,6 +690,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.mtmod + Number(actorData.attributes.efmtmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmpmt);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "fairy":
           systemData.checkbase =
@@ -689,6 +705,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.frmod + Number(actorData.attributes.effrmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmpfr);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "druid":
           systemData.checkbase =
@@ -701,6 +720,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.drmod + Number(actorData.attributes.efdrmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmpdr);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "daemon":
           systemData.checkbase =
@@ -713,6 +735,9 @@ export class SW25Item extends Item {
             Number(
               actorData.attributes.dmmod + Number(actorData.attributes.efdmmod)
             );
+          systemData.mpcost =
+            Number(systemData.basempcost) - Number(actorData.attributes.efmpdm);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         default:
           break;
@@ -958,7 +983,52 @@ export class SW25Item extends Item {
       await itemData.sheet.render(true, { focus: false });
   }
 
-  _prepareItemData(itemData) {}
+  _prepareItemData(itemData) {
+    if (itemData.type !== "item") return;
+
+    // Make modifications to data here. For example:
+    const systemData = itemData.system;
+    const actorData = itemData.actor.system;
+    const actoritemData = itemData.actor.items;
+
+    if (systemData.type != "-") {
+      const i18ntype =
+        systemData.type.charAt(0).toUpperCase() + systemData.type.slice(1);
+      systemData.typename = game.i18n.localize(`SW25.Item.Item.${i18ntype}`);
+    } else systemData.typename = game.i18n.localize(`SW25.Item.Item.General`);
+
+    // Set default skill and ability
+    if (systemData.type == "herb") {
+      if (actorData.herbskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.herbskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "dex";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.herbskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "dex";
+      }
+    }
+    if (systemData.type == "potion") {
+      if (actorData.potionskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.potionskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "int";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.potionskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "int";
+      }
+    }
+    if (systemData.type == "repair") {
+      if (actorData.repairskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.repairskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "dex";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.repairskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "dex";
+      }
+    }
+  }
   _prepareResourceData(itemData) {}
 
   _prepareWeaponData(itemData) {
@@ -1370,6 +1440,10 @@ export class SW25Item extends Item {
     const useeffect = item.system.useeffect;
     let label = `${item.name}`;
     let powlabel = game.i18n.localize("SW25.Item.Power");
+    let spell = false;
+    if (item.type == "spell") spell = true;
+    let enhancearts = false;
+    if (item.type == "enhancearts") spell = true;
 
     if (this.system.clickitem == "dice") label = label + " (" + label0 + ")";
     if (this.system.clickitem == "dice1") label = label + " (" + label1 + ")";
@@ -1391,6 +1465,8 @@ export class SW25Item extends Item {
         "systems/sw25/templates/roll/roll-item.hbs",
         {
           description: chatDescription,
+          spell: spell,
+          enhancearts: enhancearts,
           usedice: usedice,
           usedice1: usedice1,
           usedice2: usedice2,
@@ -1595,6 +1671,23 @@ export class SW25Item extends Item {
         rollMode: rollMode,
         content: item.system.description ?? "",
       });
+    }
+
+    if (this.system.clickitem == "mpcost" || !this.system.formula) {
+      const selectedTokens = canvas.tokens.controlled;
+      if (selectedTokens.length === 0) {
+        ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+        return;
+      } else if (selectedTokens.length > 1) {
+        ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+        return;
+      }
+      const token = selectedTokens[0];
+      const cost = item.system.mpcost;
+      const name = item.name;
+      const type = item.type;
+      const meta = 1;
+      mpCost(token, cost, name, type, meta);
     }
   }
 }

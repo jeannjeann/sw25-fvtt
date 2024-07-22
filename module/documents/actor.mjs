@@ -365,6 +365,14 @@ export class SW25Actor extends Actor {
     let totaldrmod = null;
     let totaldmmod = null;
     let totalallmgp = null;
+    let totalmpsc = null;
+    let totalmpcn = null;
+    let totalmpwz = null;
+    let totalmppr = null;
+    let totalmpmt = null;
+    let totalmpfr = null;
+    let totalmpdr = null;
+    let totalmpdm = null;
     effectsChange.forEach((effectList) => {
       effectList.forEach((effects) => {
         if (effects.key == "system.attributes.efhitmod")
@@ -445,6 +453,22 @@ export class SW25Actor extends Actor {
           totaldmmod += Number(effects.value);
         if (effects.key == "system.effect.allmgp")
           totalallmgp += Number(effects.value);
+        if (effects.key == "system.attributes.efmpsc")
+          totalmpsc += Number(effects.value);
+        if (effects.key == "system.attributes.efmpcn")
+          totalmpcn += Number(effects.value);
+        if (effects.key == "system.attributes.efmpwz")
+          totalmpwz += Number(effects.value);
+        if (effects.key == "system.attributes.efmppr")
+          totalmppr += Number(effects.value);
+        if (effects.key == "system.attributes.efmpmt")
+          totalmpmt += Number(effects.value);
+        if (effects.key == "system.attributes.efmpfr")
+          totalmpfr += Number(effects.value);
+        if (effects.key == "system.attributes.efmpdr")
+          totalmpdr += Number(effects.value);
+        if (effects.key == "system.attributes.efmpdm")
+          totalmpdm += Number(effects.value);
       });
     });
 
@@ -488,6 +512,14 @@ export class SW25Actor extends Actor {
     systemData.totaldrmod = totaldrmod;
     systemData.totaldmmod = totaldmmod;
     systemData.totalallmgp = totalallmgp;
+    systemData.totalmpsc = totalmpsc;
+    systemData.totalmpcn = totalmpcn;
+    systemData.totalmpwz = totalmpwz;
+    systemData.totalmppr = totalmppr;
+    systemData.totalmpmt = totalmpmt;
+    systemData.totalmpfr = totalmpfr;
+    systemData.totalmpdr = totalmpdr;
+    systemData.totalmpdm = totalmpdm;
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
     if (totalcmod > 0) systemData.totalcmod = "+" + totalcmod;
@@ -687,6 +719,14 @@ export class SW25Actor extends Actor {
     let totaldrmod = null;
     let totaldmmod = null;
     let totalallmgp = null;
+    let totalmpsc = null;
+    let totalmpcn = null;
+    let totalmpwz = null;
+    let totalmppr = null;
+    let totalmpmt = null;
+    let totalmpfr = null;
+    let totalmpdr = null;
+    let totalmpdm = null;
     effectsChange.forEach((effectList) => {
       effectList.forEach((effects) => {
         if (effects.key == "system.attributes.efhitmod")
@@ -767,6 +807,22 @@ export class SW25Actor extends Actor {
           totaldmmod += Number(effects.value);
         if (effects.key == "system.effect.allmgp")
           totalallmgp += Number(effects.value);
+        if (effects.key == "system.attributes.efmpsc")
+          totalmpsc += Number(effects.value);
+        if (effects.key == "system.attributes.efmpcn")
+          totalmpcn += Number(effects.value);
+        if (effects.key == "system.attributes.efmpwz")
+          totalmpwz += Number(effects.value);
+        if (effects.key == "system.attributes.efmppr")
+          totalmppr += Number(effects.value);
+        if (effects.key == "system.attributes.efmpmt")
+          totalmpmt += Number(effects.value);
+        if (effects.key == "system.attributes.efmpfr")
+          totalmpfr += Number(effects.value);
+        if (effects.key == "system.attributes.efmpdr")
+          totalmpdr += Number(effects.value);
+        if (effects.key == "system.attributes.efmpdm")
+          totalmpdm += Number(effects.value);
       });
     });
 
@@ -810,6 +866,14 @@ export class SW25Actor extends Actor {
     systemData.totaldrmod = totaldrmod;
     systemData.totaldmmod = totaldmmod;
     systemData.totalallmgp = totalallmgp;
+    systemData.totalmpsc = totalmpsc;
+    systemData.totalmpcn = totalmpcn;
+    systemData.totalmpwz = totalmpwz;
+    systemData.totalmppr = totalmppr;
+    systemData.totalmpmt = totalmpmt;
+    systemData.totalmpfr = totalmpfr;
+    systemData.totalmpdr = totalmpdr;
+    systemData.totalmpdm = totalmpdm;
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
     if (totalcmod > 0) systemData.totalcmod = "+" + totalcmod;

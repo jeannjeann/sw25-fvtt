@@ -78,6 +78,17 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
           change.keyClassification = "magicpower";
           change.keyname = change.key.replace(/^system\./, "");
           break;
+        case "system.attributes.efmpsc":
+        case "system.attributes.efmpcn":
+        case "system.attributes.efmpwz":
+        case "system.attributes.efmppr":
+        case "system.attributes.efmpmt":
+        case "system.attributes.efmpfr":
+        case "system.attributes.efmpdr":
+        case "system.attributes.efmpdm":
+          change.keyClassification = "mpsave";
+          change.keyname = change.key.replace(/^system\./, "");
+          break;
         case "system.":
           change.key = "";
           break;
