@@ -1070,13 +1070,6 @@ async function yt2import() {
                 applycheck3: false,
               },
             },
-            {
-              name: "全特殊能力",
-              type: "monsterability",
-              system: {
-                description: feature,
-              },
-            },
           ];
 
           abilityList = analysisFeature(feature);
