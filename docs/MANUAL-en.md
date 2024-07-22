@@ -57,7 +57,7 @@ This tab is primarily intended to be used during combat.
 - Correction column (middle)
   - Allows entry of various modifications. The modifications will be reflected in the "Combat Related Information" column.
   - The weapon to be used for accuracy and power can be selected in the Combat Information column.
-  - Select the class to be used for accuracy and evasion in the default class set for the weapon.
+  - Select the initial value to be used for weapon accuracy and damage in the default class set for the weapon.
   - Select the class to be used for evasion in the Combat Information column.
 - Equipment column
   - Weapons, armor, and ornaments with the "Equipped" checkbox in the item details will be displayed.
@@ -70,18 +70,23 @@ This tab is primarily intended to be used during combat.
 This tab displays race characteristics and combat skills, as well as Techniques, Spellsongs and Finales, Stunts, Evocations, Aspects, Strategems and Maneuvers, etc.
 - New, edit, and delete can be performed.
 - If you don't have any of the Classes listed, they will not be displayed, except for the race and combat skills. If you check the "Show Blank Groups" checkbox, a list of items that you do not possess will also be displayed. If you want to create a new item, please use this option.
-  - The behavior when clicking on icons can be configured from Details. The default selection is "All", which displays the description, "Check", "Power", and "Effects" (if applicable) button in chat.
+- The behavior when clicking on icons can be configured from Details. The default selection is "All", which displays the description, "Check", "Power", and "Effects" (if applicable) button in chat. (Techniques have the additional field of MP Cost)
 - Some items can be checked in "Use Dice Roll" and "Use Power Table" in the details. When checked, "Dice Roll" and "Power" are displayed in the list, and the corresponding roll can be performed by clicking on the checkbox. Please use this function when necessary, for example, for checks on the usage of spellsongs, etc., or for power rolls.
 - If you have set up "Effects" in the item's details, "Effects" will appear beside the item in your character sheet.
 - Action types are automatically displayed in front of the name. The following types are displayed: Always (○), Major (▶), Minor (≫), Combat Preparation (△), and Declaration (□).
+- In the Techniques list, MP Cost can be performed by selecting the character and clicking on "MP Cost" in the character sheet.
 
 #### Spells Tab
 This tab displays information about magic.
 - The list is divided for each magic system. Selecting a magic system in the item details will be reflected in the list.
 - The magic system and magic power are displayed at the top of the list. By clicking on the item, you can determine whether or not to use it. To make the dice roll in chat, you need to select the Class to be used. There is also an input box for modifications.
-- Items cannot be created, edited, or deleted from the list by magic system. Please go to "Show All Spell".
-- The behavior when clicking on icons can be configured in the details. The default selection is "All", which displays the description, "Check", "Power", and "Effects" (if applicable) button in chat.
+- To edit or delete spells items, you must expand the description or go to the "Show All Spell" list.
+- To create a new spell item, use the main menu to create a new spell item or go to the "Show All Spell" list and click the New button.
+- The behavior when clicking on icons can be configured in the details. The default selection is "All", which displays the description, enables roll buttons, applies Active Effects, and displays MP Cost button in chat.
 - Some items can be checked in "Use Dice" and "Use Power List" in the details. When checked, "Dice Check" and "Power" are displayed in the list, and the corresponding roll can be performed by clicking on it. Since the rolls can be exercised from the top of the list, please use mainly the power rolls as necessary.
+  - Some spells with special damage value calculations may be handled by editing the numbers in the power table. In such cases, please manually adjust as double 1s will result in a 0.
+- If effects are set in the Details, it will appear in the list and the effects can be applied to the character.
+- If a character is selected, MP Cost can be performed by clicking on the "MP Cost" button
 - If you check the "Show All Spell" checkbox, a list of all the magic items in your possession will be displayed, regardless of the system. You can also click on icons and roll from "Spellcasting" and "Power".
 - New creation, editing, and deletion can only be done from the "Show All Spell" list.
 - The magic operation type is automatically displayed before the name. The following types of magic are displayed: Always (○), Major (▶), Minor (≫), Combat Ready (△), and Declared (□).
@@ -123,6 +128,7 @@ This tab displays language, other settings, notes, etc.
 - Settings (upper right)
   - This is where you can enter data. The data will be reflected in the header section.
   - Experience gained is the field for entering the total experience value. It is reflected in the skill column.
+  - You can set the initial Class values for certain items.
 - Appearance, career, and other notes column (bottom)
   - This is a field for free description.
 
@@ -178,7 +184,6 @@ Effects will be listed similar to the PC sheet, but only those that are valid wi
 - ** Attention! ** Some attribute keys for Active Effects will not be updated after loading the game World, but they will update themselves after you make any adjustments on the Character Sheet.
   - Examples of adjustments: Turning on/off Grace, entering various modifiers, updating current HP values, turning Active Effects on/off, etc.
 
-
 #### Description Tab
 - This is a free description field. This is intended for general descriptions of the monster.
 - The loot list described in the Details Tab will also be displayed.
@@ -194,8 +199,8 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 - Description tab
   - Description field for the item. Free description field. Depending on the settings, this field will be displayed in the chat when the icon is clicked.
 - When icon is clicked
-  - You can select the behavior when the icon is clicked in the list. You can choose to display the description in the chat or roll a die.
-  - When “All” is selected, you will see the description, a button to make any enabled rolls, and a button to apply effects.
+  - You can select the behavior when the icon is clicked in the list. You can choose to display the description, dice rolls, and/or MP Cost in chat.
+  - When “All” is selected, a description, roll button, apply effects, and for some items, MP Cost button will be displayed.
 - Use Dice Roll, Use Power Table
   - Checking the checkbox enables the roll from the list. Also, by checking the checkbox, the setting items will be displayed.
 - Use Dice Settings
@@ -214,8 +219,8 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 ### Weapons
 - Equipment checks, categories, ranks, types, usages, specializations, minimum Strength, hit modifiers, additional damage, and ranges can be set.
 - These are items that will be used with both the check and power tables.
-- If you have selected an attack class in the character's Combat tab, the selected class and default ability will automatically be chosen when classes and abilities for check and power are unselected. Note that they are not linked.
-- Bonuses due to specialization are not automatically reflected. (We would like to implement)
+- If you have selected an attack class in the character's Combat tab, the selected class and default ability will automatically be chosen when classes and abilities for check and power are unselected. Note that they are not linked.- 
+- Bonuses due to specialization is automatically updated once the active effects are set. The check only changes the list display.
 - For weapons with multiple usages, it would be useful to create a separate item for each usage.
 - Equipment checkboxes and Active Effect enable/disable are linked, but can also be toggled manually.
 
@@ -235,6 +240,7 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 
 ### Item
 - Quantity and price can be entered.
+- By selecting a Type, the class and ability values of that class will be applied when used.
 - Please use flexibly by combining dice roll and power to suit each item.
 
 ### Spells
@@ -247,6 +253,7 @@ Each item can be configured in detail. This is done mainly from the Details tab.
 - In Fairy Magic, an input field for type and (when necessary) attribute will be added.
 - In Nature Magic, a checkbox for countering with Fortitude will be added.
 - Some spells are easier to manage if an Effect is prepared to apply a buff or debuff.
+- In the chat displayed "MP Cost" button, the cost can be multiplied by utilizing the "Metamagic" button.
 
 ### Technique
 - Action type, level, MP consumption, duration, and summary can be set.
@@ -434,6 +441,7 @@ You can set the duration in the Effect Duration (Turns) field.
   - Checks: Fortitude, Willpower, and all items with checks.
   - Ability Scores: max HP modifier, max MP modifier.
   - Magic: All items.
+  - MP Save: All items.
   - It is unlikely that direct input of attribute keys will be used.
 - Please note that we do not manage duplicates of the same Effects, so beware of unintended duplicates.
 - ** Attention! ** The Effects of the Active Effects can only be seen in the total value of the Effects tab.
@@ -487,12 +495,13 @@ Settings for Monsters
   - Prepare a JSON output file from the YutoSheetII website.
   - Use the macro, select the JSON YutoSheetII file, and then click on import.
   - Data treated as items are searched in the order of “Item List in World” -> “Item List in Dictionary (Alphabetical Order)”, and if there is an item with a matching item name, the data is imported. If not, a new item is created.
-- Notes
+- Precautions
   - Only PCs and monsters are supported.
   - Items and magic, except for equipment, are not imported.
-  - The initial language learned by races is only supported for the basic races. If a race is not imported, it must be added manually.
+  - Some races will not have their initial learned languages automatically imported, and must be manually added.
   - Additional parts of accessories are not supported.
-  - In the case of monsters, the monster abilities and magic will not be imported. For multi-part monster, only the data of the first part will be imported.
+  - Monster abilities can be imported as a list or as individual items (beta).
+  - If importing monster abilities as individual items does not work, please uncheck the box before importing.
   - Newly created items without a matching item name will need to be set manually.
   - Some items with imported data may also need to be set manually.
   - Data that is not imported will need to be added manually.
