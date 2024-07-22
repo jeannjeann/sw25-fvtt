@@ -1,14 +1,6 @@
-2024/06/10-18:11:35.432 5730 Recovering log #297
-2024/06/10-18:11:35.436 5730 Delete type=0 #297
-2024/06/10-18:11:35.436 5730 Delete type=3 #295
-2024/06/10-18:14:14.688 84d0 Level-0 table #303: started
-2024/06/10-18:14:14.691 84d0 Level-0 table #303: 67642 bytes OK
-2024/06/10-18:14:14.692 84d0 Delete type=0 #301
-2024/06/10-18:14:14.698 84d0 Manual compaction at level-0 from '!journal!kf7e6dre1Bhn8SE9' @ 72057594037927935 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 54 : 1
-2024/06/10-18:14:14.698 84d0 Compacting 1@0 + 1@1 files
-2024/06/10-18:14:14.702 84d0 Generated table #304@0: 4 keys, 67642 bytes
-2024/06/10-18:14:14.702 84d0 Compacted 1@0 + 1@1 files => 67642 bytes
-2024/06/10-18:14:14.703 84d0 compacted to: files[ 0 1 0 0 0 0 0 ]
-2024/06/10-18:14:14.703 84d0 Delete type=2 #299
-2024/06/10-18:14:14.704 84d0 Delete type=2 #303
-2024/06/10-18:14:14.706 84d0 Manual compaction at level-0 from '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 54 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at (end)
+2024/07/21-16:51:13.469 4a60 Log #320: 0 ops saved to Table #323 OK
+2024/07/21-16:51:13.470 4a60 Archiving D:\_Home\App\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/000320.log: OK
+2024/07/21-16:51:13.471 4a60 Table #322: 4 entries OK
+2024/07/21-16:51:13.474 4a60 Archiving D:\_Home\App\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/MANIFEST-000305: OK
+2024/07/21-16:51:13.475 4a60 Archiving D:\_Home\App\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/MANIFEST-000315: OK
+2024/07/21-16:51:13.479 4a60 **** Repaired leveldb D:\_Home\App\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual; recovered 1 files; 68621 bytes. Some data may have been lost. ****

@@ -1,15 +1,5 @@
-2024/06/13-13:21:25.993 6fe0 Recovering log #75
-2024/06/13-13:21:25.996 6fe0 Delete type=0 #75
-2024/06/13-13:21:25.997 6fe0 Delete type=3 #73
-2024/06/13-13:22:04.335 1e48 Level-0 table #81: started
-2024/06/13-13:22:04.336 1e48 Level-0 table #81: 8691 bytes OK
-2024/06/13-13:22:04.337 1e48 Delete type=0 #79
-2024/06/13-13:22:04.338 1e48 Manual compaction at level-0 from '!macros!bvKHeXQPcyoBOrQU' @ 72057594037927935 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at (end)
-2024/06/13-13:22:04.338 1e48 Manual compaction at level-1 from '!macros!bvKHeXQPcyoBOrQU' @ 72057594037927935 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at '!macros!bvKHeXQPcyoBOrQU' @ 3 : 1
-2024/06/13-13:22:04.338 1e48 Compacting 1@1 + 1@2 files
-2024/06/13-13:22:04.340 1e48 Generated table #82@1: 1 keys, 8691 bytes
-2024/06/13-13:22:04.340 1e48 Compacted 1@1 + 1@2 files => 8691 bytes
-2024/06/13-13:22:04.340 1e48 compacted to: files[ 0 0 1 0 0 0 0 ]
-2024/06/13-13:22:04.340 1e48 Delete type=2 #77
-2024/06/13-13:22:04.341 1e48 Delete type=2 #81
-2024/06/13-13:22:04.347 1e48 Manual compaction at level-1 from '!macros!bvKHeXQPcyoBOrQU' @ 3 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at (end)
+2024/07/21-16:51:13.528 1cb4 Log #87: 0 ops saved to Table #90 OK
+2024/07/21-16:51:13.529 1cb4 Archiving D:\_Home\App\FVTT\foundryuserdata11\Data\systems\sw25\packs\macro/000087.log: OK
+2024/07/21-16:51:13.530 1cb4 Table #89: 1 entries OK
+2024/07/21-16:51:13.533 1cb4 Archiving D:\_Home\App\FVTT\foundryuserdata11\Data\systems\sw25\packs\macro/MANIFEST-000083: OK
+2024/07/21-16:51:13.537 1cb4 **** Repaired leveldb D:\_Home\App\FVTT\foundryuserdata11\Data\systems\sw25\packs\macro; recovered 1 files; 8705 bytes. Some data may have been lost. ****
