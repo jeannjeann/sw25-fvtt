@@ -651,20 +651,90 @@ progress.mp-bar::-moz-progress-bar {
   bottom: var(--spacing-xs);
 }
 
-.desc {
+.sw25 .desc {
   text-indent: 1em;
 }
 
-.box h3 {
+.sw25 .box h3 {
   margin: 1.3em .3em 0;
   line-height: 1.2;
   font-size: 110%;
   font-weight: bold;
 }
-.box h4 {
+.sw25 .box h4 {
   position: relative;
   margin: 1.3em .5em 0;
   line-height: 1.2;
   font-size: 105%;
   font-weight: bold;
+}
+
+.sw25 .sheet-header .header-fields .character-details .monster-weakness {
+   flex: 0 0 100%;
+}
+
+.sw25 .sheet-header .header-fields .monster-parameters {
+  flex: 0 0 100%;
+}
+
+.sw25 .sheet-header .header-fields .monster-parameters .monster-popularity{
+  flex: 0 0 20%;
+  text-align: center;
+}
+.sw25 .sheet-header .header-fields .monster-parameters .monster-move{
+  flex: 0 0 35%;
+  text-align: center;
+}
+
+.sw25 .sheet-header .header-fields .monster-parameters .monster-preemptive,
+.sw25 .sheet-header .header-fields .monster-parameters .monster-pp,
+.sw25 .sheet-header .header-fields .monster-parameters .monster-mpp{
+  flex: 0 0 15%;
+  text-align: center;
+}
+
+.sw25 .monster-label {
+  font-weight: bold;
+}
+
+.sw25 .monster-value {
+  font-size: 1.2rem;
+}
+
+.sw25 .monster-small {
+  font-size: 0.9rem;
+}
+.sw25 .sheet-header .header-resources-m {
+  margin: 0 var(--spacing-xs);
+  position: relative;
+}
+.sw25 .sheet-header .header-resources-m label {
+  height: var(--form-field-height);
+  line-height: var(--form-field-height);
+  vertical-align: middle;
+}
+.sw25 .sheet-header .header-resources-m .current-max-resource {
+  display: inline-block;
+}
+.sw25 .sheet-header .header-resources-m input {
+  text-align: center;
+  vertical-align: middle;
+}
+.sw25 .sheet-header .header-resources-m .resources input[type="number"] {
+  width: 2.5rem;
+}
+.sw25 .sheet-header .header-resources-m .character-resources {
+  position: absolute;
+  bottom: var(--spacing-xs);
+}
+.sw25 .sheet-header header-resources-m .character-details-secondary {
+  margin: 0 var(--spacing-xs);
+}
+
+input.weakapply[type="checkbox"] {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #000;
+  vertical-align: -5px;
 }
