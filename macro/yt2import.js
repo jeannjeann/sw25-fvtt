@@ -130,27 +130,16 @@ async function yt2import() {
               showbtcheck: true,
             },
           },
-          {
-            name: "先制",
-            type: "check",
-            system: {
-              description: "",
-              checkskill: "-",
-              checkabi: "-",
-              showbtcheck: true,
-            },
-          },
-          {
-            name: "魔物知識",
-            type: "check",
-            system: {
-              description: "",
-              checkskill: "-",
-              checkabi: "-",
-              showbtcheck: true,
-            },
-          },
         ];
+        let resourceList = [];
+        let initiative = [0,"-","-"];
+        let initList = ["スカウト","ウォーリーダー"];
+        let mknowledge = [0,"-","-"];
+        let mknowList = ["セージ","ライダー"];
+        let weakriding = [0,"-","-"];
+        let weakrList = ["ライダー"];
+        let weakhiding = [0,"-","-"];
+        let weakhList = ["ウィークリング（ガルーダ）","ウィークリング（タンノズ）","ウィークリング（バジリスク）","ウィークリング（ミノタウロス）","ウィークリング（マーマン）","ディアボロ","ドレイク（ナイト）","ドレイク（ブロークン）","バジリスク","ダークトロール","アルボル","バーバヤガー","ケンタウロス","シザースコーピオン","ドーン","コボルド","ラミア","ラルヴァ"];
 
         // 技能追加
         let baseString = data.sheetDescriptionS.split("技能:")[1].trim();
@@ -189,6 +178,96 @@ async function yt2import() {
               },
             });
           }
+
+          // 判定技能
+          if(initList.includes(skill[i].name)){
+            if(initiative[0] < parseInt(skill[i].level)){
+              initiative[0] = parseInt(skill[i].level);
+              initiative[1] = skill[i].name;
+              initiative[2] = "agi";
+            }
+          }
+          if(mknowList.includes(skill[i].name)){
+            if(mknowledge[0] < parseInt(skill[i].level)){
+              mknowledge[0] = parseInt(skill[i].level);
+              mknowledge[1] = skill[i].name;
+              mknowledge[2] = "int";
+            }
+          }
+          if(weakrList.includes(skill[i].name)){
+            if(weakriding[0] < parseInt(skill[i].level)){
+              weakriding[0] = parseInt(skill[i].level);
+              weakriding[1] = skill[i].name;
+              weakriding[2] = "int";
+            }
+          }
+
+          // リソース用判定
+          if(skill[i].name === "バード"){
+            resourceList.push("楽素：↑");
+            resourceList.push("楽素：↓");
+            resourceList.push("楽素：♡");
+          } else if(skill[i].name === "ジオマンサー"){
+            resourceList.push("天の命脈点");
+            resourceList.push("地の命脈点");
+            resourceList.push("人の命脈点");
+          } else if(skill[i].name === "ウォーリーダー"){
+            resourceList.push("陣気");
+          }
+
+        }
+        if(weakhList.includes(data.race)){
+            weakhiding[1] = "adv";
+            weakhiding[2] = "int";
+        }
+      
+        itemData.push(
+          {
+            name: "先制",
+            type: "check",
+            system: {
+              description: "",
+              checkskill: initiative[1],
+              checkabi: initiative[2],
+              showbtcheck: true,
+            },
+          });
+        itemData.push(
+          {
+            name: "魔物知識",
+            type: "check",
+            system: {
+              description: "",
+              checkskill: mknowledge[1],
+              checkabi: mknowledge[2],
+              showbtcheck: true,
+            },
+          });
+        if(weakriding[2] != "-"){
+            itemData.push(
+              {
+                name: "弱点隠蔽（騎獣）",
+                type: "check",
+                system: {
+                  description: "",
+                  checkskill: weakriding[1],
+                  checkabi: weakriding[2],
+                  showbtcheck: true,
+                },
+              });
+        }
+        if(weakhiding[2] != "-"){
+            itemData.push(
+              {
+                name: "弱点隠蔽",
+                type: "check",
+                system: {
+                  description: "",
+                  checkskill: weakhiding[1],
+                  checkabi: weakhiding[2],
+                  showbtcheck: true,
+                },
+              });
         }
         // 言語追加
         let defaultLang = [
@@ -786,7 +865,8 @@ async function yt2import() {
             });
           }
         }
-        // 練技追加
+
+       // 練技追加
         for (let i = 1; ; i++) {
           if (!data[`craftEnhance${i}`]) break;
           let matchItem = game.items.find(
@@ -950,6 +1030,32 @@ async function yt2import() {
             });
           }
         }
+        // リソース追加
+        for(const resource of resourceList){
+          let matchItem = game.items.find(
+            (item) => item.name === resource
+          );
+          if (!matchItem) {
+            matchItem = await findEntryInCompendium(
+              "Item",
+              resource
+            );
+          }
+          if (matchItem) {
+            let setData = duplicate(matchItem);
+            itemData.push(setData);
+          } else {
+            itemData.push({
+              name: resource,
+              type: "resource",
+              system: {
+                description: "",
+                quantity: 0,
+              },
+            });
+          }
+        }
+      
         createActor(actorData, itemData);
       }
 
@@ -972,12 +1078,98 @@ async function yt2import() {
           }
         }
         let feature = data.skills.replace(/&lt;br&gt;/g, "<br>");
-
         let biography = convertHtmlFromFeature(feature);
 
         let actorNum = parseInt(data.partsNum, 10)
           ? parseInt(data.partsNum, 10)
           : 1;
+
+
+        let mountLv = parseInt(data.lvMin)
+          ? parseInt(data.lv) - parseInt(data.lvMin)
+          : 0;
+        let access = mountLv == 0 ? 1 : 1 + "-" + (mountLv + 1);
+
+        let vitResist = data.vitResist
+          ? data.vitResist
+          : data["status" + access + "Vit"];
+        let mndResist = data.mndResist
+          ? data.mndResist
+          : data["status" + access + "Mnd"];
+
+        itemData = [
+          {
+            name: "抵抗判定",
+            type: "monsterability",
+            system: {
+              description: "",
+              usedice1: true,
+              label1: "生命",
+              checkbasemod1: vitResist,
+              usefix1: true,
+              applycheck1: false,
+              usedice2: true,
+              label2: "精神",
+              checkbasemod2: mndResist,
+              usefix2: true,
+              applycheck2: false,
+            },
+          },
+        ];
+
+        for (var i = 1; i <= actorNum; i++) {
+
+          let mountLv = parseInt(data.lvMin)
+            ? parseInt(data.lv) - parseInt(data.lvMin)
+            : 0;
+          access = mountLv == 0 ? i : i + "-" + (mountLv + 1);
+          let itemDamage = data["status" + access + "Damage"].replace(
+            /\b2d6\b|\b2d\b/g,
+            ""
+          );
+
+          if(!isNaN(itemDamage)){
+            itemData.push(
+              {
+                name: "[通常攻撃]" + data["status" + i + "Style"],
+                type: "monsterability",
+                system: {
+                  description: "",
+                  usedice1: true,
+                  label1: "命中",
+                  checkbasemod1: data["status" + access + "Accuracy"],
+                  usefix1: true,
+                  applycheck1: false,
+                  usedice2: true,
+                  label2: "打撃",
+                  checkbasemod2: itemDamage,
+                  usefix2: false,
+                  applycheck2: true,
+                  usedice3: true,
+                  label3: "回避",
+                  checkbasemod3: data["status" + access + "Evasion"],
+                  usefix3: true,
+                  applycheck3: false,
+                },
+              });
+          }
+        }
+
+        if (monabi) {
+          abilityList = analysisFeature(feature);
+          for (const val of abilityList) {
+            itemData.push(val);
+          }
+        }
+        if (abilist) {
+          itemData.push({
+            name: "全特殊能力",
+            type: "monsterability",
+            system: {
+              description: feature,
+            },
+          });
+        }
 
         for (var i = 1; i <= actorNum; i++) {
           let partsName = data["status" + i + "Style"];
@@ -1023,79 +1215,6 @@ async function yt2import() {
               loot: loot,
             },
           };
-
-          let itemDamage = data["status" + access + "Damage"].replace(
-            /\b2d6\b|\b2d\b/g,
-            ""
-          );
-          let vitResist = data.vitResist
-            ? data.vitResist
-            : data["status" + access + "Vit"];
-          let mndResist = data.mndResist
-            ? data.mndResist
-            : data["status" + access + "Mnd"];
-
-          itemData = [
-            {
-              name: "抵抗判定",
-              type: "monsterability",
-              system: {
-                description: "",
-                usedice1: true,
-                label1: "生命",
-                checkbasemod1: vitResist,
-                usefix1: true,
-                applycheck1: false,
-                usedice2: true,
-                label2: "精神",
-                checkbasemod2: mndResist,
-                usefix2: true,
-                applycheck2: false,
-              },
-            },
-            {
-              name: data["status" + i + "Style"],
-              type: "monsterability",
-              system: {
-                description: "",
-                usedice1: true,
-                label1: "命中",
-                checkbasemod1: data["status" + access + "Accuracy"],
-                usefix1: true,
-                applycheck1: false,
-                usedice2: true,
-                label2: "打撃",
-                checkbasemod2: itemDamage,
-                usefix2: false,
-                applycheck2: true,
-                usedice3: true,
-                label3: "回避",
-                checkbasemod3: data["status" + access + "Evasion"],
-                usefix3: true,
-                applycheck3: false,
-              },
-            },
-          ];
-
-          abilityList = analysisFeature(feature);
-          for (const val of abilityList) {
-            itemData.push(val);
-
-          if (monabi) {
-            abilityList = analysisFeature(feature);
-            for (const val of abilityList) {
-              itemData.push(val);
-            }
-          }
-          if (abilist) {
-            itemData.push({
-              name: "全特殊能力",
-              type: "monsterability",
-              system: {
-                description: feature,
-              },
-            });
-          }
 
           createActor(actorData, itemData);
         }
@@ -1354,7 +1473,7 @@ function convertHtmlFromFeature(feature) {
   const patternParts = /^●(.*)$/g;
   const patternSplit =
     /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑).*$/g;
-	console.log(ret);
+  console.log(ret);
   for (const val of array) {
     var match = "";
 
@@ -1375,8 +1494,8 @@ function convertHtmlFromFeature(feature) {
       ret = ret +  val + "<br>";
     }
   }
-	ret = ret + "</section>";
-	console.log(ret);
+  ret = ret + "</section>";
+  console.log(ret);
   return ret;
 }
 
