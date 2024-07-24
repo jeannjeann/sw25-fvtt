@@ -2,13 +2,19 @@
 async function yt2import() {
   // ダイアログ
   let abilist = false;
+  let abidesc = false;
   let monabi = false;
+  let allattack = false;
   let fileInput = await new Promise((resolve) => {
     let dialogContent = `
       <p>JSONファイル(ゆとシートII出力)を選択してください:</p>
       <p><input type="file" id="json-file-input" accept=".json" style="width: 100%;" /></p>
-      <p><input id="abilist" type="checkbox" data-dtype="Boolean" checked/><label for="abilist">魔物能力を一覧としてインポート</label></p>
-      <p><input id="monabi" type="checkbox" data-dtype="Boolean" checked/><label for="monabi">魔物能力を個別アイテムとしてインポート</label></p>
+      <p></p>
+      <p><b>魔物インポートオプション</b></p>
+      <p><input id="abilist" type="checkbox" data-dtype="Boolean" checked/><label for="abilist">魔物能力一覧アイテムを作成</label></p>
+      <p><input id="abidesc" type="checkbox" data-dtype="Boolean"/><label for="abilist">魔物能力一覧を説明タブに展開</label></p>
+      <p><input id="monabi" type="checkbox" data-dtype="Boolean"/><label for="monabi">魔物能力の個別アイテムを作成</label></p>
+      <p><input id="allattack" type="checkbox" data-dtype="Boolean"/><label for="monabi">多部位魔物：全部位分の攻撃を作成</label></p>
     `;
 
     new Dialog({
@@ -21,7 +27,9 @@ async function yt2import() {
           callback: (html) => {
             let file = html.find("#json-file-input")[0].files[0];
             abilist = html.find("#abilist")[0].checked;
+            abidesc = html.find("#abidesc")[0].checked;
             monabi = html.find("#monabi")[0].checked;
+            allattack = html.find("#allattack")[0].checked;
             if (!file) {
               ui.notifications.warn("ファイルが選択されていません。");
               return;
@@ -132,14 +140,33 @@ async function yt2import() {
           },
         ];
         let resourceList = [];
-        let initiative = [0,"-","-"];
-        let initList = ["スカウト","ウォーリーダー"];
-        let mknowledge = [0,"-","-"];
-        let mknowList = ["セージ","ライダー"];
-        let weakriding = [0,"-","-"];
+        let initiative = [0, "-", "-"];
+        let initList = ["スカウト", "ウォーリーダー"];
+        let mknowledge = [0, "-", "-"];
+        let mknowList = ["セージ", "ライダー"];
+        let weakriding = [0, "-", "-"];
         let weakrList = ["ライダー"];
-        let weakhiding = [0,"-","-"];
-        let weakhList = ["ウィークリング（ガルーダ）","ウィークリング（タンノズ）","ウィークリング（バジリスク）","ウィークリング（ミノタウロス）","ウィークリング（マーマン）","ディアボロ","ドレイク（ナイト）","ドレイク（ブロークン）","バジリスク","ダークトロール","アルボル","バーバヤガー","ケンタウロス","シザースコーピオン","ドーン","コボルド","ラミア","ラルヴァ"];
+        let weakhiding = [0, "-", "-"];
+        let weakhList = [
+          "ウィークリング（ガルーダ）",
+          "ウィークリング（タンノズ）",
+          "ウィークリング（バジリスク）",
+          "ウィークリング（ミノタウロス）",
+          "ウィークリング（マーマン）",
+          "ディアボロ",
+          "ドレイク（ナイト）",
+          "ドレイク（ブロークン）",
+          "バジリスク",
+          "ダークトロール",
+          "アルボル",
+          "バーバヤガー",
+          "ケンタウロス",
+          "シザースコーピオン",
+          "ドーン",
+          "コボルド",
+          "ラミア",
+          "ラルヴァ",
+        ];
 
         // 技能追加
         let baseString = data.sheetDescriptionS.split("技能:")[1].trim();
@@ -180,22 +207,22 @@ async function yt2import() {
           }
 
           // 判定技能
-          if(initList.includes(skill[i].name)){
-            if(initiative[0] < parseInt(skill[i].level)){
+          if (initList.includes(skill[i].name)) {
+            if (initiative[0] < parseInt(skill[i].level)) {
               initiative[0] = parseInt(skill[i].level);
               initiative[1] = skill[i].name;
               initiative[2] = "agi";
             }
           }
-          if(mknowList.includes(skill[i].name)){
-            if(mknowledge[0] < parseInt(skill[i].level)){
+          if (mknowList.includes(skill[i].name)) {
+            if (mknowledge[0] < parseInt(skill[i].level)) {
               mknowledge[0] = parseInt(skill[i].level);
               mknowledge[1] = skill[i].name;
               mknowledge[2] = "int";
             }
           }
-          if(weakrList.includes(skill[i].name)){
-            if(weakriding[0] < parseInt(skill[i].level)){
+          if (weakrList.includes(skill[i].name)) {
+            if (weakriding[0] < parseInt(skill[i].level)) {
               weakriding[0] = parseInt(skill[i].level);
               weakriding[1] = skill[i].name;
               weakriding[2] = "int";
@@ -203,71 +230,66 @@ async function yt2import() {
           }
 
           // リソース用判定
-          if(skill[i].name === "バード"){
+          if (skill[i].name === "バード") {
             resourceList.push("楽素：↑");
             resourceList.push("楽素：↓");
             resourceList.push("楽素：♡");
-          } else if(skill[i].name === "ジオマンサー"){
+          } else if (skill[i].name === "ジオマンサー") {
             resourceList.push("天の命脈点");
             resourceList.push("地の命脈点");
             resourceList.push("人の命脈点");
-          } else if(skill[i].name === "ウォーリーダー"){
+          } else if (skill[i].name === "ウォーリーダー") {
             resourceList.push("陣気");
           }
+        }
+        if (weakhList.includes(data.race)) {
+          weakhiding[1] = "adv";
+          weakhiding[2] = "int";
+        }
 
-        }
-        if(weakhList.includes(data.race)){
-            weakhiding[1] = "adv";
-            weakhiding[2] = "int";
-        }
-      
-        itemData.push(
-          {
-            name: "先制",
+        itemData.push({
+          name: "先制",
+          type: "check",
+          system: {
+            description: "",
+            checkskill: initiative[1],
+            checkabi: initiative[2],
+            showbtcheck: true,
+          },
+        });
+        itemData.push({
+          name: "魔物知識",
+          type: "check",
+          system: {
+            description: "",
+            checkskill: mknowledge[1],
+            checkabi: mknowledge[2],
+            showbtcheck: true,
+          },
+        });
+        if (weakriding[2] != "-") {
+          itemData.push({
+            name: "弱点隠蔽（騎獣）",
             type: "check",
             system: {
               description: "",
-              checkskill: initiative[1],
-              checkabi: initiative[2],
+              checkskill: weakriding[1],
+              checkabi: weakriding[2],
               showbtcheck: true,
             },
           });
-        itemData.push(
-          {
-            name: "魔物知識",
+        }
+        if (weakhiding[2] != "-") {
+          itemData.push({
+            name: "弱点隠蔽",
             type: "check",
             system: {
               description: "",
-              checkskill: mknowledge[1],
-              checkabi: mknowledge[2],
+              checkskill: weakhiding[1],
+              checkabi: weakhiding[2],
               showbtcheck: true,
             },
           });
-        if(weakriding[2] != "-"){
-            itemData.push(
-              {
-                name: "弱点隠蔽（騎獣）",
-                type: "check",
-                system: {
-                  description: "",
-                  checkskill: weakriding[1],
-                  checkabi: weakriding[2],
-                  showbtcheck: true,
-                },
-              });
-        }
-        if(weakhiding[2] != "-"){
-            itemData.push(
-              {
-                name: "弱点隠蔽",
-                type: "check",
-                system: {
-                  description: "",
-                  checkskill: weakhiding[1],
-                  checkabi: weakhiding[2],
-                  showbtcheck: true,
-                },
-              });
         }
         // 言語追加
         let defaultLang = [
@@ -844,7 +866,7 @@ async function yt2import() {
         for (let i in data) {
           if (i.startsWith("combatFeats")) {
             combatfeats = data[i].split(",");
-            for(const val of combatfeats){
+            for (const val of combatfeats) {
               combatability.push(val);
             }
           }
@@ -853,7 +875,7 @@ async function yt2import() {
           let matchItem = game.items.find(
             (item) => item.name === combatability[i]
           );
-          if(combatability[i] == "終律増強"){
+          if (combatability[i] == "終律増強") {
             metafinalsong = true;
           }
           if (!matchItem) {
@@ -873,7 +895,7 @@ async function yt2import() {
           }
         }
 
-       // 練技追加
+        // 練技追加
         for (let i = 1; ; i++) {
           if (!data[`craftEnhance${i}`]) break;
           let matchItem = game.items.find(
@@ -887,7 +909,7 @@ async function yt2import() {
           }
           if (matchItem) {
             let setData = duplicate(matchItem);
-            if(setData.system.usepower){
+            if (setData.system.usepower) {
               setData.system.powerskill = "エンハンサー";
             }
             itemData.push(setData);
@@ -913,14 +935,14 @@ async function yt2import() {
           }
           if (matchItem) {
             let setData = duplicate(matchItem);
-            if(setData.system.usepower){
+            if (setData.system.usepower) {
               setData.system.powerskill = "バード";
               // 終律増強
-              if(metafinalsong && setData.system.type == "final"){
+              if (metafinalsong && setData.system.type == "final") {
                 setData.system.power = parseInt(setData.system.power) + 10;
               }
             }
-            if(setData.system.usedice){
+            if (setData.system.usedice) {
               setData.system.checkskill = "バード";
             }
             itemData.push(setData);
@@ -949,7 +971,7 @@ async function yt2import() {
           }
           if (matchItem) {
             let setData = duplicate(matchItem);
-            if(setData.system.usedice){
+            if (setData.system.usedice) {
               setData.system.checkskill = "ライダー";
             }
             itemData.push(setData);
@@ -977,7 +999,7 @@ async function yt2import() {
           }
           if (matchItem) {
             let setData = duplicate(matchItem);
-            if(setData.system.usedice){
+            if (setData.system.usedice) {
               setData.system.checkskill = "アルケミスト";
             }
             itemData.push(setData);
@@ -1057,15 +1079,10 @@ async function yt2import() {
           }
         }
         // リソース追加
-        for(const resource of resourceList){
-          let matchItem = game.items.find(
-            (item) => item.name === resource
-          );
+        for (const resource of resourceList) {
+          let matchItem = game.items.find((item) => item.name === resource);
           if (!matchItem) {
-            matchItem = await findEntryInCompendium(
-              "Item",
-              resource
-            );
+            matchItem = await findEntryInCompendium("Item", resource);
           }
           if (matchItem) {
             let setData = duplicate(matchItem);
@@ -1081,7 +1098,7 @@ async function yt2import() {
             });
           }
         }
-      
+
         createActor(actorData, itemData);
       }
 
@@ -1091,7 +1108,6 @@ async function yt2import() {
         if (data.characterName != null) name = data.characterName;
         let part = data.partsNum + " (" + data.parts + ")";
         if (data.partsNum == 1 || data.partsNum == null) part = null;
-        let overview = decodeHTML(data.description);
         let loot = "";
         let lootNum = Number(data.lootsNum);
         if (lootNum > 0) {
@@ -1103,13 +1119,18 @@ async function yt2import() {
             loot += num + " : " + item + "<br>";
           }
         }
+        let biography;
         let feature = data.skills.replace(/&lt;br&gt;/g, "<br>");
-        let biography = convertHtmlFromFeature(feature);
+        if (abidesc)
+          biography =
+            convertHtmlFromFeature(feature) +
+            "<br><h3><b>解説</b></h3>" +
+            decodeHTML(data.description);
+        else biography = "<h3><b>解説</b></h3>" + decodeHTML(data.description);
 
         let actorNum = parseInt(data.partsNum, 10)
           ? parseInt(data.partsNum, 10)
           : 1;
-
 
         let mountLv = parseInt(data.lvMin)
           ? parseInt(data.lv) - parseInt(data.lvMin)
@@ -1144,7 +1165,6 @@ async function yt2import() {
         ];
 
         for (var i = 1; i <= actorNum; i++) {
-
           let mountLv = parseInt(data.lvMin)
             ? parseInt(data.lv) - parseInt(data.lvMin)
             : 0;
@@ -1154,30 +1174,29 @@ async function yt2import() {
             ""
           );
 
-          if(!isNaN(itemDamage)){
-            itemData.push(
-              {
-                name: "[通常攻撃]" + data["status" + i + "Style"],
-                type: "monsterability",
-                system: {
-                  description: "",
-                  usedice1: true,
-                  label1: "命中",
-                  checkbasemod1: data["status" + access + "Accuracy"],
-                  usefix1: true,
-                  applycheck1: false,
-                  usedice2: true,
-                  label2: "打撃",
-                  checkbasemod2: itemDamage,
-                  usefix2: false,
-                  applycheck2: true,
-                  usedice3: true,
-                  label3: "回避",
-                  checkbasemod3: data["status" + access + "Evasion"],
-                  usefix3: true,
-                  applycheck3: false,
-                },
-              });
+          if (!isNaN(itemDamage)) {
+            itemData.push({
+              name: data["status" + i + "Style"],
+              type: "monsterability",
+              system: {
+                description: "",
+                usedice1: true,
+                label1: "命中",
+                checkbasemod1: data["status" + access + "Accuracy"],
+                usefix1: true,
+                applycheck1: false,
+                usedice2: true,
+                label2: "打撃",
+                checkbasemod2: itemDamage,
+                usefix2: false,
+                applycheck2: true,
+                usedice3: true,
+                label3: "回避",
+                checkbasemod3: data["status" + access + "Evasion"],
+                usefix3: true,
+                applycheck3: false,
+              },
+            });
           }
         }
 
@@ -1199,10 +1218,8 @@ async function yt2import() {
 
         for (var i = 1; i <= actorNum; i++) {
           let partsName = data["status" + i + "Style"];
-          partsName = partsName.replace(/.*[\(（]/,"").replace(/[\)）].*/,"");
-          let actName = actorNum == 1 
-            ? name 
-            : name + "_" +  partsName;
+          partsName = partsName.replace(/.*[\(（]/, "").replace(/[\)）].*/, "");
+          let actName = actorNum == 1 ? name : name + " (" + partsName + ")";
 
           let mountLv = parseInt(data.lvMin)
             ? parseInt(data.lv) - parseInt(data.lvMin)
@@ -1237,12 +1254,24 @@ async function yt2import() {
               part: part,
               corepart: data.coreParts,
               biography: biography,
-              overview: overview,
               loot: loot,
             },
           };
 
-          createActor(actorData, itemData);
+          let applyItemData = [];
+          if (!allattack) {
+            applyItemData = itemData.filter(
+              (item) =>
+                !(
+                  item.name != data["status" + i + "Style"] &&
+                  item.system.label1 == "命中" &&
+                  item.system.label2 == "打撃" &&
+                  item.system.label3 == "回避"
+                )
+            );
+          } else applyItemData = itemData;
+
+          createActor(actorData, applyItemData);
         }
       }
     } catch (e) {
@@ -1410,7 +1439,7 @@ function analysisFeature(feature) {
     // 部位判定
     match = val.match(patternParts);
     if (match != null) {
-      parts = "[" + match[0].replace("●","") + "]";
+      parts = "[" + match[0].replace("●", "") + "]";
 
       skill = [
         "",
@@ -1435,6 +1464,14 @@ function analysisFeature(feature) {
       var split = match[0].split(patternMagic);
       skill[0] = parts != "" ? parts + split[2] : split[2];
       skill[1] = "魔力";
+      if (skill[0].includes("真語魔法")) skill[1] = "真語魔力";
+      if (skill[0].includes("操霊魔法")) skill[1] = "操霊魔力";
+      if (skill[0].includes("深智魔法")) skill[1] = "深智魔力";
+      if (skill[0].includes("神聖魔法")) skill[1] = "神聖魔力";
+      if (skill[0].includes("魔動機術")) skill[1] = "魔動機術魔力";
+      if (skill[0].includes("妖精魔法")) skill[1] = "妖精魔力";
+      if (skill[0].includes("森羅魔法")) skill[1] = "森羅魔力";
+      if (skill[0].includes("召異魔法")) skill[1] = "召異魔力";
       skill[2] = parseInt(toHalfWidth(split[3]), 10);
       skill[3] = "";
       skill[4] = match[0];
@@ -1493,13 +1530,12 @@ function analysisFeature(feature) {
 
 // 魔物特殊能力HTML成型
 function convertHtmlFromFeature(feature) {
-  var ret = "<section class=\"box\">";
+  var ret = '<section class="box">';
   const array = feature.split("<br>");
   var parts = "";
   const patternParts = /^●(.*)$/g;
   const patternSplit =
     /^(\[常\]|○|◯|〇|\[戦\]|△|\[主\]|＞|▶|〆|\[補\]|≫|>>|☆|\[宣\]|🗨|□|☑).*$/g;
-  console.log(ret);
   for (const val of array) {
     var match = "";
 
@@ -1516,12 +1552,11 @@ function convertHtmlFromFeature(feature) {
       ret = ret + "<h4>" + val + "</h4>";
       continue;
     }
-    if( val != "" ){
-      ret = ret +  val + "<br>";
+    if (val != "") {
+      ret = ret + val + "<br>";
     }
   }
   ret = ret + "</section>";
-  console.log(ret);
   return ret;
 }
 
