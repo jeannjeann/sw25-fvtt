@@ -111,6 +111,7 @@
     "Unidentifiedname": "Display name for Limited player",
     "Monlevel": "Monster Level",
     "Monster": {
+      "Name": "Name",
       "Type": "Type",
       "Intelligence": "Intelligence",
       "Perception": "Perception",

@@ -111,6 +111,7 @@
     "Unidentifiedname": "限定的PLへの表示名",
     "Monlevel": "魔物レベル",
     "Monster": {
+      "Name": "名称",
       "Type": "種別",
       "Intelligence": "知能",
       "Perception": "知覚",
