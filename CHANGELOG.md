@@ -1,6 +1,10 @@
 # CHANGELOG
 
 ## 0.9.0
+- update English manual by [kuouvadis](https://github.com/kuouvadis)
+- bug fix
+
+## 0.9.0
 - 薬草、ポーション、修理具における判定と威力ロールの技能、能力値のデフォルト値を設定
 - MP消費機能を追加
 - バフ・デバフに「MP軽減」を追加（魔法アイテムのMP消費再設定が必要）
