@@ -373,6 +373,7 @@ export class SW25Actor extends Actor {
     let totalmpfr = null;
     let totalmpdr = null;
     let totalmpdm = null;
+    let totalmpall = null;
     effectsChange.forEach((effectList) => {
       effectList.forEach((effects) => {
         if (effects.key == "system.attributes.efhitmod")
@@ -469,6 +470,8 @@ export class SW25Actor extends Actor {
           totalmpdr += Number(effects.value);
         if (effects.key == "system.attributes.efmpdm")
           totalmpdm += Number(effects.value);
+        if (effects.key == "system.attributes.efmpall")
+          totalmpall += Number(effects.value);
       });
     });
 
@@ -520,6 +523,7 @@ export class SW25Actor extends Actor {
     systemData.totalmpfr = totalmpfr;
     systemData.totalmpdr = totalmpdr;
     systemData.totalmpdm = totalmpdm;
+    systemData.totalmpall = totalmpall;
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
     if (totalcmod > 0) systemData.totalcmod = "+" + totalcmod;
@@ -727,6 +731,7 @@ export class SW25Actor extends Actor {
     let totalmpfr = null;
     let totalmpdr = null;
     let totalmpdm = null;
+    let totalmpall = null;
     effectsChange.forEach((effectList) => {
       effectList.forEach((effects) => {
         if (effects.key == "system.attributes.efhitmod")
@@ -823,6 +828,8 @@ export class SW25Actor extends Actor {
           totalmpdr += Number(effects.value);
         if (effects.key == "system.attributes.efmpdm")
           totalmpdm += Number(effects.value);
+        if (effects.key == "system.attributes.efmpall")
+          totalmpall += Number(effects.value);
       });
     });
 
@@ -874,6 +881,7 @@ export class SW25Actor extends Actor {
     systemData.totalmpfr = totalmpfr;
     systemData.totalmpdr = totalmpdr;
     systemData.totalmpdm = totalmpdm;
+    systemData.totalmpall = totalmpall;
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
     if (totalcmod > 0) systemData.totalcmod = "+" + totalcmod;

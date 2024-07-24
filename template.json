@@ -130,7 +130,8 @@
         "dmskill": "",
         "dmmod": 0,
         "efdmmod": 0,
-        "efmpdm": 0
+        "efmpdm": 0,
+        "efmpall": 0        
       },
       "abilities": {
         "dex": {
@@ -271,7 +272,8 @@
         "dmskill": "",
         "dmmod": 0,
         "efdmmod": 0,
-        "efmpdm": 0
+        "efmpdm": 0,
+        "efmpall": 0        
       },
       "pp": 0,
       "mpp": 0,
@@ -402,6 +404,7 @@
     "enhancearts": {
       "templates": ["base", "roll", "ability"],
       "time": 0,
+      "basempcost": 0,
       "mpcost": 0
     },
     "magicalsong": {

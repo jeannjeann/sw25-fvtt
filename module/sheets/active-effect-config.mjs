@@ -86,6 +86,7 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.efmpfr":
         case "system.attributes.efmpdr":
         case "system.attributes.efmpdm":
+        case "system.attributes.efmpall":
           change.keyClassification = "mpsave";
           change.keyname = change.key.replace(/^system\./, "");
           break;

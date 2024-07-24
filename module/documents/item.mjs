@@ -631,7 +631,9 @@ export class SW25Item extends Item {
               actorData.attributes.scmod + Number(actorData.attributes.efscmod)
             );
           systemData.mpcost =
-            Number(systemData.basempcost) - Number(actorData.attributes.efmpsc);
+            Number(systemData.basempcost) -
+            Number(actorData.attributes.efmpsc) -
+            Number(actorData.attributes.efmpall);
           if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "conjurer":
@@ -646,7 +648,9 @@ export class SW25Item extends Item {
               actorData.attributes.cnmod + Number(actorData.attributes.efcnmod)
             );
           systemData.mpcost =
-            Number(systemData.basempcost) - Number(actorData.attributes.efmpcn);
+            Number(systemData.basempcost) -
+            Number(actorData.attributes.efmpcn) -
+            Number(actorData.attributes.efmpall);
           if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "wizard":
@@ -661,7 +665,9 @@ export class SW25Item extends Item {
               actorData.attributes.wzmod + Number(actorData.attributes.efwzmod)
             );
           systemData.mpcost =
-            Number(systemData.basempcost) - Number(actorData.attributes.efmpwz);
+            Number(systemData.basempcost) -
+            Number(actorData.attributes.efmpwz) -
+            Number(actorData.attributes.efmpall);
           if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "priest":
@@ -676,7 +682,9 @@ export class SW25Item extends Item {
               actorData.attributes.prmod + Number(actorData.attributes.efprmod)
             );
           systemData.mpcost =
-            Number(systemData.basempcost) - Number(actorData.attributes.efmppr);
+            Number(systemData.basempcost) -
+            Number(actorData.attributes.efmppr) -
+            Number(actorData.attributes.efmpall);
           if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "magitech":
@@ -691,7 +699,9 @@ export class SW25Item extends Item {
               actorData.attributes.mtmod + Number(actorData.attributes.efmtmod)
             );
           systemData.mpcost =
-            Number(systemData.basempcost) - Number(actorData.attributes.efmpmt);
+            Number(systemData.basempcost) -
+            Number(actorData.attributes.efmpmt) -
+            Number(actorData.attributes.efmpall);
           if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "fairy":
@@ -706,7 +716,9 @@ export class SW25Item extends Item {
               actorData.attributes.frmod + Number(actorData.attributes.effrmod)
             );
           systemData.mpcost =
-            Number(systemData.basempcost) - Number(actorData.attributes.efmpfr);
+            Number(systemData.basempcost) -
+            Number(actorData.attributes.efmpfr) -
+            Number(actorData.attributes.efmpall);
           if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "druid":
@@ -721,7 +733,9 @@ export class SW25Item extends Item {
               actorData.attributes.drmod + Number(actorData.attributes.efdrmod)
             );
           systemData.mpcost =
-            Number(systemData.basempcost) - Number(actorData.attributes.efmpdr);
+            Number(systemData.basempcost) -
+            Number(actorData.attributes.efmpdr) -
+            Number(actorData.attributes.efmpall);
           if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         case "daemon":
@@ -736,12 +750,20 @@ export class SW25Item extends Item {
               actorData.attributes.dmmod + Number(actorData.attributes.efdmmod)
             );
           systemData.mpcost =
-            Number(systemData.basempcost) - Number(actorData.attributes.efmpdm);
+            Number(systemData.basempcost) -
+            Number(actorData.attributes.efmpdm) -
+            Number(actorData.attributes.efmpall);
           if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         default:
           break;
       }
+    }
+
+    if (itemData.type == "enhancearts") {
+      systemData.mpcost =
+        Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
+      if (systemData.mpcost < 1) systemData.mpcost = 1;
     }
 
     if (itemData.type == "monsterability") {
