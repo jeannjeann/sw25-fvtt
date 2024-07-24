@@ -420,6 +420,7 @@ You can set the duration in the Effect Duration (Turns) field.
   - All skill checks for PCs will be reflected on the right side of the Check tab.
   - Each Magic Power including All Magic Power is also reflected in the Power Check.
   - All items that have checks, All Magic, and individual checks and magic are duplicated.
+  - Everything of MP Save be applied to more than just spell.
 
 ### How to Apply Effects
 

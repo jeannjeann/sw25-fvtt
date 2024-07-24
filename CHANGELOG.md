@@ -3,6 +3,7 @@
 ## 0.9.1
 - バフ・デバフ「MP軽減」に「すべて」を追加（練技アイテムのMP消費再設定が必要）
 - ゆとシートIIインポートマクロ更新  by [keyslock](https://github.com/keyslock)
+- マニュアルアップデート
 - update English manual by [kuouvadis](https://github.com/kuouvadis)
 - bug fix
 

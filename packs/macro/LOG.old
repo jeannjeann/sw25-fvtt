@@ -1,5 +1,9 @@
-2024/07/21-16:51:13.528 1cb4 Log #87: 0 ops saved to Table #90 OK
-2024/07/21-16:51:13.529 1cb4 Archiving D:\_Home\App\FVTT\foundryuserdata11\Data\systems\sw25\packs\macro/000087.log: OK
-2024/07/21-16:51:13.530 1cb4 Table #89: 1 entries OK
-2024/07/21-16:51:13.533 1cb4 Archiving D:\_Home\App\FVTT\foundryuserdata11\Data\systems\sw25\packs\macro/MANIFEST-000083: OK
-2024/07/21-16:51:13.537 1cb4 **** Repaired leveldb D:\_Home\App\FVTT\foundryuserdata11\Data\systems\sw25\packs\macro; recovered 1 files; 8705 bytes. Some data may have been lost. ****
+2024/07/24-10:56:45.020 4614 Log #93: 0 ops saved to Table #111 OK
+2024/07/24-10:56:45.021 4614 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\macro/000093.log: OK
+2024/07/24-10:56:45.022 4614 Log #108: 0 ops saved to Table #112 OK
+2024/07/24-10:56:45.023 4614 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\macro/000108.log: OK
+2024/07/24-10:56:45.024 4614 Table #95: 1 entries OK
+2024/07/24-10:56:45.024 4614 Table #110: 1 entries OK
+2024/07/24-10:56:45.027 4614 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\macro/MANIFEST-000091: OK
+2024/07/24-10:56:45.029 4614 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\macro/MANIFEST-000106: OK
+2024/07/24-10:56:45.034 4614 **** Repaired leveldb D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\macro; recovered 2 files; 23072 bytes. Some data may have been lost. ****
