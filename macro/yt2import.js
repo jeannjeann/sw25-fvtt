@@ -12,10 +12,10 @@ async function yt2import() {
       <p><input type="file" id="json-file-input" accept=".json" style="width: 100%;" /></p>
       <p></p>
       <p><b>魔物インポートオプション</b></p>
-      <p><input id="abilist" type="checkbox" data-dtype="Boolean"/><label for="abilist">魔物能力一覧アイテムを作成</label></p>
-      <p><input id="abidesc" type="checkbox" data-dtype="Boolean" checked/><label for="abilist">魔物能力一覧を説明タブに展開</label></p>
-      <p><input id="monabi" type="checkbox" data-dtype="Boolean" checked/><label for="monabi">魔物能力の個別アイテムを作成</label></p>
-      <p><input id="allattack" type="checkbox" data-dtype="Boolean" checked/><label for="allattack">多部位魔物：全部位分の攻撃を作成</label></p>
+      <p><input id="abilist" type="checkbox" data-dtype="Boolean" checked/><label for="abilist">魔物能力一覧アイテムを作成</label></p>
+      <p><input id="abidesc" type="checkbox" data-dtype="Boolean"/><label for="abilist">魔物能力一覧を説明タブに展開</label></p>
+      <p><input id="monabi" type="checkbox" data-dtype="Boolean"/><label for="monabi">魔物能力の個別アイテムを作成</label></p>
+      <p><input id="allattack" type="checkbox" data-dtype="Boolean"/><label for="allattack">多部位魔物：全部位分の攻撃を作成</label></p>
       <p><input id="usefix" type="checkbox" data-dtype="Boolean" checked/><label for="usefix">魔物能力で固定値を使用</label></p>
     `;
 
