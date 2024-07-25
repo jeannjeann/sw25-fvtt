@@ -5,6 +5,7 @@ async function yt2import() {
   let abidesc = false;
   let monabi = false;
   let allattack = false;
+  let usefix = false;
   let fileInput = await new Promise((resolve) => {
     let dialogContent = `
       <p>JSONファイル(ゆとシートII出力)を選択してください:</p>
@@ -14,7 +15,8 @@ async function yt2import() {
       <p><input id="abilist" type="checkbox" data-dtype="Boolean" checked/><label for="abilist">魔物能力一覧アイテムを作成</label></p>
       <p><input id="abidesc" type="checkbox" data-dtype="Boolean"/><label for="abilist">魔物能力一覧を説明タブに展開</label></p>
       <p><input id="monabi" type="checkbox" data-dtype="Boolean"/><label for="monabi">魔物能力の個別アイテムを作成</label></p>
-      <p><input id="allattack" type="checkbox" data-dtype="Boolean"/><label for="monabi">多部位魔物：全部位分の攻撃を作成</label></p>
+      <p><input id="allattack" type="checkbox" data-dtype="Boolean"/><label for="allattack">多部位魔物：全部位分の攻撃を作成</label></p>
+      <p><input id="usefix" type="checkbox" data-dtype="Boolean" checked/><label for="usefix">魔物能力で固定値を使用</label></p>
     `;
 
     new Dialog({
@@ -30,6 +32,7 @@ async function yt2import() {
             abidesc = html.find("#abidesc")[0].checked;
             monabi = html.find("#monabi")[0].checked;
             allattack = html.find("#allattack")[0].checked;
+            usefix = html.find("#usefix")[0].checked;
             if (!file) {
               ui.notifications.warn("ファイルが選択されていません。");
               return;
@@ -60,63 +63,11 @@ async function yt2import() {
       // PC
       let biography = decodeHTML(data.freeNote);
 
+      let hitweapon = "";
+      if (data.weapon1Name)
+        hitweapon = data.weapon1Name;
+
       if (!data.monsterName) {
-        actorData = {
-          name: data.characterName,
-          type: "character",
-          system: {
-            abilities: {
-              dex: {
-                racevalue: Number(data.sttBaseTec),
-                valuebase: Number(data.sttBaseA),
-                valuegrowth: Number(data.sttGrowA),
-                valuemodify: Number(data.sttAddA),
-              },
-              agi: {
-                valuebase: Number(data.sttBaseB),
-                valuegrowth: Number(data.sttGrowB),
-                valuemodify: Number(data.sttAddB),
-              },
-              str: {
-                racevalue: Number(data.sttBasePhy),
-                valuebase: Number(data.sttBaseC),
-                valuegrowth: Number(data.sttGrowC),
-                valuemodify: Number(data.sttAddC),
-              },
-              vit: {
-                valuebase: Number(data.sttBaseD),
-                valuegrowth: Number(data.sttGrowD),
-                valuemodify: Number(data.sttAddD),
-              },
-              int: {
-                racevalue: Number(data.sttBaseSpi),
-                valuebase: Number(data.sttBaseE),
-                valuegrowth: Number(data.sttGrowE),
-                valuemodify: Number(data.sttAddE),
-              },
-              mnd: {
-                valuebase: Number(data.sttBaseF),
-                valuegrowth: Number(data.sttGrowF),
-                valuemodify: Number(data.sttAddF),
-              },
-            },
-            money: data.moneyTotal,
-            race: data.race,
-            biography: biography,
-            attributes: {
-              age: data.age,
-              gender: data.gender,
-              born: data.birth,
-              faith: data.faith,
-              honer: {
-                rank: data.rank,
-                value: data.honor,
-              },
-              impurity: data.sin,
-              totalexp: data.expTotal,
-            },
-          },
-        };
         itemData = [
           {
             name: "生命抵抗力",
@@ -140,6 +91,10 @@ async function yt2import() {
           },
         ];
         let resourceList = [];
+        let dodgeList = [0, "-"];
+        let dodgeskill = ["ファイター", "グラップラー","フェンサー","バトルダンサー"];
+        let wizardList = [0, "-"];
+        let wzskill = ["ソーサラー", "コンジャラー"];
         let initiative = [0, "-", "-"];
         let initList = ["スカウト", "ウォーリーダー"];
         let mknowledge = [0, "-", "-"];
@@ -207,6 +162,18 @@ async function yt2import() {
           }
 
           // 判定技能
+          if (dodgeList.includes(skill[i].name)) {
+            if (dodgeskill[0] < parseInt(skill[i].level)) {
+              dodgeskill[0] = parseInt(skill[i].level);
+              dodgeskill[1] = skill[i].name;
+            }
+          }
+          if (wizardList.includes(skill[i].name)) {
+            if (wzskill[0] < parseInt(skill[i].level)) {
+              wzskill[0] = parseInt(skill[i].level);
+              wzskill[1] = skill[i].name;
+            }
+          }
           if (initList.includes(skill[i].name)) {
             if (initiative[0] < parseInt(skill[i].level)) {
               initiative[0] = parseInt(skill[i].level);
@@ -1078,6 +1045,47 @@ async function yt2import() {
             });
           }
         }
+        
+        // マテリアルカード追加
+        let materialE = ["Red","Gre","Bla","Whi","Gol"];
+        let materialJ = ["赤","緑","黒","白","金"];
+        let materialR = ["B","A","S","SS"];
+        for (let i = 0; i < materialE.length; i++) {
+          for (const crank of materialR) {
+            if(data["card" + materialE[i] + crank]){
+               let cardName = "マテリアルカード（"
+                 + materialJ[i]
+                 + crank
+                 + "）";
+               let quantity = parseInt(data["card" + materialE[i] + crank]);
+
+               let matchItem = game.items.find(
+                 (item) => item.name === cardName
+               );
+               if (!matchItem) {
+                 matchItem = await findEntryInCompendium(
+                   "Item",
+                   cardName
+                 );
+               }
+               if (matchItem) {
+                 let setData = duplicate(matchItem);
+                 setData.system.quantity = quantity;
+                 itemData.push(setData);
+               } else {
+                 itemData.push({
+                   name: data[`craftEnhance${i}`],
+                   type: "item",
+                   system: {
+                     quantity: quantity,
+                     description: "",
+                   },
+                 });
+               }
+            }
+          }
+        }
+        
         // リソース追加
         for (const resource of resourceList) {
           let matchItem = game.items.find((item) => item.name === resource);
@@ -1098,6 +1106,77 @@ async function yt2import() {
             });
           }
         }
+
+        actorData = {
+          name: data.characterName,
+          type: "character",
+          system: {
+            abilities: {
+              dex: {
+                racevalue: Number(data.sttBaseTec),
+                valuebase: Number(data.sttBaseA),
+                valuegrowth: Number(data.sttGrowA),
+                valuemodify: Number(data.sttAddA),
+              },
+              agi: {
+                valuebase: Number(data.sttBaseB),
+                valuegrowth: Number(data.sttGrowB),
+                valuemodify: Number(data.sttAddB),
+              },
+              str: {
+                racevalue: Number(data.sttBasePhy),
+                valuebase: Number(data.sttBaseC),
+                valuegrowth: Number(data.sttGrowC),
+                valuemodify: Number(data.sttAddC),
+              },
+              vit: {
+                valuebase: Number(data.sttBaseD),
+                valuegrowth: Number(data.sttGrowD),
+                valuemodify: Number(data.sttAddD),
+              },
+              int: {
+                racevalue: Number(data.sttBaseSpi),
+                valuebase: Number(data.sttBaseE),
+                valuegrowth: Number(data.sttGrowE),
+                valuemodify: Number(data.sttAddE),
+              },
+              mnd: {
+                valuebase: Number(data.sttBaseF),
+                valuegrowth: Number(data.sttGrowF),
+                valuemodify: Number(data.sttAddF),
+              },
+            },
+            money: data.moneyTotal,
+            race: data.race,
+            biography: biography,
+            attributes: {
+              age: data.age,
+              gender: data.gender,
+              born: data.birth,
+              faith: data.faith,
+              honer: {
+                rank: data.rank,
+                value: data.honor,
+              },
+              impurity: data.sin,
+              totalexp: data.expTotal,
+            },
+            hitweapon: hitweapon,
+            attackskill : data.weapon1Class,
+            dodgeskill: dodgeskill[1],
+            herbskill: "レンジャー",
+            potionskill: "レンジャー",
+            repairskill: "ライダー",
+            scskill: "ソーサラー",
+            cnskill: "コンジャラー",
+            wzskill: wzskill[1],
+            prskill: "プリースト",
+            mtskill: "マギテック",
+            frskill: "フェアリーテイマー",
+            drskill: "ドルイド",
+            dmskill: "デーモンルーラー",
+          },
+        };
 
         createActor(actorData, itemData);
       }
@@ -1121,15 +1200,9 @@ async function yt2import() {
         }
         let biography;
         let feature = data.skills.replace(/&lt;br&gt;/g, "<br>");
-        if (abidesc)
-          biography =
-            convertHtmlFromFeature(feature) +
-            "<br><h3><b>解説</b></h3>" +
-            decodeHTML(data.description);
-        else biography = "<h3><b>解説</b></h3>" + decodeHTML(data.description);
 
-        let actorNum = parseInt(data.partsNum, 10)
-          ? parseInt(data.partsNum, 10)
+        let actorNum = parseInt(data.statusNum, 10)
+          ? parseInt(data.statusNum, 10)
           : 1;
 
         let mountLv = parseInt(data.lvMin)
@@ -1152,18 +1225,20 @@ async function yt2import() {
               description: "",
               usedice1: true,
               label1: "生命",
-              checkbasemod1: vitResist,
-              usefix1: true,
+              checkbasemod1: eval(vitResist),
+              usefix1: usefix,
               applycheck1: false,
               usedice2: true,
               label2: "精神",
-              checkbasemod2: mndResist,
-              usefix2: true,
+              checkbasemod2: eval(mndResist),
+              usefix2: usefix,
               applycheck2: false,
             },
           },
         ];
 
+
+        let partsList = [];
         for (var i = 1; i <= actorNum; i++) {
           let mountLv = parseInt(data.lvMin)
             ? parseInt(data.lv) - parseInt(data.lvMin)
@@ -1182,26 +1257,41 @@ async function yt2import() {
                 description: "",
                 usedice1: true,
                 label1: "命中",
-                checkbasemod1: data["status" + access + "Accuracy"],
-                usefix1: true,
+                checkbasemod1: eval(data["status" + access + "Accuracy"]),
+                usefix1: usefix,
                 applycheck1: false,
                 usedice2: true,
                 label2: "打撃",
                 checkbasemod2: itemDamage,
-                usefix2: false,
+                usefix2: usefix,
                 applycheck2: true,
                 usedice3: true,
                 label3: "回避",
-                checkbasemod3: data["status" + access + "Evasion"],
-                usefix3: true,
+                checkbasemod3: eval(data["status" + access + "Evasion"]),
+                usefix3: usefix,
                 applycheck3: false,
               },
             });
           }
+          if (abidesc)
+            partsList.push([
+             data["status" + i + "Style"],
+             eval(data["status" + access + "Accuracy"]),
+             data["status" + access + "Damage"],
+             eval(data["status" + access + "Evasion"]),
+             eval(data["status" + access + "Defense"]),
+             eval(data["status" + access + "Hp"]),
+             eval(data["status" + access + "Mp"]),
+            ]);
         }
 
+        if (abidesc)
+          biography = getBiography(feature, data.description, partsList);
+        else biography = "<h3><b>解説</b></h3>" + decodeHTML(data.description);
+
+
         if (monabi) {
-          abilityList = analysisFeature(feature);
+          abilityList = analysisFeature(feature, usefix);
           for (const val of abilityList) {
             itemData.push(val);
           }
@@ -1225,20 +1315,21 @@ async function yt2import() {
             ? parseInt(data.lv) - parseInt(data.lvMin)
             : 0;
           let access = mountLv == 0 ? i : i + "-" + (mountLv + 1);
+          
           actorData = {
             name: actName,
             type: "monster",
             system: {
               hp: {
-                value: data["status" + access + "Hp"],
+                value: eval(data["status" + access + "Hp"]),
               },
               mp: {
-                value: data["status" + access + "Mp"],
+                value: eval(data["status" + access + "Mp"]),
               },
               monlevel: data.lv,
-              hpbase: data["status" + access + "Hp"],
-              mpbase: data["status" + access + "Mp"],
-              ppbase: data["status" + access + "Defense"],
+              hpbase: eval(data["status" + access + "Hp"]),
+              mpbase: eval(data["status" + access + "Mp"]),
+              ppbase: eval(data["status" + access + "Defense"]),
               type: data.taxa,
               intelligence: data.intellect,
               perception: data.perception,
@@ -1313,7 +1404,7 @@ function createActor(actorData, itemData) {
 }
 
 // 魔物特殊能力解析
-function analysisFeature(feature) {
+function analysisFeature(feature, usefix) {
   const array = feature.split("<br>");
   var parts = "";
   const patternParts = /^●(.*)$/g;
@@ -1345,7 +1436,7 @@ function analysisFeature(feature) {
     "",
     "",
     false,
-    false,
+    usefix,
     false,
     false,
     false,
@@ -1386,7 +1477,7 @@ function analysisFeature(feature) {
         "",
         "",
         false,
-        false,
+        usefix,
         false,
         false,
         false,
@@ -1448,7 +1539,7 @@ function analysisFeature(feature) {
         "",
         "",
         false,
-        false,
+        usefix,
         false,
         false,
         false,
@@ -1558,6 +1649,47 @@ function convertHtmlFromFeature(feature) {
   }
   ret = ret + "</section>";
   return ret;
+}
+
+function getBiography(feature, description, partsList){
+   let biography = `
+      <table class="status">
+        <thead>
+          <tr>
+            <th>攻撃方法（部位）
+            <th>命中力
+            <th>打撃点
+            <th>回避力
+            <th>防護点
+            <th>ＨＰ
+            <th>ＭＰ
+        </thead>
+        <tbody>
+   `;
+   for ( const parts of partsList){
+     acc = parts[1] + 7;
+     eva = parts[3] + 7;
+     biography += `
+            <tr>
+              <td class="pt-item">${parts[0]}
+              <td class="pt-item">${parts[1]} (${acc})
+              <td class="pt-item">${parts[2]}
+              <td class="pt-item">${parts[3]} (${eva})
+              <td class="pt-item">${parts[4]}
+              <td class="pt-item">${parts[5]}
+              <td class="pt-item">${parts[6]}
+     `;
+   }
+   biography += `
+        </tbody>
+      </table>
+   `;
+
+   biography +=
+     convertHtmlFromFeature(feature) +
+     "<br><h3><b>解説</b></h3>" +
+     decodeHTML(description);
+   return biography;
 }
 
 // 全角半角変換関数
