@@ -677,17 +677,14 @@ progress.mp-bar::-moz-progress-bar {
   flex: 0 0 100%;
 }
 
-.sw25 .sheet-header .header-fields .monster-parameters .monster-preemptive{
-  flex: 0 0 15%;
-  text-align: center;
-}
 .sw25 .sheet-header .header-fields .monster-parameters .monster-popularity{
-  flex: 1 1 35%;
-  text-align: center;
+  flex: 0 0 65%;
+}
+.sw25 .sheet-header .header-fields .monster-parameters .monster-preemptive{
+  flex: 0 0 35%;
 }
 .sw25 .sheet-header .header-fields .monster-parameters .monster-move{
-  flex:1 1 30%;
-  text-align: center;
+  flex:0 0 100%;
 }
 
 .sw25 .sheet-header .header-fields .monster-parameters .monster-pp,

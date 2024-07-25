@@ -1,6 +1,9 @@
 ## Todo
 - bug fix
 - 辞典アイコン変更
+- 戦利品ロール対応
+- フェローシート
+- PCのフェロー化、NPCのフェロー化
 
 ## 更新作業
 - マニュアル、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ
@@ -15,9 +18,6 @@
     Effect#icon"#img"
     {{colorPicker}}<color-picker>
     ~~gridDistance"grid.distance"~~
-- 戦利品ロール対応
-- フェローシート
-- PCのフェロー化、NPCのフェロー化
 ### ゆっくり作業
 - クリファン検出を合計から各出目参照に変更
 - システム設定項目　汎用威力表の設定での指定
