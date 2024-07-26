@@ -742,69 +742,116 @@ async function yt2import() {
           "Other",
         ];
         for (let i = 0; i < accessorypart.length; i++) {
-          let accname = "accessory" + accessorypart[i] + "Name";
-          let accown = "accessory" + accessorypart[i] + "Own";
-          let accnote = "accessory" + accessorypart[i] + "Note";
-          let accpart;
-          switch (accessorypart[i]) {
-            case "Head":
-              accpart = "head";
-              break;
-            case "Face":
-              accpart = "face";
-              break;
-            case "Ear":
-              accpart = "ear";
-              break;
-            case "Neck":
-              accpart = "neck";
-              break;
-            case "Back":
-              accpart = "back";
-              break;
-            case "HandR":
-              accpart = "rhand";
-              break;
-            case "HandL":
-              accpart = "lhand";
-              break;
-            case "Waist":
-              accpart = "waist";
-              break;
-            case "Leg":
-              accpart = "leg";
-              break;
-            case "Other":
-              accpart = "other";
-              break;
-            default:
-              break;
-          }
-          if (data[accname]) {
-            let dedicated = true;
-            if (!data[accown]) dedicated = false;
-            let matchItem = game.items.find(
-              (item) => item.name === data[accname]
-            );
-            if (!matchItem) {
-              matchItem = await findEntryInCompendium("Item", data[accname]);
+          let addAcc = 0;
+          for (let j = 0; j <= addAcc ; j++) {
+            let underbar = "";
+            for (let k = 0; k < j; k++) {
+              underbar += "_";
             }
-            if (matchItem) {
-              let setData = duplicate(matchItem);
-              setData.system.equip = true;
-              setData.system.dedicated = dedicated;
-              itemData.push(setData);
-            } else {
-              itemData.push({
-                name: data[accname],
-                type: "accessory",
-                system: {
-                  description: data[accnote],
-                  equip: true,
-                  dedicated: dedicated,
-                  accpart: accpart,
-                },
-              });
+            let accname = "accessory" + accessorypart[i] + underbar + "Name";
+            let accown = "accessory" + accessorypart[i] + underbar + "Own";
+            let accnote = "accessory" + accessorypart[i] + underbar + "Note";
+            let accadd = "accessory" + accessorypart[i] + underbar + "Add";
+            
+            let accpart;
+            switch (accessorypart[i]) {
+              case "Head":
+                accpart = "head";
+                break;
+              case "Face":
+                accpart = "face";
+                break;
+              case "Ear":
+                accpart = "ear";
+                break;
+              case "Neck":
+                accpart = "neck";
+                break;
+              case "Back":
+                accpart = "back";
+                break;
+              case "HandR":
+                accpart = "rhand";
+                break;
+              case "HandL":
+                accpart = "lhand";
+                break;
+              case "Waist":
+                accpart = "waist";
+                break;
+              case "Leg":
+                accpart = "leg";
+                break;
+              case "Other":
+                accpart = "other";
+                break;
+              default:
+                break;
+            }
+
+            if ( data[accadd] )
+              addAcc += 1;
+            
+            if (data[accname]) {
+            
+              let dedicated = true;
+              if (!data[accown]) dedicated = false;
+              let matchItem = game.items.find(
+                (item) => item.name === data[accname]
+              );
+              if (!matchItem) {
+                matchItem = await findEntryInCompendium("Item", data[accname]);
+              }
+              if (matchItem) {
+                let setData = duplicate(matchItem);
+                setData.system.equip = true;
+                setData.system.dedicated = dedicated;
+              } else {
+                setData = {
+                  name: data[accname],
+                  type: "accessory",
+                  system: {
+                    description: data[accnote],
+                    equip: true,
+                    dedicated: dedicated,
+                    accpart: accpart,
+                  },
+                };
+              }
+              if (data[accown] == "HP") {
+                setData.effects =  [
+                 {
+                   name: "専用装飾品：最大HP増加",
+                   icon: "icons/svg/regen.svg",
+                   disabled: false,
+                   changes: [
+                     {
+                       mode: 2,
+                       value: "2",
+                       key: "system.hp.efhpmod"
+                     }
+                   ],
+                   transfer: true,
+                 }
+               ];
+             } else if (data[accown] == "MP") {
+                setData.effects =  [
+                 {
+                   name: "専用装飾品：最大MP増加",
+                   icon: "icons/svg/regen.svg",
+                   disabled: false,
+                   changes: [
+                     {
+                       mode: 2,
+                       value: "2",
+                       key: "system.mp.efmpmod"
+                     }
+                   ],
+                   transfer: true,
+                 }
+               ];
+             }
+             itemData.push(setData);
             }
           }
         }
