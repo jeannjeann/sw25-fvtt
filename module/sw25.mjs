@@ -133,6 +133,96 @@ Handlebars.registerHelper("localizeAbility", function (ability) {
   }
 });
 
+Handlebars.registerHelper("localizeResist", function (resist) {
+  switch (resist) {
+    case "decide":
+      return game.i18n.localize("SW25.Item.Decide");
+    case "any":
+      return game.i18n.localize("SW25.Item.Any");
+    case "none":
+      return game.i18n.localize("SW25.Item.None");
+    case "disappear":
+      return game.i18n.localize("SW25.Item.Disappear");
+    case "halving":
+      return game.i18n.localize("SW25.Item.Halving");
+    case "shortening":
+      return game.i18n.localize("SW25.Item.Shortening");
+  }
+  return "-";
+});
+
+Handlebars.registerHelper("localizeProp", function (prop) {
+  switch (prop) {
+    case "earth":
+      return game.i18n.localize("SW25.Item.Earth");
+    case "ice":
+      return game.i18n.localize("SW25.Item.Ice");
+    case "fire":
+      return game.i18n.localize("SW25.Item.Fire");
+    case "wind":
+      return game.i18n.localize("SW25.Item.Wind");
+    case "thunder":
+      return game.i18n.localize("SW25.Item.Thunder");
+    case "energy":
+      return game.i18n.localize("SW25.Item.Energy");
+    case "cut":
+      return game.i18n.localize("SW25.Item.Cut");
+    case "impact":
+      return game.i18n.localize("SW25.Item.Impact");
+    case "poison":
+      return game.i18n.localize("SW25.Item.Poison");
+    case "disease":
+      return game.i18n.localize("SW25.Item.Disease");
+    case "mental":
+      return game.i18n.localize("SW25.Item.Mental");
+    case "mentalw":
+      return game.i18n.localize("SW25.Item.Mentalw");
+    case "curse":
+      return game.i18n.localize("SW25.Item.Curse");
+    case "curseMental":
+      return game.i18n.localize("SW25.Item.CurseMental");
+    case "mentalPoison":
+      return game.i18n.localize("SW25.Item.MentalPoison");
+    case "other":
+      return game.i18n.localize("SW25.Item.Other");
+    case "fandw":
+      return game.i18n.localize("SW25.Item.Fandw");
+    case "iandt":
+      return game.i18n.localize("SW25.Item.Iandt");
+  }
+  return "-";
+});
+
+
+Handlebars.registerHelper("localizeFairyProp", function (fairyprop) {
+  switch (fairyprop) {
+    case "fairyearth":
+      return game.i18n.localize("SW25.Item.Spell.Fairyearth");
+    case "fairyice":
+      return game.i18n.localize("SW25.Item.Spell.Fairyice");
+    case "fairyfire":
+      return game.i18n.localize("SW25.Item.Spell.Fairyfire");
+    case "fairywind":
+      return game.i18n.localize("SW25.Item.Spell.Fairywind");
+    case "fairylight":
+      return game.i18n.localize("SW25.Item.Spell.Fairylight");
+    case "fairydark":
+      return game.i18n.localize("SW25.Item.Spell.Fairydark");
+  }
+  return "-";
+});
+
+Handlebars.registerHelper("localizePhasetype", function (phasetype) {
+  switch (phasetype) {
+    case "ten":
+      return game.i18n.localize("SW25.Item.Phasearea.Ten");
+    case "chi":
+      return game.i18n.localize("SW25.Item.Phasearea.Chi");
+    case "jin":
+      return game.i18n.localize("SW25.Item.Phasearea.Jin");
+  }
+  return "-";
+});
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
