@@ -8,10 +8,10 @@
           <b>{{system.level}}{{localize "SW25.Level"}}{{system.typename}}</b>
         </div>
         <div class="grid-span-2">
-           <b>{{localize "SW25.Item.Resist"}} : </b>{{system.resistname}}
+           <b>{{localize "SW25.Item.Resist"}} : </b>{{localizeResist system.resist}}
         </div>
         <div class="grid-span-2">
-           <b>{{localize "SW25.Item.Prop"}} : </b>{{system.propname}}
+           <b>{{localize "SW25.Item.Prop"}} : </b>{{localizeProp system.prop}}
         </div>
         {{#if (eq system.type "song")}}
         <div class="grid-span-2">
