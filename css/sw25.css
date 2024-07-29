@@ -756,8 +756,6 @@ progress.mp-bar::-moz-progress-bar {
   color: #ff0000;
 }
 
-
-
 input.weakapply[type="checkbox"] {
   position: relative;
   width: 16px;
