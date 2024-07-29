@@ -1686,16 +1686,7 @@ export class SW25Item extends Item {
       return roll;
     }
 
-    if (this.system.clickitem == "description" || !this.system.formula) {
-      ChatMessage.create({
-        speaker: speaker,
-        flavor: label,
-        rollMode: rollMode,
-        content: item.system.description ?? "",
-      });
-    }
-
-    if (this.system.clickitem == "mpcost" || !this.system.formula) {
+    if (this.system.clickitem == "mpcost") {
       const selectedTokens = canvas.tokens.controlled;
       if (selectedTokens.length === 0) {
         ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
@@ -1710,6 +1701,15 @@ export class SW25Item extends Item {
       const type = item.type;
       const meta = 1;
       mpCost(token, cost, name, type, meta);
+    }
+
+    if (this.system.clickitem == "description" || !this.system.formula) {
+      ChatMessage.create({
+        speaker: speaker,
+        flavor: label,
+        rollMode: rollMode,
+        content: item.system.description ?? "",
+      });
     }
   }
 }
