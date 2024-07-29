@@ -742,6 +742,22 @@ progress.mp-bar::-moz-progress-bar {
   margin: 0 var(--spacing-xs);
 }
 
+.check-result {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.check-result .success {
+  color: #0000ff;
+}
+
+.check-result .failed {
+  color: #ff0000;
+}
+
+
+
 input.weakapply[type="checkbox"] {
   position: relative;
   width: 16px;
