@@ -64,8 +64,7 @@ async function yt2import() {
       let biography = decodeHTML(data.freeNote);
 
       let hitweapon = "";
-      if (data.weapon1Name)
-        hitweapon = data.weapon1Name;
+      if (data.weapon1Name) hitweapon = data.weapon1Name;
 
       if (!data.monsterName) {
         itemData = [
@@ -91,7 +90,12 @@ async function yt2import() {
           },
         ];
         let resourceList = [];
-        let dodgeList = ["ファイター", "グラップラー","フェンサー","バトルダンサー"];
+        let dodgeList = [
+          "ファイター",
+          "グラップラー",
+          "フェンサー",
+          "バトルダンサー",
+        ];
         let dodgeskill = [0, "-"];
         let shooterLv = 0;
         let wizardList = ["ソーサラー", "コンジャラー"];
@@ -169,7 +173,7 @@ async function yt2import() {
               dodgeskill[1] = skill[i].name;
             }
           }
-          if ( skill[i].name == "シューター") {
+          if (skill[i].name == "シューター") {
             shooterLv = parseInt(skill[i].level);
           }
           if (wizardList.includes(skill[i].name)) {
@@ -743,7 +747,7 @@ async function yt2import() {
         ];
         for (let i = 0; i < accessorypart.length; i++) {
           let addAcc = 0;
-          for (let j = 0; j <= addAcc ; j++) {
+          for (let j = 0; j <= addAcc; j++) {
             let underbar = "";
             for (let k = 0; k < j; k++) {
               underbar += "_";
@@ -752,7 +756,7 @@ async function yt2import() {
             let accown = "accessory" + accessorypart[i] + underbar + "Own";
             let accnote = "accessory" + accessorypart[i] + underbar + "Note";
             let accadd = "accessory" + accessorypart[i] + underbar + "Add";
-            
+
             let accpart;
             switch (accessorypart[i]) {
               case "Head":
@@ -789,11 +793,9 @@ async function yt2import() {
                 break;
             }
 
-            if ( data[accadd] )
-              addAcc += 1;
-            
+            if (data[accadd]) addAcc += 1;
+
             if (data[accname]) {
-            
               let dedicated = true;
               if (!data[accown]) dedicated = false;
               let matchItem = game.items.find(
@@ -819,39 +821,39 @@ async function yt2import() {
                 };
               }
               if (data[accown] == "HP") {
-                setData.effects =  [
-                 {
-                   name: "専用装飾品：最大HP増加",
-                   icon: "icons/svg/regen.svg",
-                   disabled: false,
-                   changes: [
-                     {
-                       mode: 2,
-                       value: "2",
-                       key: "system.hp.efhpmod"
-                     }
-                   ],
-                   transfer: true,
-                 }
-               ];
-             } else if (data[accown] == "MP") {
-                setData.effects =  [
-                 {
-                   name: "専用装飾品：最大MP増加",
-                   icon: "icons/svg/regen.svg",
-                   disabled: false,
-                   changes: [
-                     {
-                       mode: 2,
-                       value: "2",
-                       key: "system.mp.efmpmod"
-                     }
-                   ],
-                   transfer: true,
-                 }
-               ];
-             }
-             itemData.push(setData);
+                setData.effects = [
+                  {
+                    name: "専用装飾品：最大HP+2",
+                    icon: "icons/svg/regen.svg",
+                    disabled: false,
+                    changes: [
+                      {
+                        mode: 2,
+                        value: "2",
+                        key: "system.hp.efhpmod",
+                      },
+                    ],
+                    transfer: true,
+                  },
+                ];
+              } else if (data[accown] == "MP") {
+                setData.effects = [
+                  {
+                    name: "専用装飾品：最大MP+2",
+                    icon: "icons/svg/regen.svg",
+                    disabled: false,
+                    changes: [
+                      {
+                        mode: 2,
+                        value: "2",
+                        key: "system.mp.efmpmod",
+                      },
+                    ],
+                    transfer: true,
+                  },
+                ];
+              }
+              itemData.push(setData);
             }
           }
         }
@@ -1102,47 +1104,39 @@ async function yt2import() {
             });
           }
         }
-        
+
         // マテリアルカード追加
-        let materialE = ["Red","Gre","Bla","Whi","Gol"];
-        let materialJ = ["赤","緑","黒","白","金"];
-        let materialR = ["B","A","S","SS"];
+        let materialE = ["Red", "Gre", "Bla", "Whi", "Gol"];
+        let materialJ = ["赤", "緑", "黒", "白", "金"];
+        let materialR = ["B", "A", "S", "SS"];
         for (let i = 0; i < materialE.length; i++) {
           for (const crank of materialR) {
-            if(data["card" + materialE[i] + crank]){
-               let cardName = "マテリアルカード（"
-                 + materialJ[i]
-                 + crank
-                 + "）";
-               let quantity = parseInt(data["card" + materialE[i] + crank]);
+            if (data["card" + materialE[i] + crank]) {
+              let cardName = "マテリアルカード（" + materialJ[i] + crank + "）";
+              let quantity = parseInt(data["card" + materialE[i] + crank]);
 
-               let matchItem = game.items.find(
-                 (item) => item.name === cardName
-               );
-               if (!matchItem) {
-                 matchItem = await findEntryInCompendium(
-                   "Item",
-                   cardName
-                 );
-               }
-               if (matchItem) {
-                 let setData = duplicate(matchItem);
-                 setData.system.quantity = quantity;
-                 itemData.push(setData);
-               } else {
-                 itemData.push({
-                   name: data[`craftEnhance${i}`],
-                   type: "item",
-                   system: {
-                     quantity: quantity,
-                     description: "",
-                   },
-                 });
-               }
+              let matchItem = game.items.find((item) => item.name === cardName);
+              if (!matchItem) {
+                matchItem = await findEntryInCompendium("Item", cardName);
+              }
+              if (matchItem) {
+                let setData = duplicate(matchItem);
+                setData.system.quantity = quantity;
+                itemData.push(setData);
+              } else {
+                itemData.push({
+                  name: data[`craftEnhance${i}`],
+                  type: "item",
+                  system: {
+                    quantity: quantity,
+                    description: "",
+                  },
+                });
+              }
             }
           }
         }
-        
+
         // リソース追加
         for (const resource of resourceList) {
           let matchItem = game.items.find((item) => item.name === resource);
@@ -1219,7 +1213,7 @@ async function yt2import() {
               totalexp: data.expTotal,
             },
             hitweapon: hitweapon,
-            attackskill : data.weapon1Class,
+            attackskill: data.weapon1Class,
             dodgeskill: dodgeskill[1],
             herbskill: "レンジャー",
             potionskill: "レンジャー",
@@ -1294,7 +1288,6 @@ async function yt2import() {
           },
         ];
 
-
         let partsList = [];
         for (var i = 1; i <= actorNum; i++) {
           let mountLv = parseInt(data.lvMin)
@@ -1320,7 +1313,7 @@ async function yt2import() {
                 usedice2: true,
                 label2: "打撃",
                 checkbasemod2: itemDamage,
-                usefix2: usefix,
+                usefix2: false,
                 applycheck2: true,
                 usedice3: true,
                 label3: "回避",
@@ -1332,20 +1325,19 @@ async function yt2import() {
           }
           if (abidesc)
             partsList.push([
-             data["status" + i + "Style"],
-             eval(data["status" + access + "Accuracy"]),
-             data["status" + access + "Damage"],
-             eval(data["status" + access + "Evasion"]),
-             eval(data["status" + access + "Defense"]),
-             eval(data["status" + access + "Hp"]),
-             eval(data["status" + access + "Mp"]),
+              data["status" + i + "Style"],
+              eval(data["status" + access + "Accuracy"]),
+              data["status" + access + "Damage"],
+              eval(data["status" + access + "Evasion"]),
+              eval(data["status" + access + "Defense"]),
+              eval(data["status" + access + "Hp"]),
+              eval(data["status" + access + "Mp"]),
             ]);
         }
 
         if (abidesc)
           biography = getBiography(feature, data.description, partsList);
         else biography = "<h3><b>解説</b></h3>" + decodeHTML(data.description);
-
 
         if (monabi) {
           abilityList = analysisFeature(feature, usefix);
@@ -1372,7 +1364,7 @@ async function yt2import() {
             ? parseInt(data.lv) - parseInt(data.lvMin)
             : 0;
           let access = mountLv == 0 ? i : i + "-" + (mountLv + 1);
-          
+
           actorData = {
             name: actName,
             type: "monster",
@@ -1708,8 +1700,8 @@ function convertHtmlFromFeature(feature) {
   return ret;
 }
 
-function getBiography(feature, description, partsList){
-   let biography = `
+function getBiography(feature, description, partsList) {
+  let biography = `
       <table class="status">
         <thead>
           <tr>
@@ -1723,10 +1715,10 @@ function getBiography(feature, description, partsList){
         </thead>
         <tbody>
    `;
-   for ( const parts of partsList){
-     acc = parts[1] + 7;
-     eva = parts[3] + 7;
-     biography += `
+  for (const parts of partsList) {
+    acc = parts[1] + 7;
+    eva = parts[3] + 7;
+    biography += `
             <tr>
               <td class="pt-item">${parts[0]}
               <td class="pt-item">${parts[1]} (${acc})
@@ -1736,17 +1728,17 @@ function getBiography(feature, description, partsList){
               <td class="pt-item">${parts[5]}
               <td class="pt-item">${parts[6]}
      `;
-   }
-   biography += `
+  }
+  biography += `
         </tbody>
       </table>
    `;
 
-   biography +=
-     convertHtmlFromFeature(feature) +
-     "<br><h3><b>解説</b></h3>" +
-     decodeHTML(description);
-   return biography;
+  biography +=
+    convertHtmlFromFeature(feature) +
+    "<br><h3><b>解説</b></h3>" +
+    decodeHTML(description);
+  return biography;
 }
 
 // 全角半角変換関数
