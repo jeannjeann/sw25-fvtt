@@ -41,6 +41,12 @@
   cursor: pointer;
 }
 
+.lootrollable:hover, .lootrollable:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+
 .grid,
 .grid-2col {
   display: grid;
@@ -235,6 +241,11 @@
 .flex-group-bottom {
   align-content: flex-end;
   align-items: end;
+}
+
+.flex-group-middle {
+  display: flex;
+  align-items: center;
 }
 
 .flexshrink {

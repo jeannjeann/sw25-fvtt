@@ -374,6 +374,7 @@ export class SW25Actor extends Actor {
     let totalmpdr = null;
     let totalmpdm = null;
     let totalmpall = null;
+    let totallootmod = null;
     effectsChange.forEach((effectList) => {
       effectList.forEach((effects) => {
         if (effects.key == "system.attributes.efhitmod")
@@ -472,6 +473,8 @@ export class SW25Actor extends Actor {
           totalmpdm += Number(effects.value);
         if (effects.key == "system.attributes.efmpall")
           totalmpall += Number(effects.value);
+        if (effects.key == "system.eflootmod")
+          totallootmod += Number(effects.value);
       });
     });
 
@@ -524,6 +527,7 @@ export class SW25Actor extends Actor {
     systemData.totalmpdr = totalmpdr;
     systemData.totalmpdm = totalmpdm;
     systemData.totalmpall = totalmpall;
+    systemData.totallootmod = totallootmod;
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
     if (totalcmod > 0) systemData.totalcmod = "+" + totalcmod;
@@ -564,6 +568,7 @@ export class SW25Actor extends Actor {
     if (totaldrmod > 0) systemData.totaldrmod = "+" + totaldrmod;
     if (totaldmmod > 0) systemData.totaldmmod = "+" + totaldmmod;
     if (totalallmgp > 0) systemData.totalallmgp = "+" + totalallmgp;
+    if (totallootmod > 0) systemData.totallootmod = "+" + totallootmod;
 
     // Set initiative formula
     systemData.initiativeFormula = "2d6";
@@ -732,6 +737,7 @@ export class SW25Actor extends Actor {
     let totalmpdr = null;
     let totalmpdm = null;
     let totalmpall = null;
+    let totallootmod = null;
     effectsChange.forEach((effectList) => {
       effectList.forEach((effects) => {
         if (effects.key == "system.attributes.efhitmod")
@@ -830,6 +836,8 @@ export class SW25Actor extends Actor {
           totalmpdm += Number(effects.value);
         if (effects.key == "system.attributes.efmpall")
           totalmpall += Number(effects.value);
+        if (effects.key == "system.eflootmod")
+          totallootmod += Number(effects.value);
       });
     });
 
@@ -882,6 +890,7 @@ export class SW25Actor extends Actor {
     systemData.totalmpdr = totalmpdr;
     systemData.totalmpdm = totalmpdm;
     systemData.totalmpall = totalmpall;
+    systemData.totallootmod = totallootmod;
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
     if (totalcmod > 0) systemData.totalcmod = "+" + totalcmod;
@@ -922,6 +931,7 @@ export class SW25Actor extends Actor {
     if (totaldrmod > 0) systemData.totaldrmod = "+" + totaldrmod;
     if (totaldmmod > 0) systemData.totaldmmod = "+" + totaldmmod;
     if (totalallmgp > 0) systemData.totalallmgp = "+" + totalallmgp;
+    if (totallootmod > 0) systemData.totallootmod = "+" + totallootmod;
 
     // Set initiative formula
     systemData.initiativeFormula = String(systemData.preemptive);

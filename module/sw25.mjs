@@ -13,6 +13,7 @@ import { SW25 } from "./helpers/config.mjs";
 import { chatButton } from "./helpers/chatbutton.mjs";
 import { customCommand } from "./helpers/customcommand.mjs";
 import { powerRoll } from "./helpers/powerroll.mjs";
+import { lootRoll } from "./helpers/lootroll.mjs";
 
 // Export variable.
 export const rpt = {};
@@ -48,6 +49,7 @@ Hooks.once("init", function () {
     SW25Combat,
     rollItemMacro,
     powerRoll,
+    lootRoll,
   };
 
   // Add custom constants for configuration.

@@ -4,6 +4,7 @@ import {
 } from "../helpers/effects.mjs";
 import { powerRoll } from "../helpers/powerroll.mjs";
 import { mpCost } from "../helpers/mpcost.mjs";
+import { lootRoll } from "../helpers/lootroll.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -428,6 +429,9 @@ export class SW25ActorSheet extends ActorSheet {
     // Mp cost.
     html.on("click", ".mpcost", this._onMpCost.bind(this));
 
+    // Loot roll.
+    html.on("click", ".lootrollable", this._onLootRoll.bind(this));
+
     // Drag events for macros.
     if (this.actor.isOwner) {
       let handler = (ev) => this._onDragStart(ev);
@@ -786,6 +790,11 @@ export class SW25ActorSheet extends ActorSheet {
     const type = dataset.type;
     const meta = 1;
     mpCost(token, cost, name, type, meta);
+  }
+
+  async _onLootRoll(event) {
+    event.preventDefault();
+    lootRoll(this.actor);
   }
 
   async _showItemDetails(event) {

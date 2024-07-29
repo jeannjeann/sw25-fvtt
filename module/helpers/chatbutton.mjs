@@ -762,4 +762,66 @@ export async function chatButton(chatMessage, buttonType) {
 
     mpCost(token, cost, name, type, meta, chat, base);
   }
+
+  if (buttonType == "buttonloot") {
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+    const lootActor = selectedTokens[0].actor;
+    const lootItems = chatMessage.flags.loot;
+    const speaker = ChatMessage.getSpeaker({ actor: lootActor });
+    const rollMode = game.settings.get("core", "rollMode");
+    const rollData = lootActor.getRollData();
+    let label =
+      `${chatMessage.speaker.alias}` +
+      " (" +
+      game.i18n.localize("SW25.Monster.Loot") +
+      ")";
+    let formula = "2d6";
+    let lootmod =
+      Number(lootActor.system.lootmod) + Number(lootActor.system.eflootmod);
+    if (lootmod && lootmod != 0) formula = formula + "+" + lootmod;
+
+    let roll = new Roll(formula, rollData);
+    await roll.evaluate();
+
+    let chatData = {
+      speaker: speaker,
+      flavor: label,
+      rollMode: rollMode,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      rolls: [roll],
+    };
+
+    let chatFormula = roll.formula;
+    let chatTotal = roll.total;
+    let chatLootItem = null;
+
+    for (let i = 0; i < lootItems.length; i++) {
+      let min = lootItems[i].range.min;
+      let max = lootItems[i].range.max;
+      if (min == "etc" || max == "etc") continue;
+      if (chatTotal >= min && chatTotal <= max)
+        chatLootItem = lootItems[i].item;
+    }
+
+    chatData.content = await renderTemplate(
+      "systems/sw25/templates/roll/roll-check.hbs",
+      {
+        formula: chatFormula,
+        tooltip: await roll.getTooltip(),
+        total: chatTotal,
+        chatLootItem,
+      }
+    );
+
+    ChatMessage.create(chatData);
+
+    return roll;
+  }
 }

@@ -202,7 +202,9 @@
         }
       },
       "lt": 0,
-      "cr": 0
+      "cr": 0,
+      "lootmod": 0,
+      "eflootmod": 0
     },
     "npc": {
       "templates": ["base"],

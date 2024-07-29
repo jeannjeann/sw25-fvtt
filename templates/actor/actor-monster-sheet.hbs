@@ -39,16 +39,19 @@
           </div>
           <div class="monster-parameters">
             <hr>
-            <div class="character-details-secondary flexrow" style="justify-content: flex-end;">
-                  <div class="monster-pp">
-                    <span class="monster-label">{{localize "SW25.Attributes.Protectionpoint.abbr"}}</span><br>
-                    <span class="monster-value">{{system.pp}}</span>
-                  </div>
-                  <div class="monster-mpp">
-                    <span class="monster-label">{{localize "SW25.Attributes.Magicprotection.abbr"}}</span><br>
-                    <span class="monster-value">{{system.mpp}}</span>
-                  </div>
-            </div>
+            <div class="character-details-secondary flexrow">
+              <div class="flex-group-middle">
+                <span class="monster-label lootrollable">{{localize "SW25.Monster.Loot"}}</span>
+              </div>
+              <div class="monster-pp" style="margin-left: auto;">
+                <span class="monster-label">{{localize "SW25.Attributes.Protectionpoint.abbr"}}</span><br>
+                <span class="monster-value">{{system.pp}}</span>
+              </div>
+              <div class="monster-mpp">
+                <span class="monster-label">{{localize "SW25.Attributes.Magicprotection.abbr"}}</span><br>
+                <span class="monster-value">{{system.mpp}}</span>
+              </div>
+          </div>
           </div>
         </div>
       </div>
