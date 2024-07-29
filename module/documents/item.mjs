@@ -54,6 +54,7 @@ export class SW25Item extends Item {
     this._prepareAlchemytechData(itemData);
     this._preparePhaseareaData(itemData);
     this._prepareTacticsData(itemData);
+    this._prepareOtherFeatureData(itemData);
     this._prepareRaceabilityData(itemData);
     this._prepareLanguageData(itemData);
     this._prepareSpellData(itemData);
@@ -410,6 +411,7 @@ export class SW25Item extends Item {
       itemData.type !== "alchemytech" &&
       itemData.type !== "phasearea" &&
       itemData.type !== "tactics" &&
+      itemData.type !== "otherfeature" &&
       itemData.type !== "resource" &&
       itemData.type !== "combatability" &&
       itemData.type !== "raceability" &&
@@ -764,6 +766,14 @@ export class SW25Item extends Item {
       systemData.mpcost =
         Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
       if (systemData.mpcost < 1) systemData.mpcost = 1;
+    }
+
+    if (itemData.type == "otherfeature") {
+      systemData.mpcost =
+        Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
+      if (systemData.mpcost < 1) systemData.mpcost = 1;
+      if (systemData.basempcost == 0 || systemData.basempcost != null)
+        systemData.mpcost = 0;
     }
 
     if (itemData.type == "monsterability") {
@@ -1289,6 +1299,7 @@ export class SW25Item extends Item {
     } else systemData.linename = "-";
   }
 
+  _prepareOtherFeatureData(itemData) {}
   _prepareRaceabilityData(itemData) {}
   _prepareLanguageData(itemData) {}
 
@@ -1686,16 +1697,7 @@ export class SW25Item extends Item {
       return roll;
     }
 
-    if (this.system.clickitem == "description" || !this.system.formula) {
-      ChatMessage.create({
-        speaker: speaker,
-        flavor: label,
-        rollMode: rollMode,
-        content: item.system.description ?? "",
-      });
-    }
-
-    if (this.system.clickitem == "mpcost" || !this.system.formula) {
+    if (this.system.clickitem == "mpcost") {
       const selectedTokens = canvas.tokens.controlled;
       if (selectedTokens.length === 0) {
         ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
@@ -1710,6 +1712,15 @@ export class SW25Item extends Item {
       const type = item.type;
       const meta = 1;
       mpCost(token, cost, name, type, meta);
+    }
+
+    if (this.system.clickitem == "description" || !this.system.formula) {
+      ChatMessage.create({
+        speaker: speaker,
+        flavor: label,
+        rollMode: rollMode,
+        content: item.system.description ?? "",
+      });
     }
   }
 }

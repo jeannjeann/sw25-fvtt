@@ -1,13 +1,13 @@
-2024/07/24-10:56:45.042 4614 Delete type=3 #1
-2024/07/24-11:02:49.181 428 Level-0 table #116: started
-2024/07/24-11:02:49.183 428 Level-0 table #116: 13902 bytes OK
-2024/07/24-11:02:49.184 428 Delete type=0 #114
-2024/07/24-11:02:49.185 428 Manual compaction at level-0 from '!macros!bvKHeXQPcyoBOrQU' @ 72057594037927935 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at '!macros!bvKHeXQPcyoBOrQU' @ 5 : 1
-2024/07/24-11:02:49.185 428 Compacting 3@0 + 0@1 files
-2024/07/24-11:02:49.188 428 Generated table #117@0: 1 keys, 13902 bytes
-2024/07/24-11:02:49.188 428 Compacted 3@0 + 0@1 files => 13902 bytes
-2024/07/24-11:02:49.189 428 compacted to: files[ 0 1 0 0 0 0 0 ]
-2024/07/24-11:02:49.189 428 Delete type=2 #95
-2024/07/24-11:02:49.191 428 Delete type=2 #110
-2024/07/24-11:02:49.192 428 Delete type=2 #116
-2024/07/24-11:02:49.193 428 Manual compaction at level-0 from '!macros!bvKHeXQPcyoBOrQU' @ 5 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at (end)
+2024/07/29-18:11:01.518 187c Delete type=3 #1
+2024/07/29-18:13:37.144 8658 Level-0 table #266: started
+2024/07/29-18:13:37.146 8658 Level-0 table #266: 15895 bytes OK
+2024/07/29-18:13:37.147 8658 Delete type=0 #264
+2024/07/29-18:13:37.151 8658 Manual compaction at level-0 from '!macros!bvKHeXQPcyoBOrQU' @ 72057594037927935 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at '!macros!bvKHeXQPcyoBOrQU' @ 6 : 1
+2024/07/29-18:13:37.151 8658 Compacting 3@0 + 0@1 files
+2024/07/29-18:13:37.153 8658 Generated table #267@0: 1 keys, 15895 bytes
+2024/07/29-18:13:37.153 8658 Compacted 3@0 + 0@1 files => 15895 bytes
+2024/07/29-18:13:37.153 8658 compacted to: files[ 0 1 0 0 0 0 0 ]
+2024/07/29-18:13:37.154 8658 Delete type=2 #117
+2024/07/29-18:13:37.155 8658 Delete type=2 #254
+2024/07/29-18:13:37.156 8658 Delete type=2 #266
+2024/07/29-18:13:37.159 8658 Manual compaction at level-0 from '!macros!bvKHeXQPcyoBOrQU' @ 6 : 1 .. '!macros!bvKHeXQPcyoBOrQU' @ 0 : 0; will stop at (end)

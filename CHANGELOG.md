@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.9.2
+- 戦利品ロールに対応
+- バフ・デバフの「判定」カテゴリに「戦利品」を追加
+- 汎用の「その他の特技」アイテムを追加
+- ゆとシートIIインポートマクロ更新  by [keyslock](https://github.com/keyslock)
+- マニュアルアップデート
+- bug fix
+
 ## 0.9.1
 - バフ・デバフ「MP軽減」に「すべて」を追加（練技アイテムのMP消費再設定が必要）
 - ゆとシートIIインポートマクロ更新  by [keyslock](https://github.com/keyslock)

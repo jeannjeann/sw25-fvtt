@@ -18,37 +18,40 @@
           <input id="{{_id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
         </div>
         <hr>
-        <div class="character-details-secondary flexrow">
+        <div class="character-details-secondary monster-parameters flexcol">
           <div class="monster-weakness">
             <input id="{{_id}}weakapply" type="checkbox" name="system.weakapply" {{checked system.weakapply}} data-dtype="Boolean" class="weakapply"/>
             <span><b>{{localize "SW25.Monster.Weakness"}}: </b>{{system.weakness}}</span>
           </div>
-          <div class="character-details-secondary flexrow monster-parameters">
-            <div class="monster-preemptive">
-              <span class="monster-label monster-small">{{localize "SW25.Monster.Preemptive"}}</span><br>
-              <span class="monster-small">{{system.preemptive}}</span>
-            </div>
+          <div class="flexrow">
             <div class="monster-popularity">
-              <span class="monster-label monster-small">{{localize "SW25.Monster.Popularity"}}/{{localize "SW25.Monster.Weakpoint"}}</span><br>
+              <span class="monster-label monster-small">{{localize "SW25.Monster.Popularity"}}/{{localize "SW25.Monster.Weakpoint"}} : </span>
               <span class="monster-small">{{system.popularity}}/{{system.weakpoint}}</span>
             </div>
-            <div class="monster-move">
-              <span class="monster-label monster-small">{{localize "SW25.Monster.Move"}}</span><br>
-              <span class="monster-small">{{system.move}}</span>
+            <div class="monster-preemptive">
+              <span class="monster-label monster-small">{{localize "SW25.Monster.Preemptive"}} : </span>
+              <span class="monster-small">{{system.preemptive}}</span>
             </div>
+          </div>
+          <div class="monster-move">
+            <span class="monster-label monster-small">{{localize "SW25.Monster.Move"}} : </span>
+            <span class="monster-small">{{system.move}}</span>
           </div>
           <div class="monster-parameters">
             <hr>
-            <div class="character-details-secondary flexrow" style="justify-content: flex-end;">
-                  <div class="monster-pp">
-                    <span class="monster-label">{{localize "SW25.Attributes.Protectionpoint.abbr"}}</span><br>
-                    <span class="monster-value">{{system.pp}}</span>
-                  </div>
-                  <div class="monster-mpp">
-                    <span class="monster-label">{{localize "SW25.Attributes.Magicprotection.abbr"}}</span><br>
-                    <span class="monster-value">{{system.mpp}}</span>
-                  </div>
-            </div>
+            <div class="character-details-secondary flexrow">
+              <div class="flex-group-middle">
+                <span class="monster-label lootrollable">{{localize "SW25.Monster.Loot"}}</span>
+              </div>
+              <div class="monster-pp" style="margin-left: auto;">
+                <span class="monster-label">{{localize "SW25.Attributes.Protectionpoint.abbr"}}</span><br>
+                <span class="monster-value">{{system.pp}}</span>
+              </div>
+              <div class="monster-mpp">
+                <span class="monster-label">{{localize "SW25.Attributes.Magicprotection.abbr"}}</span><br>
+                <span class="monster-value">{{system.mpp}}</span>
+              </div>
+          </div>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-# Simplified Manual for Sword World 2.5 v0.9.1
+# Simplified Manual for Sword World 2.5 v0.9.2
 
 ## PC
 
@@ -126,8 +126,7 @@ This tab displays language, other settings, notes, etc.
   - Languages can be created, edited, and deleted.
   - You can check the "Conversation "Reading" checkbox.
 - Settings (upper right)
-  - This is where you can enter data. The data will be reflected in the header section.
-  - Experience gained is the field for entering the total experience value. It is reflected in the skill column.
+  - This is where you can enter data.
   - You can set the initial Class values for certain items.
 - Appearance, career, and other notes column (bottom)
   - This is a field for free description.
@@ -145,6 +144,7 @@ Monster data can be entered.
 This is the area where the monster summary is displayed.
 - Name, monster image, current HP, and current MP can be manipulated.
 - The rest of the information is automatically reflected from the input fields in the other detail tabs.
+- Clicking on "Loot" will output a chat message for the loot roll.
 - With limited privileges, only the summary is displayed.
 - About Monster Knowledge Check
   - Only a summary is displayed with limited privileges.

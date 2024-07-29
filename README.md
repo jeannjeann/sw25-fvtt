@@ -13,6 +13,12 @@ FVTT用ソード・ワールド2.5ゲームシステム（β版）
 
 サンプルを同梱しているので、参考にしてください。
 
+### 推奨モジュール
+
+- [Token Action HUD Sword World 2.5](https://foundryvtt.com/packages/token-action-hud-sw25)（[Token Action HUD Core](https://foundryvtt.com/packages/token-action-hud-core)が必要）
+- [Drag Ruler for Sword World 2.5](https://foundryvtt.com/packages/drag-ruler-integration-for-sw25)（[Drag Ruler](https://foundryvtt.com/packages/drag-ruler)が必要）
+- [Sword World 2.5 Support Tools](https://github.com/keyslock/sw25-fvtt-support)
+
 ## 対応言語
 - 日本語（[Jean.N](https://github.com/jeannjeann)）
 - English ([kuouvadis](https://github.com/kuouvadis))

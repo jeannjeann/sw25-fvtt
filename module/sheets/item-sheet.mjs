@@ -117,6 +117,11 @@ export class SW25ItemSheet extends ItemSheet {
       this._prepareTacticsData(context);
     }
 
+    if (itemData.type == "otherfeature") {
+      this._prepareItemRollData(context);
+      this._prepareOtherFeatureData(context);
+    }
+
     if (itemData.type == "raceability") {
       this._prepareItemRollData(context);
       this._prepareRaceabilityData(context);
@@ -161,6 +166,7 @@ export class SW25ItemSheet extends ItemSheet {
   _prepareAlchemytechData(context) {}
   _preparePhaseareaData(context) {}
   _prepareTacticsData(context) {}
+  _prepareOtherFeatureData(context) {}
   _prepareRaceabilityData(context) {}
   _prepareLanguageData(context) {}
   _prepareSpellData(context) {}

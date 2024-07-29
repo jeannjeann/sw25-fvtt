@@ -405,6 +405,9 @@
         "Conversation": "Speak",
         "Reading": "Read"
       },
+      "Otherfeature": {
+        "Type": "Feature Type"
+      },
       "Monsterability": {
         "Remark": "Remark",
         "Check1": "Check1",
@@ -503,6 +506,7 @@
       "skill": "Class",
       "raceability": "Race Ability",
       "language": "Language",
+      "otherfeature": "Other Features",
       "monsterability": "Monster Ability"
     }
   },
