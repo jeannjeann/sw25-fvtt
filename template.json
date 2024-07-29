@@ -303,7 +303,7 @@
     }
   },
   "Item": {
-    "types": ["weapon", "armor", "accessory", "item", "spell", "enhancearts", "magicalsong", "ridingtrick", "alchemytech", "phasearea", "tactics", "check", "resource", "combatability", "skill", "raceability", "language", "monsterability"],
+    "types": ["weapon", "armor", "accessory", "item", "spell", "enhancearts", "magicalsong", "ridingtrick", "alchemytech", "phasearea", "tactics", "otherfeature", "check", "resource", "combatability", "skill", "raceability", "language", "monsterability"],
     "templates": {
       "base": {
         "description": "",
@@ -551,6 +551,13 @@
       "efmod": 0,
       "efallckmod": 0,
       "efallmgpmod": 0
+    },
+    "otherfeature": {
+      "templates": ["base", "roll"],
+      "type": "",
+      "overview": "",
+      "basempcost": 0,
+      "mpcost": 0
     }
   }
 }

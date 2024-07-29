@@ -404,6 +404,9 @@
         "Conversation": "会話",
         "Reading": "読文"
       },
+      "Otherfeature": {
+        "Type": "特技種別"
+      },
       "Monsterability": {
         "Remark": "備考",
         "Check1": "判定1",
@@ -502,6 +505,7 @@
       "skill": "技能",
       "raceability": "種族特徴",
       "language": "言語",
+      "otherfeature": "その他の特技",
       "monsterability": "魔物能力"
     }
   },

@@ -314,6 +314,15 @@
         {{> "systems/sw25/templates/actor/parts/actor-tactics.hbs"}}
       </div>
       {{/if}}{{/if}}
+      {{#if ofshow}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-otherfeature.hbs"}}
+      </div>
+      {{else}}{{#if system.attributes.showfeature}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-otherfeature.hbs"}}
+      </div>
+      {{/if}}{{/if}}
       <div class="margin-m" style="display: flex; align-items: center;">
         <input type="checkbox" name="system.attributes.showfeature" data-dtype="Boolean" {{#if system.attributes.showfeature}} checked {{/if}}/>
         <label for="system.attributes.showfeature">{{localize "SW25.Attributes.Showfeature"}}</label>

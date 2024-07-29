@@ -125,6 +125,7 @@ export class SW25ActorSheet extends ActorSheet {
     const alchemytechs = [];
     const phaseareas = [];
     const tactics = [];
+    const otherfeature = [];
     const raceabilities = [];
     const languages = [];
     const spells = [];
@@ -197,24 +198,29 @@ export class SW25ActorSheet extends ActorSheet {
         magicalsongs.push(i);
       }
 
-      // Append to magicalsong.
+      // Append to ridingtrick.
       else if (i.type === "ridingtrick") {
         ridingtricks.push(i);
       }
 
-      // Append to magicalsong.
+      // Append to alchemytech.
       else if (i.type === "alchemytech") {
         alchemytechs.push(i);
       }
 
-      // Append to magicalsong.
+      // Append to phasearea.
       else if (i.type === "phasearea") {
         phaseareas.push(i);
       }
 
-      // Append to magicalsong.
+      // Append to tactics.
       else if (i.type === "tactics") {
         tactics.push(i);
+      }
+
+      // Append to otherfeeature.
+      else if (i.type === "otherfeature") {
+        otherfeature.push(i);
       }
 
       // Append to raceability.
@@ -292,6 +298,11 @@ export class SW25ActorSheet extends ActorSheet {
       tcshow = false;
     } else tcshow = true;
 
+    let ofshow = true;
+    if (otherfeature.length == 0) {
+      ofshow = false;
+    } else ofshow = true;
+
     let scshow = true;
     if (sorcerer.length == 0) {
       scshow = false;
@@ -357,6 +368,8 @@ export class SW25ActorSheet extends ActorSheet {
     context.pashow = pashow;
     context.tactics = tactics;
     context.tcshow = tcshow;
+    context.otherfeature = otherfeature;
+    context.ofshow = ofshow;
     context.raceabilities = raceabilities;
     context.languages = languages;
     context.spells = spells;

@@ -54,6 +54,7 @@ export class SW25Item extends Item {
     this._prepareAlchemytechData(itemData);
     this._preparePhaseareaData(itemData);
     this._prepareTacticsData(itemData);
+    this._prepareOtherFeatureData(itemData);
     this._prepareRaceabilityData(itemData);
     this._prepareLanguageData(itemData);
     this._prepareSpellData(itemData);
@@ -410,6 +411,7 @@ export class SW25Item extends Item {
       itemData.type !== "alchemytech" &&
       itemData.type !== "phasearea" &&
       itemData.type !== "tactics" &&
+      itemData.type !== "otherfeature" &&
       itemData.type !== "resource" &&
       itemData.type !== "combatability" &&
       itemData.type !== "raceability" &&
@@ -761,6 +763,12 @@ export class SW25Item extends Item {
     }
 
     if (itemData.type == "enhancearts") {
+      systemData.mpcost =
+        Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
+      if (systemData.mpcost < 1) systemData.mpcost = 1;
+    }
+
+    if (itemData.type == "otherfeature") {
       systemData.mpcost =
         Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
       if (systemData.mpcost < 1) systemData.mpcost = 1;
@@ -1289,6 +1297,7 @@ export class SW25Item extends Item {
     } else systemData.linename = "-";
   }
 
+  _prepareOtherFeatureData(itemData) {}
   _prepareRaceabilityData(itemData) {}
   _prepareLanguageData(itemData) {}
 
