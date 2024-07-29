@@ -772,6 +772,8 @@ export class SW25Item extends Item {
       systemData.mpcost =
         Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
       if (systemData.mpcost < 1) systemData.mpcost = 1;
+      if (systemData.basempcost == 0 || systemData.basempcost != null)
+        systemData.mpcost = 0;
     }
 
     if (itemData.type == "monsterability") {
