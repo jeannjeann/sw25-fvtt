@@ -5,7 +5,7 @@
 - PCのフェロー化、NPCのフェロー化
 
 ## 更新作業
-- マニュアル、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ
+- マニュアル、マクロ、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ
 
 ## 開発目標
 ### なるべく早めに

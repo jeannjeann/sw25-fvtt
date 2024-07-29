@@ -1,13 +1,13 @@
-2024/07/24-10:56:44.974 651c Delete type=3 #1
-2024/07/24-11:02:49.169 428 Level-0 table #349: started
-2024/07/24-11:02:49.172 428 Level-0 table #349: 104864 bytes OK
-2024/07/24-11:02:49.173 428 Delete type=0 #347
-2024/07/24-11:02:49.175 428 Manual compaction at level-0 from '!journal!kf7e6dre1Bhn8SE9' @ 72057594037927935 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 58 : 1
-2024/07/24-11:02:49.175 428 Compacting 3@0 + 0@1 files
-2024/07/24-11:02:49.178 428 Generated table #350@0: 4 keys, 70702 bytes
-2024/07/24-11:02:49.178 428 Compacted 3@0 + 0@1 files => 70702 bytes
-2024/07/24-11:02:49.178 428 compacted to: files[ 0 1 0 0 0 0 0 ]
-2024/07/24-11:02:49.179 428 Delete type=2 #328
-2024/07/24-11:02:49.179 428 Delete type=2 #343
-2024/07/24-11:02:49.180 428 Delete type=2 #349
-2024/07/24-11:02:49.185 428 Manual compaction at level-0 from '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 58 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at (end)
+2024/07/29-18:11:01.449 8a88 Delete type=3 #1
+2024/07/29-18:13:37.162 8658 Level-0 table #499: started
+2024/07/29-18:13:37.168 8658 Level-0 table #499: 70607 bytes OK
+2024/07/29-18:13:37.168 8658 Delete type=0 #497
+2024/07/29-18:13:37.170 8658 Manual compaction at level-0 from '!journal!kf7e6dre1Bhn8SE9' @ 72057594037927935 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 70 : 1
+2024/07/29-18:13:37.170 8658 Compacting 3@0 + 0@1 files
+2024/07/29-18:13:37.173 8658 Generated table #500@0: 4 keys, 70607 bytes
+2024/07/29-18:13:37.173 8658 Compacted 3@0 + 0@1 files => 70607 bytes
+2024/07/29-18:13:37.174 8658 compacted to: files[ 0 1 0 0 0 0 0 ]
+2024/07/29-18:13:37.174 8658 Delete type=2 #350
+2024/07/29-18:13:37.175 8658 Delete type=2 #487
+2024/07/29-18:13:37.177 8658 Delete type=2 #499
+2024/07/29-18:13:37.178 8658 Manual compaction at level-0 from '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 70 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at (end)
