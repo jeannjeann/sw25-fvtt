@@ -824,6 +824,7 @@ export async function chatButton(chatMessage, buttonType) {
 
     return roll;
   }
+<<<<<<< HEAD
 
   if (buttonType == "buttongeneralcheck") {
     const selectedTokens = canvas.tokens.controlled;
