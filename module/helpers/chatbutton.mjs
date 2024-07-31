@@ -937,7 +937,7 @@ export async function chatButton(chatMessage, buttonType) {
       } else if( success == 1 ){
         result = `<span class="success">${game.i18n.localize("SW25.Success")}</span>`;
       } else if( critical && 1 < success ){
-        result = `<span class="success">${success} ${game.i18n.localize("SW25.Success")} ( ${game.i18n.localize("SW25.PlusFive")} )</span>`;
+        result = `<span class="success">${success} ${game.i18n.localize("SW25.Success")} (${game.i18n.localize("SW25.PlusFive")}/${game.i18n.localize("SW25.Critical")})</span>`;
       } else if( 1 < success ){
         result = `<span class="success">${success} ${game.i18n.localize("SW25.Success")}</span>`;
       } else {
@@ -1098,7 +1098,7 @@ export async function chatButton(chatMessage, buttonType) {
       } else if( success == 1 ){
         result = `<span class="success">${game.i18n.localize("SW25.Success")}</span>`;
       } else if( critical && 1 < success ){
-        result = `<span class="success">${success} ${game.i18n.localize("SW25.Success")} ( ${game.i18n.localize("SW25.PlusFive")} )</span>`;
+        result = `<span class="success">${success} ${game.i18n.localize("SW25.Success")} (${game.i18n.localize("SW25.PlusFive")}/${game.i18n.localize("SW25.Critical")})</span>`;
       } else if( 1 < success ){
         result = `<span class="success">${success} ${game.i18n.localize("SW25.Success")}</span>`;
       } else {
