@@ -909,18 +909,37 @@ export async function chatButton(chatMessage, buttonType) {
     await roll.evaluate();
 
     // 目標値の判定
-    let flagTargetVal = parseInt(flags.targetValue,10);
     let content = "";
     let result = "";
-    if( 0 < flagTargetVal ){
-      content = `${game.i18n.localize("SW25.Difficulty")}${game.i18n.localize("SW25.Value")}: ${flagTargetVal}`;
+    if( flags.targetValue ){
+      let targetValues = flags.targetValue.split(/[,/、，／]/);
+      let fumble = ( roll.terms[0].results[0].result == 1 && roll.terms[0].results[1].result == 1 );
+      let critical = ( roll.terms[0].results[0].result == 6 && roll.terms[0].results[1].result == 6 );
 
-      if( roll.terms[0].results[0].result == 1 && roll.terms[0].results[1].result == 1 ){
+      // ファンブルであれば-1扱い、クリティカルであれば+5ルールを適用
+      let rollValue = fumble ? -1 : critical ? roll.total + 5 : roll.total;
+
+      let success = 0;
+      let targetValueText = "";
+      for(const targetValue of targetValues){
+        if( parseInt(targetValue,10) <= rollValue){
+          success++;
+          if( targetValueText ) targetValueText += "/";
+          targetValueText += parseInt(targetValue,10);
+        }
+      }
+      content = `<div class="check-difficulty">${game.i18n.localize("SW25.Difficulty")}${game.i18n.localize("SW25.Value")}: ${targetValueText}</div>`;
+  
+      if( fumble ){
         result = `<span class="failed">${game.i18n.localize("SW25.Auto")}${game.i18n.localize("SW25.Failed")}(${game.i18n.localize("SW25.Fumble")})</span>`;
-      } else if( roll.terms[0].results[0].result == 6 && roll.terms[0].results[1].result == 6 ){
+      } else if( critical && (success == 0 || success == 1) ){
         result = `<span class="success">${game.i18n.localize("SW25.Auto")}${game.i18n.localize("SW25.Success")} or ${game.i18n.localize("SW25.PlusFive")} (${game.i18n.localize("SW25.Critical")})</span>`;
-      } else if( flagTargetVal <= roll.total ){
+      } else if( success == 1 ){
         result = `<span class="success">${game.i18n.localize("SW25.Success")}</span>`;
+      } else if( critical && 1 < success ){
+        result = `<span class="success">${success} ${game.i18n.localize("SW25.Success")} ( ${game.i18n.localize("SW25.PlusFive")} )</span>`;
+      } else if( 1 < success ){
+        result = `<span class="success">${success} ${game.i18n.localize("SW25.Success")}</span>`;
       } else {
         result = `<span class="failed">${game.i18n.localize("SW25.Failed")}</span>`;
       }
@@ -974,7 +993,7 @@ export async function chatButton(chatMessage, buttonType) {
     let checkskill = "";
     let checkabi = "";
     if( flags.checkName ){
-      checkItem = flags.checkName.split(",");
+      checkItem = flags.checkName.split(/[,/、，／]/);
     }
       console.log(selectActor.items);
     for( const item of selectActor.items ){
@@ -1048,19 +1067,40 @@ export async function chatButton(chatMessage, buttonType) {
     let roll = new Roll(formula, rollData);
     await roll.evaluate();
 
+    
     // 目標値の判定
     let flagTargetVal = parseInt(flags.targetValue,10);
     let content = "";
     let result = "";
-    if( 0 < flagTargetVal ){
-      content = `${game.i18n.localize("SW25.Difficulty")}${game.i18n.localize("SW25.Value")}: ${flagTargetVal}`;
+    if( flags.targetValue ){
+      let targetValues = flags.targetValue.split(/[,/、，／]/);
+      let fumble = ( roll.terms[0].results[0].result == 1 && roll.terms[0].results[1].result == 1 );
+      let critical = ( roll.terms[0].results[0].result == 6 && roll.terms[0].results[1].result == 6 );
 
-      if( roll.terms[0].results[0].result == 1 && roll.terms[0].results[1].result == 1 ){
+      // ファンブルであれば-1扱い、クリティカルであれば+5ルールを適用
+      let rollValue = fumble ? -1 : critical ? roll.total + 5 : roll.total;
+
+      let success = 0;
+      let targetValueText = "";
+      for(const targetValue of targetValues){
+        if( parseInt(targetValue,10) <= rollValue){
+          success++;
+          if( targetValueText ) targetValueText += "/";
+          targetValueText += parseInt(targetValue,10);
+        }
+      }
+      content = `<div class="check-difficulty">${game.i18n.localize("SW25.Difficulty")}${game.i18n.localize("SW25.Value")}: ${targetValueText}</div>`;
+  
+      if( fumble ){
         result = `<span class="failed">${game.i18n.localize("SW25.Auto")}${game.i18n.localize("SW25.Failed")}(${game.i18n.localize("SW25.Fumble")})</span>`;
-      } else if( roll.terms[0].results[0].result == 6 && roll.terms[0].results[1].result == 6 ){
+      } else if( critical && (success == 0 || success == 1) ){
         result = `<span class="success">${game.i18n.localize("SW25.Auto")}${game.i18n.localize("SW25.Success")} or ${game.i18n.localize("SW25.PlusFive")} (${game.i18n.localize("SW25.Critical")})</span>`;
-      } else if( flagTargetVal <= roll.total ){
+      } else if( success == 1 ){
         result = `<span class="success">${game.i18n.localize("SW25.Success")}</span>`;
+      } else if( critical && 1 < success ){
+        result = `<span class="success">${success} ${game.i18n.localize("SW25.Success")} ( ${game.i18n.localize("SW25.PlusFive")} )</span>`;
+      } else if( 1 < success ){
+        result = `<span class="success">${success} ${game.i18n.localize("SW25.Success")}</span>`;
       } else {
         result = `<span class="failed">${game.i18n.localize("SW25.Failed")}</span>`;
       }

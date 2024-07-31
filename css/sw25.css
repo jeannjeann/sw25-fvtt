@@ -742,16 +742,19 @@ progress.mp-bar::-moz-progress-bar {
   margin: 0 var(--spacing-xs);
 }
 
+.check-difficulty {
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+}
 .check-result {
   font-size: 1.2em;
   font-weight: bold;
   text-align: center;
 }
-
 .check-result .success {
   color: #0000ff;
 }
-
 .check-result .failed {
   color: #ff0000;
 }
