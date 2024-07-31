@@ -660,6 +660,7 @@ export async function chatButton(chatMessage, buttonType) {
 
   if (buttonType == "buttoneffect") {
     const orgActor = actor.name;
+    const orgId = actor._id;
     const targetEffects = item.effects;
     const targetActorName = [];
     const transferEffectName = [];
@@ -693,6 +694,8 @@ export async function chatButton(chatMessage, buttonType) {
           const transferEffect = duplicate(effect);
           transferEffect.disabled = false;
           transferEffect.sourceName = orgActor;
+          transferEffect.flags.sourceName = orgActor;
+          transferEffect.flags.sourceId = `Actor.${orgId}`;;
           targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
         });
       });
@@ -702,6 +705,7 @@ export async function chatButton(chatMessage, buttonType) {
         targetTokens: targetTokenId,
         targetEffects: targetEffects,
         orgActor: orgActor,
+        orgId: orgId,
       });
     }
 
