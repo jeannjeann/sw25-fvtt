@@ -13,7 +13,10 @@ export async function lootRoll(actor) {
   const lootitems = lootLines.map((line) => {
     const cleanedLine = line.replace(/<[^>]*>/g, "").trim();
     const [rangePart, itemPart] = cleanedLine.split(/[：:]/);
-    const rangeMatch = rangePart.trim().match(/^(\d+)?[ー~-](\d+)?$/);
+    const rangPartNum = rangePart.replace(/[０-９]/g, function (ch) {
+      return String.fromCharCode(ch.charCodeAt(0) - 0xfee0);
+    });
+    const rangeMatch = rangPartNum.trim().match(/^(\d+)?[ー－～~-](\d+)?$/);
     let range = {};
     if (rangeMatch) {
       range = {

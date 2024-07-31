@@ -6,11 +6,8 @@
         <h4 class="dice-total">
             {{#if critical}} <span style="color: #0f6f0f; font-size:0.7em;">{{localize "SW25.Critical"}} ▶ </span>{{/if}}
             {{#if fumble}} <span style="color: #862020; font-size:0.7em;">{{localize "SW25.Fumble"}} ▶ </span>{{/if}}
-            {{total}}
+            {{#if chatLootItem}}<span style="font-size:0.7em;">{{/if}}{{total}}{{#if chatLootItem}}: </span><span style="color: #0f6f0f; font-size:0.7em;">{{chatLootItem}}</span>{{/if}}
         </h4>
-        <div class="dice-total">
-            {{#if chatLootItem}}<span style="color: #0f6f0f; font-size:0.7em;">{{chatLootItem}}</span>{{/if}}
-        </div>
     </div>
 </div>
 {{#if (eq apply "on")}}
