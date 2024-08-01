@@ -660,6 +660,7 @@ export async function chatButton(chatMessage, buttonType) {
 
   if (buttonType == "buttoneffect") {
     const orgActor = actor.name;
+    const orgId = actor._id;
     const targetEffects = item.effects;
     const targetActorName = [];
     const transferEffectName = [];
@@ -693,6 +694,8 @@ export async function chatButton(chatMessage, buttonType) {
           const transferEffect = duplicate(effect);
           transferEffect.disabled = false;
           transferEffect.sourceName = orgActor;
+          transferEffect.flags.sourceName = orgActor;
+          transferEffect.flags.sourceId = `Actor.${orgId}`;;
           targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
         });
       });
@@ -702,6 +705,7 @@ export async function chatButton(chatMessage, buttonType) {
         targetTokens: targetTokenId,
         targetEffects: targetEffects,
         orgActor: orgActor,
+        orgId: orgId,
       });
     }
 
@@ -824,4 +828,316 @@ export async function chatButton(chatMessage, buttonType) {
 
     return roll;
   }
+
+  if (buttonType == "buttongeneralcheck") {
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+    const selectActor = selectedTokens[0].actor;
+    const flags = chatMessage.flags;
+    
+    let checkItem = "";
+    let lvMod = 0;
+    let stMod = 0;
+    for( const item of selectActor.items ){
+      if( item.type == "check" && item.name == flags.checkName){
+        checkItem = item;
+        break;
+      }
+    }
+    if( checkItem ){
+      for( const item of selectActor.items ){
+        if( item.type == "skill"){
+          if( checkItem.system.checkskill == "adv" &&
+             (item.system.skilltype == "fighterskill" ||
+              item.system.skilltype == "magicuserskill" ||
+              item.system.skilltype == "otherskill") ){
+              if( lvMod < parseInt(item.system.skilllevel,10) ){
+                lvMod = parseInt(item.system.skilllevel,10);
+              }
+          } else if ( checkItem.system.checkskill == item.name ){
+            lvMod = parseInt(item.system.skilllevel,10);
+          }
+        }
+      }
+      
+      if( checkItem.system.checkabi == "agi" ){
+        stMod = selectActor.system.abilities.agi.mod;
+      } else if( checkItem.system.checkabi == "dex" ){
+        stMod = selectActor.system.abilities.dex.mod;
+      } else if( checkItem.system.checkabi == "str" ){
+        stMod = selectActor.system.abilities.str.mod;
+      } else if( checkItem.system.checkabi == "vit" ){
+        stMod = selectActor.system.abilities.vit.mod;
+      } else if( checkItem.system.checkabi == "int" ){
+        stMod = selectActor.system.abilities.int.mod;
+      } else if( checkItem.system.checkabi == "mnd" ){
+        stMod = selectActor.system.abilities.mnd.mod;
+      }
+    }
+    
+    const speaker = ChatMessage.getSpeaker({ actor: selectActor });
+    const rollMode = game.settings.get("core", "rollMode");
+    const rollData = selectActor.getRollData();
+    
+    let label =
+      `${chatMessage.speaker.alias}(${checkItem.name}${game.i18n.localize("SW25.Check")})`;
+    let formula = checkItem ? checkItem.system.formula : "2d6";
+
+    // 修正値（Lv、能力値、固定値）の設定
+    if( 0 < lvMod ){
+      formula += `+ ${lvMod}`;
+    } else if( lvMod < 0 ){
+      formula += `- ${lvMod}`;
+    }
+    
+    if( 0 < stMod ){
+      formula += `+ ${stMod}`;
+    } else if( stMod < 0 ){
+      formula += `- ${stMod}`;
+    }
+    
+    let flagMod = parseInt(flags.modifier,10);
+    if( 0 < flagMod ){
+      formula += `+ ${flagMod}`;
+    } else if( flagMod < 0 ){
+      formula += `- ${flagMod}`;
+    }
+
+    let roll = new Roll(formula, rollData);
+    await roll.evaluate();
+
+    // 目標値の判定
+    let content = "";
+    let result = "";
+    if( flags.targetValue ){
+      let targetValues = flags.targetValue.split(/[,/、，／]/);
+      let fumble = ( roll.terms[0].results[0].result == 1 && roll.terms[0].results[1].result == 1 );
+      let critical = ( roll.terms[0].results[0].result == 6 && roll.terms[0].results[1].result == 6 );
+
+      // ファンブルであれば-1扱い、クリティカルであれば+5ルールを適用
+      let rollValue = fumble ? -1 : critical ? roll.total + 5 : roll.total;
+
+      let success = 0;
+      let targetValueText = "";
+      for(const targetValue of targetValues){
+        if( parseInt(targetValue,10) <= rollValue){
+          success++;
+          if( targetValueText ) targetValueText += "/";
+          targetValueText += parseInt(targetValue,10);
+        }
+      }
+      content = `<div class="check-difficulty">${game.i18n.localize("SW25.Difficulty")}${game.i18n.localize("SW25.Value")}: ${targetValueText}</div>`;
+  
+      if( fumble ){
+        result = `<span class="failed">${game.i18n.localize("SW25.Auto")}${game.i18n.localize("SW25.Failed")}(${game.i18n.localize("SW25.Fumble")})</span>`;
+      } else if( critical && (success == 0 || success == 1) ){
+        result = `<span class="success">${game.i18n.localize("SW25.Auto")}${game.i18n.localize("SW25.Success")} or ${game.i18n.localize("SW25.PlusFive")} (${game.i18n.localize("SW25.Critical")})</span>`;
+      } else if( success == 1 ){
+        result = `<span class="success">${game.i18n.localize("SW25.Success")}</span>`;
+      } else if( critical && 1 < success ){
+        result = `<span class="success">${success} ${game.i18n.localize("SW25.Success")} (${game.i18n.localize("SW25.PlusFive")}/${game.i18n.localize("SW25.Critical")})</span>`;
+      } else if( 1 < success ){
+        result = `<span class="success">${success} ${game.i18n.localize("SW25.Success")}</span>`;
+      } else {
+        result = `<span class="failed">${game.i18n.localize("SW25.Failed")}</span>`;
+      }
+    }
+
+    let chatData = {
+      speaker: speaker,
+      flavor: label,
+      content: content,
+      rollMode: rollMode,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      rolls: [roll],
+    };
+
+    let chatFormula = roll.formula;
+    let chatTotal = roll.total;
+
+    chatData.content += await renderTemplate(
+      "systems/sw25/templates/roll/roll-check.hbs",
+      {
+        formula: chatFormula,
+        tooltip: await roll.getTooltip(),
+        total: chatTotal
+      }
+    );
+
+    if( result ) {
+      chatData.content += `<div class="check-result">${result}</div>`;
+    }
+
+    ChatMessage.create(chatData);
+
+    return roll;
+  }
+
+  if (buttonType == "buttonskillcheck") {
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+    const selectActor = selectedTokens[0].actor;
+    const flags = chatMessage.flags;
+    
+    let checkItem = [];
+    let lvMod = 0;
+    let stMod = 0;
+    let checkskill = "";
+    let checkabi = "";
+    if( flags.checkName ){
+      checkItem = flags.checkName.split(/[,/、，／]/);
+    }
+      console.log(selectActor.items);
+    for( const item of selectActor.items ){
+
+      if( item.type == "skill" ){
+        if( checkItem.includes("adv") &&
+           (item.system.skilltype == "fighterskill" ||
+            item.system.skilltype == "magicuserskill" ||
+            item.system.skilltype == "otherskill") ){
+            if( lvMod < parseInt(item.system.skilllevel,10) ){
+              lvMod = parseInt(item.system.skilllevel,10);
+              checkskill = `${game.i18n.localize("SW25.Attributes.Advlevel")}`;
+            }
+        } else if ( checkItem.includes(item.name) ){
+          if( lvMod < parseInt(item.system.skilllevel,10) ){
+            lvMod = parseInt(item.system.skilllevel,10);
+            checkskill = `${item.name}`;
+          }
+        }
+      }
+    }
+    
+    if( flags.refAbility == "agi" ){
+      stMod = selectActor.system.abilities.agi.mod;
+      checkabi = ` + ${game.i18n.localize("SW25.Ability.Agi.long")}`;
+    } else if( flags.refAbility == "dex" ){
+      stMod = selectActor.system.abilities.dex.mod;
+      checkabi = ` + ${game.i18n.localize("SW25.Ability.Dex.long")}`;
+    } else if( flags.refAbility == "str" ){
+      stMod = selectActor.system.abilities.str.mod;
+      checkabi = ` + ${game.i18n.localize("SW25.Ability.Str.long")}`;
+    } else if( flags.refAbility == "vit" ){
+      stMod = selectActor.system.abilities.vit.mod;
+      checkabi = ` + ${game.i18n.localize("SW25.Ability.Vit.long")}`;
+    } else if( flags.refAbility == "int" ){
+      stMod = selectActor.system.abilities.int.mod;
+      checkabi = ` + ${game.i18n.localize("SW25.Ability.Int.long")}`;
+    } else if( flags.refAbility == "mnd" ){
+      stMod = selectActor.system.abilities.mnd.mod;
+      checkabi = ` + ${game.i18n.localize("SW25.Ability.Mnd.long")}`;
+    }
+    
+    const speaker = ChatMessage.getSpeaker({ actor: selectActor });
+    const rollMode = game.settings.get("core", "rollMode");
+    const rollData = selectActor.getRollData();
+    
+    let label =
+      `${chatMessage.speaker.alias}(${checkskill}${checkabi})`;
+    let formula = "2d6";
+
+    // 修正値（Lv、能力値、固定値）の設定
+    if( 0 < lvMod ){
+      formula += `+ ${lvMod}`;
+    } else if( lvMod < 0 ){
+      formula += `- ${lvMod}`;
+    }
+    
+    if( 0 < stMod ){
+      formula += `+ ${stMod}`;
+    } else if( stMod < 0 ){
+      formula += `- ${stMod}`;
+    }
+    
+    let flagMod = parseInt(flags.modifier,10);
+    if( 0 < flagMod ){
+      formula += `+ ${flagMod}`;
+    } else if( flagMod < 0 ){
+      formula += `- ${flagMod}`;
+    }
+
+    let roll = new Roll(formula, rollData);
+    await roll.evaluate();
+
+    
+    // 目標値の判定
+    let flagTargetVal = parseInt(flags.targetValue,10);
+    let content = "";
+    let result = "";
+    if( flags.targetValue ){
+      let targetValues = flags.targetValue.split(/[,/、，／]/);
+      let fumble = ( roll.terms[0].results[0].result == 1 && roll.terms[0].results[1].result == 1 );
+      let critical = ( roll.terms[0].results[0].result == 6 && roll.terms[0].results[1].result == 6 );
+
+      // ファンブルであれば-1扱い、クリティカルであれば+5ルールを適用
+      let rollValue = fumble ? -1 : critical ? roll.total + 5 : roll.total;
+
+      let success = 0;
+      let targetValueText = "";
+      for(const targetValue of targetValues){
+        if( parseInt(targetValue,10) <= rollValue){
+          success++;
+          if( targetValueText ) targetValueText += "/";
+          targetValueText += parseInt(targetValue,10);
+        }
+      }
+      content = `<div class="check-difficulty">${game.i18n.localize("SW25.Difficulty")}${game.i18n.localize("SW25.Value")}: ${targetValueText}</div>`;
+  
+      if( fumble ){
+        result = `<span class="failed">${game.i18n.localize("SW25.Auto")}${game.i18n.localize("SW25.Failed")}(${game.i18n.localize("SW25.Fumble")})</span>`;
+      } else if( critical && (success == 0 || success == 1) ){
+        result = `<span class="success">${game.i18n.localize("SW25.Auto")}${game.i18n.localize("SW25.Success")} or ${game.i18n.localize("SW25.PlusFive")} (${game.i18n.localize("SW25.Critical")})</span>`;
+      } else if( success == 1 ){
+        result = `<span class="success">${game.i18n.localize("SW25.Success")}</span>`;
+      } else if( critical && 1 < success ){
+        result = `<span class="success">${success} ${game.i18n.localize("SW25.Success")} (${game.i18n.localize("SW25.PlusFive")}/${game.i18n.localize("SW25.Critical")})</span>`;
+      } else if( 1 < success ){
+        result = `<span class="success">${success} ${game.i18n.localize("SW25.Success")}</span>`;
+      } else {
+        result = `<span class="failed">${game.i18n.localize("SW25.Failed")}</span>`;
+      }
+    }
+
+    let chatData = {
+      speaker: speaker,
+      flavor: label,
+      content: content,
+      rollMode: rollMode,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      rolls: [roll],
+    };
+
+    let chatFormula = roll.formula;
+    let chatTotal = roll.total;
+
+    chatData.content += await renderTemplate(
+      "systems/sw25/templates/roll/roll-check.hbs",
+      {
+        formula: chatFormula,
+        tooltip: await roll.getTooltip(),
+        total: chatTotal
+      }
+    );
+
+    if( result ) {
+      chatData.content += `<div class="check-result">${result}</div>`;
+    }
+
+    ChatMessage.create(chatData);
+
+    return roll;
+  }
+
 }

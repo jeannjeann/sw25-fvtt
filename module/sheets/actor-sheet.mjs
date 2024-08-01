@@ -711,6 +711,7 @@ export class SW25ActorSheet extends ActorSheet {
       changeItem.parents(".item")[0].dataset.itemId
     );
     const orgActor = this.actor.name;
+    const orgId = this.actor._id;
     const targetEffects = item.effects;
     const targetActorName = [];
     const transferEffectName = [];
@@ -745,6 +746,8 @@ export class SW25ActorSheet extends ActorSheet {
           const transferEffect = duplicate(effect);
           transferEffect.disabled = false;
           transferEffect.sourceName = orgActor;
+          transferEffect.flags.sourceName = orgActor;
+          transferEffect.flags.sourceId = `Actor.${orgId}`;
           targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
         });
       });
@@ -754,6 +757,7 @@ export class SW25ActorSheet extends ActorSheet {
         targetTokens: targetTokenId,
         targetEffects: targetEffects,
         orgActor: orgActor,
+        orgId: orgId,
       });
     }
 
