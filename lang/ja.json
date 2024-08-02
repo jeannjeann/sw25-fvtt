@@ -97,12 +97,12 @@
       "Magicpower": "魔力"
     },
     "Ability": {
-      "Dex": { "long": "器用度", "abbr": "器用" },
-      "Agi": { "long": "敏捷度", "abbr": "敏捷" },
-      "Str": { "long": "筋力", "abbr": "筋力" },
-      "Vit": { "long": "生命力", "abbr": "生命" },
-      "Int": { "long": "知力", "abbr": "知力" },
-      "Mnd": { "long": "精神力", "abbr": "精神" },
+      "Dex": { "long": "器用度", "abbr": "器用", "die": "⚀" },
+      "Agi": { "long": "敏捷度", "abbr": "敏捷", "die": "⚁" },
+      "Str": { "long": "筋力", "abbr": "筋力", "die": "⚂" },
+      "Vit": { "long": "生命力", "abbr": "生命", "die": "⚃" },
+      "Int": { "long": "知力", "abbr": "知力", "die": "⚄" },
+      "Mnd": { "long": "精神力", "abbr": "精神", "die": "⚅" },
       "Growth": "成長",
       "Modify": "修正",
       "Technique": "技",
