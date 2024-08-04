@@ -2,12 +2,13 @@
   "SW25": {
 
     "Setting": "Setting",
+    "Message": "Message",
+    "StraightRoll": "Straight Roll",
     "Critical": "Critical",
     "Extraroll": "Extra Roll",
     "Fumble": "Fumble",
-    "Difficulty": "Difficulty",
+    "Difficulty": "T/N",
     "Auto": "Auto",
-    "PlusFive": "+5",
     "Success": "Success",
     "Failed": "Failed",
     "Abilityskill": "Ability & Class",
@@ -64,6 +65,7 @@
     "Multitargetwarn": "Multi targets selected.",
     "Noselectwarn": "No Token selected.",
     "Multiselectwarn": "Multi Tokens selected.",
+    "InputPlaceHolder": "Input here.",
 
     "CharacterName": "Character Name",
     "Hp": "HP",
@@ -601,6 +603,7 @@
       "name": "Label of Summoning Art",
       "hint": "Summoning Art effect target settings (for Monster), default and when omitted : ",
       "default": "SummoningMP"
-    }
+    },
+    "rollRequest": "Request Roll"
   }
 }

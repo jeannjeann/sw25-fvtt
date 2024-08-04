@@ -742,21 +742,13 @@ progress.mp-bar::-moz-progress-bar {
   margin: 0 var(--spacing-xs);
 }
 
-.check-difficulty {
-  font-size: 1.1em;
-  font-weight: bold;
-  text-align: center;
+.success {
+  color: #0f6f0f;
+  font-size:0.7em;
 }
-.check-result {
-  font-size: 1.2em;
-  font-weight: bold;
-  text-align: center;
-}
-.check-result .success {
-  color: #0000ff;
-}
-.check-result .failed {
-  color: #ff0000;
+.failed {
+  color: #862020;
+  font-size:0.7em;
 }
 
 input.weakapply[type="checkbox"] {
@@ -765,4 +757,18 @@ input.weakapply[type="checkbox"] {
   height: 16px;
   border: 1px solid #000;
   vertical-align: -5px;
+}
+
+.dialog-buttons {
+  position: absolute;
+  bottom: 0;
+  width: 95%;
+  padding: 5px;
+}
+.dialog-content {
+  padding-bottom: 50px;
+}
+.dialog-buttons .buttonloot, .dialog-buttons .cancel {
+  height: 35px;
+  text-align: center;
 }

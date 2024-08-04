@@ -2,12 +2,13 @@
   "SW25": {
 
     "Setting": "設定",
+    "Message": "メッセージ",
+    "StraightRoll": "平目",
     "Critical": "6ゾロ",
     "Extraroll": "回転",
     "Fumble": "1ゾロ",
-    "Difficulty": "目標",
+    "Difficulty": "目標値",
     "Auto": "自動",
-    "PlusFive": "+5",
     "Success": "成功",
     "Failed": "失敗",
     "Abilityskill": "能力値・技能",
@@ -64,6 +65,7 @@
     "Multitargetwarn": "ターゲットが複数指定されています",
     "Noselectwarn": "トークンが選択されていません",
     "Multiselectwarn": "トークンが複数選択されています",
+    "InputPlaceHolder": "ここに入力",
 
     "CharacterName": "キャラクター名",
     "Hp": "HP",
@@ -600,6 +602,7 @@
       "name": "召異魔法判定のラベル名",
       "hint": "召異魔法判定バフ適用対象の設定（魔物用）、省略可、デフォルトおよび省力時：",
       "default": "召異魔力"
-    }
+    },
+    "rollRequest": "ロール要求"
   }
 }

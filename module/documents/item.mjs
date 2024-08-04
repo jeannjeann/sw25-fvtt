@@ -80,7 +80,8 @@ export class SW25Item extends Item {
       (actorData.abilities.dex.racevalue +
         actorData.abilities.dex.valuebase +
         actorData.abilities.dex.valuegrowth +
-        actorData.abilities.dex.valuemodify) /
+        actorData.abilities.dex.valuemodify +
+        actorData.abilities.dex.efvaluemodify) /
         6 +
         Number(actorData.abilities.dex.efmodify)
     );
@@ -97,7 +98,8 @@ export class SW25Item extends Item {
       (actorData.abilities.dex.racevalue +
         actorData.abilities.agi.valuebase +
         actorData.abilities.agi.valuegrowth +
-        actorData.abilities.agi.valuemodify) /
+        actorData.abilities.agi.valuemodify +
+        actorData.abilities.agi.efvaluemodify) /
         6 +
         Number(actorData.abilities.agi.efmodify)
     );
@@ -114,7 +116,8 @@ export class SW25Item extends Item {
       (actorData.abilities.str.racevalue +
         actorData.abilities.str.valuebase +
         actorData.abilities.str.valuegrowth +
-        actorData.abilities.str.valuemodify) /
+        actorData.abilities.str.valuemodify +
+        actorData.abilities.str.efvaluemodify) /
         6 +
         Number(actorData.abilities.str.efmodify)
     );
@@ -131,7 +134,8 @@ export class SW25Item extends Item {
       (actorData.abilities.str.racevalue +
         actorData.abilities.vit.valuebase +
         actorData.abilities.vit.valuegrowth +
-        actorData.abilities.vit.valuemodify) /
+        actorData.abilities.vit.valuemodify +
+        actorData.abilities.vit.efvaluemodify) /
         6 +
         Number(actorData.abilities.vit.efmodify)
     );
@@ -148,7 +152,8 @@ export class SW25Item extends Item {
       (actorData.abilities.int.racevalue +
         actorData.abilities.int.valuebase +
         actorData.abilities.int.valuegrowth +
-        actorData.abilities.int.valuemodify) /
+        actorData.abilities.int.valuemodify +
+        actorData.abilities.int.efvaluemodify) /
         6 +
         Number(actorData.abilities.int.efmodify)
     );
@@ -165,7 +170,8 @@ export class SW25Item extends Item {
       (actorData.abilities.int.racevalue +
         actorData.abilities.mnd.valuebase +
         actorData.abilities.mnd.valuegrowth +
-        actorData.abilities.mnd.valuemodify) /
+        actorData.abilities.mnd.valuemodify +
+        actorData.abilities.mnd.efvaluemodify) /
         6 +
         Number(actorData.abilities.mnd.efmodify)
     );
@@ -246,7 +252,8 @@ export class SW25Item extends Item {
         (actorData.abilities.dex.racevalue +
           actorData.abilities.dex.valuebase +
           actorData.abilities.dex.valuegrowth +
-          actorData.abilities.dex.valuemodify) /
+          actorData.abilities.dex.valuemodify +
+          actorData.abilities.dex.efvaluemodify) /
           6 +
           Number(actorData.abilities.dex.efmodify)
       );
@@ -255,7 +262,8 @@ export class SW25Item extends Item {
         (actorData.abilities.dex.racevalue +
           actorData.abilities.agi.valuebase +
           actorData.abilities.agi.valuegrowth +
-          actorData.abilities.agi.valuemodify) /
+          actorData.abilities.agi.valuemodify +
+          actorData.abilities.agi.efvaluemodify) /
           6 +
           Number(actorData.abilities.agi.efmodify)
       );
@@ -264,7 +272,8 @@ export class SW25Item extends Item {
         (actorData.abilities.str.racevalue +
           actorData.abilities.str.valuebase +
           actorData.abilities.str.valuegrowth +
-          actorData.abilities.str.valuemodify) /
+          actorData.abilities.str.valuemodify +
+          actorData.abilities.str.efvaluemodify) /
           6 +
           Number(actorData.abilities.str.efmodify)
       );
@@ -273,7 +282,8 @@ export class SW25Item extends Item {
         (actorData.abilities.str.racevalue +
           actorData.abilities.vit.valuebase +
           actorData.abilities.vit.valuegrowth +
-          actorData.abilities.vit.valuemodify) /
+          actorData.abilities.vit.valuemodify +
+          actorData.abilities.vit.efvaluemodify) /
           6 +
           Number(actorData.abilities.vit.efmodify)
       );
@@ -282,7 +292,8 @@ export class SW25Item extends Item {
         (actorData.abilities.int.racevalue +
           actorData.abilities.int.valuebase +
           actorData.abilities.int.valuegrowth +
-          actorData.abilities.int.valuemodify) /
+          actorData.abilities.int.valuemodify +
+          actorData.abilities.int.efvaluemodify) /
           6 +
           Number(actorData.abilities.int.efmodify)
       );
@@ -291,7 +302,8 @@ export class SW25Item extends Item {
         (actorData.abilities.int.racevalue +
           actorData.abilities.mnd.valuebase +
           actorData.abilities.mnd.valuegrowth +
-          actorData.abilities.mnd.valuemodify) /
+          actorData.abilities.mnd.valuemodify +
+          actorData.abilities.mnd.efvaluemodify) /
           6 +
           Number(actorData.abilities.mnd.efmodify)
       );
@@ -772,7 +784,7 @@ export class SW25Item extends Item {
       systemData.mpcost =
         Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
       if (systemData.mpcost < 1) systemData.mpcost = 1;
-      if (systemData.basempcost == 0 || systemData.basempcost != null)
+      if (systemData.basempcost == 0 || systemData.basempcost == null)
         systemData.mpcost = 0;
     }
 

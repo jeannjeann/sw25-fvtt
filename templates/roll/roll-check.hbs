@@ -4,9 +4,12 @@
         <div class="dice-formula">{{formula}}</div>
         {{{tooltip}}}
         <h4 class="dice-total">
-            {{#if critical}} <span style="color: #0f6f0f; font-size:0.7em;">{{localize "SW25.Critical"}} ▶ </span>{{/if}}
-            {{#if fumble}} <span style="color: #862020; font-size:0.7em;">{{localize "SW25.Fumble"}} ▶ </span>{{/if}}
-            {{#if chatLootItem}}<span style="font-size:0.7em;">{{/if}}{{total}}{{#if chatLootItem}}: </span><span style="color: #0f6f0f; font-size:0.7em;">{{chatLootItem}}</span>{{/if}}
+            {{#if critical}} <span class="success">{{localize "SW25.Critical"}} ▶ </span>{{/if}}
+            {{#if fumble}} <span class="failed">{{localize "SW25.Fumble"}} ▶ </span>{{/if}}
+            {{#if chatLootItem}}<span style="font-size:0.7em;">{{/if}}
+            {{{resultText}}}
+            {{{total}}}
+            {{#if chatLootItem}}: </span><span class="success">{{chatLootItem}}</span>{{/if}}
         </h4>
     </div>
 </div>

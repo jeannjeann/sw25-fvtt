@@ -14,6 +14,7 @@ import { chatButton } from "./helpers/chatbutton.mjs";
 import { customCommand } from "./helpers/customcommand.mjs";
 import { powerRoll } from "./helpers/powerroll.mjs";
 import { lootRoll } from "./helpers/lootroll.mjs";
+import { rollreq } from "./helpers/rollrequest.mjs";
 
 // Export variable.
 export const rpt = {};
@@ -194,7 +195,6 @@ Handlebars.registerHelper("localizeProp", function (prop) {
   }
   return "-";
 });
-
 
 Handlebars.registerHelper("localizeFairyProp", function (fairyprop) {
   switch (fairyprop) {
@@ -817,48 +817,20 @@ Hooks.once("ready", async function () {
       }
     }
   });
+});
 
-  // Combat update hook
-  Hooks.on("updateCombat", async (combat, update, options, userId) => {
-    try {
-
-      // 現在のターンのキャラクターの情報を取得
-      const currentCombatant = combat.combatant;
-      if (!currentCombatant || !currentCombatant.actor) return;
-      const currentActorId = currentCombatant.actor._id;
-
-      // 戦闘参加者全員をループ
-      combat.combatants.forEach(combatant => {
-        const actor = combatant.actor;
-        if (!actor) return;
-
-        // アクターの全てのアクティブエフェクトをチェック
-        actor.effects.forEach(effect => {
-          // エフェクトソースがターンのキャラクターIDと一致するか確認
-          const effectNameMatches = effect.flags.sourceId === `Actor.${currentActorId}`;
-
-          // 現在のラウンドが持続ラウンド数を経過しているか確認
-          const currentRound = combat.current.round;
-          const startRound = effect.duration.startRound || 0;
-          const duration = effect.duration.rounds || 0;
-          const durationExceeded = (currentRound - startRound) >= duration;
-          const durationTurn = 100 <= effect.duration.turns;
-
-          // 条件を満たす場合、エフェクトを削除
-          if (effectNameMatches && durationExceeded && durationTurn) {
-            let existingEffect = actor.effects.get(effect.id);
-            if (existingEffect) {
-              effect.delete();
-            }
-          }
-        });
-      });
-
-    } catch (error) {
-      console.error("ターン開始時エフェクト削除の処理でエラーが発生しました:", error);
-    }
+// SceneControl Hook
+Hooks.on("getSceneControlButtons", function (controls) {
+  controls[0].tools.push({
+    name: "rollRequest(Skill)",
+    title: game.i18n.localize("SETTING.rollRequest"),
+    icon: "fas fa-dice-d6",
+    visible: game.user.isGM,
+    onClick: () => {
+      rollreq();
+    },
+    button: true,
   });
-
 });
 
 /* -------------------------------------------- */
