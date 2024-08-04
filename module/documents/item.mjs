@@ -38,10 +38,12 @@ export class SW25Item extends Item {
     const itemData = this;
     const systemData = itemData.system;
     const flags = itemData.flags.sw25 || {};
-
-    this._prepareSkillData(itemData);
-    this._prepareCheckData(itemData);
-    this._prepareItemRollData(itemData);
+    const actor = itemData.actor ? game.actors.get(itemData.actor._id) : null;
+    if(actor){
+      this._prepareSkillData(itemData, actor);
+      this._prepareCheckData(itemData, actor);
+      this._prepareItemRollData(itemData, actor);
+    }
     this._prepareWeaponData(itemData);
     this._prepareArmorData(itemData);
     this._prepareAccessoryData(itemData);
@@ -61,12 +63,11 @@ export class SW25Item extends Item {
     this._prepareMonsterabilityData(itemData);
   }
 
-  async _prepareSkillData(itemData) {
+  async _prepareSkillData(itemData, actor) {
     if (itemData.type !== "skill") return;
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-    const actor = game.actors.get(itemData.actor._id);
     await actor.update({});
     const actorData = itemData.actor.system;
 
@@ -210,12 +211,11 @@ export class SW25Item extends Item {
       await itemData.sheet.render(true, { focus: false });
   }
 
-  async _prepareCheckData(itemData) {
+  async _prepareCheckData(itemData, actor) {
     if (itemData.type !== "check") return;
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-    const actor = game.actors.get(itemData.actor._id);
     const actorData = itemData.actor.system;
     const actoritemData = itemData.actor.items;
 
@@ -409,7 +409,7 @@ export class SW25Item extends Item {
       await itemData.sheet.render(true, { focus: false });
   }
 
-  async _prepareItemRollData(itemData) {
+  async _prepareItemRollData(itemData, actor) {
     if (
       itemData.type !== "skill" &&
       itemData.type !== "weapon" &&
@@ -433,7 +433,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-    const actor = game.actors.get(itemData.actor._id);
     const actorData = itemData.actor.system;
     const actoritemData = itemData.actor.items;
     if (itemData.effects.size > 0) systemData.useeffect = true;

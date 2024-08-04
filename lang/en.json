@@ -99,12 +99,12 @@
       "Magicpower": "MPwr"
     },
     "Ability": {
-      "Dex": { "long": "Dexterity", "abbr": "dex" },
-      "Agi": { "long": "Agility", "abbr": "agi" },
-      "Str": { "long": "Strength", "abbr": "str" },
-      "Vit": { "long": "Vitality", "abbr": "vit" },
-      "Int": { "long": "Intelligence", "abbr": "int" },
-      "Mnd": { "long": "Spirit", "abbr": "spi" },
+      "Dex": { "long": "Dexterity", "abbr": "dex", "die": "⚀" },
+      "Agi": { "long": "Agility", "abbr": "agi", "die": "⚁" },
+      "Str": { "long": "Strength", "abbr": "str", "die": "⚂" },
+      "Vit": { "long": "Vitality", "abbr": "vit", "die": "⚃" },
+      "Int": { "long": "Intelligence", "abbr": "int", "die": "⚄" },
+      "Mnd": { "long": "Spirit", "abbr": "spi", "die": "⚅" },
       "Growth": "Growth",
       "Modify": "Modify",
       "Technique": "Skill",

@@ -741,6 +741,52 @@ progress.mp-bar::-moz-progress-bar {
 .sw25 .sheet-header header-resources-m .character-details-secondary {
   margin: 0 var(--spacing-xs);
 }
+.fontsize11{
+  font-size: 1.1rem
+}
+.fontsize12{
+  font-size: 1.2rem
+}
+.fontsize13{
+  font-size: 1.3rem
+}
+.fontsize14{
+  font-size: 1.4rem
+}
+.fontsize15{
+  font-size: 1.5rem
+}
+.fontsize16{
+  font-size: 1.6rem
+}
+.fontsize17{
+  font-size: 1.7rem
+}
+.fontsize18{
+  font-size: 1.8rem
+}
+.fontsize19{
+  font-size: 1.9rem
+}
+.fontsize20{
+  font-size: 2.0rem
+}
+.growth{
+  padding: 0.5em;
+  margin: auto auto;
+  color: #60A0f0;
+  background: #FFF;
+  border: solid 3px #60A0f0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+}
+.growth .after{
+  font-weight: bold;
+  color: #ff3030;
+}
 
 .success {
   color: #0f6f0f;
