@@ -5,6 +5,7 @@ import {
 import { powerRoll } from "../helpers/powerroll.mjs";
 import { mpCost } from "../helpers/mpcost.mjs";
 import { lootRoll } from "../helpers/lootroll.mjs";
+import { growthCheck } from "../helpers/growthcheck.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -476,8 +477,7 @@ export class SW25ActorSheet extends ActorSheet {
     html.find(".quantity-button").click(this._onQuantityButton.bind(this));
     html.find(".changesl-button").click(this._onSkilllevelButton.bind(this));
     html.find(".checkmod-button").click(this._onCheckmodButton.bind(this));
-
-    html.find(".roll-ability-check").click(this._onRollAbilityCheck.bind(this));
+    html.find(".roll-ability-check").click(this._onGrowthCheck.bind(this));
   }
 
   /**
@@ -1068,109 +1068,8 @@ export class SW25ActorSheet extends ActorSheet {
     await item.update({ "system.conversation": conversation });
   }
 
-
-  async _onRollAbilityCheck(event) {
+  async _onGrowthCheck(event) {
     event.preventDefault();
-    let target = this.object;
-
-    const rollMode = game.settings.get("core", "rollMode");
-    const formula = "2d6"
-
-    let roll = new Roll(formula);
-    await roll.evaluate();
-
-    const roll1 = roll.dice[0].results[0].result;
-    const roll2 = roll.dice[0].results[1].result;
-
-    const abilities = ["dex","agi","str","vit","int","mnd"];
-
-    let growth1Label = abilities[roll1-1];
-    let growth1LabelUc = growth1Label.charAt(0).toUpperCase() + growth1Label.slice(1).toLowerCase();
-    let growth1 = target.system.abilities[`${growth1Label}`];
-    let growth1Name = game.i18n.localize(`SW25.Ability.${growth1LabelUc}.long`);
-    let growth1Die =  game.i18n.localize(`SW25.Ability.${growth1LabelUc}.die`);;
-    let growth1after = growth1.value + 1;
-
-    let growth2Label = abilities[roll2-1];
-    let growth2LabelUc = growth2Label.charAt(0).toUpperCase() + growth2Label.slice(1).toLowerCase();
-    let growth2 = target.system.abilities[`${growth2Label}`];
-    let growth2Name = game.i18n.localize(`SW25.Ability.${growth2LabelUc}.long`);
-    let growth2Die =  game.i18n.localize(`SW25.Ability.${growth2LabelUc}.die`);;
-    let growth2after = growth2.value + 1;
-
-    let result = `${roll1},${roll2}`;
-
-    let chatContent = await renderTemplate(
-      "systems/sw25/templates/roll/roll-check.hbs",
-      {
-        formula: formula,
-        tooltip: await roll.getTooltip(),
-        total: result,
-      }
-    );
-
-    chatContent += `
-      <div>
-        <button class="increase-ability" data-ability="${growth1Label}" data-value="${growth1.valuegrowth}">${growth1Die} : ${growth1Name} ( ${growth1.value}+${growth1.mod} -> ${growth1after}+${growth1.mod} )</button>
-      </div>
-    `;
-    if(roll1 != roll2){
-      chatContent += `
-        <div>
-          <button class="increase-ability" data-ability="${growth2Label}" data-value="${growth2.valuegrowth}">${growth2Die} : ${growth2Name} ( ${growth2.value}+${growth2.mod} -> ${growth2after}+${growth2.mod} )</button>
-        </div>
-      `;
-    }
-
-    let chatData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: game.i18n.localize(`SW25.Ability.Growth`),
-      content: chatContent,
-      rollMode: rollMode,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      rolls: [roll],
-      flags:{
-        actor: `${this.actor._id}`,
-      },
-    };
-
-    ChatMessage.create(chatData);
-    
-    // クリックイベントを追加
-    Hooks.once("renderChatMessage", (message, html, data) => {
-      html.find(".increase-ability").click(async function(event) {
-        event.preventDefault();
-
-        const beforeValueGrowth = parseInt(event.currentTarget.dataset.value);
-        const target = game.actors.get(message.flags.actor);
-        const growth = event.currentTarget.dataset.ability;
-        const currentValueGrowth = target.system.abilities[growth].valuegrowth;
-        const afterValueGrowth = currentValueGrowth + 1;
-        let ability = growth.charAt(0).toUpperCase() + growth.slice(1).toLowerCase();
-        let abilityName = game.i18n.localize(`SW25.Ability.${ability}.long`);
-        let abilityDie =  game.i18n.localize(`SW25.Ability.${ability}.die`);;
-    
-        if(beforeValueGrowth == currentValueGrowth){
-          // 能力値を更新
-          await target.update({ [`system.abilities.${growth}.valuegrowth`]: afterValueGrowth });
-
-          let chatContent = `<div class="growth">
-          <span class="fontsize13">${abilityName}( ${abilityDie} )&nbsp;</span>:&nbsp;
-          <span class="fontsize12">${currentValueGrowth}</span>
-          ?<span class="fontsize11">?</span><span class="fontsize12">?</span> 
-          <span class="fontsize15 after">${afterValueGrowth}</span>
-          </div>`;
-          let chatData = {
-            user: game.user.id,
-            speaker: ChatMessage.getSpeaker({ actor: target }),
-            flavor: game.i18n.localize(`SW25.Ability.Growth`),
-            content: chatContent,
-          };
-      
-          ChatMessage.create(chatData);
-        }
-      });
-    });
+    growthCheck(this.actor);
   }
 }

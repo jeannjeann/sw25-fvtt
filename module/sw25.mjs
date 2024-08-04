@@ -14,6 +14,7 @@ import { chatButton } from "./helpers/chatbutton.mjs";
 import { customCommand } from "./helpers/customcommand.mjs";
 import { powerRoll } from "./helpers/powerroll.mjs";
 import { lootRoll } from "./helpers/lootroll.mjs";
+import { growthCheck } from "./helpers/growthcheck.mjs";
 import { rollreq } from "./helpers/rollrequest.mjs";
 
 // Export variable.
@@ -51,6 +52,7 @@ Hooks.once("init", function () {
     rollItemMacro,
     powerRoll,
     lootRoll,
+    growthCheck,
   };
 
   // Add custom constants for configuration.

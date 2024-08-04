@@ -1,9 +1,11 @@
 ## Todo
 - bug fix
 - 辞典アイコン変更
+- NPCシートヘッダーレイアウト
 - フェローシート
 - PCのフェロー化、NPCのフェロー化
 - TAHConsole削除
+- TAH成長
 
 ## 更新作業
 - マニュアル、マクロ、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ

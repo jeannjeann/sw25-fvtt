@@ -781,11 +781,15 @@ progress.mp-bar::-moz-progress-bar {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 80px;
+  height: 40px;
+}
+.growth .before{
+  font-weight: bold;
+  color: #0f6f0f;
 }
 .growth .after{
   font-weight: bold;
-  color: #ff3030;
+  color: #862020;
 }
 
 .success {
@@ -817,4 +821,11 @@ input.weakapply[type="checkbox"] {
 .dialog-buttons .buttonloot, .dialog-buttons .cancel {
   height: 35px;
   text-align: center;
+}
+
+.growth-button {
+  width: 35%;
+  margin-left: 20%;
+  margin-top: 10px;
+  display: block;
 }
