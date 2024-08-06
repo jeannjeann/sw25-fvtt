@@ -2,6 +2,7 @@
 
 ## 0.10.0
 - ロール要求機能を追加
+- 威力ロール結果の微調整機能を追加
 - 成長ロール機能を追加  by [keyslock](https://github.com/keyslock)
 - バフ参照元を修正  by [keyslock](https://github.com/keyslock)
 - マニュアルアップデート

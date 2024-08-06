@@ -303,11 +303,19 @@ export async function chatButton(chatMessage, buttonType) {
     }
   }
   if (buttonType == "buttonhalf") {
-    let newtotal =
+    let halftotal =
       Math.ceil((chatMessage.flags.result[0] + chatMessage.flags.mod) / 2) +
       chatMessage.flags.orghalf;
     let newextraRoll = null;
+    let aftermod = chatMessage.flags.aftermod ?? 0;
+
     if (chatMessage.flags.dohalf == false || chatMessage.flags.dohalf == null) {
+      let newtotal = halftotal + Number(aftermod);
+      let newtotaltext = newtotal;
+      if (aftermod != 0)
+        newtotaltext = `
+            ${newtotal}<span style="font-size: 0.6em;"> (${halftotal}${aftermod})</span>
+          `;
       let chatData = {
         flags: {
           dohalf: true,
@@ -315,6 +323,7 @@ export async function chatButton(chatMessage, buttonType) {
           noc: false,
           apply: chatMessage.flags.apply,
           total: newtotal,
+          aftermod: aftermod,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -329,7 +338,7 @@ export async function chatButton(chatMessage, buttonType) {
             mod: chatMessage.flags.mod,
             half: chatMessage.flags.orghalf,
             results: chatMessage.flags.results,
-            total: newtotal,
+            total: newtotaltext,
             extraRoll: newextraRoll,
             fumble: chatMessage.flags.fumble,
             halfdone: true,
@@ -340,13 +349,23 @@ export async function chatButton(chatMessage, buttonType) {
           }
         ),
       };
+
       await chatMessage.update({
         content: chatData.content,
         flags: chatData.flags,
       });
+      const html = $(`.message[data-message-id="${chatMessage.id}"]`);
+      html.find(".dice-tooltip").removeClass("expanded");
+
       return;
     }
     if (chatMessage.flags.dohalf == true) {
+      let newtotal = chatMessage.flags.orgtotal + Number(aftermod);
+      let newtotaltext = newtotal;
+      if (aftermod != 0)
+        newtotaltext = `
+            ${newtotal}<span style="font-size: 0.6em;"> (${chatMessage.flags.orgtotal}${aftermod})</span>
+          `;
       let chatData = {
         flags: {
           dohalf: false,
@@ -354,6 +373,7 @@ export async function chatButton(chatMessage, buttonType) {
           noc: false,
           apply: chatMessage.flags.apply,
           total: chatMessage.flags.orgtotal,
+          aftermod: aftermod,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -368,7 +388,7 @@ export async function chatButton(chatMessage, buttonType) {
             mod: chatMessage.flags.mod,
             half: chatMessage.flags.half,
             results: chatMessage.flags.results,
-            total: chatMessage.flags.orgtotal,
+            total: newtotaltext,
             extraRoll: chatMessage.flags.extraRoll,
             fumble: chatMessage.flags.fumble,
             halfdone: false,
@@ -379,29 +399,42 @@ export async function chatButton(chatMessage, buttonType) {
           }
         ),
       };
+
       await chatMessage.update({
         content: chatData.content,
         flags: chatData.flags,
       });
+      const html = $(`.message[data-message-id="${chatMessage.id}"]`);
+      html.find(".dice-tooltip").removeClass("expanded");
+
       return;
     }
   }
   if (buttonType == "buttonhalfc") {
-    let newtotal =
+    let halfctoal =
       Math.ceil((chatMessage.flags.results + chatMessage.flags.mod) / 2) +
       chatMessage.flags.orghalf;
-    let newextraRoll = null;
+    let newextraRoll = chatMessage.flags.extraRoll;
+    let aftermod = chatMessage.flags.aftermod ?? 0;
+
     if (
       chatMessage.flags.dohalfc == false ||
       chatMessage.flags.dohalfc == null
     ) {
+      let newtotal = halfctoal + Number(aftermod);
+      let newtotaltext = newtotal;
+      if (aftermod != 0)
+        newtotaltext = `
+            ${newtotal}<span style="font-size: 0.6em;"> (${halfctoal}${aftermod})</span>
+          `;
       let chatData = {
         flags: {
           dohalf: false,
           dohalfc: true,
           noc: false,
           apply: chatMessage.flags.apply,
-          total: newtotal,
+          total: halfctoal,
+          aftermod: aftermod,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -416,7 +449,7 @@ export async function chatButton(chatMessage, buttonType) {
             mod: chatMessage.flags.mod,
             half: chatMessage.flags.orghalf,
             results: chatMessage.flags.results,
-            total: newtotal,
+            total: newtotaltext,
             extraRoll: newextraRoll,
             fumble: chatMessage.flags.fumble,
             halfcdone: true,
@@ -434,6 +467,12 @@ export async function chatButton(chatMessage, buttonType) {
       return;
     }
     if (chatMessage.flags.dohalfc == true) {
+      let newtotal = chatMessage.flags.orgtotal + Number(aftermod);
+      let newtotaltext = newtotal;
+      if (aftermod != 0)
+        newtotaltext = `
+            ${newtotal}<span style="font-size: 0.6em;"> (${chatMessage.flags.orgtotal}${aftermod})</span>
+          `;
       let chatData = {
         flags: {
           dohalf: false,
@@ -441,6 +480,7 @@ export async function chatButton(chatMessage, buttonType) {
           noc: false,
           apply: chatMessage.flags.apply,
           total: chatMessage.flags.orgtotal,
+          aftermod: aftermod,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -455,7 +495,7 @@ export async function chatButton(chatMessage, buttonType) {
             mod: chatMessage.flags.mod,
             half: chatMessage.flags.half,
             results: chatMessage.flags.results,
-            total: chatMessage.flags.orgtotal,
+            total: newtotaltext,
             extraRoll: chatMessage.flags.extraRoll,
             fumble: chatMessage.flags.fumble,
             halfcdone: false,
@@ -474,16 +514,25 @@ export async function chatButton(chatMessage, buttonType) {
     }
   }
   if (buttonType == "buttonnoc") {
-    let newtotal = chatMessage.flags.result[0] + chatMessage.flags.mod;
+    let noctotal = chatMessage.flags.result[0] + chatMessage.flags.mod;
     let newextraRoll = null;
+    let aftermod = chatMessage.flags.aftermod ?? 0;
+
     if (chatMessage.flags.noc == false || chatMessage.flags.noc == null) {
+      let newtotal = noctotal + Number(aftermod);
+      let newtotaltext = newtotal;
+      if (aftermod != 0)
+        newtotaltext = `
+            ${newtotal}<span style="font-size: 0.6em;"> (${noctotal}${aftermod})</span>
+          `;
       let chatData = {
         flags: {
           dohalf: false,
           dohalfc: false,
           noc: true,
           apply: chatMessage.flags.apply,
-          total: newtotal,
+          total: noctotal,
+          aftermod: aftermod,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -498,7 +547,7 @@ export async function chatButton(chatMessage, buttonType) {
             mod: chatMessage.flags.mod,
             half: chatMessage.flags.half,
             results: chatMessage.flags.results,
-            total: newtotal,
+            total: newtotaltext,
             extraRoll: newextraRoll,
             fumble: chatMessage.flags.fumble,
             halfdone: chatMessage.flags.halfdone,
@@ -516,6 +565,12 @@ export async function chatButton(chatMessage, buttonType) {
       return;
     }
     if (chatMessage.flags.noc == true) {
+      let newtotal = chatMessage.flags.orgtotal + Number(aftermod);
+      let newtotaltext = newtotal;
+      if (aftermod != 0)
+        newtotaltext = `
+            ${newtotal}<span style="font-size: 0.6em;"> (${chatMessage.flags.orgtotal}${aftermod})</span>
+          `;
       let chatData = {
         flags: {
           dohalf: false,
@@ -523,6 +578,7 @@ export async function chatButton(chatMessage, buttonType) {
           noc: false,
           apply: chatMessage.flags.apply,
           total: chatMessage.flags.orgtotal,
+          aftermod: aftermod,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -537,7 +593,7 @@ export async function chatButton(chatMessage, buttonType) {
             mod: chatMessage.flags.mod,
             half: chatMessage.flags.half,
             results: chatMessage.flags.results,
-            total: chatMessage.flags.orgtotal,
+            total: newtotaltext,
             extraRoll: chatMessage.flags.extraRoll,
             fumble: chatMessage.flags.fumble,
             halfdone: chatMessage.flags.halfdone,
@@ -555,6 +611,163 @@ export async function chatButton(chatMessage, buttonType) {
       return;
     }
   }
+
+  if (buttonType == "buttondecrease") {
+    let aftermod = -1;
+    if (chatMessage.flags.aftermod)
+      aftermod = Number(chatMessage.flags.aftermod) - 1;
+    if (aftermod > 0) aftermod = `+${aftermod}`;
+
+    let orgtotal = chatMessage.flags.orgtotal;
+    let halfdone = false;
+    let halfcdone = false;
+    let nocdone = false;
+    let newextraRoll = chatMessage.flags.extraRoll;
+    if (chatMessage.flags.dohalf) {
+      orgtotal =
+        Math.ceil((chatMessage.flags.result[0] + chatMessage.flags.mod) / 2) +
+        chatMessage.flags.orghalf;
+      halfdone = true;
+      newextraRoll = null;
+    }
+    if (chatMessage.flags.dohalfc) {
+      orgtotal =
+        Math.ceil((chatMessage.flags.results + chatMessage.flags.mod) / 2) +
+        chatMessage.flags.orghalf;
+      halfcdone = true;
+    }
+    if (chatMessage.flags.noc) {
+      orgtotal = chatMessage.flags.result[0] + chatMessage.flags.mod;
+      nocdone = true;
+      newextraRoll = null;
+    }
+
+    let newtotal = Number(orgtotal) + Number(aftermod);
+    let newtotaltext = newtotal;
+    if (aftermod != 0)
+      newtotaltext = `
+          ${newtotal}<span style="font-size: 0.6em;"> (${orgtotal}${aftermod})</span>
+        `;
+
+    let chatData = {
+      flags: {
+        total: newtotal,
+        aftermod: aftermod,
+      },
+      content: await renderTemplate(
+        "systems/sw25/templates/roll/roll-power.hbs",
+        {
+          formula: chatMessage.flags.formula,
+          tooltip: chatMessage.flags.tooltip,
+          power: chatMessage.flags.power,
+          lethalTech: chatMessage.flags.lethalTech,
+          criticalRay: chatMessage.flags.criticalRay,
+          pharmTool: chatMessage.flags.pharmTool,
+          result: chatMessage.flags.result,
+          mod: chatMessage.flags.mod,
+          half: chatMessage.flags.orghalf,
+          results: chatMessage.flags.results,
+          total: newtotaltext,
+          extraRoll: newextraRoll,
+          fumble: chatMessage.flags.fumble,
+          halfdone: halfdone,
+          halfcdone: halfcdone,
+          nocdone: nocdone,
+          showhalf: chatMessage.flags.showhalf,
+          shownoc: chatMessage.flags.shownoc,
+          apply: chatMessage.flags.apply,
+        }
+      ),
+    };
+
+    await chatMessage.update({
+      content: chatData.content,
+      flags: chatData.flags,
+    });
+    const html = $(`.message[data-message-id="${chatMessage.id}"]`);
+    html.find(".dice-tooltip").removeClass("expanded");
+
+    return;
+  }
+
+  if (buttonType == "buttonincrease") {
+    let aftermod = 1;
+    if (chatMessage.flags.aftermod)
+      aftermod = Number(chatMessage.flags.aftermod) + 1;
+    if (aftermod > 0) aftermod = `+${aftermod}`;
+
+    let orgtotal = chatMessage.flags.orgtotal;
+    let halfdone = false;
+    let halfcdone = false;
+    let nocdone = false;
+    let newextraRoll = chatMessage.flags.extraRoll;
+    if (chatMessage.flags.dohalf) {
+      orgtotal =
+        Math.ceil((chatMessage.flags.result[0] + chatMessage.flags.mod) / 2) +
+        chatMessage.flags.orghalf;
+      halfdone = true;
+      newextraRoll = null;
+    }
+    if (chatMessage.flags.dohalfc) {
+      orgtotal =
+        Math.ceil((chatMessage.flags.results + chatMessage.flags.mod) / 2) +
+        chatMessage.flags.orghalf;
+      halfcdone = true;
+    }
+    if (chatMessage.flags.noc) {
+      orgtotal = chatMessage.flags.result[0] + chatMessage.flags.mod;
+      nocdone = true;
+      newextraRoll = null;
+    }
+
+    let newtotal = Number(orgtotal) + Number(aftermod);
+    let newtotaltext = newtotal;
+    if (aftermod != 0)
+      newtotaltext = `
+          ${newtotal}<span style="font-size: 0.6em;"> (${orgtotal}${aftermod})</span>
+        `;
+
+    let chatData = {
+      flags: {
+        total: newtotal,
+        aftermod: aftermod,
+      },
+      content: await renderTemplate(
+        "systems/sw25/templates/roll/roll-power.hbs",
+        {
+          formula: chatMessage.flags.formula,
+          tooltip: chatMessage.flags.tooltip,
+          power: chatMessage.flags.power,
+          lethalTech: chatMessage.flags.lethalTech,
+          criticalRay: chatMessage.flags.criticalRay,
+          pharmTool: chatMessage.flags.pharmTool,
+          result: chatMessage.flags.result,
+          mod: chatMessage.flags.mod,
+          half: chatMessage.flags.orghalf,
+          results: chatMessage.flags.results,
+          total: newtotaltext,
+          extraRoll: newextraRoll,
+          fumble: chatMessage.flags.fumble,
+          halfdone: halfdone,
+          halfcdone: halfcdone,
+          nocdone: nocdone,
+          showhalf: chatMessage.flags.showhalf,
+          shownoc: chatMessage.flags.shownoc,
+          apply: chatMessage.flags.apply,
+        }
+      ),
+    };
+
+    await chatMessage.update({
+      content: chatData.content,
+      flags: chatData.flags,
+    });
+    const html = $(`.message[data-message-id="${chatMessage.id}"]`);
+    html.find(".dice-tooltip").removeClass("expanded");
+
+    return;
+  }
+
   if (
     buttonType == "buttonpd" ||
     buttonType == "buttonmd" ||
