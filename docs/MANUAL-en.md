@@ -15,6 +15,7 @@ This is the area where the character summary is displayed.
 These tabs are mainly used during creation and growth.
 - Ability Value column (left)
   - Ability values and bonuses are automatically calculated by entering Mind, Skill, Body, A-F, Growth, and Modifications.
+  - Click on "Growth" to make a Growth Roll, and select the result in the chat message to directly increase the ability score value.
 - Maximum HP and MP modifiers (upper right)
   - Enter when making modifications to the automatically calculated values. This is intended for cases where the value has been changed by special skills, items, magic, etc. (I would like to implement automatic calculation)
 - Class column (lower right)
@@ -142,8 +143,8 @@ Monster data can be entered.
 
 ### Header Section
 This is the area where the monster summary is displayed.
-- Name, monster image, current HP, and current MP can be manipulated.
-- The rest of the information is automatically reflected from the input fields in the other detail tabs.
+- Name, monster image, current HP, and current MP can be entered.
+- The rest of the information is automatically reflected from the input fields in the other tabs.
 - Clicking on "Loot" will output a chat message for the loot roll.
 - With limited privileges, only the summary is displayed.
 - About Monster Knowledge Check
@@ -420,7 +421,7 @@ You can set the duration in the Effect Duration (Turns) field.
   - All skill checks for PCs will be reflected on the right side of the Check tab.
   - Each Magic Power including All Magic Power is also reflected in the Power Check.
   - All items that have checks, All Magic, and individual checks and magic are duplicated.
-  - Everything of MP Save be applied to more than just spell.
+  - Everything with MP Save can be applied to more than just spells.
 
 ### How to Apply Effects
 
@@ -448,10 +449,18 @@ You can set the duration in the Effect Duration (Turns) field.
 - ** Attention! ** The Effects of the Active Effects can only be seen in the total value of the Effects tab.
 - ** Attention! ** Some attribute keys for Active Effects will not be updated after loading the game World, but they will update themselves after you make any adjustments on the Character Sheet.
   - Examples of adjustments: Turning on/off Grace, entering various modifiers, updating current HP values, turning Active Effects on/off, etc.
+ 
+## Layer Control (Toolbar on left side of screen)
+Roll request button
+- A roll request button has been added to the submenu of the Token Controls (GM only).
+- A button for making checks by Class and Check items will be displayed in the chat, and each player can make the designated Check by clicking the button.
+- The pull-down list will list the Classes and Check items possessed by the tokens currently placed in the scene.
+- The GM can set the target number.
+- If a target number is set, success or failure will also be automatically determined.
 
 ## Chat Commands (Custom Commands)
 - The following commands all require the "Chat Commander" Module to be enabled.
-- Without "Chat COmmander", the custom commands are unavailable but the other functions can still be used.
+- Without "Chat Commander", the custom commands are unavailable but the other functions can still be used.
 - Note that it is not possible to output a rollable message enclosed in two brackets like the core roll command.
 
 ### Chat Commands for Power Rolls
