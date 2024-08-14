@@ -117,6 +117,7 @@ export async function powerRoll(formula, powertable) {
   let rawPowerResult = powerResult;
   powerResult += powMod;
   if (halfPow == 1) powerResult = Math.ceil(powerResult / 2) + halfPowMod;
+  if (halfPow == 0) powerResult = Number(powerResult) + Number(halfPowMod);
 
   if (fumble == 1) powerResult = 0;
 

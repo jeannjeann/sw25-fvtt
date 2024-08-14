@@ -600,6 +600,8 @@ export class SW25ActorSheet extends ActorSheet {
     let powupFormula = "";
     if (roll.cValue == 100) cValueFormula = "@13";
     if (roll.halfPow == 1) halfFormula = "h+" + roll.halfPowMod;
+    else if (roll.halfPowMod && roll.halfPowMod != 0)
+      halfFormula = "+" + roll.halfPowMod;
     if (roll.lethalTech != 0) lethalTechFormula = "#" + roll.lethalTech;
     if (roll.criticalRay > 0) criticalRayFormula = "$+" + roll.criticalRay;
     else if (roll.criticalRay != 0) criticalRayFormula = "$" + roll.criticalRay;
@@ -625,6 +627,9 @@ export class SW25ActorSheet extends ActorSheet {
     let chatPowup = null;
     let chatResult = roll.eachPowerResult;
     let chatMod = roll.powMod;
+    let chatModTotal = roll.powMod;
+    if (roll.halfPow == 0 && roll.halfPowMod && roll.halfPowMod != 0)
+      chatModTotal += roll.halfPowMod;
     let chatHalf = null;
     let chatResults = roll.rawPowerResult;
     let chatTotal = roll.powerResult;
@@ -665,6 +670,7 @@ export class SW25ActorSheet extends ActorSheet {
       powup: chatPowup,
       result: chatResult,
       mod: chatMod,
+      modTotal: chatModTotal,
       half: chatHalf,
       results: chatResults,
       total: chatTotal,
@@ -689,7 +695,7 @@ export class SW25ActorSheet extends ActorSheet {
         pharmTool: chatPharmTool,
         powup: chatPowup,
         result: chatResult,
-        mod: chatMod,
+        mod: chatModTotal,
         half: chatHalf,
         results: chatResults,
         total: chatTotal,

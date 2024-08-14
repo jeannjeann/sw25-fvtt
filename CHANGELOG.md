@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.10.1
+- 半減後修正の計算ロジック変更
+- バフ・デバフ「戦闘関連」に「武器半減後修正」「魔法半減後修正」を追加
+- update English manual by [kuouvadis](https://github.com/kuouvadis)
+- bug fix
+
 ## 0.10.0
 - ロール要求機能を追加
 - 威力ロール結果の微調整機能を追加

@@ -442,6 +442,8 @@
       "SpCMod": "魔法C値修正",
       "LethalTech": "必殺攻撃",
       "CriticalRay": "クリレイ",
+      "WeaponHalfMod": "武器半減後修正",
+      "SpellHalfMod": "魔法半減後修正",
       "DodgeMod": "回避修正",
       "PpMod": "防護修正",
       "MppMod": "魔法防御修正",

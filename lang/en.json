@@ -439,6 +439,8 @@
       "DirectInput": "Direct Input",
       "HitMod": "Accuracy Mod",
       "DamageMod": "DMG Mod",
+      "WeaponHalfMod": "After half mod - Weapon",
+      "SpellHalfMod": "After half mod - Spell",
       "CMod": "Crit Mod",
       "SpCMod": "Spell Crit Mod",
       "LethalTech": "LethalStrike",

@@ -140,6 +140,10 @@ export class SW25Actor extends Actor {
           systemData.itemcvalue =
             Number(item.system.cvalue) + Number(systemData.efcmod);
           systemData.itempowerbase = item.system.powerbase;
+          if (item.system.halfpowmod)
+            systemData.itempowerbase += item.system.halfpowmod;
+          if (systemData.attributes.efwphalfmod)
+            systemData.itempowerbase += systemData.attributes.efwphalfmod;
           systemData.itempowertable = item.system.powertable;
           systemData.itempowertable[16] += systemData.lt;
           if (!/^f\d+$/.test(systemData.itempowertable[17])) {
@@ -331,6 +335,8 @@ export class SW25Actor extends Actor {
     let totalspcmod = null;
     let totallt = null;
     let totalcr = null;
+    let totalwphalfmod = null;
+    let totalsphalfmod = null;
     let totaldodgemod = null;
     let totalppmod = null;
     let totalmppmod = null;
@@ -387,6 +393,10 @@ export class SW25Actor extends Actor {
           totalspcmod += Number(effects.value);
         if (effects.key == "system.lt") totallt += Number(effects.value);
         if (effects.key == "system.cr") totalcr += Number(effects.value);
+        if (effects.key == "system.attributes.efwphalfmod")
+          totalwphalfmod += Number(effects.value);
+        if (effects.key == "system.attributes.efsphalfmod")
+          totalsphalfmod += Number(effects.value);
         if (effects.key == "system.attributes.efdodgemod")
           totaldodgemod += Number(effects.value);
         if (effects.key == "system.attributes.efppmod")
@@ -484,6 +494,8 @@ export class SW25Actor extends Actor {
     systemData.totalspcmod = totalspcmod;
     systemData.totallt = totallt;
     systemData.totalcr = totalcr;
+    systemData.totalwphalfmod = totalwphalfmod;
+    systemData.totalsphalfmod = totalsphalfmod;
     systemData.totaldodgemod = totaldodgemod;
     systemData.totalppmod = totalppmod;
     systemData.totalmppmod = totalmppmod;
@@ -534,6 +546,8 @@ export class SW25Actor extends Actor {
     if (totalspcmod > 0) systemData.totalspcmod = "+" + totalspcmod;
     if (totallt > 0) systemData.totallt = "+" + totallt;
     if (totalcr > 0) systemData.totalcr = "+" + totalcr;
+    if (totalwphalfmod > 0) systemData.totalwphalfmod = "+" + totalwphalfmod;
+    if (totalsphalfmod > 0) systemData.totalsphalfmod = "+" + totalsphalfmod;
     if (totaldodgemod > 0) systemData.totaldodgemod = "+" + totaldodgemod;
     if (totalppmod > 0) systemData.totalppmod = "+" + totalppmod;
     if (totalmppmod > 0) systemData.totalmppmod = "+" + totalmppmod;
@@ -694,6 +708,8 @@ export class SW25Actor extends Actor {
     let totalspcmod = null;
     let totallt = null;
     let totalcr = null;
+    let totalwphalfmod = null;
+    let totalsphalfmod = null;
     let totaldodgemod = null;
     let totalppmod = null;
     let totalmppmod = null;
@@ -750,6 +766,10 @@ export class SW25Actor extends Actor {
           totalspcmod += Number(effects.value);
         if (effects.key == "system.lt") totallt += Number(effects.value);
         if (effects.key == "system.cr") totalcr += Number(effects.value);
+        if (effects.key == "system.attributes.efwphalfmod")
+          totalwphalfmod += Number(effects.value);
+        if (effects.key == "system.attributes.efsphalfmod")
+          totalsphalfmod += Number(effects.value);
         if (effects.key == "system.attributes.efdodgemod")
           totaldodgemod += Number(effects.value);
         if (effects.key == "system.attributes.efppmod")
@@ -847,6 +867,8 @@ export class SW25Actor extends Actor {
     systemData.totalspcmod = totalspcmod;
     systemData.totallt = totallt;
     systemData.totalcr = totalcr;
+    systemData.totalwphalfmod = totalwphalfmod;
+    systemData.totalsphalfmod = totalsphalfmod;
     systemData.totaldodgemod = totaldodgemod;
     systemData.totalppmod = totalppmod;
     systemData.totalmppmod = totalmppmod;
@@ -897,6 +919,8 @@ export class SW25Actor extends Actor {
     if (totalspcmod > 0) systemData.totalspcmod = "+" + totalspcmod;
     if (totallt > 0) systemData.totallt = "+" + totallt;
     if (totalcr > 0) systemData.totalcr = "+" + totalcr;
+    if (totalwphalfmod > 0) systemData.totalwphalfmod = "+" + totalwphalfmod;
+    if (totalsphalfmod > 0) systemData.totalsphalfmod = "+" + totalsphalfmod;
     if (totaldodgemod > 0) systemData.totaldodgemod = "+" + totaldodgemod;
     if (totalppmod > 0) systemData.totalppmod = "+" + totalppmod;
     if (totalmppmod > 0) systemData.totalmppmod = "+" + totalmppmod;

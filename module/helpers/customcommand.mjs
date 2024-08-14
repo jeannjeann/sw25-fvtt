@@ -106,6 +106,8 @@ export async function customCommand(command, messageData, parameters) {
       let powupFormula = "";
       if (roll.cValue == 100) cValueFormula = "@13";
       if (roll.halfPow == 1) halfFormula = "h+" + roll.halfPowMod;
+      else if (roll.halfPowMod && roll.halfPowMod != 0)
+        halfFormula = "+" + roll.halfPowMod;
       if (roll.lethalTech != 0) lethalTechFormula = "#" + roll.lethalTech;
       if (roll.criticalRay != 0) criticalRayFormula = "$" + roll.criticalRay;
       if (roll.pharmTool != 0) pharmToolFormula = "tf" + roll.pharmTool;

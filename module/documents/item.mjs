@@ -39,7 +39,7 @@ export class SW25Item extends Item {
     const systemData = itemData.system;
     const flags = itemData.flags.sw25 || {};
     const actor = itemData.actor ? game.actors.get(itemData.actor._id) : null;
-    if(actor){
+    if (actor) {
       this._prepareSkillData(itemData, actor);
       this._prepareCheckData(itemData, actor);
       this._prepareItemRollData(itemData, actor);
@@ -619,6 +619,14 @@ export class SW25Item extends Item {
         Number(systemData.dmod) +
         Number(actorData.attributes.dmod) +
         Number(actorData.attributes.efdmod);
+      systemData.listpowerbase = systemData.powerbase;
+      if (systemData.halfpowmod && systemData.halfpowmod != 0)
+        systemData.listpowerbase += Number(systemData.halfpowmod);
+      if (
+        actorData.attributes.efwphalfmod &&
+        actorData.attributes.efwphalfmod != 0
+      )
+        systemData.listpowerbase += Number(actorData.attributes.efwphalfmod);
     }
 
     if (itemData.type == "spell") {
@@ -983,6 +991,12 @@ export class SW25Item extends Item {
     if (systemData.halfpowmod == null || systemData.halfpowmod == 0)
       halfpowmod = 0;
     else halfpowmod = systemData.halfpowmod;
+    if (itemData.type == "weapon" && actorData.attributes.efwphalfmod)
+      halfpowmod =
+        Number(halfpowmod) + Number(actorData.attributes.efwphalfmod);
+    if (itemData.type == "spell" && actorData.attributes.efsphalfmod)
+      halfpowmod =
+        Number(halfpowmod) + Number(actorData.attributes.efsphalfmod);
     if (systemData.lethaltech == null || systemData.lethaltech == 0)
       lethaltech = 0;
     else lethaltech = systemData.lethaltech;
@@ -1601,6 +1615,8 @@ export class SW25Item extends Item {
       let powupFormula = "";
       if (roll.cValue == 100) cValueFormula = "@13";
       if (roll.halfPow == 1) halfFormula = "h+" + roll.halfPowMod;
+      else if (roll.halfPowMod && roll.halfPowMod != 0)
+        halfFormula = "+" + roll.halfPowMod;
       if (roll.lethalTech != 0) lethalTechFormula = "#" + roll.lethalTech;
       if (roll.criticalRay > 0) criticalRayFormula = "$+" + roll.criticalRay;
       else if (roll.criticalRay != 0)
@@ -1627,6 +1643,9 @@ export class SW25Item extends Item {
       let chatPowup = null;
       let chatResult = roll.eachPowerResult;
       let chatMod = roll.powMod;
+      let chatModTotal = roll.powMod;
+      if (roll.halfPow == 0 && roll.halfPowMod && roll.halfPowMod != 0)
+        chatModTotal += roll.halfPowMod;
       let chatHalf = null;
       let chatResults = roll.rawPowerResult;
       let chatTotal = roll.powerResult;
@@ -1667,6 +1686,7 @@ export class SW25Item extends Item {
         powup: chatPowup,
         result: chatResult,
         mod: chatMod,
+        modTotal: chatModTotal,
         half: chatHalf,
         results: chatResults,
         total: chatTotal,
@@ -1691,7 +1711,7 @@ export class SW25Item extends Item {
           pharmTool: chatPharmTool,
           powup: chatPowup,
           result: chatResult,
-          mod: chatMod,
+          mod: chatModTotal,
           half: chatHalf,
           results: chatResults,
           total: chatTotal,

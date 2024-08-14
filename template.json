@@ -81,6 +81,8 @@
         "efhitmod": 0,
         "dmod": 0,
         "efdmod": 0,
+        "efwphalfmod": 0,
+        "efsphalfmod": 0,
         "dodgemod": 0,
         "efdodgemod": 0,
         "ppmod": 0,

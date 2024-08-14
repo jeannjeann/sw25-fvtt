@@ -72,6 +72,12 @@ export async function chatButton(chatMessage, buttonType) {
       if (item.system.halfpowmod == null || item.system.halfpowmod == 0)
         halfpowmod = 0;
       else halfpowmod = item.system.halfpowmod;
+      if (item.type == "weapon" && actor.system.attributes.efwphalfmod)
+        halfpowmod =
+          Number(halfpowmod) + Number(actor.system.attributes.efwphalfmod);
+      if (item.type == "spell" && actor.system.attributes.efsphalfmod)
+        halfpowmod =
+          Number(halfpowmod) + Number(actor.system.attributes.efsphalfmod);
       if (item.system.lethaltech == null || item.system.lethaltech == 0)
         lethaltech = 0;
       else lethaltech = item.system.lethaltech;
@@ -195,6 +201,8 @@ export async function chatButton(chatMessage, buttonType) {
       let powupFormula = "";
       if (roll.cValue == 100) cValueFormula = "@13";
       if (roll.halfPow == 1) halfFormula = "h+" + roll.halfPowMod;
+      else if (roll.halfPowMod && roll.halfPowMod != 0)
+        halfFormula = "+" + roll.halfPowMod;
       if (roll.lethalTech != 0) lethalTechFormula = "#" + roll.lethalTech;
       if (roll.criticalRay > 0) criticalRayFormula = "$+" + roll.criticalRay;
       else if (roll.criticalRay != 0)
@@ -221,6 +229,9 @@ export async function chatButton(chatMessage, buttonType) {
       let chatPowup = null;
       let chatResult = roll.eachPowerResult;
       let chatMod = roll.powMod;
+      let chatModTotal = roll.powMod;
+      if (roll.halfPow == 0 && roll.halfPowMod && roll.halfPowMod != 0)
+        chatModTotal += roll.halfPowMod;
       let chatHalf = null;
       let chatResults = roll.rawPowerResult;
       let chatTotal = roll.powerResult;
@@ -261,6 +272,7 @@ export async function chatButton(chatMessage, buttonType) {
         powup: chatPowup,
         result: chatResult,
         mod: chatMod,
+        modTotal: chatModTotal,
         half: chatHalf,
         results: chatResults,
         total: chatTotal,
@@ -285,7 +297,7 @@ export async function chatButton(chatMessage, buttonType) {
           pharmTool: chatPharmTool,
           powup: chatPowup,
           result: chatResult,
-          mod: chatMod,
+          mod: chatModTotal,
           half: chatHalf,
           results: chatResults,
           total: chatTotal,
@@ -385,7 +397,7 @@ export async function chatButton(chatMessage, buttonType) {
             criticalRay: chatMessage.flags.criticalRay,
             pharmTool: chatMessage.flags.pharmTool,
             result: chatMessage.flags.result,
-            mod: chatMessage.flags.mod,
+            mod: chatMessage.flags.modTotal,
             half: chatMessage.flags.half,
             results: chatMessage.flags.results,
             total: newtotaltext,
@@ -492,7 +504,7 @@ export async function chatButton(chatMessage, buttonType) {
             criticalRay: chatMessage.flags.criticalRay,
             pharmTool: chatMessage.flags.pharmTool,
             result: chatMessage.flags.result,
-            mod: chatMessage.flags.mod,
+            mod: chatMessage.flags.modTotal,
             half: chatMessage.flags.half,
             results: chatMessage.flags.results,
             total: newtotaltext,
