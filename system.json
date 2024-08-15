@@ -18,7 +18,7 @@
       "thumbnail": "systems/sw25/assets/sw25fvtt.png"
     }
   ],
-  "version": "0.10.0",
+  "version": "0.10.1",
   "compatibility": {
     "minimum": "11",
     "verified": "11.315",
@@ -66,13 +66,6 @@
       "system": "SW25",
       "type": "JournalEntry",
       "path": "packs/reference"
-    },
-    {
-      "name": "macro",
-      "label": "Support Macro",
-      "system": "SW25",
-      "type": "Macro",
-      "path": "packs/macro"
     }
   ],
   "packFolders": [
@@ -95,16 +88,15 @@
           "name": "Tools",
           "sorting": "m",
           "packs": [
-              "reference",
-              "macro"
+              "reference"
           ]
         }
       ]
     }
   ],
   "socket": true,
-  "manifest": "https://github.com/jeannjeann/sw25-fvtt/releases/download/0.10.0/system.json",
-  "download": "https://github.com/jeannjeann/sw25-fvtt/releases/download/0.10.0/system.zip",
+  "manifest": "https://github.com/jeannjeann/sw25-fvtt/releases/download/0.10.1/system.json",
+  "download": "https://github.com/jeannjeann/sw25-fvtt/releases/download/0.10.1/system.zip",
   "background": "systems/sw25/assets/sw25fvtt.png",
   "grid": {
     "distance": 1,
