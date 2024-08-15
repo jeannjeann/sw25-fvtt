@@ -10,7 +10,7 @@
     <div class='item-scmod'>{{localize "SW25.Modifier"}}</div>
   </li>
   <li class='item flexrow'>
-    <div class='item-name'  style="flex: 3;"><h4>{{localize "SW25.Attributes.Advlevel"}}</h4></div>
+    <div class='item-name item-label'  style="flex: 3;"><h4>{{localize "SW25.Attributes.Advlevel"}}</h4></div>
     <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.dex.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Dex.long"}}{{localize "SW25.Ability.Bonus"}}">{{system.abilities.dex.advbase}}</label>
     <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.agi.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Agi.long"}}{{localize "SW25.Ability.Bonus"}}">{{system.abilities.agi.advbase}}</label>
     <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.str.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Str.long"}}{{localize "SW25.Ability.Bonus"}}">{{system.abilities.str.advbase}}</label>
@@ -18,10 +18,24 @@
     <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.int.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Int.long"}}{{localize "SW25.Ability.Bonus"}}">{{system.abilities.int.advbase}}</label>
     <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.mnd.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Mnd.long"}}{{localize "SW25.Ability.Bonus"}}">{{system.abilities.mnd.advbase}}</label>
     <div class='item-scmod item-prop input'><input type="text" name="system.attributes.advlevel.mod" value="{{system.attributes.advlevel.mod}}" data-dtype="Number"/></div>
+    <div class="item-description">
+      <div class="flexrow">
+        <div style="flex: 0 0 20px;"></div>
+        <div class="flexrow small-checklist">
+          {{#each checks as |advcheck advcheckid|}}
+            {{#if (eq advcheck.system.checkskill "adv")}}
+              <span class="item small-checkitem rollable" data-item-id='{{advcheck._id}}' data-roll="{{advcheck.system.formula}}+{{advcheck.system.checkbase}}" data-label="{{advcheck.name}}" data-pt="{{advcheck.system.powertable}}" data-apply="{{advcheck.system.applycheck}}">
+                &nbsp;{{advcheck.name}}({{advcheck.system.checkbase}})&nbsp;&nbsp;
+              </span>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
   </li>
   {{#each skills as |item id|}}
     <li class='item flexrow' data-item-id='{{item._id}}'>
-      <div class='item-name' style="flex: 3;"><h4>{{item.name}}</h4></div>
+      <div class='item-name item-label' style="flex: 3;"><h4>{{item.name}}</h4></div>
       <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+{{item.system.skillbase.dex}}" data-label="{{item.name}}+{{localize "SW25.Ability.Dex.long"}}{{localize "SW25.Ability.Bonus"}}">
         {{item.system.skillbase.dex}}
       </label>
@@ -41,6 +55,20 @@
         {{item.system.skillbase.mnd}}
       </label>
       <div class='item-scmod item-prop input'><input class="sc-change" type="text" name="skillModInput" value="{{item.system.skillmod}}" data-dtype="Number"/></div>
+      <div class="item-description">
+        <div class="flexrow">
+          <div style="flex: 0 0 20px;"></div>
+          <div class="flexrow small-checklist">
+            {{#each @root.checks as |checkitem checkid|}}
+              {{#if (eq checkitem.system.checkskill item.name)}}
+                <span class="item small-checkitem rollable" data-item-id='{{checkitem._id}}' data-roll="{{checkitem.system.formula}}+{{checkitem.system.checkbase}}" data-label="{{checkitem.name}}" data-pt="{{checkitem.system.powertable}}" data-apply="{{checkitem.system.applycheck}}">
+                  &nbsp;{{checkitem.name}}({{checkitem.system.checkbase}})&nbsp;&nbsp;
+                </span>
+              {{/if}}
+            {{/each}}
+          </div>
+        </div>
+      </div>
     </li>
   {{/each}}
 </ol>
