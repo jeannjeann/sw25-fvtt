@@ -643,14 +643,14 @@ export class SW25Item extends Item {
         case "sorcerer":
           systemData.checkbase =
             Number(systemData.checkbase) +
-            Number(
-              actorData.attributes.scmod + Number(actorData.attributes.efscmod)
-            );
+            Number(actorData.attributes.scmod) +
+            Number(actorData.attributes.efscmod) +
+            Number(actorData.attributes.efscckmod);
           systemData.powerbase =
             Number(systemData.powerbase) +
-            Number(
-              actorData.attributes.scmod + Number(actorData.attributes.efscmod)
-            );
+            Number(actorData.attributes.scmod) +
+            Number(actorData.attributes.efscmod) +
+            Number(actorData.attributes.efscpwmod);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpsc) -
@@ -660,14 +660,14 @@ export class SW25Item extends Item {
         case "conjurer":
           systemData.checkbase =
             Number(systemData.checkbase) +
-            Number(
-              actorData.attributes.cnmod + Number(actorData.attributes.efcnmod)
-            );
+            Number(actorData.attributes.cnmod) +
+            Number(actorData.attributes.efcnmod) +
+            Number(actorData.attributes.efcnckmod);
           systemData.powerbase =
             Number(systemData.powerbase) +
-            Number(
-              actorData.attributes.cnmod + Number(actorData.attributes.efcnmod)
-            );
+            Number(actorData.attributes.cnmod) +
+            Number(actorData.attributes.efcnmod) +
+            Number(actorData.attributes.efcnpwmod);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpcn) -
@@ -677,14 +677,14 @@ export class SW25Item extends Item {
         case "wizard":
           systemData.checkbase =
             Number(systemData.checkbase) +
-            Number(
-              actorData.attributes.wzmod + Number(actorData.attributes.efwzmod)
-            );
+            Number(actorData.attributes.wzmod) +
+            Number(actorData.attributes.efwzmod) +
+            Number(actorData.attributes.efwzckmod);
           systemData.powerbase =
             Number(systemData.powerbase) +
-            Number(
-              actorData.attributes.wzmod + Number(actorData.attributes.efwzmod)
-            );
+            Number(actorData.attributes.wzmod) +
+            Number(actorData.attributes.efwzmod) +
+            Number(actorData.attributes.efwzpwmod);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpwz) -
@@ -694,14 +694,14 @@ export class SW25Item extends Item {
         case "priest":
           systemData.checkbase =
             Number(systemData.checkbase) +
-            Number(
-              actorData.attributes.prmod + Number(actorData.attributes.efprmod)
-            );
+            Number(actorData.attributes.prmod) +
+            Number(actorData.attributes.efprmod) +
+            Number(actorData.attributes.efprckmod);
           systemData.powerbase =
             Number(systemData.powerbase) +
-            Number(
-              actorData.attributes.prmod + Number(actorData.attributes.efprmod)
-            );
+            Number(actorData.attributes.prmod) +
+            Number(actorData.attributes.efprmod) +
+            Number(actorData.attributes.efprpwmod);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmppr) -
@@ -711,14 +711,14 @@ export class SW25Item extends Item {
         case "magitech":
           systemData.checkbase =
             Number(systemData.checkbase) +
-            Number(
-              actorData.attributes.mtmod + Number(actorData.attributes.efmtmod)
-            );
+            Number(actorData.attributes.mtmod) +
+            Number(actorData.attributes.efmtmod) +
+            Number(actorData.attributes.efmtckmod);
           systemData.powerbase =
             Number(systemData.powerbase) +
-            Number(
-              actorData.attributes.mtmod + Number(actorData.attributes.efmtmod)
-            );
+            Number(actorData.attributes.mtmod) +
+            Number(actorData.attributes.efmtmod) +
+            Number(actorData.attributes.efmtpwmod);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpmt) -
@@ -728,14 +728,14 @@ export class SW25Item extends Item {
         case "fairy":
           systemData.checkbase =
             Number(systemData.checkbase) +
-            Number(
-              actorData.attributes.frmod + Number(actorData.attributes.effrmod)
-            );
+            Number(actorData.attributes.frmod) +
+            Number(actorData.attributes.effrmod) +
+            Number(actorData.attributes.effrckmod);
           systemData.powerbase =
             Number(systemData.powerbase) +
-            Number(
-              actorData.attributes.frmod + Number(actorData.attributes.effrmod)
-            );
+            Number(actorData.attributes.frmod) +
+            Number(actorData.attributes.effrmod) +
+            Number(actorData.attributes.effrpwmod);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpfr) -
@@ -745,14 +745,14 @@ export class SW25Item extends Item {
         case "druid":
           systemData.checkbase =
             Number(systemData.checkbase) +
-            Number(
-              actorData.attributes.drmod + Number(actorData.attributes.efdrmod)
-            );
+            Number(actorData.attributes.drmod) +
+            Number(actorData.attributes.efdrmod) +
+            Number(actorData.attributes.efdrckmod);
           systemData.powerbase =
             Number(systemData.powerbase) +
-            Number(
-              actorData.attributes.drmod + Number(actorData.attributes.efdrmod)
-            );
+            Number(actorData.attributes.drmod) +
+            Number(actorData.attributes.efdrmod) +
+            Number(actorData.attributes.efdrpwmod);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpdr) -
@@ -762,14 +762,14 @@ export class SW25Item extends Item {
         case "daemon":
           systemData.checkbase =
             Number(systemData.checkbase) +
-            Number(
-              actorData.attributes.dmmod + Number(actorData.attributes.efdmmod)
-            );
+            Number(actorData.attributes.dmmod) +
+            Number(actorData.attributes.efdmmod) +
+            Number(actorData.attributes.efdmckmod);
           systemData.powerbase =
             Number(systemData.powerbase) +
-            Number(
-              actorData.attributes.dmmod + Number(actorData.attributes.efdmmod)
-            );
+            Number(actorData.attributes.dmmod) +
+            Number(actorData.attributes.efdmmod) +
+            Number(actorData.attributes.efdmpwmod);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpdm) -
@@ -779,6 +779,18 @@ export class SW25Item extends Item {
         default:
           break;
       }
+    }
+
+    if (itemData.type == "magicalsong") {
+      systemData.checkbase =
+        Number(systemData.checkbase) + Number(actorData.attributes.efmsckmod);
+      systemData.powerbase =
+        Number(systemData.powerbase) + Number(actorData.attributes.efmspwmod);
+    }
+
+    if (itemData.type == "alchemytech") {
+      systemData.checkbase =
+        Number(systemData.checkbase) + Number(actorData.attributes.efatckmod);
     }
 
     if (itemData.type == "enhancearts") {

@@ -117,7 +117,10 @@
                     <option value="check" {{#if (eq change.keyClassification "check")}}selected{{/if}}>{{localize "SW25.Effect.Check"}}</option>
                     <option value="parameter" {{#if (eq change.keyClassification "parameter")}}selected{{/if}}>{{localize "SW25.Effect.Parameter"}}</option>
                     <option value="magicpower" {{#if (eq change.keyClassification "magicpower")}}selected{{/if}}>{{localize "SW25.Effect.MagicPower"}}</option>
+                    <option value="magicckroll" {{#if (eq change.keyClassification "magicckroll")}}selected{{/if}}>{{localize "SW25.Effect.MagicCKRoll"}}</option>
+                    <option value="magicpwroll" {{#if (eq change.keyClassification "magicpwroll")}}selected{{/if}}>{{localize "SW25.Effect.MagicPWRoll"}}</option>
                     <option value="mpsave" {{#if (eq change.keyClassification "mpsave")}}selected{{/if}}>{{localize "SW25.Effect.MPSave"}}</option>
+                    <option value="feature" {{#if (eq change.keyClassification "feature")}}selected{{/if}}>{{localize "SW25.Features"}}</option>
                     <option value="input" {{#if (eq change.keyClassification "input")}}selected{{/if}}>{{localize "SW25.Effect.DirectInput"}}</option>
                     {{/select}}
                     </select>
@@ -192,6 +195,36 @@
                         {{/select}}
                         </select>
                     {{/if}}
+                    {{#if (eq change.keyClassification "magicckroll")}}
+                        <select name="changes.{{i}}.keyname" class="select-keyname">
+                        {{#select change.keyname}}
+                        <option value="">-</option>
+                        <option value="attributes.efscckmod" {{#if (eq change.keyname "attributes.efscckmod")}}selected{{/if}}>{{localize "SW25.Effect.ScMod"}}</option>
+                        <option value="attributes.efcnckmod" {{#if (eq change.keyname "attributes.efcnckmod")}}selected{{/if}}>{{localize "SW25.Effect.CnMod"}}</option>
+                        <option value="attributes.efwzckmod" {{#if (eq change.keyname "attributes.efwzckmod")}}selected{{/if}}>{{localize "SW25.Effect.WzMod"}}</option>
+                        <option value="attributes.efprckmod" {{#if (eq change.keyname "attributes.efprckmod")}}selected{{/if}}>{{localize "SW25.Effect.PrMod"}}</option>
+                        <option value="attributes.efmtckmod" {{#if (eq change.keyname "attributes.efmtckmod")}}selected{{/if}}>{{localize "SW25.Effect.MtMod"}}</option>
+                        <option value="attributes.effrckmod" {{#if (eq change.keyname "attributes.effrckmod")}}selected{{/if}}>{{localize "SW25.Effect.FrMod"}}</option>
+                        <option value="attributes.efdrckmod" {{#if (eq change.keyname "attributes.efdrckmod")}}selected{{/if}}>{{localize "SW25.Effect.DrMod"}}</option>
+                        <option value="attributes.efdmckmod" {{#if (eq change.keyname "attributes.efdnckmod")}}selected{{/if}}>{{localize "SW25.Effect.DmMod"}}</option>
+                        {{/select}}
+                        </select>
+                    {{/if}}
+                    {{#if (eq change.keyClassification "magicpwroll")}}
+                        <select name="changes.{{i}}.keyname" class="select-keyname">
+                        {{#select change.keyname}}
+                        <option value="">-</option>
+                        <option value="attributes.efscpwmod" {{#if (eq change.keyname "attributes.efscpwmod")}}selected{{/if}}>{{localize "SW25.Effect.ScMod"}}</option>
+                        <option value="attributes.efcnpwmod" {{#if (eq change.keyname "attributes.efcnpwmod")}}selected{{/if}}>{{localize "SW25.Effect.CnMod"}}</option>
+                        <option value="attributes.efwzpwmod" {{#if (eq change.keyname "attributes.efwzpwmod")}}selected{{/if}}>{{localize "SW25.Effect.WzMod"}}</option>
+                        <option value="attributes.efprpwmod" {{#if (eq change.keyname "attributes.efprpwmod")}}selected{{/if}}>{{localize "SW25.Effect.PrMod"}}</option>
+                        <option value="attributes.efmtpwmod" {{#if (eq change.keyname "attributes.efmtpwmod")}}selected{{/if}}>{{localize "SW25.Effect.MtMod"}}</option>
+                        <option value="attributes.effrpwmod" {{#if (eq change.keyname "attributes.effrpwmod")}}selected{{/if}}>{{localize "SW25.Effect.FrMod"}}</option>
+                        <option value="attributes.efdrpwmod" {{#if (eq change.keyname "attributes.efdrpwmod")}}selected{{/if}}>{{localize "SW25.Effect.DrMod"}}</option>
+                        <option value="attributes.efdmpwmod" {{#if (eq change.keyname "attributes.efdnpwmod")}}selected{{/if}}>{{localize "SW25.Effect.DmMod"}}</option>
+                        {{/select}}
+                        </select>
+                    {{/if}}
                     {{#if (eq change.keyClassification "mpsave")}}
                         <select name="changes.{{i}}.keyname" class="select-keyname">
                         {{#select change.keyname}}
@@ -205,6 +238,16 @@
                         <option value="attributes.efmpdr" {{#if (eq change.keyname "attributes.efmpdr")}}selected{{/if}}>{{localize "SW25.Effect.DrMod"}}</option>
                         <option value="attributes.efmpdm" {{#if (eq change.keyname "attributes.efmpdm")}}selected{{/if}}>{{localize "SW25.Effect.DmMod"}}</option>
                         <option value="attributes.efmpall" {{#if (eq change.keyname "attributes.efmpall")}}selected{{/if}}>{{localize "SW25.Item.All"}}</option>
+                        {{/select}}
+                        </select>
+                    {{/if}}
+                    {{#if (eq change.keyClassification "feature")}}
+                        <select name="changes.{{i}}.keyname" class="select-keyname">
+                        {{#select change.keyname}}
+                        <option value="">-</option>
+                        <option value="attributes.efmsckmod" {{#if (eq change.keyname "attributes.efmsckmod")}}selected{{/if}}>{{localize "TYPES.Item.magicalsong"}} / {{localize "SW25.Effect.Performance"}}</option>
+                        <option value="attributes.efmspwmod" {{#if (eq change.keyname "attributes.efmspwmod")}}selected{{/if}}>{{localize "TYPES.Item.magicalsong"}} / {{localize "SW25.Effect.MPower"}}</option>
+                        <option value="attributes.efatckmod" {{#if (eq change.keyname "attributes.efatckmod")}}selected{{/if}}>{{localize "TYPES.Item.alchemytech"}}</option>
                         {{/select}}
                         </select>
                     {{/if}}

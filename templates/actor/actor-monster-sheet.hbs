@@ -137,13 +137,29 @@
           {{#if system.totalhpmod}}<div><b>{{localize "SW25.Effect.HpMod"}}: {{system.totalhpmod}}</b></div>{{/if}}
           {{#if system.totalmpmod}}<div><b>{{localize "SW25.Effect.MpMod"}}: {{system.totalmpmod}}</b></div>{{/if}}
           {{#if system.totalscmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.ScMod"}}: {{system.totalscmod}}</b></div>{{/if}}
+          {{#if system.totalscckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.ScMod"}}: {{system.totalscckmod}}</b></div>{{/if}}
+          {{#if system.totalscpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.ScMod"}}: {{system.totalscpwmod}}</b></div>{{/if}}
           {{#if system.totalcnmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.CnMod"}}: {{system.totalcnmod}}</b></div>{{/if}}
+          {{#if system.totalcnckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.CnMod"}}: {{system.totalcnckmod}}</b></div>{{/if}}
+          {{#if system.totalcnpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.CnMod"}}: {{system.totalcnpwmod}}</b></div>{{/if}}
           {{#if system.totalwzmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.WzMod"}}: {{system.totalwzmod}}</b></div>{{/if}}
+          {{#if system.totalwzckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.WzMod"}}: {{system.totalwzckmod}}</b></div>{{/if}}
+          {{#if system.totalwzpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.WzMod"}}: {{system.totalwzpwmod}}</b></div>{{/if}}
           {{#if system.totalprmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.PrMod"}}: {{system.totalprmod}}</b></div>{{/if}}
+          {{#if system.totalprckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.PrMod"}}: {{system.totalprckmod}}</b></div>{{/if}}
+          {{#if system.totalprpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.PrMod"}}: {{system.totalprpwmod}}</b></div>{{/if}}
           {{#if system.totalmtmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.MtMod"}}: {{system.totalmtmod}}</b></div>{{/if}}
+          {{#if system.totalmtckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.MtMod"}}: {{system.totalmtckmod}}</b></div>{{/if}}
+          {{#if system.totalmtpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.MtMod"}}: {{system.totalmtpwmod}}</b></div>{{/if}}
           {{#if system.totalfrmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.FrMod"}}: {{system.totalfrmod}}</b></div>{{/if}}
+          {{#if system.totalfrckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.FrMod"}}: {{system.totalfrckmod}}</b></div>{{/if}}
+          {{#if system.totalfrpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.FrMod"}}: {{system.totalfrpwmod}}</b></div>{{/if}}
           {{#if system.totaldrmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.DrMod"}}: {{system.totaldrmod}}</b></div>{{/if}}
+          {{#if system.totaldrckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.DrMod"}}: {{system.totaldrckmod}}</b></div>{{/if}}
+          {{#if system.totaldrpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.DrMod"}}: {{system.totaldrpwmod}}</b></div>{{/if}}
           {{#if system.totaldmmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totaldmmod}}</b></div>{{/if}}
+          {{#if system.totaldmckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totaldmckmod}}</b></div>{{/if}}
+          {{#if system.totaldmpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totaldmpwmod}}</b></div>{{/if}}
           {{#if system.totalallmgp}}<div><b>{{localize "SW25.Config.AllMgp"}}: {{system.totalallmgp}}</b></div>{{/if}}
           {{#if system.totalmpsc}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.ScMod"}}: {{system.totalmpsc}}</b></div>{{/if}}
           {{#if system.totalmpcn}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.CnMod"}}: {{system.totalmpcn}}</b></div>{{/if}}
@@ -154,6 +170,9 @@
           {{#if system.totalmpdr}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.DrMod"}}: {{system.totalmpdr}}</b></div>{{/if}}
           {{#if system.totalmpdm}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totalmpdm}}</b></div>{{/if}}
           {{#if system.totalmpall}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Item.All"}}: {{system.totalmpall}}</b></div>{{/if}}
+          {{#if system.totalmsckmod}}<div><b>{{localize "TYPES.Item.magicalsong"}} / {{localize "SW25.Effect.Performance"}}: {{system.totalmsckmod}}</b></div>{{/if}}
+          {{#if system.totalmspwmod}}<div><b>{{localize "TYPES.Item.magicalsong"}} / {{localize "SW25.Effect.MPower"}}: {{system.totalmspwmod}}</b></div>{{/if}}
+          {{#if system.totalatckmod}}<div><b>{{localize "TYPES.Item.alchemytech"}}: {{system.totalatckmod}}</b></div>{{/if}}
         </div>
       </div>
       <div>

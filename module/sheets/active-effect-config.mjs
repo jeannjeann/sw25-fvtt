@@ -81,6 +81,28 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
           change.keyClassification = "magicpower";
           change.keyname = change.key.replace(/^system\./, "");
           break;
+        case "system.attributes.efscckmod":
+        case "system.attributes.efcnckmod":
+        case "system.attributes.efwzckmod":
+        case "system.attributes.efprckmod":
+        case "system.attributes.efmtckmod":
+        case "system.attributes.effrckmod":
+        case "system.attributes.efdrckmod":
+        case "system.attributes.efdmckmod":
+          change.keyClassification = "magicckroll";
+          change.keyname = change.key.replace(/^system\./, "");
+          break;
+        case "system.attributes.efscpwmod":
+        case "system.attributes.efcnpwmod":
+        case "system.attributes.efwzpwmod":
+        case "system.attributes.efprpwmod":
+        case "system.attributes.efmtpwmod":
+        case "system.attributes.effrpwmod":
+        case "system.attributes.efdrpwmod":
+        case "system.attributes.efdmpwmod":
+          change.keyClassification = "magicpwroll";
+          change.keyname = change.key.replace(/^system\./, "");
+          break;
         case "system.attributes.efmpsc":
         case "system.attributes.efmpcn":
         case "system.attributes.efmpwz":
@@ -91,6 +113,12 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.efmpdm":
         case "system.attributes.efmpall":
           change.keyClassification = "mpsave";
+          change.keyname = change.key.replace(/^system\./, "");
+          break;
+        case "system.attributes.efmsckmod":
+        case "system.attributes.efmspwmod":
+        case "system.attributes.efatckmod":
+          change.keyClassification = "feature";
           change.keyname = change.key.replace(/^system\./, "");
           break;
         case "system.":
