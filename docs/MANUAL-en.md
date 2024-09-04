@@ -1,4 +1,4 @@
-# Simplified Manual for Sword World 2.5 v0.10.0
+# Simplified Manual for Sword World 2.5 v0.10.2
 
 ## PC
 
@@ -438,13 +438,7 @@ You can set the duration in the Effect Duration (Turns) field.
 ### Notes on Effects
 - All attribute key changes for Active Effects are only effective for PCs, e.g. PC to PC or Demon to PC.
 - Only some attribute keys are effective on monsters, while other keys are ignored, but can be used to manage duration, etc.
-- Attribute keys applied to monsters include:
-  - Combat-related: Accuracy modifier, Damage modifier, Crit Value modifier, Magic Crit Value modifier, Evasion modifier, Defense modifier, Magic Defense modifier, and Damage Reduction.
-  - Checks: Fortitude, Willpower, and all items with checks.
-  - Ability Scores: max HP modifier, max MP modifier.
-  - Magic: All items.
-  - MP Save: All items.
-  - It is unlikely that direct input of attribute keys will be used.
+- It is unlikely that direct input of attribute keys will be used.
 - Please note that we do not manage duplicates of the same Effects, so beware of unintended duplicates.
 - ** Attention! ** The Effects of the Active Effects can only be seen in the total value of the Effects tab.
 - ** Attention! ** Some attribute keys for Active Effects will not be updated after loading the game World, but they will update themselves after you make any adjustments on the Character Sheet.

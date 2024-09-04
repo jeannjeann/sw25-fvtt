@@ -1,5 +1,8 @@
-2024/08/06-09:26:48.908 2cd0 Recovering log #498
-2024/08/06-09:26:48.908 2cd0 Recovering log #531
-2024/08/06-09:26:48.915 2cd0 Delete type=0 #498
-2024/08/06-09:26:48.915 2cd0 Delete type=0 #531
-2024/08/06-09:26:48.916 2cd0 Delete type=3 #496
+2024/09/04-15:57:25.377 2d90 Log #536: 0 ops saved to Table #545 OK
+2024/09/04-15:57:25.378 2d90 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/000536.log: OK
+2024/09/04-15:57:25.379 2d90 Log #544: 0 ops saved to Table #546 OK
+2024/09/04-15:57:25.380 2d90 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/000544.log: OK
+2024/09/04-15:57:25.381 2d90 Table #538: 4 entries OK
+2024/09/04-15:57:25.383 2d90 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/MANIFEST-000533: OK
+2024/09/04-15:57:25.385 2d90 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/MANIFEST-000543: OK
+2024/09/04-15:57:25.388 2d90 **** Repaired leveldb D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual; recovered 1 files; 72541 bytes. Some data may have been lost. ****
