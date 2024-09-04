@@ -834,6 +834,9 @@ input.weakapply[type="checkbox"] {
   width: 35%;
   margin-left: 20%;
   margin-top: 10px;
+  border:1px solid #000;
+  border-radius: 5px;
+  text-align:center;
   display: block;
 }
 
