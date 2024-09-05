@@ -924,6 +924,85 @@ export class SW25Item extends Item {
           Number(systemData.efallckmod);
         systemData[`checkbasefix${i}`] =
           Number(systemData[`checkbase${i}`]) + 7;
+
+        if (actorData.effect.allmgp)
+          systemData.efallmgpmod = Number(actorData.effect.allmgp);
+        else systemData.efallmgpmod = 0;
+        systemData.efmod = 0;
+        switch (itemData.system.labelmonpow) {
+          case effectScpMon:
+            if (actorData.attributes.efscmod)
+              systemData.efmod =
+                Number(actorData.attributes.efscmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectCnpMon:
+            if (actorData.attributes.efcnmod)
+              systemData.efmod =
+                Number(actorData.attributes.efcnmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectWzpMon:
+            if (actorData.attributes.efwzmod)
+              systemData.efmod =
+                Number(actorData.attributes.efwzmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectPrpMon:
+            if (actorData.attributes.efprmod)
+              systemData.efmod =
+                Number(actorData.attributes.efprmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectMtpMon:
+            if (actorData.attributes.efmtmod)
+              systemData.efmod =
+                Number(actorData.attributes.efmtmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectFrpMon:
+            if (actorData.attributes.effrmod)
+              systemData.efmod =
+                Number(actorData.attributes.effrmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectDrpMon:
+            if (actorData.attributes.efdrmod)
+              systemData.efmod =
+                Number(actorData.attributes.efdrmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectDmpMon:
+            if (actorData.attributes.efdmmod)
+              systemData.efmod =
+                Number(actorData.attributes.efdmmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          default:
+            systemData.efmod = 0;
+            break;
+        }
+        systemData.powerbase =
+          Number(systemData.powermod) +
+          Number(powerlevelmod) +
+          Number(powerabimod) +
+          Number(systemData.efmod);
       }
     }
 
