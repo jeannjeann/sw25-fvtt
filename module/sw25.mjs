@@ -792,6 +792,7 @@ Hooks.once("ready", async function () {
       ],
       module: "_chatcommands",
       description: "Roll power table.",
+      icon: "<i class='fas fa-dice-d6'></i>",
       callback: async (chat, parameters, messageData) => {
         let command = "/powerroll";
         await customCommand(command, messageData, parameters);
