@@ -458,6 +458,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     // Open item details
     html.find(".item-label").click(this._showItemDetails.bind(this));
+    html.find(".spell-label").click(this._showSpellList.bind(this));
 
     // Change Input Area
     html.on("change", ".qt-change", this._changeQuantity.bind(this));
@@ -827,6 +828,16 @@ export class SW25ActorSheet extends ActorSheet {
     const toggler = $(event.currentTarget);
     const item = toggler.parents(".item");
     const description = item.find(".item-description");
+
+    toggler.toggleClass("open", false);
+    description.slideToggle();
+  }
+
+  async _showSpellList(event) {
+    event.preventDefault();
+    const toggler = $(event.currentTarget);
+    const item = toggler.parents(".item");
+    const description = item.find(".spell-description");
 
     toggler.toggleClass("open", false);
     description.slideToggle();
