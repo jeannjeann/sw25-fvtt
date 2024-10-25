@@ -165,6 +165,7 @@ export async function chatButton(chatMessage, buttonType) {
       chatData.flags = {
         total: chatTotal,
         apply: chatapply,
+        rolls: roll,
       };
 
       chatData.content = await renderTemplate(
@@ -1189,5 +1190,82 @@ export async function chatButton(chatMessage, buttonType) {
     ChatMessage.create(chatData);
 
     return roll;
+  }
+
+  if (buttonType == "checkdecrease" || 
+    buttonType == "checkincrease" ||
+    buttonType == "checkhalf" ) {
+
+      let aftermod = 0;
+     if(buttonType == "checkdecrease") aftermod = -1;
+     if(buttonType == "checkincrease") aftermod = 1;
+
+     if (chatMessage.flags.aftermod)
+       aftermod = Number(chatMessage.flags.aftermod) + aftermod;
+ 
+     chatMessage.flags.orgtotal = chatMessage.flags.orgtotal ?  chatMessage.flags.orgtotal : chatMessage.flags.total;
+     let orgtotal = chatMessage.flags.orgtotal;
+     let halfdone = chatMessage.flags.dohalf ? chatMessage.flags.dohalf: false;
+
+     if(buttonType == "checkhalf"){
+      halfdone = !halfdone;
+     }
+
+     let newtotal = Number(orgtotal);
+     let halfText = "";
+     if (halfdone) {
+       newtotal = Math.ceil(newtotal / 2) ;
+       halfText = "/2";
+     }
+
+     newtotal = newtotal + Number(aftermod);
+     let modText = (aftermod < 0) ? aftermod : `+${aftermod}`;
+     let newtotaltext = (aftermod == 0) ? newtotal :
+       `${newtotal}<span style="font-size: 0.6em;"> (${orgtotal}${halfText}${modText})</span>`;
+
+     console.log(chatMessage.flags.rolls);
+
+     let roll = chatMessage.flags.rolls;
+     let chatCritical = null;
+     let chatFumble = null;
+     if (roll.terms[0].total == 12) chatCritical = 1;
+     if (roll.terms[0].total == 2) chatFumble = 1;
+ 
+     let chatData = {
+       flags: {
+         total: newtotal,
+         apply: chatMessage.flags.apply,
+         spell: chatMessage.flags.spell,
+         rolls: chatMessage.flags.rolls,
+         formula: chatMessage.flags.formula,
+         tooltip: chatMessage.flags.tooltip,
+         orgtotal: orgtotal,
+         dohalf: halfdone,
+         aftermod: aftermod,
+       },
+       content: await renderTemplate(
+         "systems/sw25/templates/roll/roll-check.hbs",
+         {
+           formula: chatMessage.flags.formula,
+           tooltip: chatMessage.flags.tooltip,
+           critical: chatCritical,
+           fumble: chatFumble,
+           result: chatMessage.flags.result,
+           total: newtotaltext,
+           halfdone: halfdone,
+           apply: chatMessage.flags.apply,
+           spell: chatMessage.flags.spell,
+         }
+       ),
+     };
+ 
+     await chatMessage.update({
+       content: chatData.content,
+       flags: chatData.flags,
+     });
+     const html = $(`.message[data-message-id="${chatMessage.id}"]`);
+     html.find(".dice-tooltip").removeClass("expanded");
+ 
+     return;
   }
 }
