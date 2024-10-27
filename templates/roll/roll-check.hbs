@@ -3,14 +3,29 @@
     <div class="dice-result">
         <div class="dice-formula">{{formula}}</div>
         {{{tooltip}}}
-        <h4 class="dice-total">
-            {{#if critical}} <span class="success">{{localize "SW25.Critical"}} ▶ </span>{{/if}}
-            {{#if fumble}} <span class="failed">{{localize "SW25.Fumble"}} ▶ </span>{{/if}}
-            {{#if chatLootItem}}<span style="font-size:0.7em;">{{/if}}
-            {{{resultText}}}
-            {{{total}}}
-            {{#if chatLootItem}}: </span><span class="success">{{chatLootItem}}</span>{{/if}}
+    </div>
+</div>
+<div class="dice-roll" style="margin-top: 0px;">
+    <div class="diceresult-apply">
+        <h4 class="dice-total diceresult-apply" style="flex-grow: 1">
+            <span class="buttonclick quantitychange" data-buttontype="checkdecrease">&nbsp;-&nbsp;</span>
+            <span class="diceresult-total">
+                {{#if critical}} <span class="success">{{localize "SW25.Critical"}} ▶ </span>{{/if}}
+                {{#if fumble}} <span class="failed">{{localize "SW25.Fumble"}} ▶ </span>{{/if}}
+                {{#if chatLootItem}}<span style="font-size:0.7em;">{{/if}}
+                {{{resultText}}}
+                {{{total}}}
+                {{#if chatLootItem}}: </span><span class="success">{{chatLootItem}}</span>{{/if}}
+            </span>
+            <span class="buttonclick quantitychange" data-buttontype="checkincrease">&nbsp;+&nbsp;</span>
         </h4>
+        {{#if (eq apply "on")}}
+        <div class="result-change">
+            <button class="buttonclick half-button" data-buttontype="checkhalf">
+                {{#if halfdone}}<span style="color: #0f6f0f; font-size: 0.7em;">✔</span>{{/if}}<span style="font-size: 0.7em;">{{localize "SW25.Item.Halfpow"}}</span>
+            </button>
+        </div>
+        {{/if}}
     </div>
 </div>
 {{#if (eq apply "on")}}
