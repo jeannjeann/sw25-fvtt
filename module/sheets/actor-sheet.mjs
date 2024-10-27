@@ -555,6 +555,9 @@ export class SW25ActorSheet extends ActorSheet {
         total: roll.total,
         apply: chatapply,
         spell: chatspell,
+        rolls: roll,
+        formula: roll.formula,
+        tooltip: await roll.getTooltip(),
       };
 
       chatData.content = await renderTemplate(
