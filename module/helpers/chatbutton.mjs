@@ -781,6 +781,168 @@ export async function chatButton(chatMessage, buttonType) {
     return;
   }
 
+  if (buttonType == "checkhalf") {
+    let halftotal = Math.ceil(chatMessage.flags.orgtotal / 2);
+    let aftermod = chatMessage.flags.aftermod ?? 0;
+    let roll = chatMessage.flags.rolls;
+    let rollTotal =
+      roll.terms[0].results[0].result + roll.terms[0].results[1].result;
+    let chatCritical = null;
+    let chatFumble = null;
+    if (rollTotal == 12) chatCritical = 1;
+    if (rollTotal == 2) chatFumble = 1;
+
+    if (chatMessage.flags.dohalf == false || chatMessage.flags.dohalf == null) {
+      let newtotal = halftotal + Number(aftermod);
+      let newtotaltext = newtotal;
+      if (aftermod != 0)
+        newtotaltext = `
+            ${newtotal}<span style="font-size: 0.6em;"> (${halftotal}${aftermod})</span>
+          `;
+      let chatData = {
+        flags: {
+          dohalf: true,
+          apply: chatMessage.flags.apply,
+          total: newtotal,
+          aftermod: aftermod,
+          critical: chatCritical,
+          fumble: chatFumble,
+        },
+        content: await renderTemplate(
+          "systems/sw25/templates/roll/roll-check.hbs",
+          {
+            formula: chatMessage.flags.formula,
+            tooltip: chatMessage.flags.tooltip,
+            result: chatMessage.flags.result,
+            total: newtotaltext,
+            critical: chatCritical,
+            fumble: chatFumble,
+            halfdone: true,
+            apply: chatMessage.flags.apply,
+          }
+        ),
+      };
+
+      await chatMessage.update({
+        content: chatData.content,
+        flags: chatData.flags,
+      });
+      const html = $(`.message[data-message-id="${chatMessage.id}"]`);
+      html.find(".dice-tooltip").removeClass("expanded");
+
+      return;
+    }
+    if (chatMessage.flags.dohalf == true) {
+      let newtotal = chatMessage.flags.orgtotal + Number(aftermod);
+      let newtotaltext = newtotal;
+      if (aftermod != 0)
+        newtotaltext = `
+            ${newtotal}<span style="font-size: 0.6em;"> (${chatMessage.flags.orgtotal}${aftermod})</span>
+          `;
+      let chatData = {
+        flags: {
+          dohalf: false,
+          apply: chatMessage.flags.apply,
+          total: chatMessage.flags.orgtotal,
+          aftermod: aftermod,
+          critical: chatCritical,
+          fumble: chatFumble,
+        },
+        content: await renderTemplate(
+          "systems/sw25/templates/roll/roll-check.hbs",
+          {
+            formula: chatMessage.flags.formula,
+            tooltip: chatMessage.flags.tooltip,
+            result: chatMessage.flags.result,
+            total: newtotaltext,
+            critical: chatCritical,
+            fumble: chatFumble,
+            halfdone: false,
+            apply: chatMessage.flags.apply,
+          }
+        ),
+      };
+
+      await chatMessage.update({
+        content: chatData.content,
+        flags: chatData.flags,
+      });
+      const html = $(`.message[data-message-id="${chatMessage.id}"]`);
+      html.find(".dice-tooltip").removeClass("expanded");
+
+      return;
+    }
+  }
+
+  if (buttonType == "checkdecrease" || buttonType == "checkincrease") {
+    let aftermod = 0;
+    if (buttonType == "checkdecrease") aftermod = -1;
+    if (buttonType == "checkincrease") aftermod = 1;
+
+    if (chatMessage.flags.aftermod)
+      aftermod = Number(chatMessage.flags.aftermod) + aftermod;
+    if (aftermod > 0) aftermod = `+${aftermod}`;
+
+    let orgtotal = chatMessage.flags.orgtotal;
+    if (chatMessage.flags.dohalf)
+      orgtotal = Math.ceil(chatMessage.flags.orgtotal / 2);
+
+    let newtotal = Number(orgtotal) + Number(aftermod);
+    let newtotaltext = newtotal;
+    if (aftermod != 0)
+      newtotaltext = `
+          ${newtotal}<span style="font-size: 0.6em;"> (${orgtotal}${aftermod})</span>
+        `;
+
+    let roll = chatMessage.flags.rolls;
+    let rollTotal =
+      roll.terms[0].results[0].result + roll.terms[0].results[1].result;
+    let chatCritical = null;
+    let chatFumble = null;
+    if (rollTotal == 12) chatCritical = 1;
+    if (rollTotal == 2) chatFumble = 1;
+    let halfdone = chatMessage.flags.dohalf ? chatMessage.flags.dohalf : false;
+
+    let chatData = {
+      flags: {
+        total: newtotal,
+        apply: chatMessage.flags.apply,
+        spell: chatMessage.flags.spell,
+        rolls: chatMessage.flags.rolls,
+        formula: chatMessage.flags.formula,
+        tooltip: chatMessage.flags.tooltip,
+        orgtotal: chatMessage.flags.orgtotal,
+        critical: chatCritical,
+        fumble: chatFumble,
+        dohalf: halfdone,
+        aftermod: aftermod,
+      },
+      content: await renderTemplate(
+        "systems/sw25/templates/roll/roll-check.hbs",
+        {
+          formula: chatMessage.flags.formula,
+          tooltip: chatMessage.flags.tooltip,
+          critical: chatCritical,
+          fumble: chatFumble,
+          result: chatMessage.flags.result,
+          total: newtotaltext,
+          halfdone: halfdone,
+          apply: chatMessage.flags.apply,
+          spell: chatMessage.flags.spell,
+        }
+      ),
+    };
+
+    await chatMessage.update({
+      content: chatData.content,
+      flags: chatData.flags,
+    });
+    const html = $(`.message[data-message-id="${chatMessage.id}"]`);
+    html.find(".dice-tooltip").removeClass("expanded");
+
+    return;
+  }
+
   if (
     buttonType == "buttonpd" ||
     buttonType == "buttonmd" ||
@@ -1190,82 +1352,5 @@ export async function chatButton(chatMessage, buttonType) {
     ChatMessage.create(chatData);
 
     return roll;
-  }
-
-  if (buttonType == "checkdecrease" || 
-    buttonType == "checkincrease" ||
-    buttonType == "checkhalf" ) {
-
-      let aftermod = 0;
-     if(buttonType == "checkdecrease") aftermod = -1;
-     if(buttonType == "checkincrease") aftermod = 1;
-
-     if (chatMessage.flags.aftermod)
-       aftermod = Number(chatMessage.flags.aftermod) + aftermod;
- 
-     chatMessage.flags.orgtotal = chatMessage.flags.orgtotal ?  chatMessage.flags.orgtotal : chatMessage.flags.total;
-     let orgtotal = chatMessage.flags.orgtotal;
-     let halfdone = chatMessage.flags.dohalf ? chatMessage.flags.dohalf: false;
-
-     if(buttonType == "checkhalf"){
-      halfdone = !halfdone;
-     }
-
-     let newtotal = Number(orgtotal);
-     let halfText = "";
-     if (halfdone) {
-       newtotal = Math.ceil(newtotal / 2) ;
-       halfText = "/2";
-     }
-
-     newtotal = newtotal + Number(aftermod);
-     let modText = (aftermod < 0) ? aftermod : `+${aftermod}`;
-     let newtotaltext = (aftermod == 0) ? newtotal :
-       `${newtotal}<span style="font-size: 0.6em;"> (${orgtotal}${halfText}${modText})</span>`;
-
-     console.log(chatMessage.flags.rolls);
-
-     let roll = chatMessage.flags.rolls;
-     let chatCritical = null;
-     let chatFumble = null;
-     if (roll.terms[0].total == 12) chatCritical = 1;
-     if (roll.terms[0].total == 2) chatFumble = 1;
- 
-     let chatData = {
-       flags: {
-         total: newtotal,
-         apply: chatMessage.flags.apply,
-         spell: chatMessage.flags.spell,
-         rolls: chatMessage.flags.rolls,
-         formula: chatMessage.flags.formula,
-         tooltip: chatMessage.flags.tooltip,
-         orgtotal: orgtotal,
-         dohalf: halfdone,
-         aftermod: aftermod,
-       },
-       content: await renderTemplate(
-         "systems/sw25/templates/roll/roll-check.hbs",
-         {
-           formula: chatMessage.flags.formula,
-           tooltip: chatMessage.flags.tooltip,
-           critical: chatCritical,
-           fumble: chatFumble,
-           result: chatMessage.flags.result,
-           total: newtotaltext,
-           halfdone: halfdone,
-           apply: chatMessage.flags.apply,
-           spell: chatMessage.flags.spell,
-         }
-       ),
-     };
- 
-     await chatMessage.update({
-       content: chatData.content,
-       flags: chatData.flags,
-     });
-     const html = $(`.message[data-message-id="${chatMessage.id}"]`);
-     html.find(".dice-tooltip").removeClass("expanded");
- 
-     return;
   }
 }

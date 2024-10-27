@@ -882,12 +882,3 @@ input.weakapply[type="checkbox"] {
   font-size: 0.8em;
   font-weight: bold;
 }
-
-.applyframe {
-  border: 0.1px ridge #888888;
-  border-radius: 5px;
-  vertical-align: middle;
-  font-size: 1.5em;
-  font-weight: bold;
-  background-color: rgba(0,0,0,0.1);
-}

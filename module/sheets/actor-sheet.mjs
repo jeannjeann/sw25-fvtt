@@ -553,11 +553,12 @@ export class SW25ActorSheet extends ActorSheet {
       let chatspell = dataset.spell;
       chatData.flags = {
         total: roll.total,
+        orgtotal: roll.total,
+        formula: roll.formula,
+        rolls: roll,
+        tooltip: await roll.getTooltip(),
         apply: chatapply,
         spell: chatspell,
-        rolls: roll,
-        formula: roll.formula,
-        tooltip: await roll.getTooltip(),
       };
 
       chatData.content = await renderTemplate(

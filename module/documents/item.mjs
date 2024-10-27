@@ -1684,9 +1684,11 @@ export class SW25Item extends Item {
 
       chatData.flags = {
         total: chatTotal,
-        apply: chatapply,
+        orgtotal: chatTotal,
         formula: roll.formula,
+        rolls: roll,
         tooltip: await roll.getTooltip(),
+        apply: chatapply,
       };
 
       chatData.content = await renderTemplate(
