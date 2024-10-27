@@ -587,6 +587,7 @@ export class SW25ActorSheet extends ActorSheet {
     const dataset = element.dataset;
 
     const formula = dataset.roll;
+    const powertype = dataset.powertype;
     const powertable = dataset.pt.split(",");
     //const powertable = dataset.pt.split(",").map(Number);
 
@@ -683,6 +684,7 @@ export class SW25ActorSheet extends ActorSheet {
       showhalf: showhalf,
       shownoc: shownoc,
       apply: chatapply,
+      powertype: powertype,
     };
 
     chatData.content = await renderTemplate(
@@ -705,6 +707,7 @@ export class SW25ActorSheet extends ActorSheet {
         showhalf: showhalf,
         shownoc: shownoc,
         apply: chatapply,
+        powertype: powertype,
       }
     );
 

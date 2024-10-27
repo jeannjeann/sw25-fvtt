@@ -285,6 +285,8 @@ export async function chatButton(chatMessage, buttonType) {
         shownoc: shownoc,
         apply: chatapply,
       };
+      
+      let powertype = item.system.powertype;
 
       chatData.content = await renderTemplate(
         "systems/sw25/templates/roll/roll-power.hbs",
@@ -306,6 +308,7 @@ export async function chatButton(chatMessage, buttonType) {
           showhalf: showhalf,
           shownoc: shownoc,
           apply: chatapply,
+          powertype: powertype,
         }
       );
 
@@ -358,6 +361,7 @@ export async function chatButton(chatMessage, buttonType) {
             nocdone: chatMessage.flags.nocdone,
             shownoc: chatMessage.flags.shownoc,
             apply: chatMessage.flags.apply,
+            powertype: chatMessage.flags.powertype,
           }
         ),
       };
@@ -408,6 +412,7 @@ export async function chatButton(chatMessage, buttonType) {
             nocdone: chatMessage.flags.nocdone,
             shownoc: chatMessage.flags.shownoc,
             apply: chatMessage.flags.apply,
+            powertype: chatMessage.flags.powertype,
           }
         ),
       };
@@ -469,6 +474,7 @@ export async function chatButton(chatMessage, buttonType) {
             nocdone: chatMessage.flags.nocdone,
             shownoc: chatMessage.flags.shownoc,
             apply: chatMessage.flags.apply,
+            powertype: chatMessage.flags.powertype,
           }
         ),
       };
@@ -515,6 +521,7 @@ export async function chatButton(chatMessage, buttonType) {
             nocdone: chatMessage.flags.nocdone,
             shownoc: chatMessage.flags.shownoc,
             apply: chatMessage.flags.apply,
+            powertype: chatMessage.flags.powertype,
           }
         ),
       };
@@ -567,6 +574,7 @@ export async function chatButton(chatMessage, buttonType) {
             nocdone: true,
             shownoc: chatMessage.flags.shownoc,
             apply: chatMessage.flags.apply,
+            powertype: chatMessage.flags.powertype,
           }
         ),
       };
@@ -613,6 +621,7 @@ export async function chatButton(chatMessage, buttonType) {
             nocdone: false,
             shownoc: chatMessage.flags.shownoc,
             apply: chatMessage.flags.apply,
+            powertype: chatMessage.flags.powertype,
           }
         ),
       };
@@ -688,6 +697,7 @@ export async function chatButton(chatMessage, buttonType) {
           showhalf: chatMessage.flags.showhalf,
           shownoc: chatMessage.flags.shownoc,
           apply: chatMessage.flags.apply,
+          powertype: chatMessage.flags.powertype,
         }
       ),
     };
@@ -766,6 +776,7 @@ export async function chatButton(chatMessage, buttonType) {
           showhalf: chatMessage.flags.showhalf,
           shownoc: chatMessage.flags.shownoc,
           apply: chatMessage.flags.apply,
+          powertype: chatMessage.flags.powertype,
         }
       ),
     };
