@@ -1,14 +1,13 @@
 <div class="dice-roll">
     {{#if flavor}}<div class="dice-flavor">{{flavor}}</div>{{/if}}
     <div class="dice-result">
-        <div class="dice-formula">{{formula}}
+        <div class="dice-formula">{{formula}}</div>
         {{{tooltip}}}
-        </div>
     </div>
 </div>
-<div class="dice-apply">
+<div class="dice-roll" style="margin-top: 0px;">
     <div class="diceresult-apply">
-        <h4 class="dice-total diceresult-apply applyframe" style="flex-grow: 1">
+        <h4 class="dice-total diceresult-apply" style="flex-grow: 1">
             <span class="buttonclick quantitychange" data-buttontype="checkdecrease">&nbsp;-&nbsp;</span>
             {{#if critical}} <span class="success">{{localize "SW25.Critical"}} ▶ </span>{{/if}}
             {{#if fumble}} <span class="failed">{{localize "SW25.Fumble"}} ▶ </span>{{/if}}
