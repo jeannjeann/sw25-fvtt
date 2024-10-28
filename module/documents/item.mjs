@@ -657,12 +657,14 @@ export class SW25Item extends Item {
             Number(systemData.checkbase) +
             Number(actorData.attributes.scmod) +
             Number(actorData.attributes.efscmod) +
-            Number(actorData.attributes.efscckmod);
+            Number(actorData.attributes.efscckmod) +
+            Number(actorData.attributes.efmckall);
           systemData.powerbase =
             Number(systemData.powerbase) +
             Number(actorData.attributes.scmod) +
             Number(actorData.attributes.efscmod) +
-            Number(actorData.attributes.efscpwmod);
+            Number(actorData.attributes.efscpwmod) +
+            Number(actorData.attributes.efmpwall);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpsc) -
@@ -674,12 +676,14 @@ export class SW25Item extends Item {
             Number(systemData.checkbase) +
             Number(actorData.attributes.cnmod) +
             Number(actorData.attributes.efcnmod) +
-            Number(actorData.attributes.efcnckmod);
+            Number(actorData.attributes.efcnckmod) +
+            Number(actorData.attributes.efmckall);
           systemData.powerbase =
             Number(systemData.powerbase) +
             Number(actorData.attributes.cnmod) +
             Number(actorData.attributes.efcnmod) +
-            Number(actorData.attributes.efcnpwmod);
+            Number(actorData.attributes.efcnpwmod) +
+            Number(actorData.attributes.efmpwall);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpcn) -
@@ -691,12 +695,14 @@ export class SW25Item extends Item {
             Number(systemData.checkbase) +
             Number(actorData.attributes.wzmod) +
             Number(actorData.attributes.efwzmod) +
-            Number(actorData.attributes.efwzckmod);
+            Number(actorData.attributes.efwzckmod) +
+            Number(actorData.attributes.efmckall);
           systemData.powerbase =
             Number(systemData.powerbase) +
             Number(actorData.attributes.wzmod) +
             Number(actorData.attributes.efwzmod) +
-            Number(actorData.attributes.efwzpwmod);
+            Number(actorData.attributes.efwzpwmod) +
+            Number(actorData.attributes.efmpwall);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpwz) -
@@ -708,12 +714,14 @@ export class SW25Item extends Item {
             Number(systemData.checkbase) +
             Number(actorData.attributes.prmod) +
             Number(actorData.attributes.efprmod) +
-            Number(actorData.attributes.efprckmod);
+            Number(actorData.attributes.efprckmod) +
+            Number(actorData.attributes.efmckall);
           systemData.powerbase =
             Number(systemData.powerbase) +
             Number(actorData.attributes.prmod) +
             Number(actorData.attributes.efprmod) +
-            Number(actorData.attributes.efprpwmod);
+            Number(actorData.attributes.efprpwmod) +
+            Number(actorData.attributes.efmpwall);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmppr) -
@@ -725,12 +733,14 @@ export class SW25Item extends Item {
             Number(systemData.checkbase) +
             Number(actorData.attributes.mtmod) +
             Number(actorData.attributes.efmtmod) +
-            Number(actorData.attributes.efmtckmod);
+            Number(actorData.attributes.efmtckmod) +
+            Number(actorData.attributes.efmckall);
           systemData.powerbase =
             Number(systemData.powerbase) +
             Number(actorData.attributes.mtmod) +
             Number(actorData.attributes.efmtmod) +
-            Number(actorData.attributes.efmtpwmod);
+            Number(actorData.attributes.efmtpwmod) +
+            Number(actorData.attributes.efmpwall);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpmt) -
@@ -742,12 +752,14 @@ export class SW25Item extends Item {
             Number(systemData.checkbase) +
             Number(actorData.attributes.frmod) +
             Number(actorData.attributes.effrmod) +
-            Number(actorData.attributes.effrckmod);
+            Number(actorData.attributes.effrckmod) +
+            Number(actorData.attributes.efmckall);
           systemData.powerbase =
             Number(systemData.powerbase) +
             Number(actorData.attributes.frmod) +
             Number(actorData.attributes.effrmod) +
-            Number(actorData.attributes.effrpwmod);
+            Number(actorData.attributes.effrpwmod) +
+            Number(actorData.attributes.efmpwall);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpfr) -
@@ -759,12 +771,14 @@ export class SW25Item extends Item {
             Number(systemData.checkbase) +
             Number(actorData.attributes.drmod) +
             Number(actorData.attributes.efdrmod) +
-            Number(actorData.attributes.efdrckmod);
+            Number(actorData.attributes.efdrckmod) +
+            Number(actorData.attributes.efmckall);
           systemData.powerbase =
             Number(systemData.powerbase) +
             Number(actorData.attributes.drmod) +
             Number(actorData.attributes.efdrmod) +
-            Number(actorData.attributes.efdrpwmod);
+            Number(actorData.attributes.efdrpwmod) +
+            Number(actorData.attributes.efmpwall);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpdr) -
@@ -776,12 +790,14 @@ export class SW25Item extends Item {
             Number(systemData.checkbase) +
             Number(actorData.attributes.dmmod) +
             Number(actorData.attributes.efdmmod) +
-            Number(actorData.attributes.efdmckmod);
+            Number(actorData.attributes.efdmckmod) +
+            Number(actorData.attributes.efmckall);
           systemData.powerbase =
             Number(systemData.powerbase) +
             Number(actorData.attributes.dmmod) +
             Number(actorData.attributes.efdmmod) +
-            Number(actorData.attributes.efdmpwmod);
+            Number(actorData.attributes.efdmpwmod) +
+            Number(actorData.attributes.efmpwall);
           systemData.mpcost =
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpdm) -

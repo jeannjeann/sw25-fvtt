@@ -150,6 +150,8 @@
         "efdmpwmod": 0,
         "efmpdm": 0,
         "efmpall": 0,
+        "efmckall": 0,
+        "efmpwall":0,
         "efmsckmod": 0,
         "efmspwmod": 0,
         "efatckmod": 0
@@ -312,7 +314,9 @@
         "efdmckmod": 0,
         "efdmpwmod": 0,
         "efmpdm": 0,
-        "efmpall": 0        
+        "efmpall": 0,
+        "efmckall": 0,
+        "efmpwall":0
       },
       "pp": 0,
       "mpp": 0,

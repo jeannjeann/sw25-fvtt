@@ -89,6 +89,7 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.effrckmod":
         case "system.attributes.efdrckmod":
         case "system.attributes.efdmckmod":
+        case "system.attributes.efmckall":
           change.keyClassification = "magicckroll";
           change.keyname = change.key.replace(/^system\./, "");
           break;
@@ -100,6 +101,7 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.effrpwmod":
         case "system.attributes.efdrpwmod":
         case "system.attributes.efdmpwmod":
+        case "system.attributes.efmpwall":
           change.keyClassification = "magicpwroll";
           change.keyname = change.key.replace(/^system\./, "");
           break;
