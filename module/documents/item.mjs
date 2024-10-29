@@ -1798,6 +1798,7 @@ export class SW25Item extends Item {
       }
       if (roll.cValue == 100 || chatExtraRoll == null) shownoc = false;
       let chatapply = this.system.applypower;
+      let powertype = this.system.powertype;
 
       chatData.flags = {
         formula: chatFormula,
@@ -1821,6 +1822,7 @@ export class SW25Item extends Item {
         showhalf: showhalf,
         shownoc: shownoc,
         apply: chatapply,
+        powertype: powertype,
       };
 
       chatData.content = await renderTemplate(
@@ -1843,6 +1845,7 @@ export class SW25Item extends Item {
           showhalf: showhalf,
           shownoc: shownoc,
           apply: chatapply,
+          powertype: powertype,
         }
       );
 

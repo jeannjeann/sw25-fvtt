@@ -227,6 +227,17 @@ Handlebars.registerHelper("localizePhasetype", function (phasetype) {
   }
   return "-";
 });
+
+Handlebars.registerHelper("powerTypesButton", function(powertype) {
+  switch (powertype) {
+      case "physical": return ["pd"];
+      case "magical": return ["md"];
+      case "fixed": return ["cd"];
+      case "healing": return ["pd", "md", "cd", "hr", "mr"];
+      default: return ["pd", "md", "cd", "hr", "mr"];
+  }
+});
+
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */

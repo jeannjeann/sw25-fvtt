@@ -361,6 +361,7 @@
         "checkabi": "-",
         "checkmod": 0,
         "powerbase": 0,
+        "powertype": "-",
         "powerskill": "-",
         "powerabi": "-",
         "powermod": 0,
