@@ -343,6 +343,24 @@ export class SW25Item extends Item {
       Number(levelmod) +
       Number(abimod);
 
+    // prepare apply button
+    systemData.checkTypesButton = [];
+    if (systemData.applycheck == "custom") {
+      if (systemData.ckpdbt) systemData.checkTypesButton.push("pd");
+      if (systemData.ckmdbt) systemData.checkTypesButton.push("md");
+      if (systemData.ckcdbt) systemData.checkTypesButton.push("cd");
+      if (systemData.ckhrbt) systemData.checkTypesButton.push("hr");
+      if (systemData.ckmrbt) systemData.checkTypesButton.push("mr");
+    }
+    systemData.powerTypesButton = [];
+    if (systemData.applypower == "custom") {
+      if (systemData.pwpdbt) systemData.powerTypesButton.push("pd");
+      if (systemData.pwmdbt) systemData.powerTypesButton.push("md");
+      if (systemData.pwcdbt) systemData.powerTypesButton.push("cd");
+      if (systemData.pwhrbt) systemData.powerTypesButton.push("hr");
+      if (systemData.pwmrbt) systemData.powerTypesButton.push("mr");
+    }
+
     // Roll Setting
     if (systemData.checkmethod == "normal") systemData.formula = "2d6";
     if (systemData.checkmethod == "dice")
@@ -619,6 +637,24 @@ export class SW25Item extends Item {
     systemData.checkbase3 =
       Number(systemData.checkbasemod3) + Number(systemData.checkmod3);
     systemData.checkbasefix3 = Number(systemData.checkbase3) + 7;
+
+    // prepare apply button
+    systemData.checkTypesButton = [];
+    if (systemData.applycheck == "custom") {
+      if (systemData.ckpdbt) systemData.checkTypesButton.push("pd");
+      if (systemData.ckmdbt) systemData.checkTypesButton.push("md");
+      if (systemData.ckcdbt) systemData.checkTypesButton.push("cd");
+      if (systemData.ckhrbt) systemData.checkTypesButton.push("hr");
+      if (systemData.ckmrbt) systemData.checkTypesButton.push("mr");
+    }
+    systemData.powerTypesButton = [];
+    if (systemData.applypower == "custom") {
+      if (systemData.pwpdbt) systemData.powerTypesButton.push("pd");
+      if (systemData.pwmdbt) systemData.powerTypesButton.push("md");
+      if (systemData.pwcdbt) systemData.powerTypesButton.push("cd");
+      if (systemData.pwhrbt) systemData.powerTypesButton.push("hr");
+      if (systemData.pwmrbt) systemData.powerTypesButton.push("mr");
+    }
 
     if (itemData.type == "weapon") {
       systemData.checkbase =
@@ -1672,7 +1708,17 @@ export class SW25Item extends Item {
       this.system.clickitem == "dice3"
     ) {
       const rollData = this.getRollData();
-      let formula = this.system.formula + "+" + this.system.checkbase;
+
+      let baseformula = this.system.formula;
+      if (this.system.clickitem == "dice1")
+        baseformula = this.system.checkformula1;
+      if (this.system.clickitem == "dice2")
+        baseformula = this.system.checkformula2;
+      if (this.system.clickitem == "dice3")
+        baseformula = this.system.checkformula3;
+      let formula = baseformula + "+" + this.system.checkbase;
+
+      console.log(this.system);
 
       let roll = new Roll(formula, rollData);
       await roll.evaluate();
@@ -1697,6 +1743,7 @@ export class SW25Item extends Item {
       let chatTotal = roll.total;
       if (roll.terms[0].total == 12) chatCritical = 1;
       if (roll.terms[0].total == 2) chatFumble = 1;
+      let checktype = this.system.checkTypesButton;
 
       chatData.flags = {
         total: chatTotal,
@@ -1705,6 +1752,7 @@ export class SW25Item extends Item {
         rolls: roll,
         tooltip: await roll.getTooltip(),
         apply: chatapply,
+        checktype: checktype,
       };
 
       chatData.content = await renderTemplate(
@@ -1716,6 +1764,7 @@ export class SW25Item extends Item {
           fumble: chatFumble,
           total: chatTotal,
           apply: chatapply,
+          checktype: checktype,
         }
       );
 
@@ -1798,7 +1847,7 @@ export class SW25Item extends Item {
       }
       if (roll.cValue == 100 || chatExtraRoll == null) shownoc = false;
       let chatapply = this.system.applypower;
-      let powertype = this.system.powertype;
+      let powertype = this.system.powerTypesButton;
 
       chatData.flags = {
         formula: chatFormula,

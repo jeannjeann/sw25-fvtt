@@ -76,13 +76,21 @@
           <input type="checkbox" name="system.showbtcheck" data-dtype="Boolean" {{#if system.showbtcheck}} checked {{/if}}/></span>
           <span></span>
           {{#unless (eq system.checkmethod "power")}}
-          <span class="grid-span-2" style="text-align: left;">
+          <span class="grid-span-8" style="text-align: left;">
             <select name="system.applycheck">
               {{#select system.applycheck}}
               <option value="-">{{localize "SW25.Item.Noapply"}}</option>
               <option value="on">{{localize "SW25.Item.applyon"}}</option>
+              <option value="custom">{{localize "SW25.Item.Custom"}}</option>
               {{/select}}
-           </select>
+            </select>
+            {{#if (eq system.applycheck "custom")}}
+            <label><input type="checkbox" class="small-checkbox" name="system.ckpdbt" data-dtype="Boolean" {{#if system.ckpdbt}} checked {{/if}}/>{{localize "SW25.Item.pd"}}</label>
+            <label><input type="checkbox" class="small-checkbox" name="system.ckmdbt" data-dtype="Boolean" {{#if system.ckmdbt}} checked {{/if}}/>{{localize "SW25.Item.md"}}</label>
+            <label><input type="checkbox" class="small-checkbox" name="system.ckcdbt" data-dtype="Boolean" {{#if system.ckcdbt}} checked {{/if}}/>{{localize "SW25.Item.cd"}}</label>
+            <label><input type="checkbox" class="small-checkbox" name="system.ckhrbt" data-dtype="Boolean" {{#if system.ckhrbt}} checked {{/if}}/>{{localize "SW25.Item.hr"}}</label>
+            <label><input type="checkbox" class="small-checkbox" name="system.ckmrbt" data-dtype="Boolean" {{#if system.ckmrbt}} checked {{/if}}/>{{localize "SW25.Item.mr"}}</label>
+            {{/if}}
           </span>
           {{/unless}}
         </div>
@@ -94,8 +102,16 @@
                 {{#select system.applypower}}
                 <option value="-">{{localize "SW25.Item.Noapply"}}</option>
                 <option value="on">{{localize "SW25.Item.applyon"}}</option>
+                <option value="custom">{{localize "SW25.Item.Custom"}}</option>
                 {{/select}}
-             </select>
+              </select>
+              {{#if (eq system.applypower "custom")}}
+              <label><input type="checkbox" class="small-checkbox" name="system.pwpdbt" data-dtype="Boolean" {{#if system.pwpdbt}} checked {{/if}}/>{{localize "SW25.Item.pd"}}</label>
+              <label><input type="checkbox" class="small-checkbox" name="system.pwmdbt" data-dtype="Boolean" {{#if system.pwmdbt}} checked {{/if}}/>{{localize "SW25.Item.md"}}</label>
+              <label><input type="checkbox" class="small-checkbox" name="system.pwcdbt" data-dtype="Boolean" {{#if system.pwcdbt}} checked {{/if}}/>{{localize "SW25.Item.cd"}}</label>
+              <label><input type="checkbox" class="small-checkbox" name="system.pwhrbt" data-dtype="Boolean" {{#if system.pwhrbt}} checked {{/if}}/>{{localize "SW25.Item.hr"}}</label>
+              <label><input type="checkbox" class="small-checkbox" name="system.pwmrbt" data-dtype="Boolean" {{#if system.pwmrbt}} checked {{/if}}/>{{localize "SW25.Item.mr"}}</label>
+              {{/if}}
             </span>
           </div>
           <div class="flexrow grid grid-8col">

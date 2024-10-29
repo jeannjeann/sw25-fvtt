@@ -24,7 +24,11 @@
         <div class="flexrow small-checklist">
           {{#each checks as |advcheck advcheckid|}}
             {{#if (eq advcheck.system.checkskill "adv")}}
-              <span class="item small-checkitem rollable" data-item-id='{{advcheck._id}}' data-roll="{{advcheck.system.formula}}+{{advcheck.system.checkbase}}" data-label="{{advcheck.name}}" data-pt="{{advcheck.system.powertable}}" data-apply="{{advcheck.system.applycheck}}">
+              {{#if (eq advcheck.system.checkmethod "power")}}
+              <span class='item small-checkitem powerrollable' data-item-id='{{advcheck._id}}' data-roll="{{advcheck.system.formula}}" data-label="{{advcheck.name}}" data-pt="{{advcheck.system.powertable}}" data-apply="{{advcheck.system.applypower}}" data-powertype="{{advcheck.system.powerTypesButton}}">
+              {{else}}
+              <span class='item small-checkitem rollable' data-item-id='{{advcheck._id}}' data-roll="{{advcheck.system.formula}}+{{advcheck.system.checkbase}}" data-label="{{advcheck.name}}" data-pt="{{advcheck.system.powertable}}" data-apply="{{advcheck.system.applycheck}}" data-checktype="{{advcheck.system.checkTypesButton}}">
+              {{/if}}
                 &nbsp;{{advcheck.name}}({{advcheck.system.checkbase}})&nbsp;&nbsp;
               </span>
             {{/if}}
@@ -61,7 +65,11 @@
           <div class="flexrow small-checklist">
             {{#each @root.checks as |checkitem checkid|}}
               {{#if (eq checkitem.system.checkskill item.name)}}
-                <span class="item small-checkitem rollable" data-item-id='{{checkitem._id}}' data-roll="{{checkitem.system.formula}}+{{checkitem.system.checkbase}}" data-label="{{checkitem.name}}" data-pt="{{checkitem.system.powertable}}" data-apply="{{checkitem.system.applycheck}}">
+                {{#if (eq checkitem.system.checkmethod "power")}}
+                <span class='item small-checkitem powerrollable' data-item-id='{{checkitem._id}}' data-roll="{{checkitem.system.formula}}" data-label="{{checkitem.name}}" data-pt="{{checkitem.system.powertable}}" data-apply="{{checkitem.system.applypower}}" data-powertype="{{checkitem.system.powerTypesButton}}">
+                {{else}}
+                <span class='item small-checkitem rollable' data-item-id='{{checkitem._id}}' data-roll="{{checkitem.system.formula}}+{{checkitem.system.checkbase}}" data-label="{{checkitem.name}}" data-pt="{{checkitem.system.powertable}}" data-apply="{{checkitem.system.applycheck}}" data-checktype="{{checkitem.system.checkTypesButton}}">
+                {{/if}}
                   &nbsp;{{checkitem.name}}({{checkitem.system.checkbase}})&nbsp;&nbsp;
                 </span>
               {{/if}}

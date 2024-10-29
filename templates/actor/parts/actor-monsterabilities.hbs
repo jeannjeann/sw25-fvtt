@@ -28,19 +28,19 @@
           </div>
           {{#if item.system.constant}}○{{/if}}{{#if item.system.main}}▶{{/if}}{{#if item.system.aux}}≫{{/if}}{{#if item.system.prep}}△{{/if}}{{#if item.system.decla}}□{{/if}}<h4 class="item-label">{{item.name}}</h4>
         </div>
-        <div class="rollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usedice1}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{item.system.label1}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}">
+        <div class="rollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usedice1}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{item.system.label1}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton}}">
           <b>{{item.system.label1}}:{{item.system.checkbase1}}({{item.system.checkbasefix1}})</b>
         </div>
           <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if system.usedice1}}block{{else}}none{{/if}};"><input class="cm1-change" type="text" name="checkmodInput" value="{{item.system.checkmod1}}" data-dtype="Number"/></div>
-        <div class="rollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{item.system.label2}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}">
+        <div class="rollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{item.system.label2}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}" data-checktype="{{system.checkTypesButton}}">
           <b>{{item.system.label2}}:{{item.system.checkbase2}}({{item.system.checkbasefix2}})</b>
         </div>
           <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if system.usedice2}}block{{else}}none{{/if}};"><input class="cm2-change" type="text" name="checkmodInput" value="{{item.system.checkmod2}}" data-dtype="Number"/></div>
-        <div class="rollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usedice3}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula3}}+{{item.system.checkbase3}}" data-label="{{item.name}} ({{item.system.label3}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck3}}">
+        <div class="rollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usedice3}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula3}}+{{item.system.checkbase3}}" data-label="{{item.name}} ({{item.system.label3}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck3}}" data-checktype="{{system.checkTypesButton}}">
           <b>{{item.system.label3}}:{{item.system.checkbase3}}({{item.system.checkbasefix3}})</b>
         </div>
           <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if system.usedice3}}block{{else}}none{{/if}};"><input class="cm3-change" type="text" name="checkmodInput" value="{{item.system.checkmod3}}" data-dtype="Number"/></div>
-        <div class="powerrollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{item.system.labelmonpow}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}">
+        <div class="powerrollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{item.system.labelmonpow}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}" data-powertype="{{system.powerTypesButton}}">
           <b>{{item.system.labelmonpow}}:k{{item.system.power}}{{#if item.system.totalcvalue}}@{{item.system.totalcvalue}}{{/if}}{{#if item.system.powerbase}}+{{item.system.powerbase}}{{/if}}</b>
         </div>
           <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if system.usepower}}block{{else}}none{{/if}};"><input class="pm-change" type="text" name="checkmodInput" value="{{item.system.powermod}}" data-dtype="Number"/></div>

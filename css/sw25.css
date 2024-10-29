@@ -882,3 +882,9 @@ input.weakapply[type="checkbox"] {
   font-size: 0.8em;
   font-weight: bold;
 }
+
+.small-checkbox{
+  transform: scale(0.7);
+  -webkit-transform: scale(0.7);
+  transform-origin: bottom right; 
+}

@@ -56,15 +56,39 @@
         {{/if}}
     </div>
 </div>
-{{#if (eq apply "on")}}
+{{#if (eq apply "custom")}}
 <div>
     <div class="flexrow">
-        {{#each (powerTypesButton powertype) as |type|}}
+        {{#each powertype as |type|}}
+            {{#unless (eq type "")}}
             <button class="buttonclick" data-buttontype="button{{type}}" style="font-size:0.6em;">
                 <span style="color: {{#if (or (eq type "hr") (eq type "mr"))}}#0f6f0f{{else}}#862020{{/if}};">✔</span>
                 {{localize (concat "SW25.Item." type)}}
             </button>
+            {{/unless}}
         {{/each}}
+    </div>
+</div>
+{{/if}}
+{{#if (eq apply "on")}}
+<div>
+    <div class="flexrow">
+        <button class="buttonclick" data-buttontype="buttonpd" style="font-size:0.6em;">
+            <span style="color: #862020;">✔</span>{{localize "SW25.Item.pd"}}
+        </button>
+        <button class="buttonclick" data-buttontype="buttonmd" style="font-size:0.6em;">
+            <span style="color: #862020;">✔</span>{{localize "SW25.Item.md"}}
+        </button>
+        <button class="buttonclick" data-buttontype="buttoncd" style="font-size:0.6em;">
+            <span style="color: #862020;">✔</span>{{localize "SW25.Item.cd"}}
+        </button>
+        <span></span>
+        <button class="buttonclick" data-buttontype="buttonhr" style="font-size:0.6em;">
+            <span style="color: #0f6f0f;">✔</span>{{localize "SW25.Item.hr"}}
+        </button>
+        <button class="buttonclick" data-buttontype="buttonmr" style="font-size:0.6em;">
+            <span style="color: #0f6f0f;">✔</span>{{localize "SW25.Item.mr"}}
+        </button>
     </div>
 </div>
 {{/if}}

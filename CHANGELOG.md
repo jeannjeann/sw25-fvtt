@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.10.5
+- 適用ボタンのカスタム機能を追加  by [Airamhh](https://github.com/Airamhh)
+- bug fix
+
 ## 0.10.4
 - 判定結果の微調整機能と適用あり時の半減機能を追加  by [keyslock](https://github.com/keyslock)
 - バフ・デバフ「魔法行使」「魔法威力」に「すべて」を追加

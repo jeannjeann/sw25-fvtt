@@ -7,8 +7,18 @@
   {{#each battlechecks as |item id|}}
     <li class='item flexrow' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
-        <label class='item-name item-checklabel {{#if (eq system.checkmethod "power")}}power{{/if}}rollable resource-label' data-roll="{{item.system.formula}}{{#unless (eq system.checkmethod "power")}}+{{item.system.checkbase}}{{/unless}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{#if (eq system.checkmethod "power")}}{{system.applypower}}{{else}}{{system.applycheck}}{{/if}}"><h4>{{item.name}}</h4></label>
-        <label class='item-checkbase align-center {{#if (eq system.checkmethod "power")}}power{{/if}}rollable resource-label item-element' data-roll="{{item.system.formula}}{{#unless (eq system.checkmethod "power")}}+{{item.system.checkbase}}{{/unless}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{#if (eq system.checkmethod "power")}}{{system.applypower}}{{else}}{{system.applycheck}}{{/if}}">
+        {{#if (eq system.checkmethod "power")}}
+        <label class='item-name item-checklabel powerrollable resource-label' data-roll="{{item.system.formula}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applypower}}" data-powertype="{{item.system.powerTypesButton}}">
+        {{else}}
+        <label class='item-name item-checklabel rollable resource-label' data-roll="{{item.system.formula}}+{{item.system.checkbase}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applycheck}}" data-checktype="{{item.system.checkTypesButton}}">
+        {{/if}}
+          <h4>{{item.name}}</h4>
+        </label>
+        {{#if (eq system.checkmethod "power")}}
+        <label class='item-checkbase align-center powerrollable resource-label item-element' data-roll="{{item.system.formula}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applypower}}" data-powertype="{{item.system.powerTypesButton}}">
+        {{else}}
+        <label class='item-checkbase align-center rollable resource-label item-element' data-roll="{{item.system.formula}}+{{item.system.checkbase}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applycheck}}" data-checktype="{{item.system.checkTypesButton}}">
+        {{/if}}
           {{item.system.checkbase}}
         </label>
         <div class='item-checkmod item-prop input flexrow flex-group-center' style="flex: 0 0 50px;">

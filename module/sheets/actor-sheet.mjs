@@ -530,6 +530,7 @@ export class SW25ActorSheet extends ActorSheet {
     // Handle rolls that supply the formula directly.
     if (dataset.roll) {
       const rollData = this.actor.getRollData();
+      const checktype = dataset.checktype.split(",");
 
       let roll = new Roll(dataset.roll, rollData);
       await roll.evaluate();
@@ -559,6 +560,7 @@ export class SW25ActorSheet extends ActorSheet {
         tooltip: await roll.getTooltip(),
         apply: chatapply,
         spell: chatspell,
+        checktype: checktype,
       };
 
       chatData.content = await renderTemplate(
@@ -571,6 +573,7 @@ export class SW25ActorSheet extends ActorSheet {
           total: roll.total,
           apply: chatapply,
           spell: chatspell,
+          checktype: checktype,
         }
       );
 
@@ -591,7 +594,7 @@ export class SW25ActorSheet extends ActorSheet {
     const dataset = element.dataset;
 
     const formula = dataset.roll;
-    const powertype = dataset.powertype;
+    const powertype = dataset.powertype.split(",");
     const powertable = dataset.pt.split(",");
     //const powertable = dataset.pt.split(",").map(Number);
 

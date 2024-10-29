@@ -119,6 +119,7 @@ export async function chatButton(chatMessage, buttonType) {
     const rollMode = game.settings.get("core", "rollMode");
     let label = `${item.name}`;
     let chatapply = "-";
+    let baseformula = item.system.formula;
 
     if (
       buttonType == "buttoncheck" ||
@@ -131,18 +132,21 @@ export async function chatButton(chatMessage, buttonType) {
       if (buttonType == "buttoncheck1") {
         label = label + " (" + label1 + ")";
         chatapply = item.system.applycheck1;
+        baseformula = item.system.checkformula1;
       } else if (buttonType == "buttoncheck2") {
         label = label + " (" + label2 + ")";
         chatapply = item.system.applycheck2;
+        baseformula = item.system.checkformula2;
       } else if (buttonType == "buttoncheck3") {
         label = label + " (" + label3 + ")";
         chatapply = item.system.applycheck3;
+        baseformula = item.system.checkformula3;
       } else {
         label = label + " (" + game.i18n.localize("SW25.Check") + ")";
         chatapply = item.system.applycheck;
       }
 
-      let formula = item.system.formula + "+" + item.system.checkbase;
+      let formula = baseformula + "+" + item.system.checkbase;
 
       let roll = new Roll(formula, rollData);
       await roll.evaluate();
@@ -161,11 +165,13 @@ export async function chatButton(chatMessage, buttonType) {
       let chatTotal = roll.total;
       if (roll.terms[0].total == 12) chatCritical = 1;
       if (roll.terms[0].total == 2) chatFumble = 1;
+      let checktype = item.system.checkTypesButton;
 
       chatData.flags = {
         total: chatTotal,
         apply: chatapply,
         rolls: roll,
+        checktype: checktype,
       };
 
       chatData.content = await renderTemplate(
@@ -177,6 +183,7 @@ export async function chatButton(chatMessage, buttonType) {
           fumble: chatFumble,
           total: chatTotal,
           apply: chatapply,
+          checktype: checktype,
         }
       );
 
@@ -262,6 +269,7 @@ export async function chatButton(chatMessage, buttonType) {
       }
       if (roll.cValue == 100 || chatExtraRoll == null) shownoc = false;
       let chatapply = item.system.applypower;
+      let powertype = item.system.powerTypesButton;
 
       chatData.flags = {
         formula: chatFormula,
@@ -285,9 +293,8 @@ export async function chatButton(chatMessage, buttonType) {
         showhalf: showhalf,
         shownoc: shownoc,
         apply: chatapply,
+        powertype: powertype,
       };
-      
-      let powertype = item.system.powertype;
 
       chatData.content = await renderTemplate(
         "systems/sw25/templates/roll/roll-power.hbs",
@@ -340,6 +347,7 @@ export async function chatButton(chatMessage, buttonType) {
           apply: chatMessage.flags.apply,
           total: newtotal,
           aftermod: aftermod,
+          powertype: chatMessage.flags.powertype,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -391,6 +399,7 @@ export async function chatButton(chatMessage, buttonType) {
           apply: chatMessage.flags.apply,
           total: chatMessage.flags.orgtotal,
           aftermod: aftermod,
+          powertype: chatMessage.flags.powertype,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -453,6 +462,7 @@ export async function chatButton(chatMessage, buttonType) {
           apply: chatMessage.flags.apply,
           total: halfctoal,
           aftermod: aftermod,
+          powertype: chatMessage.flags.powertype,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -500,6 +510,7 @@ export async function chatButton(chatMessage, buttonType) {
           apply: chatMessage.flags.apply,
           total: chatMessage.flags.orgtotal,
           aftermod: aftermod,
+          powertype: chatMessage.flags.powertype,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -553,6 +564,7 @@ export async function chatButton(chatMessage, buttonType) {
           apply: chatMessage.flags.apply,
           total: noctotal,
           aftermod: aftermod,
+          powertype: chatMessage.flags.powertype,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -600,6 +612,7 @@ export async function chatButton(chatMessage, buttonType) {
           apply: chatMessage.flags.apply,
           total: chatMessage.flags.orgtotal,
           aftermod: aftermod,
+          powertype: chatMessage.flags.powertype,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -675,6 +688,7 @@ export async function chatButton(chatMessage, buttonType) {
       flags: {
         total: newtotal,
         aftermod: aftermod,
+        powertype: chatMessage.flags.powertype,
       },
       content: await renderTemplate(
         "systems/sw25/templates/roll/roll-power.hbs",
@@ -754,6 +768,7 @@ export async function chatButton(chatMessage, buttonType) {
       flags: {
         total: newtotal,
         aftermod: aftermod,
+        powertype: chatMessage.flags.powertype,
       },
       content: await renderTemplate(
         "systems/sw25/templates/roll/roll-power.hbs",
@@ -818,6 +833,7 @@ export async function chatButton(chatMessage, buttonType) {
           aftermod: aftermod,
           critical: chatCritical,
           fumble: chatFumble,
+          checktype: chatMessage.flags.checktype,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-check.hbs",
@@ -830,6 +846,7 @@ export async function chatButton(chatMessage, buttonType) {
             fumble: chatFumble,
             halfdone: true,
             apply: chatMessage.flags.apply,
+            checktype: chatMessage.flags.checktype,
           }
         ),
       };
@@ -858,6 +875,7 @@ export async function chatButton(chatMessage, buttonType) {
           aftermod: aftermod,
           critical: chatCritical,
           fumble: chatFumble,
+          checktype: chatMessage.flags.checktype,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-check.hbs",
@@ -870,6 +888,7 @@ export async function chatButton(chatMessage, buttonType) {
             fumble: chatFumble,
             halfdone: false,
             apply: chatMessage.flags.apply,
+            checktype: chatMessage.flags.checktype,
           }
         ),
       };
@@ -927,6 +946,7 @@ export async function chatButton(chatMessage, buttonType) {
         fumble: chatFumble,
         dohalf: halfdone,
         aftermod: aftermod,
+        checktype: chatMessage.flags.checktype,
       },
       content: await renderTemplate(
         "systems/sw25/templates/roll/roll-check.hbs",
@@ -940,6 +960,7 @@ export async function chatButton(chatMessage, buttonType) {
           halfdone: halfdone,
           apply: chatMessage.flags.apply,
           spell: chatMessage.flags.spell,
+          checktype: chatMessage.flags.checktype,
         }
       ),
     };
