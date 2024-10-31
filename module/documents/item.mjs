@@ -1718,8 +1718,6 @@ export class SW25Item extends Item {
         baseformula = this.system.checkformula3;
       let formula = baseformula + "+" + this.system.checkbase;
 
-      console.log(this.system);
-
       let roll = new Roll(formula, rollData);
       await roll.evaluate();
 

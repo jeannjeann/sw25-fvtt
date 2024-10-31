@@ -11,12 +11,12 @@
   </li>
   <li class='item flexrow'>
     <div class='item-name item-label'  style="flex: 3;"><h4>{{localize "SW25.Attributes.Advlevel"}}</h4></div>
-    <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.dex.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Dex.long"}}{{localize "SW25.Ability.Bonus"}}">{{system.abilities.dex.advbase}}</label>
-    <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.agi.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Agi.long"}}{{localize "SW25.Ability.Bonus"}}">{{system.abilities.agi.advbase}}</label>
-    <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.str.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Str.long"}}{{localize "SW25.Ability.Bonus"}}">{{system.abilities.str.advbase}}</label>
-    <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.vit.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Vit.long"}}{{localize "SW25.Ability.Bonus"}}">{{system.abilities.vit.advbase}}</label>
-    <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.int.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Int.long"}}{{localize "SW25.Ability.Bonus"}}">{{system.abilities.int.advbase}}</label>
-    <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.mnd.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Mnd.long"}}{{localize "SW25.Ability.Bonus"}}">{{system.abilities.mnd.advbase}}</label>
+    <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.dex.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Dex.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">{{system.abilities.dex.advbase}}</label>
+    <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.agi.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Agi.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">{{system.abilities.agi.advbase}}</label>
+    <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.str.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Str.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">{{system.abilities.str.advbase}}</label>
+    <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.vit.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Vit.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">{{system.abilities.vit.advbase}}</label>
+    <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.int.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Int.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">{{system.abilities.int.advbase}}</label>
+    <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.mnd.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Mnd.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">{{system.abilities.mnd.advbase}}</label>
     <div class='item-scmod item-prop input'><input type="text" name="system.attributes.advlevel.mod" value="{{system.attributes.advlevel.mod}}" data-dtype="Number"/></div>
     <div class="item-description">
       <div class="flexrow">
@@ -40,22 +40,22 @@
   {{#each skills as |item id|}}
     <li class='item flexrow' data-item-id='{{item._id}}'>
       <div class='item-name item-label' style="flex: 3;"><h4>{{item.name}}</h4></div>
-      <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+{{item.system.skillbase.dex}}" data-label="{{item.name}}+{{localize "SW25.Ability.Dex.long"}}{{localize "SW25.Ability.Bonus"}}">
+      <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+{{item.system.skillbase.dex}}" data-label="{{item.name}}+{{localize "SW25.Ability.Dex.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">
         {{item.system.skillbase.dex}}
       </label>
-      <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+{{item.system.skillbase.agi}}" data-label="{{item.name}}+{{localize "SW25.Ability.Agi.long"}}{{localize "SW25.Ability.Bonus"}}">
+      <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+{{item.system.skillbase.agi}}" data-label="{{item.name}}+{{localize "SW25.Ability.Agi.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">
         {{item.system.skillbase.agi}}
       </label>
-      <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+{{item.system.skillbase.str}}" data-label="{{item.name}}+{{localize "SW25.Ability.Str.long"}}{{localize "SW25.Ability.Bonus"}}">
+      <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+{{item.system.skillbase.str}}" data-label="{{item.name}}+{{localize "SW25.Ability.Str.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">
         {{item.system.skillbase.str}}
       </label>
-      <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+{{item.system.skillbase.vit}}" data-label="{{item.name}}+{{localize "SW25.Ability.Vit.long"}}{{localize "SW25.Ability.Bonus"}}">
+      <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+{{item.system.skillbase.vit}}" data-label="{{item.name}}+{{localize "SW25.Ability.Vit.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">
         {{item.system.skillbase.vit}}
       </label>
-      <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+{{item.system.skillbase.int}}" data-label="{{item.name}}+{{localize "SW25.Ability.Int.long"}}{{localize "SW25.Ability.Bonus"}}">
+      <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+{{item.system.skillbase.int}}" data-label="{{item.name}}+{{localize "SW25.Ability.Int.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">
         {{item.system.skillbase.int}}
       </label>
-      <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+{{item.system.skillbase.mnd}}" data-label="{{item.name}}+{{localize "SW25.Ability.Mnd.long"}}{{localize "SW25.Ability.Bonus"}}">
+      <label class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+{{item.system.skillbase.mnd}}" data-label="{{item.name}}+{{localize "SW25.Ability.Mnd.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">
         {{item.system.skillbase.mnd}}
       </label>
       <div class='item-scmod item-prop input'><input class="sc-change" type="text" name="skillModInput" value="{{item.system.skillmod}}" data-dtype="Number"/></div>

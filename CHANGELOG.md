@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.10.6
+- bug fix
+
 ## 0.10.5
 - 適用ボタンのカスタム機能を追加  by [Airamhh](https://github.com/Airamhh)
 - bug fix
