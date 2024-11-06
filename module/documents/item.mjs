@@ -20,6 +20,8 @@ import {
   effectDmpMon,
 } from "../sw25.mjs";
 
+let quantityWarn = false;
+
 /**
  * Extend the basic Item with some very simple modifications.
  * @extends {Item}
@@ -43,12 +45,13 @@ export class SW25Item extends Item {
       this._prepareSkillData(itemData, actor);
       this._prepareCheckData(itemData, actor);
       this._prepareItemRollData(itemData, actor);
+      this._prepareResourceData(itemData, actor);
+      this._prepareLanguageData(itemData, actor);
     }
     this._prepareWeaponData(itemData);
     this._prepareArmorData(itemData);
     this._prepareAccessoryData(itemData);
     this._prepareItemData(itemData);
-    this._prepareResourceData(itemData);
     this._prepareCombatabilityData(itemData);
     this._prepareEnhanceartsData(itemData);
     this._prepareMagicalsongData(itemData);
@@ -58,7 +61,6 @@ export class SW25Item extends Item {
     this._prepareTacticsData(itemData);
     this._prepareOtherFeatureData(itemData);
     this._prepareRaceabilityData(itemData);
-    this._prepareLanguageData(itemData);
     this._prepareSpellData(itemData);
     this._prepareMonsterabilityData(itemData);
   }
@@ -1241,7 +1243,75 @@ export class SW25Item extends Item {
       }
     }
   }
-  _prepareResourceData(itemData) {}
+  async _prepareResourceData(itemData, actor) {
+    if (itemData.type !== "resource") return;
+
+    // Make modifications to data here. For example:
+    const systemData = itemData.system;
+    const actorData = itemData.actor.system;
+    const actoritemData = itemData.actor.items;
+
+    // Quantity limit
+    if (systemData.qmax) {
+      if (systemData.quantity == systemData.qmax) {
+        systemData.quantity = systemData.qmax;
+        if (!quantityWarn) {
+          ui.notifications.warn(
+            `"${itemData.name}"${game.i18n.localize("SW25.isMax")}`
+          );
+          quantityWarn = true;
+          setTimeout(() => {
+            quantityWarn = false;
+          }, 100);
+        }
+      }
+      if (systemData.quantity > systemData.qmax) {
+        systemData.quantity = systemData.qmax;
+        if (!quantityWarn) {
+          ui.notifications.warn(
+            `"${itemData.name}"${game.i18n.localize("SW25.isAlreadyMax")}`
+          );
+          quantityWarn = true;
+          setTimeout(() => {
+            quantityWarn = false;
+          }, 100);
+        }
+      }
+    }
+    if (systemData.qmin) {
+      if (systemData.quantity == systemData.qmin) {
+        systemData.quantity = systemData.qmin;
+        if (!quantityWarn) {
+          ui.notifications.warn(
+            `"${itemData.name}"${game.i18n.localize("SW25.isMin")}`
+          );
+          quantityWarn = true;
+          setTimeout(() => {
+            quantityWarn = false;
+          }, 100);
+        }
+      }
+      if (systemData.quantity < systemData.qmin) {
+        systemData.quantity = systemData.qmin;
+        if (!quantityWarn) {
+          ui.notifications.warn(
+            `"${itemData.name}"${game.i18n.localize("SW25.isAlreadyMin")}`
+          );
+          quantityWarn = true;
+          setTimeout(() => {
+            quantityWarn = false;
+          }, 100);
+        }
+      }
+    }
+
+    // Sheet refresh
+    await actor.update({});
+    if (actor.sheet.rendered) await actor.sheet.render(true, { focus: false });
+    await itemData.update({});
+    if (itemData.sheet.rendered)
+      await itemData.sheet.render(true, { focus: false });
+  }
 
   _prepareWeaponData(itemData) {
     if (itemData.type !== "weapon") return;
@@ -1481,7 +1551,7 @@ export class SW25Item extends Item {
 
   _prepareOtherFeatureData(itemData) {}
   _prepareRaceabilityData(itemData) {}
-  _prepareLanguageData(itemData) {}
+  _prepareLanguageData(itemData, actor) {}
 
   _prepareSpellData(itemData) {
     if (itemData.type !== "spell") return;

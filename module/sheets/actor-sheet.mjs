@@ -878,6 +878,42 @@ export class SW25ActorSheet extends ActorSheet {
     if (action === "decrease") quantity -= 1;
     else if (action === "increase") quantity += 1;
 
+    // Check limit
+    if (item.type == "resource") {
+      if (item.system.qmax) {
+        /*
+        if (quantity == item.system.qmax) {
+          quantity = item.system.qmax;
+          ui.notifications.warn(
+            `"${item.name}"${game.i18n.localize("SW25.isMax")}`
+          );
+        }
+        */
+        if (quantity > item.system.qmax) {
+          quantity = item.system.qmax;
+          ui.notifications.warn(
+            `"${item.name}"${game.i18n.localize("SW25.isAlreadyMax")}`
+          );
+        }
+      }
+      if (item.system.qmin) {
+        /*
+        if (quantity == item.system.qmin) {
+          quantity = item.system.qmin;
+          ui.notifications.warn(
+            `"${item.name}"${game.i18n.localize("SW25.isMin")}`
+          );
+        }
+        */
+        if (quantity < item.system.qmin) {
+          quantity = item.system.qmin;
+          ui.notifications.warn(
+            `"${item.name}"${game.i18n.localize("SW25.isAlreadyMin")}`
+          );
+        }
+      }
+    }
+
     input.value = quantity;
 
     if (item) {

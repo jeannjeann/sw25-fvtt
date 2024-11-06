@@ -1,6 +1,7 @@
 <ol class='items-list'>
   <li class='item flexrow items-header'>
     <div class='item-name'>{{localize "SW25.Resource"}}</div>
+    <div class='item-quantity item-element' style="flex: 0 0 70px;">{{localize "SW25.eMin"}} - {{localize "SW25.eMax"}}</div>
     <div class='item-quantity item-element' style="flex: 0 0 80px;">{{localize "SW25.Quantity"}}</div>
     <div class='item-controls'>
       <a
@@ -17,6 +18,9 @@
     <li class='item' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
         <div class='item-name' style="flex: 3;"><h4 class="item-label">{{item.name}}</h4></div>
+        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 70px;">
+          {{item.system.qmin}} - {{item.system.qmax}}
+        </div>
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 80px;">
           <a class="quantity-button" data-action="decrease" data-property="item.system.quantity">
             <i class="fas fa-minus"></i>

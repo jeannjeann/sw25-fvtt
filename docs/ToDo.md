@@ -5,8 +5,8 @@
 - PCのフェロー化、NPCのフェロー化
 - 魔法タブ化（レベル別折りたたみリスト、妖精は属性別折りたたみリスト）
 - バフキー判定の直接入力
-- リソースの上限
 - 魔装Infusion、蛮族特殊能力Barbarous unique skills、操気Essence Weaving、奈落魔法Abyssal Magic
+- Polyglot対応
 
 ## 更新作業
 - マニュアル、マクロ、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ、告知

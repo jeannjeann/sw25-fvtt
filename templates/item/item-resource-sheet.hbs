@@ -4,12 +4,25 @@
     <div class="header-fields">
       <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
       <div class="grid grid-6col flex-group-center nogapmargin">
-        <div class="grid-span-5"></div>
+        <div class="grid-span-2"></div>
+        <div class="resource grid-span-2">
+          <label class="resource-label"><br>{{localize "SW25.Quantity"}}{{localize "SW25.Limit"}}</label>
+        </div>
+        <div class="grid-span-1"></div>
         <div class="resource">
           <label class="resource-label">{{localize "SW25.Quantity"}}</label>
           <input type="text" name="system.quantity" value="{{system.quantity}}" data-dtype="Number"/>
         </div>
-        <div class="grid-span-5"></div>
+        <div class="grid-span-2"></div>
+        <div class="resource">
+          <label class="resource-label">{{localize "SW25.Min"}}</label>
+          <input type="text" name="system.qmin" value="{{system.qmin}}" data-dtype="Number"/>
+        </div>
+        <div class="resource">
+          <label class="resource-label">{{localize "SW25.Max"}}</label>
+          <input type="text" name="system.qmax" value="{{system.qmax}}" data-dtype="Number"/>
+        </div>
+        <div class="grid-span-1"></div>
         <div class="resource">
           <label class="resource-label">{{localize "SW25.Item.Price"}}</label>
           <input type="text" name="system.price" value="{{system.price}}" data-dtype="Number"/>
