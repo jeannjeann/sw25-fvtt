@@ -620,6 +620,10 @@
       "hint": "Summoning Art effect target settings (for Monster), default and when omitted : ",
       "default": "SummoningMP"
     },
+    "fromCompendium":{
+      "name": "Get language from Compendium",
+      "hint": "Configuration for Polyglot module. Off: Get language list only from within the world. On: Get language list from language items in the compendium as well (actor re-selection must be required after loading the world to reflect the compendium language). Default: Off"
+    },
     "rollRequest": "Request Roll"
   }
 }

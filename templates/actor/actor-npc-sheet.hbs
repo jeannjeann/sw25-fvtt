@@ -65,12 +65,17 @@
     <div class="tab items" data-group="primary" data-tab="details">
       <div class="flexcol">
         <div class="flexrow grid grid-5col">
-          <div class="flex-group-center nogapmargin">
-            <div>
-              <span style="text-align: center;"><b>{{localize "SW25.Max"}}{{localize "SW25.Hp"}}</b><br><input style="max-width: calc(50% - 7px); text-align: center;" type="text" name="system.hp.max" value="{{system.hp.max}}" data-dtype="Number"/></span>
-            </div>
-            <div>
-              <span style="text-align: center;"><b>{{localize "SW25.Max"}}{{localize "SW25.Mp"}}</b><br><input style="max-width: calc(50% - 7px); text-align: center;" type="text" name="system.mp.max" value="{{system.mp.max}}" data-dtype="Number"/></span>
+          <div class="grid-span-1 flex-group-center nogapmargin">
+            <div class="grid grid-2col nogapmargin">
+              <div>
+                <span style="text-align: center;"><b>{{localize "SW25.Max"}}{{localize "SW25.Hp"}}</b><br><input style="text-align: center;" type="text" name="system.hp.max" value="{{system.hp.max}}" data-dtype="Number"/></span>
+              </div>
+              <div>
+                <span style="text-align: center;"><b>{{localize "SW25.Max"}}{{localize "SW25.Mp"}}</b><br><input style="text-align: center;" type="text" name="system.mp.max" value="{{system.mp.max}}" data-dtype="Number"/></span>
+              </div>
+              <div class="grid-span-2">
+                <span style="text-align: center;"><b>{{localize "SW25.Monster.Language"}}</b><br><input type="text" name="system.language" value="{{system.language}}" data-dtype="String"/></span>
+              </div>
             </div>
           </div>
           <div class="flexcol grid-span-4">

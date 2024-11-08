@@ -16,6 +16,7 @@ import { powerRoll } from "./helpers/powerroll.mjs";
 import { lootRoll } from "./helpers/lootroll.mjs";
 import { growthCheck } from "./helpers/growthcheck.mjs";
 import { rollreq } from "./helpers/rollrequest.mjs";
+import { preparePolyglot } from "./helpers/sw25languageprovider.mjs";
 
 // Export variable.
 export const rpt = {};
@@ -475,6 +476,14 @@ Hooks.once("ready", async function () {
     },
   });
   effectDmpMon = game.settings.get("sw25", "effectDmpMon");
+  game.settings.register("sw25", "fromCompendium", {
+    name: game.i18n.localize("SETTING.fromCompendium.name"),
+    hint: game.i18n.localize("SETTING.fromCompendium.hint"),
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: false,
+  });
 
   // Chat message button
   Hooks.on("renderChatMessage", (chatMessage, html, data) => {
@@ -821,6 +830,12 @@ Hooks.once("ready", async function () {
       }
     }
   });
+
+  // Load language from Compendium for Polyglot
+  let fromCompendium = game.settings.get("sw25", "fromCompendium");
+  if (fromCompendium) {
+    await game.polyglot.languageProvider.getLanguages(fromCompendium);
+  }
 });
 
 // SceneControl Hook
@@ -835,6 +850,12 @@ Hooks.on("getSceneControlButtons", function (controls) {
     },
     button: true,
   });
+});
+
+// Polyglot support
+Hooks.once("polyglot.init", (LanguageProvider) => {
+  const SW25LanguageProvider = preparePolyglot(LanguageProvider);
+  game.polyglot.api.registerSystem(SW25LanguageProvider);
 });
 
 /* -------------------------------------------- */

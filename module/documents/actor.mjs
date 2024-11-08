@@ -734,6 +734,18 @@ export class SW25Actor extends Actor {
       }
     });
 
+    // Polyglot support
+    this.items.forEach((item) => {
+      if (item.type == "language") {
+        if (item.system.conversation) {
+          systemData.attributes.languages.conv.push(`${item.name}`);
+        }
+        if (item.system.reading) {
+          systemData.attributes.languages.read.push(`${item.name}`);
+        }
+      }
+    });
+
     // Sheet refresh
     if (actorData.sheet.rendered)
       await actorData.sheet.render(true, { focus: false });
@@ -742,7 +754,7 @@ export class SW25Actor extends Actor {
   /**
    * Prepare NPC type specific data.
    */
-  _prepareNpcData(actorData) {
+  async _prepareNpcData(actorData) {
     if (actorData.type !== "npc") return;
 
     const systemData = actorData.system;
@@ -765,6 +777,15 @@ export class SW25Actor extends Actor {
 
     // Set initiative formula
     systemData.initiativeFormula = "0";
+
+    // Polyglot support
+    if (systemData.language) {
+      const lang = systemData.language
+        .split(/[，,、\s　]+/)
+        .map((item) => item.trim());
+      systemData.attributes.languages.conv = lang;
+      systemData.attributes.languages.read = lang;
+    }
   }
 
   /**
@@ -1205,6 +1226,15 @@ export class SW25Actor extends Actor {
 
     // Set initiative formula
     systemData.initiativeFormula = String(systemData.preemptive);
+
+    // Polyglot support
+    if (systemData.language) {
+      const lang = systemData.language
+        .split(/[，,、\s　]+/)
+        .map((item) => item.trim());
+      systemData.attributes.languages.conv = lang;
+      systemData.attributes.languages.read = lang;
+    }
 
     // Sheet refresh
     if (actorData.sheet.rendered)

@@ -154,7 +154,11 @@
         "efmpwall":0,
         "efmsckmod": 0,
         "efmspwmod": 0,
-        "efatckmod": 0
+        "efatckmod": 0,
+        "languages": {
+          "conv": [],
+          "read": []
+        }
       },
       "abilities": {
         "dex": {
@@ -235,7 +239,14 @@
       "gminfo": "",
       "limited": false,
       "isgm": false,
-      "udname": ""
+      "udname": "",
+      "langage": "",
+      "attributes": {
+        "languages": {
+          "conv": [],
+          "read": []
+        }
+      }
     },
     "monster": {
       "templates": ["base"],
@@ -316,7 +327,11 @@
         "efmpdm": 0,
         "efmpall": 0,
         "efmckall": 0,
-        "efmpwall":0
+        "efmpwall": 0,
+        "languages": {
+          "conv": [],
+          "read": []
+        }
       },
       "pp": 0,
       "mpp": 0,
