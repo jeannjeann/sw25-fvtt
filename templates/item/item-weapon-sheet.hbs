@@ -217,8 +217,8 @@
               <input type="checkbox" name="system.useitem" data-dtype="Boolean" {{#if system.useitem}} checked {{/if}}/>
               </span>
             </div>
-            <div class="grid-span-2" style="display: {{#if system.useitem}}block{{else}}none{{/if}};">
-              <label class="resource-label">{{localize "TYPES.Item.Itemuse"}}</label>
+            <div class="grid-span-2" style="display: {{#if system.useitem}}block{{else}}none{{/if}}; text-align: center;">
+              <label class="resource-label"><b>{{localize "SW25.Item.Itemuse"}}</b></label><br>
               <select name="system.itemuse">
                 {{#select system.itemuse}}
                   <option value="-">-</option>
@@ -228,8 +228,8 @@
                 {{/select}}
               </select>
             </div>
-            <div class="grid-span-2" style="display: {{#if system.useitem}}block{{else}}none{{/if}};">
-                <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Quantity"}}</b><br>
+            <div class="grid-span-2" style="display: {{#if system.useitem}}block{{else}}none{{/if}}; text-align: center;">
+                <span class="grid-span-2"><b>{{localize "SW25.Quantity"}}</b><br>
                 <input style="max-width: calc(50% - 7px);" type="text" name="system.itemusequantity" value="{{system.itemusequantity}}" data-dtype="Number"/></span>
             </div>
           </div>
