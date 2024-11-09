@@ -536,6 +536,24 @@ export class SW25ActorSheet extends ActorSheet {
       await roll.evaluate();
 
       let label = dataset.label ? `${dataset.label}` : "";
+      
+      let chatitemuse;
+      if (dataset.itemuse)
+      {
+        const itemuseid = dataset.itemuse;
+        const itemusequantity = dataset.itemusequantity;
+        const itemuseitem = this.actor.items.get(itemuseid);
+        const itemuseitemquantity = itemuseitem.system.quantity;
+        if (itemuseitem) {
+          if (itemuseitemquantity < itemusequantity) {
+            ui.notifications.warn(game.i18n.localize("SW25.Item.Noitemquantitiywarn") + itemuseitem.name);
+            return;
+          }
+          const remainingquantity = itemuseitemquantity - itemusequantity;
+          itemuseitem.update({ "system.quantity": remainingquantity });
+          chatitemuse = itemuseitem.name + ": " + itemuseitemquantity + " >>> " + remainingquantity;
+        }
+      }
 
       let chatData = {
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -574,6 +592,7 @@ export class SW25ActorSheet extends ActorSheet {
           apply: chatapply,
           spell: chatspell,
           checktype: checktype,
+          itemusetext: chatitemuse,
         }
       );
 
