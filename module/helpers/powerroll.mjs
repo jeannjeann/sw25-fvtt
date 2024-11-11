@@ -6,6 +6,17 @@ import { rpt } from "../sw25.mjs";
  * Execute a custom roll and return the result.
  */
 export async function powerRoll(formula, powertable) {
+  for (let i = 0; i < powertable.length; i++) {
+    if (i == 17) continue;
+    if (
+      powertable[i] === null ||
+      Number.isNaN(powertable[i]) ||
+      powertable[i] === undefined
+    ) {
+      powertable[i] = 0;
+    }
+  }
+
   let powerResult = 0;
   let rollCount = 0;
   let fumble = 0;
