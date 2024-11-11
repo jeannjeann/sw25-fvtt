@@ -832,9 +832,14 @@ Hooks.once("ready", async function () {
   });
 
   // Load language from Compendium for Polyglot
-  let fromCompendium = game.settings.get("sw25", "fromCompendium");
-  if (fromCompendium) {
-    await game.polyglot.languageProvider.getLanguages(fromCompendium);
+  let polyglotmodule = "polyglot";
+  let polyglot =
+    game.modules.has(polyglotmodule) && game.modules.get(polyglotmodule).active;
+  if (polyglot) {
+    let fromCompendium = game.settings.get("sw25", "fromCompendium");
+    if (fromCompendium) {
+      await game.polyglot.languageProvider.getLanguages(fromCompendium);
+    }
   }
 });
 
