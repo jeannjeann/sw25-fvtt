@@ -211,6 +211,28 @@
             <div class="grid-span-2">
             </div>
           </div>
+          <div class="flexcol grid grid-8col nogapmargin">
+            <div class="grid-span-2 flex-group-center">
+              <span style="text-align: center;"><label for="system.useitem"><b>{{localize "SW25.Item.Useitem"}}</b></label></span><br>
+              <input type="checkbox" name="system.useitem" data-dtype="Boolean" {{#if system.useitem}} checked {{/if}}/>
+              </span>
+            </div>
+            <div class="grid-span-2" style="display: {{#if system.useitem}}block{{else}}none{{/if}}; text-align: center;">
+              <label class="resource-label"><b>{{localize "SW25.Item.Itemuse"}}</b></label><br>
+              <select name="system.itemuse">
+                {{#select system.itemuse}}
+                  <option value="-">-</option>
+                  {{#each system.itemlist as |item|}}
+                    <option value="{{item.itemId}}">{{item.itemName}}</option>
+                  {{/each}}
+                {{/select}}
+              </select>
+            </div>
+            <div class="grid-span-2" style="display: {{#if system.useitem}}block{{else}}none{{/if}}; text-align: center;">
+                <span class="grid-span-2"><b>{{localize "SW25.Quantity"}}</b><br>
+                <input style="max-width: calc(50% - 7px);" type="text" name="system.itemusequantity" value="{{system.itemusequantity}}" data-dtype="Number"/></span>
+            </div>
+          </div>
         </div>
         <div style="display: {{#if system.usepower}}block{{else}}none{{/if}};">
           <div class="flexrow grid grid-10col">

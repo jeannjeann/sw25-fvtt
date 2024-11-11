@@ -499,6 +499,24 @@ export class SW25Item extends Item {
       }
     });
 
+    if (!Array.isArray(systemData.itemlist)) {
+      systemData.itemlist = [];
+    }
+
+    actoritemData.forEach((item) => {
+      if (item.type != "item") return;
+      const itemExists = systemData.itemlist.some(
+        (existingItem) => existingItem.itemId === item._id
+      );
+    
+      if (!itemExists) {
+        systemData.itemlist.push({
+          itemId: item._id, 
+          itemName: item.name
+        });
+      }
+    });
+
     await actor.update({});
     let checkabimod = 0;
     let powerabimod = 0;
