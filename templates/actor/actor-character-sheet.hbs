@@ -4,42 +4,66 @@
   <header class="sheet-header">
     <div class="adventurer-details textalign-center">
       <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-      <div class="flexcol">
-        <label for="system.attributes.advlevel.value" class="resource-label nobreak">{{localize "SW25.Attributes.Advlevel"}}</label>
-        <span class="adventurer-level">{{system.attributes.advlevel.value}}</span>
+      <div class="header-resources">
+        <div class="resources flexcol">
+          <div class="hpbar">
+            <div class="hp-progress-bar">
+              <progress class="hp-bar grid-span-3" value="{{system.hp.value}}" max="{{system.hp.max}}"></progress>
+              <div class="current-max-resource nobreak">
+                <input id="{{_id}}hp" type="number" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
+                <span class="inline-block">/ {{system.hp.max}}</span>
+              </div>
+            </div>
+            <div class="hpmod nobreak">
+              <label for="{{_id}}hpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
+              <input id="{{_id}}hpmod" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
+            </div>
+          </div>
+          <div class="mpbar">
+            <div class="mp-progress-bar">
+              <progress class="mp-bar grid-span-3" value="{{system.mp.value}}" max="{{system.mp.max}}"></progress>
+              <div class="current-max-resource nobreak">
+                <input id="{{_id}}mp" type="number" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
+                <span class="inline-block">/ {{system.mp.max}}</span>
+              </div>
+            </div>
+            <div class="mpmod nobreak">
+              <label for="{{_id}}mpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
+              <input id="{{_id}}mpmod" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="header-fields flexrow">
       <div class="character-details">
-        <hr class="nogapmargin">
-        <div class="character-name">
-          <label for="{{_id}}name" class="resource-label">{{localize "SW25.CharacterName"}}</label>
+        <div class="character-name fontsize15">
           <input id="{{_id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
         </div>
         <hr>
-        <div class="character-details-secondary flexrow">
+        <div class="character-details-secondary flexrow margin-top-m">
           <div class="character-race">
             <label for="{{_id}}race" class="resource-label">{{localize "SW25.Race"}}</label> 
-            <input id="{{id}}race" type="text" name="system.race" value="{{system.race}}" data-dtype="String"/>
+            <input id="{{id}}race" type="text" name="system.race" value="{{system.race}}" placeholder="Race" data-dtype="String"/>
           </div>
           <div class="character-age textalign-center">
             <label for="{{_id}}age" class="resource-label">{{localize "SW25.Attributes.Age"}}</label>
-            <input id="{{_id}}age" type="number" name="system.attributes.age" value="{{system.attributes.age}}" data-dtype="Number"/>
+            <input id="{{_id}}age" type="number" name="system.attributes.age" value="{{system.attributes.age}}" placeholder="Age" data-dtype="Number"/>
           </div>
           <div class="character-gender textalign-center">
             <label for="{{_id}}gender" class="resource-label">{{localize "SW25.Attributes.Gender"}}</label>
-            <input id="{{_id}}gender" type="text" name="system.attributes.gender" value="{{system.attributes.gender}}" data-dtype="String"/>
+            <input id="{{_id}}gender" type="text" name="system.attributes.gender" value="{{system.attributes.gender}}" placeholder="Gender" data-dtype="String"/>
           </div>
         </div>
         <hr>
-        <div class="character-details-tertiary flexrow">
+        <div class="character-details-tertiary flexrow margin-top-m">
           <div class="character-rank">
             <label for="{{_id}}rank" class="resource-label">{{localize "SW25.Attributes.Honer.Rank"}}</label>
-            <input id="{{_id}}rank" type="text" name="system.attributes.honer.rank" value="{{system.attributes.honer.rank}}" data-dtype="String"/>
+            <input id="{{_id}}rank" type="text" name="system.attributes.honer.rank" value="{{system.attributes.honer.rank}}" placeholder="Rank" data-dtype="String"/>
           </div>
           <div class="character-honor textalign-center">
             <label for="{{_id}}honor" class="resource-label">{{localize "SW25.Attributes.Honer.Label"}}</label>
-            <input id="{{_id}}honor" type="number" name="system.attributes.honer.value" value="{{system.attributes.honer.value}}" data-dtype="Number"/>
+            <input id="{{_id}}honor" type="number" name="system.attributes.honer.value" value="{{system.attributes.honer.value}}" placeholder="Rep." data-dtype="Number"/>
           </div>
           <div class="character-impurity textalign-center">
             <label for="{{_id}}impurity" class="resource-label">{{localize "SW25.Attributes.Impurity"}}</label>
@@ -55,33 +79,7 @@
           </div>
         </div>
         <hr>
-      </div>
-      <div class="header-resources">
-        <div class="resources grid grid-3col">
-          <label for="{{_id}}hp" class="resource-label">{{localize "SW25.Hp"}}: </label>
-          <div class="current-max-resource nobreak">
-            <input id="{{_id}}hp" type="number" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
-            /
-            <span>{{system.hp.max}}</span>
-          </div>
-          <div class="nobreak">
-            <label for="{{_id}}hpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-            <input id="{{_id}}hpmod" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
-          </div>
-          <progress class="hp-bar grid-span-3" value="{{system.hp.value}}" max="{{system.hp.max}}"></progress>
-          <label for="{{_id}}mp" class="resource-label">{{localize "SW25.Mp"}}: </label>
-          <div class="current-max-resource nobreak">
-            <input id="{{_id}}mp" type="number" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
-            /
-            <span>{{system.mp.max}}</span>
-          </div>
-          <div class="nobreak">
-            <label for="{{_id}}mpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-            <input id="{{_id}}mpmod" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
-          </div>
-          <progress class="mp-bar grid-span-3" value="{{system.mp.value}}" max="{{system.mp.max}}"></progress>
-        </div>
-        <div class="character-resources flexrow textalign-center">
+        <div class="character-resources flexrow textalign-center margin-top-m">
           <div class="character-experience">
             <label for="{{_id}}exp" class="resource-label">{{localize "SW25.Attributes.Exp"}}</label>
             <input id="{{_id}}exp" type="number" name="system.attributes.totalexp" value="{{system.attributes.totalexp}}" data-dtype="Number"/>
@@ -102,7 +100,12 @@
             <label for="{{_id}}grace" class="resource-label">{{localize "SW25.Attributes.Grace"}}</label> <br>
             <input id="{{_id}}grace" type="checkbox" name="system.attributes.grace" {{checked system.attributes.grace}} data-dtype="Boolean"/>
           </div>
+          <div class="character-al">
+            <label for="system.attributes.advlevel.value" class="resource-label nobreak">{{localize "SW25.Attributes.Advlevel"}}</label><br>
+            <span class="adventurer-level">{{system.attributes.advlevel.value}}</span>
+          </div>
         </div>
+      <hr>
       </div>
     </div>
   </header>
@@ -110,7 +113,7 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="abilityskill">{{localize "SW25.Abilityskill"}}</a>
+    <a class="item nobreak" data-tab="abilityskill">{{localize "SW25.Abilityskill"}}</a>
     <a class="item" data-tab="check">{{localize "SW25.Check"}}</a>
     <a class="item" data-tab="battle">{{localize "SW25.Battle"}}</a>
     <a class="item" data-tab="features">{{localize "SW25.Features"}}</a>
