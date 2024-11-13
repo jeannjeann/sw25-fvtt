@@ -413,8 +413,8 @@
         "applycheck2": "-",
         "applycheck3": "-",
         "applypower": "on",
-        "useres": false,
-        "resuse": "",
+        "autouseres": false,
+        "resuse": "-",
         "itemlist": "",
         "resusequantity": 0
       },

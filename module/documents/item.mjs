@@ -517,6 +517,8 @@ export class SW25Item extends Item {
       }
     });
 
+    if (systemData.resuse == "-") systemData.autouseres = false;
+
     await actor.update({});
     let checkabimod = 0;
     let powerabimod = 0;
