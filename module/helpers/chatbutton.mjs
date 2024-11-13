@@ -118,6 +118,7 @@ export async function chatButton(chatMessage, buttonType) {
     const speaker = ChatMessage.getSpeaker({ actor: actor });
     const rollMode = game.settings.get("core", "rollMode");
     let label = `${item.name}`;
+    let chatresuse = "";
     let chatapply = "-";
     let baseformula = item.system.formula;
 
@@ -142,8 +143,33 @@ export async function chatButton(chatMessage, buttonType) {
         chatapply = item.system.applycheck3;
         baseformula = item.system.checkformula3;
       } else {
-        label = label + " (" + game.i18n.localize("SW25.Check") + ")";
-        chatapply = item.system.applycheck;
+        let resuse = item.system.resuse;
+        if (resuse !== "-" && item.system.autouseres) {
+          let actoritem = actor.items.get(resuse);
+          let resusequantity = item.system.resusequantity;
+          let actoritemquantity = actoritem.system.quantity;
+          let remainingquantity = actoritemquantity - resusequantity;
+          let min = actoritem.system.qmin;
+
+          if (actoritemquantity < resusequantity) {
+            ui.notifications.warn(
+              game.i18n.localize("SW25.Item.Noresquantitiywarn") +
+                actoritem.name
+            );
+            return;
+          } else if (remainingquantity < min) {
+            ui.notifications.warn(
+              game.i18n.localize("SW25.Item.Noresquantitiywarn") +
+                actoritem.name
+            );
+            return;
+          } else {
+            actoritem.update({ "system.quantity": remainingquantity });
+            label = label + " (" + game.i18n.localize("SW25.Check") + ")";
+            chatapply = item.system.applycheck;
+            chatresuse = `<div style="text-align: right;">${actoritem.name}: ${actoritemquantity} >>> ${remainingquantity}</div>`;
+          }
+        }
       }
 
       let formula = baseformula + "+" + item.system.checkbase;
@@ -184,6 +210,7 @@ export async function chatButton(chatMessage, buttonType) {
           total: chatTotal,
           apply: chatapply,
           checktype: checktype,
+          resusetext: chatresuse,
         }
       );
 
@@ -1156,6 +1183,7 @@ export async function chatButton(chatMessage, buttonType) {
 
     ChatMessage.create(chatData);
   }
+
   if (buttonType == "buttonmp") {
     const selectedTokens = canvas.tokens.controlled;
     if (selectedTokens.length === 0) {
@@ -1171,6 +1199,38 @@ export async function chatButton(chatMessage, buttonType) {
     const type = item.type;
     const meta = 1;
     mpCost(token, cost, name, type, meta);
+  }
+
+  if (buttonType == "buttonresource") {
+    const speaker = ChatMessage.getSpeaker({ actor: actor });
+    let resuse = item.system.resuse;
+    let resusequantity = item.system.resusequantity;
+    let actoritem = actor.items.get(resuse);
+    let actoritemquantity = actoritem.system.quantity;
+    let remainingquantity = actoritemquantity - resusequantity;
+    let min = actoritem.system.qmin;
+
+    if (actoritemquantity < resusequantity) {
+      ui.notifications.warn(
+        game.i18n.localize("SW25.Item.Noresquantitiywarn") + actoritem.name
+      );
+      return;
+    } else if (remainingquantity < min) {
+      ui.notifications.warn(
+        game.i18n.localize("SW25.Item.Noresquantitiywarn") + actoritem.name
+      );
+      return;
+    } else {
+      actoritem.update({ "system.quantity": remainingquantity });
+
+      let chatData = {
+        speaker: speaker,
+      };
+
+      chatData.content = `<div style="text-align: right;">${actoritem.name}: ${actoritemquantity} >>> ${remainingquantity}</div>`;
+
+      ChatMessage.create(chatData);
+    }
   }
 
   if (buttonType == "buttonmeta") {

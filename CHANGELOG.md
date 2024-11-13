@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.12.0
+- 武器の矢弾消費機能を追加  by [Airamhh](https://github.com/Airamhh)
+- bug fix
+
 ## 0.11.1
 - bug fix
 

@@ -483,6 +483,7 @@ Hooks.once("ready", async function () {
     config: true,
     type: Boolean,
     default: false,
+    requiresReload: true,
   });
 
   // Chat message button
