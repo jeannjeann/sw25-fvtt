@@ -148,6 +148,8 @@ export async function chatButton(chatMessage, buttonType) {
           let actoritem = actor.items.get(resuse);
           let resusequantity = item.system.resusequantity;
           let actoritemquantity = actoritem.system.quantity;
+          let remainingquantity = actoritemquantity - resusequantity;
+          let min = actoritem.system.qmin;
 
           if (actoritemquantity < resusequantity) {
             ui.notifications.warn(
@@ -155,17 +157,17 @@ export async function chatButton(chatMessage, buttonType) {
                 actoritem.name
             );
             return;
+          } else if (remainingquantity < min) {
+            ui.notifications.warn(
+              game.i18n.localize("SW25.Item.Noresquantitiywarn") +
+                actoritem.name
+            );
+            return;
           } else {
-            let remainingquantity = actoritemquantity - resusequantity;
             actoritem.update({ "system.quantity": remainingquantity });
             label = label + " (" + game.i18n.localize("SW25.Check") + ")";
             chatapply = item.system.applycheck;
-            chatresuse =
-              actoritem.name +
-              ": " +
-              actoritemquantity +
-              " >>> " +
-              remainingquantity;
+            chatresuse = `<div style="text-align: right;">${actoritem.name}: ${actoritemquantity} >>> ${remainingquantity}</div>`;
           }
         }
       }
@@ -1181,6 +1183,7 @@ export async function chatButton(chatMessage, buttonType) {
 
     ChatMessage.create(chatData);
   }
+
   if (buttonType == "buttonmp") {
     const selectedTokens = canvas.tokens.controlled;
     if (selectedTokens.length === 0) {
@@ -1196,6 +1199,38 @@ export async function chatButton(chatMessage, buttonType) {
     const type = item.type;
     const meta = 1;
     mpCost(token, cost, name, type, meta);
+  }
+
+  if (buttonType == "buttonresource") {
+    const speaker = ChatMessage.getSpeaker({ actor: actor });
+    let resuse = item.system.resuse;
+    let resusequantity = item.system.resusequantity;
+    let actoritem = actor.items.get(resuse);
+    let actoritemquantity = actoritem.system.quantity;
+    let remainingquantity = actoritemquantity - resusequantity;
+    let min = actoritem.system.qmin;
+
+    if (actoritemquantity < resusequantity) {
+      ui.notifications.warn(
+        game.i18n.localize("SW25.Item.Noresquantitiywarn") + actoritem.name
+      );
+      return;
+    } else if (remainingquantity < min) {
+      ui.notifications.warn(
+        game.i18n.localize("SW25.Item.Noresquantitiywarn") + actoritem.name
+      );
+      return;
+    } else {
+      actoritem.update({ "system.quantity": remainingquantity });
+
+      let chatData = {
+        speaker: speaker,
+      };
+
+      chatData.content = `<div style="text-align: right;">${actoritem.name}: ${actoritemquantity} >>> ${remainingquantity}</div>`;
+
+      ChatMessage.create(chatData);
+    }
   }
 
   if (buttonType == "buttonmeta") {

@@ -22,6 +22,9 @@
           </div>
           <h4 class="item-label">{{item.name}}{{#if item.system.dedicated}} ({{localize "SW25.Item.Dedicated"}}){{/if}}</h4>
         </div>
+        <div class="resourcecost" style="flex: 0 0 40px; display: {{#if (eq item.system.resuse "-")}}none{{else}}block{{/if}};" data-resusequantity={{system.resusequantity}} data-resuse="{{system.resuse}}">
+          <b>{{localize "SW25.Item.CostB"}}</b>
+        </div>
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 120px;">
           {{item.system.showskill}}
         </div>

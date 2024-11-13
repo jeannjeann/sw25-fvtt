@@ -1747,6 +1747,10 @@ export class SW25Item extends Item {
     if (item.type == "spell") spell = true;
     let enhancearts = false;
     if (item.type == "enhancearts") spell = true;
+    let resource = false;
+    if (item.type == "weapon") {
+      if (item.system.resuse != "-") resource = true;
+    }
 
     if (this.system.clickitem == "dice") label = label + " (" + label0 + ")";
     if (this.system.clickitem == "dice1") label = label + " (" + label1 + ")";
@@ -1770,6 +1774,7 @@ export class SW25Item extends Item {
           description: chatDescription,
           spell: spell,
           enhancearts: enhancearts,
+          resource: resource,
           usedice: usedice,
           usedice1: usedice1,
           usedice2: usedice2,
@@ -2006,6 +2011,39 @@ export class SW25Item extends Item {
       const type = item.type;
       const meta = 1;
       mpCost(token, cost, name, type, meta);
+    }
+
+    if (this.system.clickitem == "rescost") {
+      if (this.system.resuse != "-" || !this.system.resuse) {
+        let resuse = this.system.resuse;
+        let resusequantity = this.system.resusequantity;
+        let actoritem = this.actor.items.get(resuse);
+        let actoritemquantity = actoritem.system.quantity;
+        let remainingquantity = actoritemquantity - resusequantity;
+        let min = actoritem.system.qmin;
+
+        if (actoritemquantity < resusequantity) {
+          ui.notifications.warn(
+            game.i18n.localize("SW25.Item.Noresquantitiywarn") + actoritem.name
+          );
+          return;
+        } else if (remainingquantity < min) {
+          ui.notifications.warn(
+            game.i18n.localize("SW25.Item.Noresquantitiywarn") + actoritem.name
+          );
+          return;
+        } else {
+          actoritem.update({ "system.quantity": remainingquantity });
+
+          let chatData = {
+            speaker: speaker,
+          };
+
+          chatData.content = `<div style="text-align: right;">${actoritem.name}: ${actoritemquantity} >>> ${remainingquantity}</div>`;
+
+          ChatMessage.create(chatData);
+        }
+      }
     }
 
     if (this.system.clickitem == "description" || !this.system.formula) {

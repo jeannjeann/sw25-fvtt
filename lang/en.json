@@ -155,6 +155,7 @@
       "CheckB": "<CK>",
       "PowerB": "<PWR>",
       "EffectB": "<EFF>",
+      "CostB": "<RES>",
       "Clickitem": "Icon Click",
       "All": "Everything",
       "Powerroll": "Power Roll",

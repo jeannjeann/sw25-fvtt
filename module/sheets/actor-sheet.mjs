@@ -443,6 +443,9 @@ export class SW25ActorSheet extends ActorSheet {
     // Mp cost.
     html.on("click", ".mpcost", this._onMpCost.bind(this));
 
+    // Resource cost.
+    html.on("click", ".resourcecost", this._onResourceCost.bind(this));
+
     // Loot roll.
     html.on("click", ".lootrollable", this._onLootRoll.bind(this));
 
@@ -543,6 +546,9 @@ export class SW25ActorSheet extends ActorSheet {
         const resusequantity = dataset.resusequantity;
         const resuseitem = this.actor.items.get(resuseid);
         const resuseitemquantity = resuseitem.system.quantity;
+        const remainingquantity = resuseitemquantity - resusequantity;
+        const min = resuseitem.system.qmin;
+
         if (resuseitem) {
           if (resuseitemquantity < resusequantity) {
             ui.notifications.warn(
@@ -551,14 +557,15 @@ export class SW25ActorSheet extends ActorSheet {
             );
             return;
           }
-          const remainingquantity = resuseitemquantity - resusequantity;
+          if (remainingquantity < min) {
+            ui.notifications.warn(
+              game.i18n.localize("SW25.Item.Noresquantitiywarn") +
+                resuseitem.name
+            );
+            return;
+          }
           resuseitem.update({ "system.quantity": remainingquantity });
-          chatresuse =
-            resuseitem.name +
-            ": " +
-            resuseitemquantity +
-            " >>> " +
-            remainingquantity;
+          chatresuse = `<div style="text-align: right;">${resuseitem.name}: ${resuseitemquantity} >>> ${remainingquantity}</div>`;
         }
       }
 
@@ -852,6 +859,46 @@ export class SW25ActorSheet extends ActorSheet {
     const type = dataset.type;
     const meta = 1;
     mpCost(token, cost, name, type, meta);
+  }
+
+  async _onResourceCost(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+
+    if (dataset.resuse) {
+      const resuseid = dataset.resuse;
+      const resusequantity = dataset.resusequantity;
+      const resuseitem = this.actor.items.get(resuseid);
+      const resuseitemquantity = resuseitem.system.quantity;
+      const remainingquantity = resuseitemquantity - resusequantity;
+      const min = resuseitem.system.qmin;
+
+      if (resuseitem) {
+        if (resuseitemquantity < resusequantity) {
+          ui.notifications.warn(
+            game.i18n.localize("SW25.Item.Noresquantitiywarn") + resuseitem.name
+          );
+          return;
+        }
+        if (remainingquantity < min) {
+          ui.notifications.warn(
+            game.i18n.localize("SW25.Item.Noresquantitiywarn") + resuseitem.name
+          );
+          return;
+        }
+        resuseitem.update({ "system.quantity": remainingquantity });
+
+        let chatData = {
+          speaker: speaker,
+        };
+
+        chatData.content = `<div style="text-align: right;">${resuseitem.name}: ${resuseitemquantity} >>> ${remainingquantity}</div>`;
+
+        ChatMessage.create(chatData);
+      }
+    }
   }
 
   async _onLootRoll(event) {
