@@ -118,6 +118,7 @@ export async function chatButton(chatMessage, buttonType) {
     const speaker = ChatMessage.getSpeaker({ actor: actor });
     const rollMode = game.settings.get("core", "rollMode");
     let label = `${item.name}`;
+    let chatresuse = "";
     let chatapply = "-";
     let baseformula = item.system.formula;
 
@@ -142,8 +143,31 @@ export async function chatButton(chatMessage, buttonType) {
         chatapply = item.system.applycheck3;
         baseformula = item.system.checkformula3;
       } else {
-        label = label + " (" + game.i18n.localize("SW25.Check") + ")";
-        chatapply = item.system.applycheck;
+        let resuse = item.system.resuse;
+        if (resuse !== "-" && item.system.useres) {
+          let actoritem = actor.items.get(resuse);
+          let resusequantity = item.system.resusequantity;
+          let actoritemquantity = actoritem.system.quantity;
+
+          if (actoritemquantity < resusequantity) {
+            ui.notifications.warn(
+              game.i18n.localize("SW25.Item.Noresquantitiywarn") +
+                actoritem.name
+            );
+            return;
+          } else {
+            let remainingquantity = actoritemquantity - resusequantity;
+            actoritem.update({ "system.quantity": remainingquantity });
+            label = label + " (" + game.i18n.localize("SW25.Check") + ")";
+            chatapply = item.system.applycheck;
+            chatresuse =
+              actoritem.name +
+              ": " +
+              actoritemquantity +
+              " >>> " +
+              remainingquantity;
+          }
+        }
       }
 
       let formula = baseformula + "+" + item.system.checkbase;
@@ -184,6 +208,7 @@ export async function chatButton(chatMessage, buttonType) {
           total: chatTotal,
           apply: chatapply,
           checktype: checktype,
+          resusetext: chatresuse,
         }
       );
 

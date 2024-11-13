@@ -537,6 +537,31 @@ export class SW25ActorSheet extends ActorSheet {
 
       let label = dataset.label ? `${dataset.label}` : "";
 
+      let chatresuse;
+      if (dataset.resuse) {
+        const resuseid = dataset.resuse;
+        const resusequantity = dataset.resusequantity;
+        const resuseitem = this.actor.items.get(resuseid);
+        const resuseitemquantity = resuseitem.system.quantity;
+        if (resuseitem) {
+          if (resuseitemquantity < resusequantity) {
+            ui.notifications.warn(
+              game.i18n.localize("SW25.Item.Noresquantitiywarn") +
+                resuseitem.name
+            );
+            return;
+          }
+          const remainingquantity = resuseitemquantity - resusequantity;
+          resuseitem.update({ "system.quantity": remainingquantity });
+          chatresuse =
+            resuseitem.name +
+            ": " +
+            resuseitemquantity +
+            " >>> " +
+            remainingquantity;
+        }
+      }
+
       let chatData = {
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
@@ -574,6 +599,7 @@ export class SW25ActorSheet extends ActorSheet {
           apply: chatapply,
           spell: chatspell,
           checktype: checktype,
+          resusetext: chatresuse,
         }
       );
 

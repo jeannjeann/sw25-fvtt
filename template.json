@@ -412,7 +412,11 @@
         "applycheck1": "-",
         "applycheck2": "-",
         "applycheck3": "-",
-        "applypower": "on"
+        "applypower": "on",
+        "useres": false,
+        "resuse": "",
+        "itemlist": "",
+        "resusequantity": 0
       },
       "battle": {
         "equip": true,
