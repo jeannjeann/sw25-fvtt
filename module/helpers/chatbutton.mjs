@@ -118,7 +118,7 @@ export async function chatButton(chatMessage, buttonType) {
     const speaker = ChatMessage.getSpeaker({ actor: actor });
     const rollMode = game.settings.get("core", "rollMode");
     let label = `${item.name}`;
-    let chatitemuse = "";
+    let chatresuse = "";
     let chatapply = "-";
     let baseformula = item.system.formula;
 
@@ -143,21 +143,29 @@ export async function chatButton(chatMessage, buttonType) {
         chatapply = item.system.applycheck3;
         baseformula = item.system.checkformula3;
       } else {
-        let itemuse = item.system.itemuse;
-        if (itemuse !== '-' && item.system.useitem) {
-          let actoritem = actor.items.get(itemuse);
-          let itemusequantity = item.system.itemusequantity;
+        let resuse = item.system.resuse;
+        if (resuse !== "-" && item.system.useres) {
+          let actoritem = actor.items.get(resuse);
+          let resusequantity = item.system.resusequantity;
           let actoritemquantity = actoritem.system.quantity;
-        
-          if (actoritemquantity < itemusequantity) {
-            ui.notifications.warn(game.i18n.localize("SW25.Item.Noitemquantitiywarn") + actoritem.name);
+
+          if (actoritemquantity < resusequantity) {
+            ui.notifications.warn(
+              game.i18n.localize("SW25.Item.Noresquantitiywarn") +
+                actoritem.name
+            );
             return;
           } else {
-            let remainingquantity = actoritemquantity - itemusequantity;
+            let remainingquantity = actoritemquantity - resusequantity;
             actoritem.update({ "system.quantity": remainingquantity });
             label = label + " (" + game.i18n.localize("SW25.Check") + ")";
             chatapply = item.system.applycheck;
-            chatitemuse = actoritem.name + ": " + actoritemquantity + " >>> " + remainingquantity;
+            chatresuse =
+              actoritem.name +
+              ": " +
+              actoritemquantity +
+              " >>> " +
+              remainingquantity;
           }
         }
       }
@@ -200,7 +208,7 @@ export async function chatButton(chatMessage, buttonType) {
           total: chatTotal,
           apply: chatapply,
           checktype: checktype,
-          itemusetext: chatitemuse,
+          resusetext: chatresuse,
         }
       );
 

@@ -25,7 +25,7 @@
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 120px;">
           {{item.system.showskill}}
         </div>
-        <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;" {{#if item.system.useitem}} data-itemusequantity="{{item.system.itemusequantity}}" data-itemuse="{{item.system.itemuse}}"{{/if}} data-roll="{{item.system.checkformula}}+{{item.system.checkbase}}" data-label="{{item.name}} ({{localize "SW25.Item.Weapon.Hit"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck}}" data-checktype="{{system.checkTypesButton}}">
+        <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;" {{#if item.system.useitem}} data-resusequantity="{{item.system.resusequantity}}" data-resuse="{{item.system.resuse}}"{{/if}} data-roll="{{item.system.checkformula}}+{{item.system.checkbase}}" data-label="{{item.name}} ({{localize "SW25.Item.Weapon.Hit"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck}}" data-checktype="{{system.checkTypesButton}}">
           {{item.system.checkbase}}
         </div>
         <div class='powerrollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 90px;" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{localize "SW25.Item.Power"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}" data-powertype="{{system.powerTypesButton}}">

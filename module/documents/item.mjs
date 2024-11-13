@@ -504,15 +504,15 @@ export class SW25Item extends Item {
     }
 
     actoritemData.forEach((item) => {
-      if (item.type != "item") return;
+      if (item.type != "resource") return;
       const itemExists = systemData.itemlist.some(
         (existingItem) => existingItem.itemId === item._id
       );
-    
+
       if (!itemExists) {
         systemData.itemlist.push({
-          itemId: item._id, 
-          itemName: item.name
+          itemId: item._id,
+          itemName: item.name,
         });
       }
     });

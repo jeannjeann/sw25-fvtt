@@ -74,7 +74,7 @@ export class SW25ItemSheet extends ItemSheet {
 
     if (itemData.type == "item") {
       this._prepareItemRollData(context);
-      this._prepareItemData(context); 
+      this._prepareItemData(context);
     }
 
     if (itemData.type == "resource") {

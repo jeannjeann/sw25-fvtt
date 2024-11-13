@@ -135,10 +135,9 @@ export class SW25Actor extends Actor {
           systemData.itemchecktype = item.system.checkTypesButton;
           systemData.itemapplypower = item.system.applypower;
           systemData.itempowertype = item.system.powerTypesButton;
-          if (item.system.useitem)
-          {
-            systemData.itemuse = item.system.itemuse;
-            systemData.itemusequantity = item.system.itemusequantity;
+          if (item.system.useres) {
+            systemData.resuse = item.system.resuse;
+            systemData.resusequantity = item.system.resusequantity;
           }
           if (item.system.cvalue == null || item.system.cvalue == 0)
             item.system.cvalue = 10;

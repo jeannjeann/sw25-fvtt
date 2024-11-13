@@ -536,22 +536,29 @@ export class SW25ActorSheet extends ActorSheet {
       await roll.evaluate();
 
       let label = dataset.label ? `${dataset.label}` : "";
-      
-      let chatitemuse;
-      if (dataset.itemuse)
-      {
-        const itemuseid = dataset.itemuse;
-        const itemusequantity = dataset.itemusequantity;
-        const itemuseitem = this.actor.items.get(itemuseid);
-        const itemuseitemquantity = itemuseitem.system.quantity;
-        if (itemuseitem) {
-          if (itemuseitemquantity < itemusequantity) {
-            ui.notifications.warn(game.i18n.localize("SW25.Item.Noitemquantitiywarn") + itemuseitem.name);
+
+      let chatresuse;
+      if (dataset.resuse) {
+        const resuseid = dataset.resuse;
+        const resusequantity = dataset.resusequantity;
+        const resuseitem = this.actor.items.get(resuseid);
+        const resuseitemquantity = resuseitem.system.quantity;
+        if (resuseitem) {
+          if (resuseitemquantity < resusequantity) {
+            ui.notifications.warn(
+              game.i18n.localize("SW25.Item.Noresquantitiywarn") +
+                resuseitem.name
+            );
             return;
           }
-          const remainingquantity = itemuseitemquantity - itemusequantity;
-          itemuseitem.update({ "system.quantity": remainingquantity });
-          chatitemuse = itemuseitem.name + ": " + itemuseitemquantity + " >>> " + remainingquantity;
+          const remainingquantity = resuseitemquantity - resusequantity;
+          resuseitem.update({ "system.quantity": remainingquantity });
+          chatresuse =
+            resuseitem.name +
+            ": " +
+            resuseitemquantity +
+            " >>> " +
+            remainingquantity;
         }
       }
 
@@ -592,7 +599,7 @@ export class SW25ActorSheet extends ActorSheet {
           apply: chatapply,
           spell: chatspell,
           checktype: checktype,
-          itemusetext: chatitemuse,
+          resusetext: chatresuse,
         }
       );
 
