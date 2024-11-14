@@ -953,7 +953,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     // Check limit
     if (item.type == "resource") {
-      if (item.system.qmax) {
+      if (item.system.qmax || item.system.qmax == 0) {
         /*
         if (quantity == item.system.qmax) {
           quantity = item.system.qmax;
@@ -969,7 +969,7 @@ export class SW25ActorSheet extends ActorSheet {
           );
         }
       }
-      if (item.system.qmin) {
+      if (item.system.qmin || item.system.qmin == 0) {
         /*
         if (quantity == item.system.qmin) {
           quantity = item.system.qmin;

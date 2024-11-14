@@ -1272,7 +1272,8 @@ export class SW25Item extends Item {
     const actoritemData = itemData.actor.items;
 
     // Quantity limit
-    if (systemData.qmax) {
+    if (systemData.qmax || systemData.qmax == 0) {
+      /*
       if (systemData.quantity == systemData.qmax) {
         systemData.quantity = systemData.qmax;
         if (!quantityWarn) {
@@ -1285,6 +1286,7 @@ export class SW25Item extends Item {
           }, 100);
         }
       }
+      */
       if (systemData.quantity > systemData.qmax) {
         systemData.quantity = systemData.qmax;
         if (!quantityWarn) {
@@ -1298,7 +1300,8 @@ export class SW25Item extends Item {
         }
       }
     }
-    if (systemData.qmin) {
+    if (systemData.qmin || systemData.qmin == 0) {
+      /*
       if (systemData.quantity == systemData.qmin) {
         systemData.quantity = systemData.qmin;
         if (!quantityWarn) {
@@ -1311,6 +1314,7 @@ export class SW25Item extends Item {
           }, 100);
         }
       }
+      */
       if (systemData.quantity < systemData.qmin) {
         systemData.quantity = systemData.qmin;
         if (!quantityWarn) {
