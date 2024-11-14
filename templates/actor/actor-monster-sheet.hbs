@@ -3,7 +3,7 @@
   {{#unless system.limited}}
   {{!-- Sheet Header --}}
   <header class="sheet-header">
-    <div class="adventurer-details textalign-center">
+    <div class="monster-details textalign-center">
       <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
       <div class="header-resources">
         <div class="resources flexcol">
@@ -39,15 +39,21 @@
     </div>
     <div class="header-fields flexrow">
       <div class="character-details">
-        <div class="character-name fontsize15">
-          <input id="{{_id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+        <div class="character-details-primary flexrow">
+          <div class="character-name fontsize11">
+            <input id="{{_id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+          </div>
+          <div class="monster-level inline-block fontsize11">
+            <span for="system.monlevel" class="resource-label nobreak">{{localize "SW25.Monlevel"}}:</span>
+            <span class="monster-lvl">{{system.monlevel}}</span>
+          </div>
         </div>
         <hr>
         <div class="character-details-secondary monster-parameters flexcol">
           <div class="flexrow">
-            <div class="monster-level">
-              <span for="system.monlevel" class="resource-label nobreak">{{localize "SW25.Monlevel"}}:</span>
-              <span class="monster-lvl">{{system.monlevel}}</span>
+            <div class="monster-type">
+              <span for="system.montype" class="resource-label nobreak">{{localize "SW25.Monster.Type"}}:</span>
+              <span class="monster-type">{{system.type}}</span>
             </div>
             <div class="monster-weakness">
               <span for="system.weakness" class="resource-label nobreak">{{localize "SW25.Monster.Weakness"}}:</span>

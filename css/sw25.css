@@ -491,7 +491,7 @@ progress {
   position: relative;
 }
 .hp-progress-bar progress, .mp-progress-bar progress {
-  height: 20px;
+  height: 18px;
   border: 1px solid black;
   border-radius: 7px;
 }
@@ -561,6 +561,7 @@ progress.mp-bar::-moz-progress-bar {
 }
 .sw25 .sheet-tabs.tabs {
   border: 0;
+  flex-wrap: wrap;
 }
 
 .sw25 .sheet-tabs > .item {
@@ -777,14 +778,18 @@ progress.mp-bar::-moz-progress-bar {
 
 .sw25 .sheet-header .adventurer-details {
   align-self: flex-start;
-  flex: 0 0 200px;
+  flex: 0 0 150px;
   margin-right: var(--spacing-sm);
 }
-.sw25 .sheet-header .adventurer-details .adventurer-level {
-  font-size: 1.6rem;
-  font-weight: bold;
+
+.sw25 .sheet-header .monster-details {
+  align-self: flex-start;
+  flex: 0 0 120px;
+  margin-right: var(--spacing-sm);
 }
-.sw25 .sheet-header .adventurer-details .profile-img {
+
+.sw25 .sheet-header .adventurer-details .profile-img,
+.sw25 .sheet-header .monster-details .profile-img {
   height: 80%;
   width: 80%;
   border-radius: 50%;
@@ -806,6 +811,12 @@ progress.mp-bar::-moz-progress-bar {
 .sw25 .sheet-header .header-fields .character-details .character-name input{
   font-weight: bold;
   height: max-content;
+  padding: 0;
+}
+
+.sw25 .sheet-header .header-fields .character-details .character-al label{
+  height: max-content;
+  width: max-content;
 }
 
 .sw25 .sheet-header .header-fields .character-details .character-race {
@@ -815,6 +826,11 @@ progress.mp-bar::-moz-progress-bar {
 .sw25 .sheet-header .header-fields .character-details .character-rank {
   flex: 0 0 150px;
 }
+
+.sw25 .sheet-header .header-fields .character-resources  .character-experience {
+  flex: 0 0 150px;
+}
+
 .sw25 .sheet-header .header-resources {
   margin: 0 var(--spacing-xs);
   position: relative;
