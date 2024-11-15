@@ -3,25 +3,62 @@
   {{#unless system.limited}}
   {{!-- Sheet Header --}}
   <header class="sheet-header">
-    <div class="adventurer-details textalign-center">
+    <div class="monster-details textalign-center">
       <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-      <div class="flexcol">
-        <label for="system.monlevel" class="resource-label nobreak">{{localize "SW25.Monlevel"}}</label>
-        <span class="adventurer-level">{{system.monlevel}}</span>
+      <div class="header-resources">
+        <div class="resources flexcol">
+          <div class="hpbar">
+            <div class="hp-progress-bar">
+              <progress class="hp-bar grid-span-3" value="{{system.hp.value}}" max="{{system.hp.max}}"></progress>
+              <div class="current-max-resource nobreak">
+                <input id="{{_id}}hp" type="number" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
+                <span class="inline-block">/ {{system.hp.max}}</span>
+              </div>
+            </div>
+            <div class="hpmod nobreak">
+              <label for="{{_id}}hpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
+              <input id="{{_id}}hpmod" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
+            </div>
+          </div>
+          <div class="mpbar">
+            <div class="mp-progress-bar">
+              <progress class="mp-bar grid-span-3" value="{{system.mp.value}}" max="{{system.mp.max}}"></progress>
+              <div class="current-max-resource nobreak">
+                <input id="{{_id}}mp" type="number" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
+                
+                <span class="inline-block">/ {{system.mp.max}}</span>
+              </div>
+            </div>
+            <div class="mpmod nobreak">
+              <label for="{{_id}}mpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
+              <input id="{{_id}}mpmod" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="header-fields flexrow">
       <div class="character-details">
-        <hr class="nogapmargin">
-        <div class="character-name">
-          <label for="{{_id}}name" class="resource-label">{{localize "SW25.Monster.Name"}}</label>
-          <input id="{{_id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+        <div class="character-details-primary flexrow">
+          <div class="character-name fontsize11">
+            <input id="{{_id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+          </div>
+          <div class="monster-level inline-block fontsize11">
+            <span for="system.monlevel" class="resource-label nobreak">{{localize "SW25.Monlevel"}}:</span>
+            <span class="monster-lvl">{{system.monlevel}}</span>
+          </div>
         </div>
         <hr>
         <div class="character-details-secondary monster-parameters flexcol">
-          <div class="monster-weakness">
-            <input id="{{_id}}weakapply" type="checkbox" name="system.weakapply" {{checked system.weakapply}} data-dtype="Boolean" class="weakapply"/>
-            <span><b>{{localize "SW25.Monster.Weakness"}}: </b>{{system.weakness}}</span>
+          <div class="flexrow">
+            <div class="monster-type">
+              <span for="system.montype" class="resource-label nobreak">{{localize "SW25.Monster.Type"}}:</span>
+              <span class="monster-type">{{system.type}}</span>
+            </div>
+            <div class="monster-weakness">
+              <span for="system.weakness" class="resource-label nobreak">{{localize "SW25.Monster.Weakness"}}:</span>
+              <span class="monster-weak">{{system.weakness}}</span>
+            </div>
           </div>
           <div class="flexrow">
             <div class="monster-popularity">
@@ -29,13 +66,21 @@
               <span class="monster-small">{{system.popularity}}/{{system.weakpoint}}</span>
             </div>
             <div class="monster-preemptive">
-              <span class="monster-label monster-small">{{localize "SW25.Monster.Preemptive"}} : </span>
+              <span class="monster-label monster-small">{{localize "SW25.Monster.Preemptive"}}: </span>
               <span class="monster-small">{{system.preemptive}}</span>
             </div>
           </div>
-          <div class="monster-move">
-            <span class="monster-label monster-small">{{localize "SW25.Monster.Move"}} : </span>
-            <span class="monster-small">{{system.move}}</span>
+          <div class="flexrow">
+            <div class="monster-move">
+              <span class="monster-label monster-small">{{localize "SW25.Monster.Move"}}: </span>
+              <span class="monster-small">{{system.move}}</span>
+            </div>
+            {{#if system.showpt}}
+              <div class="monster-corepart">
+                <span class="monster-label monster-small">{{localize "SW25.Monster.Corepart"}}: </span>
+                <span class="monster-small">{{system.corepart}}</span>
+              </div>
+            {{/if}}
           </div>
           <div class="monster-parameters">
             <hr>
@@ -43,7 +88,11 @@
               <div class="flex-group-middle">
                 <span class="monster-label lootrollable">{{localize "SW25.Monster.Loot"}}</span>
               </div>
-              <div class="monster-pp" style="margin-left: auto;">
+              <div class="monster-wk">
+                <label for="{{_id}}weakapply" class="monster-label">{{localize "SW25.Monster.Weakness"}}</label><br>
+                <input id="{{_id}}weakapply" type="checkbox" name="system.weakapply" {{checked system.weakapply}} data-dtype="Boolean" class="weakapply" />
+              </div>
+              <div class="monster-pp">
                 <span class="monster-label">{{localize "SW25.Attributes.Protectionpoint.abbr"}}</span><br>
                 <span class="monster-value">{{system.pp}}</span>
               </div>
@@ -55,38 +104,6 @@
           </div>
         </div>
       </div>
-      <div class="header-resources-m">
-        <div class="resources grid grid-3col">
-          <label for="{{_id}}hp" class="resource-label">{{localize "SW25.Hp"}}: </label>
-          <div class="current-max-resource nobreak">
-            <input id="{{_id}}hp" type="number" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
-            /
-            <span>{{system.hp.max}}</span>
-          </div>
-          <div class="nobreak">
-            <label for="{{_id}}hpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-            <input id="{{_id}}hpmod" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
-          </div>
-          <progress class="hp-bar grid-span-3" value="{{system.hp.value}}" max="{{system.hp.max}}"></progress>
-          <label for="{{_id}}mp" class="resource-label">{{localize "SW25.Mp"}}: </label>
-          <div class="current-max-resource nobreak">
-            <input id="{{_id}}mp" type="number" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
-            /
-            <span>{{system.mp.max}}</span>
-          </div>
-          <div class="nobreak">
-            <label for="{{_id}}mpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-            <input id="{{_id}}mpmod" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
-          </div>
-          <progress class="mp-bar grid-span-3" value="{{system.mp.value}}" max="{{system.mp.max}}"></progress>
-          {{#if system.showpt}}
-          <div class="grid-span-3">
-            <hr>
-            <span><b>{{localize "SW25.Monster.Corepart"}}: </b>{{system.corepart}}</span>
-          </div>
-          {{/if}}
-        </div>
-      </div><br>
     </div>
   </header>
 
