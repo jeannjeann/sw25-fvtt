@@ -14,9 +14,9 @@
                 <span class="inline-block">/ {{system.hp.max}}</span>
               </div>
             </div>
-            <div class="hpmod nobreak">
+            <div class="hpmod nobreak" style="font-size: 0.7rem; display: flex; align-items: center; justify-content: end; height: 20px;">
               <label for="{{_id}}hpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-              <input id="{{_id}}hpmod" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
+              <input id="{{_id}}hpmod" style="height: 80%;" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
             </div>
           </div>
           <div class="mpbar">
@@ -27,9 +27,9 @@
                 <span class="inline-block">/ {{system.mp.max}}</span>
               </div>
             </div>
-            <div class="mpmod nobreak">
+            <div class="mpmod nobreak"  style="font-size: 0.7rem; display: flex; align-items: center; justify-content: end; height: 20px;">
               <label for="{{_id}}mpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-              <input id="{{_id}}mpmod" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
+              <input id="{{_id}}mpmod" style="height: 80%;" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
             </div>
           </div>
         </div>
@@ -38,17 +38,27 @@
     <div class="header-fields flexrow">
       <div class="character-details">
         <div class="character-details-primary flexrow">
-          <div class="character-name fontsize11">
-            <input id="{{_id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+          <div class="flexcol">
+            <div class="character-name fontsize14">
+              <input id="{{_id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+            </div>
+            <div>
+              {{#each skills as |item index|}}
+                <small>{{item.name}} {{item.system.skilllevel}}</small>{{#unless @last}}, {{/unless}}
+              {{/each}}
+            </div>
           </div>
-          <div class="character-al inline-block fontsize11">
-            <label for="system.attributes.advlevel.value" class="resource-label nobreak">{{localize "SW25.Attributes.Advlevel"}}</label>
-            <span class="adventurer-level">{{system.attributes.advlevel.value}}</span>
+          <div class="character-grace">
+            <label for="{{_id}}grace" class="resource-label">{{localize "SW25.Attributes.Grace"}}</label> <br>
+            <input id="{{_id}}grace" type="checkbox" name="system.attributes.grace" {{checked system.attributes.grace}} data-dtype="Boolean"/>
+          </div>
+
+          <div class="character-al inline-block level-container">
+            <i class="fas fa-bolt"></i>
+            <label for="system.attributes.advlevel.value" class="nobreak level-label">{{localize "SW25.Attributes.Advlevel"}}</label>
+            <span class="adventurer-level level-value">{{system.attributes.advlevel.value}}</span>
           </div>
         </div>
-        {{#each skills as |item index|}}
-            <small>{{item.name}} {{item.system.skilllevel}}</small>{{#unless @last}} - {{/unless}}
-        {{/each}}
         <hr>
         <div class="character-details-secondary textalign-center flexrow">
           <div class="character-race">
@@ -63,17 +73,6 @@
             <label for="{{_id}}gender" class="resource-label">{{localize "SW25.Attributes.Gender"}}</label>
             <input id="{{_id}}gender" type="text" name="system.attributes.gender" value="{{system.attributes.gender}}" placeholder="Gender" data-dtype="String"/>
           </div>
-        </div>
-        <hr>
-        <div class="character-details-tertiary textalign-center flexrow">
-          <div class="character-rank">
-            <label for="{{_id}}rank" class="resource-label">{{localize "SW25.Attributes.Honer.Rank"}}</label>
-            <input id="{{_id}}rank" type="text" name="system.attributes.honer.rank" value="{{system.attributes.honer.rank}}" placeholder="Rank" data-dtype="String"/>
-          </div>
-          <div class="character-honor">
-            <label for="{{_id}}honor" class="resource-label">{{localize "SW25.Attributes.Honer.Label"}}</label>
-            <input id="{{_id}}honor" type="number" name="system.attributes.honer.value" value="{{system.attributes.honer.value}}" placeholder="Rep." data-dtype="Number"/>
-          </div>
           <div class="character-impurity">
             <label for="{{_id}}impurity" class="resource-label">{{localize "SW25.Attributes.Impurity"}}</label>
             <div class="adjustable-container">
@@ -85,13 +84,6 @@
                 <i class="fas fa-plus"></i>
               </a>
             </div>
-          </div>
-        </div>
-        <hr>
-        <div class="character-resources textalign-center flexrow">
-          <div class="character-experience">
-            <label for="{{_id}}exp" class="resource-label">{{localize "SW25.Attributes.Exp"}}</label>
-            <input id="{{_id}}exp" type="number" name="system.attributes.totalexp" value="{{system.attributes.totalexp}}" data-dtype="Number"/>
           </div>
           <div class="character-fumble">
             <label for="{{_id}}fumble" class="resource-label">{{localize "SW25.Attributes.Fumble"}}</label>
@@ -105,12 +97,25 @@
               </a>
             </div>
           </div>
-          <div class="character-grace">
-            <label for="{{_id}}grace" class="resource-label">{{localize "SW25.Attributes.Grace"}}</label> <br>
-            <input id="{{_id}}grace" type="checkbox" name="system.attributes.grace" {{checked system.attributes.grace}} data-dtype="Boolean"/>
+        </div>
+        <hr>
+        <div class="character-details-tertiary textalign-center flexrow">
+          <div class="character-rank">
+            <label for="{{_id}}rank" class="resource-label">{{localize "SW25.Attributes.Honer.Rank"}}</label>
+            <input id="{{_id}}rank" type="text" name="system.attributes.honer.rank" value="{{system.attributes.honer.rank}}" placeholder="Rank" data-dtype="String"/>
+          </div>
+          <div class="character-honor">
+            <label for="{{_id}}honor" class="resource-label">{{localize "SW25.Attributes.Honer.Label"}}</label>
+            <input id="{{_id}}honor" type="number" name="system.attributes.honer.value" value="{{system.attributes.honer.value}}" placeholder="Rep." data-dtype="Number"/>
+          </div>
+          <div class="character-blank">
+          </div>
+          <div class="character-experience">
+            <label for="{{_id}}exp" class="resource-label">{{localize "SW25.Attributes.Exp"}}</label>
+            <input id="{{_id}}exp" type="number" name="system.attributes.totalexp" value="{{system.attributes.totalexp}}" data-dtype="Number"/>
           </div>
         </div>
-      <hr>
+        <hr>
       </div>
     </div>
   </header>
