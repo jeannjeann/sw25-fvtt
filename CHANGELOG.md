@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.12.2
+- UI fix by [Airamhh](https://github.com/Airamhh)
+- bug fix
+
 ## 0.12.1
 - bug fix
 
