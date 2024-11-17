@@ -72,6 +72,7 @@
     "Notargetwarn": "No targets selected.",
     "Multitargetwarn": "Multi targets selected.",
     "Noselectwarn": "No Token selected.",
+    "Characterselectwarn": "The target is not a character.",
     "Multiselectwarn": "Multi Tokens selected.",
     "InputPlaceHolder": "Input here.",
 
@@ -143,6 +144,7 @@
       "Corepart": "Core Part",
       "Ability": "Ability",
       "Loot": "Loot",
+      "AddLoot": "Add Loot",
       "Usespell": "Use Spells",
       "Unidentifiedmon": "Unidentified Monster"
     },

@@ -1,0 +1,11 @@
+{{#if flavor}}<span class="flavor-text">{{flavor}}</span>{{/if}}
+
+{{#each actorLoot}}
+  <div style="text-align: center; font-size: 1em;">
+    <strong>{{loot}}:</strong> {{oldQuantity}} >>> {{newQuantity}}
+  </div>
+{{/each}}
+
+<div style="text-align: center;">
+  <div style="text-align: right; font-size: 0.7em;"> >>><span style="font-size:1.2em;"> {{target}}</span></div>
+</div>

@@ -12,10 +12,14 @@
             <span class="diceresult-total">
                 {{#if critical}} <span class="success">{{localize "SW25.Critical"}} ▶ </span>{{/if}}
                 {{#if fumble}} <span class="failed">{{localize "SW25.Fumble"}} ▶ </span>{{/if}}
-                {{#if chatLootItem}}<span style="font-size:0.7em;">{{/if}}
+                {{#if chatLootItems.length}}<span style="font-size:0.7em;">{{/if}}
                 {{{resultText}}}
                 {{{total}}}
-                {{#if chatLootItem}}: </span><span class="success">{{chatLootItem}}</span>{{/if}}
+                {{#if chatLootItems.length}}: </span>
+                    {{#each chatLootItems}}
+                        <span class="success">{{this}}</span>{{#unless @last}}, {{/unless}}
+                    {{/each}}
+                {{/if}}
             </span>
             <span class="buttonclick quantitychange" data-buttontype="checkincrease">&nbsp;+&nbsp;</span>
         </h4>
@@ -28,6 +32,11 @@
         {{/if}}
     </div>
 </div>
+{{#if chatLootItems.length}}
+  <button class="buttonclick" data-buttontype="buttonaddloot" data-loot="{{chatLootString}}">
+    {{localize "SW25.Monster.AddLoot"}}
+  </button>
+{{/if}}
 <div class="dice-flavor">{{{resusetext}}}</div>
 {{#if (eq apply "custom")}}
 <div>

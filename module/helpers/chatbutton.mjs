@@ -1255,7 +1255,11 @@ export async function chatButton(chatMessage, buttonType) {
     } else if (selectedTokens.length > 1) {
       ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
       return;
+    } else if (selectedTokens[0].actor.type !== "character") {
+      ui.notifications.warn(game.i18n.localize("SW25.Characterselectwarn"));
+      return;
     }
+
     const lootActor = selectedTokens[0].actor;
     const lootItems = chatMessage.flags.loot;
     const speaker = ChatMessage.getSpeaker({ actor: lootActor });
@@ -1284,15 +1288,17 @@ export async function chatButton(chatMessage, buttonType) {
 
     let chatFormula = roll.formula;
     let chatTotal = roll.total;
-    let chatLootItem = null;
+    let chatLootItems = [];
 
-    for (let i = 0; i < lootItems.length; i++) {
-      let min = lootItems[i].range.min;
-      let max = lootItems[i].range.max;
-      if (min == "etc" || max == "etc") continue;
-      if (chatTotal >= min && chatTotal <= max)
-        chatLootItem = lootItems[i].item;
-    }
+    lootItems.forEach(lootItem => {
+      const { min, max } = lootItem.range;
+
+      if (min !== "etc" && max !== "etc" && chatTotal >= min && chatTotal <= max) {
+        chatLootItems.push(lootItem.item);
+      }
+    });
+    
+    const chatLootString = chatLootItems.join(",");
 
     chatData.content = await renderTemplate(
       "systems/sw25/templates/roll/roll-check.hbs",
@@ -1300,7 +1306,8 @@ export async function chatButton(chatMessage, buttonType) {
         formula: chatFormula,
         tooltip: await roll.getTooltip(),
         total: chatTotal,
-        chatLootItem,
+        chatLootItems,
+        chatLootString
       }
     );
 
@@ -1309,6 +1316,60 @@ export async function chatButton(chatMessage, buttonType) {
     return roll;
   }
 
+  if (buttonType === "buttonaddloot") {
+    const selectedTokens = canvas.tokens.controlled;
+  
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+  
+    const lootActor = selectedTokens[0].actor;
+    let actorLoot = [];
+    const button = $(event.currentTarget);
+    const lootItems = button.data("loot").split(",");
+  
+    lootItems.forEach(lootItem => {
+      let existingItem = lootActor.items.find(i => i.name === lootItem.trim());
+  
+      if (existingItem) {
+        const itemQuantity = existingItem.system.quantity;
+        const newItemQuantity = itemQuantity + 1;
+        actorLoot.push({ loot: lootItem.trim(), oldQuantity: itemQuantity, newQuantity: newItemQuantity });
+
+        existingItem.update({ "system.quantity": newItemQuantity });
+      } else {
+        actorLoot.push({ loot: lootItem.trim(), oldQuantity: 0, newQuantity: 1 });
+
+        let itemData = { name: lootItem.trim(), type: "item", system: { quantity: 1 } };
+        lootActor.createEmbeddedDocuments("Item", [itemData]);
+      }
+    });
+  
+    const speaker = ChatMessage.getSpeaker({ actor: actor });
+    const rollMode = game.settings.get("core", "rollMode");
+    let label = `${chatMessage.flavor}`;
+
+    let chatData = {
+      speaker: speaker,
+      flavor: label,
+      rollMode: rollMode,
+    };
+
+    chatData.content = await renderTemplate(
+      "systems/sw25/templates/roll/roll-loot.hbs",
+      {
+        actorLoot,
+        target: lootActor.name
+      }
+    );
+
+    ChatMessage.create(chatData);
+  }
+  
   if (buttonType == "buttonrollreq") {
     const selectedTokens = canvas.tokens.controlled;
     if (selectedTokens.length === 0) {

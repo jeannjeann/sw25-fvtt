@@ -72,6 +72,7 @@
     "Notargetwarn": "ターゲットが指定されていません",
     "Multitargetwarn": "ターゲットが複数指定されています",
     "Noselectwarn": "トークンが選択されていません",
+    "Characterselectwarn": "キャラクターシートが選択されていません",
     "Multiselectwarn": "トークンが複数選択されています",
     "InputPlaceHolder": "ここに入力",
 
@@ -143,6 +144,7 @@
       "Corepart": "コア部位",
       "Ability": "魔物能力",
       "Loot": "戦利品",
+      "AddLoot": "追加戦利品",
       "Usespell": "魔法使用",
       "Unidentifiedmon": "不明の魔物"
     },
