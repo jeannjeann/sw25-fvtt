@@ -634,6 +634,11 @@ progress.mp-bar::-moz-progress-bar {
   padding: 5px;
 }
 
+.sw25 .sheet-body input:hover,
+.sw25 .sheet-body select:hover {
+  box-shadow: 0 0 5px var(--color-shadow-primary);
+}
+
 .sw25 .sheet-body,
 .sw25 .sheet-body .tab {
   height: auto;
@@ -843,10 +848,6 @@ progress.mp-bar::-moz-progress-bar {
   background: none;
 }
 
-.sw25 .sheet-header .header-fields .character-details input:hover{
-  box-shadow: 0 0 5px var(--color-shadow-primary);
-}
-
 .sw25 .sheet-header .header-fields .character-details .character-name input{
   font-weight: bold;
   height: max-content;
@@ -920,7 +921,8 @@ progress.mp-bar::-moz-progress-bar {
   border: 0;
   background: none;
 }
-.sw25 .sheet-header .header-resources input:hover {
+.sw25 .sheet-header input:hover,
+.sw25 .sheet-header select:hover {
   box-shadow: 0 0 5px var(--color-shadow-primary);
 }
 .sw25 .sheet-header .header-resources .current-max-resource input {

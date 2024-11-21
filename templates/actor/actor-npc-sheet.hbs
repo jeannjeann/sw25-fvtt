@@ -10,8 +10,8 @@
       <div class="character-details">
         <hr class="nogapmargin">
         <div class="character-name">
-          <label for="{{_id}}name" class="resource-label">{{localize "SW25.CharacterName"}}</label>
-          <input id="{{_id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+          <label for="{{actor._id}}name" class="resource-label">{{localize "SW25.CharacterName"}}</label>
+          <input id="{{actor._id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>1
         </div>
         <hr>
         <div class="character-details-secondary">
@@ -20,26 +20,26 @@
       </div>
       <div class="header-resources-m">
         <div class="resources grid grid-3col">
-          <label for="{{_id}}hp" class="resource-label">{{localize "SW25.Hp"}}: </label>
+          <label for="{{actor._id}}hp" class="resource-label">{{localize "SW25.Hp"}}: </label>
           <div class="current-max-resource nobreak">
-            <input id="{{_id}}hp" type="number" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
+            <input id="{{actor._id}}hp" type="number" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
             /
             <span>{{system.hp.max}}</span>
           </div>
           <div class="nobreak">
-            <label for="{{_id}}hpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-            <input id="{{_id}}hpmod" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
+            <label for="{{actor._id}}hpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
+            <input id="{{actor._id}}hpmod" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
           </div>
           <progress class="hp-bar grid-span-3" value="{{system.hp.value}}" max="{{system.hp.max}}"></progress>
-          <label for="{{_id}}mp" class="resource-label">{{localize "SW25.Mp"}}: </label>
+          <label for="{{actor._id}}mp" class="resource-label">{{localize "SW25.Mp"}}: </label>
           <div class="current-max-resource nobreak">
-            <input id="{{_id}}mp" type="number" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
+            <input id="{{actor._id}}mp" type="number" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
             /
             <span>{{system.mp.max}}</span>
           </div>
           <div class="nobreak">
-            <label for="{{_id}}mpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-            <input id="{{_id}}mpmod" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
+            <label for="{{actor._id}}mpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
+            <input id="{{actor._id}}mpmod" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
           </div>
           <progress class="mp-bar grid-span-3" value="{{system.mp.value}}" max="{{system.mp.max}}"></progress>
         </div>
@@ -68,13 +68,16 @@
           <div class="grid-span-1 flex-group-center nogapmargin">
             <div class="grid grid-2col nogapmargin">
               <div>
-                <span style="text-align: center;"><b>{{localize "SW25.Max"}}{{localize "SW25.Hp"}}</b><br><input style="text-align: center;" type="text" name="system.hp.max" value="{{system.hp.max}}" data-dtype="Number"/></span>
+                <span style="text-align: center;"><label for="{{actori._id}}system.hp.max"><b>{{localize "SW25.Max"}}{{localize "SW25.Hp"}}</b></label><br>
+                <input id="{{actori._id}}system.hp.max" style="text-align: center;" type="text" name="system.hp.max" value="{{system.hp.max}}" data-dtype="Number"/></span>
               </div>
               <div>
-                <span style="text-align: center;"><b>{{localize "SW25.Max"}}{{localize "SW25.Mp"}}</b><br><input style="text-align: center;" type="text" name="system.mp.max" value="{{system.mp.max}}" data-dtype="Number"/></span>
+                <span style="text-align: center;"><label for="{{actori._id}}system.mp.max"><b>{{localize "SW25.Max"}}{{localize "SW25.Mp"}}</b></label><br>
+                <input id="{{actori._id}}system.mp.max" style="text-align: center;" type="text" name="system.mp.max" value="{{system.mp.max}}" data-dtype="Number"/></span>
               </div>
               <div class="grid-span-2">
-                <span style="text-align: center;"><b>{{localize "SW25.Monster.Language"}}</b><br><input type="text" name="system.language" value="{{system.language}}" data-dtype="String"/></span>
+                <span style="text-align: center;"><label for="{{actori._id}}system.language"><b>{{localize "SW25.Monster.Language"}}</b></label><br>
+                <input id="{{actori._id}}system.language" type="text" name="system.language" value="{{system.language}}" data-dtype="String"/></span>
               </div>
             </div>
           </div>
@@ -88,7 +91,7 @@
         {{#if system.isgm}}
         <div class="flexcol margin-m">
           <div><b>{{localize "SW25.Gminfo"}}</b></div>
-          <span style="text-align: left;">{{localize "SW25.Unidentifiedname"}}<input style="max-width: calc(50% - 7px); text-align: left;" type="text" name="system.udname" value="{{system.udname}}" data-dtype="String"/></span>
+          <span style="text-align: left;"><label for="{{actor._id}}system.udname">{{localize "SW25.Unidentifiedname"}}</label><input id="{{actor._id}}system.udname" style="max-width: calc(50% - 7px); text-align: left;" type="text" name="system.udname" value="{{system.udname}}" data-dtype="String"/></span>
           <div>{{editor system.gminfo target="system.gminfo" rollData=rollData button=true owner=owner editable=editable}}</div>
         </div>
         {{/if}}
