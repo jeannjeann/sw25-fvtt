@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.13.0
+- 複数のターゲットへの適用機能を追加
+- bug fix
+
 ## 0.12.2
 - UI fix by [Airamhh](https://github.com/Airamhh)
 - bug fix
