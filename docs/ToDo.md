@@ -6,8 +6,8 @@
 - 魔法タブ化（レベル別折りたたみリスト、妖精は属性別折りたたみリスト）
 - バフキー判定の直接入力
 - 魔装Infusion、蛮族特殊能力Barbarous unique skills、操気Essence Weaving、奈落魔法Abyssal Magic
-- マルチターゲット
 - 呪歌、賦術、相域、鼓砲のリソース消費
+- マルチターゲット　テンプレート確認
 
 ## 更新作業
 - マニュアル、マクロ、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ、告知

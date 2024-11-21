@@ -68,6 +68,7 @@
     "Cdamage": "Damage (Fixed)",
     "Recovery": "Recovery",
     "Shortage": "Shortage",
+    "Applyall": "Apply All",
 
     "Notargetwarn": "No targets selected.",
     "Multitargetwarn": "Multi targets selected.",
@@ -631,5 +632,10 @@
       "hint": "Configuration for Polyglot module. Off: Get language list only from within the world. On: Get language list from language items in the compendium as well (actor re-selection must be required after loading the world to reflect the compendium language). Default: Off, require reload"
     },
     "rollRequest": "Request Roll"
+  },
+  "DIALOG": {
+    "rollMethod": "Select roll method to multiple targets",
+    "once": "Once",
+    "individual": "Individual"
   }
 }

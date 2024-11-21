@@ -6,6 +6,7 @@ import { powerRoll } from "../helpers/powerroll.mjs";
 import { mpCost } from "../helpers/mpcost.mjs";
 import { lootRoll } from "../helpers/lootroll.mjs";
 import { growthCheck } from "../helpers/growthcheck.mjs";
+import { targetRollDialog } from "../helpers/dialogs.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -517,6 +518,55 @@ export class SW25ActorSheet extends ActorSheet {
    * @private
    */
   async _onRoll(event) {
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+    const targetTokens = game.user.targets;
+    if (dataset.apply == "-" || !dataset.apply || targetTokens.size === 0) {
+      await this._onRollExec(event);
+      return;
+    } else {
+      let label = dataset.label ? `${dataset.label}` : "";
+      const targetRoll = await targetRollDialog(targetTokens, label);
+      if (targetRoll == "cancel") {
+        return;
+      } else if (targetRoll == "once") {
+        await this._onRollExec(event, targetTokens);
+        return;
+      } else if (targetRoll == "individual") {
+        let chatMessageId = [];
+        for (const [index, token] of Array.from(targetTokens).entries()) {
+          const targetToken = new Set([token]);
+          await this._onRollExec(event, targetToken).then((result) => {
+            chatMessageId.push(result.chatMessageId);
+          });
+        }
+
+        // rendar apply all message
+        const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+        const checktype = dataset.checktype ? dataset.checktype.split(",") : "";
+        let chatData = {
+          speaker: speaker,
+          flavor: `${label} - <b>${game.i18n.localize("SW25.Applyall")}</b>`,
+        };
+        chatData.flags = {
+          targetMessage: chatMessageId,
+        };
+        chatData.content = await renderTemplate(
+          "systems/sw25/templates/roll/roll-applyall.hbs",
+          {
+            apply: dataset.apply,
+            checktype: checktype,
+          }
+        );
+
+        ChatMessage.create(chatData);
+        return;
+      }
+    }
+
+    await this._onRollExec(event);
+  }
+  async _onRollExec(event, targetTokens) {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
@@ -584,6 +634,22 @@ export class SW25ActorSheet extends ActorSheet {
 
       let chatapply = dataset.apply;
       let chatspell = dataset.spell;
+
+      // when selected target
+      let target = null;
+      let targetName = null;
+      if (targetTokens) {
+        const targetArray = Array.from(targetTokens);
+        target = targetArray.map((target) => target.id);
+        let targetNames = targetArray.map((target) => target.document.name);
+        targetName = ``;
+        for (let i = 0; i < targetNames.length; i++) {
+          if (i != 0) targetName = targetName + `<br>`;
+          targetName = targetName + `>>> ${targetNames[i]}`;
+        }
+        targetName = targetName + ``;
+      }
+
       chatData.flags = {
         total: roll.total,
         orgtotal: roll.total,
@@ -593,6 +659,7 @@ export class SW25ActorSheet extends ActorSheet {
         apply: chatapply,
         spell: chatspell,
         checktype: checktype,
+        target,
       };
 
       chatData.content = await renderTemplate(
@@ -607,12 +674,16 @@ export class SW25ActorSheet extends ActorSheet {
           spell: chatspell,
           checktype: checktype,
           resusetext: chatresuse,
+          targetName,
         }
       );
 
-      ChatMessage.create(chatData);
+      let chatMessageId;
+      await ChatMessage.create(chatData).then((chatMessage) => {
+        chatMessageId = chatMessage.id;
+      });
 
-      return roll;
+      return { roll, chatMessageId };
     }
   }
 
@@ -622,6 +693,55 @@ export class SW25ActorSheet extends ActorSheet {
    * @private
    */
   async _onPowerRoll(event) {
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+    const targetTokens = game.user.targets;
+    if (dataset.apply == "-" || !dataset.apply || targetTokens.size === 0) {
+      await this._onPowerRollExec(event);
+      return;
+    } else {
+      let label = dataset.label ? `${dataset.label}` : "";
+      const targetRoll = await targetRollDialog(targetTokens, label);
+      if (targetRoll == "cancel") {
+        return;
+      } else if (targetRoll == "once") {
+        await this._onPowerRollExec(event, targetTokens);
+        return;
+      } else if (targetRoll == "individual") {
+        let chatMessageId = [];
+        for (const [index, token] of Array.from(targetTokens).entries()) {
+          const targetToken = new Set([token]);
+          await this._onPowerRollExec(event, targetToken).then((result) => {
+            chatMessageId.push(result.chatMessageId);
+          });
+        }
+
+        // rendar apply all message
+        const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+        const powertype = dataset.powertype ? dataset.powertype.split(",") : "";
+        let chatData = {
+          speaker: speaker,
+          flavor: `${label} - <b>${game.i18n.localize("SW25.Applyall")}</b>`,
+        };
+        chatData.flags = {
+          targetMessage: chatMessageId,
+        };
+        chatData.content = await renderTemplate(
+          "systems/sw25/templates/roll/roll-applyall.hbs",
+          {
+            apply: dataset.apply,
+            powertype: powertype,
+          }
+        );
+
+        ChatMessage.create(chatData);
+        return;
+      }
+    }
+
+    await this._onPowerRollExec(event);
+  }
+  async _onPowerRollExec(event, targetTokens) {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
@@ -702,6 +822,21 @@ export class SW25ActorSheet extends ActorSheet {
     if (roll.cValue == 100 || chatExtraRoll == null) shownoc = false;
     let chatapply = dataset.apply;
 
+    // when selected target
+    let target = null;
+    let targetName = null;
+    if (targetTokens) {
+      const targetArray = Array.from(targetTokens);
+      target = targetArray.map((target) => target.id);
+      let targetNames = targetArray.map((target) => target.document.name);
+      targetName = ``;
+      for (let i = 0; i < targetNames.length; i++) {
+        if (i != 0) targetName = targetName + `<br>`;
+        targetName = targetName + `>>> ${targetNames[i]}`;
+      }
+      targetName = targetName + ``;
+    }
+
     chatData.flags = {
       formula: chatFormula,
       tooltip: await roll.fakeResult.getTooltip(),
@@ -725,6 +860,7 @@ export class SW25ActorSheet extends ActorSheet {
       shownoc: shownoc,
       apply: chatapply,
       powertype: powertype,
+      target,
     };
 
     chatData.content = await renderTemplate(
@@ -748,12 +884,16 @@ export class SW25ActorSheet extends ActorSheet {
         shownoc: shownoc,
         apply: chatapply,
         powertype: powertype,
+        targetName,
       }
     );
 
-    ChatMessage.create(chatData);
+    let chatMessageId;
+    await ChatMessage.create(chatData).then((chatMessage) => {
+      chatMessageId = chatMessage.id;
+    });
 
-    return roll;
+    return { roll, chatMessageId };
   }
 
   async _onApplyEffect(event) {

@@ -1,6 +1,8 @@
 // Chat button handler
 import { powerRoll } from "./powerroll.mjs";
 import { mpCost } from "./mpcost.mjs";
+import { targetRollDialog } from "../helpers/dialogs.mjs";
+
 /**
  * Execute  chat button click event and return the result.
  */
@@ -18,6 +20,88 @@ export async function chatButton(chatMessage, buttonType) {
     buttonType == "buttoncheck3" ||
     buttonType == "buttonpower"
   ) {
+    const targetTokens = game.user.targets;
+
+    let apply = "-";
+    if (buttonType == "buttoncheck") apply = item.system.applycheck;
+    if (buttonType == "buttoncheck1") apply = item.system.applycheck1;
+    if (buttonType == "buttoncheck2") apply = item.system.applycheck2;
+    if (buttonType == "buttoncheck3") apply = item.system.applycheck3;
+    if (buttonType == "buttonpower") apply = item.system.applypower;
+    if (apply == "-" || targetTokens.size === 0) {
+      await chatRoll();
+      return;
+    } else {
+      let label = `${item.name}`;
+      const label0 = game.i18n.localize("SW25.Check");
+      const label1 = item.system.label1;
+      const label2 = item.system.label2;
+      const label3 = item.system.label3;
+      const labelmonpow = item.system.labelmonpow;
+      if (buttonType == "buttoncheck") label = label + " (" + label0 + ")";
+      if (buttonType == "buttoncheck1") label = label + " (" + label1 + ")";
+      if (buttonType == "buttoncheck2") label = label + " (" + label2 + ")";
+      if (buttonType == "buttoncheck3") label = label + " (" + label3 + ")";
+      let powlabel = game.i18n.localize("SW25.Item.Power");
+      if (item.type == "monsterability") powlabel = labelmonpow;
+      if (buttonType == "buttonpower") label = label + " (" + powlabel + ")";
+
+      const targetRoll = await targetRollDialog(targetTokens, label);
+      if (targetRoll == "cancel") {
+        return;
+      } else if (targetRoll == "once") {
+        await chatRoll(targetTokens);
+        return;
+      } else if (targetRoll == "individual") {
+        let chatMessageId = [];
+        for (const [index, token] of Array.from(targetTokens).entries()) {
+          const targetToken = new Set([token]);
+          await chatRoll(targetToken).then((result) => {
+            chatMessageId.push(result.chatMessageId);
+          });
+        }
+
+        // rendar apply all message
+        const speaker = ChatMessage.getSpeaker({ actor: actor });
+        let chatapply = "-";
+        let checktype = null;
+        let powertype = null;
+        if (buttonType == "buttoncheck") {
+          chatapply = item.system.applycheck;
+          checktype = item.system.checkTypesButton;
+        }
+        if (buttonType == "buttoncheck1") chatapply = item.system.applycheck1;
+        if (buttonType == "buttoncheck2") chatapply = item.system.applycheck2;
+        if (buttonType == "buttoncheck3") chatapply = item.system.applycheck3;
+        if (buttonType == "buttonpower") {
+          chatapply = item.system.applypower;
+          powertype = item.system.powerTypesButton;
+        }
+
+        let chatData = {
+          speaker: speaker,
+          flavor: `${label} - <b>${game.i18n.localize("SW25.Applyall")}</b>`,
+        };
+        chatData.flags = {
+          targetMessage: chatMessageId,
+        };
+        chatData.content = await renderTemplate(
+          "systems/sw25/templates/roll/roll-applyall.hbs",
+          {
+            apply: chatapply,
+            checktype: checktype,
+            powertype: powertype,
+          }
+        );
+
+        ChatMessage.create(chatData);
+        return;
+      }
+    }
+
+    await chatRoll();
+  }
+  async function chatRoll(targetTokens) {
     const label1 = item.system.label1;
     const label2 = item.system.label2;
     const label3 = item.system.label3;
@@ -143,32 +227,31 @@ export async function chatButton(chatMessage, buttonType) {
         chatapply = item.system.applycheck3;
         baseformula = item.system.checkformula3;
       } else {
-        let resuse = item.system.resuse;
-        if (resuse !== "-" && item.system.autouseres) {
-          let actoritem = actor.items.get(resuse);
-          let resusequantity = item.system.resusequantity;
-          let actoritemquantity = actoritem.system.quantity;
-          let remainingquantity = actoritemquantity - resusequantity;
-          let min = actoritem.system.qmin;
+        label = label + " (" + game.i18n.localize("SW25.Check") + ")";
+        chatapply = item.system.applycheck;
+      }
 
-          if (actoritemquantity < resusequantity) {
-            ui.notifications.warn(
-              game.i18n.localize("SW25.Item.Noresquantitiywarn") +
-                actoritem.name
-            );
-            return;
-          } else if (remainingquantity < min) {
-            ui.notifications.warn(
-              game.i18n.localize("SW25.Item.Noresquantitiywarn") +
-                actoritem.name
-            );
-            return;
-          } else {
-            actoritem.update({ "system.quantity": remainingquantity });
-            label = label + " (" + game.i18n.localize("SW25.Check") + ")";
-            chatapply = item.system.applycheck;
-            chatresuse = `<div style="text-align: right;">${actoritem.name}: ${actoritemquantity} >>> ${remainingquantity}</div>`;
-          }
+      let resuse = item.system.resuse;
+      if (resuse !== "-" && item.system.autouseres) {
+        let actoritem = actor.items.get(resuse);
+        let resusequantity = item.system.resusequantity;
+        let actoritemquantity = actoritem.system.quantity;
+        let remainingquantity = actoritemquantity - resusequantity;
+        let min = actoritem.system.qmin;
+
+        if (actoritemquantity < resusequantity) {
+          ui.notifications.warn(
+            game.i18n.localize("SW25.Item.Noresquantitiywarn") + actoritem.name
+          );
+          return;
+        } else if (remainingquantity < min) {
+          ui.notifications.warn(
+            game.i18n.localize("SW25.Item.Noresquantitiywarn") + actoritem.name
+          );
+          return;
+        } else {
+          actoritem.update({ "system.quantity": remainingquantity });
+          chatresuse = `<div style="text-align: right;">${actoritem.name}: ${actoritemquantity} >>> ${remainingquantity}</div>`;
         }
       }
 
@@ -193,11 +276,27 @@ export async function chatButton(chatMessage, buttonType) {
       if (roll.terms[0].total == 2) chatFumble = 1;
       let checktype = item.system.checkTypesButton;
 
+      // when selected target
+      let target = null;
+      let targetName = null;
+      if (targetTokens) {
+        const targetArray = Array.from(targetTokens);
+        target = targetArray.map((target) => target.id);
+        let targetNames = targetArray.map((target) => target.document.name);
+        targetName = ``;
+        for (let i = 0; i < targetNames.length; i++) {
+          if (i != 0) targetName = targetName + `<br>`;
+          targetName = targetName + `>>> ${targetNames[i]}`;
+        }
+        targetName = targetName + ``;
+      }
+
       chatData.flags = {
         total: chatTotal,
         apply: chatapply,
         rolls: roll,
         checktype: checktype,
+        target,
       };
 
       chatData.content = await renderTemplate(
@@ -211,12 +310,16 @@ export async function chatButton(chatMessage, buttonType) {
           apply: chatapply,
           checktype: checktype,
           resusetext: chatresuse,
+          targetName,
         }
       );
 
-      ChatMessage.create(chatData);
+      let chatMessageId;
+      await ChatMessage.create(chatData).then((chatMessage) => {
+        chatMessageId = chatMessage.id;
+      });
 
-      return roll;
+      return { roll, chatMessageId };
     }
 
     if (buttonType == "buttonpower") {
@@ -298,6 +401,21 @@ export async function chatButton(chatMessage, buttonType) {
       let chatapply = item.system.applypower;
       let powertype = item.system.powerTypesButton;
 
+      // when selected target
+      let target = null;
+      let targetName = null;
+      if (targetTokens) {
+        const targetArray = Array.from(targetTokens);
+        target = targetArray.map((target) => target.id);
+        let targetNames = targetArray.map((target) => target.document.name);
+        targetName = ``;
+        for (let i = 0; i < targetNames.length; i++) {
+          if (i != 0) targetName = targetName + `<br>`;
+          targetName = targetName + `>>> ${targetNames[i]}`;
+        }
+        targetName = targetName + ``;
+      }
+
       chatData.flags = {
         formula: chatFormula,
         tooltip: await roll.fakeResult.getTooltip(),
@@ -321,6 +439,7 @@ export async function chatButton(chatMessage, buttonType) {
         shownoc: shownoc,
         apply: chatapply,
         powertype: powertype,
+        target,
       };
 
       chatData.content = await renderTemplate(
@@ -344,12 +463,16 @@ export async function chatButton(chatMessage, buttonType) {
           shownoc: shownoc,
           apply: chatapply,
           powertype: powertype,
+          targetName,
         }
       );
 
-      ChatMessage.create(chatData);
+      let chatMessageId;
+      await ChatMessage.create(chatData).then((chatMessage) => {
+        chatMessageId = chatMessage.id;
+      });
 
-      return roll;
+      return { roll, chatMessageId };
     }
   }
   if (buttonType == "buttonhalf") {
@@ -1009,100 +1132,117 @@ export async function chatButton(chatMessage, buttonType) {
     buttonType == "buttonhr" ||
     buttonType == "buttonmr"
   ) {
-    const targetTokens = game.user.targets;
-    if (targetTokens.size === 0) {
-      ui.notifications.warn(game.i18n.localize("SW25.Notargetwarn"));
-      return;
-    } else if (targetTokens.size > 1) {
-      ui.notifications.warn(game.i18n.localize("SW25.Multitargetwarn"));
-      return;
-    }
-    const targetActors = [];
-    targetTokens.forEach((token) => {
-      targetActors.push(token.actor);
-    });
-    const targetActor = targetActors[0];
-    let targetHP = targetActor.system.hp.value;
-    let targetMP = targetActor.system.mp.value;
-    let targetMaxHP = targetActor.system.hp.max;
-    let targetMaxMP = targetActor.system.mp.max;
-    let targetPP = 0;
-    let targetMPP = 0;
-    if (targetActor.type == "character") {
-      targetPP = targetActor.system.attributes.protectionpoint;
-      targetMPP = targetActor.system.attributes.magicprotection;
-    } else if (targetActor.type == "monster") {
-      targetPP = targetActor.system.pp;
-      targetMPP = targetActor.system.mpp;
-    }
-    let resultHP = targetHP;
-    let resultMP = targetMP;
-
-    let resultValue = chatMessage.flags.total;
-    let differenceValue = 0;
-
-    if (buttonType == "buttonpd") {
-      resultHP = targetHP - Math.max(0, resultValue - targetPP);
-      differenceValue = targetHP - resultHP;
-    }
-    if (buttonType == "buttonmd") {
-      resultHP = targetHP - Math.max(0, resultValue - targetMPP);
-      differenceValue = targetHP - resultHP;
-    }
-    if (buttonType == "buttoncd") {
-      resultHP = targetHP - resultValue;
-      differenceValue = targetHP - resultHP;
-    }
-    if (buttonType == "buttonhr") {
-      if (targetHP + resultValue < targetMaxHP) {
-        resultHP = targetHP + resultValue;
-      } else resultHP = targetMaxHP;
-      differenceValue = resultHP - targetHP;
-    }
-    if (buttonType == "buttonmr") {
-      if (targetMP + resultValue < targetMaxMP) {
-        resultMP = targetMP + resultValue;
-      } else resultMP = targetMaxMP;
-      differenceValue = resultMP - targetMP;
-    }
-
-    const targetTokenId = Array.from(targetTokens, (target) => target.id);
-    if (game.user.isGM) {
-      const targetToken = canvas.tokens.get(targetTokenId[0]);
-      const target = targetToken.actor;
-      target.update({
-        "system.hp.value": resultHP,
-        "system.mp.value": resultMP,
-      });
-    } else {
-      game.socket.emit("system.sw25", {
-        method: "applyRoll",
-        targetToken: targetTokenId[0],
-        resultHP: resultHP,
-        resultMP: resultMP,
-      });
-    }
-
-    const speaker = ChatMessage.getSpeaker({ actor: actor });
-    const rollMode = game.settings.get("core", "rollMode");
-    let label = `${chatMessage.flavor}`;
-
-    let chatData = {
-      speaker: speaker,
-      flavor: label,
-      rollMode: rollMode,
-    };
-
-    chatData.content = await renderTemplate(
-      "systems/sw25/templates/roll/roll-apply.hbs",
-      {
-        value: differenceValue,
-        target: targetActor.name,
-        type: buttonType,
+    let targetTokenId;
+    if (!chatMessage.flags.target) {
+      const targetTokens = game.user.targets;
+      if (targetTokens.size === 0) {
+        ui.notifications.warn(game.i18n.localize("SW25.Notargetwarn"));
+        return;
+        /*
+      } else if (targetTokens.size > 1) {
+        ui.notifications.warn(game.i18n.localize("SW25.Multitargetwarn"));
+        return;
+      */
+      } else {
+        const targetTokenIds = [];
+        targetTokens.forEach((token) => {
+          targetTokenIds.push(token.id);
+        });
+        for (let i = 0; i < targetTokenIds.length; i++) {
+          targetTokenId = targetTokenIds[i];
+          await applyExec(targetTokenId);
+        }
       }
-    );
+    } else {
+      for (let i = 0; i < chatMessage.flags.target.length; i++) {
+        const targetToken = canvas.tokens.get(chatMessage.flags.target[i]);
+        targetTokenId = targetToken.id;
+        await applyExec(targetTokenId);
+      }
+    }
 
-    ChatMessage.create(chatData);
+    async function applyExec(targetTokenId) {
+      const targetToken = canvas.tokens.get(targetTokenId);
+      const targetActor = targetToken.actor;
+      let targetHP = targetActor.system.hp.value;
+      let targetMP = targetActor.system.mp.value;
+      let targetMaxHP = targetActor.system.hp.max;
+      let targetMaxMP = targetActor.system.mp.max;
+      let targetPP = 0;
+      let targetMPP = 0;
+      if (targetActor.type == "character") {
+        targetPP = targetActor.system.attributes.protectionpoint;
+        targetMPP = targetActor.system.attributes.magicprotection;
+      } else if (targetActor.type == "monster") {
+        targetPP = targetActor.system.pp;
+        targetMPP = targetActor.system.mpp;
+      }
+      let resultHP = targetHP;
+      let resultMP = targetMP;
+
+      let resultValue = chatMessage.flags.total;
+      let differenceValue = 0;
+
+      if (buttonType == "buttonpd") {
+        resultHP = targetHP - Math.max(0, resultValue - targetPP);
+        differenceValue = targetHP - resultHP;
+      }
+      if (buttonType == "buttonmd") {
+        resultHP = targetHP - Math.max(0, resultValue - targetMPP);
+        differenceValue = targetHP - resultHP;
+      }
+      if (buttonType == "buttoncd") {
+        resultHP = targetHP - resultValue;
+        differenceValue = targetHP - resultHP;
+      }
+      if (buttonType == "buttonhr") {
+        if (targetHP + resultValue < targetMaxHP) {
+          resultHP = targetHP + resultValue;
+        } else resultHP = targetMaxHP;
+        differenceValue = resultHP - targetHP;
+      }
+      if (buttonType == "buttonmr") {
+        if (targetMP + resultValue < targetMaxMP) {
+          resultMP = targetMP + resultValue;
+        } else resultMP = targetMaxMP;
+        differenceValue = resultMP - targetMP;
+      }
+
+      if (game.user.isGM) {
+        targetActor.update({
+          "system.hp.value": resultHP,
+          "system.mp.value": resultMP,
+        });
+      } else {
+        game.socket.emit("system.sw25", {
+          method: "applyRoll",
+          targetToken: targetTokenId,
+          resultHP: resultHP,
+          resultMP: resultMP,
+        });
+      }
+
+      const speaker = ChatMessage.getSpeaker({ actor: actor });
+      const rollMode = game.settings.get("core", "rollMode");
+      let label = `${chatMessage.flavor}`;
+
+      let chatData = {
+        speaker: speaker,
+        flavor: label,
+        rollMode: rollMode,
+      };
+
+      chatData.content = await renderTemplate(
+        "systems/sw25/templates/roll/roll-apply.hbs",
+        {
+          value: differenceValue,
+          target: targetToken.document.name,
+          type: buttonType,
+        }
+      );
+
+      ChatMessage.create(chatData);
+    }
   }
 
   if (buttonType == "buttoneffect") {
@@ -1182,6 +1322,41 @@ export async function chatButton(chatMessage, buttonType) {
     );
 
     ChatMessage.create(chatData);
+  }
+
+  if (
+    buttonType == "buttonpdall" ||
+    buttonType == "buttonmdall" ||
+    buttonType == "buttoncdall" ||
+    buttonType == "buttonhrall" ||
+    buttonType == "buttonmrall"
+  ) {
+    const targetMessages = chatMessage.flags.targetMessage;
+    let type = "";
+    switch (buttonType) {
+      case "buttonpdall":
+        type = "buttonpd";
+        break;
+      case "buttonmdall":
+        type = "buttonmd";
+        break;
+      case "buttoncdall":
+        type = "buttoncd";
+        break;
+      case "buttonhrall":
+        type = "buttonhr";
+        break;
+      case "buttonmrall":
+        type = "buttonmr";
+        break;
+      default:
+        break;
+    }
+    for (let i = 0; i < targetMessages.length; i++) {
+      const targetMessage = game.messages.get(targetMessages[i]);
+      chatButton(targetMessage, type);
+    }
+    return;
   }
 
   if (buttonType == "buttonmp") {

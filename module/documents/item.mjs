@@ -19,6 +19,7 @@ import {
   effectDrpMon,
   effectDmpMon,
 } from "../sw25.mjs";
+import { targetRollDialog } from "../helpers/dialogs.mjs";
 
 let quantityWarn = false;
 
@@ -1729,6 +1730,105 @@ export class SW25Item extends Item {
    * @private
    */
   async roll() {
+    if (
+      this.system.clickitem == "dice" ||
+      this.system.clickitem == "dice1" ||
+      this.system.clickitem == "dice2" ||
+      this.system.clickitem == "dice3" ||
+      this.system.clickitem == "power"
+    ) {
+      const targetTokens = game.user.targets;
+
+      let apply = "-";
+      if (this.system.clickitem == "dice") apply = this.system.applycheck;
+      if (this.system.clickitem == "dice1") apply = this.system.applycheck1;
+      if (this.system.clickitem == "dice2") apply = this.system.applycheck2;
+      if (this.system.clickitem == "dice3") apply = this.system.applycheck3;
+      if (this.system.clickitem == "power") apply = this.system.applypower;
+      if (apply == "-" || targetTokens.size === 0) {
+        await this.rollExec();
+        return;
+      } else {
+        const item = this;
+        let label = `${item.name}`;
+        const label0 = game.i18n.localize("SW25.Check");
+        const label1 = item.system.label1;
+        const label2 = item.system.label2;
+        const label3 = item.system.label3;
+        const labelmonpow = item.system.labelmonpow;
+        if (item.system.clickitem == "dice")
+          label = label + " (" + label0 + ")";
+        if (item.system.clickitem == "dice1")
+          label = label + " (" + label1 + ")";
+        if (item.system.clickitem == "dice2")
+          label = label + " (" + label2 + ")";
+        if (item.system.clickitem == "dice3")
+          label = label + " (" + label3 + ")";
+        let powlabel = game.i18n.localize("SW25.Item.Power");
+        if (item.type == "monsterability") powlabel = labelmonpow;
+        if (item.system.clickitem == "power")
+          label = label + " (" + powlabel + ")";
+
+        const targetRoll = await targetRollDialog(targetTokens, label);
+        if (targetRoll == "cancel") {
+          return;
+        } else if (targetRoll == "once") {
+          await this.rollExec(targetTokens);
+          return;
+        } else if (targetRoll == "individual") {
+          let chatMessageId = [];
+          for (const [index, token] of Array.from(targetTokens).entries()) {
+            const targetToken = new Set([token]);
+            await this.rollExec(targetToken).then((result) => {
+              chatMessageId.push(result.chatMessageId);
+            });
+          }
+
+          // rendar apply all message
+          const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+          let chatapply = "-";
+          let checktype = null;
+          let powertype = null;
+          if (this.system.clickitem == "dice") {
+            chatapply = this.system.applycheck;
+            checktype = this.system.checkTypesButton;
+          }
+          if (this.system.clickitem == "dice1")
+            chatapply = this.system.applycheck1;
+          if (this.system.clickitem == "dice2")
+            chatapply = this.system.applycheck2;
+          if (this.system.clickitem == "dice3")
+            chatapply = this.system.applycheck3;
+          if (this.system.clickitem == "power") {
+            chatapply = this.system.applypower;
+            powertype = this.system.powerTypesButton;
+          }
+
+          let chatData = {
+            speaker: speaker,
+            flavor: `${label} - <b>${game.i18n.localize("SW25.Applyall")}</b>`,
+          };
+          chatData.flags = {
+            targetMessage: chatMessageId,
+          };
+          chatData.content = await renderTemplate(
+            "systems/sw25/templates/roll/roll-applyall.hbs",
+            {
+              apply: chatapply,
+              checktype: checktype,
+              powertype: powertype,
+            }
+          );
+
+          ChatMessage.create(chatData);
+          return;
+        }
+      }
+    }
+
+    await this.rollExec();
+  }
+  async rollExec(targetTokens) {
     const item = this;
 
     // Initialize chat data.
@@ -1842,6 +1942,21 @@ export class SW25Item extends Item {
       if (roll.terms[0].total == 2) chatFumble = 1;
       let checktype = this.system.checkTypesButton;
 
+      // when selected target
+      let target = null;
+      let targetName = null;
+      if (targetTokens) {
+        const targetArray = Array.from(targetTokens);
+        target = targetArray.map((target) => target.id);
+        let targetNames = targetArray.map((target) => target.document.name);
+        targetName = ``;
+        for (let i = 0; i < targetNames.length; i++) {
+          if (i != 0) targetName = targetName + `<br>`;
+          targetName = targetName + `>>> ${targetNames[i]}`;
+        }
+        targetName = targetName + ``;
+      }
+
       chatData.flags = {
         total: chatTotal,
         orgtotal: chatTotal,
@@ -1850,6 +1965,7 @@ export class SW25Item extends Item {
         tooltip: await roll.getTooltip(),
         apply: chatapply,
         checktype: checktype,
+        target,
       };
 
       chatData.content = await renderTemplate(
@@ -1862,12 +1978,16 @@ export class SW25Item extends Item {
           total: chatTotal,
           apply: chatapply,
           checktype: checktype,
+          targetName,
         }
       );
 
-      ChatMessage.create(chatData);
+      let chatMessageId;
+      await ChatMessage.create(chatData).then((chatMessage) => {
+        chatMessageId = chatMessage.id;
+      });
 
-      return roll;
+      return { roll, chatMessageId };
     }
 
     if (this.system.clickitem == "power") {
@@ -1946,6 +2066,21 @@ export class SW25Item extends Item {
       let chatapply = this.system.applypower;
       let powertype = this.system.powerTypesButton;
 
+      // when selected target
+      let target = null;
+      let targetName = null;
+      if (targetTokens) {
+        const targetArray = Array.from(targetTokens);
+        target = targetArray.map((target) => target.id);
+        let targetNames = targetArray.map((target) => target.document.name);
+        targetName = ``;
+        for (let i = 0; i < targetNames.length; i++) {
+          if (i != 0) targetName = targetName + `<br>`;
+          targetName = targetName + `>>> ${targetNames[i]}`;
+        }
+        targetName = targetName + ``;
+      }
+
       chatData.flags = {
         formula: chatFormula,
         tooltip: await roll.fakeResult.getTooltip(),
@@ -1969,6 +2104,7 @@ export class SW25Item extends Item {
         shownoc: shownoc,
         apply: chatapply,
         powertype: powertype,
+        target,
       };
 
       chatData.content = await renderTemplate(
@@ -1992,12 +2128,16 @@ export class SW25Item extends Item {
           shownoc: shownoc,
           apply: chatapply,
           powertype: powertype,
+          targetName,
         }
       );
 
-      ChatMessage.create(chatData);
+      let chatMessageId;
+      await ChatMessage.create(chatData).then((chatMessage) => {
+        chatMessageId = chatMessage.id;
+      });
 
-      return roll;
+      return { roll, chatMessageId };
     }
 
     if (this.system.clickitem == "mpcost") {
