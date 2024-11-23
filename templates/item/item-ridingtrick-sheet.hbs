@@ -12,13 +12,13 @@
         </div>
         <div class="grid-span-2"></div>
         <div class="grid-span-3">
-          <b>{{localize "SW25.Item.Ridingtrick.Premise"}} : </b>{{system.premise}}
+          <b>{{localize "SW25.Item.Premise"}} : </b>{{system.premise}}
         </div>
         <div class="grid-span-3">
           <b>{{localize "SW25.Item.Ridingtrick.Support"}} : </b>{{system.support}}
         </div>
         <div class="grid-span-6">
-          <b>{{localize "SW25.Item.Ridingtrick.Part"}} : </b>{{system.rtpart}}
+          <b>{{localize "SW25.Item.Part"}} : </b>{{system.rtpart}}
         </div>
         <div class="grid-span-6">
           <b>{{localize "SW25.Item.Overview"}} : </b>{{system.overview}}
@@ -76,18 +76,19 @@
             <input id="{{item._id}}system.level" style="max-width: calc(50% - 7px);" type="text" name="system.level" value="{{system.level}}" data-dtype="Number"/>
           </span>
           <span class="grid-span-2"></span>
-          <span class="grid-span-4" style="text-align: left;"><label for="{{item._id}}system.premise"><b>{{localize "SW25.Item.Ridingtrick.Premise"}}</b></label><br>
+          <span class="grid-span-4" style="text-align: left;"><label for="{{item._id}}system.premise"><b>{{localize "SW25.Item.Premise"}}</b></label><br>
             <input id="{{item._id}}system.premise" type="text" name="system.premise" value="{{system.premise}}" data-dtype="String"/>
           </span>
           <span class="grid-span-6" style="text-align: left;"><label for="{{item._id}}system.support"><b>{{localize "SW25.Item.Ridingtrick.Support"}}</b></label><br>
             <input id="{{item._id}}system.support" type="text" name="system.support" value="{{system.support}}" data-dtype="String"/>
           </span>
-          <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.rtpart"><b>{{localize "SW25.Item.Ridingtrick.Part"}}</b></label><br>
+          <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.rtpart"><b>{{localize "SW25.Item.Part"}}</b></label><br>
             <input id="{{item._id}}system.rtpart" type="text" name="system.rtpart" value="{{system.rtpart}}" data-dtype="String"/>
           </span>
           <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.overview"><b>{{localize "SW25.Item.Overview"}}</b></label><br>
             <input id="{{item._id}}system.overview" type="text" name="system.overview" value="{{system.overview}}" data-dtype="String"/>
           </span>
+
         </div>
         <div style="display: {{#if system.usedice}}block{{else}}none{{/if}};">
           <div class="flexrow grid grid-10col">

@@ -10,7 +10,7 @@
     <div class='item-element' style="flex: 0 0 80px;">{{localize "SW25.Item.Prop"}}</div>
   </li>
   {{#each priest as |item id|}}
-    <li class='item' data-item-id='{{item._id}}'>
+    <li class='item spell' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;">
           {{system.level}}
@@ -26,7 +26,7 @@
               />
             </a>
           </div>
-          {{#if system.aux}}≫{{/if}}{{#if system.prep}}△{{/if}}<h4 class="item-label">{{item.name}}</h4>
+          {{#if system.aux}}≫{{/if}}{{#if system.prep}}△{{/if}}<h4 class="spell-label">{{item.name}}</h4>
         </div>
         <div class="rollable" style="flex: 0 0 40px; display: {{#if system.usedice}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula}}+{{item.system.checkbase}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck}}" data-checktype="{{system.checkTypesButton}}">
           <b>{{localize "SW25.Item.CheckB"}}</b>
@@ -56,7 +56,7 @@
           {{system.propname}}
         </div>
       </div>
-      <div class="item-description nogapmargin">
+      <div class="spell-description nogapmargin">
         <div class="flexrow">
           <div style="flex: 0 0 60px;"></div>
           <div style="font-size: 0.8em;">

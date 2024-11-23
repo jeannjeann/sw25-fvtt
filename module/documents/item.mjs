@@ -1,5 +1,5 @@
 import { powerRoll } from "../helpers/powerroll.mjs";
-import { mpCost } from "../helpers/mpcost.mjs";
+import { mpCost, hpCost } from "../helpers/mpcost.mjs";
 import {
   effectVitResPC,
   effectMndResPC,
@@ -18,6 +18,7 @@ import {
   effectFrpMon,
   effectDrpMon,
   effectDmpMon,
+  effectAbpMon,
 } from "../sw25.mjs";
 import { targetRollDialog } from "../helpers/dialogs.mjs";
 
@@ -60,6 +61,9 @@ export class SW25Item extends Item {
     this._prepareAlchemytechData(itemData);
     this._preparePhaseareaData(itemData);
     this._prepareTacticsData(itemData);
+    this._prepareInfusionData(itemData);
+    this._prepareBarbarousskillData(itemData);
+    this._prepareEssenceweaveData(itemData);
     this._prepareOtherFeatureData(itemData);
     this._prepareRaceabilityData(itemData);
     this._prepareSpellData(itemData);
@@ -444,6 +448,9 @@ export class SW25Item extends Item {
       itemData.type !== "alchemytech" &&
       itemData.type !== "phasearea" &&
       itemData.type !== "tactics" &&
+      itemData.type !== "infusion" &&
+      itemData.type !== "barbarousskill" &&
+      itemData.type !== "essenceweave" &&
       itemData.type !== "otherfeature" &&
       itemData.type !== "resource" &&
       itemData.type !== "combatability" &&
@@ -863,6 +870,25 @@ export class SW25Item extends Item {
             Number(actorData.attributes.efmpall);
           if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
+        case "abyssal":
+          systemData.checkbase =
+            Number(systemData.checkbase) +
+            Number(actorData.attributes.abmod) +
+            Number(actorData.attributes.efabmod) +
+            Number(actorData.attributes.efabckmod) +
+            Number(actorData.attributes.efmckall);
+          systemData.powerbase =
+            Number(systemData.powerbase) +
+            Number(actorData.attributes.abmod) +
+            Number(actorData.attributes.efabmod) +
+            Number(actorData.attributes.efabpwmod) +
+            Number(actorData.attributes.efmpwall);
+          systemData.mpcost =
+            Number(systemData.basempcost) -
+            Number(actorData.attributes.efmpab) -
+            Number(actorData.attributes.efmpall);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
+          break;
         default:
           break;
       }
@@ -884,6 +910,18 @@ export class SW25Item extends Item {
       systemData.mpcost =
         Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
       if (systemData.mpcost < 1) systemData.mpcost = 1;
+    }
+
+    if (itemData.type == "barbarousskill") {
+      systemData.mpcost = Number(systemData.basempcost);
+    }
+
+    if (itemData.type == "essenceweave") {
+      systemData.checkbase =
+        Number(systemData.checkbase) + Number(actorData.attributes.efewckmod);
+      systemData.powerbase =
+        Number(systemData.powerbase) + Number(actorData.attributes.efewpwmod);
+      systemData.hpcost = systemData.basehpcost;
     }
 
     if (itemData.type == "otherfeature") {
@@ -1000,6 +1038,14 @@ export class SW25Item extends Item {
             else systemData.efmod = Number(systemData.efallmgpmod);
             systemData.efallckmod = 0;
             break;
+          case effectAbpMon:
+            if (actorData.attributes.efabmod)
+              systemData.efmod =
+                Number(actorData.attributes.efabmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
           default:
             systemData.efmod = 0;
             break;
@@ -1077,6 +1123,14 @@ export class SW25Item extends Item {
             if (actorData.attributes.efdmmod)
               systemData.efmod =
                 Number(actorData.attributes.efdmmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectAbpMon:
+            if (actorData.attributes.efabmod)
+              systemData.efmod =
+                Number(actorData.attributes.efabmod) +
                 Number(systemData.efallmgpmod);
             else systemData.efmod = Number(systemData.efallmgpmod);
             systemData.efallckmod = 0;
@@ -1290,6 +1344,7 @@ export class SW25Item extends Item {
       */
       if (systemData.quantity > systemData.qmax) {
         systemData.quantity = systemData.qmax;
+        /*
         if (!quantityWarn) {
           ui.notifications.warn(
             `"${itemData.name}"${game.i18n.localize("SW25.isAlreadyMax")}`
@@ -1299,6 +1354,7 @@ export class SW25Item extends Item {
             quantityWarn = false;
           }, 100);
         }
+        */
       }
     }
     if (systemData.qmin || systemData.qmin == 0) {
@@ -1318,6 +1374,7 @@ export class SW25Item extends Item {
       */
       if (systemData.quantity < systemData.qmin) {
         systemData.quantity = systemData.qmin;
+        /*
         if (!quantityWarn) {
           ui.notifications.warn(
             `"${itemData.name}"${game.i18n.localize("SW25.isAlreadyMin")}`
@@ -1327,6 +1384,7 @@ export class SW25Item extends Item {
             quantityWarn = false;
           }, 100);
         }
+        */
       }
     }
 
@@ -1460,6 +1518,7 @@ export class SW25Item extends Item {
       );
     } else systemData.condtypename = "-";
   }
+
   _prepareEnhanceartsData(itemData) {}
 
   _prepareMagicalsongData(itemData) {
@@ -1574,6 +1633,24 @@ export class SW25Item extends Item {
     } else systemData.linename = "-";
   }
 
+  _prepareInfusionData(itemData) {}
+
+  _prepareBarbarousskillData(itemData) {
+    if (itemData.type !== "barbarousskill") return;
+
+    // Make modifications to data here. For example:
+    const systemData = itemData.system;
+    const actorData = itemData.actor.system;
+    const actoritemData = itemData.actor.items;
+
+    if (systemData.resist != "-") {
+      const i18nresist =
+        systemData.resist.charAt(0).toUpperCase() + systemData.resist.slice(1);
+      systemData.resistname = game.i18n.localize(`SW25.Item.${i18nresist}`);
+    } else systemData.resistname = "-";
+  }
+
+  _prepareEssenceweaveData(itemData) {}
   _prepareOtherFeatureData(itemData) {}
   _prepareRaceabilityData(itemData) {}
   _prepareLanguageData(itemData, actor) {}
@@ -1700,6 +1777,16 @@ export class SW25Item extends Item {
         if (systemData.checkabi == "-") systemData.checkabi = "int";
         if (systemData.powerskill == "-")
           systemData.powerskill = actorData.dmskill;
+        if (systemData.powerabi == "-") systemData.powerabi = "int";
+      }
+    }
+    if (systemData.type == "abyssal") {
+      if (actorData.abskill != "-") {
+        if (systemData.checkskill == "-")
+          systemData.checkskill = actorData.abskill;
+        if (systemData.checkabi == "-") systemData.checkabi = "int";
+        if (systemData.powerskill == "-")
+          systemData.powerskill = actorData.abskill;
         if (systemData.powerabi == "-") systemData.powerabi = "int";
       }
     }
@@ -1850,7 +1937,11 @@ export class SW25Item extends Item {
     let spell = false;
     if (item.type == "spell") spell = true;
     let enhancearts = false;
-    if (item.type == "enhancearts") spell = true;
+    if (item.type == "enhancearts") enhancearts = true;
+    let barbarousskill = false;
+    if (item.type == "barbarousskill") barbarousskill = true;
+    let essenceweave = false;
+    if (item.type == "essenceweave") essenceweave = true;
     let resource = false;
     if (item.type == "weapon") {
       if (item.system.resuse != "-") resource = true;
@@ -1878,6 +1969,8 @@ export class SW25Item extends Item {
           description: chatDescription,
           spell: spell,
           enhancearts: enhancearts,
+          barbarousskill: barbarousskill,
+          essenceweave: essenceweave,
           resource: resource,
           usedice: usedice,
           usedice1: usedice1,
@@ -2155,6 +2248,23 @@ export class SW25Item extends Item {
       const type = item.type;
       const meta = 1;
       mpCost(token, cost, name, type, meta);
+    }
+
+    if (this.system.clickitem == "hpcost") {
+      const selectedTokens = canvas.tokens.controlled;
+      if (selectedTokens.length === 0) {
+        ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+        return;
+      } else if (selectedTokens.length > 1) {
+        ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+        return;
+      }
+      const token = selectedTokens[0];
+      const cost = item.system.hpcost;
+      const max = item.system.maxhpcost;
+      const name = item.name;
+      const type = item.type;
+      hpCost(token, cost, max, name, type);
     }
 
     if (this.system.clickitem == "rescost") {

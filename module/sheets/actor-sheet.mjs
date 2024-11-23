@@ -3,7 +3,7 @@ import {
   prepareActiveEffectCategories,
 } from "../helpers/effects.mjs";
 import { powerRoll } from "../helpers/powerroll.mjs";
-import { mpCost } from "../helpers/mpcost.mjs";
+import { mpCost, hpCost } from "../helpers/mpcost.mjs";
 import { lootRoll } from "../helpers/lootroll.mjs";
 import { growthCheck } from "../helpers/growthcheck.mjs";
 import { targetRollDialog } from "../helpers/dialogs.mjs";
@@ -127,6 +127,9 @@ export class SW25ActorSheet extends ActorSheet {
     const alchemytechs = [];
     const phaseareas = [];
     const tactics = [];
+    const infusion = [];
+    const barbarousskill = [];
+    const essenceweave = [];
     const otherfeature = [];
     const raceabilities = [];
     const languages = [];
@@ -139,6 +142,7 @@ export class SW25ActorSheet extends ActorSheet {
     const fairy = [];
     const druid = [];
     const daemon = [];
+    const abyssal = [];
     const monsterabilities = [];
 
     // Iterate through items, allocating to containers
@@ -220,6 +224,21 @@ export class SW25ActorSheet extends ActorSheet {
         tactics.push(i);
       }
 
+      // Append to infusion.
+      else if (i.type === "infusion") {
+        infusion.push(i);
+      }
+
+      // Append to barbarousskill.
+      else if (i.type === "barbarousskill") {
+        barbarousskill.push(i);
+      }
+
+      // Append to essenceweave.
+      else if (i.type === "essenceweave") {
+        essenceweave.push(i);
+      }
+
       // Append to otherfeeature.
       else if (i.type === "otherfeature") {
         otherfeature.push(i);
@@ -262,6 +281,9 @@ export class SW25ActorSheet extends ActorSheet {
         if (i.system.type === "daemon") {
           daemon.push(i);
         }
+        if (i.system.type === "abyssal") {
+          abyssal.push(i);
+        }
       }
 
       // Append to monsterability.
@@ -299,6 +321,21 @@ export class SW25ActorSheet extends ActorSheet {
     if (tactics.length == 0) {
       tcshow = false;
     } else tcshow = true;
+
+    let ifshow = true;
+    if (infusion.length == 0) {
+      ifshow = false;
+    } else ifshow = true;
+
+    let bsshow = true;
+    if (barbarousskill.length == 0) {
+      bsshow = false;
+    } else bsshow = true;
+
+    let ewshow = true;
+    if (essenceweave.length == 0) {
+      ewshow = false;
+    } else ewshow = true;
 
     let ofshow = true;
     if (otherfeature.length == 0) {
@@ -345,6 +382,11 @@ export class SW25ActorSheet extends ActorSheet {
       dmshow = false;
     } else dmshow = true;
 
+    let abshow = true;
+    if (abyssal.length == 0) {
+      abshow = false;
+    } else abshow = true;
+
     // Assign and return
     context.skills = skills;
     context.checks = checks;
@@ -370,6 +412,12 @@ export class SW25ActorSheet extends ActorSheet {
     context.pashow = pashow;
     context.tactics = tactics;
     context.tcshow = tcshow;
+    context.infusion = infusion;
+    context.ifshow = ifshow;
+    context.barbarousskill = barbarousskill;
+    context.bsshow = bsshow;
+    context.essenceweave = essenceweave;
+    context.ewshow = ewshow;
     context.otherfeature = otherfeature;
     context.ofshow = ofshow;
     context.raceabilities = raceabilities;
@@ -391,6 +439,8 @@ export class SW25ActorSheet extends ActorSheet {
     context.drshow = drshow;
     context.daemon = daemon;
     context.dmshow = dmshow;
+    context.abyssal = abyssal;
+    context.abshow = abshow;
     context.monsterabilities = monsterabilities;
   }
 
@@ -444,6 +494,9 @@ export class SW25ActorSheet extends ActorSheet {
     // Mp cost.
     html.on("click", ".mpcost", this._onMpCost.bind(this));
 
+    // Hp cost.
+    html.on("click", ".hpcost", this._onHpCost.bind(this));
+
     // Resource cost.
     html.on("click", ".resourcecost", this._onResourceCost.bind(this));
 
@@ -462,7 +515,8 @@ export class SW25ActorSheet extends ActorSheet {
 
     // Open item details
     html.find(".item-label").click(this._showItemDetails.bind(this));
-    html.find(".spell-label").click(this._showSpellList.bind(this));
+    html.find(".spelllist-label").click(this._showSpellList.bind(this));
+    html.find(".spell-label").click(this._showSpellDetails.bind(this));
 
     // Change Input Area
     html.on("change", ".qt-change", this._changeQuantity.bind(this));
@@ -1001,6 +1055,26 @@ export class SW25ActorSheet extends ActorSheet {
     mpCost(token, cost, name, type, meta);
   }
 
+  async _onHpCost(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+    const token = selectedTokens[0];
+    const cost = dataset.cost;
+    const max = dataset.max;
+    const name = dataset.label;
+    const type = dataset.type;
+    hpCost(token, cost, max, name, type);
+  }
+
   async _onResourceCost(event) {
     event.preventDefault();
     const element = event.currentTarget;
@@ -1060,6 +1134,16 @@ export class SW25ActorSheet extends ActorSheet {
     event.preventDefault();
     const toggler = $(event.currentTarget);
     const item = toggler.parents(".item");
+    const description = item.find(".spelllist-description");
+
+    toggler.toggleClass("open", false);
+    description.slideToggle();
+  }
+
+  async _showSpellDetails(event) {
+    event.preventDefault();
+    const toggler = $(event.currentTarget);
+    const item = toggler.parents(".spell");
     const description = item.find(".spell-description");
 
     toggler.toggleClass("open", false);
