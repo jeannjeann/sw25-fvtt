@@ -318,6 +318,7 @@
         "Fairy": "Fairy",
         "Druid": "Nature",
         "Daemon": "Summoning",
+        "Abyssal": "Abyssak Magic",
         "Faith": "Classification",
         "First": "First",
         "Second": "Second",
@@ -335,7 +336,10 @@
         "Fairylight": "Light",
         "Fairydark": "Dark",
         "Hpresist": "Fortitude",
-        "Meta": "Meta"
+        "Meta": "Meta",
+        "ExCost": "Expansion Materials",
+        "ExTime": "Expansion Time",
+        "Expansion": "Expansion Effect"
       },
       "Enhancearts": {
       },
@@ -492,7 +496,8 @@
       "MtMod": "Magitech",
       "FrMod": "Fairy",
       "DrMod": "Nature",
-      "DmMod": "Summoning"
+      "DmMod": "Summoning",
+      "AbMod": "Abyssal Magic"
     },
     "Config": {
       "ResVit": "Fortitude",
@@ -530,6 +535,9 @@
       "alchemytech": "Evocation",
       "phasearea": "Aspect",
       "tactics": "Strategem",
+      "infusion": "Infusion",
+      "barbarousskill": "Barbarous Unique Skill",
+      "essenceweave": "Essence Weaving",
       "check": "Check",
       "resource": "Resource",
       "combatability": "Feats",
@@ -626,6 +634,11 @@
       "name": "Label of Summoning Art",
       "hint": "Summoning Art effect target settings (for Monster), default and when omitted : ",
       "default": "SummoningMP"
+    },
+    "effectAbpMon":{
+      "name": "Label of Abyssal Magic",
+      "hint": "Abyssal Magic effect target settings (for Monster), default and when omitted : ",
+      "default": "AbyssalMP"
     },
     "fromCompendium":{
       "name": "Get language from Compendium",

@@ -36,7 +36,8 @@ export let effectVitResPC,
   effectMtpMon,
   effectFrpMon,
   effectDrpMon,
-  effectDmpMon;
+  effectDmpMon,
+  effectAbpMon;
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -476,6 +477,20 @@ Hooks.once("ready", async function () {
     },
   });
   effectDmpMon = game.settings.get("sw25", "effectDmpMon");
+  game.settings.register("sw25", "effectAbpMon", {
+    name: game.i18n.localize("SETTING.effectAbpMon.name"),
+    hint:
+      game.i18n.localize("SETTING.effectAbpMon.hint") +
+      game.i18n.localize("SETTING.effectAbpMon.default"),
+    scope: "world",
+    config: true,
+    type: String,
+    default: game.i18n.localize("SETTING.effectAbpMon.default"),
+    onChange: (value) => {
+      effectAbpMon = value;
+    },
+  });
+  effectAbpMon = game.settings.get("sw25", "effectAbpMon");
   game.settings.register("sw25", "fromCompendium", {
     name: game.i18n.localize("SETTING.fromCompendium.name"),
     hint: game.i18n.localize("SETTING.fromCompendium.hint"),

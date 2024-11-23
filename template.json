@@ -149,6 +149,13 @@
         "efdmckmod": 0,
         "efdmpwmod": 0,
         "efmpdm": 0,
+        "abpower": 0,
+        "abskill": "",
+        "abmod": 0,
+        "efabmod": 0,
+        "efabckmod": 0,
+        "efabpwmod": 0,
+        "efmpab": 0,
         "efmpall": 0,
         "efmckall": 0,
         "efmpwall":0,
@@ -325,6 +332,13 @@
         "efdmckmod": 0,
         "efdmpwmod": 0,
         "efmpdm": 0,
+        "abpower": 0,
+        "abskill": "",
+        "abmod": 0,
+        "efabmod": 0,
+        "efabckmod": 0,
+        "efabpwmod": 0,
+        "efmpab": 0,
         "efmpall": 0,
         "efmckall": 0,
         "efmpwall": 0,
@@ -359,7 +373,7 @@
     }
   },
   "Item": {
-    "types": ["weapon", "armor", "accessory", "item", "spell", "enhancearts", "magicalsong", "ridingtrick", "alchemytech", "phasearea", "tactics", "otherfeature", "check", "resource", "combatability", "skill", "raceability", "language", "monsterability"],
+    "types": ["weapon", "armor", "accessory", "item", "spell", "enhancearts", "magicalsong", "ridingtrick", "alchemytech", "phasearea", "tactics", "infusion", "barbarousskill", "essenceweave", "otherfeature", "check", "resource", "combatability", "skill", "raceability", "language", "monsterability"],
     "templates": {
       "base": {
         "description": "",
@@ -473,6 +487,12 @@
       "fairytype": "-",
       "fairyprop": "-",
       "hpresist": false,
+      "excost1": "",
+      "extime1": "",
+      "expansion1": "",
+      "excost2": "",
+      "extime2": "",
+      "expansion2": "",
       "efallmgpmod": 0
     },
     "enhancearts": {
@@ -536,6 +556,12 @@
       "get": "",
       "premise": "",
       "cond": ""
+    },
+    "infusion": {
+    },
+    "barbarousskill": {
+    },
+    "essenceweave": {
     },
     "check": {
       "templates": ["base", "roll"],

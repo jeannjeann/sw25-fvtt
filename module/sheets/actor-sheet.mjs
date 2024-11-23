@@ -127,6 +127,9 @@ export class SW25ActorSheet extends ActorSheet {
     const alchemytechs = [];
     const phaseareas = [];
     const tactics = [];
+    const infusion = [];
+    const barbarousskill = [];
+    const essenceweave = [];
     const otherfeature = [];
     const raceabilities = [];
     const languages = [];
@@ -139,6 +142,7 @@ export class SW25ActorSheet extends ActorSheet {
     const fairy = [];
     const druid = [];
     const daemon = [];
+    const abyssal = [];
     const monsterabilities = [];
 
     // Iterate through items, allocating to containers
@@ -262,6 +266,9 @@ export class SW25ActorSheet extends ActorSheet {
         if (i.system.type === "daemon") {
           daemon.push(i);
         }
+        if (i.system.type === "abyssal") {
+          abyssal.push(i);
+        }
       }
 
       // Append to monsterability.
@@ -345,6 +352,11 @@ export class SW25ActorSheet extends ActorSheet {
       dmshow = false;
     } else dmshow = true;
 
+    let abshow = true;
+    if (abyssal.length == 0) {
+      abshow = false;
+    } else abshow = true;
+
     // Assign and return
     context.skills = skills;
     context.checks = checks;
@@ -391,6 +403,8 @@ export class SW25ActorSheet extends ActorSheet {
     context.drshow = drshow;
     context.daemon = daemon;
     context.dmshow = dmshow;
+    context.abyssal = abyssal;
+    context.abshow = abshow;
     context.monsterabilities = monsterabilities;
   }
 

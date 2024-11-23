@@ -318,6 +318,7 @@
         "Fairy": "妖精魔法",
         "Druid": "森羅魔法",
         "Daemon": "召異魔法",
+        "Abyssal": "奈落魔法",
         "Faith": "信仰制限",
         "First": "第一の剣",
         "Second": "第二の剣",
@@ -335,7 +336,10 @@
         "Fairylight": "光",
         "Fairydark": "闇",
         "Hpresist": "生命",
-        "Meta": "拡大"
+        "Meta": "拡大",
+        "ExCost": "消費拡張素材",
+        "ExTime": "拡張時間",
+        "Expansion": "拡張効果"
       },
       "Enhancearts": {
       },
@@ -491,7 +495,8 @@
       "MtMod": "魔動機術",
       "FrMod": "妖精魔法",
       "DrMod": "森羅魔法",
-      "DmMod": "召異魔法"
+      "DmMod": "召異魔法",
+      "AbMod": "奈落魔法"
     },
     "Config": {
       "ResVit": "生命抵抗力",
@@ -529,6 +534,9 @@
       "alchemytech": "賦術",
       "phasearea": "相域",
       "tactics": "鼓砲・陣率",
+      "infusion": "魔装",
+      "barbarousskill": "蛮族特殊能力",
+      "essenceweave": "操気",
       "check": "判定",
       "resource": "リソース",
       "combatability": "戦闘特技",
@@ -625,6 +633,11 @@
       "name": "召異魔法判定のラベル名",
       "hint": "召異魔法判定バフ適用対象の設定（魔物用）、省略可、デフォルトおよび省力時：",
       "default": "召異魔力"
+    },
+    "effectAbpMon":{
+      "name": "奈落魔法判定のラベル名",
+      "hint": "奈落魔法判定バフ適用対象の設定（魔物用）、省略可、デフォルトおよび省力時：",
+      "default": "奈落魔力"
     },
     "fromCompendium":{
       "name": "辞典から言語を取得",
