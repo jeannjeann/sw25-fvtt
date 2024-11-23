@@ -394,6 +394,10 @@
       "Infusion": {
         "HumanoidForm": "人間形態時"
       },
+      "BarbarousSkill": {
+        "Base": "基準値",
+        "ResistBase": "抵抗基準値"
+      },
       "Check": {
         "Normalcheck": "通常判定",
         "Customroll": "カスタムダイス",

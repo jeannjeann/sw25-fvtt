@@ -912,6 +912,10 @@ export class SW25Item extends Item {
       if (systemData.mpcost < 1) systemData.mpcost = 1;
     }
 
+    if (itemData.type == "barbarousskill") {
+      systemData.mpcost = Number(systemData.basempcost);
+    }
+
     if (itemData.type == "essenceweave") {
       systemData.checkbase =
         Number(systemData.checkbase) + Number(actorData.attributes.efewckmod);
@@ -1630,7 +1634,22 @@ export class SW25Item extends Item {
   }
 
   _prepareInfusionData(itemData) {}
-  _prepareBarbarousskillData(itemData) {}
+
+  _prepareBarbarousskillData(itemData) {
+    if (itemData.type !== "barbarousskill") return;
+
+    // Make modifications to data here. For example:
+    const systemData = itemData.system;
+    const actorData = itemData.actor.system;
+    const actoritemData = itemData.actor.items;
+
+    if (systemData.resist != "-") {
+      const i18nresist =
+        systemData.resist.charAt(0).toUpperCase() + systemData.resist.slice(1);
+      systemData.resistname = game.i18n.localize(`SW25.Item.${i18nresist}`);
+    } else systemData.resistname = "-";
+  }
+
   _prepareEssenceweaveData(itemData) {}
   _prepareOtherFeatureData(itemData) {}
   _prepareRaceabilityData(itemData) {}
@@ -1919,6 +1938,8 @@ export class SW25Item extends Item {
     if (item.type == "spell") spell = true;
     let enhancearts = false;
     if (item.type == "enhancearts") enhancearts = true;
+    let barbarousskill = false;
+    if (item.type == "barbarousskill") barbarousskill = true;
     let essenceweave = false;
     if (item.type == "essenceweave") essenceweave = true;
     let resource = false;
@@ -1948,6 +1969,7 @@ export class SW25Item extends Item {
           description: chatDescription,
           spell: spell,
           enhancearts: enhancearts,
+          barbarousskill: barbarousskill,
           essenceweave: essenceweave,
           resource: resource,
           usedice: usedice,

@@ -566,6 +566,14 @@
       "humanoid": ""
     },
     "barbarousskill": {
+      "templates": ["base", "roll", "ability"],
+      "race": "",
+      "basempcost": 0,
+      "mpcost": 0,
+      "resist": "-",
+      "base": "",
+      "resistbase": "-",
+      "rank": ""
     },
     "essenceweave": {
       "templates": ["base", "roll", "ability"],

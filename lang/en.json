@@ -394,6 +394,10 @@
       "Infusion": {
         "HumanoidForm": "Humanoid Form"
       },
+      "BarbarousSkill": {
+        "Base": "Base Number",
+        "ResistBase": "Resistance Base"
+      },
       "Check": {
         "Normalcheck": "Normal Check",
         "Customroll": "Custom Dice Check",
