@@ -818,22 +818,30 @@ progress.mp-bar::-moz-progress-bar {
 .sw25 .sheet-header .adventurer-details {
   align-self: flex-start;
   flex: 0 0 150px;
+  height: 150px;
+  width: 150px;
   margin-right: var(--spacing-sm);
 }
 
 .sw25 .sheet-header .monster-details {
   align-self: flex-start;
   flex: 0 0 120px;
+  height: 120px;
+  width: 120px;
   margin-right: var(--spacing-sm);
 }
 
 .sw25 .sheet-header .adventurer-details .profile-img,
 .sw25 .sheet-header .monster-details .profile-img {
-  height: 80%;
-  width: 80%;
+  height: 100%;
+  max-height: 80%;
+  width: 100%;
+  max-width: 80%;
   border-radius: 5%;
   margin: 0;
+  object-fit: contain; 
 }
+
 .sw25 .sheet-header .header-fields {
   align-self: flex-start;
 }
