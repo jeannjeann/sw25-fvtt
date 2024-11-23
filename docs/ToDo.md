@@ -13,7 +13,9 @@
 
 - v1.0.0へ　β記載削除
 
+終了
 - 奈落魔法Abyssal Magic
+- 画像縦横比バグ
 
 ## 更新作業
 - マニュアル、マクロ、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ、告知

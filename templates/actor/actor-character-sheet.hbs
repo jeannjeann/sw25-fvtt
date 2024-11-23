@@ -348,7 +348,7 @@
       {{#if scshow}}
       <div class="item flexrow">
         <div class="grid grid-12col">
-          <span class="spell-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Sorcerer"}}</span>
+          <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Sorcerer"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.sccast}}" data-label="{{localize "SW25.Item.Spell.Sorcerer"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.scpower}}</span>
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
@@ -363,7 +363,7 @@
           </span>
           <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.scmod" value="{{system.attributes.scmod}}" data-dtype="Number"/></span>
         </div>
-        <div class="spell-description">
+        <div class="spelllist-description">
           <div>
             {{> "systems/sw25/templates/actor/parts/actor-spells-sorcerer.hbs"}}
           </div>
@@ -373,7 +373,7 @@
       {{#if cnshow}}
       <div class="item flexrow">
         <div class="grid grid-12col">
-          <span class="spell-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Conjurer"}}</span>
+          <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Conjurer"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.cncast}}" data-label="{{localize "SW25.Item.Spell.Conjurer"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.cnpower}}</span>
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
@@ -388,7 +388,7 @@
           </span>
           <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.cnmod" value="{{system.attributes.cnmod}}" data-dtype="Number"/></span>
         </div>
-        <div class="spell-description">
+        <div class="spelllist-description">
           <div>
             {{> "systems/sw25/templates/actor/parts/actor-spells-conjurer.hbs"}}
           </div>
@@ -398,7 +398,7 @@
       {{#if wzshow}}
       <div class="item flexrow">
         <div class="grid grid-12col">
-          <span class="spell-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Wizard"}}</span>
+          <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Wizard"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.wzcast}}" data-label="{{localize "SW25.Item.Spell.Wizard"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.wzpower}}</span>
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
@@ -413,7 +413,7 @@
           </span>
           <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.wzmod" value="{{system.attributes.wzmod}}" data-dtype="Number"/></span>
         </div>
-        <div class="spell-description">
+        <div class="spelllist-description">
           <div>
             {{> "systems/sw25/templates/actor/parts/actor-spells-wizard.hbs"}}
           </div>
@@ -423,7 +423,7 @@
       {{#if prshow}}
       <div class="item flexrow">
         <div class="grid grid-12col">
-          <span class="spell-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Priest"}}</span>
+          <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Priest"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.prcast}}" data-label="{{localize "SW25.Item.Spell.Priest"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.prpower}}</span>
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
@@ -438,7 +438,7 @@
           </span>
           <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.prmod" value="{{system.attributes.prmod}}" data-dtype="Number"/></span>
         </div>
-        <div class="spell-description">
+        <div class="spelllist-description">
           <div>
             {{> "systems/sw25/templates/actor/parts/actor-spells-priest.hbs"}}
           </div>
@@ -448,7 +448,7 @@
       {{#if mtshow}}
       <div class="item flexrow">
         <div class="grid grid-12col">
-          <span class="spell-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Magitech"}}</span>
+          <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Magitech"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.mtcast}}" data-label="{{localize "SW25.Item.Spell.Magitech"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.mtpower}}</span>
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
@@ -463,7 +463,7 @@
           </span>
           <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.mtmod" value="{{system.attributes.mtmod}}" data-dtype="Number"/></span>
         </div>
-        <div class="spell-description">
+        <div class="spelllist-description">
           <div>
             {{> "systems/sw25/templates/actor/parts/actor-spells-magitech.hbs"}}
           </div>
@@ -473,7 +473,7 @@
       {{#if frshow}}
       <div class="item flexrow">
         <div class="grid grid-12col">
-          <span class="spell-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Fairy"}}</span>
+          <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Fairy"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.frcast}}" data-label="{{localize "SW25.Item.Spell.Fairy"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.frpower}}</span>
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
@@ -488,7 +488,7 @@
           </span>
           <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.frmod" value="{{system.attributes.frmod}}" data-dtype="Number"/></span>
         </div>
-        <div class="spell-description">
+        <div class="spelllist-description">
           <div>
             {{> "systems/sw25/templates/actor/parts/actor-spells-fairy.hbs"}}
           </div>
@@ -498,7 +498,7 @@
       {{#if drshow}}
       <div class="item flexrow">
         <div class="grid grid-12col">
-          <span class="spell-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Druid"}}</span>
+          <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Druid"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.drcast}}" data-label="{{localize "SW25.Item.Spell.Druid"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.drpower}}</span>
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
@@ -513,7 +513,7 @@
           </span>
           <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.drmod" value="{{system.attributes.drmod}}" data-dtype="Number"/></span>
         </div>
-        <div class="spell-description">
+        <div class="spelllist-description">
           <div>
             {{> "systems/sw25/templates/actor/parts/actor-spells-druid.hbs"}}
           </div>
@@ -523,7 +523,7 @@
       {{#if dmshow}}
       <div class="item flexrow">
         <div class="grid grid-12col">
-          <span class="spell-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Daemon"}}</span>
+          <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Daemon"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.dmcast}}" data-label="{{localize "SW25.Item.Spell.Daemon"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.dmpower}}</span>
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
@@ -538,7 +538,7 @@
           </span>
           <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.dmmod" value="{{system.attributes.dmmod}}" data-dtype="Number"/></span>
         </div>
-        <div class="spell-description">
+        <div class="spelllist-description">
           <div>
             {{> "systems/sw25/templates/actor/parts/actor-spells-daemon.hbs"}}
           </div>
@@ -548,7 +548,7 @@
       {{#if abshow}}
       <div class="item flexrow">
         <div class="grid grid-12col">
-          <span class="spell-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Abyssal"}}</span>
+          <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Abyssal"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.abcast}}" data-label="{{localize "SW25.Item.Spell.Abyssal"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.abpower}}</span>
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
@@ -563,7 +563,7 @@
           </span>
           <span class="grid-span-2" style="text-align: right;"><b>{{localize "SW25.Modifier"}}</b> <input style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.abmod" value="{{system.attributes.abmod}}" data-dtype="Number"/></span>
         </div>
-        <div class="spell-description">
+        <div class="spelllist-description">
           <div>
             {{> "systems/sw25/templates/actor/parts/actor-spells-abyssal.hbs"}}
           </div>
