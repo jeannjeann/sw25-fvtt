@@ -1,19 +1,20 @@
 <ol class='items-list'>
   <li class='item flexrow items-header'>
-    <div class='item-name'>{{localize "TYPES.Item.item"}}</div>
-    <div class='item-quantity item-element' style="flex: 0 0 60px;">{{localize "SW25.Quantity"}}</div>
+    <div class='item-name'>{{localize "TYPES.Item.infusion"}}</div>
+    <div class='item-element' style="flex: 0 0 110px;">{{localize "SW25.Item.Part"}}</div>
+    <div class='item-element' style="flex: 0 0 110px;">{{localize "SW25.Item.Infusion.HumanoidForm"}}</div>
     <div class='item-controls'>
       <a
         class='item-control item-create'
         title='{{localize "DOCUMENT.Create" type='Item'}}'
-        data-type='item'
+        data-type='ridingtrick'
       >
         <i class='fas fa-plus'></i>
         {{localize 'DOCUMENT.New' type=''}}
       </a>
     </div>
   </li>
-  {{#each gear as |item id|}}
+  {{#each infusion as |item id|}}
     <li class='item' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
         <div class='item-name'>
@@ -38,29 +39,22 @@
         <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
           <b>{{localize "SW25.Item.EffectB"}}</b>
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
-{{!--
-          <a class="quantity-button" data-action="decrease" data-property="item.system.quantity">
-            <i class="fas fa-minus"></i>
-          </a>
---}}
-          <input class="qt-change" type="text" name="quantityInput" value="{{item.system.quantity}}" data-dtype="Number"/>
-{{!--
-          <a class="quantity-button" data-action="increase" data-property="item.system.quantity">
-            <i class="fas fa-plus"></i>
-          </a>
---}}
+        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 120px;">
+          {{system.itpart}}
+        </div>
+        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 110px;">
+          {{system.humanoid}}
         </div>
         <div class='item-controls'>
           <a
             class='item-control item-edit'
-            title='{{localize "DOCUMENT.Update" type='Item'}}'
+            title='{{localize "DOCUMENT.Update" type='ridingtrick'}}'
           >
             <i class='fas fa-edit'></i>
           </a>
           <a
             class='item-control item-delete'
-            title='{{localize "DOCUMENT.Delete" type='Item'}}'
+            title='{{localize "DOCUMENT.Delete" type='ridingtrick'}}'
           >
             <i class='fas fa-trash'></i>
           </a>

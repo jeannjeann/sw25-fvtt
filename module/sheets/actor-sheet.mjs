@@ -224,6 +224,16 @@ export class SW25ActorSheet extends ActorSheet {
         tactics.push(i);
       }
 
+      // Append to infusion.
+      else if (i.type === "infusion") {
+        infusion.push(i);
+      }
+
+      // Append to barbarousskill.
+      else if (i.type === "barbarousskill") {
+        barbarousskill.push(i);
+      }
+
       // Append to essenceweave.
       else if (i.type === "essenceweave") {
         essenceweave.push(i);
@@ -312,6 +322,16 @@ export class SW25ActorSheet extends ActorSheet {
       tcshow = false;
     } else tcshow = true;
 
+    let ifshow = true;
+    if (infusion.length == 0) {
+      ifshow = false;
+    } else ifshow = true;
+
+    let bsshow = true;
+    if (barbarousskill.length == 0) {
+      bsshow = false;
+    } else bsshow = true;
+
     let ewshow = true;
     if (essenceweave.length == 0) {
       ewshow = false;
@@ -392,6 +412,10 @@ export class SW25ActorSheet extends ActorSheet {
     context.pashow = pashow;
     context.tactics = tactics;
     context.tcshow = tcshow;
+    context.infusion = infusion;
+    context.ifshow = ifshow;
+    context.barbarousskill = barbarousskill;
+    context.bsshow = bsshow;
     context.essenceweave = essenceweave;
     context.ewshow = ewshow;
     context.otherfeature = otherfeature;

@@ -327,6 +327,24 @@
         {{> "systems/sw25/templates/actor/parts/actor-tactics.hbs"}}
       </div>
       {{/if}}{{/if}}
+      {{#if ifshow}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-infusion.hbs"}}
+      </div>
+      {{else}}{{#if system.attributes.showfeature}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-infusion.hbs"}}
+      </div>
+      {{/if}}{{/if}}
+      {{#if bsshow}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-barbarousskill.hbs"}}
+      </div>
+      {{else}}{{#if system.attributes.showfeature}}
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-barbarousskill.hbs"}}
+      </div>
+      {{/if}}{{/if}}
       {{#if ewshow}}
       <div>
         {{> "systems/sw25/templates/actor/parts/actor-essenceweave.hbs"}}

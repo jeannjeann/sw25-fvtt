@@ -246,6 +246,7 @@
       "Fandw": "炎かつ風",
       "Iandt": "水・氷かつ雷",
       "Premise": "前提",
+      "Part": "適用部位",
       "Weapn": {
       },
       "Weapon": {
@@ -360,8 +361,7 @@
         "Singpoint": "巧奏値"
       },
       "Ridingtrick": {
-        "Support": "対応",
-        "Part": "適用部位"
+        "Support": "対応"
       },
       "Alchemytech": {
         "Red": "赤",
@@ -390,6 +390,9 @@
         "Resist": "抵抗系",
         "Inspire": "鼓舞系",
         "Premise": "前提"
+      },
+      "Infusion": {
+        "HumanoidForm": "人間形態時"
       },
       "Check": {
         "Normalcheck": "通常判定",

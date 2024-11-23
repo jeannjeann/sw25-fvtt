@@ -560,6 +560,10 @@
       "cond": ""
     },
     "infusion": {
+      "templates": ["base", "roll", "ability"],
+      "premise": "",
+      "ipart": "",
+      "humanoid": ""
     },
     "barbarousskill": {
     },

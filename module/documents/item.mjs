@@ -1514,6 +1514,7 @@ export class SW25Item extends Item {
       );
     } else systemData.condtypename = "-";
   }
+
   _prepareEnhanceartsData(itemData) {}
 
   _prepareMagicalsongData(itemData) {

@@ -246,6 +246,7 @@
       "Fandw": "Fire and Wind",
       "Iandt": "Ice/Water and Thunder",
       "Premise": "Prerequisite",
+      "Part": "Applicable Part",
       "Weapn": {
       },
       "Weapon": {
@@ -360,8 +361,7 @@
         "Singpoint": "Rhythm"
       },
       "Ridingtrick": {
-        "Support": "Supported Mount",
-        "Part": "Applicable Part"
+        "Support": "Supported Mount"
       },
       "Alchemytech": {
         "Red": "Red",
@@ -390,6 +390,9 @@
         "Resist": "Resistance",
         "Inspire": "Inspirational",
         "Premise": "Prerequisite"
+      },
+      "Infusion": {
+        "HumanoidForm": "Humanoid Form"
       },
       "Check": {
         "Normalcheck": "Normal Check",
