@@ -6,16 +6,17 @@
 - 魔法タブ化（レベル別折りたたみリスト、妖精は属性別折りたたみリスト）
 - バフキー判定の直接入力
 - 呪歌、賦術、相域、鼓砲のリソース消費
-- 魔装Infusion、蛮族特殊能力Barbarous unique skills、操気Essence Weaving、　変数　ActiveEffect
+- 魔装Infusion、蛮族特殊能力Barbarous unique skills、変数　ActiveEffect
 - TAH対応
-- 魔法の展開バグ
 - HTML整理プルリクマージ
 
 - v1.0.0へ　β記載削除
 
 終了
 - 奈落魔法Abyssal Magic
+- 操気Essence Weaving
 - 画像縦横比バグ
+- 魔法の展開バグ
 
 ## 更新作業
 - マニュアル、マクロ、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ、告知

@@ -68,6 +68,8 @@
     "Cdamage": "Damage (Fixed)",
     "Recovery": "Recovery",
     "Shortage": "Shortage",
+    "UnderZero": "0 or less",
+    "NoCost": "No Cost",
     "Applyall": "Apply All",
 
     "Notargetwarn": "No targets selected.",
@@ -243,6 +245,7 @@
       "Other": "Other",
       "Fandw": "Fire and Wind",
       "Iandt": "Ice/Water and Thunder",
+      "Premise": "Prerequisite",
       "Weapn": {
       },
       "Weapon": {
@@ -357,7 +360,6 @@
         "Singpoint": "Rhythm"
       },
       "Ridingtrick": {
-        "Premise": "Prerequisite",
         "Support": "Supported Mount",
         "Part": "Applicable Part"
       },
@@ -461,6 +463,7 @@
       "MPower": "Power",
       "MPSave": "MP Save",
       "Performance": "Performance",
+      "Force": "Force",
       "DirectInput": "Direct Input",
       "HitMod": "Accuracy Mod",
       "DamageMod": "DMG Mod",

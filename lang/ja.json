@@ -68,6 +68,8 @@
     "Cdamage": "ダメージ (確定)",
     "Recovery": "回復",
     "Shortage": "不足",
+    "UnderZero": "0以下",
+    "NoCost": "消費なし",
     "Applyall": "すべて適用",
 
     "Notargetwarn": "ターゲットが指定されていません",
@@ -243,6 +245,7 @@
       "Other": "その他",
       "Fandw": "炎かつ風",
       "Iandt": "水・氷かつ雷",
+      "Premise": "前提",
       "Weapn": {
       },
       "Weapon": {
@@ -357,7 +360,6 @@
         "Singpoint": "巧奏値"
       },
       "Ridingtrick": {
-        "Premise": "前提",
         "Support": "対応",
         "Part": "適用部位"
       },
@@ -460,6 +462,7 @@
       "MPower": "威力",
       "MPSave": "MP軽減",
       "Performance": "演奏",
+      "Force": "理力",
       "DirectInput": "直接入力",
       "HitMod": "命中修正",
       "DamageMod": "ダメージ修正",

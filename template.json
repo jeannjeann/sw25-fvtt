@@ -162,6 +162,8 @@
         "efmsckmod": 0,
         "efmspwmod": 0,
         "efatckmod": 0,
+        "efewckmod": 0,
+        "efewpwmod": 0,
         "languages": {
           "conv": [],
           "read": []
@@ -562,6 +564,15 @@
     "barbarousskill": {
     },
     "essenceweave": {
+      "templates": ["base", "roll", "ability"],
+      "hpcost": "",
+      "basehpcost": "",
+      "maxhpcost": 0,
+      "premise": "",
+      "target": "",
+      "rangeshape": "",
+      "time": 0,
+      "resist": "-"
     },
     "check": {
       "templates": ["base", "roll"],

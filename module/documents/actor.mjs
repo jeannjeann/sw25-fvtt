@@ -461,6 +461,8 @@ export class SW25Actor extends Actor {
     let totalmsckmod = null;
     let totalmspwmod = null;
     let totalatckmod = null;
+    let totalewckmod = null;
+    let totalewpwmod = null;
     let totallootmod = null;
     effectsChange.forEach((effectList) => {
       effectList.forEach((effects) => {
@@ -614,6 +616,10 @@ export class SW25Actor extends Actor {
           totalmspwmod += Number(effects.value);
         if (effects.key == "system.attributes.efatckmod")
           totalatckmod += Number(effects.value);
+        if (effects.key == "system.attributes.efewckmod")
+          totalewckmod += Number(effects.value);
+        if (effects.key == "system.attributes.efewpwmod")
+          totalewpwmod += Number(effects.value);
         if (effects.key == "system.eflootmod")
           totallootmod += Number(effects.value);
       });
@@ -695,6 +701,8 @@ export class SW25Actor extends Actor {
     systemData.totalmsckmod = totalmsckmod;
     systemData.totalmspwmod = totalmspwmod;
     systemData.totalatckmod = totalatckmod;
+    systemData.totalewckmod = totalewckmod;
+    systemData.totalewpwmod = totalewpwmod;
     systemData.totallootmod = totallootmod;
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
@@ -762,6 +770,8 @@ export class SW25Actor extends Actor {
     if (totalmsckmod > 0) systemData.totalmsckmod = "+" + totalmsckmod;
     if (totalmspwmod > 0) systemData.totalmspwmod = "+" + totalmspwmod;
     if (totalatckmod > 0) systemData.totalatckmod = "+" + totalatckmod;
+    if (totalewckmod > 0) systemData.totalewckmod = "+" + totalewckmod;
+    if (totalewpwmod > 0) systemData.totalewpwmod = "+" + totalewpwmod;
     if (totallootmod > 0) systemData.totallootmod = "+" + totallootmod;
 
     // Set initiative formula
@@ -979,6 +989,8 @@ export class SW25Actor extends Actor {
     let totalmsckmod = null;
     let totalmspwmod = null;
     let totalatckmod = null;
+    let totalewckmod = null;
+    let totalewpwmod = null;
     let totallootmod = null;
     effectsChange.forEach((effectList) => {
       effectList.forEach((effects) => {
@@ -1132,6 +1144,10 @@ export class SW25Actor extends Actor {
           totalmspwmod += Number(effects.value);
         if (effects.key == "system.attributes.efatckmod")
           totalatckmod += Number(effects.value);
+        if (effects.key == "system.attributes.efewckmod")
+          totalewckmod += Number(effects.value);
+        if (effects.key == "system.attributes.efewpwmod")
+          totalewpwmod += Number(effects.value);
         if (effects.key == "system.eflootmod")
           totallootmod += Number(effects.value);
       });
@@ -1213,6 +1229,8 @@ export class SW25Actor extends Actor {
     systemData.totalmsckmod = totalmsckmod;
     systemData.totalmspwmod = totalmspwmod;
     systemData.totalatckmod = totalatckmod;
+    systemData.totalewckmod = totalewckmod;
+    systemData.totalewpwmod = totalewpwmod;
     systemData.totallootmod = totallootmod;
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
@@ -1280,6 +1298,8 @@ export class SW25Actor extends Actor {
     if (totalmsckmod > 0) systemData.totalmsckmod = "+" + totalmsckmod;
     if (totalmspwmod > 0) systemData.totalmspwmod = "+" + totalmspwmod;
     if (totalatckmod > 0) systemData.totalatckmod = "+" + totalatckmod;
+    if (totalewckmod > 0) systemData.totalewckmod = "+" + totalewckmod;
+    if (totalewpwmod > 0) systemData.totalewpwmod = "+" + totalewpwmod;
     if (totallootmod > 0) systemData.totallootmod = "+" + totallootmod;
 
     // Set initiative formula

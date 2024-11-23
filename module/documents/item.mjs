@@ -1,5 +1,5 @@
 import { powerRoll } from "../helpers/powerroll.mjs";
-import { mpCost } from "../helpers/mpcost.mjs";
+import { mpCost, hpCost } from "../helpers/mpcost.mjs";
 import {
   effectVitResPC,
   effectMndResPC,
@@ -448,6 +448,9 @@ export class SW25Item extends Item {
       itemData.type !== "alchemytech" &&
       itemData.type !== "phasearea" &&
       itemData.type !== "tactics" &&
+      itemData.type !== "infusion" &&
+      itemData.type !== "barbarousskill" &&
+      itemData.type !== "essenceweave" &&
       itemData.type !== "otherfeature" &&
       itemData.type !== "resource" &&
       itemData.type !== "combatability" &&
@@ -907,6 +910,14 @@ export class SW25Item extends Item {
       systemData.mpcost =
         Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
       if (systemData.mpcost < 1) systemData.mpcost = 1;
+    }
+
+    if (itemData.type == "essenceweave") {
+      systemData.checkbase =
+        Number(systemData.checkbase) + Number(actorData.attributes.efewckmod);
+      systemData.powerbase =
+        Number(systemData.powerbase) + Number(actorData.attributes.efewpwmod);
+      systemData.hpcost = systemData.basehpcost;
     }
 
     if (itemData.type == "otherfeature") {
@@ -1906,7 +1917,9 @@ export class SW25Item extends Item {
     let spell = false;
     if (item.type == "spell") spell = true;
     let enhancearts = false;
-    if (item.type == "enhancearts") spell = true;
+    if (item.type == "enhancearts") enhancearts = true;
+    let essenceweave = false;
+    if (item.type == "essenceweave") essenceweave = true;
     let resource = false;
     if (item.type == "weapon") {
       if (item.system.resuse != "-") resource = true;
@@ -1934,6 +1947,7 @@ export class SW25Item extends Item {
           description: chatDescription,
           spell: spell,
           enhancearts: enhancearts,
+          essenceweave: essenceweave,
           resource: resource,
           usedice: usedice,
           usedice1: usedice1,
@@ -2211,6 +2225,23 @@ export class SW25Item extends Item {
       const type = item.type;
       const meta = 1;
       mpCost(token, cost, name, type, meta);
+    }
+
+    if (this.system.clickitem == "hpcost") {
+      const selectedTokens = canvas.tokens.controlled;
+      if (selectedTokens.length === 0) {
+        ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+        return;
+      } else if (selectedTokens.length > 1) {
+        ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+        return;
+      }
+      const token = selectedTokens[0];
+      const cost = item.system.hpcost;
+      const max = item.system.maxhpcost;
+      const name = item.name;
+      const type = item.type;
+      hpCost(token, cost, max, name, type);
     }
 
     if (this.system.clickitem == "rescost") {

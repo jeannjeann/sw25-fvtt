@@ -124,6 +124,8 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.efmsckmod":
         case "system.attributes.efmspwmod":
         case "system.attributes.efatckmod":
+        case "system.attributes.efewckmod":
+        case "system.attributes.efewpwmod":
           change.keyClassification = "feature";
           change.keyname = change.key.replace(/^system\./, "");
           break;

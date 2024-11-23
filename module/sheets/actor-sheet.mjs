@@ -3,7 +3,7 @@ import {
   prepareActiveEffectCategories,
 } from "../helpers/effects.mjs";
 import { powerRoll } from "../helpers/powerroll.mjs";
-import { mpCost } from "../helpers/mpcost.mjs";
+import { mpCost, hpCost } from "../helpers/mpcost.mjs";
 import { lootRoll } from "../helpers/lootroll.mjs";
 import { growthCheck } from "../helpers/growthcheck.mjs";
 import { targetRollDialog } from "../helpers/dialogs.mjs";
@@ -224,6 +224,11 @@ export class SW25ActorSheet extends ActorSheet {
         tactics.push(i);
       }
 
+      // Append to essenceweave.
+      else if (i.type === "essenceweave") {
+        essenceweave.push(i);
+      }
+
       // Append to otherfeeature.
       else if (i.type === "otherfeature") {
         otherfeature.push(i);
@@ -307,6 +312,11 @@ export class SW25ActorSheet extends ActorSheet {
       tcshow = false;
     } else tcshow = true;
 
+    let ewshow = true;
+    if (essenceweave.length == 0) {
+      ewshow = false;
+    } else ewshow = true;
+
     let ofshow = true;
     if (otherfeature.length == 0) {
       ofshow = false;
@@ -382,6 +392,8 @@ export class SW25ActorSheet extends ActorSheet {
     context.pashow = pashow;
     context.tactics = tactics;
     context.tcshow = tcshow;
+    context.essenceweave = essenceweave;
+    context.ewshow = ewshow;
     context.otherfeature = otherfeature;
     context.ofshow = ofshow;
     context.raceabilities = raceabilities;
@@ -457,6 +469,9 @@ export class SW25ActorSheet extends ActorSheet {
 
     // Mp cost.
     html.on("click", ".mpcost", this._onMpCost.bind(this));
+
+    // Hp cost.
+    html.on("click", ".hpcost", this._onHpCost.bind(this));
 
     // Resource cost.
     html.on("click", ".resourcecost", this._onResourceCost.bind(this));
@@ -1014,6 +1029,26 @@ export class SW25ActorSheet extends ActorSheet {
     const type = dataset.type;
     const meta = 1;
     mpCost(token, cost, name, type, meta);
+  }
+
+  async _onHpCost(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+    const token = selectedTokens[0];
+    const cost = dataset.cost;
+    const max = dataset.max;
+    const name = dataset.label;
+    const type = dataset.type;
+    hpCost(token, cost, max, name, type);
   }
 
   async _onResourceCost(event) {

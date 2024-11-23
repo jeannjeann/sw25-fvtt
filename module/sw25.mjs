@@ -600,6 +600,16 @@ Hooks.once("ready", async function () {
       });
     }
 
+    // Apply HP cost
+    if (data.method == "applyHp") {
+      const targetToken = canvas.tokens.get(data.targetToken);
+      const target = targetToken.actor;
+      if (!target) return;
+      target.update({
+        "system.hp.value": data.resultHP,
+      });
+    }
+
     // Apply effect
     if (data.method == "applyEffect") {
       const targetTokens = data.targetTokens.map((tokenId) =>
