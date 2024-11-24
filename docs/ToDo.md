@@ -8,10 +8,10 @@
 - 呪歌、賦術、相域、鼓砲のリソース消費
 
 - TAH対応
-- HTML整理プルリクマージ
 - v1.0.0へ　β記載削除
 
 終了
+- HTML整理プルリクマージ
 - 蛮族特殊能力Barbarous unique skills
 - 魔装Infusion
 - 奈落魔法Abyssal Magic
