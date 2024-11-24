@@ -5,11 +5,11 @@
       <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
       <div class="grid grid-2col">
         <div class="flexrow flex-group-left resource">
-          <label class="resource-label">{{localize "SW25.Item.Skill.Skilllevel"}}</label>
+          <span class="resource-label">{{localize "SW25.Item.Skill.Skilllevel"}}</span>
           <span class="resource-label-l">{{system.skilllevel}}</span>
         </div>
         <div class="flexrow flex-group-right resource">
-          <label class="resource-label">{{localize "SW25.Item.Skill.Skillexp"}}</label>
+          <span class="resource-label">{{localize "SW25.Item.Skill.Skillexp"}}</span>
           <span class="resource-label">{{system.skillexp}}</span>
         </div>
       </div>
@@ -33,8 +33,8 @@
           <div class="flexcol">
             <span><b>{{localize "SW25.Check"}}{{localize "SW25.Basenumber"}}</b></span>
             <div class="flexrow">
-              <span style="text-align: right;">{{localize "SW25.Modifier"}}</span>
-              <input class="resource-label" style="text-align: center;" type="text" name="system.skillmod" value="{{system.skillmod}}" data-dtype="Number"/>
+              <label for="{{item._id}}system.skillmod" style="text-align: right;">{{localize "SW25.Modifier"}}</span>
+              <input id="{{item._id}}system.skillmod" class="resource-label" style="text-align: center;" type="text" name="system.skillmod" value="{{system.skillmod}}" data-dtype="Number"/>
             </div>
             <hr>
             <div class="flexrow flex-group-right">
@@ -73,7 +73,8 @@
     {{!-- Details Tab --}}
     <div class="tab details" data-group="primary" data-tab="details">
       <div class="flexrow grid grid-8col nogapmargin">
-        <span style="text-align: center;"><b>{{localize "SW25.Item.Skill.Skilllevel"}}</b><br><input type="text" name="system.skilllevel" value="{{system.skilllevel}}" data-dtype="Number"/></span>
+        <span style="text-align: center;"><label for="{{item._id}}system.skilllevel"><b>{{localize "SW25.Item.Skill.Skilllevel"}}</b></label><br>
+        <input id="{{item._id}}system.skilllevel" type="text" name="system.skilllevel" value="{{system.skilllevel}}" data-dtype="Number"/></span>
         <span style="text-align: center;"><b>{{localize "SW25.Item.Skill.Exptable"}}</b><br>
           <select name="system.exptable">
             {{#select system.exptable}}

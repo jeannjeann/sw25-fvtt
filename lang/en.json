@@ -68,6 +68,8 @@
     "Cdamage": "Damage (Fixed)",
     "Recovery": "Recovery",
     "Shortage": "Shortage",
+    "UnderZero": "0 or less",
+    "NoCost": "No Cost",
     "Applyall": "Apply All",
 
     "Notargetwarn": "No targets selected.",
@@ -243,6 +245,8 @@
       "Other": "Other",
       "Fandw": "Fire and Wind",
       "Iandt": "Ice/Water and Thunder",
+      "Premise": "Prerequisite",
+      "Part": "Applicable Part",
       "Weapn": {
       },
       "Weapon": {
@@ -318,6 +322,7 @@
         "Fairy": "Fairy",
         "Druid": "Nature",
         "Daemon": "Summoning",
+        "Abyssal": "Abyssak Magic",
         "Faith": "Classification",
         "First": "First",
         "Second": "Second",
@@ -335,7 +340,10 @@
         "Fairylight": "Light",
         "Fairydark": "Dark",
         "Hpresist": "Fortitude",
-        "Meta": "Meta"
+        "Meta": "Meta",
+        "ExCost": "Expansion Materials",
+        "ExTime": "Expansion Time",
+        "Expansion": "Expansion Effect"
       },
       "Enhancearts": {
       },
@@ -353,9 +361,7 @@
         "Singpoint": "Rhythm"
       },
       "Ridingtrick": {
-        "Premise": "Prerequisite",
-        "Support": "Supported Mount",
-        "Part": "Applicable Part"
+        "Support": "Supported Mount"
       },
       "Alchemytech": {
         "Red": "Red",
@@ -384,6 +390,13 @@
         "Resist": "Resistance",
         "Inspire": "Inspirational",
         "Premise": "Prerequisite"
+      },
+      "Infusion": {
+        "HumanoidForm": "Humanoid Form"
+      },
+      "BarbarousSkill": {
+        "Base": "Base Number",
+        "ResistBase": "Resistance Base"
       },
       "Check": {
         "Normalcheck": "Normal Check",
@@ -457,6 +470,7 @@
       "MPower": "Power",
       "MPSave": "MP Save",
       "Performance": "Performance",
+      "Force": "Force",
       "DirectInput": "Direct Input",
       "HitMod": "Accuracy Mod",
       "DamageMod": "DMG Mod",
@@ -492,7 +506,8 @@
       "MtMod": "Magitech",
       "FrMod": "Fairy",
       "DrMod": "Nature",
-      "DmMod": "Summoning"
+      "DmMod": "Summoning",
+      "AbMod": "Abyssal Magic"
     },
     "Config": {
       "ResVit": "Fortitude",
@@ -530,6 +545,9 @@
       "alchemytech": "Evocation",
       "phasearea": "Aspect",
       "tactics": "Strategem",
+      "infusion": "Infusion",
+      "barbarousskill": "Barbarous Unique Skill",
+      "essenceweave": "Essence Weaving",
       "check": "Check",
       "resource": "Resource",
       "combatability": "Feats",
@@ -626,6 +644,11 @@
       "name": "Label of Summoning Art",
       "hint": "Summoning Art effect target settings (for Monster), default and when omitted : ",
       "default": "SummoningMP"
+    },
+    "effectAbpMon":{
+      "name": "Label of Abyssal Magic",
+      "hint": "Abyssal Magic effect target settings (for Monster), default and when omitted : ",
+      "default": "AbyssalMP"
     },
     "fromCompendium":{
       "name": "Get language from Compendium",

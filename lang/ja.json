@@ -68,6 +68,8 @@
     "Cdamage": "ダメージ (確定)",
     "Recovery": "回復",
     "Shortage": "不足",
+    "UnderZero": "0以下",
+    "NoCost": "消費なし",
     "Applyall": "すべて適用",
 
     "Notargetwarn": "ターゲットが指定されていません",
@@ -243,6 +245,8 @@
       "Other": "その他",
       "Fandw": "炎かつ風",
       "Iandt": "水・氷かつ雷",
+      "Premise": "前提",
+      "Part": "適用部位",
       "Weapn": {
       },
       "Weapon": {
@@ -318,6 +322,7 @@
         "Fairy": "妖精魔法",
         "Druid": "森羅魔法",
         "Daemon": "召異魔法",
+        "Abyssal": "奈落魔法",
         "Faith": "信仰制限",
         "First": "第一の剣",
         "Second": "第二の剣",
@@ -335,7 +340,10 @@
         "Fairylight": "光",
         "Fairydark": "闇",
         "Hpresist": "生命",
-        "Meta": "拡大"
+        "Meta": "拡大",
+        "ExCost": "消費拡張素材",
+        "ExTime": "拡張時間",
+        "Expansion": "拡張効果"
       },
       "Enhancearts": {
       },
@@ -353,9 +361,7 @@
         "Singpoint": "巧奏値"
       },
       "Ridingtrick": {
-        "Premise": "前提",
-        "Support": "対応",
-        "Part": "適用部位"
+        "Support": "対応"
       },
       "Alchemytech": {
         "Red": "赤",
@@ -384,6 +390,13 @@
         "Resist": "抵抗系",
         "Inspire": "鼓舞系",
         "Premise": "前提"
+      },
+      "Infusion": {
+        "HumanoidForm": "人間形態時"
+      },
+      "BarbarousSkill": {
+        "Base": "基準値",
+        "ResistBase": "抵抗基準値"
       },
       "Check": {
         "Normalcheck": "通常判定",
@@ -456,6 +469,7 @@
       "MPower": "威力",
       "MPSave": "MP軽減",
       "Performance": "演奏",
+      "Force": "理力",
       "DirectInput": "直接入力",
       "HitMod": "命中修正",
       "DamageMod": "ダメージ修正",
@@ -491,7 +505,8 @@
       "MtMod": "魔動機術",
       "FrMod": "妖精魔法",
       "DrMod": "森羅魔法",
-      "DmMod": "召異魔法"
+      "DmMod": "召異魔法",
+      "AbMod": "奈落魔法"
     },
     "Config": {
       "ResVit": "生命抵抗力",
@@ -529,6 +544,9 @@
       "alchemytech": "賦術",
       "phasearea": "相域",
       "tactics": "鼓砲・陣率",
+      "infusion": "魔装",
+      "barbarousskill": "蛮族特殊能力",
+      "essenceweave": "操気",
       "check": "判定",
       "resource": "リソース",
       "combatability": "戦闘特技",
@@ -625,6 +643,11 @@
       "name": "召異魔法判定のラベル名",
       "hint": "召異魔法判定バフ適用対象の設定（魔物用）、省略可、デフォルトおよび省力時：",
       "default": "召異魔力"
+    },
+    "effectAbpMon":{
+      "name": "奈落魔法判定のラベル名",
+      "hint": "奈落魔法判定バフ適用対象の設定（魔物用）、省略可、デフォルトおよび省力時：",
+      "default": "奈落魔力"
     },
     "fromCompendium":{
       "name": "辞典から言語を取得",

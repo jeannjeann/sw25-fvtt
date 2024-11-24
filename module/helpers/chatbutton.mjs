@@ -1,6 +1,6 @@
 // Chat button handler
 import { powerRoll } from "./powerroll.mjs";
-import { mpCost } from "./mpcost.mjs";
+import { mpCost, hpCost } from "./mpcost.mjs";
 import { targetRollDialog } from "../helpers/dialogs.mjs";
 
 /**
@@ -1374,6 +1374,23 @@ export async function chatButton(chatMessage, buttonType) {
     const type = item.type;
     const meta = 1;
     mpCost(token, cost, name, type, meta);
+  }
+
+  if (buttonType == "buttonhp") {
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+    const token = selectedTokens[0];
+    const cost = item.system.hpcost;
+    const max = item.system.maxhpcost;
+    const name = item.name;
+    const type = item.type;
+    hpCost(token, cost, max, name, type);
   }
 
   if (buttonType == "buttonresource") {

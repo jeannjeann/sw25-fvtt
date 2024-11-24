@@ -77,6 +77,7 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.effrmod":
         case "system.attributes.efdrmod":
         case "system.attributes.efdmmod":
+        case "system.attributes.efabmod":
         case "system.effect.allmgp":
           change.keyClassification = "magicpower";
           change.keyname = change.key.replace(/^system\./, "");
@@ -89,6 +90,7 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.effrckmod":
         case "system.attributes.efdrckmod":
         case "system.attributes.efdmckmod":
+        case "system.attributes.efabckmod":
         case "system.attributes.efmckall":
           change.keyClassification = "magicckroll";
           change.keyname = change.key.replace(/^system\./, "");
@@ -101,6 +103,7 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.effrpwmod":
         case "system.attributes.efdrpwmod":
         case "system.attributes.efdmpwmod":
+        case "system.attributes.efabpwmod":
         case "system.attributes.efmpwall":
           change.keyClassification = "magicpwroll";
           change.keyname = change.key.replace(/^system\./, "");
@@ -113,6 +116,7 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.efmpfr":
         case "system.attributes.efmpdr":
         case "system.attributes.efmpdm":
+        case "system.attributes.efmpab":
         case "system.attributes.efmpall":
           change.keyClassification = "mpsave";
           change.keyname = change.key.replace(/^system\./, "");
@@ -120,6 +124,8 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.efmsckmod":
         case "system.attributes.efmspwmod":
         case "system.attributes.efatckmod":
+        case "system.attributes.efewckmod":
+        case "system.attributes.efewpwmod":
           change.keyClassification = "feature";
           change.keyname = change.key.replace(/^system\./, "");
           break;

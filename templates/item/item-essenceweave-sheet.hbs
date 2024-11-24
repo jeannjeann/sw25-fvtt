@@ -5,14 +5,18 @@
       <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
       <div class="grid grid-6col flex-group-left nogapmargin">
         <div class="grid-span-2">
-          {{#if system.aux}}≫{{/if}}{{#if system.prep}}△{{/if}}{{#if (eq system.faith "first")}}Ⅰ{{/if}}{{#if (eq system.faith "second")}}Ⅱ{{/if}}
+          {{#if system.constant}}○{{/if}}{{#if system.main}}▶{{/if}}{{#if system.aux}}≫{{/if}}{{#if system.prep}}△{{/if}}
         </div>
         <div class="grid-span-2">
-          <b>{{system.level}}{{#if (eq system.fairytype "prop")}}{{localize "SW25.Rank"}}{{else}}{{#if (eq system.fairytype "special")}}{{localize "SW25.Rank"}}{{else}}{{localize "SW25.Level"}}{{/if}}{{/if}}{{system.typename}}</b>
+          <b>{{system.level}}{{localize "SW25.Level"}}{{localize "TYPES.Item.essenceweave"}}</b>
         </div>
         <div class="grid-span-2" style="text-align: right;">
-          <b>  MP{{localize "SW25.Cost"}} : </b>{{system.mpcost}}
+          <b>  HP{{localize "SW25.Cost"}} : </b>{{system.hpcost}}{{#if system.maxhpcost}} ({{system.maxhpcost}}){{/if}}
         </div>
+        <div class="grid-span-3">
+          <b>{{localize "SW25.Item.Premise"}} : </b>{{system.premise}}
+        </div>
+        <div class="grid-span-3"></div>
         <div class="grid-span-2">
           <b>{{localize "SW25.Target"}} : </b>{{system.target}}
         </div>
@@ -23,40 +27,12 @@
           <b>{{localize "SW25.Time"}} : </b>{{system.time}} 
         </div>
         <div class="grid-span-2">
-           <b>{{localize "SW25.Item.Resist"}} : </b>{{#if system.hpresist}}{{localize "SW25.Item.Spell.Hpresist"}}/{{/if}}{{localizeResist system.resist}}
+           <b>{{localize "SW25.Item.Resist"}} : </b>{{localizeResist system.resist}}
         </div>
-        <div class="grid-span-2">
-           <b>{{localize "SW25.Item.Prop"}} : </b>{{localizeProp system.prop}}
-        </div>
-        {{#if (eq system.type "priest")}}
-          {{#if system.sect}}
-          <div class="grid-span-6">
-            <b>{{localize "SW25.Item.Spell.Specialpriest"}} : </b>{{system.sect}}
-          </div>
-          {{/if}}
-        {{/if}}
-        {{#if (eq system.type "magitech")}}
-        <div class="grid-span-6">
-          <b>{{localize "SW25.Item.Spell.Magispfere"}} : </b>{{system.magispfere}}
-        </div>
-        {{/if}}
-        {{#if (eq system.type "fairy")}}
-        <div class="grid-span-6">
-          <b>{{system.fairytypename}}{{localize "SW25.Item.Spell.Fairy"}}{{#if (eq system.fairytype "propfairy")}} ({{localizeFairyProp system.fairyprop}}){{/if}}</b>
-        </div>
-        {{/if}}
+        <div class="grid-span-2"></div>
         <div class="grid-span-6">
           <b>{{localize "SW25.Item.Overview"}} : </b>{{system.overview}}
         </div>
-        {{#if (eq system.type "abyssal")}}
-        <div class="grid-span-6">
-          <b>{{localize "SW25.Item.Spell.Expansion"}} {{#if system.expansion2}}1 {{/if}}: </b>{{localize "SW25.Item.Spell.ExCost"}}:{{system.excost1}}, {{localize "SW25.Item.Spell.ExTime"}}:{{system.extime1}}, {{system.expansion1}}
-        </div>
-        {{#if system.expansion2}}
-        <div class="grid-span-6">
-          <b>{{localize "SW25.Item.Spell.Expansion"}} 2 : </b>{{localize "SW25.Item.Spell.ExCost"}}:{{system.excost2}}, {{localize "SW25.Item.Spell.ExTime"}}:{{system.extime2}}, {{system.expansion2}}
-        </div>{{/if}}
-        {{/if}}
       </div>
     </div>
   </header>
@@ -86,10 +62,10 @@
               <option value="all">{{localize "SW25.Item.All"}}</option>
               <option value="power">{{localize "SW25.Item.Powerroll"}}</option>
               <option value="dice">{{localize "SW25.Item.Diceroll"}}</option>
-              <option value="mpcost">{{localize "SW25.Mp"}}{{localize "SW25.Cost"}}</option>
+              <option value="hpcost">{{localize "SW25.Hp"}}{{localize "SW25.Cost"}}</option>
               <option value="description">{{localize "SW25.Item.Onlydescription"}}</option>
               {{/select}}
-            </select>
+           </select>
           </span>
           <div class="grid-span-3"></div>
           <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.usedice"><b>{{localize "SW25.Item.Usedice"}}</b></label><br>
@@ -98,32 +74,16 @@
           <input id="{{item._id}}system.usepower" type="checkbox" name="system.usepower" data-dtype="Boolean" {{#if system.usepower}} checked {{/if}}/></span>
         </div>
         <div class="flexrow grid grid-10col">
-          <span class="grid-span-2" style="text-align: center;"><b>{{localize "TYPES.Item.spell"}}</b><br>
-            <select name="system.type">
-              {{#select system.type}}
-              <option value="-">-</option>
-              <option value="sorcerer">{{localize "SW25.Item.Spell.Sorcerer"}}</option>
-              <option value="conjurer">{{localize "SW25.Item.Spell.Conjurer"}}</option>
-              <option value="wizard">{{localize "SW25.Item.Spell.Wizard"}}</option>
-              <option value="priest">{{localize "SW25.Item.Spell.Priest"}}</option>
-              <option value="magitech">{{localize "SW25.Item.Spell.Magitech"}}</option>
-              <option value="fairy">{{localize "SW25.Item.Spell.Fairy"}}</option>
-              <option value="druid">{{localize "SW25.Item.Spell.Druid"}}</option>
-              <option value="daemon">{{localize "SW25.Item.Spell.Daemon"}}</option>
-              <option value="abyssal">{{localize "SW25.Item.Spell.Abyssal"}}</option>
-              {{/select}}
-            </select>
-          </span>
-          <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.level"><b>{{localize "SW25.Level"}}</b></label><br>
-          <input id="{{item._id}}system.level" style="max-width: calc(50% - 7px);" type="text" name="system.level" value="{{system.level}}" data-dtype="Number"/></span>          <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.aux"><b>{{localize "SW25.Item.Aux"}}</b></label><br>
+          <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.constant"><b>{{localize "SW25.Item.Constant"}}</b></label><br>
+          <input id="{{item._id}}system.constant" type="checkbox" name="system.constant" data-dtype="Boolean" {{#if system.constant}} checked {{/if}}/></span>
+          <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.main"><b>{{localize "SW25.Item.Main"}}</b></label><br>
+          <input id="{{item._id}}system.main" type="checkbox" name="system.main" data-dtype="Boolean" {{#if system.main}} checked {{/if}}/></span>
+          <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.aux"><b>{{localize "SW25.Item.Aux"}}</b></label><br>
           <input id="{{item._id}}system.aux" type="checkbox" name="system.aux" data-dtype="Boolean" {{#if system.aux}} checked {{/if}}/></span>
           <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.prep"><b>{{localize "SW25.Item.Prep"}}</b></label><br>
           <input id="{{item._id}}system.prep" type="checkbox" name="system.prep" data-dtype="Boolean" {{#if system.prep}} checked {{/if}}/></span>
-<span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.basempcost"><b>MP{{localize "SW25.Cost"}}</b></label><br>
-          <input id="{{item._id}}system.basempcost" style="max-width: calc(50% - 7px);" type="text" name="system.basempcost" value="{{system.basempcost}}" data-dtype="Number"/></span>       <span class="grid-span-5" style="text-align: left;"><label for="{{item._id}}system.target"><b>{{localize "SW25.Target"}}</b></label><br>
-          <input id="{{item._id}}system.target" type="text" name="system.target" value="{{system.target}}" data-dtype="String"/></span>
-          <span class="grid-span-5" style="text-align: left;"><label for="{{item._id}}system.rangeshape"><b>{{localize "SW25.Rangeshape"}}</b></label><br>
-          <input id="{{item._id}}system.rangeshape" type="text" name="system.rangeshape" value="{{system.rangeshape}}" data-dtype="String"/></span>
+          <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.level"><b>{{localize "SW25.Level"}}</b></label><br>
+          <input id="{{item._id}}system.level" style="max-width: calc(50% - 7px);" type="text" name="system.level" value="{{system.level}}" data-dtype="Number"/></span>
           <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.time"><b>{{localize "SW25.Time"}}</b></label><br>
           <input id="{{item._id}}system.time" style="max-width: calc(90% - 7px);" type="text" name="system.time" value="{{system.time}}" data-dtype="String"/></span>
           <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Resist"}}</b><br>
@@ -135,104 +95,25 @@
               <option value="none">{{localize "SW25.Item.None"}}</option>
               <option value="disappear">{{localize "SW25.Item.Disappear"}}</option>
               <option value="halving">{{localize "SW25.Item.Halving"}}</option>
-              <option value="shortening">{{localize "SW25.Item.Shortening"}}</option>
               {{/select}}
             </select>
           </span>
-          <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Item.Prop"}}</b><br>
-            <select name="system.prop">
-              {{#select system.prop}}
-              <option value="-">-</option>
-              <option value="earth">{{localize "SW25.Item.Earth"}}</option>
-              <option value="ice">{{localize "SW25.Item.Ice"}}</option>
-              <option value="fire">{{localize "SW25.Item.Fire"}}</option>
-              <option value="wind">{{localize "SW25.Item.Wind"}}</option>
-              <option value="thunder">{{localize "SW25.Item.Thunder"}}</option>
-              <option value="energy">{{localize "SW25.Item.Energy"}}</option>
-              <option value="cut">{{localize "SW25.Item.Cut"}}</option>
-              <option value="impact">{{localize "SW25.Item.Impact"}}</option>
-              <option value="poison">{{localize "SW25.Item.Poison"}}</option>
-              <option value="disease">{{localize "SW25.Item.Disease"}}</option>
-              <option value="mental">{{localize "SW25.Item.Mental"}}</option>
-              <option value="mentalw">{{localize "SW25.Item.Mentalw"}}</option>
-              <option value="curse">{{localize "SW25.Item.Curse"}}</option>
-              <option value="curseMental">{{localize "SW25.Item.CurseMental"}}</option>
-              <option value="mentalPoison">{{localize "SW25.Item.MentalPoison"}}</option>
-              <option value="other">{{localize "SW25.Item.Other"}}</option>
-              {{/select}}
-            </select>
-          </span>
-          <div class="grid-span-3"></div>
-          {{#if (eq system.type "priest")}}
-          <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Item.Spell.Faith"}}</b><br>
-            <select name="system.faith">
-              {{#select system.faith}}
-              <option value="-">-</option>
-              <option value="first">{{localize "SW25.Item.Spell.First"}}</option>
-              <option value="second">{{localize "SW25.Item.Spell.Second"}}</option>
-              {{/select}}
-            </select>
-          </span>
-          <span class="grid-span-4" style="text-align: left;"><label for="{{item._id}}system.sect"><b>{{localize "SW25.Item.Spell.Specialpriest"}}</b></label><br>
-          <input id="{{item._id}}system.sect" type="text" name="system.sect" value="{{system.sect}}" data-dtype="String"/></span>
-          <div class="grid-span-3"></div>
-          {{/if}}
-          {{#if (eq system.type "magitech")}}
-          <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.magispfere"><b>{{localize "SW25.Item.Spell.Magispfere"}}</b></label><br>
-          <input id="{{item._id}}system.magispfere" type="text" name="system.magispfere" value="{{system.magispfere}}" data-dtype="String"/></span>
-          <div class="grid-span-8"></div>
-          {{/if}}
-          {{#if (eq system.type "fairy")}}
-          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Spell.Fairytype"}}</b><br>
-            <select name="system.fairytype">
-              {{#select system.fairytype}}
-              <option value="-">-</option>
-              <option value="basicfairy">{{localize "SW25.Item.Spell.Basicfairy"}}</option>
-              <option value="propfairy">{{localize "SW25.Item.Spell.Propfairy"}}</option>
-              <option value="specialfairy">{{localize "SW25.Item.Spell.Specialfairy"}}</option>
-              {{/select}}
-            </select>
-          </span>
-          {{#if (eq system.fairytype "propfairy")}}
-          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Spell.Fairyprop"}}</b><br>
-            <select name="system.fairyprop">
-              {{#select system.fairyprop}}
-              <option value="-">-</option>
-              <option value="fairyearth">{{localize "SW25.Item.Spell.Fairyearth"}}</option>
-              <option value="fairyice">{{localize "SW25.Item.Spell.Fairyice"}}</option>
-              <option value="fairyfire">{{localize "SW25.Item.Spell.Fairyfire"}}</option>
-              <option value="fairywind">{{localize "SW25.Item.Spell.Fairywind"}}</option>
-              <option value="fairylight">{{localize "SW25.Item.Spell.Fairylight"}}</option>
-              <option value="fairydark">{{localize "SW25.Item.Spell.Fairydark"}}</option>
-              {{/select}}
-            </select>
-          </span>
-          {{else}}<div class="grid-span-8"></div>
-          {{/if}}
-          <div class="grid-span-6"></div>
-          {{/if}}
-          {{#if (eq system.type "druid")}}
-          <span class="grid-span-3"  style="text-align: center;"><label for="{{item._id}}system.hpresist"><b>{{localize "SW25.Item.Spell.Hpresist"}}{{localize "SW25.Item.Resist"}}{{localize "TYPES.Item.spell"}}</b></label><br>
-          <input id="{{item._id}}system.hpresist" type="checkbox" name="system.hpresist" data-dtype="Boolean" {{#if system.hpresist}} checked {{/if}}/></span>
-          <div class="grid-span-7"></div>
-          {{/if}}
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.basehpcost"><b>HP{{localize "SW25.Cost"}}</b></label><br>
+          <input id="{{item._id}}system.basehpcost" style="max-width: calc(90% - 7px);" type="text" name="system.basehpcost" value="{{system.basehpcost}}" data-dtype="String"/></span>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.maxhpcost"><b>{{localize "SW25.Max"}}</b></label><br>
+          <input id="{{item._id}}system.maxhpcost" style="max-width: calc(90% - 7px);" type="text" name="system.maxhpcost" value="{{system.maxhpcost}}" data-dtype="Number"/></span>
+          <span class="grid-span-4" style="text-align: left;"><label for="{{item._id}}system.premise"><b>{{localize "SW25.Item.Premise"}}</b></label><br>
+          <input id="{{item._id}}system.premise" type="text" name="system.premise" value="{{system.premise}}" data-dtype="String"/></span>
+          <span class="grid-span-5" style="text-align: left;"><label for="{{item._id}}system.target"><b>{{localize "SW25.Target"}}</b></label><br>
+          <input id="{{item._id}}system.target" type="text" name="system.target" value="{{system.target}}" data-dtype="String"/></span>
+          <span class="grid-span-5" style="text-align: left;"><label for="{{item._id}}system.rangeshape"><b>{{localize "SW25.Rangeshape"}}</b></label><br>
+          <input id="{{item._id}}system.rangeshape" type="text" name="system.rangeshape" value="{{system.rangeshape}}" data-dtype="String"/></span>
           <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.overview"><b>{{localize "SW25.Item.Overview"}}</b></label><br>
-          <input id="{{item._id}}system.overview" type="text" name="system.overview" value="{{system.overview}}" data-dtype="String"/></span>        
-          {{#if (eq system.type "abyssal")}}
-          <span class="grid-span-5" style="text-align: center;"><label for="{{item._id}}system.excost1"><b>{{localize "SW25.Item.Spell.ExCost"}} 1</b></label><br><input id="{{item._id}}system.excost1" style="max-width: calc(90% - 7px);" type="text" name="system.excost1" value="{{system.excost1}}" data-dtype="String"/></span>
-          <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.extime1"><b>{{localize "SW25.Item.Spell.ExTime"}} 1</b></label><br><input id="{{item._id}}system.extime1" style="max-width: calc(90% - 7px);" type="text" name="system.extime1" value="{{system.extime1}}" data-dtype="String"/></span>
-          <div class="grid-span-3"></div>
-          <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.expansion1"><b>{{localize "SW25.Item.Spell.Expansion"}} 1</b></label><br><input id="{{item._id}}system.expansion1" type="text" name="system.expansion1" value="{{system.expansion1}}" data-dtype="String"/></span>
-          <span class="grid-span-5" style="text-align: center;"><label for="{{item._id}}system.excost2"><b>{{localize "SW25.Item.Spell.ExCost"}} 2</b></label><br><input id="{{item._id}}system.excost2" style="max-width: calc(90% - 7px);" type="text" name="system.excost2" value="{{system.excost2}}" data-dtype="String"/></span>
-          <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.extime2"><b>{{localize "SW25.Item.Spell.ExTime"}} 2</b></label><br><input id="{{item._id}}system.extime2" style="max-width: calc(90% - 7px);" type="text" name="system.extime2" value="{{system.extime2}}" data-dtype="String"/></span>
-          <div class="grid-span-3"></div>
-          <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.expansion2"><b>{{localize "SW25.Item.Spell.Expansion"}} 2</b></label><br><input id="{{item._id}}system.expansion2" type="text" name="system.expansion2" value="{{system.expansion2}}" data-dtype="String"/></span>
-          {{/if}}
+          <input id="{{item._id}}system.overview" type="text" name="system.overview" value="{{system.overview}}" data-dtype="String"/></span>
         </div>
         <div style="display: {{#if system.usedice}}block{{else}}none{{/if}};">
           <div class="flexrow grid grid-10col">
-            <span class="resource-label grid-span-2" style="text-decoration: underline;">{{localize "SW25.Check"}}{{localize "SW25.Setting"}}</span>            
-            <span class="grid-span-2" style="text-align: left;">{{localize "SW25.Check"}}{{localize "SW25.Basenumber"}} : <b>{{system.checkbase}}</b></span>
+            <span class="resource-label grid-span-2" style="text-decoration: underline;">{{localize "SW25.Check"}}{{localize "SW25.Setting"}}</span>            <span class="grid-span-2" style="text-align: left;">{{localize "SW25.Check"}}{{localize "SW25.Basenumber"}} : <b>{{system.checkbase}}</b></span>
             <span class="grid-span-2" style="text-align: left;">
               <select name="system.applycheck">
                 {{#select system.applycheck}}

@@ -11,27 +11,27 @@
             <div class="hp-progress-bar">
               <progress class="hp-bar grid-span-3" value="{{system.hp.value}}" max="{{system.hp.max}}"></progress>
               <div class="current-max-resource nobreak">
-                <input id="{{_id}}hp" type="number" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
+                <input id="{{actor._id}}hp" type="number" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
                 <span class="inline-block">/ {{system.hp.max}}</span>
               </div>
             </div>
             <div class="hpmod nobreak" style="font-size: 0.7rem; display: flex; align-items: center; justify-content: end; height: 20px;">
-              <label for="{{_id}}hpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-              <input id="{{_id}}hpmod" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
+              <label for="{{actor._id}}hpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
+              <input id="{{actor._id}}hpmod" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
             </div>
           </div>
           <div class="mpbar">
             <div class="mp-progress-bar">
               <progress class="mp-bar grid-span-3" value="{{system.mp.value}}" max="{{system.mp.max}}"></progress>
               <div class="current-max-resource nobreak">
-                <input id="{{_id}}mp" type="number" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
+                <input id="{{actor._id}}mp" type="number" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
                 
                 <span class="inline-block">/ {{system.mp.max}}</span>
               </div>
             </div>
             <div class="mpmod nobreak" style="font-size: 0.7rem; display: flex; align-items: center; justify-content: end; height: 20px;">
-              <label for="{{_id}}mpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-              <input id="{{_id}}mpmod" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
+              <label for="{{actor._id}}mpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
+              <input id="{{actor._id}}mpmod" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
             </div>
           </div>
         </div>
@@ -42,16 +42,16 @@
         <div class="character-details-primary flexrow">
           <div class="flexcol">
             <div class="character-name fontsize14">
-              <input id="{{_id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+              <input id="{{actor._id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
             </div>
             <div class="monster-type">
-              <span for="system.montype" class="resource-label nobreak">{{localize "SW25.Monster.Type"}}:</span>
+              <span class="resource-label nobreak">{{localize "SW25.Monster.Type"}}:</span>
               <span class="monster-type">{{system.type}}</span>
             </div>
           </div>
           <div class="monster-level inline-block level-container">
             <i class="fas fa-bolt"></i>
-            <span for="system.monlevel" class="nobreak level-label">{{localize "SW25.Monlevel"}}:</span>
+            <span class="nobreak level-label">{{localize "SW25.Monlevel"}}:</span>
             <span class="monster-lvl level-value">{{system.monlevel}}</span>
           </div>
         </div>
@@ -59,8 +59,8 @@
         <div class="character-details-secondary monster-parameters flexcol">
           <div class="flexrow">
             <div class="monster-weakness">
-              <input id="{{_id}}weakapply" type="checkbox" name="system.weakapply" {{checked system.weakapply}} data-dtype="Boolean" class="weakapply" />
-              <span for="system.weakness" class="resource-label nobreak">{{localize "SW25.Monster.Weakness"}}:</span>
+              <input id="{{actor._id}}weakapply" type="checkbox" name="system.weakapply" {{checked system.weakapply}} data-dtype="Boolean" class="weakapply" />
+              <label for="{{actor._id}}weakapply" class="resource-label nobreak">{{localize "SW25.Monster.Weakness"}}:</label>
               <span class="monster-weak">{{system.weakness}}</span>
             </div>
           </div>
@@ -125,8 +125,8 @@
         {{> "systems/sw25/templates/actor/parts/actor-monsterabilities.hbs"}}
       </div>
       <div class="margin-m" style="display: flex; align-items: center;">
-        <input type="checkbox" name="system.usespell" data-dtype="Boolean" {{#if system.usespell}} checked {{/if}}/>
-        <label for="system.usespell">{{localize "SW25.Monster.Usespell"}}</label>
+        <input type="checkbox" id="{{actor._id}}system.usespell" name="system.usespell" data-dtype="Boolean" {{#if system.usespell}} checked {{/if}}/>
+        <label for="{{actor._id}}system.usespell">{{localize "SW25.Monster.Usespell"}}</label>
       </div>
       {{#if system.usespell}}
       <div>
@@ -178,6 +178,9 @@
           {{#if system.totaldmmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totaldmmod}}</b></div>{{/if}}
           {{#if system.totaldmckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totaldmckmod}}</b></div>{{/if}}
           {{#if system.totaldmpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totaldmpwmod}}</b></div>{{/if}}
+          {{#if system.totalabmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.AbMod"}}: {{system.totalabmod}}</b></div>{{/if}}
+          {{#if system.totalabckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.AbMod"}}: {{system.totalabckmod}}</b></div>{{/if}}
+          {{#if system.totalabpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.AbMod"}}: {{system.totalabpwmod}}</b></div>{{/if}}
           {{#if system.totalallmgp}}<div><b>{{localize "SW25.Config.AllMgp"}}: {{system.totalallmgp}}</b></div>{{/if}}
           {{#if system.totalallmck}}<div><b>{{localize "SW25.Effect.MagicCKRoll"}} / {{localize "SW25.Item.All"}}: {{system.totalallmck}}</b></div>{{/if}}
           {{#if system.totalallmpw}}<div><b>{{localize "SW25.Effect.MagicPWRoll"}} / {{localize "SW25.Item.All"}}: {{system.totalallmpw}}</b></div>{{/if}}
@@ -189,10 +192,13 @@
           {{#if system.totalmpfr}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.FrMod"}}: {{system.totalmpfr}}</b></div>{{/if}}
           {{#if system.totalmpdr}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.DrMod"}}: {{system.totalmpdr}}</b></div>{{/if}}
           {{#if system.totalmpdm}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totalmpdm}}</b></div>{{/if}}
+          {{#if system.totalmpab}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.AbMod"}}: {{system.totalmpab}}</b></div>{{/if}}
           {{#if system.totalmpall}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Item.All"}}: {{system.totalmpall}}</b></div>{{/if}}
           {{#if system.totalmsckmod}}<div><b>{{localize "TYPES.Item.magicalsong"}} / {{localize "SW25.Effect.Performance"}}: {{system.totalmsckmod}}</b></div>{{/if}}
           {{#if system.totalmspwmod}}<div><b>{{localize "TYPES.Item.magicalsong"}} / {{localize "SW25.Effect.MPower"}}: {{system.totalmspwmod}}</b></div>{{/if}}
           {{#if system.totalatckmod}}<div><b>{{localize "TYPES.Item.alchemytech"}}: {{system.totalatckmod}}</b></div>{{/if}}
+          {{#if system.totalewckmod}}<div><b>{{localize "TYPES.Item.essenceweave"}} / {{localize "SW25.Effect.Force"}}: {{system.totalewckmod}}</b></div>{{/if}}
+          {{#if system.totalewpwmod}}<div><b>{{localize "TYPES.Item.essenceweave"}} / {{localize "SW25.Effect.MPower"}}: {{system.totalewpwmod}}</b></div>{{/if}}
         </div>
       </div>
       <div>
@@ -219,19 +225,24 @@
           <div class="grid-span-1 flex-group-center nogapmargin">
             <div class="grid grid-2col nogapmargin">
               <div class="grid-span-2">
-                <span style="text-align: center;"><b>{{localize "SW25.Monlevel"}}</b><br><input style="max-width: calc(50% - 7px); text-align: center;" type="text" name="system.monlevel" value="{{system.monlevel}}" data-dtype="Number"/></span>
+                <span style="text-align: center;"><label for="{{actor._id}}system.monlevel"><b>{{localize "SW25.Monlevel"}}</b></label><br>
+                <input id="{{actor._id}}system.monlevel" style="max-width: calc(50% - 7px); text-align: center;" type="text" name="system.monlevel" value="{{system.monlevel}}" data-dtype="Number"/></span>
               </div>
               <div>
-                <span style="text-align: center;"><b>{{localize "SW25.Max"}}{{localize "SW25.Hp"}}</b><br><input style="text-align: center;" type="text" name="system.hpbase" value="{{system.hpbase}}" data-dtype="Number"/></span>
+                <span style="text-align: center;"><label for="{{actor._id}}system.hpbase"><b>{{localize "SW25.Max"}}{{localize "SW25.Hp"}}</b></label><br>
+                <input id="{{actor._id}}system.hpbase" style="text-align: center;" type="text" name="system.hpbase" value="{{system.hpbase}}" data-dtype="Number"/></span>
               </div>
               <div>
-                <span style="text-align: center;"><b>{{localize "SW25.Max"}}{{localize "SW25.Mp"}}</b><br><input style="text-align: center;" type="text" name="system.mpbase" value="{{system.mpbase}}" data-dtype="Number"/></span>
+                <span style="text-align: center;"><label for="{{actor._id}}system.mpbase"><b>{{localize "SW25.Max"}}{{localize "SW25.Mp"}}</b></label><br>
+                <input id="{{actor._id}}system.mpbase" style="text-align: center;" type="text" name="system.mpbase" value="{{system.mpbase}}" data-dtype="Number"/></span>
               </div>
               <div>
-                <span style="text-align: center;"><b>{{localize "SW25.Attributes.Protectionpoint.abbr"}}</b><br><input style="text-align: center;" type="text" name="system.ppbase" value="{{system.ppbase}}" data-dtype="Number"/></span>
+                <span style="text-align: center;"><label for="{{actor._id}}system.ppbase"><b>{{localize "SW25.Attributes.Protectionpoint.abbr"}}</b></label><br>
+                <input id="{{actor._id}}system.ppbase" style="text-align: center;" type="text" name="system.ppbase" value="{{system.ppbase}}" data-dtype="Number"/></span>
               </div>
               <div>
-                <span style="text-align: center;"><b>{{localize "SW25.Attributes.Magicprotection.abbr"}}</b><br><input style="text-align: center;" type="text" name="system.mppbase" value="{{system.mppbase}}" data-dtype="Number"/></span>
+                <span style="text-align: center;"><label for="{{actor._id}}system.mppbase"><b>{{localize "SW25.Attributes.Magicprotection.abbr"}}</b></label><br>
+                <input id="{{actor._id}}system.mppbase" style="text-align: center;" type="text" name="system.mppbase" value="{{system.mppbase}}" data-dtype="Number"/></span>
               </div>
             </div>
           </div>
@@ -243,21 +254,34 @@
           </div>
         </div>
         <div class="flexrow grid grid-10col">
-          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Monster.Type"}}</b><br><input type="text" name="system.type" value="{{system.type}}" data-dtype="String"/></span>
-          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Monster.Intelligence"}}</b><br><input type="text" name="system.intelligence" value="{{system.intelligence}}" data-dtype="String"/></span>
-          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Monster.Perception"}}</b><br><input type="text" name="system.perception" value="{{system.perception}}" data-dtype="String"/></span>
-          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Monster.Reaction"}}</b><br><input type="text" name="system.reaction" value="{{system.reaction}}" data-dtype="String"/></span>
-          <span style="text-align: center;"><b>{{localize "SW25.Monster.Impurity"}}</b><br><input type="text" name="system.impurity" value="{{system.impurity}}" data-dtype="Number"/></span>
+          <span class="grid-span-2" style="text-align: center;"><label for="{{actor._id}}system.type"><b>{{localize "SW25.Monster.Type"}}</b></label><br>
+          <input id="{{actor._id}}system.type" type="text" name="system.type" value="{{system.type}}" data-dtype="String"/></span>
+          <span class="grid-span-2" style="text-align: center;"><label for="{{actor._id}}system.intelligence"><b>{{localize "SW25.Monster.Intelligence"}}</b></label><br>
+          <input id="{{actor._id}}system.intelligence" type="text" name="system.intelligence" value="{{system.intelligence}}" data-dtype="String"/></span>
+          <span class="grid-span-2" style="text-align: center;"><label for="{{actor._id}}system.perception"><b>{{localize "SW25.Monster.Perception"}}</b></label><br>
+          <input id="{{actor._id}}system.perception" type="text" name="system.perception" value="{{system.perception}}" data-dtype="String"/></span>
+          <span class="grid-span-2" style="text-align: center;"><label for="{{actor._id}}system.reaction"><b>{{localize "SW25.Monster.Reaction"}}</b></label><br>
+          <input id="{{actor._id}}system.reaction" type="text" name="system.reaction" value="{{system.reaction}}" data-dtype="String"/></span>
+          <span style="text-align: center;"><label for="{{actor._id}}system.impurity"><b>{{localize "SW25.Monster.Impurity"}}</b></label><br>
+          <input id="{{actor._id}}system.impurity" type="text" name="system.impurity" value="{{system.impurity}}" data-dtype="Number"/></span>
           <span></span>
-          <span class="grid-span-5" style="text-align: center;"><b>{{localize "SW25.Monster.Language"}}</b><br><input type="text" name="system.language" value="{{system.language}}" data-dtype="String"/></span>
-          <span class="grid-span-4" style="text-align: center;"><b>{{localize "SW25.Monster.Habitat"}}</b><br><input type="text" name="system.habitat" value="{{system.habitat}}" data-dtype="String"/></span>
+          <span class="grid-span-5" style="text-align: center;"><label for="{{actor._id}}system.language"><b>{{localize "SW25.Monster.Language"}}</b></label><br>
+          <input id="{{actor._id}}system.language" type="text" name="system.language" value="{{system.language}}" data-dtype="String"/></span>
+          <span class="grid-span-4" style="text-align: center;"><label for="{{actor._id}}system.habitat"><b>{{localize "SW25.Monster.Habitat"}}</b></label><br>
+          <input id="{{actor._id}}system.habitat" type="text" name="system.habitat" value="{{system.habitat}}" data-dtype="String"/></span>
           <span></span>
-          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Monster.Popularity"}} / {{localize "SW25.Monster.Weakpoint"}}</b><br><input style="max-width: calc(40% - 7px);" type="text" name="system.popularity" value="{{system.popularity}}" data-dtype="Number"/>/<input style="max-width: calc(40% - 7px);" type="text" name="system.weakpoint" value="{{system.weakpoint}}" data-dtype="Number"/></span>
-          <span class="grid-span-4" style="text-align: center;"><b>{{localize "SW25.Monster.Weakness"}}</b><br><input type="text" name="system.weakness" value="{{system.weakness}}" data-dtype="String"/></span>
-          <span style="text-align: center;"><b>{{localize "SW25.Monster.Preemptive"}}</b><br><input type="text" name="system.preemptive" value="{{system.preemptive}}" data-dtype="Number"/></span>
-          <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Monster.Move"}}</b><br><input type="text" name="system.move" value="{{system.move}}" data-dtype="String"/></span>
-          <span class="grid-span-4" style="text-align: center;"><b>{{localize "SW25.Monster.Part"}}</b><br><input type="text" name="system.part" value="{{system.part}}" data-dtype="String"/></span>
-          <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Monster.Corepart"}}</b><br><input type="text" name="system.corepart" value="{{system.corepart}}" data-dtype="String"/></span>
+          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Monster.Popularity"}} / {{localize "SW25.Monster.Weakpoint"}}</b><br>
+          <input style="max-width: calc(40% - 7px);" type="text" name="system.popularity" value="{{system.popularity}}" data-dtype="Number"/>/<input style="max-width: calc(40% - 7px);" type="text" name="system.weakpoint" value="{{system.weakpoint}}" data-dtype="Number"/></span>
+          <span class="grid-span-4" style="text-align: center;"><label for="{{actor._id}}system.weakness"><b>{{localize "SW25.Monster.Weakness"}}</b></label><br>
+          <input id="{{actor._id}}system.weakness" type="text" name="system.weakness" value="{{system.weakness}}" data-dtype="String"/></span>
+          <span style="text-align: center;"><label for="{{actor._id}}system.preemptive"><b>{{localize "SW25.Monster.Preemptive"}}</b></label><br>
+          <input id="{{actor._id}}system.preemptive" type="text" name="system.preemptive" value="{{system.preemptive}}" data-dtype="Number"/></span>
+          <span class="grid-span-3" style="text-align: center;"><label for="{{actor._id}}system.move"><b>{{localize "SW25.Monster.Move"}}</b></label><br>
+          <input id="{{actor._id}}system.move" type="text" name="system.move" value="{{system.move}}" data-dtype="String"/></span>
+          <span class="grid-span-4" style="text-align: center;"><label for="{{actor._id}}system.part"><b>{{localize "SW25.Monster.Part"}}</b></label><br>
+          <input id="{{actor._id}}system.part" type="text" name="system.part" value="{{system.part}}" data-dtype="String"/></span>
+          <span class="grid-span-3" style="text-align: center;"><label for="{{actor._id}}system.corepart"><b>{{localize "SW25.Monster.Corepart"}}</b></label><br>
+          <input id="{{actor._id}}system.corepart" type="text" name="system.corepart" value="{{system.corepart}}" data-dtype="String"/></span>
           <div class="flexcol grid-span-10">
             <div><b>{{localize "SW25.Monster.Loot"}}</b></div>
             <div style="border: 1px solid gray; padding: 2px; border-radius: 5px;">
@@ -268,7 +292,7 @@
         {{#if system.isgm}}
         <div class="flexcol margin-m">
           <div><b>{{localize "SW25.Gminfo"}}</b></div>
-          <span style="text-align: left;">{{localize "SW25.Unidentifiedname"}}<input style="max-width: calc(50% - 7px); text-align: left;" type="text" name="system.udname" value="{{system.udname}}" data-dtype="String"/></span>
+          <span style="text-align: left;"><label for="{{actor._id}}system.udname">{{localize "SW25.Unidentifiedname"}}</label><input id="{{actor._id}}system.udname" style="max-width: calc(50% - 7px); text-align: left;" type="text" name="system.udname" value="{{system.udname}}" data-dtype="String"/></span>
           <div>{{editor system.gminfo target="system.gminfo" rollData=rollData button=true owner=owner editable=editable}}</div>
         </div>
         {{/if}}

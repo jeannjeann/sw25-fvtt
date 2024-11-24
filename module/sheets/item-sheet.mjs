@@ -117,6 +117,21 @@ export class SW25ItemSheet extends ItemSheet {
       this._prepareTacticsData(context);
     }
 
+    if (itemData.type == "infusion") {
+      this._prepareItemRollData(context);
+      this._prepareInfusionData(context);
+    }
+
+    if (itemData.type == "barbarousskill") {
+      this._prepareItemRollData(context);
+      this._prepareBarbarousskillData(context);
+    }
+
+    if (itemData.type == "essenceweave") {
+      this._prepareItemRollData(context);
+      this._prepareEssenceweaveData(context);
+    }
+
     if (itemData.type == "otherfeature") {
       this._prepareItemRollData(context);
       this._prepareOtherFeatureData(context);
@@ -166,6 +181,9 @@ export class SW25ItemSheet extends ItemSheet {
   _prepareAlchemytechData(context) {}
   _preparePhaseareaData(context) {}
   _prepareTacticsData(context) {}
+  _prepareInfusionData(context) {}
+  _prepareBarbarousskillData(context) {}
+  _prepareEssenceweaveData(context) {}
   _prepareOtherFeatureData(context) {}
   _prepareRaceabilityData(context) {}
   _prepareLanguageData(context) {}

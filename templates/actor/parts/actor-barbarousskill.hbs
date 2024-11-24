@@ -1,20 +1,22 @@
 <ol class='items-list'>
   <li class='item flexrow items-header'>
-    <div class='item-name'>{{localize "TYPES.Item.ridingtrick"}}</div>
-    <div class='item-element' style="flex: 0 0 120px;">{{localize "SW25.Item.Ridingtrick.Support"}}</div>
-    <div class='item-element' style="flex: 0 0 110px;">{{localize "SW25.Item.Part"}}</div>
+    <div class='item-name'>{{localize "TYPES.Item.barbarousskill"}}</div>
+    <div class='item-element' style="flex: 0 0 50px;">{{localize "SW25.Item.Rank"}}</div>
+    <div class='item-element' style="flex: 0 0 60px;">{{localize "SW25.Item.Resist"}}</div>
+    <div class='item-element' style="flex: 0 0 100px;">{{localize "SW25.Item.BarbarousSkill.ResistBase"}}</div>
+    <div class='item-element' style="flex: 0 0 40px;">MP</div>
     <div class='item-controls'>
       <a
         class='item-control item-create'
         title='{{localize "DOCUMENT.Create" type='Item'}}'
-        data-type='ridingtrick'
+        data-type='enhancearts'
       >
         <i class='fas fa-plus'></i>
         {{localize 'DOCUMENT.New' type=''}}
       </a>
     </div>
   </li>
-  {{#each ridingtricks as |item id|}}
+  {{#each barbarousskill as |item id|}}
     <li class='item' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
         <div class='item-name'>
@@ -28,7 +30,7 @@
               />
             </a>
           </div>
-          {{#if system.constant}}○{{/if}}{{#if system.main}}▶{{/if}}{{#if system.aux}}≫{{/if}}<h4 class="item-label">{{item.name}}</h4>
+          {{#if system.constant}}○{{/if}}{{#if system.main}}▶{{/if}}{{#if system.aux}}≫{{/if}}{{#if system.prep}}△{{/if}}<h4 class="item-label">{{item.name}}</h4>
         </div>
         <div class="rollable" style="flex: 0 0 40px; display: {{#if system.usedice}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula}}+{{item.system.checkbase}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck}}" data-checktype="{{system.checkTypesButton}}">
           <b>{{localize "SW25.Item.CheckB"}}</b>
@@ -39,22 +41,28 @@
         <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
           <b>{{localize "SW25.Item.EffectB"}}</b>
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 120px;">
-          {{system.support}}
+        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 50px;">
+          {{system.rank}} 
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 110px;">
-          {{system.rtpart}}
+        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
+          {{system.resistname}} 
+        </div>
+        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 100px;">
+          {{system.resistbase}} 
+        </div>
+        <div class='mpcost item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 40px;" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
+          {{system.mpcost}}
         </div>
         <div class='item-controls'>
           <a
             class='item-control item-edit'
-            title='{{localize "DOCUMENT.Update" type='ridingtrick'}}'
+            title='{{localize "DOCUMENT.Update" type='enhancearts'}}'
           >
             <i class='fas fa-edit'></i>
           </a>
           <a
             class='item-control item-delete'
-            title='{{localize "DOCUMENT.Delete" type='ridingtrick'}}'
+            title='{{localize "DOCUMENT.Delete" type='enhancearts'}}'
           >
             <i class='fas fa-trash'></i>
           </a>
