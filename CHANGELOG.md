@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.0.0
+- 魔装、蛮族特殊能力、奈落魔法、操気に対応
+- UX Fix by [Airamhh](https://github.com/Airamhh)
+- bug fix
+- β表記を削除
+
 ## 0.13.0
 - 複数のターゲットへの適用機能を追加
 - bug fix

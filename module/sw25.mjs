@@ -16,6 +16,7 @@ import { powerRoll } from "./helpers/powerroll.mjs";
 import { lootRoll } from "./helpers/lootroll.mjs";
 import { growthCheck } from "./helpers/growthcheck.mjs";
 import { rollreq } from "./helpers/rollrequest.mjs";
+import { targetRollDialog } from "./helpers/dialogs.mjs";
 import { preparePolyglot } from "./helpers/sw25languageprovider.mjs";
 
 // Export variable.
@@ -55,6 +56,7 @@ Hooks.once("init", function () {
     powerRoll,
     lootRoll,
     growthCheck,
+    targetRollDialog,
   };
 
   // Add custom constants for configuration.

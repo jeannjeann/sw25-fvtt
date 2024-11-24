@@ -3,7 +3,10 @@
 ![Foundry v11](https://img.shields.io/badge/foundry-v11-green)
 ![Foundry v12](https://img.shields.io/badge/foundry-v12-green)
 
-FVTT用ソード・ワールド2.5ゲームシステム（β版）
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X415YUSP)
+[![OFUSE](https://img.shields.io/badge/OFUSE-9cf.svg?style=for-the-badge)](https://ofuse.me/o?uid=81619)
+
+FVTT用ソード・ワールド2.5ゲームシステム
 
 ## インストール
 「ゲームシステム」タブの「ゲームシステムを入手」からインストール。
@@ -45,8 +48,8 @@ FVTT用ソード・ワールド2.5ゲームシステム（β版）
 - FVTT:バージョン11.315
 
 ## 注意事項
-- ひととおりFVTTらしいセッションに使用できる機能が実装されました。
-- β版です。バグが残存している可能性はかなり高いです。
+- v11環境で作成しています。v12では警告が多数出ますがでも動作します。
+- バグを見つけたら報告していただけると助かります。
 - エラー対応甘いです、常識的な数値を入れるようにしてください。
 - 警告がコンソールに出ますが、動作に問題がないためひとまず放置しています。
 - Modとの相性などはほとんど検証していません。「Dice So Nice!」「Times Up」「Chat Commander」「Token Action HUD」「Polyglot」は簡単に検証済み。
@@ -56,9 +59,6 @@ FVTT用ソード・ワールド2.5ゲームシステム（β版）
 - 行動順をサポートするModの一例（ポップコーンイニシアチブが向いているのではないかと個人的には思う）
   - ポップコーンタイプ「Lancer Initiative」「Just Popcorn Initiative」
   - グループタイプ「Combat Tracker Extensions」「Combat Tracker Groups」
-
-## 開発目標
-- β版目標：バグ潰し、UIブラッシュアップ
 
 ## 言い訳
 - JavaScriptの本格的な使用はほぼはじめて、HTMLはいにしえの知識、CSSっておいしいの？という状態での開発なので、とてもバタ臭いコードです。もっとスマートにできるはずだけど、実力が追い付いていません。設計とコーディングも並行して行ったので、不要なコードやファイルが多数残ってますが見逃してください。
