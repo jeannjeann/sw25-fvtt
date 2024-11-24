@@ -212,21 +212,21 @@
           <div class="grid-span-6"></div>
           {{/if}}
           {{#if (eq system.type "druid")}}
-          <span class="grid-span-3"  style="text-align: center;"><label for="{{item._id}}system.hpresis"><b>{{localize "SW25.Item.Spell.Hpresist"}}{{localize "SW25.Item.Resist"}}{{localize "TYPES.Item.spell"}}</b></label><br>
-          <input id="{{item._id}}system.hpresis" type="checkbox" name="system.hpresist" data-dtype="Boolean" {{#if system.hpresist}} checked {{/if}}/></span>
+          <span class="grid-span-3"  style="text-align: center;"><label for="{{item._id}}system.hpresist"><b>{{localize "SW25.Item.Spell.Hpresist"}}{{localize "SW25.Item.Resist"}}{{localize "TYPES.Item.spell"}}</b></label><br>
+          <input id="{{item._id}}system.hpresist" type="checkbox" name="system.hpresist" data-dtype="Boolean" {{#if system.hpresist}} checked {{/if}}/></span>
           <div class="grid-span-7"></div>
           {{/if}}
           <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.overview"><b>{{localize "SW25.Item.Overview"}}</b></label><br>
           <input id="{{item._id}}system.overview" type="text" name="system.overview" value="{{system.overview}}" data-dtype="String"/></span>        
           {{#if (eq system.type "abyssal")}}
-          <span class="grid-span-5" style="text-align: center;"><b>{{localize "SW25.Item.Spell.ExCost"}} 1</b><br><input style="max-width: calc(90% - 7px);" type="text" name="system.excost1" value="{{system.excost1}}" data-dtype="String"/></span>
-          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Spell.ExTime"}} 1</b><br><input style="max-width: calc(90% - 7px);" type="text" name="system.extime1" value="{{system.extime1}}" data-dtype="String"/></span>
+          <span class="grid-span-5" style="text-align: center;"><label for="{{item._id}}system.excost1"><b>{{localize "SW25.Item.Spell.ExCost"}} 1</b></label><br><input id="{{item._id}}system.excost1" style="max-width: calc(90% - 7px);" type="text" name="system.excost1" value="{{system.excost1}}" data-dtype="String"/></span>
+          <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.extime1"><b>{{localize "SW25.Item.Spell.ExTime"}} 1</b></label><br><input id="{{item._id}}system.extime1" style="max-width: calc(90% - 7px);" type="text" name="system.extime1" value="{{system.extime1}}" data-dtype="String"/></span>
           <div class="grid-span-3"></div>
-          <span class="grid-span-10" style="text-align: left;"><b>{{localize "SW25.Item.Spell.Expansion"}} 1</b><br><input type="text" name="system.expansion1" value="{{system.expansion1}}" data-dtype="String"/></span>
-          <span class="grid-span-5" style="text-align: center;"><b>{{localize "SW25.Item.Spell.ExCost"}} 2</b><br><input style="max-width: calc(90% - 7px);" type="text" name="system.excost2" value="{{system.excost}}" data-dtype="String"/></span>
-          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Spell.ExTime"}} 2</b><br><input style="max-width: calc(90% - 7px);" type="text" name="system.extime2" value="{{system.extime}}" data-dtype="String"/></span>
+          <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.expansion1"><b>{{localize "SW25.Item.Spell.Expansion"}} 1</b></label><br><input id="{{item._id}}system.expansion1" type="text" name="system.expansion1" value="{{system.expansion1}}" data-dtype="String"/></span>
+          <span class="grid-span-5" style="text-align: center;"><label for="{{item._id}}system.excost2"><b>{{localize "SW25.Item.Spell.ExCost"}} 2</b></label><br><input id="{{item._id}}system.excost2" style="max-width: calc(90% - 7px);" type="text" name="system.excost2" value="{{system.excost2}}" data-dtype="String"/></span>
+          <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.extime2"><b>{{localize "SW25.Item.Spell.ExTime"}} 2</b></label><br><input id="{{item._id}}system.extime2" style="max-width: calc(90% - 7px);" type="text" name="system.extime2" value="{{system.extime2}}" data-dtype="String"/></span>
           <div class="grid-span-3"></div>
-          <span class="grid-span-10" style="text-align: left;"><b>{{localize "SW25.Item.Spell.Expansion"}} 2</b><br><input type="text" name="system.expansion2" value="{{system.expansion2}}" data-dtype="String"/></span>
+          <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.expansion2"><b>{{localize "SW25.Item.Spell.Expansion"}} 2</b></label><br><input id="{{item._id}}system.expansion2" type="text" name="system.expansion2" value="{{system.expansion2}}" data-dtype="String"/></span>
           {{/if}}
         </div>
         <div style="display: {{#if system.usedice}}block{{else}}none{{/if}};">
