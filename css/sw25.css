@@ -589,6 +589,7 @@ progress.mp-bar::-moz-progress-bar {
 .sw25 .sheet-header {
   flex: 0 auto;
   overflow: hidden;
+  min-height: 200px;
 }
 .sw25 .sheet-header h1.charname {
   height: 50px;
