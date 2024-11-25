@@ -1176,6 +1176,9 @@ export async function chatButton(chatMessage, buttonType) {
       } else if (targetActor.type == "monster") {
         targetPP = targetActor.system.pp;
         targetMPP = targetActor.system.mpp;
+      } else if (targetActor.type == "npc") {
+        targetPP = targetActor.system.pp;
+        targetMPP = targetActor.system.mpp;
       }
       let resultHP = targetHP;
       let resultMP = targetMP;

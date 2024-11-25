@@ -807,6 +807,7 @@ export class SW25Actor extends Actor {
     if (actorData.type !== "npc") return;
 
     const systemData = actorData.system;
+    await this.update({});
 
     // Visible data trigger
     const userId = game.user.id;
@@ -824,6 +825,78 @@ export class SW25Actor extends Actor {
     if (game.user.isGM === true) systemData.isgm = true;
     else systemData.isgm = false;
 
+    // Make modifiy
+    systemData.hp.max =
+      Number(systemData.hpbase) +
+      Number(systemData.hp.hpmod) +
+      Number(systemData.hp.efhpmod);
+    systemData.mp.max =
+      Number(systemData.mpbase) +
+      Number(systemData.mp.mpmod) +
+      Number(systemData.mp.efmpmod);
+    systemData.pp =
+      Number(systemData.ppbase) +
+      Number(systemData.attributes.ppmod) +
+      Number(systemData.attributes.efppmod) +
+      Number(systemData.attributes.dreduce) +
+      Number(systemData.attributes.efdreduce);
+    systemData.mpp =
+      Number(systemData.mppbase) +
+      Number(systemData.attributes.mppmod) +
+      Number(systemData.attributes.efmppmod) +
+      Number(systemData.attributes.dreduce) +
+      Number(systemData.attributes.efdreduce);
+
+    // Calculate active effect
+    let actorEffects = actorData.effects;
+    let itemEffects = [];
+    this.items.forEach((item) => {
+      itemEffects.push(...item.effects);
+    });
+    let allEffects = [...actorEffects, ...itemEffects];
+    let activeEffects = allEffects.filter(
+      (effect) => effect.disabled === false
+    );
+
+    let effectsChange = activeEffects.map((effect) => {
+      return effect.changes.map((change) => {
+        return {
+          key: change.key,
+          value: Number(change.value),
+        };
+      });
+    });
+
+    let totalppmod = null;
+    let totalmppmod = null;
+    let totaldreduce = null;
+    let totalhpmod = null;
+    let totalmpmod = null;
+    effectsChange.forEach((effectList) => {
+      effectList.forEach((effects) => {
+        if (effects.key == "system.attributes.efppmod")
+          totalppmod += Number(effects.value);
+        if (effects.key == "system.attributes.efmppmod")
+          totalmppmod += Number(effects.value);
+        if (effects.key == "system.attributes.efdreduce")
+          totaldreduce += Number(effects.value);
+        if (effects.key == "system.hp.efhpmod")
+          totalhpmod += Number(effects.value);
+        if (effects.key == "system.mp.efmpmod")
+          totalmpmod += Number(effects.value);
+      });
+    });
+    systemData.totalppmod = totalppmod;
+    systemData.totalmppmod = totalmppmod;
+    systemData.totaldreduce = totaldreduce;
+    systemData.totalhpmod = totalhpmod;
+    systemData.totalmpmod = totalmpmod;
+    if (totalppmod > 0) systemData.totalppmod = "+" + totalppmod;
+    if (totalmppmod > 0) systemData.totalmppmod = "+" + totalmppmod;
+    if (totaldreduce > 0) systemData.totaldreduce = "+" + totaldreduce;
+    if (totalhpmod > 0) systemData.totalhpmod = "+" + totalhpmod;
+    if (totalmpmod > 0) systemData.totalmpmod = "+" + totalmpmod;
+
     // Set initiative formula
     systemData.initiativeFormula = "0";
 
@@ -835,6 +908,10 @@ export class SW25Actor extends Actor {
       systemData.attributes.languages.conv = lang;
       systemData.attributes.languages.read = lang;
     }
+
+    // Sheet refresh
+    if (actorData.sheet.rendered)
+      await actorData.sheet.render(true, { focus: false });
   }
 
   /**

@@ -255,6 +255,12 @@
       "mpp": 0,
       "langage": "",
       "attributes": {
+        "ppmod": 0,
+        "efppmod": 0,
+        "mppmod": 0,
+        "efmppmod": 0,
+        "dreduce": 0,
+        "efdreduce": 0,
         "languages": {
           "conv": [],
           "read": []
