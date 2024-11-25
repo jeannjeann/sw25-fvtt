@@ -249,6 +249,10 @@
       "limited": false,
       "isgm": false,
       "udname": "",
+      "ppbase": 0,
+      "mppbase": 0,
+      "pp": 0,
+      "mpp": 0,
       "langage": "",
       "attributes": {
         "languages": {

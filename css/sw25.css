@@ -571,6 +571,10 @@ progress.mp-bar::-moz-progress-bar {
   padding: 0;
 }
 
+.sw25 textarea{
+  border: 1px solid var(--color-border-light-tertiary);
+}
+
 .sw25 .adjustable-container {
   display: flex;
   align-items: center;
@@ -589,7 +593,7 @@ progress.mp-bar::-moz-progress-bar {
 .sw25 .sheet-header {
   flex: 0 auto;
   overflow: hidden;
-  min-height: 200px;
+  height: auto;
 }
 .sw25 .sheet-header h1.charname {
   height: 50px;
@@ -642,7 +646,8 @@ progress.mp-bar::-moz-progress-bar {
 }
 
 .sw25 .sheet-body input:hover,
-.sw25 .sheet-body select:hover {
+.sw25 .sheet-body select:hover,
+.sw25 .sheet-body textarea:hover {
   box-shadow: 0 0 5px var(--color-shadow-primary);
 }
 
@@ -837,7 +842,7 @@ progress.mp-bar::-moz-progress-bar {
 .sw25 .sheet-header .adventurer-details {
   align-self: flex-start;
   flex: 0 0 150px;
-  height: 150px;
+  height: auto;
   width: 150px;
   margin-right: var(--spacing-sm);
 }
@@ -845,17 +850,25 @@ progress.mp-bar::-moz-progress-bar {
 .sw25 .sheet-header .monster-details {
   align-self: flex-start;
   flex: 0 0 120px;
-  height: 120px;
+  height: auto;
   width: 120px;
   margin-right: var(--spacing-sm);
 }
 
-.sw25 .sheet-header .adventurer-details .profile-img,
+.sw25 .sheet-header .adventurer-details .profile-img {
+  height: 100%;
+  max-height: 120px;
+  width: 100%;
+  max-width: 120px;
+  border-radius: 5%;
+  margin: 0;
+  object-fit: contain; 
+}
 .sw25 .sheet-header .monster-details .profile-img {
   height: 100%;
-  max-height: 80%;
+  max-height: 100px;
   width: 100%;
-  max-width: 80%;
+  max-width: 100px;
   border-radius: 5%;
   margin: 0;
   object-fit: contain; 
@@ -1022,6 +1035,35 @@ progress.mp-bar::-moz-progress-bar {
 }
 
 .sw25 .monster-small {
+  font-size: 0.9rem;
+}
+
+.sw25 .sheet-header .header-fields .npc-parameters {
+  height: auto;
+}
+
+.sw25 .sheet-header .header-fields .npc-parameters .flexrow {
+  align-content: center;
+}
+.sw25 .sheet-header .header-fields .npc-parameters .npc-pp,
+.sw25 .sheet-header .header-fields .npc-parameters .npc-mpp{
+  flex: 0 0 50px;
+  text-align: center;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.sw25 .sheet-header .header-fields .npc-parameters .npc-blank{
+  flex: 1;
+}
+.sw25 .npc-label {
+  font-weight: bold;
+}
+
+.sw25 .npc-value {
+  font-size: 1.2rem;
+}
+
+.sw25 .npc-small {
   font-size: 0.9rem;
 }
 

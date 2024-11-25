@@ -885,6 +885,34 @@ Hooks.on("getSceneControlButtons", function (controls) {
   });
 });
 
+// textarea edit hook
+Hooks.on("renderSW25ActorSheet", (app, html, data) => {
+  html.find(".textarea-editor").on("blur", async (event) => {
+    const textarea = $(event.currentTarget);
+    const path = "system." + textarea.data("path");
+    const displaypath = "system.display" + textarea.data("path");
+    const content = textarea.val();
+    const displaycontent = content.replace(/\n/g, "<br>");
+    const updateData = {};
+    updateData[path] = content;
+    updateData[displaypath] = displaycontent;
+    await app.object.update(updateData);
+  });
+});
+Hooks.on("renderSW25ItemSheet", (app, html, data) => {
+  html.find(".textarea-editor").on("blur", async (event) => {
+    const textarea = $(event.currentTarget);
+    const path = "system." + textarea.data("path");
+    const displaypath = "system.display" + textarea.data("path");
+    const content = textarea.val();
+    const displaycontent = content.replace(/\n/g, "<br>");
+    const updateData = {};
+    updateData[path] = content;
+    updateData[displaypath] = displaycontent;
+    await app.object.update(updateData);
+  });
+});
+
 // Polyglot support
 Hooks.once("polyglot.init", (LanguageProvider) => {
   const SW25LanguageProvider = preparePolyglot(LanguageProvider);

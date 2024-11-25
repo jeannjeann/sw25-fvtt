@@ -17,7 +17,7 @@
             </div>
             <div class="hpmod nobreak" style="font-size: 0.7rem; display: flex; align-items: center; justify-content: end; height: 20px;">
               <label for="{{actor._id}}hpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-              <input id="{{actor._id}}hpmod" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
+              <input id="{{actor._id}}hpmod" style="height: 80%;" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
             </div>
           </div>
           <div class="mpbar">
@@ -31,7 +31,7 @@
             </div>
             <div class="mpmod nobreak" style="font-size: 0.7rem; display: flex; align-items: center; justify-content: end; height: 20px;">
               <label for="{{actor._id}}mpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-              <input id="{{actor._id}}mpmod" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
+              <input id="{{actor._id}}mpmod" style="height: 80%;" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
             </div>
           </div>
         </div>
@@ -246,11 +246,9 @@
               </div>
             </div>
           </div>
-          <div class="flexcol grid-span-4">
-            <div><b>{{localize "SW25.Overview"}}</b></div>
-            <div style="border: 1px solid gray; padding: 2px; border-radius: 5px;">
-              {{editor system.overview target="system.overview" rollData=rollData button=true owner=owner editable=editable}}
-            </div>
+          <div class="grid-span-4">
+            <label for="{{actori._id}}system.overview"><b>{{localize "SW25.Overview"}}</b></label><br>
+            <textarea class="textarea-editor" id="{{actori._id}}system.overview" style="width: 100%; height: 120px;" data-path="overview">{{system.overview}}</textarea>
           </div>
         </div>
         <div class="flexrow grid grid-10col">

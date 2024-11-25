@@ -5,43 +5,65 @@
   <header class="sheet-header">
     <div class="adventurer-details textalign-center">
       <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+      <div class="header-resources">
+        <div class="resources flexcol">
+          <div class="hpbar">
+            <div class="hp-progress-bar">
+              <progress class="hp-bar grid-span-3" value="{{system.hp.value}}" max="{{system.hp.max}}"></progress>
+              <div class="current-max-resource nobreak">
+                <input id="{{actor._id}}hp" type="number" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
+                <span class="inline-block">/ {{system.hp.max}}</span>
+              </div>
+            </div>
+            <div class="hpmod nobreak" style="font-size: 0.7rem; display: flex; align-items: center; justify-content: end; height: 20px;">
+              <label for="{{actor._id}}hpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
+              <input id="{{actor._id}}hpmod" style="height: 80%;" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
+            </div>
+          </div>
+          <div class="mpbar">
+            <div class="mp-progress-bar">
+              <progress class="mp-bar grid-span-3" value="{{system.mp.value}}" max="{{system.mp.max}}"></progress>
+              <div class="current-max-resource nobreak">
+                <input id="{{actor._id}}mp" type="number" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
+                <span class="inline-block">/ {{system.mp.max}}</span>
+              </div>
+            </div>
+            <div class="mpmod nobreak"  style="font-size: 0.7rem; display: flex; align-items: center; justify-content: end; height: 20px;">
+              <label for="{{actor._id}}mpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
+              <input id="{{actor._id}}mpmod" style="height: 80%;" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="header-fields flexrow">
       <div class="character-details">
-        <hr class="nogapmargin">
-        <div class="character-name">
-          <label for="{{actor._id}}name" class="resource-label">{{localize "SW25.CharacterName"}}</label>
-          <input id="{{actor._id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>1
-        </div>
+        <div class="character-details-primary flexrow">
+          <div class="flexcol">
+            <div class="character-name fontsize14">
+              <input id="{{actor._id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+            </div>
+          </div>
+        </div> 
         <hr>
-        <div class="character-details-secondary">
-          <b>{{localize "SW25.Overview"}}</b><br>{{{system.overview}}}
-        </div>
-      </div>
-      <div class="header-resources-m">
-        <div class="resources grid grid-3col">
-          <label for="{{actor._id}}hp" class="resource-label">{{localize "SW25.Hp"}}: </label>
-          <div class="current-max-resource nobreak">
-            <input id="{{actor._id}}hp" type="number" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
-            /
-            <span>{{system.hp.max}}</span>
+        <div class="npc-parameters character-details-secondary flexcol">
+          <div style="height: auto; min-height: 90px;">
+            <b>{{localize "SW25.Overview"}}</b><br>{{{system.displayoverview}}}
           </div>
-          <div class="nobreak">
-            <label for="{{actor._id}}hpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-            <input id="{{actor._id}}hpmod" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
+          <hr>
+          <div class="character-details-secondary flexrow">
+            <div class="npc-pp">
+              <span class="npc-label">{{localize "SW25.Attributes.Protectionpoint.abbr"}}</span><br>
+              <span class="npc-value">{{system.pp}}</span>
+            </div>
+            <div class="npc-mpp">
+              <span class="npc-label">{{localize "SW25.Attributes.Magicprotection.abbr"}}</span><br>
+              <span class="npc-value">{{system.mpp}}</span>
+            </div>
+            <div class="npc-blank">
+            </div>
           </div>
-          <progress class="hp-bar grid-span-3" value="{{system.hp.value}}" max="{{system.hp.max}}"></progress>
-          <label for="{{actor._id}}mp" class="resource-label">{{localize "SW25.Mp"}}: </label>
-          <div class="current-max-resource nobreak">
-            <input id="{{actor._id}}mp" type="number" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
-            /
-            <span>{{system.mp.max}}</span>
-          </div>
-          <div class="nobreak">
-            <label for="{{actor._id}}mpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-            <input id="{{actor._id}}mpmod" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
-          </div>
-          <progress class="mp-bar grid-span-3" value="{{system.mp.value}}" max="{{system.mp.max}}"></progress>
+          <hr>
         </div>
       </div>
     </div>
@@ -51,6 +73,7 @@
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
     <a class="item" data-tab="details">{{localize "SW25.Details"}}</a>
+    <a class="item" data-tab="effects">{{localize "SW25.Effects"}}</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -75,17 +98,23 @@
                 <span style="text-align: center;"><label for="{{actori._id}}system.mp.max"><b>{{localize "SW25.Max"}}{{localize "SW25.Mp"}}</b></label><br>
                 <input id="{{actori._id}}system.mp.max" style="text-align: center;" type="text" name="system.mp.max" value="{{system.mp.max}}" data-dtype="Number"/></span>
               </div>
+              <div>
+                <span style="text-align: center;"><label for="{{actor._id}}system.ppbase"><b>{{localize "SW25.Attributes.Protectionpoint.abbr"}}</b></label><br>
+                <input id="{{actor._id}}system.ppbase" style="text-align: center;" type="text" name="system.ppbase" value="{{system.ppbase}}" data-dtype="Number"/></span>
+              </div>
+              <div>
+                <span style="text-align: center;"><label for="{{actor._id}}system.mppbase"><b>{{localize "SW25.Attributes.Magicprotection.abbr"}}</b></label><br>
+                <input id="{{actor._id}}system.mppbase" style="text-align: center;" type="text" name="system.mppbase" value="{{system.mppbase}}" data-dtype="Number"/></span>
+              </div>
               <div class="grid-span-2">
                 <span style="text-align: center;"><label for="{{actori._id}}system.language"><b>{{localize "SW25.Monster.Language"}}</b></label><br>
                 <input id="{{actori._id}}system.language" type="text" name="system.language" value="{{system.language}}" data-dtype="String"/></span>
               </div>
             </div>
           </div>
-          <div class="flexcol grid-span-4">
-            <div><b>{{localize "SW25.Overview"}}</b></div>
-            <div style="border: 1px solid gray; padding: 2px; border-radius: 5px;">
-              {{editor system.overview target="system.overview" rollData=rollData button=true owner=owner editable=editable}}
-            </div>
+          <div class="grid-span-4">
+            <label for="{{actori._id}}system.overview"><b>{{localize "SW25.Overview"}}</b></label><br>
+            <textarea class="textarea-editor" id="{{actori._id}}system.overview" style="width: 100%; height: 120px;" data-path="overview">{{system.overview}}</textarea>
           </div>
         </div>
         {{#if system.isgm}}
@@ -95,6 +124,77 @@
           <div>{{editor system.gminfo target="system.gminfo" rollData=rollData button=true owner=owner editable=editable}}</div>
         </div>
         {{/if}}
+      </div>
+    </div>
+
+    {{!-- Active Effects Tab --}}
+    <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+      <div class="flexcol margin-l gap-m">
+        <div class="resource-label-l">{{localize "SW25.Effect.TotalEffects"}}</div>
+        <div class="grid grid-4col">
+          {{#if system.totalhitmod}}<div><b>{{localize "SW25.Effect.HitMod"}}: {{system.totalhitmod}}</b></div>{{/if}}
+          {{#if system.totaldmod}}<div><b>{{localize "SW25.Effect.DamageMod"}}: {{system.totaldmod}}</b></div>{{/if}}
+          {{#if system.totalcmod}}<div><b>{{localize "SW25.Effect.CMod"}}: {{system.totalcmod}}</b></div>{{/if}}
+          {{#if system.totalspcmod}}<div><b>{{localize "SW25.Effect.SpCMod"}}: {{system.totalspcmod}}</b></div>{{/if}}
+          {{#if system.totalsphalfmod}}<div><b>{{localize "SW25.Effect.SpellHalfMod"}}: {{system.totalsphalfmod}}</b></div>{{/if}}
+          {{#if system.totaldodgemod}}<div><b>{{localize "SW25.Effect.DodgeMod"}}: {{system.totaldodgemod}}</b></div>{{/if}}
+          {{#if system.totalppmod}}<div><b>{{localize "SW25.Effect.PpMod"}}: {{system.totalppmod}}</b></div>{{/if}}
+          {{#if system.totalmppmod}}<div><b>{{localize "SW25.Effect.MppMod"}}: {{system.totalmppmod}}</b></div>{{/if}}
+          {{#if system.totaldreduce}}<div><b>{{localize "SW25.Effect.Dreduce"}}: {{system.totaldreduce}}</b></div>{{/if}}
+          {{#if system.totalvitres}}<div><b>{{localize "SW25.Config.ResVit"}}: {{system.totalvitres}}</b></div>{{/if}}
+          {{#if system.totalmndres}}<div><b>{{localize "SW25.Config.ResMnd"}}: {{system.totalmndres}}</b></div>{{/if}}
+          {{#if system.totalallck}}<div><b>{{localize "SW25.Config.AllCk"}}: {{system.totalallck}}</b></div>{{/if}}
+          {{#if system.totalhpmod}}<div><b>{{localize "SW25.Effect.HpMod"}}: {{system.totalhpmod}}</b></div>{{/if}}
+          {{#if system.totalmpmod}}<div><b>{{localize "SW25.Effect.MpMod"}}: {{system.totalmpmod}}</b></div>{{/if}}
+          {{#if system.totalscmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.ScMod"}}: {{system.totalscmod}}</b></div>{{/if}}
+          {{#if system.totalscckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.ScMod"}}: {{system.totalscckmod}}</b></div>{{/if}}
+          {{#if system.totalscpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.ScMod"}}: {{system.totalscpwmod}}</b></div>{{/if}}
+          {{#if system.totalcnmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.CnMod"}}: {{system.totalcnmod}}</b></div>{{/if}}
+          {{#if system.totalcnckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.CnMod"}}: {{system.totalcnckmod}}</b></div>{{/if}}
+          {{#if system.totalcnpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.CnMod"}}: {{system.totalcnpwmod}}</b></div>{{/if}}
+          {{#if system.totalwzmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.WzMod"}}: {{system.totalwzmod}}</b></div>{{/if}}
+          {{#if system.totalwzckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.WzMod"}}: {{system.totalwzckmod}}</b></div>{{/if}}
+          {{#if system.totalwzpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.WzMod"}}: {{system.totalwzpwmod}}</b></div>{{/if}}
+          {{#if system.totalprmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.PrMod"}}: {{system.totalprmod}}</b></div>{{/if}}
+          {{#if system.totalprckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.PrMod"}}: {{system.totalprckmod}}</b></div>{{/if}}
+          {{#if system.totalprpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.PrMod"}}: {{system.totalprpwmod}}</b></div>{{/if}}
+          {{#if system.totalmtmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.MtMod"}}: {{system.totalmtmod}}</b></div>{{/if}}
+          {{#if system.totalmtckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.MtMod"}}: {{system.totalmtckmod}}</b></div>{{/if}}
+          {{#if system.totalmtpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.MtMod"}}: {{system.totalmtpwmod}}</b></div>{{/if}}
+          {{#if system.totalfrmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.FrMod"}}: {{system.totalfrmod}}</b></div>{{/if}}
+          {{#if system.totalfrckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.FrMod"}}: {{system.totalfrckmod}}</b></div>{{/if}}
+          {{#if system.totalfrpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.FrMod"}}: {{system.totalfrpwmod}}</b></div>{{/if}}
+          {{#if system.totaldrmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.DrMod"}}: {{system.totaldrmod}}</b></div>{{/if}}
+          {{#if system.totaldrckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.DrMod"}}: {{system.totaldrckmod}}</b></div>{{/if}}
+          {{#if system.totaldrpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.DrMod"}}: {{system.totaldrpwmod}}</b></div>{{/if}}
+          {{#if system.totaldmmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totaldmmod}}</b></div>{{/if}}
+          {{#if system.totaldmckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totaldmckmod}}</b></div>{{/if}}
+          {{#if system.totaldmpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totaldmpwmod}}</b></div>{{/if}}
+          {{#if system.totalabmod}}<div><b>{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.AbMod"}}: {{system.totalabmod}}</b></div>{{/if}}
+          {{#if system.totalabckmod}}<div><b>{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.AbMod"}}: {{system.totalabckmod}}</b></div>{{/if}}
+          {{#if system.totalabpwmod}}<div><b>{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.AbMod"}}: {{system.totalabpwmod}}</b></div>{{/if}}
+          {{#if system.totalallmgp}}<div><b>{{localize "SW25.Config.AllMgp"}}: {{system.totalallmgp}}</b></div>{{/if}}
+          {{#if system.totalallmck}}<div><b>{{localize "SW25.Effect.MagicCKRoll"}} / {{localize "SW25.Item.All"}}: {{system.totalallmck}}</b></div>{{/if}}
+          {{#if system.totalallmpw}}<div><b>{{localize "SW25.Effect.MagicPWRoll"}} / {{localize "SW25.Item.All"}}: {{system.totalallmpw}}</b></div>{{/if}}
+          {{#if system.totalmpsc}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.ScMod"}}: {{system.totalmpsc}}</b></div>{{/if}}
+          {{#if system.totalmpcn}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.CnMod"}}: {{system.totalmpcn}}</b></div>{{/if}}
+          {{#if system.totalmpwz}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.WzMod"}}: {{system.totalmpwz}}</b></div>{{/if}}
+          {{#if system.totalmppr}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.PrMod"}}: {{system.totalmppr}}</b></div>{{/if}}
+          {{#if system.totalmpmt}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.MtMod"}}: {{system.totalmpmt}}</b></div>{{/if}}
+          {{#if system.totalmpfr}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.FrMod"}}: {{system.totalmpfr}}</b></div>{{/if}}
+          {{#if system.totalmpdr}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.DrMod"}}: {{system.totalmpdr}}</b></div>{{/if}}
+          {{#if system.totalmpdm}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totalmpdm}}</b></div>{{/if}}
+          {{#if system.totalmpab}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.AbMod"}}: {{system.totalmpab}}</b></div>{{/if}}
+          {{#if system.totalmpall}}<div><b>{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Item.All"}}: {{system.totalmpall}}</b></div>{{/if}}
+          {{#if system.totalmsckmod}}<div><b>{{localize "TYPES.Item.magicalsong"}} / {{localize "SW25.Effect.Performance"}}: {{system.totalmsckmod}}</b></div>{{/if}}
+          {{#if system.totalmspwmod}}<div><b>{{localize "TYPES.Item.magicalsong"}} / {{localize "SW25.Effect.MPower"}}: {{system.totalmspwmod}}</b></div>{{/if}}
+          {{#if system.totalatckmod}}<div><b>{{localize "TYPES.Item.alchemytech"}}: {{system.totalatckmod}}</b></div>{{/if}}
+          {{#if system.totalewckmod}}<div><b>{{localize "TYPES.Item.essenceweave"}} / {{localize "SW25.Effect.Force"}}: {{system.totalewckmod}}</b></div>{{/if}}
+          {{#if system.totalewpwmod}}<div><b>{{localize "TYPES.Item.essenceweave"}} / {{localize "SW25.Effect.MPower"}}: {{system.totalewpwmod}}</b></div>{{/if}}
+        </div>
+      </div>
+      <div>
+        {{> "systems/sw25/templates/actor/parts/actor-effects.hbs"}}
       </div>
     </div>
 
