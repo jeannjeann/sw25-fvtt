@@ -784,16 +784,26 @@ export class SW25Actor extends Actor {
     });
 
     // Polyglot support
+    const languages = [];
     this.items.forEach((item) => {
       if (item.type == "language") {
         if (item.system.conversation) {
           systemData.attributes.languages.conv.push(`${item.name}`);
+          languages.push(
+            `${item.name}` +
+              ` (${game.i18n.localize("SW25.Item.Language.Conversation")})`
+          );
         }
         if (item.system.reading) {
           systemData.attributes.languages.read.push(`${item.name}`);
+          languages.push(
+            `${item.name}` +
+              ` (${game.i18n.localize("SW25.Item.Language.Reading")})`
+          );
         }
       }
     });
+    systemData.attributes.langlist = languages.join(", ");
 
     // Sheet refresh
     if (actorData.sheet.rendered)
@@ -908,6 +918,7 @@ export class SW25Actor extends Actor {
       systemData.attributes.languages.conv = lang;
       systemData.attributes.languages.read = lang;
     }
+    systemData.attributes.langlist = systemData.language;
 
     // Sheet refresh
     if (actorData.sheet.rendered)

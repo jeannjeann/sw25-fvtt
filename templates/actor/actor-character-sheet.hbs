@@ -6,6 +6,7 @@
       <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
       <div class="header-resources">
         <div class="resources flexcol">
+          {{#unless system.toFellow}}
           <div class="hpbar">
             <div class="hp-progress-bar">
               <progress class="hp-bar grid-span-3" value="{{system.hp.value}}" max="{{system.hp.max}}"></progress>
@@ -19,6 +20,7 @@
               <input id="{{actor._id}}hpmod" style="height: 80%;" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
             </div>
           </div>
+          {{/unless}}
           <div class="mpbar">
             <div class="mp-progress-bar">
               <progress class="mp-bar grid-span-3" value="{{system.mp.value}}" max="{{system.mp.max}}"></progress>
@@ -48,11 +50,15 @@
               {{/each}}
             </div>
           </div>
+          <div class="character-fellow">
+            <label for="{{actor._id}}fellow" class="resource-label">{{localize "SW25.Fellow"}}</label> <br>
+            <label for="{{actor._id}}fellow"><i class="{{#if system.toFellow}}fas fa-toggle-on{{else}}fas fa-toggle-off{{/if}}"></i></label>
+            <input id="{{actor._id}}fellow" style="display: none;" type="checkbox" name="system.toFellow" {{#if system.toFellow}}checked{{/if}} data-dtype="Boolean"/>
+          </div>
           <div class="character-grace">
             <label for="{{actor._id}}grace" class="resource-label">{{localize "SW25.Attributes.Grace"}}</label> <br>
-            <input id="{{actor._id}}grace" type="checkbox" name="system.attributes.grace" {{checked system.attributes.grace}} data-dtype="Boolean"/>
+            <input id="{{actor._id}}grace" type="checkbox" name="system.attributes.grace" {{#if system.attributes.grace}}checked{{/if}} data-dtype="Boolean"/>
           </div>
-
           <div class="character-al inline-block level-container">
             <i class="fas fa-bolt"></i>
             <span class="nobreak level-label">{{localize "SW25.Attributes.Advlevel"}}</span>
@@ -60,6 +66,7 @@
           </div>
         </div>
         <hr>
+        {{#unless system.toFellow}}
         <div class="character-details-secondary textalign-center flexrow">
           <div class="character-race">
             <label for="{{actor._id}}race" class="resource-label">{{localize "SW25.Race"}}</label> 
@@ -115,11 +122,55 @@
             <input id="{{actor._id}}exp" type="number" name="system.attributes.totalexp" value="{{system.attributes.totalexp}}" data-dtype="Number"/>
           </div>
         </div>
+        {{/unless}}
+        {{#if system.toFellow}}
+        <div class="character-details-secondary textalign-center flexrow">
+          <div class="character-race">
+            <label for="{{actor._id}}race" class="resource-label">{{localize "SW25.Race"}}</label> 
+            <input id="{{actor._id}}race" type="text" name="system.race" value="{{system.race}}" placeholder="Race" data-dtype="String"/>
+          </div>
+          <div class="character-age">
+            <label for="{{actor._id}}age" class="resource-label">{{localize "SW25.Attributes.Age"}}</label>
+            <input id="{{actor._id}}age" type="number" name="system.attributes.age" value="{{system.attributes.age}}" placeholder="Age" data-dtype="Number"/>
+          </div>
+          <div class="character-gender">
+            <label for="{{actor._id}}gender" class="resource-label">{{localize "SW25.Attributes.Gender"}}</label>
+            <input id="{{actor._id}}gender" type="text" name="system.attributes.gender" value="{{system.attributes.gender}}" placeholder="Gender" data-dtype="String"/>
+          </div>
+          <div class="character-fellowexp">
+            <label for="{{actor._id}}fellowexp" class="resource-label">{{localize "SW25.Attributes.Exp"}}</label> <br>
+            <input id="{{actor._id}}fellowexp" type="checkbox" name="system.attributes.fellowexp" {{#if system.attributes.fellowexp}}checked{{/if}} data-dtype="Boolean"/>
+          </div>
+          <div class="character-fellowreward">
+            <label for="{{actor._id}}fellowreward" class="resource-label">{{localize "SW25.Reward"}}</label> <br>
+            <input id="{{actor._id}}fellowreward" type="checkbox" name="system.attributes.fellowreward" {{#if system.attributes.fellowreward}}checked{{/if}} data-dtype="Boolean"/>
+          </div>
+        </div>
+        <hr>
+        <div class="character-details-tertiary textalign-left flexrow">
+          <div class="character-fellowlanglabel">
+            <span for="{{actor._id}}fellowlang" class="resource-label">{{localize "SW25.Languages"}}:</span>
+          </div>
+          <div class="character-fellowlang">
+            <span class="langlist">{{system.attributes.langlist}}</span>
+          </div>
+        </div>
+        <hr>
+        <div class="character-details-tertiary textalign-left flexrow">
+          <div class="character-fellowmemolabel">
+            <span for="{{actor._id}}fellowmemo" class="resource-label">{{localize "SW25.Fellowmemo"}}:</span>
+          </div>
+          <div class="character-fellowmemo">
+            <textarea id="{{actor._id}}fellowmemo" class="textarea-editor" type="text" name="system.fellowmemo" placeholder="Memo" style="width: 100%; height: 40px;">{{system.fellowmemo}}</textarea>
+          </div>
+        </div>
+        {{/if}}
         <hr>
       </div>
     </div>
   </header>
 
+  {{#unless system.toFellow}}
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
@@ -781,5 +832,30 @@
     </div>
 
   </section>
+  {{/unless}}
+
+  {{#if system.toFellow}}
+  {{!-- Fellow Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="fellowAction">{{localize "SW25.ActionTable"}}</a>
+    <a class="item" data-tab="fellowSetting">{{localize "SW25.Setting"}}</a>
+  </nav>
+
+  {{!-- Fellow Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Fellow Action Tab --}}
+    <div class="tab biography flexcol" data-group="primary" data-tab="fellowAction">
+      fellow action
+    </div>
+
+    {{!-- Fellow Setting Tab --}}
+    <div class="tab biography flexcol" data-group="primary" data-tab="fellowSetting">
+      fellow setting
+    </div>
+
+  </section>
+  {{/if}}
+
 </form>
 

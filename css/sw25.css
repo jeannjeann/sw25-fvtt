@@ -878,8 +878,9 @@ progress.mp-bar::-moz-progress-bar {
   align-self: flex-start;
 }
 
-.sw25 .sheet-header .header-fields .character-details input{
-  border:  0;
+.sw25 .sheet-header .header-fields .character-details input,
+.sw25 .sheet-header .header-fields .character-details textarea{
+    border:  0;
   background: none;
 }
 
@@ -889,10 +890,21 @@ progress.mp-bar::-moz-progress-bar {
   padding: 0;
 }
 
+.sw25 .sheet-header .header-fields .character-details .character-fellow {
+  flex:initial;
+  text-align: center;
+  margin-right: 15px;
+  margin-left: auto;
+}
+.sw25 .sheet-header .header-fields .character-details .character-fellow i {
+  font-size: 22px;
+  cursor: pointer;
+  margin: 1px;
+}
+
 .sw25 .sheet-header .header-fields .character-details .character-grace {
   flex:initial;
   margin-right: 25px;
-  margin-left: auto;
 }
 
 .sw25 .sheet-header .header-fields .character-details .character-al label{
@@ -927,6 +939,31 @@ progress.mp-bar::-moz-progress-bar {
 .sw25 .sheet-header .header-fields .character-details .character-experience {
   flex: 4 0 100px;
   margin-left: auto;
+}
+.sw25 .sheet-header .header-fields .character-details .character-fellowexp {
+  flex: 3 0 75px;
+}
+.sw25 .sheet-header .header-fields .character-details .character-fellowreward {
+  flex: 3 0 75px;
+}
+.sw25 .sheet-header .header-fields .character-details .character-fellowlanglabel,
+.sw25 .sheet-header .header-fields .character-details .character-fellowmemolabel {
+  flex: 0 0 auto;
+}
+.sw25 .sheet-header .header-fields .character-details .character-fellowlang {
+  display: flex;
+  align-items: center;
+}
+.sw25 .sheet-header .header-fields .character-details .character-fellowlang .langlist {
+  width: 100%;
+  display: block;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+.sw25 .sheet-header .header-fields .character-details .character-fellowmemo {
+  flex: 1 0 auto;
 }
 
 .sw25 .sheet-header .header-resources {

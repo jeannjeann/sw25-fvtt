@@ -37,10 +37,22 @@
         "efcvalue": 0,
         "efspellcvalue": 0,
         "dodge": 0
+      },
+      "fellow": {
+        "toFellow": false,
+        "fellowmemo": "",
+        "fellowtype": "fellow",
+        "showaction": false,
+        "attributes": {
+          "skill": "",
+          "fellowexp": true,
+          "fellowreward": true,
+          "langlist": ""
+        }
       }
     },
     "character": {
-      "templates": ["base"],
+      "templates": ["base", "fellow"],
       "attributes": {
         "advlevel": {
           "value": "",
@@ -243,7 +255,7 @@
       "eflootmod": 0
     },
     "npc": {
-      "templates": ["base"],
+      "templates": ["base", "fellow"],
       "overview": "",
       "gminfo": "",
       "limited": false,
@@ -255,6 +267,11 @@
       "mpp": 0,
       "langage": "",
       "attributes": {
+        "advlevel": {
+          "value": ""
+        },
+        "age": "",
+        "gender": "",
         "ppmod": 0,
         "efppmod": 0,
         "mppmod": 0,
@@ -263,7 +280,10 @@
         "efdreduce": 0,
         "languages": {
           "conv": [],
-          "read": []
+          "read": [],
+          "advlevel": {
+            "value": ""
+          }
         }
       }
     },
