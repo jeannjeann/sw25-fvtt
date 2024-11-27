@@ -68,6 +68,7 @@ export class SW25Item extends Item {
     this._prepareRaceabilityData(itemData);
     this._prepareSpellData(itemData);
     this._prepareMonsterabilityData(itemData);
+    this._prepareActionData(itemData);
   }
 
   async _prepareSkillData(itemData, actor) {
@@ -455,7 +456,8 @@ export class SW25Item extends Item {
       itemData.type !== "resource" &&
       itemData.type !== "combatability" &&
       itemData.type !== "raceability" &&
-      itemData.type !== "monsterability"
+      itemData.type !== "monsterability" &&
+      itemData.type !== "action"
     )
       return;
 
@@ -1146,6 +1148,10 @@ export class SW25Item extends Item {
           Number(systemData.efmod);
       }
     }
+    if (itemData.type == "action") {
+      systemData.actionvalue =
+        Number(systemData.checkbase) + Number(systemData.actionresult);
+    }
 
     // Roll Setting
     if (systemData.clickitem == "all") systemData.formula = "2d6";
@@ -1793,6 +1799,54 @@ export class SW25Item extends Item {
   }
 
   _prepareMonsterabilityData(itemData) {}
+
+  _prepareActionData(itemData, actor) {
+    if (itemData.type !== "action") return;
+
+    // Make modifications to data here. For example:
+    const systemData = itemData.system;
+    const actorData = itemData.actor.system;
+    const actoritemData = itemData.actor.items;
+
+    switch (systemData.actiondice) {
+      case "f1":
+        systemData.actiondicename = game.i18n.localize("SW25.Fellow") + ":1-2";
+        if (systemData.actionresult != 6) systemData.actionresult = 7;
+        break;
+      case "f3":
+        systemData.actiondicename = game.i18n.localize("SW25.Fellow") + ":3-4";
+        if (systemData.actionresult != 5) systemData.actionresult = 8;
+        break;
+      case "f5":
+        systemData.actiondicename = game.i18n.localize("SW25.Fellow") + ":5";
+        if (systemData.actionresult != 4) systemData.actionresult = 9;
+        break;
+      case "f6":
+        systemData.actiondicename = game.i18n.localize("SW25.Fellow") + ":6";
+        if (systemData.actionresult != 3) systemData.actionresult = 10;
+        break;
+      case "d1":
+        systemData.actiondicename = game.i18n.localize("SW25.Daemon") + ":1";
+        systemData.actionresult = 8;
+        break;
+      case "d2":
+        systemData.actiondicename = game.i18n.localize("SW25.Daemon") + ":2-3";
+        systemData.actionresult = 8;
+        break;
+      case "d4":
+        systemData.actiondicename = game.i18n.localize("SW25.Daemon") + ":4-5";
+        systemData.actionresult = 9;
+        break;
+      case "d6":
+        systemData.actiondicename = game.i18n.localize("SW25.Daemon") + ":6";
+        systemData.actionresult = 10;
+        break;
+      default:
+        systemData.actiondicename = "-";
+        systemData.actionresult = 0;
+        break;
+    }
+  }
 
   /**
    * Prepare a data object which defines the data schema used by dice roll commands against this Item

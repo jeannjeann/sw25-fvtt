@@ -946,14 +946,17 @@ progress.mp-bar::-moz-progress-bar {
 .sw25 .sheet-header .header-fields .character-details .character-fellowreward {
   flex: 3 0 75px;
 }
+.sw25 .sheet-header .header-fields .itemheader-label,
 .sw25 .sheet-header .header-fields .character-details .character-fellowlanglabel,
 .sw25 .sheet-header .header-fields .character-details .character-fellowmemolabel {
   flex: 0 0 auto;
 }
+.sw25 .sheet-header .header-fields .itemheader-value,
 .sw25 .sheet-header .header-fields .character-details .character-fellowlang {
-  display: flex;
+    display: flex;
   align-items: center;
 }
+.sw25 .sheet-header .header-fields .itemheader-wordwrap,
 .sw25 .sheet-header .header-fields .character-details .character-fellowlang .langlist {
   width: 100%;
   display: block;

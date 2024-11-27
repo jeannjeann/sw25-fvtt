@@ -144,6 +144,7 @@ export class SW25ActorSheet extends ActorSheet {
     const daemon = [];
     const abyssal = [];
     const monsterabilities = [];
+    const actions = [];
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -289,6 +290,11 @@ export class SW25ActorSheet extends ActorSheet {
       // Append to monsterability.
       else if (i.type === "monsterability") {
         monsterabilities.push(i);
+      }
+
+      // Append to action.
+      else if (i.type === "action") {
+        actions.push(i);
       }
     }
 
@@ -442,6 +448,7 @@ export class SW25ActorSheet extends ActorSheet {
     context.abyssal = abyssal;
     context.abshow = abshow;
     context.monsterabilities = monsterabilities;
+    context.actions = actions;
   }
 
   /* -------------------------------------------- */

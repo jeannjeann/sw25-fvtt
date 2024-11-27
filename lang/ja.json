@@ -66,6 +66,7 @@
     "ActionTable": "行動表",
     "Reward": "報酬",
     "Fellowmemo": "メモ",
+    "Daemon": "魔神",
     "Gminfo": "GM用メモ",
     "Use": "使用",
     "Pdamage": "ダメージ (物理)",
@@ -112,6 +113,7 @@
       "Magicprotection": { "long": "魔法防御", "abbr": "魔防" },
       "Showfeature": "空欄グループ表示",
       "Showspell": "全魔法リスト表示",
+      "Showaction": "全行動リスト表示",
       "Magicpower": "魔力"
     },
     "Ability": {
@@ -455,6 +457,13 @@
         "Check3": "判定3",
         "Label": "ラベル",
         "Usefix": "固定値"
+      },
+      "Action": {
+        "ActionResult": "想定出目",
+        "ActionValue": "達成値",
+        "Dialog": "台詞",
+        "Action": "行動",
+        "ActionEffect": "効果"
       }
     },
     "Effect": {
@@ -559,7 +568,8 @@
       "raceability": "種族特徴",
       "language": "言語",
       "otherfeature": "その他の特技",
-      "monsterability": "魔物能力"
+      "monsterability": "魔物能力",
+      "action": "行動"
     }
   },
 

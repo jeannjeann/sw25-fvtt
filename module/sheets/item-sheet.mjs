@@ -157,6 +157,11 @@ export class SW25ItemSheet extends ItemSheet {
       this._prepareMonsterabilityData(context);
     }
 
+    if (itemData.type == "action") {
+      this._prepareItemRollData(context);
+      this._prepareActionData(context);
+    }
+
     // Retrieve the roll data for TinyMCE editors.
     context.rollData = this.item.getRollData();
 
@@ -189,6 +194,7 @@ export class SW25ItemSheet extends ItemSheet {
   _prepareLanguageData(context) {}
   _prepareSpellData(context) {}
   _prepareMonsterabilityData(context) {}
+  _prepareActionData(context) {}
 
   /* -------------------------------------------- */
 

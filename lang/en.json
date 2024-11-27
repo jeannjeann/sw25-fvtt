@@ -66,6 +66,7 @@
     "ActionTable": "Action Table",
     "Reward": "Reward",
     "Fellowmemo": "Memo",
+    "Daemon": "Daemon",
     "Gminfo": "Note for GM",
     "Use": "Use",
     "Pdamage": "Damage (Physical)",
@@ -112,6 +113,7 @@
       "Magicprotection": { "long": "MDEF", "abbr": "MDEF" },
       "Showfeature": "Show Empty Groups",
       "Showspell": "Show All Spell",
+      "Showaction": "Show All Action",
       "Magicpower": "MPwr"
     },
     "Ability": {
@@ -456,6 +458,13 @@
         "Check3": "Check3",
         "Label": "Label",
         "Usefix": "Fix"
+      },
+      "Action": {
+        "ActionResult": "Result",
+        "ActionValue": "Value",
+        "Dialog": "Dialog",
+        "Action": "Action",
+        "ActionEffect": "Effect"
       }
     },
     "Effect": {
@@ -560,7 +569,8 @@
       "raceability": "Race Ability",
       "language": "Language",
       "otherfeature": "Other Features",
-      "monsterability": "Monster Ability"
+      "monsterability": "Monster Ability",
+      "action": "Action"
     }
   },
 

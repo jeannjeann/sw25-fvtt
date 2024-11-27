@@ -47,7 +47,8 @@
           "skill": "",
           "fellowexp": true,
           "fellowreward": true,
-          "langlist": ""
+          "langlist": "",
+          "showaction": false
         }
       }
     },
@@ -405,7 +406,7 @@
     }
   },
   "Item": {
-    "types": ["weapon", "armor", "accessory", "item", "spell", "enhancearts", "magicalsong", "ridingtrick", "alchemytech", "phasearea", "tactics", "infusion", "barbarousskill", "essenceweave", "otherfeature", "check", "resource", "combatability", "skill", "raceability", "language", "monsterability"],
+    "types": ["weapon", "armor", "accessory", "item", "spell", "enhancearts", "magicalsong", "ridingtrick", "alchemytech", "phasearea", "tactics", "infusion", "barbarousskill", "essenceweave", "otherfeature", "check", "resource", "combatability", "skill", "raceability", "language", "monsterability", "action"],
     "templates": {
       "base": {
         "description": "",
@@ -703,6 +704,18 @@
       "efallckmod": 0,
       "efallmgpmod": 0
     },
+    "action": {
+      "templates": ["base", "roll"],
+      "usedice": true,
+      "usepower": false,
+      "actiondice": "",
+      "actionresult": "",
+      "actionvalue": "",
+      "dialog": "",
+      "action": "",
+      "actioneffect": "",
+      "target": ""
+  },
     "otherfeature": {
       "templates": ["base", "roll"],
       "type": "",

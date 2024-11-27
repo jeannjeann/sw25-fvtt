@@ -226,7 +226,17 @@
 
     {{!-- Fellow Action Tab --}}
     <div class="tab biography flexcol" data-group="primary" data-tab="fellowAction">
-      fellow action
+      <div class="margin-m" style="display: flex; align-items: center;">
+        <input type="checkbox" id="{{actor._id}}system.attributes.showaction" name="system.attributes.showaction" data-dtype="Boolean" {{#if system.attributes.showaction}} checked {{/if}}/>
+        <label for="{{actor._id}}system.attributes.showaction">{{localize "SW25.Attributes.Showaction"}}</label>
+      </div>
+      {{#if system.attributes.showaction}}
+      <div class="flexcol margin-s">
+        <div>
+          {{> "systems/sw25/templates/actor/parts/actor-actions.hbs"}}
+        </div>
+      </div>
+      {{/if}}
     </div>
 
     {{!-- Fellow Setting Tab --}}
