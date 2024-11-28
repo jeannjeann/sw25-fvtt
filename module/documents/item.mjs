@@ -475,6 +475,9 @@ export class SW25Item extends Item {
     }
 
     let checklevelmod = 0;
+    let checklevelmod1 = 0;
+    let checklevelmod2 = 0;
+    let checklevelmod3 = 0;
     let powerlevelmod = 0;
     actoritemData.forEach((item) => {
       if (item.type != "skill") return;
@@ -493,6 +496,45 @@ export class SW25Item extends Item {
       }
       if (systemData.checkskill == item.name) {
         checklevelmod = Number(item.system.skilllevel);
+      }
+      if (systemData.checkskill1 == "adv") {
+        if (
+          item.system.skilltype == "fighterskill" ||
+          item.system.skilltype == "magicuserskill" ||
+          item.system.skilltype == "otherskill"
+        ) {
+          if (item.system.skilllevel > checklevelmod1)
+            checklevelmod1 = item.system.skilllevel;
+        }
+      }
+      if (systemData.checkskill1 == item.name) {
+        checklevelmod1 = Number(item.system.skilllevel);
+      }
+      if (systemData.checkskill2 == "adv") {
+        if (
+          item.system.skilltype == "fighterskill" ||
+          item.system.skilltype == "magicuserskill" ||
+          item.system.skilltype == "otherskill"
+        ) {
+          if (item.system.skilllevel > checklevelmod2)
+            checklevelmod2 = item.system.skilllevel;
+        }
+      }
+      if (systemData.checkskill2 == item.name) {
+        checklevelmod2 = Number(item.system.skilllevel);
+      }
+      if (systemData.checkskill3 == "adv") {
+        if (
+          item.system.skilltype == "fighterskill" ||
+          item.system.skilltype == "magicuserskill" ||
+          item.system.skilltype == "otherskill"
+        ) {
+          if (item.system.skilllevel > checklevelmod3)
+            checklevelmod3 = item.system.skilllevel;
+        }
+      }
+      if (systemData.checkskill3 == item.name) {
+        checklevelmod3 = Number(item.system.skilllevel);
       }
       if (systemData.powerskill == "adv") {
         if (
@@ -531,6 +573,9 @@ export class SW25Item extends Item {
 
     await actor.update({});
     let checkabimod = 0;
+    let checkabimod1 = 0;
+    let checkabimod2 = 0;
+    let checkabimod3 = 0;
     let powerabimod = 0;
     if (actor.type == "character") {
       if (systemData.checkabi == "dex")
@@ -654,6 +699,188 @@ export class SW25Item extends Item {
             Number(actorData.abilities.mnd.efmodify)
         );
     }
+    if (actor.type == "character" || actor.type == "npc") {
+      if (systemData.checkabi1 == "dex")
+        checkabimod1 = Math.floor(
+          (actorData.abilities.dex.racevalue +
+            actorData.abilities.dex.valuebase +
+            actorData.abilities.dex.valuegrowth +
+            actorData.abilities.dex.valuemodify +
+            actorData.abilities.dex.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.dex.efmodify)
+        );
+      if (systemData.checkabi1 == "agi")
+        checkabimod1 = Math.floor(
+          (actorData.abilities.dex.racevalue +
+            actorData.abilities.agi.valuebase +
+            actorData.abilities.agi.valuegrowth +
+            actorData.abilities.agi.valuemodify +
+            actorData.abilities.agi.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.agi.efmodify)
+        );
+      if (systemData.checkabi1 == "str")
+        checkabimod1 = Math.floor(
+          (actorData.abilities.str.racevalue +
+            actorData.abilities.str.valuebase +
+            actorData.abilities.str.valuegrowth +
+            actorData.abilities.str.valuemodify +
+            actorData.abilities.str.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.str.efmodify)
+        );
+      if (systemData.checkabi1 == "vit")
+        checkabimod1 = Math.floor(
+          (actorData.abilities.str.racevalue +
+            actorData.abilities.vit.valuebase +
+            actorData.abilities.vit.valuegrowth +
+            actorData.abilities.vit.valuemodify +
+            actorData.abilities.vit.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.vit.efmodify)
+        );
+      if (systemData.checkabi1 == "int")
+        checkabimod1 = Math.floor(
+          (actorData.abilities.int.racevalue +
+            actorData.abilities.int.valuebase +
+            actorData.abilities.int.valuegrowth +
+            actorData.abilities.int.valuemodify +
+            actorData.abilities.int.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.int.efmodify)
+        );
+      if (systemData.checkabi1 == "mnd")
+        checkabimod1 = Math.floor(
+          (actorData.abilities.int.racevalue +
+            actorData.abilities.mnd.valuebase +
+            actorData.abilities.mnd.valuegrowth +
+            actorData.abilities.mnd.valuemodify +
+            actorData.abilities.mnd.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.mnd.efmodify)
+        );
+      if (systemData.checkabi2 == "dex")
+        checkabimod2 = Math.floor(
+          (actorData.abilities.dex.racevalue +
+            actorData.abilities.dex.valuebase +
+            actorData.abilities.dex.valuegrowth +
+            actorData.abilities.dex.valuemodify +
+            actorData.abilities.dex.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.dex.efmodify)
+        );
+      if (systemData.checkabi2 == "agi")
+        checkabimod2 = Math.floor(
+          (actorData.abilities.dex.racevalue +
+            actorData.abilities.agi.valuebase +
+            actorData.abilities.agi.valuegrowth +
+            actorData.abilities.agi.valuemodify +
+            actorData.abilities.agi.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.agi.efmodify)
+        );
+      if (systemData.checkabi2 == "str")
+        checkabimod2 = Math.floor(
+          (actorData.abilities.str.racevalue +
+            actorData.abilities.str.valuebase +
+            actorData.abilities.str.valuegrowth +
+            actorData.abilities.str.valuemodify +
+            actorData.abilities.str.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.str.efmodify)
+        );
+      if (systemData.checkabi2 == "vit")
+        checkabimod2 = Math.floor(
+          (actorData.abilities.str.racevalue +
+            actorData.abilities.vit.valuebase +
+            actorData.abilities.vit.valuegrowth +
+            actorData.abilities.vit.valuemodify +
+            actorData.abilities.vit.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.vit.efmodify)
+        );
+      if (systemData.checkabi2 == "int")
+        checkabimod2 = Math.floor(
+          (actorData.abilities.int.racevalue +
+            actorData.abilities.int.valuebase +
+            actorData.abilities.int.valuegrowth +
+            actorData.abilities.int.valuemodify +
+            actorData.abilities.int.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.int.efmodify)
+        );
+      if (systemData.checkabi2 == "mnd")
+        checkabimod2 = Math.floor(
+          (actorData.abilities.int.racevalue +
+            actorData.abilities.mnd.valuebase +
+            actorData.abilities.mnd.valuegrowth +
+            actorData.abilities.mnd.valuemodify +
+            actorData.abilities.mnd.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.mnd.efmodify)
+        );
+      if (systemData.checkabi3 == "dex")
+        checkabimod3 = Math.floor(
+          (actorData.abilities.dex.racevalue +
+            actorData.abilities.dex.valuebase +
+            actorData.abilities.dex.valuegrowth +
+            actorData.abilities.dex.valuemodify +
+            actorData.abilities.dex.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.dex.efmodify)
+        );
+      if (systemData.checkabi3 == "agi")
+        checkabimod3 = Math.floor(
+          (actorData.abilities.dex.racevalue +
+            actorData.abilities.agi.valuebase +
+            actorData.abilities.agi.valuegrowth +
+            actorData.abilities.agi.valuemodify +
+            actorData.abilities.agi.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.agi.efmodify)
+        );
+      if (systemData.checkabi3 == "str")
+        checkabimod3 = Math.floor(
+          (actorData.abilities.str.racevalue +
+            actorData.abilities.str.valuebase +
+            actorData.abilities.str.valuegrowth +
+            actorData.abilities.str.valuemodify +
+            actorData.abilities.str.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.str.efmodify)
+        );
+      if (systemData.checkabi3 == "vit")
+        checkabimod3 = Math.floor(
+          (actorData.abilities.str.racevalue +
+            actorData.abilities.vit.valuebase +
+            actorData.abilities.vit.valuegrowth +
+            actorData.abilities.vit.valuemodify +
+            actorData.abilities.vit.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.vit.efmodify)
+        );
+      if (systemData.checkabi3 == "int")
+        checkabimod3 = Math.floor(
+          (actorData.abilities.int.racevalue +
+            actorData.abilities.int.valuebase +
+            actorData.abilities.int.valuegrowth +
+            actorData.abilities.int.valuemodify +
+            actorData.abilities.int.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.int.efmodify)
+        );
+      if (systemData.checkabi3 == "mnd")
+        checkabimod3 = Math.floor(
+          (actorData.abilities.int.racevalue +
+            actorData.abilities.mnd.valuebase +
+            actorData.abilities.mnd.valuegrowth +
+            actorData.abilities.mnd.valuemodify +
+            actorData.abilities.mnd.efvaluemodify) /
+            6 +
+            Number(actorData.abilities.mnd.efmodify)
+        );
+    }
 
     systemData.checkbase =
       Number(systemData.checkmod) + Number(checklevelmod) + Number(checkabimod);
@@ -661,23 +888,56 @@ export class SW25Item extends Item {
       Number(systemData.powermod) + Number(powerlevelmod) + Number(powerabimod);
 
     systemData.checkbase1 =
-      Number(systemData.checkbasemod1) + Number(systemData.checkmod1);
+      Number(systemData.checkbasemod1) +
+      Number(systemData.checkmod1) +
+      Number(checklevelmod1) +
+      Number(checkabimod1);
     systemData.checkbasefix1 = Number(systemData.checkbase1) + 7;
     systemData.checkbase2 =
-      Number(systemData.checkbasemod2) + Number(systemData.checkmod2);
+      Number(systemData.checkbasemod2) +
+      Number(systemData.checkmod2) +
+      Number(checklevelmod2) +
+      Number(checkabimod2);
     systemData.checkbasefix2 = Number(systemData.checkbase2) + 7;
     systemData.checkbase3 =
-      Number(systemData.checkbasemod3) + Number(systemData.checkmod3);
+      Number(systemData.checkbasemod3) +
+      Number(systemData.checkmod3) +
+      Number(checklevelmod3) +
+      Number(checkabimod3);
     systemData.checkbasefix3 = Number(systemData.checkbase3) + 7;
 
     // prepare apply button
     systemData.checkTypesButton = [];
+    systemData.checkTypesButton1 = [];
+    systemData.checkTypesButton2 = [];
+    systemData.checkTypesButton3 = [];
     if (systemData.applycheck == "custom") {
       if (systemData.ckpdbt) systemData.checkTypesButton.push("pd");
       if (systemData.ckmdbt) systemData.checkTypesButton.push("md");
       if (systemData.ckcdbt) systemData.checkTypesButton.push("cd");
       if (systemData.ckhrbt) systemData.checkTypesButton.push("hr");
       if (systemData.ckmrbt) systemData.checkTypesButton.push("mr");
+    }
+    if (systemData.applycheck1 == "custom") {
+      if (systemData.ckpdbt1) systemData.checkTypesButton1.push("pd");
+      if (systemData.ckmdbt1) systemData.checkTypesButton1.push("md");
+      if (systemData.ckcdbt1) systemData.checkTypesButton1.push("cd");
+      if (systemData.ckhrbt1) systemData.checkTypesButton1.push("hr");
+      if (systemData.ckmrbt1) systemData.checkTypesButton1.push("mr");
+    }
+    if (systemData.applycheck2 == "custom") {
+      if (systemData.ckpdbt2) systemData.checkTypesButton2.push("pd");
+      if (systemData.ckmdbt2) systemData.checkTypesButton2.push("md");
+      if (systemData.ckcdbt2) systemData.checkTypesButton2.push("cd");
+      if (systemData.ckhrbt2) systemData.checkTypesButton2.push("hr");
+      if (systemData.ckmrbt2) systemData.checkTypesButton2.push("mr");
+    }
+    if (systemData.applycheck3 == "custom") {
+      if (systemData.ckpdbt3) systemData.checkTypesButton3.push("pd");
+      if (systemData.ckmdbt3) systemData.checkTypesButton3.push("md");
+      if (systemData.ckcdbt3) systemData.checkTypesButton3.push("cd");
+      if (systemData.ckhrbt3) systemData.checkTypesButton3.push("hr");
+      if (systemData.ckmrbt3) systemData.checkTypesButton3.push("mr");
     }
     systemData.powerTypesButton = [];
     if (systemData.applypower == "custom") {
@@ -934,7 +1194,7 @@ export class SW25Item extends Item {
         systemData.mpcost = 0;
     }
 
-    if (itemData.type == "monsterability") {
+    if (itemData.type == "monsterability" || itemData.type == "action") {
       if (!actorData.effect) {
         systemData.efmod = 0;
         systemData.efallckmod = 0;
@@ -1057,6 +1317,20 @@ export class SW25Item extends Item {
           Number(systemData[`checkmod${i}`]) +
           Number(systemData.efmod) +
           Number(systemData.efallckmod);
+        switch (i) {
+          case 1:
+            systemData.checkbase1 +=
+              Number(checklevelmod1) + Number(checkabimod1);
+            break;
+          case 2:
+            systemData.checkbase2 +=
+              Number(checklevelmod2) + Number(checkabimod2);
+            break;
+          case 3:
+            systemData.checkbase3 +=
+              Number(checklevelmod3) + Number(checkabimod3);
+            break;
+        }
         systemData[`checkbasefix${i}`] =
           Number(systemData[`checkbase${i}`]) + 7;
 
@@ -1150,7 +1424,7 @@ export class SW25Item extends Item {
     }
     if (itemData.type == "action") {
       systemData.actionvalue =
-        Number(systemData.checkbase) + Number(systemData.actionresult);
+        Number(systemData.checkbase1) + Number(systemData.actionresult);
     }
 
     // Roll Setting
@@ -1934,12 +2208,18 @@ export class SW25Item extends Item {
             chatapply = this.system.applycheck;
             checktype = this.system.checkTypesButton;
           }
-          if (this.system.clickitem == "dice1")
+          if (this.system.clickitem == "dice1") {
             chatapply = this.system.applycheck1;
-          if (this.system.clickitem == "dice2")
+            checktype = this.system.checkTypesButton1;
+          }
+          if (this.system.clickitem == "dice2") {
             chatapply = this.system.applycheck2;
-          if (this.system.clickitem == "dice3")
+            checktype = this.system.checkTypesButton2;
+          }
+          if (this.system.clickitem == "dice3") {
             chatapply = this.system.applycheck3;
+            checktype = this.system.checkTypesButton3;
+          }
           if (this.system.clickitem == "power") {
             chatapply = this.system.applypower;
             powertype = this.system.powerTypesButton;
@@ -2087,7 +2367,15 @@ export class SW25Item extends Item {
       let chatTotal = roll.total;
       if (roll.terms[0].total == 12) chatCritical = 1;
       if (roll.terms[0].total == 2) chatFumble = 1;
-      let checktype = this.system.checkTypesButton;
+      let checktype = [];
+      if (this.system.clickitem == "dice")
+        checktype = this.system.checkTypesButton;
+      if (this.system.clickitem == "dice1")
+        checktype = this.system.checkTypesButton1;
+      if (this.system.clickitem == "dice2")
+        checktype = this.system.checkTypesButton2;
+      if (this.system.clickitem == "dice3")
+        checktype = this.system.checkTypesButton3;
 
       // when selected target
       let target = null;

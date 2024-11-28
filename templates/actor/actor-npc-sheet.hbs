@@ -45,6 +45,11 @@
             <div class="character-name fontsize14">
               <input id="{{actor._id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
             </div>
+            {{#if system.toFellow}}
+            <div>
+              <input id="{{actor._id}}skilllist" style="font-size: 0.7rem;" type="text" name="system.skilllist" value="{{system.skilllist}}" placeholder="" data-dtype="String"/>
+            </div>
+            {{/if}}
           </div>
           <div class="character-fellow">
             <label for="{{actor._id}}fellow" class="resource-label">{{localize "SW25.Fellow"}}</label> <br>

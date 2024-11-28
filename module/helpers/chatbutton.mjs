@@ -70,9 +70,18 @@ export async function chatButton(chatMessage, buttonType) {
           chatapply = item.system.applycheck;
           checktype = item.system.checkTypesButton;
         }
-        if (buttonType == "buttoncheck1") chatapply = item.system.applycheck1;
-        if (buttonType == "buttoncheck2") chatapply = item.system.applycheck2;
-        if (buttonType == "buttoncheck3") chatapply = item.system.applycheck3;
+        if (buttonType == "buttoncheck1") {
+          chatapply = item.system.applycheck1;
+          checktype = item.system.checkTypesButton1;
+        }
+        if (buttonType == "buttoncheck2") {
+          chatapply = item.system.applycheck2;
+          checktype = item.system.checkTypesButton2;
+        }
+        if (buttonType == "buttoncheck3") {
+          chatapply = item.system.applycheck3;
+          checktype = item.system.checkTypesButton3;
+        }
         if (buttonType == "buttonpower") {
           chatapply = item.system.applypower;
           powertype = item.system.powerTypesButton;
@@ -204,6 +213,7 @@ export async function chatButton(chatMessage, buttonType) {
     let label = `${item.name}`;
     let chatresuse = "";
     let chatapply = "-";
+    let checktype = item.system.checkTypesButton;
     let baseformula = item.system.formula;
 
     if (
@@ -217,18 +227,22 @@ export async function chatButton(chatMessage, buttonType) {
       if (buttonType == "buttoncheck1") {
         label = label + " (" + label1 + ")";
         chatapply = item.system.applycheck1;
+        checktype = item.system.checkTypesButton1;
         baseformula = item.system.checkformula1;
       } else if (buttonType == "buttoncheck2") {
         label = label + " (" + label2 + ")";
         chatapply = item.system.applycheck2;
+        checktype = item.system.checkTypesButton2;
         baseformula = item.system.checkformula2;
       } else if (buttonType == "buttoncheck3") {
         label = label + " (" + label3 + ")";
         chatapply = item.system.applycheck3;
+        checktype = item.system.checkTypesButton3;
         baseformula = item.system.checkformula3;
       } else {
         label = label + " (" + game.i18n.localize("SW25.Check") + ")";
         chatapply = item.system.applycheck;
+        checktype = item.system.checkTypesButton;
       }
 
       let resuse = item.system.resuse;
@@ -274,7 +288,6 @@ export async function chatButton(chatMessage, buttonType) {
       let chatTotal = roll.total;
       if (roll.terms[0].total == 12) chatCritical = 1;
       if (roll.terms[0].total == 2) chatFumble = 1;
-      let checktype = item.system.checkTypesButton;
 
       // when selected target
       let target = null;
