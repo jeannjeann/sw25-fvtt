@@ -43,6 +43,7 @@
         "fellowmemo": "",
         "fellowtype": "fellow",
         "showaction": false,
+        "tabletype": "fellow",
         "attributes": {
           "skill": "",
           "fellowexp": true,

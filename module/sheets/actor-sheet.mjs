@@ -145,6 +145,18 @@ export class SW25ActorSheet extends ActorSheet {
     const abyssal = [];
     const monsterabilities = [];
     const actions = [];
+    const actionsf17 = [];
+    const actionsf16 = [];
+    const actionsf38 = [];
+    const actionsf35 = [];
+    const actionsf59 = [];
+    const actionsf54 = [];
+    const actionsf610 = [];
+    const actionsf63 = [];
+    const actionsd18 = [];
+    const actionsd28 = [];
+    const actionsd49 = [];
+    const actionsd610 = [];
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -295,6 +307,58 @@ export class SW25ActorSheet extends ActorSheet {
       // Append to action.
       else if (i.type === "action") {
         actions.push(i);
+        if (i.system.actiondice == "f1") {
+          if (i.system.actionresult == "7") {
+            actionsf17.push(i);
+          }
+          if (i.system.actionresult == "6") {
+            actionsf16.push(i);
+          }
+        }
+        if (i.system.actiondice == "f3") {
+          if (i.system.actionresult == "8") {
+            actionsf38.push(i);
+          }
+          if (i.system.actionresult == "5") {
+            actionsf35.push(i);
+          }
+        }
+        if (i.system.actiondice == "f5") {
+          if (i.system.actionresult == "9") {
+            actionsf59.push(i);
+          }
+          if (i.system.actionresult == "4") {
+            actionsf54.push(i);
+          }
+        }
+        if (i.system.actiondice == "f6") {
+          if (i.system.actionresult == "10") {
+            actionsf610.push(i);
+          }
+          if (i.system.actionresult == "3") {
+            actionsf63.push(i);
+          }
+        }
+        if (i.system.actiondice == "d1") {
+          if (i.system.actionresult == "8") {
+            actionsd18.push(i);
+          }
+        }
+        if (i.system.actiondice == "d2") {
+          if (i.system.actionresult == "8") {
+            actionsd28.push(i);
+          }
+        }
+        if (i.system.actiondice == "d4") {
+          if (i.system.actionresult == "9") {
+            actionsd49.push(i);
+          }
+        }
+        if (i.system.actiondice == "d6") {
+          if (i.system.actionresult == "10") {
+            actionsd610.push(i);
+          }
+        }
       }
     }
 
@@ -449,6 +513,18 @@ export class SW25ActorSheet extends ActorSheet {
     context.abshow = abshow;
     context.monsterabilities = monsterabilities;
     context.actions = actions;
+    context.actionsf17 = actionsf17;
+    context.actionsf16 = actionsf16;
+    context.actionsf38 = actionsf38;
+    context.actionsf35 = actionsf35;
+    context.actionsf59 = actionsf59;
+    context.actionsf54 = actionsf54;
+    context.actionsf610 = actionsf610;
+    context.actionsf63 = actionsf63;
+    context.actionsd18 = actionsd18;
+    context.actionsd28 = actionsd28;
+    context.actionsd49 = actionsd49;
+    context.actionsd610 = actionsd610;
   }
 
   /* -------------------------------------------- */
@@ -524,6 +600,7 @@ export class SW25ActorSheet extends ActorSheet {
     html.find(".item-label").click(this._showItemDetails.bind(this));
     html.find(".spelllist-label").click(this._showSpellList.bind(this));
     html.find(".spell-label").click(this._showSpellDetails.bind(this));
+    html.find(".action-label").click(this._showActionDetails.bind(this));
 
     // Change Input Area
     html.on("change", ".qt-change", this._changeQuantity.bind(this));
@@ -1152,6 +1229,16 @@ export class SW25ActorSheet extends ActorSheet {
     const toggler = $(event.currentTarget);
     const item = toggler.parents(".spell");
     const description = item.find(".spell-description");
+
+    toggler.toggleClass("open", false);
+    description.slideToggle();
+  }
+
+  async _showActionDetails(event) {
+    event.preventDefault();
+    const toggler = $(event.currentTarget);
+    const item = toggler.parents(".action");
+    const description = item.find(".action-description");
 
     toggler.toggleClass("open", false);
     description.slideToggle();

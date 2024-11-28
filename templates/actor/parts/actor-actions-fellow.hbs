@@ -1,0 +1,573 @@
+<ol class='items-list'>
+  <div class='item flexrow items-header'>
+    <div class='item-quantity item-element' style="flex: 0 0 60px;">{{localize "SW25.Item.Dice"}}</div>
+    <div class='item-quantity item-element' style="flex: 0 0 60px;">{{localize "SW25.Item.Action.ActionResult"}}</div>
+    <div class='item-element' style="flex: 0 0 150px;">{{localize "SW25.Item.Action.Label"}}</div>
+    <div class='item-name'>{{localize "TYPES.Item.action"}}</div>
+    <div class='item-quantity item-element' style="flex: 0 0 60px; margin-right: 10px;">{{localize "SW25.Item.Action.ActionValue"}}</div>
+  </div>
+  <div class="item flexrow">
+    <div style="flex: 0 0 60px; font-size: 24px; text-align: center;">
+      <i class="fas fa-dice-one"></i> <i class="fas fa-dice-two"></i>
+    </div>
+    <div class="item flexcol" style="align-items: normal;">
+      <div class="item flexrow">
+        <div style="flex: 0 0 60px; font-size: 16px; font-weight: bold; text-align: center;">7</div>
+        <div class="item flexcol" style="align-items: normal;">
+          {{#each actionsf17 as |item id|}}
+          <li class='item action' data-item-id='{{item._id}}'>
+            <div class="flexrow flex-group-center">
+              <div class='item-name' style="flex: 0 0 150px;">
+                <div class='item-image'>
+                  <a class='rollable' data-roll-type='item'>
+                    <img
+                      src='{{item.img}}'
+                      title='{{item.name}}'
+                      width='24'
+                      height='24'
+                    />
+                  </a>
+                </div>
+                <h4 class="action-label">{{item.name}}</h4>
+              </div>
+              <div class='item-name action-label item-prop'>{{{system.displayaction}}}</div>
+              <div class="rollable" style="flex: 0 0 40px; display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}" data-checktype="{{system.checkTypesButton2}}">
+                <b>{{localize "SW25.Item.CheckB"}}</b>
+              </div>
+              <div class="powerrollable" style="flex: 0 0 40px; display: {{#if system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{localize "SW25.Item.Power"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}" data-powertype="{{system.powerTypesButton}}">
+                <b>{{localize "SW25.Item.PowerB"}}</b>
+              </div>
+              <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
+                <b>{{localize "SW25.Item.EffectB"}}</b>
+              </div>
+              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}">
+                {{system.actionvalue}} ({{system.actionresult}})
+              </div>
+            </div>
+            <div class="action-description nogapmargin">
+              <div class="flexrow">
+                <div style="flex: 0 0 60px;"></div>
+                <div class="flexcol textalign-left" style="font-size: 0.8em;">
+                  {{#if system.dialog}}<span><b>{{localize "SW25.Item.Action.Dialog"}}:</b> {{system.dialog}}</span>{{/if}}
+                  {{#if system.displayactioneffect}}
+                  <span><b>{{localize "SW25.Item.Action.ActionEffect"}}:</b></span>
+                  <span>{{{system.displayactioneffect}}}</span>
+                  {{/if}}
+                  {{#if system.description}}
+                  <span><b>{{localize "SW25.Description"}}:</b></span>
+                  <span>{{{system.description}}}</span>
+                  {{/if}}
+                </div>
+                <div class='item-controls' style="flex: 0 0 50px;">
+                  <a
+                    class='item-control item-edit'
+                    title='{{localize "DOCUMENT.Update" type='Item'}}'
+                  >
+                    <i class='fas fa-edit'></i>
+                  </a>
+                  <a
+                    class='item-control item-delete'
+                    title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                  >
+                    <i class='fas fa-trash'></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          {{/each}}
+        </div>
+      </div>
+      <div class="item flexrow">
+        <div style="flex: 0 0 60px; font-size: 16px; font-weight: bold; text-align: center;">6</div>
+        <div class="item flexcol" style="align-items: normal;">
+          {{#each actionsf16 as |item id|}}
+          <li class='item action' data-item-id='{{item._id}}'>
+            <div class="flexrow flex-group-center">
+              <div class='item-name' style="flex: 0 0 150px;">
+                <div class='item-image'>
+                  <a class='rollable' data-roll-type='item'>
+                    <img
+                      src='{{item.img}}'
+                      title='{{item.name}}'
+                      width='24'
+                      height='24'
+                    />
+                  </a>
+                </div>
+                <h4 class="action-label">{{item.name}}</h4>
+              </div>
+              <div class='item-name action-label item-prop'>{{{system.displayaction}}}</div>
+              <div class="rollable" style="flex: 0 0 40px; display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}" data-checktype="{{system.checkTypesButton2}}">
+                <b>{{localize "SW25.Item.CheckB"}}</b>
+              </div>
+              <div class="powerrollable" style="flex: 0 0 40px; display: {{#if system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{localize "SW25.Item.Power"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}" data-powertype="{{system.powerTypesButton}}">
+                <b>{{localize "SW25.Item.PowerB"}}</b>
+              </div>
+              <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
+                <b>{{localize "SW25.Item.EffectB"}}</b>
+              </div>
+              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}">
+                {{system.actionvalue}} ({{system.actionresult}})
+              </div>
+            </div>
+            <div class="action-description nogapmargin">
+              <div class="flexrow">
+                <div style="flex: 0 0 60px;"></div>
+                <div class="flexcol textalign-left" style="font-size: 0.8em;">
+                  {{#if system.dialog}}<span><b>{{localize "SW25.Item.Action.Dialog"}}:</b> {{system.dialog}}</span>{{/if}}
+                  {{#if system.displayactioneffect}}
+                  <span><b>{{localize "SW25.Item.Action.ActionEffect"}}:</b></span>
+                  <span>{{{system.displayactioneffect}}}</span>
+                  {{/if}}
+                  {{#if system.description}}
+                  <span><b>{{localize "SW25.Description"}}:</b></span>
+                  <span>{{{system.description}}}</span>
+                  {{/if}}
+                </div>
+                <div class='item-controls' style="flex: 0 0 50px;">
+                  <a
+                    class='item-control item-edit'
+                    title='{{localize "DOCUMENT.Update" type='Item'}}'
+                  >
+                    <i class='fas fa-edit'></i>
+                  </a>
+                  <a
+                    class='item-control item-delete'
+                    title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                  >
+                    <i class='fas fa-trash'></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="item flexrow">
+    <div style="flex: 0 0 60px; font-size: 24px; text-align: center;">
+      <i class="fas fa-dice-three"></i> <i class="fas fa-dice-four"></i>
+    </div>
+    <div class="item flexcol" style="align-items: normal;">
+      <div class="item flexrow">
+        <div style="flex: 0 0 60px; font-size: 16px; font-weight: bold; text-align: center;">8</div>
+        <div class="item flexcol" style="align-items: normal;">
+          {{#each actionsf38 as |item id|}}
+          <li class='item action' data-item-id='{{item._id}}'>
+            <div class="flexrow flex-group-center">
+              <div class='item-name' style="flex: 0 0 150px;">
+                <div class='item-image'>
+                  <a class='rollable' data-roll-type='item'>
+                    <img
+                      src='{{item.img}}'
+                      title='{{item.name}}'
+                      width='24'
+                      height='24'
+                    />
+                  </a>
+                </div>
+                <h4 class="action-label">{{item.name}}</h4>
+              </div>
+              <div class='item-name action-label item-prop'>{{{system.displayaction}}}</div>
+              <div class="rollable" style="flex: 0 0 40px; display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}" data-checktype="{{system.checkTypesButton2}}">
+                <b>{{localize "SW25.Item.CheckB"}}</b>
+              </div>
+              <div class="powerrollable" style="flex: 0 0 40px; display: {{#if system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{localize "SW25.Item.Power"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}" data-powertype="{{system.powerTypesButton}}">
+                <b>{{localize "SW25.Item.PowerB"}}</b>
+              </div>
+              <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
+                <b>{{localize "SW25.Item.EffectB"}}</b>
+              </div>
+              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}">
+                {{system.actionvalue}} ({{system.actionresult}})
+              </div>
+            </div>
+            <div class="action-description nogapmargin">
+              <div class="flexrow">
+                <div style="flex: 0 0 60px;"></div>
+                <div class="flexcol textalign-left" style="font-size: 0.8em;">
+                  {{#if system.dialog}}<span><b>{{localize "SW25.Item.Action.Dialog"}}:</b> {{system.dialog}}</span>{{/if}}
+                  {{#if system.displayactioneffect}}
+                  <span><b>{{localize "SW25.Item.Action.ActionEffect"}}:</b></span>
+                  <span>{{{system.displayactioneffect}}}</span>
+                  {{/if}}
+                  {{#if system.description}}
+                  <span><b>{{localize "SW25.Description"}}:</b></span>
+                  <span>{{{system.description}}}</span>
+                  {{/if}}
+                </div>
+                <div class='item-controls' style="flex: 0 0 50px;">
+                  <a
+                    class='item-control item-edit'
+                    title='{{localize "DOCUMENT.Update" type='Item'}}'
+                  >
+                    <i class='fas fa-edit'></i>
+                  </a>
+                  <a
+                    class='item-control item-delete'
+                    title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                  >
+                    <i class='fas fa-trash'></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          {{/each}}
+        </div>
+      </div>
+      <div class="item flexrow">
+        <div style="flex: 0 0 60px; font-size: 16px; font-weight: bold; text-align: center;">5</div>
+        <div class="item flexcol" style="align-items: normal;">
+          {{#each actionsf35 as |item id|}}
+          <li class='item action' data-item-id='{{item._id}}'>
+            <div class="flexrow flex-group-center">
+              <div class='item-name' style="flex: 0 0 150px;">
+                <div class='item-image'>
+                  <a class='rollable' data-roll-type='item'>
+                    <img
+                      src='{{item.img}}'
+                      title='{{item.name}}'
+                      width='24'
+                      height='24'
+                    />
+                  </a>
+                </div>
+                <h4 class="action-label">{{item.name}}</h4>
+              </div>
+              <div class='item-name action-label item-prop'>{{{system.displayaction}}}</div>
+              <div class="rollable" style="flex: 0 0 40px; display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}" data-checktype="{{system.checkTypesButton2}}">
+                <b>{{localize "SW25.Item.CheckB"}}</b>
+              </div>
+              <div class="powerrollable" style="flex: 0 0 40px; display: {{#if system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{localize "SW25.Item.Power"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}" data-powertype="{{system.powerTypesButton}}">
+                <b>{{localize "SW25.Item.PowerB"}}</b>
+              </div>
+              <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
+                <b>{{localize "SW25.Item.EffectB"}}</b>
+              </div>
+              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}">
+                {{system.actionvalue}} ({{system.actionresult}})
+              </div>
+            </div>
+            <div class="action-description nogapmargin">
+              <div class="flexrow">
+                <div style="flex: 0 0 60px;"></div>
+                <div class="flexcol textalign-left" style="font-size: 0.8em;">
+                  {{#if system.dialog}}<span><b>{{localize "SW25.Item.Action.Dialog"}}:</b> {{system.dialog}}</span>{{/if}}
+                  {{#if system.displayactioneffect}}
+                  <span><b>{{localize "SW25.Item.Action.ActionEffect"}}:</b></span>
+                  <span>{{{system.displayactioneffect}}}</span>
+                  {{/if}}
+                  {{#if system.description}}
+                  <span><b>{{localize "SW25.Description"}}:</b></span>
+                  <span>{{{system.description}}}</span>
+                  {{/if}}
+                </div>
+                <div class='item-controls' style="flex: 0 0 50px;">
+                  <a
+                    class='item-control item-edit'
+                    title='{{localize "DOCUMENT.Update" type='Item'}}'
+                  >
+                    <i class='fas fa-edit'></i>
+                  </a>
+                  <a
+                    class='item-control item-delete'
+                    title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                  >
+                    <i class='fas fa-trash'></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="item flexrow">
+    <div style="flex: 0 0 60px; font-size: 24px; text-align: center;">
+      <i class="fas fa-dice-five"></i>
+    </div>
+    <div class="item flexcol" style="align-items: normal;">
+      <div class="item flexrow">
+        <div style="flex: 0 0 60px; font-size: 16px; font-weight: bold; text-align: center;">9</div>
+        <div class="item flexcol" style="align-items: normal;">
+          {{#each actionsf59 as |item id|}}
+          <li class='item action' data-item-id='{{item._id}}'>
+            <div class="flexrow flex-group-center">
+              <div class='item-name' style="flex: 0 0 150px;">
+                <div class='item-image'>
+                  <a class='rollable' data-roll-type='item'>
+                    <img
+                      src='{{item.img}}'
+                      title='{{item.name}}'
+                      width='24'
+                      height='24'
+                    />
+                  </a>
+                </div>
+                <h4 class="action-label">{{item.name}}</h4>
+              </div>
+              <div class='item-name action-label item-prop'>{{{system.displayaction}}}</div>
+              <div class="rollable" style="flex: 0 0 40px; display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}" data-checktype="{{system.checkTypesButton2}}">
+                <b>{{localize "SW25.Item.CheckB"}}</b>
+              </div>
+              <div class="powerrollable" style="flex: 0 0 40px; display: {{#if system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{localize "SW25.Item.Power"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}" data-powertype="{{system.powerTypesButton}}">
+                <b>{{localize "SW25.Item.PowerB"}}</b>
+              </div>
+              <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
+                <b>{{localize "SW25.Item.EffectB"}}</b>
+              </div>
+              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}">
+                {{system.actionvalue}} ({{system.actionresult}})
+              </div>
+            </div>
+            <div class="action-description nogapmargin">
+              <div class="flexrow">
+                <div style="flex: 0 0 60px;"></div>
+                <div class="flexcol textalign-left" style="font-size: 0.8em;">
+                  {{#if system.dialog}}<span><b>{{localize "SW25.Item.Action.Dialog"}}:</b> {{system.dialog}}</span>{{/if}}
+                  {{#if system.displayactioneffect}}
+                  <span><b>{{localize "SW25.Item.Action.ActionEffect"}}:</b></span>
+                  <span>{{{system.displayactioneffect}}}</span>
+                  {{/if}}
+                  {{#if system.description}}
+                  <span><b>{{localize "SW25.Description"}}:</b></span>
+                  <span>{{{system.description}}}</span>
+                  {{/if}}
+                </div>
+                <div class='item-controls' style="flex: 0 0 50px;">
+                  <a
+                    class='item-control item-edit'
+                    title='{{localize "DOCUMENT.Update" type='Item'}}'
+                  >
+                    <i class='fas fa-edit'></i>
+                  </a>
+                  <a
+                    class='item-control item-delete'
+                    title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                  >
+                    <i class='fas fa-trash'></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          {{/each}}
+        </div>
+      </div>
+      <div class="item flexrow">
+        <div style="flex: 0 0 60px; font-size: 16px; font-weight: bold; text-align: center;">4</div>
+        <div class="item flexcol" style="align-items: normal;">
+          {{#each actionsf54 as |item id|}}
+          <li class='item action' data-item-id='{{item._id}}'>
+            <div class="flexrow flex-group-center">
+              <div class='item-name' style="flex: 0 0 150px;">
+                <div class='item-image'>
+                  <a class='rollable' data-roll-type='item'>
+                    <img
+                      src='{{item.img}}'
+                      title='{{item.name}}'
+                      width='24'
+                      height='24'
+                    />
+                  </a>
+                </div>
+                <h4 class="action-label">{{item.name}}</h4>
+              </div>
+              <div class='item-name action-label item-prop'>{{{system.displayaction}}}</div>
+              <div class="rollable" style="flex: 0 0 40px; display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}" data-checktype="{{system.checkTypesButton2}}">
+                <b>{{localize "SW25.Item.CheckB"}}</b>
+              </div>
+              <div class="powerrollable" style="flex: 0 0 40px; display: {{#if system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{localize "SW25.Item.Power"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}" data-powertype="{{system.powerTypesButton}}">
+                <b>{{localize "SW25.Item.PowerB"}}</b>
+              </div>
+              <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
+                <b>{{localize "SW25.Item.EffectB"}}</b>
+              </div>
+              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}">
+                {{system.actionvalue}} ({{system.actionresult}})
+              </div>
+            </div>
+            <div class="action-description nogapmargin">
+              <div class="flexrow">
+                <div style="flex: 0 0 60px;"></div>
+                <div class="flexcol textalign-left" style="font-size: 0.8em;">
+                  {{#if system.dialog}}<span><b>{{localize "SW25.Item.Action.Dialog"}}:</b> {{system.dialog}}</span>{{/if}}
+                  {{#if system.displayactioneffect}}
+                  <span><b>{{localize "SW25.Item.Action.ActionEffect"}}:</b></span>
+                  <span>{{{system.displayactioneffect}}}</span>
+                  {{/if}}
+                  {{#if system.description}}
+                  <span><b>{{localize "SW25.Description"}}:</b></span>
+                  <span>{{{system.description}}}</span>
+                  {{/if}}
+                </div>
+                <div class='item-controls' style="flex: 0 0 50px;">
+                  <a
+                    class='item-control item-edit'
+                    title='{{localize "DOCUMENT.Update" type='Item'}}'
+                  >
+                    <i class='fas fa-edit'></i>
+                  </a>
+                  <a
+                    class='item-control item-delete'
+                    title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                  >
+                    <i class='fas fa-trash'></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="item flexrow">
+    <div style="flex: 0 0 60px; font-size: 24px; text-align: center;">
+      <i class="fas fa-dice-six"></i>
+    </div>
+    <div class="item flexcol" style="align-items: normal;">
+      <div class="item flexrow">
+        <div style="flex: 0 0 60px; font-size: 16px; font-weight: bold; text-align: center;">10</div>
+        <div class="item flexcol" style="align-items: normal;">
+          {{#each actionsf610 as |item id|}}
+          <li class='item action' data-item-id='{{item._id}}'>
+            <div class="flexrow flex-group-center">
+              <div class='item-name' style="flex: 0 0 150px;">
+                <div class='item-image'>
+                  <a class='rollable' data-roll-type='item'>
+                    <img
+                      src='{{item.img}}'
+                      title='{{item.name}}'
+                      width='24'
+                      height='24'
+                    />
+                  </a>
+                </div>
+                <h4 class="action-label">{{item.name}}</h4>
+              </div>
+              <div class='item-name action-label item-prop'>{{{system.displayaction}}}</div>
+              <div class="rollable" style="flex: 0 0 40px; display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}" data-checktype="{{system.checkTypesButton2}}">
+                <b>{{localize "SW25.Item.CheckB"}}</b>
+              </div>
+              <div class="powerrollable" style="flex: 0 0 40px; display: {{#if system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{localize "SW25.Item.Power"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}" data-powertype="{{system.powerTypesButton}}">
+                <b>{{localize "SW25.Item.PowerB"}}</b>
+              </div>
+              <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
+                <b>{{localize "SW25.Item.EffectB"}}</b>
+              </div>
+              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}">
+                {{system.actionvalue}} ({{system.actionresult}})
+              </div>
+            </div>
+            <div class="action-description nogapmargin">
+              <div class="flexrow">
+                <div style="flex: 0 0 60px;"></div>
+                <div class="flexcol textalign-left" style="font-size: 0.8em;">
+                  {{#if system.dialog}}<span><b>{{localize "SW25.Item.Action.Dialog"}}:</b> {{system.dialog}}</span>{{/if}}
+                  {{#if system.displayactioneffect}}
+                  <span><b>{{localize "SW25.Item.Action.ActionEffect"}}:</b></span>
+                  <span>{{{system.displayactioneffect}}}</span>
+                  {{/if}}
+                  {{#if system.description}}
+                  <span><b>{{localize "SW25.Description"}}:</b></span>
+                  <span>{{{system.description}}}</span>
+                  {{/if}}
+                </div>
+                <div class='item-controls' style="flex: 0 0 50px;">
+                  <a
+                    class='item-control item-edit'
+                    title='{{localize "DOCUMENT.Update" type='Item'}}'
+                  >
+                    <i class='fas fa-edit'></i>
+                  </a>
+                  <a
+                    class='item-control item-delete'
+                    title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                  >
+                    <i class='fas fa-trash'></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          {{/each}}
+        </div>
+      </div>
+      <div class="item flexrow">
+        <div style="flex: 0 0 60px; font-size: 16px; font-weight: bold; text-align: center;">3</div>
+        <div class="item flexcol" style="align-items: normal;">
+          {{#each actionsf63 as |item id|}}
+          <li class='item action' data-item-id='{{item._id}}'>
+            <div class="flexrow flex-group-center">
+              <div class='item-name' style="flex: 0 0 150px;">
+                <div class='item-image'>
+                  <a class='rollable' data-roll-type='item'>
+                    <img
+                      src='{{item.img}}'
+                      title='{{item.name}}'
+                      width='24'
+                      height='24'
+                    />
+                  </a>
+                </div>
+                <h4 class="action-label">{{item.name}}</h4>
+              </div>
+              <div class='item-name action-label item-prop'>{{{system.displayaction}}}</div>
+              <div class="rollable" style="flex: 0 0 40px; display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}" data-checktype="{{system.checkTypesButton2}}">
+                <b>{{localize "SW25.Item.CheckB"}}</b>
+              </div>
+              <div class="powerrollable" style="flex: 0 0 40px; display: {{#if system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{localize "SW25.Item.Power"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}" data-powertype="{{system.powerTypesButton}}">
+                <b>{{localize "SW25.Item.PowerB"}}</b>
+              </div>
+              <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
+                <b>{{localize "SW25.Item.EffectB"}}</b>
+              </div>
+              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}">
+                {{system.actionvalue}} ({{system.actionresult}})
+              </div>
+            </div>
+            <div class="action-description nogapmargin">
+              <div class="flexrow">
+                <div style="flex: 0 0 60px;"></div>
+                <div class="flexcol textalign-left" style="font-size: 0.8em;">
+                  {{#if system.dialog}}<span><b>{{localize "SW25.Item.Action.Dialog"}}:</b> {{system.dialog}}</span>{{/if}}
+                  {{#if system.displayactioneffect}}
+                  <span><b>{{localize "SW25.Item.Action.ActionEffect"}}:</b></span>
+                  <span>{{{system.displayactioneffect}}}</span>
+                  {{/if}}
+                  {{#if system.description}}
+                  <span><b>{{localize "SW25.Description"}}:</b></span>
+                  <span>{{{system.description}}}</span>
+                  {{/if}}
+                </div>
+                <div class='item-controls' style="flex: 0 0 50px;">
+                  <a
+                    class='item-control item-edit'
+                    title='{{localize "DOCUMENT.Update" type='Item'}}'
+                  >
+                    <i class='fas fa-edit'></i>
+                  </a>
+                  <a
+                    class='item-control item-delete'
+                    title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                  >
+                    <i class='fas fa-trash'></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</ol>

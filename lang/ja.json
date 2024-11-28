@@ -64,6 +64,7 @@
     "Fellow": "フェロー",
     "Action": "行動",
     "ActionTable": "行動表",
+    "ActionRoll": "行動ロール",
     "Reward": "報酬",
     "Fellowmemo": "メモ",
     "Daemon": "魔神",
@@ -463,7 +464,9 @@
         "ActionValue": "達成値",
         "Dialog": "台詞",
         "Action": "行動",
-        "ActionEffect": "効果"
+        "ActionEffect": "効果",
+        "TableType": "行動表タイプ",
+        "Label": "ラベル"
       }
     },
     "Effect": {

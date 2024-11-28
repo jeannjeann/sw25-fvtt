@@ -1425,6 +1425,13 @@ export class SW25Item extends Item {
     if (itemData.type == "action") {
       systemData.actionvalue =
         Number(systemData.checkbase1) + Number(systemData.actionresult);
+
+      // label setting
+      systemData.label1 =
+        game.i18n.localize("SW25.Item.Action.ActionValue") +
+        ":" +
+        systemData.actionvalue;
+      systemData.label2 = game.i18n.localize("SW25.Check");
     }
 
     // Roll Setting
@@ -2082,6 +2089,7 @@ export class SW25Item extends Item {
     const actorData = itemData.actor.system;
     const actoritemData = itemData.actor.items;
 
+    // result setting
     switch (systemData.actiondice) {
       case "f1":
         systemData.actiondicename = game.i18n.localize("SW25.Fellow") + ":1-2";

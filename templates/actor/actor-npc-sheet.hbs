@@ -35,6 +35,9 @@
               <input id="{{actor._id}}mpmod" style="height: 80%;" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
             </div>
           </div>
+          {{#if system.toFellow}}
+          <div class="action-button rollable"><i class="fas fa-dice-d6"></i>{{localize "SW25.ActionRoll"}}</div>
+          {{/if}}
         </div>
       </div>
     </div>
@@ -230,7 +233,21 @@
   <section class="sheet-body">
 
     {{!-- Fellow Action Tab --}}
-    <div class="tab biography flexcol" data-group="primary" data-tab="fellowAction">
+    <div class="tab fellowAction flexcol" data-group="primary" data-tab="fellowAction">
+      {{#if (eq system.tabletype "fellow")}}
+      <div class="flexcol margin-s">
+        <div>
+          {{> "systems/sw25/templates/actor/parts/actor-actions-fellow.hbs"}}
+        </div>
+      </div>
+      {{/if}}
+      {{#if (eq system.tabletype "daemon")}}
+      <div class="flexcol margin-s">
+        <div>
+          {{> "systems/sw25/templates/actor/parts/actor-actions-daemon.hbs"}}
+        </div>
+      </div>
+      {{/if}}
       <div class="margin-m" style="display: flex; align-items: center;">
         <input type="checkbox" id="{{actor._id}}system.attributes.showaction" name="system.attributes.showaction" data-dtype="Boolean" {{#if system.attributes.showaction}} checked {{/if}}/>
         <label for="{{actor._id}}system.attributes.showaction">{{localize "SW25.Attributes.Showaction"}}</label>
@@ -245,8 +262,17 @@
     </div>
 
     {{!-- Fellow Setting Tab --}}
-    <div class="tab biography flexcol" data-group="primary" data-tab="fellowSetting">
-      fellow setting
+    <div class="tab fellowSetting flexcol" data-group="primary" data-tab="fellowSetting">
+      <div class="grid grid-10col margin-s">
+        <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Action.TableType"}}</b><br>
+          <select name="system.tabletype">
+            {{#select system.tabletype}}
+            <option value="fellow">{{localize "SW25.Fellow"}}</option>
+            <option value="daemon">{{localize "SW25.Daemon"}}</option>
+            {{/select}}
+         </select>
+        </span>
+      </div>
     </div>
 
   </section>

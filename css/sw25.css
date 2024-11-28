@@ -821,6 +821,13 @@ progress.mp-bar::-moz-progress-bar {
   flex: none;
   width: 100%;
 }
+.sw25 .action-description {
+  display: none;
+  -webkit-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  width: 100%;
+}
 
 .sw25 .effects .item .effect-source,
 .sw25 .effects .item .effect-duration,
@@ -1222,6 +1229,15 @@ input.weakapply[type="checkbox"] {
   border:1px solid #000;
   border-radius: 5px;
   text-align:center;
+  display: block;
+}
+.action-button {
+  width: 90%;
+  margin-top: 10px;
+  border:1px solid #000;
+  border-radius: 5px;
+  text-align:center;
+  align-self: center;
   display: block;
 }
 

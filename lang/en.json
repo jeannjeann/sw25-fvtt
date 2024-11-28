@@ -64,6 +64,7 @@
     "Fellow": "Fellow",
     "Action": "Action",
     "ActionTable": "Action Table",
+    "ActionRoll": "Action Roll",
     "Reward": "Reward",
     "Fellowmemo": "Memo",
     "Daemon": "Daemon",
@@ -464,7 +465,9 @@
         "ActionValue": "Value",
         "Dialog": "Dialog",
         "Action": "Action",
-        "ActionEffect": "Effect"
+        "ActionEffect": "Effect",
+        "TableType": "Action Table Type",
+        "Label": "Label"
       }
     },
     "Effect": {
