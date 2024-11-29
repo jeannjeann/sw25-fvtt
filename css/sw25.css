@@ -875,10 +875,6 @@ progress.mp-bar::-moz-progress-bar {
   padding: 0;
 }
 
-.sw25 .sheet-header .header-fields .character-details .character-nameskill {
-  min-height: 5em;
-}
-
 .sw25 .sheet-header .header-fields .character-details .character-grace {
   flex:initial;
   margin-right: 25px;
