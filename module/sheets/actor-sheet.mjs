@@ -621,6 +621,9 @@ export class SW25ActorSheet extends ActorSheet {
     html.find(".changesl-button").click(this._onSkilllevelButton.bind(this));
     html.find(".checkmod-button").click(this._onCheckmodButton.bind(this));
     html.find(".roll-ability-check").click(this._onGrowthCheck.bind(this));
+
+    // Drag action item to table
+    html.find(`.actiontable`).on("drop", this._onActionTableDrag.bind(this));
   }
 
   /**
@@ -1525,5 +1528,82 @@ export class SW25ActorSheet extends ActorSheet {
   async _onGrowthCheck(event) {
     event.preventDefault();
     growthCheck(this.actor);
+  }
+
+  async _onActionTableDrag(event) {
+    event.preventDefault();
+    const dataset = event.currentTarget.dataset;
+    const data = JSON.parse(
+      event.originalEvent.dataTransfer.getData("text/plain")
+    );
+    const item = await fromUuid(data.uuid);
+    if (!item) return;
+    if (item.type != "action") return;
+
+    // set item data
+    let updatedData = {};
+    switch (dataset.area) {
+      case "f17":
+        updatedData = { "system.actiondice": "f1", "system.actionresult": "7" };
+        break;
+      case "f16":
+        updatedData = { "system.actiondice": "f1", "system.actionresult": "6" };
+        break;
+      case "f38":
+        updatedData = { "system.actiondice": "f3", "system.actionresult": "8" };
+        break;
+      case "f35":
+        updatedData = { "system.actiondice": "f3", "system.actionresult": "5" };
+        break;
+      case "f59":
+        updatedData = { "system.actiondice": "f5", "system.actionresult": "9" };
+        break;
+      case "f54":
+        updatedData = { "system.actiondice": "f5", "system.actionresult": "4" };
+        break;
+      case "f610":
+        updatedData = {
+          "system.actiondice": "f6",
+          "system.actionresult": "10",
+        };
+        break;
+      case "f63":
+        updatedData = { "system.actiondice": "f6", "system.actionresult": "3" };
+        break;
+      case "d18":
+        updatedData = { "system.actiondice": "d1", "system.actionresult": "8" };
+        break;
+      case "d28":
+        updatedData = { "system.actiondice": "d2", "system.actionresult": "8" };
+        break;
+      case "d49":
+        updatedData = { "system.actiondice": "d4", "system.actionresult": "9" };
+        break;
+      case "d610":
+        updatedData = {
+          "system.actiondice": "d6",
+          "system.actionresult": "10",
+        };
+        break;
+      default:
+        updatedData = {
+          "system.actiondice": null,
+          "system.actionresult": null,
+        };
+        break;
+    }
+
+    // update item data
+    const ownedItem = this.actor.items.get(item.id);
+    if (ownedItem) {
+      await ownedItem.update(updatedData);
+    } else {
+      event.stopPropagation();
+      const newItem = item.toObject();
+      const createdItem = await this.actor.createEmbeddedDocuments("Item", [
+        newItem,
+      ]);
+      await createdItem[0].update(updatedData);
+    }
   }
 }
