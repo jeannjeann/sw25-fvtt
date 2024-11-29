@@ -714,6 +714,7 @@ export class SW25ActorSheet extends ActorSheet {
         spell: chatspell,
         checktype: checktype,
         target,
+        targetName: targetName,
       };
 
       chatData.content = await renderTemplate(
@@ -728,7 +729,7 @@ export class SW25ActorSheet extends ActorSheet {
           spell: chatspell,
           checktype: checktype,
           resusetext: chatresuse,
-          targetName,
+          targetName: targetName,
         }
       );
 
@@ -915,6 +916,7 @@ export class SW25ActorSheet extends ActorSheet {
       apply: chatapply,
       powertype: powertype,
       target,
+      targetName: targetName,
     };
 
     chatData.content = await renderTemplate(
@@ -938,7 +940,7 @@ export class SW25ActorSheet extends ActorSheet {
         shownoc: shownoc,
         apply: chatapply,
         powertype: powertype,
-        targetName,
+        targetName: targetName,
       }
     );
 
@@ -1186,7 +1188,7 @@ export class SW25ActorSheet extends ActorSheet {
           );
         }
         */
-        if (quantity > item.system.qmax) {
+        if (item.system.qmax && quantity > item.system.qmax) {
           quantity = item.system.qmax;
           ui.notifications.warn(
             `"${item.name}"${game.i18n.localize("SW25.isAlreadyMax")}`
@@ -1202,7 +1204,7 @@ export class SW25ActorSheet extends ActorSheet {
           );
         }
         */
-        if (quantity < item.system.qmin) {
+        if (item.system.qmin && quantity < item.system.qmin) {
           quantity = item.system.qmin;
           ui.notifications.warn(
             `"${item.name}"${game.i18n.localize("SW25.isAlreadyMin")}`

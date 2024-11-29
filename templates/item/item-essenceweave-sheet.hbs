@@ -11,7 +11,7 @@
           <b>{{system.level}}{{localize "SW25.Level"}}{{localize "TYPES.Item.essenceweave"}}</b>
         </div>
         <div class="grid-span-2" style="text-align: right;">
-          <b>  HP{{localize "SW25.Cost"}} : </b>{{system.hpcost}}{{#if system.maxhpcost}} ({{system.maxhpcost}}){{/if}}
+          <b>  HP{{localize "SW25.Cost"}} : </b>{{#if system.hpcost}}{{system.hpcost}}{{else}}{{system.basehpcost}}{{/if}}{{#if system.maxhpcost}} ({{system.maxhpcost}}){{/if}}
         </div>
         <div class="grid-span-3">
           <b>{{localize "SW25.Item.Premise"}} : </b>{{system.premise}}
