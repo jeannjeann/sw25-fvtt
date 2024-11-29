@@ -6,6 +6,7 @@ import { powerRoll } from "../helpers/powerroll.mjs";
 import { mpCost, hpCost } from "../helpers/mpcost.mjs";
 import { lootRoll } from "../helpers/lootroll.mjs";
 import { growthCheck } from "../helpers/growthcheck.mjs";
+import { actionRoll } from "../helpers/actionroll.mjs";
 import { targetRollDialog } from "../helpers/dialogs.mjs";
 
 /**
@@ -621,6 +622,7 @@ export class SW25ActorSheet extends ActorSheet {
     html.find(".changesl-button").click(this._onSkilllevelButton.bind(this));
     html.find(".checkmod-button").click(this._onCheckmodButton.bind(this));
     html.find(".roll-ability-check").click(this._onGrowthCheck.bind(this));
+    html.find(".roll-actiontable").click(this._onActionTable.bind(this));
 
     // Drag action item to table
     html.find(`.actiontable`).on("drop", this._onActionTableDrag.bind(this));
@@ -1528,6 +1530,12 @@ export class SW25ActorSheet extends ActorSheet {
   async _onGrowthCheck(event) {
     event.preventDefault();
     growthCheck(this.actor);
+  }
+
+  async _onActionTable(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    actionRoll(element, this.actor);
   }
 
   async _onActionTableDrag(event) {

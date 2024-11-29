@@ -35,7 +35,7 @@
             </div>
           </div>
           {{#if system.toFellow}}
-          <div class="action-button rollable"><i class="fas fa-dice-d6"></i>{{localize "SW25.ActionRoll"}}</div>
+          <div class="roll-actiontable action-button rollable"><i class="fas fa-dice-d6"></i>{{localize "SW25.ActionRoll"}}</div>
           {{/if}}
         </div>
       </div>
@@ -887,6 +887,9 @@
             {{/select}}
          </select>
         </span>
+        <span class="grid-span-8"></span>
+        <span class="grid-span-10" style="text-align: left;"><label for="{{actor._id}}system.canceldialog"><b>{{localize "SW25.CancelDialog"}}</b></label><br>
+        <input id="{{actor._id}}system.canceldialog" type="text" name="system.canceldialog" value="{{system.canceldialog}}" data-dtype="String"/></span>        
       </div>
     </div>
 

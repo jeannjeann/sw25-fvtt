@@ -44,6 +44,7 @@
         "fellowtype": "fellow",
         "showaction": false,
         "tabletype": "fellow",
+        "canceldialog": "",
         "attributes": {
           "skill": "",
           "fellowexp": true,

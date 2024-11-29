@@ -2305,6 +2305,26 @@ export class SW25Item extends Item {
 
       let chatDescription = item.system.description;
 
+      // action description
+      if (item.type == "action") {
+        chatDescription = "";
+        if (item.system.target) {
+          chatDescription += `<b>${game.i18n.localize("SW25.Target")}:</b><br>${
+            item.system.target
+          }<br>`;
+        }
+        if (item.system.displayaction) {
+          chatDescription += `<b>${game.i18n.localize(
+            "SW25.Item.Action.Action"
+          )}:</b><br>${item.system.displayaction}<br>`;
+        }
+        if (item.system.displayactioneffect) {
+          chatDescription += `<b>${game.i18n.localize(
+            "SW25.Item.Action.ActionEffect"
+          )}:</b><br>${item.system.displayactioneffect}<br>`;
+        }
+      }
+
       chatData.content = await renderTemplate(
         "systems/sw25/templates/roll/roll-item.hbs",
         {

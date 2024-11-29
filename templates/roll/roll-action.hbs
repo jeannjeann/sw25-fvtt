@@ -1,0 +1,22 @@
+<div class="dice-roll">
+    {{#if flavor}}<div class="dice-flavor">{{flavor}}</div>{{/if}}
+</div>
+{{#if total}}
+<div class="dice-roll" style="margin-top: 0px;">
+    <div class="diceresult-apply">
+        <h4 class="dice-total diceresult-apply" style="flex-grow: 1">
+            <span class="diceresult-total">
+                {{{total}}}
+            </span>
+        </h4>
+    </div>
+</div>
+{{/if}}
+<div class="flexcol" style="margin-top: 2px;">
+    {{#each actions}}
+    <button class="buttonclick" data-buttontype="{{_id}}-buttonaction">{{name}} : {{system.actionvalue}}</button>
+    {{/each}}
+    {{#if canceldialog}}
+    <button class="buttonclick" data-buttontype="cancel-buttonaction">{{localize "Cancel"}}</button>
+    {{/if}}
+</div>

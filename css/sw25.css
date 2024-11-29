@@ -828,6 +828,13 @@ progress.mp-bar::-moz-progress-bar {
   flex: none;
   width: 100%;
 }
+.chat-message .message-content .chat-tooltip {
+  display: none;
+  -webkit-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  width: 100%;
+}
 
 .sw25 .effects .item .effect-source,
 .sw25 .effects .item .effect-duration,

@@ -15,6 +15,7 @@ import { customCommand } from "./helpers/customcommand.mjs";
 import { powerRoll } from "./helpers/powerroll.mjs";
 import { lootRoll } from "./helpers/lootroll.mjs";
 import { growthCheck } from "./helpers/growthcheck.mjs";
+import { actionRoll } from "./helpers/actionroll.mjs";
 import { rollreq } from "./helpers/rollrequest.mjs";
 import { targetRollDialog } from "./helpers/dialogs.mjs";
 import { preparePolyglot } from "./helpers/sw25languageprovider.mjs";
@@ -56,6 +57,7 @@ Hooks.once("init", function () {
     powerRoll,
     lootRoll,
     growthCheck,
+    actionRoll,
     targetRollDialog,
   };
 
@@ -510,6 +512,14 @@ Hooks.once("ready", async function () {
       const buttonType = button.data("buttontype");
       chatButton(chatMessage, buttonType);
     });
+    html.find(".flavor-text").on("click", async function (event) {
+      event.preventDefault();
+      const toggler = $(event.currentTarget);
+      const message = toggler.closest(".chat-message");
+      const description = message.find(".chat-tooltip");
+      toggler.toggleClass("open", false);
+      description.slideToggle();
+    });
   });
   // Add listener to past message
   $(".chat-message .buttonclick").each((index, element) => {
@@ -519,6 +529,15 @@ Hooks.once("ready", async function () {
       const button = $(event.currentTarget);
       const buttonType = button.data("buttontype");
       chatButton(chatMessage, buttonType);
+    });
+  });
+  $(".chat-message .flavor-text").each((index, element) => {
+    $(element).on("click", (event) => {
+      const toggler = $(event.currentTarget);
+      const message = toggler.closest(".chat-message");
+      const description = message.find(".chat-tooltip");
+      toggler.toggleClass("open", false);
+      description.slideToggle();
     });
   });
 

@@ -1653,4 +1653,32 @@ export async function chatButton(chatMessage, buttonType) {
 
     return roll;
   }
+
+  if (buttonType.endsWith("-buttonaction")) {
+    const itemId = buttonType.replace(/-buttonaction$/, "");
+    const item = actor.items.get(itemId);
+
+    // cancel message
+    if (itemId == "cancel") {
+      const content = actor.system.canceldialog;
+      let chatData = {
+        speaker: ChatMessage.getSpeaker({ actor: actor }),
+        type: CONST.CHAT_MESSAGE_TYPES.IC,
+        content: content,
+      };
+      ChatMessage.create(chatData);
+    } else {
+      if (item.system.dialog) {
+        const content = item.system.dialog;
+        let chatData = {
+          speaker: ChatMessage.getSpeaker({ actor: actor }),
+          type: CONST.CHAT_MESSAGE_TYPES.IC,
+          content: content,
+        };
+        ChatMessage.create(chatData);
+      }
+      // action item
+      item.roll();
+    }
+  }
 }
