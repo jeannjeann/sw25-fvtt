@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.1.0
+- フェロー、魔神行動表に対応
+- NPC設定項目追加
+- UX fix
+- bug fix  by [keyslock](https://github.com/keyslock)
+- bug fix
+
 ## 1.0.0
 - 魔装、蛮族特殊能力、奈落魔法、操気に対応
 - UX Fix by [Airamhh](https://github.com/Airamhh)
