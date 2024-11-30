@@ -323,7 +323,7 @@ export async function chatButton(chatMessage, buttonType) {
           apply: chatapply,
           checktype: checktype,
           resusetext: chatresuse,
-          targetName,
+          targetName: targetName,
         }
       );
 
@@ -453,6 +453,7 @@ export async function chatButton(chatMessage, buttonType) {
         apply: chatapply,
         powertype: powertype,
         target,
+        targetName: targetName,
       };
 
       chatData.content = await renderTemplate(
@@ -476,7 +477,7 @@ export async function chatButton(chatMessage, buttonType) {
           shownoc: shownoc,
           apply: chatapply,
           powertype: powertype,
-          targetName,
+          targetName: targetName,
         }
       );
 
@@ -511,6 +512,7 @@ export async function chatButton(chatMessage, buttonType) {
           total: newtotal,
           aftermod: aftermod,
           powertype: chatMessage.flags.powertype,
+          targetName: chatMessage.flags.targetName,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -534,6 +536,7 @@ export async function chatButton(chatMessage, buttonType) {
             shownoc: chatMessage.flags.shownoc,
             apply: chatMessage.flags.apply,
             powertype: chatMessage.flags.powertype,
+            targetName: chatMessage.flags.targetName,
           }
         ),
       };
@@ -563,6 +566,7 @@ export async function chatButton(chatMessage, buttonType) {
           total: chatMessage.flags.orgtotal,
           aftermod: aftermod,
           powertype: chatMessage.flags.powertype,
+          targetName: chatMessage.flags.targetName,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -586,6 +590,7 @@ export async function chatButton(chatMessage, buttonType) {
             shownoc: chatMessage.flags.shownoc,
             apply: chatMessage.flags.apply,
             powertype: chatMessage.flags.powertype,
+            targetName: chatMessage.flags.targetName,
           }
         ),
       };
@@ -626,6 +631,7 @@ export async function chatButton(chatMessage, buttonType) {
           total: halfctoal,
           aftermod: aftermod,
           powertype: chatMessage.flags.powertype,
+          targetName: chatMessage.flags.targetName,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -649,6 +655,7 @@ export async function chatButton(chatMessage, buttonType) {
             shownoc: chatMessage.flags.shownoc,
             apply: chatMessage.flags.apply,
             powertype: chatMessage.flags.powertype,
+            targetName: chatMessage.flags.targetName,
           }
         ),
       };
@@ -674,6 +681,7 @@ export async function chatButton(chatMessage, buttonType) {
           total: chatMessage.flags.orgtotal,
           aftermod: aftermod,
           powertype: chatMessage.flags.powertype,
+          targetName: chatMessage.flags.targetName,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -697,6 +705,7 @@ export async function chatButton(chatMessage, buttonType) {
             shownoc: chatMessage.flags.shownoc,
             apply: chatMessage.flags.apply,
             powertype: chatMessage.flags.powertype,
+            targetName: chatMessage.flags.targetName,
           }
         ),
       };
@@ -728,6 +737,7 @@ export async function chatButton(chatMessage, buttonType) {
           total: noctotal,
           aftermod: aftermod,
           powertype: chatMessage.flags.powertype,
+          targetName: chatMessage.flags.targetName,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-power.hbs",
@@ -751,6 +761,7 @@ export async function chatButton(chatMessage, buttonType) {
             shownoc: chatMessage.flags.shownoc,
             apply: chatMessage.flags.apply,
             powertype: chatMessage.flags.powertype,
+            targetName: chatMessage.flags.targetName,
           }
         ),
       };
@@ -852,6 +863,7 @@ export async function chatButton(chatMessage, buttonType) {
         total: newtotal,
         aftermod: aftermod,
         powertype: chatMessage.flags.powertype,
+        targetName: chatMessage.flags.targetName,
       },
       content: await renderTemplate(
         "systems/sw25/templates/roll/roll-power.hbs",
@@ -876,6 +888,7 @@ export async function chatButton(chatMessage, buttonType) {
           shownoc: chatMessage.flags.shownoc,
           apply: chatMessage.flags.apply,
           powertype: chatMessage.flags.powertype,
+          targetName: chatMessage.flags.targetName,
         }
       ),
     };
@@ -932,6 +945,7 @@ export async function chatButton(chatMessage, buttonType) {
         total: newtotal,
         aftermod: aftermod,
         powertype: chatMessage.flags.powertype,
+        targetName: chatMessage.flags.targetName,
       },
       content: await renderTemplate(
         "systems/sw25/templates/roll/roll-power.hbs",
@@ -956,6 +970,7 @@ export async function chatButton(chatMessage, buttonType) {
           shownoc: chatMessage.flags.shownoc,
           apply: chatMessage.flags.apply,
           powertype: chatMessage.flags.powertype,
+          targetName: chatMessage.flags.targetName,
         }
       ),
     };
@@ -1110,6 +1125,7 @@ export async function chatButton(chatMessage, buttonType) {
         dohalf: halfdone,
         aftermod: aftermod,
         checktype: chatMessage.flags.checktype,
+        targetName: chatMessage.flags.targetName,
       },
       content: await renderTemplate(
         "systems/sw25/templates/roll/roll-check.hbs",
@@ -1124,6 +1140,7 @@ export async function chatButton(chatMessage, buttonType) {
           apply: chatMessage.flags.apply,
           spell: chatMessage.flags.spell,
           checktype: chatMessage.flags.checktype,
+          targetName: chatMessage.flags.targetName,
         }
       ),
     };

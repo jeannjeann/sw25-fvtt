@@ -1629,7 +1629,7 @@ export class SW25Item extends Item {
         }
       }
       */
-      if (systemData.quantity > systemData.qmax) {
+      if (systemData.qmax && systemData.quantity > systemData.qmax) {
         systemData.quantity = systemData.qmax;
         /*
         if (!quantityWarn) {
@@ -1659,7 +1659,7 @@ export class SW25Item extends Item {
         }
       }
       */
-      if (systemData.quantity < systemData.qmin) {
+      if (systemData.qmin && systemData.quantity < systemData.qmin) {
         systemData.quantity = systemData.qmin;
         /*
         if (!quantityWarn) {
@@ -2434,6 +2434,7 @@ export class SW25Item extends Item {
         apply: chatapply,
         checktype: checktype,
         target,
+        targetName: targetName,
       };
 
       chatData.content = await renderTemplate(
@@ -2446,7 +2447,7 @@ export class SW25Item extends Item {
           total: chatTotal,
           apply: chatapply,
           checktype: checktype,
-          targetName,
+          targetName: targetName,
         }
       );
 
@@ -2573,6 +2574,7 @@ export class SW25Item extends Item {
         apply: chatapply,
         powertype: powertype,
         target,
+        targetName: targetName,
       };
 
       chatData.content = await renderTemplate(
@@ -2596,7 +2598,7 @@ export class SW25Item extends Item {
           shownoc: shownoc,
           apply: chatapply,
           powertype: powertype,
-          targetName,
+          targetName: targetName,
         }
       );
 

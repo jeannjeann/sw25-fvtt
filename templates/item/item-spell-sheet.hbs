@@ -11,7 +11,7 @@
           <b>{{system.level}}{{#if (eq system.fairytype "prop")}}{{localize "SW25.Rank"}}{{else}}{{#if (eq system.fairytype "special")}}{{localize "SW25.Rank"}}{{else}}{{localize "SW25.Level"}}{{/if}}{{/if}}{{system.typename}}</b>
         </div>
         <div class="grid-span-2" style="text-align: right;">
-          <b>  MP{{localize "SW25.Cost"}} : </b>{{system.mpcost}}
+          <b>  MP{{localize "SW25.Cost"}} : </b>{{#if system.mpcost}}{{system.mpcost}}{{else}}{{system.basempcost}}{{/if}}
         </div>
         <div class="grid-span-2">
           <b>{{localize "SW25.Target"}} : </b>{{system.target}}
