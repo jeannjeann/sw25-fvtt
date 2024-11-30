@@ -748,7 +748,9 @@
       "dialog": "",
       "action": "",
       "actioneffect": "",
-      "target": ""
+      "target": "",
+      "basempcost": "",
+      "mpcost": ""
   },
     "otherfeature": {
       "templates": ["base", "roll"],

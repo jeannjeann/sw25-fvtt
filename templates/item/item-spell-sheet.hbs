@@ -115,12 +115,14 @@
             </select>
           </span>
           <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.level"><b>{{localize "SW25.Level"}}</b></label><br>
-          <input id="{{item._id}}system.level" style="max-width: calc(50% - 7px);" type="text" name="system.level" value="{{system.level}}" data-dtype="Number"/></span>          <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.aux"><b>{{localize "SW25.Item.Aux"}}</b></label><br>
+          <input id="{{item._id}}system.level" style="max-width: calc(50% - 7px);" type="text" name="system.level" value="{{system.level}}" data-dtype="Number"/></span>
+          <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.aux"><b>{{localize "SW25.Item.Aux"}}</b></label><br>
           <input id="{{item._id}}system.aux" type="checkbox" name="system.aux" data-dtype="Boolean" {{#if system.aux}} checked {{/if}}/></span>
           <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.prep"><b>{{localize "SW25.Item.Prep"}}</b></label><br>
           <input id="{{item._id}}system.prep" type="checkbox" name="system.prep" data-dtype="Boolean" {{#if system.prep}} checked {{/if}}/></span>
-<span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.basempcost"><b>MP{{localize "SW25.Cost"}}</b></label><br>
-          <input id="{{item._id}}system.basempcost" style="max-width: calc(50% - 7px);" type="text" name="system.basempcost" value="{{system.basempcost}}" data-dtype="Number"/></span>       <span class="grid-span-5" style="text-align: left;"><label for="{{item._id}}system.target"><b>{{localize "SW25.Target"}}</b></label><br>
+          <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.basempcost"><b>MP{{localize "SW25.Cost"}}</b></label><br>
+          <input id="{{item._id}}system.basempcost" style="max-width: calc(50% - 7px);" type="text" name="system.basempcost" value="{{system.basempcost}}" data-dtype="Number"/></span>
+          <span class="grid-span-5" style="text-align: left;"><label for="{{item._id}}system.target"><b>{{localize "SW25.Target"}}</b></label><br>
           <input id="{{item._id}}system.target" type="text" name="system.target" value="{{system.target}}" data-dtype="String"/></span>
           <span class="grid-span-5" style="text-align: left;"><label for="{{item._id}}system.rangeshape"><b>{{localize "SW25.Rangeshape"}}</b></label><br>
           <input id="{{item._id}}system.rangeshape" type="text" name="system.rangeshape" value="{{system.rangeshape}}" data-dtype="String"/></span>

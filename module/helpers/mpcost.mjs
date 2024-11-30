@@ -10,6 +10,7 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
   let chatResult = 0;
   let metaB = false;
   if (type == "spell") metaB = true;
+  if (type == "action") metaB = true;
 
   // Calculate MP
   if (targetMP - resultValue >= 0) {
@@ -70,6 +71,7 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
       name + " (" + game.i18n.localize("SW25.Mp") + cost + " x" + meta + ")";
     let metaB = false;
     if (type == "spell") metaB = true;
+    if (type == "action") metaB = true;
 
     let chatData = {
       flavor: label,

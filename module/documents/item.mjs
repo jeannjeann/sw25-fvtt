@@ -1425,12 +1425,12 @@ export class SW25Item extends Item {
     if (itemData.type == "action") {
       systemData.actionvalue =
         Number(systemData.checkbase1) + Number(systemData.actionresult);
+      systemData.mpcost = Number(systemData.basempcost);
 
       // label setting
-      systemData.label1 =
-        game.i18n.localize("SW25.Item.Action.ActionValue") +
-        ":" +
-        systemData.actionvalue;
+      systemData.label1 = `<span style="font-size: 0.7em">${game.i18n.localize(
+        "SW25.Item.Action.ActionValue"
+      )}:</span>${systemData.actionvalue}`;
       systemData.label2 = game.i18n.localize("SW25.Check");
     }
 
@@ -2284,6 +2284,10 @@ export class SW25Item extends Item {
     if (item.type == "barbarousskill") barbarousskill = true;
     let essenceweave = false;
     if (item.type == "essenceweave") essenceweave = true;
+    let actionmp = false;
+    if (item.type == "action") {
+      if (item.system.mpcost) actionmp = true;
+    }
     let resource = false;
     if (item.type == "weapon") {
       if (item.system.resuse != "-") resource = true;
@@ -2333,6 +2337,7 @@ export class SW25Item extends Item {
           enhancearts: enhancearts,
           barbarousskill: barbarousskill,
           essenceweave: essenceweave,
+          actionmp: actionmp,
           resource: resource,
           usedice: usedice,
           usedice1: usedice1,
