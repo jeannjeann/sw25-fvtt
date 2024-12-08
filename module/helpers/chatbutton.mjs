@@ -1255,6 +1255,20 @@ export async function chatButton(chatMessage, buttonType) {
         });
       }
 
+      let isView = false;
+      let beforeValue = null;
+      let afterValue = null;
+      if(CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= targetActor.ownership.default){
+        isView = true;
+        if(buttonType == "buttonmr"){
+          beforeValue = targetMP;
+          afterValue = resultMP;
+        } else {
+          beforeValue = targetHP;
+          afterValue = resultHP;
+        }
+      }
+
       const speaker = ChatMessage.getSpeaker({ actor: actor });
       const rollMode = game.settings.get("core", "rollMode");
       let label = `${chatMessage.flavor}`;
