@@ -1,6 +1,9 @@
 {{#if flavor}}<span class="flavor-text">{{flavor}}</span>{{/if}}
 <div class="flexrow flex-group-center grid grid-4col nogapmargin">
-    <div class="grid-span-3" style="text-align: center;">
+    <div>
+        {{#if metaB}}<button class="buttonclick" data-buttontype="buttonmpcancel">{{localize "SW25.Item.Spell.Cancel"}}</button>{{/if}}
+    </div>
+    <div class="grid-span-2" style="text-align: center;">
         MP<span style="color: #862020; font-weight: bold; font-size: 1.5em;"> {{targetMP}}</span>
         >>><span style="color: #862020; font-weight: bold; font-size: 1.5em;"> {{resultMP}}</span>
     </div>
