@@ -844,7 +844,6 @@ export class SW25ActorSheet extends ActorSheet {
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
         rollMode: game.settings.get("core", "rollMode"),
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         rolls: [roll],
       };
 
@@ -1031,7 +1030,6 @@ export class SW25ActorSheet extends ActorSheet {
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: chatLabel,
       rollMode: game.settings.get("core", "rollMode"),
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       rolls: [roll.fakeResult],
     };
 
