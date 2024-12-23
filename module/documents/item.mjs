@@ -32,6 +32,47 @@ export class SW25Item extends Item {
   /**
    * Augment the basic Item data model with additional dynamic data.
    */
+  constructor (data, context) {
+    if (typeof data.img === 'undefined') {
+      if (data.type === 'weapon') {
+        data.img = 'icons/svg/sword.svg'
+      } else if (data.type === 'armor') {
+        data.img = 'icons/svg/shield.svg'
+      } else if (data.type === 'accessory') {
+        data.img = 'icons/svg/wing.svg'
+      } else if (data.type === 'item') {
+        data.img = 'icons/svg/item-bag.svg'
+      } else if (data.type === 'spell') {
+        data.img = 'icons/svg/daze.svg'
+      } else if (
+        data.type === 'enhancearts' || 
+        data.type === 'magicalsong' ||
+        data.type === 'ridingtrick' ||
+        data.type === 'alchemytech' ||
+        data.type === 'phasearea' ||
+        data.type === 'tactics'
+      ) {
+        data.img = 'icons/svg/upgrade.svg'
+      } else if (data.type === 'check') {
+        data.img = 'icons/svg/circle.svg'
+      } else if (data.type === 'resource') {
+        data.img = 'icons/svg/coins.svg'
+      } else if (data.type === 'combatability') {
+        data.img = 'icons/svg/combat.svg'
+      } else if (data.type === 'skill') {
+        data.img = 'icons/svg/regen.svg'
+      } else if (data.type === 'raceability') {
+        data.img = 'icons/svg/paralysis.svg'
+      } else if (data.type === 'language') {
+        data.img = 'icons/svg/book.svg'
+      } else if (data.type === 'monsterability') {
+        data.img = 'icons/svg/skull.svg'
+      }
+    }
+    // Default behavior, just call super() and do all the default Item inits
+    super(data, context)
+  }
+
   prepareData() {
     // As with the actor class, items are documents that can have their data
     // preparation methods overridden (such as prepareBaseData()).
