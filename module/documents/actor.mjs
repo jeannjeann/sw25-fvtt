@@ -121,6 +121,12 @@ export class SW25Actor extends Actor {
         systemData.attributes.move.normal
       );
     }
+    if(systemData.hp.max < systemData.hp.value){
+      systemData.hp.value = systemData.hp.max;
+    }
+    if(systemData.mp.max < systemData.mp.value){
+      systemData.mp.value = systemData.mp.max;
+    }
 
     //Calculate Battle Data
     this.items.forEach((item) => {
@@ -857,6 +863,13 @@ export class SW25Actor extends Actor {
       Number(systemData.attributes.dreduce) +
       Number(systemData.attributes.efdreduce);
 
+    if(systemData.hp.max < systemData.hp.value){
+      systemData.hp.value = systemData.hp.max;
+    }
+    if(systemData.mp.max < systemData.mp.value){
+      systemData.mp.value = systemData.mp.max;
+    }
+    
     // Calculate active effect
     let actorEffects = actorData.effects;
     let itemEffects = [];
@@ -974,6 +987,13 @@ export class SW25Actor extends Actor {
       Number(systemData.attributes.dreduce) +
       Number(systemData.attributes.efdreduce);
 
+    if(systemData.hp.max < systemData.hp.value){
+      systemData.hp.value = systemData.hp.max;
+    }
+    if(systemData.mp.max < systemData.mp.value){
+      systemData.mp.value = systemData.mp.max;
+    }
+  
     if (systemData.impurity == 0 || systemData.impurity == null)
       systemData.showimp = false;
     else systemData.showimp = true;
