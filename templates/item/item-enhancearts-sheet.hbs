@@ -78,72 +78,7 @@
             <input id="{{item._id}}system.overview" type="text" name="system.overview" value="{{system.overview}}" data-dtype="String"/></span>
         </div>
         <div style="display: {{#if system.usedice}}block{{else}}none{{/if}};">
-          <div class="flexrow grid grid-10col">
-            <span class="resource-label grid-span-2" style="text-decoration: underline;">{{localize "SW25.Check"}}{{localize "SW25.Setting"}}</span>            <span class="grid-span-2" style="text-align: left;">{{localize "SW25.Check"}}{{localize "SW25.Basenumber"}} : <b>{{system.checkbase}}</b></span>
-            <span class="grid-span-2" style="text-align: left;">
-              <select name="system.applycheck">
-                {{#select system.applycheck}}
-                <option value="-">{{localize "SW25.Item.Noapply"}}</option>
-                <option value="on">{{localize "SW25.Item.applyon"}}</option>
-                <option value="custom">{{localize "SW25.Item.Custom"}}</option>
-                {{/select}}
-              </select>
-            </span>
-            <span class="grid-span-4">
-              {{#if (eq system.applycheck "custom")}}
-              <div class="flexcol">
-                <div>
-                  <label for="{{item._id}}ckpdbt"><input id="{{item._id}}ckpdbt" type="checkbox" class="small-checkbox" name="system.ckpdbt" data-dtype="Boolean" {{#if system.ckpdbt}} checked {{/if}}/>{{localize "SW25.Item.pd"}}</label>
-                  <label for="{{item._id}}ckmdbt"><input id="{{item._id}}ckmdbt" type="checkbox" class="small-checkbox" name="system.ckmdbt" data-dtype="Boolean" {{#if system.ckmdbt}} checked {{/if}}/>{{localize "SW25.Item.md"}}</label>
-                  <label for="{{item._id}}ckcdbt"><input id="{{item._id}}ckcdbt" type="checkbox" class="small-checkbox" name="system.ckcdbt" data-dtype="Boolean" {{#if system.ckcdbt}} checked {{/if}}/>{{localize "SW25.Item.cd"}}</label>
-                </div>
-                <div>
-                  <label for="{{item._id}}ckhrbt"><input id="{{item._id}}ckhrbt" type="checkbox" class="small-checkbox" name="system.ckhrbt" data-dtype="Boolean" {{#if system.ckhrbt}} checked {{/if}}/>{{localize "SW25.Item.hr"}}</label>
-                  <label for="{{item._id}}ckmrbt"><input id="{{item._id}}ckmrbt" type="checkbox" class="small-checkbox" name="system.ckmrbt" data-dtype="Boolean" {{#if system.ckmrbt}} checked {{/if}}/>{{localize "SW25.Item.mr"}}</label>
-                </div>
-              </div>
-              {{/if}}
-            </span>
-          </div>
-          <div class="flexrow grid grid-8col">
-            <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Check"}}{{localize "SW25.Skillname"}}</b><br>
-              <select name="system.checkskill">
-                {{#select system.checkskill}}
-                <option value="-">-</option>
-                <option value="adv">{{localize "SW25.Attributes.Advlevel"}}</option>
-                {{#each system.skilllist as |skill|}}
-                <option value="{{skill}}">{{skill}}</option>
-                {{/each}}
-                {{/select}}
-              </select>
-            </span>
-            <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Check"}}{{localize "SW25.Abilityname"}}</b><br>
-              <select name="system.checkabi">
-                {{#select system.checkabi}}
-                <option value="-">-</option>
-                <option value="dex">{{localize "SW25.Ability.Dex.long"}}</option>
-                <option value="agi">{{localize "SW25.Ability.Agi.long"}}</option>
-                <option value="str">{{localize "SW25.Ability.Str.long"}}</option>
-                <option value="vit">{{localize "SW25.Ability.Vit.long"}}</option>
-                <option value="int">{{localize "SW25.Ability.Int.long"}}</option>
-                <option value="mnd">{{localize "SW25.Ability.Mnd.long"}}</option>
-                {{/select}}
-              </select>
-            </span>
-            <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.checkmod"><b>{{localize "SW25.Check"}}{{localize "SW25.Modifier"}}</b></label><br>
-              <input id="{{item._id}}system.checkmod" style="max-width: calc(50% - 7px);" type="text" name="system.checkmod" value="{{system.checkmod}}" data-dtype="Number"/></span>          </div>
-          <div class="flexcol grid grid-8col nogapmargin">
-            <div class="grid-span-2 flex-group-center">
-              <span style="text-align: center;"><label for="{{item._id}}system.customdice"><b>{{localize "SW25.Item.Customdice"}}</b></label><br>
-                <input id="{{item._id}}system.customdice" type="checkbox" name="system.customdice" data-dtype="Boolean" {{#if system.customdice}} checked {{/if}}/></span>
-            </div>
-            <div class="grid-span-4" style="display: {{#if system.customdice}}block{{else}}none{{/if}};">
-              <label for="{{item._id}}customformula" class="resource-label">{{localize "SW25.Item.Formula"}}</label>
-              <input id="{{item._id}}customformula" type="text" name="system.customformula" value="{{system.customformula}}" data-dtype="String"/>
-            </div>
-            <div class="grid-span-2">
-            </div>
-          </div>
+          {{> "systems/sw25/templates/item/parts/item-usedice.hbs"}}
         </div>
         <div style="display: {{#if system.usepower}}block{{else}}none{{/if}};">
           {{> "systems/sw25/templates/item/parts/item-usepower.hbs"}}
