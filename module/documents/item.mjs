@@ -50,7 +50,9 @@ export class SW25Item extends Item {
         data.type === 'ridingtrick' ||
         data.type === 'alchemytech' ||
         data.type === 'phasearea' ||
-        data.type === 'tactics'
+        data.type === 'tactics' ||
+        data.type === 'essenceweave' ||
+        data.type === 'otherfeature'
       ) {
         data.img = 'icons/svg/upgrade.svg'
       } else if (data.type === 'check') {
@@ -65,8 +67,14 @@ export class SW25Item extends Item {
         data.img = 'icons/svg/paralysis.svg'
       } else if (data.type === 'language') {
         data.img = 'icons/svg/book.svg'
-      } else if (data.type === 'monsterability') {
+      } else if (
+        data.type === 'monsterability' ||
+        data.type === 'infusion' ||
+        data.type === 'barbarousskill'
+      ) {
         data.img = 'icons/svg/skull.svg'
+      } else if (data.type === 'action') {
+        data.img = 'icons/svg/ice-aura.svg'
       }
     }
     // Default behavior, just call super() and do all the default Item inits

@@ -15,18 +15,23 @@ let type_icon_pairs = {
   'item':'icons/svg/item-bag.svg', //アイテム
   'spell':'icons/svg/daze.svg', //魔法
   'enhancearts': 'icons/svg/upgrade.svg', //練技
-  'magicalsong': 'icons/svg/upgrade.svg', //呪歌と終律
+  'magicalsong': 'icons/svg/upgrade.svg', //呪歌・終律
   'ridingtrick': 'icons/svg/upgrade.svg', //騎芸
   'alchemytech': 'icons/svg/upgrade.svg', //賦術
   'phasearea': 'icons/svg/upgrade.svg', //相域
   'tactics': 'icons/svg/upgrade.svg', //鼓砲・陣率
+  'infusion': 'icons/svg/skull.svg', //魔装
+  'barbarousskill': 'icons/svg/skull.svg', //蛮族特殊能力
+  'essenceweave': 'icons/svg/upgrade.svg', //操気
   'check':'icons/svg/circle.svg', //判定
   'resource':'icons/svg/coins.svg', //リソース
   'combatability':'icons/svg/combat.svg', //戦闘特技
   'skill':'icons/svg/regen.svg', //技能
   'raceability':'icons/svg/paralysis.svg', //種族特徴
   'language':'icons/svg/book.svg', //言語
-  'monsterability':'icons/svg/skull.svg' //魔物能力
+  'otherfeature': 'icons/svg/upgrade.svg', //その他の特技
+  'monsterability':'icons/svg/skull.svg', //魔物能力
+  'action': 'icons/svg/ice-aura.svg' //行動
 };  
 
 // メイン処理の関数
