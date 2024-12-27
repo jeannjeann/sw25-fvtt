@@ -49,6 +49,8 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/sw25/templates/actor/parts/actor-actions-daemon.hbs",
     // Item partials
     "systems/sw25/templates/item/parts/item-effects.hbs",
+    "systems/sw25/templates/item/parts/item-usepower.hbs",
+    "systems/sw25/templates/item/parts/item-usedice.hbs",
     // Dialog
     "systems/sw25/templates/roll/rollreq-dialog.hbs",
   ]);
