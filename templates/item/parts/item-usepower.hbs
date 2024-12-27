@@ -13,13 +13,15 @@
   <span class="grid-span-4">
     {{#if (eq system.applypower "custom")}}
     <div class="flexcol">
-      <label for="{{item._id}}pwpdbt"><input id="{{item._id}}pwpdbt" type="checkbox" class="small-checkbox" name="system.pwpdbt" data-dtype="Boolean" {{#if system.pwpdbt}} checked {{/if}}/>{{localize "SW25.Item.pd"}}</label>
-      <label for="{{item._id}}pwmdbt"><input id="{{item._id}}pwmdbt" type="checkbox" class="small-checkbox" name="system.pwmdbt" data-dtype="Boolean" {{#if system.pwmdbt}} checked {{/if}}/>{{localize "SW25.Item.md"}}</label>
-      <label for="{{item._id}}pwcdbt"><input id="{{item._id}}pwcdbt" type="checkbox" class="small-checkbox" name="system.pwcdbt" data-dtype="Boolean" {{#if system.pwcdbt}} checked {{/if}}/>{{localize "SW25.Item.cd"}}</label>
-    </div>
-    <div>
-      <label for="{{item._id}}pwhrbt"><input id="{{item._id}}pwhrbt" type="checkbox" class="small-checkbox" name="system.pwhrbt" data-dtype="Boolean" {{#if system.pwhrbt}} checked {{/if}}/>{{localize "SW25.Item.hr"}}</label>
-      <label for="{{item._id}}pwmrbt"><input id="{{item._id}}pwmrbt" type="checkbox" class="small-checkbox" name="system.pwmrbt" data-dtype="Boolean" {{#if system.pwmrbt}} checked {{/if}}/>{{localize "SW25.Item.mr"}}</label>
+      <div>
+        <label for="{{item._id}}pwpdbt"><input id="{{item._id}}pwpdbt" type="checkbox" class="small-checkbox" name="system.pwpdbt" data-dtype="Boolean" {{#if system.pwpdbt}} checked {{/if}}/>{{localize "SW25.Item.pd"}}</label>
+        <label for="{{item._id}}pwmdbt"><input id="{{item._id}}pwmdbt" type="checkbox" class="small-checkbox" name="system.pwmdbt" data-dtype="Boolean" {{#if system.pwmdbt}} checked {{/if}}/>{{localize "SW25.Item.md"}}</label>
+        <label for="{{item._id}}pwcdbt"><input id="{{item._id}}pwcdbt" type="checkbox" class="small-checkbox" name="system.pwcdbt" data-dtype="Boolean" {{#if system.pwcdbt}} checked {{/if}}/>{{localize "SW25.Item.cd"}}</label>
+      </div>
+      <div>
+        <label for="{{item._id}}pwhrbt"><input id="{{item._id}}pwhrbt" type="checkbox" class="small-checkbox" name="system.pwhrbt" data-dtype="Boolean" {{#if system.pwhrbt}} checked {{/if}}/>{{localize "SW25.Item.hr"}}</label>
+        <label for="{{item._id}}pwmrbt"><input id="{{item._id}}pwmrbt" type="checkbox" class="small-checkbox" name="system.pwmrbt" data-dtype="Boolean" {{#if system.pwmrbt}} checked {{/if}}/>{{localize "SW25.Item.mr"}}</label>
+      </div>
     </div>
     {{/if}}
   </span>
