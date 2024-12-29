@@ -52,6 +52,21 @@
           "langlist": "",
           "showaction": false
         }
+      },
+      "deamon": {
+        "toFellow": false,
+        "fellowmemo": "",
+        "fellowtype": "deamon",
+        "showaction": false,
+        "tabletype": "deamon",
+        "canceldialog": "",
+        "attributes": {
+          "skill": "",
+          "fellowexp": false,
+          "fellowreward": false,
+          "langlist": "",
+          "showaction": false
+        }
       }
     },
     "character": {
@@ -292,7 +307,7 @@
       }
     },
     "monster": {
-      "templates": ["base"],
+      "templates": ["base", "deamon"],
       "monlevel": 1,
       "exp": 0,
       "overview": "",

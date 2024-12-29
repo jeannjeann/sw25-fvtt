@@ -1289,3 +1289,9 @@ input.weakapply[type="checkbox"] {
   -webkit-transform: scale(0.7);
   transform-origin: bottom right; 
 }
+
+.chatarea-action{
+  border: 1px solid #888888;
+  padding: 2px;
+  margin: 2px;
+}

@@ -14,9 +14,13 @@
 {{/if}}
 <div class="flexcol" style="margin-top: 2px;">
     {{#each actions}}
-    <button class="buttonclick" data-buttontype="{{_id}}-buttonaction">{{name}} : {{system.actionvalue}}</button>
+        <div class="chatarea-action">
+            {{#if system.action}}<div>{{localize "SW25.Item.Action.Action"}}:{{system.action}}</div>{{/if}}
+            {{#if system.actioneffect}}<div>{{localize "SW25.Item.Action.ActionEffect"}}:{{system.actioneffect}}</div>{{/if}}
+            <button class="buttonclick" data-buttontype="{{_id}}-buttonaction">{{name}} : {{system.actionvalue}}</button>
+        </div>
     {{/each}}
     {{#if canceldialog}}
-    <button class="buttonclick" data-buttontype="cancel-buttonaction">{{localize "Cancel"}}</button>
+        <button class="buttonclick" data-buttontype="cancel-buttonaction">{{localize "Cancel"}}</button>
     {{/if}}
 </div>

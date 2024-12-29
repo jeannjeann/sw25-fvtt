@@ -85,6 +85,13 @@
     "Noselectwarn": "No Token selected.",
     "Multiselectwarn": "Multi Tokens selected.",
     "InputPlaceHolder": "Input here.",
+    "NotTokenwarn": "No Token in canvas.",
+
+    "Disposition": {
+      "Friendly": "Friendly",
+      "Neutral": "Neutral",
+      "Hostile": "Hostile"
+    },
 
     "CharacterName": "Character Name",
     "Hp": "HP",

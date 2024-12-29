@@ -79,12 +79,20 @@
     "UnderZero": "0以下",
     "NoCost": "消費なし",
     "Applyall": "すべて適用",
+    "TargetSelect": "ターゲット選択",
 
     "Notargetwarn": "ターゲットが指定されていません",
     "Multitargetwarn": "ターゲットが複数指定されています",
     "Noselectwarn": "トークンが選択されていません",
     "Multiselectwarn": "トークンが複数選択されています",
     "InputPlaceHolder": "ここに入力",
+    "NotTokenwarn": "トークンが存在しません。",
+
+    "Disposition": {
+      "Friendly": "友好",
+      "Neutral": "中立",
+      "Hostile": "敵対"
+    },
 
     "CharacterName": "キャラクター名",
     "Hp": "HP",
