@@ -1653,9 +1653,9 @@ export class SW25ActorSheet extends ActorSheet {
 
     // ダイアログの内容を生成
     const createCategoryBox = (category, title, categoryId) => {
-      let box = `<fieldset style="margin: 5px; padding: 5px; border: 1px solid gray;">
+      let box = `<fieldset class="target-select">
         <legend id="${categoryId}-toggle" style="cursor: pointer;">
-          ${title}
+          <span class="selectable">${title}</span>
         </legend>`;
       category.forEach((token) => {
         box += `
