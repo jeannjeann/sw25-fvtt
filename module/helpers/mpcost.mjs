@@ -61,7 +61,7 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
       cost: cost,
       name: name,
       type: type,
-      meta: false,
+      meta: 1,
       base: baseMP,
     };
 

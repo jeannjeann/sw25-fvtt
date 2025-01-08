@@ -1255,6 +1255,20 @@ export async function chatButton(chatMessage, buttonType) {
         });
       }
 
+      let isView = false;
+      let beforeValue = null;
+      let afterValue = null;
+      if(CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= targetActor.ownership.default){
+        isView = true;
+        if(buttonType == "buttonmr"){
+          beforeValue = targetMP;
+          afterValue = resultMP;
+        } else {
+          beforeValue = targetHP;
+          afterValue = resultHP;
+        }
+      }
+
       const speaker = ChatMessage.getSpeaker({ actor: actor });
       const rollMode = game.settings.get("core", "rollMode");
       let label = `${chatMessage.flavor}`;
@@ -1271,6 +1285,9 @@ export async function chatButton(chatMessage, buttonType) {
           value: differenceValue,
           target: targetToken.document.name,
           type: buttonType,
+          beforeValue: beforeValue,
+          afterValue: afterValue,
+          isView: isView,
         }
       );
 
@@ -1471,6 +1488,54 @@ export async function chatButton(chatMessage, buttonType) {
 
     mpCost(token, cost, name, type, meta, chat, base);
   }
+  
+  if (buttonType == "buttonmpcancel") {
+    let token = canvas.tokens.get(chatMessage.flags.tokenId);
+    let cost = chatMessage.flags.cost;
+    let name = chatMessage.flags.name;
+    let type = chatMessage.flags.type;
+    let meta = 0;
+    let chat = chatMessage;
+    let base = chatMessage.flags.base;
+
+    
+    // Apply MP cost
+    if (game.user.isGM) {
+      actor.update({
+        "system.mp.value": base,
+      });
+    } else {
+      game.socket.emit("system.sw25", {
+        method: "applyMp",
+        targetToken: chatMessage.flags.tokenId,
+        resultMP: base,
+      });
+    }
+
+    // Apply ChatMessage
+    let label =
+      name + " (" + cost + " " + game.i18n.localize("SW25.Item.Spell.Cancel") + ")";
+    let metaB = false;
+    if (type == "spell") metaB = true;
+
+    let chatData = {
+      flavor: label,
+      flags: {
+        meta: meta,
+        type: type,
+      },
+    };
+    chatData.content = await renderTemplate(
+      "systems/sw25/templates/roll/mp-apply.hbs",
+      {
+        targetMP: base,
+        resultMP: base,
+        metaB: metaB,
+      }
+    );
+    await chat.update(chatData);    
+  }
+
 
   if (buttonType == "buttonloot") {
     const selectedTokens = canvas.tokens.controlled;
