@@ -471,7 +471,7 @@
       "battle": {
         "equip": true,
         "dedicated": false,
-        "category": "",
+        "category": "-",
         "rank": "",
         "reqstr": ""
       },
@@ -585,9 +585,9 @@
     },
     "tactics": {
       "templates": ["base", "roll", "ability"],
-      "type": "",
+      "type": "-",
       "cost": "",
-      "line": "",
+      "line": "-",
       "rank": "",
       "get": "",
       "premise": "",
