@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.1
+- アイテムのデフォルトアイコンを設定  by [Ryotai](https://github.com/ryotai-trpg)
+- bug fix
+
 ## 1.1.0
 - フェロー、魔神行動表に対応
 - NPC設定項目追加
