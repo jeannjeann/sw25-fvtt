@@ -25,13 +25,13 @@
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-{{!--
+    {{!--
     <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
---}}
+    --}}
     <a class="item" data-tab="details">{{localize "SW25.Details"}}</a>
-{{!--
+    {{!--
     <a class="item" data-tab="effects">{{localize "SW25.Effects"}}</a>
---}}
+    --}}
   </nav>
 
   {{!-- Sheet Body --}}
@@ -71,11 +71,11 @@
             </select>
           </span>
           <span style="text-align: center;"><label for="{{item._id}}system.checkfixmod"><b>{{localize "SW25.Fixmodifier"}}</b></label><br>
-          <input id="{{item._id}}system.checkfixmod" type="text" name="system.checkfixmod" value="{{system.checkfixmod}}" data-dtype="Number"/></span>
+            <input id="{{item._id}}system.checkfixmod" type="text" name="system.checkfixmod" value="{{system.checkfixmod}}" data-dtype="Number"/></span>
           <span style="text-align: center;"><label for="{{item._id}}system.checkmod"><b>{{localize "SW25.Modifier"}}</b></label><br>
-          <input id="{{item._id}}system.checkmod" type="text" name="system.checkmod" value="{{system.checkmod}}" data-dtype="Number"/></span>
+            <input id="{{item._id}}system.checkmod" type="text" name="system.checkmod" value="{{system.checkmod}}" data-dtype="Number"/></span>
           <span style="text-align: center;"><label for="{{item._id}}system.showbtcheck"><b>{{localize "SW25.Battle"}}</b></label><br>
-          <input id="{{item._id}}system.showbtcheck" type="checkbox" name="system.showbtcheck" data-dtype="Boolean" {{#if system.showbtcheck}} checked {{/if}}/></span>
+            <input id="{{item._id}}system.showbtcheck" type="checkbox" name="system.showbtcheck" data-dtype="Boolean" {{#if system.showbtcheck}} checked {{/if}}/></span>
           <span></span>
           {{#unless (eq system.checkmethod "power")}}
           <span class="grid-span-8" style="text-align: left;">
@@ -118,14 +118,14 @@
           </div>
           <div class="flexrow grid grid-8col">
             <span style="text-align: center;"><label for="{{item.id}}system.power"><b>{{localize "SW25.Item.Power"}}</b></label><br>
-            <input id="{{item._id}}system.power" type="text" name="system.power" value="{{system.power}}" data-dtype="Number"/></span>
+              <input id="{{item._id}}system.power" type="text" name="system.power" value="{{system.power}}" data-dtype="Number"/></span>
             <span style="text-align: center;"><label for="{{item.id}}system.cvalue"><b>{{localize "SW25.Item.Cvalue"}}</b></label><br>
-            <input id="{{item._id}}system.cvalue" type="text" name="system.cvalue" value="{{system.cvalue}}" data-dtype="Number"/></span>
+              <input id="{{item._id}}system.cvalue" type="text" name="system.cvalue" value="{{system.cvalue}}" data-dtype="Number"/></span>
             <span style="text-align: center;"><label for="{{item._id}}system.halfpow"><b>{{localize "SW25.Item.Halfpow"}}</b></label><br>
-            <input id="{{item._id}}system.halfpow" type="checkbox" name="system.halfpow" data-dtype="Boolean" {{#if system.halfpow}} checked {{/if}}/></span>
+              <input id="{{item._id}}system.halfpow" type="checkbox" name="system.halfpow" data-dtype="Boolean" {{#if system.halfpow}} checked {{/if}}/></span>
             <div class="grid-span-3"></div>
             <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.showpowmod"><b>{{localize "SW25.Item.Particularmod"}}</b></label><br>
-            <input id="{{item._id}}system.showpowmod" type="checkbox" name="system.showpowmod" data-dtype="Boolean" {{#if system.showpowmod}} checked {{/if}}/></span>
+              <input id="{{item._id}}system.showpowmod" type="checkbox" name="system.showpowmod" data-dtype="Boolean" {{#if system.showpowmod}} checked {{/if}}/></span>
           </div>
           <div class="grid-powertable">
             <label class="pt-item pt-label" for="{{item._id}}system.pt3">3</label>
