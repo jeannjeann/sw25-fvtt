@@ -2,6 +2,7 @@
 
 ## 1.1.1
 - アイテムのデフォルトアイコンを設定  by [Ryotai](https://github.com/ryotai-trpg)
+- bug fix  by [Ryotai](https://github.com/ryotai-trpg)
 - bug fix
 
 ## 1.1.0

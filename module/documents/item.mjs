@@ -32,53 +32,53 @@ export class SW25Item extends Item {
   /**
    * Augment the basic Item data model with additional dynamic data.
    */
-  constructor (data, context) {
-    if (typeof data.img === 'undefined') {
-      if (data.type === 'weapon') {
-        data.img = 'icons/svg/sword.svg'
-      } else if (data.type === 'armor') {
-        data.img = 'icons/svg/shield.svg'
-      } else if (data.type === 'accessory') {
-        data.img = 'icons/svg/wing.svg'
-      } else if (data.type === 'item') {
-        data.img = 'icons/svg/item-bag.svg'
-      } else if (data.type === 'spell') {
-        data.img = 'icons/svg/daze.svg'
+  constructor(data, context) {
+    if (typeof data.img === "undefined") {
+      if (data.type === "weapon") {
+        data.img = "icons/svg/sword.svg";
+      } else if (data.type === "armor") {
+        data.img = "icons/svg/shield.svg";
+      } else if (data.type === "accessory") {
+        data.img = "icons/svg/wing.svg";
+      } else if (data.type === "item") {
+        data.img = "icons/svg/item-bag.svg";
+      } else if (data.type === "spell") {
+        data.img = "icons/svg/daze.svg";
       } else if (
-        data.type === 'enhancearts' || 
-        data.type === 'magicalsong' ||
-        data.type === 'ridingtrick' ||
-        data.type === 'alchemytech' ||
-        data.type === 'phasearea' ||
-        data.type === 'tactics' ||
-        data.type === 'essenceweave' ||
-        data.type === 'otherfeature'
+        data.type === "enhancearts" ||
+        data.type === "magicalsong" ||
+        data.type === "ridingtrick" ||
+        data.type === "alchemytech" ||
+        data.type === "phasearea" ||
+        data.type === "tactics" ||
+        data.type === "essenceweave" ||
+        data.type === "otherfeature"
       ) {
-        data.img = 'icons/svg/upgrade.svg'
-      } else if (data.type === 'check') {
-        data.img = 'icons/svg/circle.svg'
-      } else if (data.type === 'resource') {
-        data.img = 'icons/svg/coins.svg'
-      } else if (data.type === 'combatability') {
-        data.img = 'icons/svg/combat.svg'
-      } else if (data.type === 'skill') {
-        data.img = 'icons/svg/regen.svg'
-      } else if (data.type === 'raceability') {
-        data.img = 'icons/svg/paralysis.svg'
-      } else if (data.type === 'language') {
-        data.img = 'icons/svg/book.svg'
+        data.img = "icons/svg/upgrade.svg";
+      } else if (data.type === "check") {
+        data.img = "icons/svg/circle.svg";
+      } else if (data.type === "resource") {
+        data.img = "icons/svg/coins.svg";
+      } else if (data.type === "combatability") {
+        data.img = "icons/svg/combat.svg";
+      } else if (data.type === "skill") {
+        data.img = "icons/svg/regen.svg";
+      } else if (data.type === "raceability") {
+        data.img = "icons/svg/paralysis.svg";
+      } else if (data.type === "language") {
+        data.img = "icons/svg/book.svg";
       } else if (
-        data.type === 'monsterability' ||
-        data.type === 'infusion' ||
-        data.type === 'barbarousskill'
+        data.type === "monsterability" ||
+        data.type === "infusion" ||
+        data.type === "barbarousskill"
       ) {
-        data.img = 'icons/svg/skull.svg'
-      } else if (data.type === 'action') {
-        data.img = 'icons/svg/ice-aura.svg'
+        data.img = "icons/svg/skull.svg";
+      } else if (data.type === "action") {
+        data.img = "icons/svg/ice-aura.svg";
       }
     }
     // Default behavior, just call super() and do all the default Item inits
-    super(data, context)
+    super(data, context);
   }
 
   prepareData() {
@@ -2168,8 +2168,11 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-    const actorData = itemData.actor.system;
-    const actoritemData = itemData.actor.items;
+
+    if (itemData.actor !== null) {
+      const actorData = itemData.actor.system;
+      const actoritemData = itemData.actor.items;
+    }
 
     // result setting
     switch (systemData.actiondice) {
