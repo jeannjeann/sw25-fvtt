@@ -14,6 +14,7 @@
 - MP取り消しボタンの位置
 - 特技のMP取り消し
 - 魔物魔法一覧にMP追加
+- Manual Wiki
 
 ## 更新作業
 - マニュアル、マクロ、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ、告知
