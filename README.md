@@ -34,6 +34,7 @@ FVTT用ソード・ワールド2.5ゲームシステム
 - [HikariNoTsurugi](https://github.com/HikariNoTsurugi)
 - [keyslock](https://github.com/keyslock)
 - [Airamhh](https://github.com/Airamhh)
+- [Ryotai](https://github.com/ryotai-trpg)
 
 ## 権利表記
 [MITライセンス](LICENSE.txt)
