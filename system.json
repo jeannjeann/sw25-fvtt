@@ -40,20 +40,6 @@
   ],
   "packs": [
     {
-      "name": "actor",
-      "label": "Actor (Sample)",
-      "system": "SW25",
-      "type": "Actor",
-      "path": "packs/actor"
-    },
-    {
-      "name": "item",
-      "label": "Item (Sample)",
-      "system": "SW25",
-      "type": "Item",
-      "path": "packs/item"
-    },
-    {
       "name": "manual",
       "label": "Manual",
       "system": "SW25",
@@ -76,14 +62,6 @@
           "manual"
       ],
       "folders": [
-        {
-          "name": "Sample",
-          "sorting": "m",
-          "packs": [
-              "actor",
-              "item"
-          ]
-        },
         {
           "name": "Tools",
           "sorting": "m",

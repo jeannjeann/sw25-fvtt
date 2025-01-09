@@ -1,8 +1,12 @@
-2024/09/04-15:57:25.377 2d90 Log #536: 0 ops saved to Table #545 OK
-2024/09/04-15:57:25.378 2d90 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/000536.log: OK
-2024/09/04-15:57:25.379 2d90 Log #544: 0 ops saved to Table #546 OK
-2024/09/04-15:57:25.380 2d90 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/000544.log: OK
-2024/09/04-15:57:25.381 2d90 Table #538: 4 entries OK
-2024/09/04-15:57:25.383 2d90 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/MANIFEST-000533: OK
-2024/09/04-15:57:25.385 2d90 Archiving D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual/MANIFEST-000543: OK
-2024/09/04-15:57:25.388 2d90 **** Repaired leveldb D:\_Home\AppCustom\FVTT\foundryuserdata11\Data\systems\sw25\packs\manual; recovered 1 files; 72541 bytes. Some data may have been lost. ****
+2024/09/04-15:57:25.397 2d90 Delete type=3 #1
+2024/09/04-16:23:19.254 2430 Level-0 table #550: started
+2024/09/04-16:23:19.257 2430 Level-0 table #550: 71541 bytes OK
+2024/09/04-16:23:19.257 2430 Delete type=0 #548
+2024/09/04-16:23:19.258 2430 Manual compaction at level-0 from '!journal!kf7e6dre1Bhn8SE9' @ 72057594037927935 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 78 : 1
+2024/09/04-16:23:19.258 2430 Compacting 2@0 + 0@1 files
+2024/09/04-16:23:19.261 2430 Generated table #551@0: 4 keys, 71541 bytes
+2024/09/04-16:23:19.261 2430 Compacted 2@0 + 0@1 files => 71541 bytes
+2024/09/04-16:23:19.262 2430 compacted to: files[ 0 1 0 0 0 0 0 ]
+2024/09/04-16:23:19.262 2430 Delete type=2 #538
+2024/09/04-16:23:19.263 2430 Delete type=2 #550
+2024/09/04-16:23:19.272 2430 Manual compaction at level-0 from '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 78 : 1 .. '!journal.pages!piEJIMIG4ln9SEg6.R02oWgolW3h9qv4r' @ 0 : 0; will stop at (end)

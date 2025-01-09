@@ -1,4 +1,5 @@
-# Simplified Manual for Sword World 2.5 v0.10.2
+# Manual for Sword World 2.5
+v0.10.2
 
 ## PC
 
@@ -495,7 +496,7 @@ Settings for Monsters
 
 ### YutoSheetII Import Macro
 - (https://yutorize.2-d.jp/ytsheet/sw2.5/)
-- [yt2import]Macro has been included to import from YutoSheetII.
+- ~~[yt2import]Macro has been included to import from YutoSheetII.~~ >> [Sword World 2.5 Support Tools](https://github.com/keyslock/sw25-fvtt-support)
   - Prepare a JSON output file from the YutoSheetII website.
   - Use the macro, select the JSON YutoSheetII file, and then click on import.
   - Data treated as items are searched in the order of “Item List in World” -> “Item List in Dictionary (Alphabetical Order)”, and if there is an item with a matching item name, the data is imported. If not, a new item is created.
@@ -511,8 +512,6 @@ Settings for Monsters
   - Data that is not imported will need to be added manually.
 
 ## Precautions
-- The functions that can be used for FVTT-like sessions have been implemented.
-- This is a beta version. There is a high possibility that some bugs may remain.
 - Error handling is lax.
 - A warning message appears on the console, but since there is no problem with the operation, it has been left alone for the time being.
 - We have not tested the compatibility with the mod. It is compatible with "Dice So Nice!", "Times Up", and "Chat Commander"

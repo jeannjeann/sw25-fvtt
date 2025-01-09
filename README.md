@@ -12,12 +12,11 @@ FVTT用ソード・ワールド2.5ゲームシステム
 「ゲームシステム」タブの「ゲームシステムを入手」からインストール。
 
 ## 使い方
-同梱辞典資料に簡易的な使用方法を用意しています。
+- [日本語マニュアル](https://github.com/jeannjeann/sw25-fvtt/blob/main/docs/MANUAL.md)
+- [English Manual](https://github.com/jeannjeann/sw25-fvtt/blob/main/docs/MANUAL-en.md)
 
-サンプルを同梱しているので、参考にしてください。
 
 ### 推奨モジュール
-
 - [Token Action HUD Sword World 2.5](https://foundryvtt.com/packages/token-action-hud-sw25)（[Token Action HUD Core](https://foundryvtt.com/packages/token-action-hud-core)が必要）
 - [Drag Ruler for Sword World 2.5](https://foundryvtt.com/packages/drag-ruler-integration-for-sw25)（[Drag Ruler](https://foundryvtt.com/packages/drag-ruler)が必要）
 - [Sword World 2.5 Support Tools](https://github.com/keyslock/sw25-fvtt-support)
