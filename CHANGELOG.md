@@ -2,7 +2,7 @@
 
 ## 1.2.0
 - アイテムのデフォルトアイコンを設定  by [Ryotai](https://github.com/ryotai-trpg)
--- MP消費のキャンセル機能追加  by [keyslock](https://github.com/keyslock)
+- MP消費のキャンセル機能追加  by [keyslock](https://github.com/keyslock)
 -- HP変化のチャット表示機能追加  by [keyslock](https://github.com/keyslock)
 - 同梱マニュアルを削除してリンク先を参照するよう変更
 - 同梱サンプルとマクロを削除
