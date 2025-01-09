@@ -1481,7 +1481,7 @@ export async function chatButton(chatMessage, buttonType) {
     let name = chatMessage.flags.name;
     let type = chatMessage.flags.type;
     let meta;
-    if (chatMessage.flags.meta == false) meta = 2;
+    if (chatMessage.flags.meta == false) meta = 1;
     else meta = Number(chatMessage.flags.meta) + 1;
     let chat = chatMessage;
     let base = chatMessage.flags.base;

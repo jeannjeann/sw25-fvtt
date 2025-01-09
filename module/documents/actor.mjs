@@ -121,6 +121,12 @@ export class SW25Actor extends Actor {
         systemData.attributes.move.normal
       );
     }
+    if(systemData.hp.max < systemData.hp.value){
+      systemData.hp.value = systemData.hp.max;
+    }
+    if(systemData.mp.max < systemData.mp.value){
+      systemData.mp.value = systemData.mp.max;
+    }
 
     //Calculate Battle Data
     this.items.forEach((item) => {
@@ -381,9 +387,10 @@ export class SW25Actor extends Actor {
         return {
           key: change.key,
           value: Number(change.value),
+          mode: change.mode,
         };
       });
-    });
+    }).flat();
 
     let totalhitmod = null;
     let totaldmod = null;
@@ -464,165 +471,120 @@ export class SW25Actor extends Actor {
     let totalewckmod = null;
     let totalewpwmod = null;
     let totallootmod = null;
-    effectsChange.forEach((effectList) => {
-      effectList.forEach((effects) => {
-        if (effects.key == "system.attributes.efhitmod")
-          totalhitmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdmod")
-          totaldmod += Number(effects.value);
-        if (effects.key == "system.effect.efcvalue")
-          totalcmod += Number(effects.value);
-        if (effects.key == "system.effect.efspellcvalue")
-          totalspcmod += Number(effects.value);
-        if (effects.key == "system.lt") totallt += Number(effects.value);
-        if (effects.key == "system.cr") totalcr += Number(effects.value);
-        if (effects.key == "system.attributes.efwphalfmod")
-          totalwphalfmod += Number(effects.value);
-        if (effects.key == "system.attributes.efsphalfmod")
-          totalsphalfmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdodgemod")
-          totaldodgemod += Number(effects.value);
-        if (effects.key == "system.attributes.efppmod")
-          totalppmod += Number(effects.value);
-        if (effects.key == "system.attributes.efmppmod")
-          totalmppmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdreduce")
-          totaldreduce += Number(effects.value);
-        if (effects.key == "system.attributes.move.efmovemod")
-          totalmovemod += Number(effects.value);
-        if (effects.key == "system.effect.vitres")
-          totalvitres += Number(effects.value);
-        if (effects.key == "system.effect.mndres")
-          totalmndres += Number(effects.value);
-        if (effects.key == "system.effect.init")
-          totalinit += Number(effects.value);
-        if (effects.key == "system.effect.mknow")
-          totalmknow += Number(effects.value);
-        if (effects.key == "system.effect.allck")
-          totalallck += Number(effects.value);
-        if (effects.key == "system.effect.allsk")
-          totalallsk += Number(effects.value);
-        if (effects.key == "system.hp.efhpmod")
-          totalhpmod += Number(effects.value);
-        if (effects.key == "system.mp.efmpmod")
-          totalmpmod += Number(effects.value);
-        if (effects.key == "system.abilities.dex.efvaluemodify")
-          totaldex += Number(effects.value);
-        if (effects.key == "system.abilities.agi.efvaluemodify")
-          totalagi += Number(effects.value);
-        if (effects.key == "system.abilities.str.efvaluemodify")
-          totalstr += Number(effects.value);
-        if (effects.key == "system.abilities.vit.efvaluemodify")
-          totalvit += Number(effects.value);
-        if (effects.key == "system.abilities.int.efvaluemodify")
-          totalint += Number(effects.value);
-        if (effects.key == "system.abilities.mnd.efvaluemodify")
-          totalmnd += Number(effects.value);
-        if (effects.key == "system.abilities.dex.efmodify")
-          totaldexmod += Number(effects.value);
-        if (effects.key == "system.abilities.agi.efmodify")
-          totalagimod += Number(effects.value);
-        if (effects.key == "system.abilities.str.efmodify")
-          totalstrmod += Number(effects.value);
-        if (effects.key == "system.abilities.vit.efmodify")
-          totalvitmod += Number(effects.value);
-        if (effects.key == "system.abilities.int.efmodify")
-          totalintmod += Number(effects.value);
-        if (effects.key == "system.abilities.mnd.efmodify")
-          totalmndmod += Number(effects.value);
-        if (effects.key == "system.attributes.efscmod")
-          totalscmod += Number(effects.value);
-        if (effects.key == "system.attributes.efcnmod")
-          totalcnmod += Number(effects.value);
-        if (effects.key == "system.attributes.efwzmod")
-          totalwzmod += Number(effects.value);
-        if (effects.key == "system.attributes.efprmod")
-          totalprmod += Number(effects.value);
-        if (effects.key == "system.attributes.efmtmod")
-          totalmtmod += Number(effects.value);
-        if (effects.key == "system.attributes.effrmod")
-          totalfrmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdrmod")
-          totaldrmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdmmod")
-          totaldmmod += Number(effects.value);
-        if (effects.key == "system.attributes.efabmod")
-          totalabmod += Number(effects.value);
-        if (effects.key == "system.attributes.efscckmod")
-          totalscckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efcnckmod")
-          totalcnckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efwzckmod")
-          totalwzckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efprckmod")
-          totalprckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efmtckmod")
-          totalmtckmod += Number(effects.value);
-        if (effects.key == "system.attributes.effrckmod")
-          totalfrckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdrckmod")
-          totaldrckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdmckmod")
-          totaldmckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efabckmod")
-          totalabckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efscpwmod")
-          totalscpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efcnpwmod")
-          totalcnpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efwzpwmod")
-          totalwzpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efprpwmod")
-          totalprpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efmtpwmod")
-          totalmtpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.effrpwmod")
-          totalfrpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdrpwmod")
-          totaldrpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdmpwmod")
-          totaldmpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efabpwmod")
-          totalabpwmod += Number(effects.value);
-        if (effects.key == "system.effect.allmgp")
-          totalallmgp += Number(effects.value);
-        if (effects.key == "system.attributes.efmpsc")
-          totalmpsc += Number(effects.value);
-        if (effects.key == "system.attributes.efmpcn")
-          totalmpcn += Number(effects.value);
-        if (effects.key == "system.attributes.efmpwz")
-          totalmpwz += Number(effects.value);
-        if (effects.key == "system.attributes.efmppr")
-          totalmppr += Number(effects.value);
-        if (effects.key == "system.attributes.efmpmt")
-          totalmpmt += Number(effects.value);
-        if (effects.key == "system.attributes.efmpfr")
-          totalmpfr += Number(effects.value);
-        if (effects.key == "system.attributes.efmpdr")
-          totalmpdr += Number(effects.value);
-        if (effects.key == "system.attributes.efmpdm")
-          totalmpdm += Number(effects.value);
-        if (effects.key == "system.attributes.efmpab")
-          totalmpab += Number(effects.value);
-        if (effects.key == "system.attributes.efmpall")
-          totalmpall += Number(effects.value);
-        if (effects.key == "system.attributes.efmckall")
-          totalallmck += Number(effects.value);
-        if (effects.key == "system.attributes.efmpwall")
-          totalallmpw += Number(effects.value);
-        if (effects.key == "system.attributes.efmsckmod")
-          totalmsckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efmspwmod")
-          totalmspwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efatckmod")
-          totalatckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efewckmod")
-          totalewckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efewpwmod")
-          totalewpwmod += Number(effects.value);
-        if (effects.key == "system.eflootmod")
-          totallootmod += Number(effects.value);
-      });
+
+    const processingRules = [
+      { key:"system.attributes.efhitmod", target:"totalhitmod" },
+      { key:"system.attributes.efdmod", target:"totaldmod" },
+      { key:"system.effect.efcvalue", target:"totalcmod" },
+      { key:"system.effect.efspellcvalue", target:"totalspcmod" },
+      { key:"system.lt", target:"totallt" },
+      { key:"system.cr", target:"totalcr" },
+      { key:"system.attributes.efwphalfmod", target:"totalwphalfmod" },
+      { key:"system.attributes.efsphalfmod", target:"totalsphalfmod" },
+      { key:"system.attributes.efdodgemod", target:"totaldodgemod" },
+      { key:"system.attributes.efppmod", target:"totalppmod" },
+      { key:"system.attributes.efmppmod", target:"totalmppmod" },
+      { key:"system.attributes.efdreduce", target:"totaldreduce" },
+      { key:"system.attributes.move.efmovemod", target:"totalmovemod" },
+      { key:"system.effect.vitres", target:"totalvitres" },
+      { key:"system.effect.mndres", target:"totalmndres" },
+      { key:"system.effect.init", target:"totalinit" },
+      { key:"system.effect.mknow", target:"totalmknow" },
+      { key:"system.effect.allck", target:"totalallck" },
+      { key:"system.effect.allsk", target:"totalallsk" },
+      { key:"system.hp.efhpmod", target:"totalhpmod" },
+      { key:"system.mp.efmpmod", target:"totalmpmod" },
+      { key:"system.abilities.dex.efvaluemodify", target:"totaldex" },
+      { key:"system.abilities.agi.efvaluemodify", target:"totalagi" },
+      { key:"system.abilities.str.efvaluemodify", target:"totalstr" },
+      { key:"system.abilities.vit.efvaluemodify", target:"totalvit" },
+      { key:"system.abilities.int.efvaluemodify", target:"totalint" },
+      { key:"system.abilities.mnd.efvaluemodify", target:"totalmnd" },
+      { key:"system.abilities.dex.efmodify", target:"totaldexmod" },
+      { key:"system.abilities.agi.efmodify", target:"totalagimod" },
+      { key:"system.abilities.str.efmodify", target:"totalstrmod" },
+      { key:"system.abilities.vit.efmodify", target:"totalvitmod" },
+      { key:"system.abilities.int.efmodify", target:"totalintmod" },
+      { key:"system.abilities.mnd.efmodify", target:"totalmndmod" },
+      { key:"system.attributes.efscmod", target:"totalscmod" },
+      { key:"system.attributes.efcnmod", target:"totalcnmod" },
+      { key:"system.attributes.efwzmod", target:"totalwzmod" },
+      { key:"system.attributes.efprmod", target:"totalprmod" },
+      { key:"system.attributes.efmtmod", target:"totalmtmod" },
+      { key:"system.attributes.effrmod", target:"totalfrmod" },
+      { key:"system.attributes.efdrmod", target:"totaldrmod" },
+      { key:"system.attributes.efdmmod", target:"totaldmmod" },
+      { key:"system.attributes.efabmod", target:"totalabmod" },
+      { key:"system.attributes.efscckmod", target:"totalscckmod" },
+      { key:"system.attributes.efcnckmod", target:"totalcnckmod" },
+      { key:"system.attributes.efwzckmod", target:"totalwzckmod" },
+      { key:"system.attributes.efprckmod", target:"totalprckmod" },
+      { key:"system.attributes.efmtckmod", target:"totalmtckmod" },
+      { key:"system.attributes.effrckmod", target:"totalfrckmod" },
+      { key:"system.attributes.efdrckmod", target:"totaldrckmod" },
+      { key:"system.attributes.efdmckmod", target:"totaldmckmod" },
+      { key:"system.attributes.efabckmod", target:"totalabckmod" },
+      { key:"system.attributes.efscpwmod", target:"totalscpwmod" },
+      { key:"system.attributes.efcnpwmod", target:"totalcnpwmod" },
+      { key:"system.attributes.efwzpwmod", target:"totalwzpwmod" },
+      { key:"system.attributes.efprpwmod", target:"totalprpwmod" },
+      { key:"system.attributes.efmtpwmod", target:"totalmtpwmod" },
+      { key:"system.attributes.effrpwmod", target:"totalfrpwmod" },
+      { key:"system.attributes.efdrpwmod", target:"totaldrpwmod" },
+      { key:"system.attributes.efdmpwmod", target:"totaldmpwmod" },
+      { key:"system.attributes.efabpwmod", target:"totalabpwmod" },
+      { key:"system.effect.allmgp", target:"totalallmgp" },
+      { key:"system.attributes.efmpsc", target:"totalmpsc" },
+      { key:"system.attributes.efmpcn", target:"totalmpcn" },
+      { key:"system.attributes.efmpwz", target:"totalmpwz" },
+      { key:"system.attributes.efmppr", target:"totalmppr" },
+      { key:"system.attributes.efmpmt", target:"totalmpmt" },
+      { key:"system.attributes.efmpfr", target:"totalmpfr" },
+      { key:"system.attributes.efmpdr", target:"totalmpdr" },
+      { key:"system.attributes.efmpdm", target:"totalmpdm" },
+      { key:"system.attributes.efmpab", target:"totalmpab" },
+      { key:"system.attributes.efmpall", target:"totalmpall" },
+      { key:"system.attributes.efmckall", target:"totalallmck" },
+      { key:"system.attributes.efmpwall", target:"totalallmpw" },
+      { key:"system.attributes.efmsckmod", target:"totalmsckmod" },
+      { key:"system.attributes.efmspwmod", target:"totalmspwmod" },
+      { key:"system.attributes.efatckmod", target:"totalatckmod" },
+      { key:"system.attributes.efewckmod", target:"totalewckmod" },
+      { key:"system.attributes.efewpwmod", target:"totalewpwmod" },
+      { key:"system.eflootmod", target:"totallootmod" }
+    ];
+    let ruleMap = Object.fromEntries(
+      processingRules.map((rule) => [rule.key, rule])
+    );
+    effectsChange.sort((a, b) => a.mode - b.mode);
+    effectsChange.forEach((effects) => {
+
+      let rule = ruleMap[effects.key];
+      if (rule) {
+        let value = Number(effects.value);
+        switch (effects.mode) {
+          case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
+            eval(`${rule.target} *= ${value}`);
+            break;
+
+          case CONST.ACTIVE_EFFECT_MODES.ADD:
+            eval(`${rule.target} += ${value}`);
+            break;
+  
+          case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
+            eval(`${rule.target} = ${value}`);
+            break;
+  
+          case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
+          case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
+          case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
+            //未実装
+            break;
+  
+          default:
+            break;
+        }
+      }
     });
 
     systemData.totalhitmod = totalhitmod;
@@ -857,6 +819,13 @@ export class SW25Actor extends Actor {
       Number(systemData.attributes.dreduce) +
       Number(systemData.attributes.efdreduce);
 
+    if(systemData.hp.max < systemData.hp.value){
+      systemData.hp.value = systemData.hp.max;
+    }
+    if(systemData.mp.max < systemData.mp.value){
+      systemData.mp.value = systemData.mp.max;
+    }
+    
     // Calculate active effect
     let actorEffects = actorData.effects;
     let itemEffects = [];
@@ -873,28 +842,55 @@ export class SW25Actor extends Actor {
         return {
           key: change.key,
           value: Number(change.value),
+          mode: change.mode,
         };
       });
-    });
+    }).flat();
 
     let totalppmod = null;
     let totalmppmod = null;
     let totaldreduce = null;
     let totalhpmod = null;
     let totalmpmod = null;
-    effectsChange.forEach((effectList) => {
-      effectList.forEach((effects) => {
-        if (effects.key == "system.attributes.efppmod")
-          totalppmod += Number(effects.value);
-        if (effects.key == "system.attributes.efmppmod")
-          totalmppmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdreduce")
-          totaldreduce += Number(effects.value);
-        if (effects.key == "system.hp.efhpmod")
-          totalhpmod += Number(effects.value);
-        if (effects.key == "system.mp.efmpmod")
-          totalmpmod += Number(effects.value);
-      });
+    const processingRules = [
+      { key: "system.attributes.efppmod", target: "totalppmod" },
+      { key: "system.attributes.efmppmod", target: "totalmppmod" },
+      { key: "system.attributes.efdreduce", target: "totaldreduce" },
+      { key: "system.hp.efhpmod", target: "totalhpmod" },
+      { key: "system.mp.efmpmod", target: "totalmpmod" }
+    ];
+    let ruleMap = Object.fromEntries(
+      processingRules.map((rule) => [rule.key, rule])
+    );
+    effectsChange.sort((a, b) => a.mode - b.mode);
+    effectsChange.forEach((effects) => {
+
+      let rule = ruleMap[effects.key];
+      if (rule) {
+        let value = Number(effects.value);
+        switch (effects.mode) {
+          case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
+            eval(`${rule.target} *= ${value}`);
+            break;
+
+          case CONST.ACTIVE_EFFECT_MODES.ADD:
+            eval(`${rule.target} += ${value}`);
+            break;
+  
+          case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
+            eval(`${rule.target} = ${value}`);
+            break;
+  
+          case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
+          case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
+          case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
+            //未実装
+            break;
+  
+          default:
+            break;
+        }
+      }
     });
     systemData.totalppmod = totalppmod;
     systemData.totalmppmod = totalmppmod;
@@ -974,6 +970,13 @@ export class SW25Actor extends Actor {
       Number(systemData.attributes.dreduce) +
       Number(systemData.attributes.efdreduce);
 
+    if(systemData.hp.max < systemData.hp.value){
+      systemData.hp.value = systemData.hp.max;
+    }
+    if(systemData.mp.max < systemData.mp.value){
+      systemData.mp.value = systemData.mp.max;
+    }
+  
     if (systemData.impurity == 0 || systemData.impurity == null)
       systemData.showimp = false;
     else systemData.showimp = true;
@@ -997,9 +1000,10 @@ export class SW25Actor extends Actor {
         return {
           key: change.key,
           value: Number(change.value),
+          mode: change.mode,
         };
       });
-    });
+    }).flat();
 
     let totalhitmod = null;
     let totaldmod = null;
@@ -1080,165 +1084,118 @@ export class SW25Actor extends Actor {
     let totalewckmod = null;
     let totalewpwmod = null;
     let totallootmod = null;
-    effectsChange.forEach((effectList) => {
-      effectList.forEach((effects) => {
-        if (effects.key == "system.attributes.efhitmod")
-          totalhitmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdmod")
-          totaldmod += Number(effects.value);
-        if (effects.key == "system.effect.efcvalue")
-          totalcmod += Number(effects.value);
-        if (effects.key == "system.effect.efspellcvalue")
-          totalspcmod += Number(effects.value);
-        if (effects.key == "system.lt") totallt += Number(effects.value);
-        if (effects.key == "system.cr") totalcr += Number(effects.value);
-        if (effects.key == "system.attributes.efwphalfmod")
-          totalwphalfmod += Number(effects.value);
-        if (effects.key == "system.attributes.efsphalfmod")
-          totalsphalfmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdodgemod")
-          totaldodgemod += Number(effects.value);
-        if (effects.key == "system.attributes.efppmod")
-          totalppmod += Number(effects.value);
-        if (effects.key == "system.attributes.efmppmod")
-          totalmppmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdreduce")
-          totaldreduce += Number(effects.value);
-        if (effects.key == "system.attributes.move.efmovemod")
-          totalmovemod += Number(effects.value);
-        if (effects.key == "system.effect.vitres")
-          totalvitres += Number(effects.value);
-        if (effects.key == "system.effect.mndres")
-          totalmndres += Number(effects.value);
-        if (effects.key == "system.effect.init")
-          totalinit += Number(effects.value);
-        if (effects.key == "system.effect.mknow")
-          totalmknow += Number(effects.value);
-        if (effects.key == "system.effect.allck")
-          totalallck += Number(effects.value);
-        if (effects.key == "system.effect.allsk")
-          totalallsk += Number(effects.value);
-        if (effects.key == "system.hp.efhpmod")
-          totalhpmod += Number(effects.value);
-        if (effects.key == "system.mp.efmpmod")
-          totalmpmod += Number(effects.value);
-        if (effects.key == "system.abilities.dex.efvaluemodify")
-          totaldex += Number(effects.value);
-        if (effects.key == "system.abilities.agi.efvaluemodify")
-          totalagi += Number(effects.value);
-        if (effects.key == "system.abilities.str.efvaluemodify")
-          totalstr += Number(effects.value);
-        if (effects.key == "system.abilities.vit.efvaluemodify")
-          totalvit += Number(effects.value);
-        if (effects.key == "system.abilities.int.efvaluemodify")
-          totalint += Number(effects.value);
-        if (effects.key == "system.abilities.mnd.efvaluemodify")
-          totalmnd += Number(effects.value);
-        if (effects.key == "system.abilities.dex.efmodify")
-          totaldexmod += Number(effects.value);
-        if (effects.key == "system.abilities.agi.efmodify")
-          totalagimod += Number(effects.value);
-        if (effects.key == "system.abilities.str.efmodify")
-          totalstrmod += Number(effects.value);
-        if (effects.key == "system.abilities.vit.efmodify")
-          totalvitmod += Number(effects.value);
-        if (effects.key == "system.abilities.int.efmodify")
-          totalintmod += Number(effects.value);
-        if (effects.key == "system.abilities.mnd.efmodify")
-          totalmndmod += Number(effects.value);
-        if (effects.key == "system.attributes.efscmod")
-          totalscmod += Number(effects.value);
-        if (effects.key == "system.attributes.efcnmod")
-          totalcnmod += Number(effects.value);
-        if (effects.key == "system.attributes.efwzmod")
-          totalwzmod += Number(effects.value);
-        if (effects.key == "system.attributes.efprmod")
-          totalprmod += Number(effects.value);
-        if (effects.key == "system.attributes.efmtmod")
-          totalmtmod += Number(effects.value);
-        if (effects.key == "system.attributes.effrmod")
-          totalfrmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdrmod")
-          totaldrmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdmmod")
-          totaldmmod += Number(effects.value);
-        if (effects.key == "system.attributes.efabmod")
-          totalabmod += Number(effects.value);
-        if (effects.key == "system.attributes.efscckmod")
-          totalscckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efcnckmod")
-          totalcnckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efwzckmod")
-          totalwzckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efprckmod")
-          totalprckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efmtckmod")
-          totalmtckmod += Number(effects.value);
-        if (effects.key == "system.attributes.effrckmod")
-          totalfrckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdrckmod")
-          totaldrckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdmckmod")
-          totaldmckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efabckmod")
-          totalabckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efscpwmod")
-          totalscpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efcnpwmod")
-          totalcnpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efwzpwmod")
-          totalwzpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efprpwmod")
-          totalprpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efmtpwmod")
-          totalmtpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.effrpwmod")
-          totalfrpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdrpwmod")
-          totaldrpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efdmpwmod")
-          totaldmpwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efabpwmod")
-          totalabpwmod += Number(effects.value);
-        if (effects.key == "system.effect.allmgp")
-          totalallmgp += Number(effects.value);
-        if (effects.key == "system.attributes.efmpsc")
-          totalmpsc += Number(effects.value);
-        if (effects.key == "system.attributes.efmpcn")
-          totalmpcn += Number(effects.value);
-        if (effects.key == "system.attributes.efmpwz")
-          totalmpwz += Number(effects.value);
-        if (effects.key == "system.attributes.efmppr")
-          totalmppr += Number(effects.value);
-        if (effects.key == "system.attributes.efmpmt")
-          totalmpmt += Number(effects.value);
-        if (effects.key == "system.attributes.efmpfr")
-          totalmpfr += Number(effects.value);
-        if (effects.key == "system.attributes.efmpdr")
-          totalmpdr += Number(effects.value);
-        if (effects.key == "system.attributes.efmpdm")
-          totalmpdm += Number(effects.value);
-        if (effects.key == "system.attributes.efmpab")
-          totalmpab += Number(effects.value);
-        if (effects.key == "system.attributes.efmpall")
-          totalmpall += Number(effects.value);
-        if (effects.key == "system.attributes.efmckall")
-          totalallmck += Number(effects.value);
-        if (effects.key == "system.attributes.efmpwall")
-          totalallmpw += Number(effects.value);
-        if (effects.key == "system.attributes.efmsckmod")
-          totalmsckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efmspwmod")
-          totalmspwmod += Number(effects.value);
-        if (effects.key == "system.attributes.efatckmod")
-          totalatckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efewckmod")
-          totalewckmod += Number(effects.value);
-        if (effects.key == "system.attributes.efewpwmod")
-          totalewpwmod += Number(effects.value);
-        if (effects.key == "system.eflootmod")
-          totallootmod += Number(effects.value);
-      });
+    const processingRules = [
+      { key: "system.attributes.efhitmod", target: "totalhitmod" },
+      { key: "system.attributes.efdmod", target: "totaldmod" },
+      { key: "system.effect.efcvalue", target: "totalcmod" },
+      { key: "system.effect.efspellcvalue", target: "totalspcmod" },
+      { key: "system.lt", target: "totallt" },
+      { key: "system.cr", target: "totalcr" },
+      { key: "system.attributes.efwphalfmod", target: "totalwphalfmod" },
+      { key: "system.attributes.efsphalfmod", target: "totalsphalfmod" },
+      { key: "system.attributes.efdodgemod", target: "totaldodgemod" },
+      { key: "system.attributes.efppmod", target: "totalppmod" },
+      { key: "system.attributes.efmppmod", target: "totalmppmod" },
+      { key: "system.attributes.efdreduce", target: "totaldreduce" },
+      { key: "system.attributes.move.efmovemod", target: "totalmovemod" },
+      { key: "system.effect.vitres", target: "totalvitres" },
+      { key: "system.effect.mndres", target: "totalmndres" },
+      { key: "system.effect.init", target: "totalinit" },
+      { key: "system.effect.mknow", target: "totalmknow" },
+      { key: "system.effect.allck", target: "totalallck" },
+      { key: "system.effect.allsk", target: "totalallsk" },
+      { key: "system.hp.efhpmod", target: "totalhpmod" },
+      { key: "system.mp.efmpmod", target: "totalmpmod" },
+      { key: "system.abilities.dex.efvaluemodify", target: "totaldex" },
+      { key: "system.abilities.agi.efvaluemodify", target: "totalagi" },
+      { key: "system.abilities.str.efvaluemodify", target: "totalstr" },
+      { key: "system.abilities.vit.efvaluemodify", target: "totalvit" },
+      { key: "system.abilities.int.efvaluemodify", target: "totalint" },
+      { key: "system.abilities.mnd.efvaluemodify", target: "totalmnd" },
+      { key: "system.abilities.dex.efmodify", target: "totaldexmod" },
+      { key: "system.abilities.agi.efmodify", target: "totalagimod" },
+      { key: "system.abilities.str.efmodify", target: "totalstrmod" },
+      { key: "system.abilities.vit.efmodify", target: "totalvitmod" },
+      { key: "system.abilities.int.efmodify", target: "totalintmod" },
+      { key: "system.abilities.mnd.efmodify", target: "totalmndmod" },
+      { key: "system.attributes.efscmod", target: "totalscmod" },
+      { key: "system.attributes.efcnmod", target: "totalcnmod" },
+      { key: "system.attributes.efwzmod", target: "totalwzmod" },
+      { key: "system.attributes.efprmod", target: "totalprmod" },
+      { key: "system.attributes.efmtmod", target: "totalmtmod" },
+      { key: "system.attributes.effrmod", target: "totalfrmod" },
+      { key: "system.attributes.efdrmod", target: "totaldrmod" },
+      { key: "system.attributes.efdmmod", target: "totaldmmod" },
+      { key: "system.attributes.efabmod", target: "totalabmod" },
+      { key: "system.attributes.efscckmod", target: "totalscckmod" },
+      { key: "system.attributes.efcnckmod", target: "totalcnckmod" },
+      { key: "system.attributes.efwzckmod", target: "totalwzckmod" },
+      { key: "system.attributes.efprckmod", target: "totalprckmod" },
+      { key: "system.attributes.efmtckmod", target: "totalmtckmod" },
+      { key: "system.attributes.effrckmod", target: "totalfrckmod" },
+      { key: "system.attributes.efdrckmod", target: "totaldrckmod" },
+      { key: "system.attributes.efdmckmod", target: "totaldmckmod" },
+      { key: "system.attributes.efabckmod", target: "totalabckmod" },
+      { key: "system.attributes.efscpwmod", target: "totalscpwmod" },
+      { key: "system.attributes.efcnpwmod", target: "totalcnpwmod" },
+      { key: "system.attributes.efwzpwmod", target: "totalwzpwmod" },
+      { key: "system.attributes.efprpwmod", target: "totalprpwmod" },
+      { key: "system.attributes.efmtpwmod", target: "totalmtpwmod" },
+      { key: "system.attributes.effrpwmod", target: "totalfrpwmod" },
+      { key: "system.attributes.efdrpwmod", target: "totaldrpwmod" },
+      { key: "system.attributes.efdmpwmod", target: "totaldmpwmod" },
+      { key: "system.attributes.efabpwmod", target: "totalabpwmod" },
+      { key: "system.effect.allmgp", target: "totalallmgp" },
+      { key: "system.attributes.efmpsc", target: "totalmpsc" },
+      { key: "system.attributes.efmpcn", target: "totalmpcn" },
+      { key: "system.attributes.efmpwz", target: "totalmpwz" },
+      { key: "system.attributes.efmppr", target: "totalmppr" },
+      { key: "system.attributes.efmpmt", target: "totalmpmt" },
+      { key: "system.attributes.efmpfr", target: "totalmpfr" },
+      { key: "system.attributes.efmpdr", target: "totalmpdr" },
+      { key: "system.attributes.efmpdm", target: "totalmpdm" },
+      { key: "system.attributes.efmpab", target: "totalmpab" },
+      { key: "system.attributes.efmpall", target: "totalmpall" },
+      { key: "system.attributes.efmckall", target: "totalallmck" },
+      { key: "system.attributes.efmpwall", target: "totalallmpw" },
+      { key: "system.attributes.efmsckmod", target: "totalmsckmod" },
+      { key: "system.attributes.efmspwmod", target: "totalmspwmod" },
+      { key: "system.attributes.efatckmod", target: "totalatckmod" },
+      { key: "system.attributes.efewckmod", target: "totalewckmod" },
+      { key: "system.attributes.efewpwmod", target: "totalewpwmod" },
+      { key: "system.eflootmod", target: "totallootmod" }
+    ];
+    let ruleMap = Object.fromEntries(
+      processingRules.map((rule) => [rule.key, rule])
+    );
+    effectsChange.sort((a, b) => a.mode - b.mode);
+    effectsChange.forEach((effects) => {
+      let rule = ruleMap[effects.key];
+      if (rule) {
+        let value = Number(effects.value);
+        switch (effects.mode) {
+          case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
+            eval(`${rule.target} *= ${value}`);
+            break;
+
+          case CONST.ACTIVE_EFFECT_MODES.ADD:
+            eval(`${rule.target} += ${value}`);
+            break;
+  
+          case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
+            eval(`${rule.target} = ${value}`);
+            break;
+  
+          case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
+          case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
+          case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
+            //未実装
+            break;
+  
+          default:
+            break;
+        }
+      }
     });
 
     systemData.totalhitmod = totalhitmod;

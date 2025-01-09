@@ -1289,3 +1289,26 @@ input.weakapply[type="checkbox"] {
   -webkit-transform: scale(0.7);
   transform-origin: bottom right; 
 }
+
+.chatarea-action{
+  border: 1px solid #888888;
+  padding: 2px;
+  margin: 2px;
+}
+
+.target-select{
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid gray;
+}
+
+.target-select .selectable{
+  display: inline-block;
+  padding:2px;
+  min-width: 50px;
+  text-align:center;
+}
+
+.target-select .selectable:hover{
+  text-shadow: 0 0 10px red;
+}

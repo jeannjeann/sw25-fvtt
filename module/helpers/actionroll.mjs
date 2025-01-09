@@ -73,7 +73,7 @@ export async function actionRoll(element, actor) {
       action.push(item);
     }
   }
-
+  
   const canceldialog = actorData.canceldialog;
   chatData.content = await renderTemplate(
     "systems/sw25/templates/roll/roll-action.hbs",
