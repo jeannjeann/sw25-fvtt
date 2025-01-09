@@ -1,8 +1,10 @@
 {{#if flavor}}<span class="flavor-text">{{flavor}}</span>{{/if}}
 <div class="flexrow flex-group-center grid grid-5col nogapmargin">
     <div class="grid-span-3" style="text-align: center;">
+        {{#if isView}}
         MP<span style="color: #862020; font-weight: bold; font-size: 1.5em;"> {{targetMP}}</span>
         >>><span style="color: #862020; font-weight: bold; font-size: 1.5em;"> {{resultMP}}</span>
+        {{/if}}
     </div>
     <div>
         {{#if metaB}}<button style="font-size: 0.8em;" class="buttonclick" data-buttontype="buttonmeta">{{localize "SW25.Item.Spell.Meta"}}</button>{{/if}}

@@ -11,6 +11,9 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
   let metaB = false;
   if (type == "spell") metaB = true;
   if (type == "action") metaB = true;
+  let isView = false;
+  if (CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= actor.ownership.default)
+    isView = true;
 
   // Calculate MP
   if (targetMP - resultValue >= 0) {
@@ -53,6 +56,7 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
         targetMP: targetMP,
         resultMP: chatResult,
         metaB: metaB,
+        isView: isView,
       }
     );
 
@@ -86,6 +90,7 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
         targetMP: base,
         resultMP: chatResult,
         metaB: metaB,
+        isView: isView,
       }
     );
     await chat.update(chatData);
