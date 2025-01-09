@@ -1,6 +1,8 @@
 # CHANGELOG
 
-## 1.1.1
+## 1.2.0
+-- MP消費のキャンセル機能追加  by [keyslock](https://github.com/keyslock)
+-- HP変化のチャット表示機能追加  by [keyslock](https://github.com/keyslock)
 - アイテムのデフォルトアイコンを設定  by [Ryotai](https://github.com/ryotai-trpg)
 - bug fix  by [Ryotai](https://github.com/ryotai-trpg)
 - bug fix
