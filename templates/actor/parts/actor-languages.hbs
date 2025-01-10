@@ -6,7 +6,7 @@
     <div class='item-controls' style="flex: 0 0 50px;">
       <a
         class='item-control item-create'
-        title='{{localize "DOCUMENT.Create" type='Item'}}'
+        title='{{localize "DOCUMENT.Create" type=(localize "TYPES.Item.language")}}'
         data-type='language'
       >
         <i class='fas fa-plus'></i>
@@ -27,13 +27,13 @@
         <div class='item-controls' style="flex: 0 0 50px;">
           <a
             class='item-control item-edit'
-            title='{{localize "DOCUMENT.Update" type='language'}}'
+            title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.language")}}'
           >
             <i class='fas fa-edit'></i>
           </a>
           <a
             class='item-control item-delete'
-            title='{{localize "DOCUMENT.Delete" type='language'}}'
+            title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.language")}}'
           >
             <i class='fas fa-trash'></i>
           </a>
