@@ -8,6 +8,7 @@
 - HPとMPが上限を越えないように修正  by [keyslock](https://github.com/keyslock)
 - 魔物アクターの召還魔神化に対応  by [keyslock](https://github.com/keyslock)
 - ターゲット未選択時のダイアログ表示機能を追加  by [keyslock](https://github.com/keyslock)
+- ロール結果およびバフを適用後にターゲットを解除するよう挙動を変更
 - 同梱マニュアルを削除してリンク先を参照するよう変更
 - 同梱サンプルとマクロを削除
 - bug and UX fix  by [keyslock](https://github.com/keyslock)
