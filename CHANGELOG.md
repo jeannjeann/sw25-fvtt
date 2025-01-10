@@ -4,6 +4,10 @@
 - アイテムのデフォルトアイコンを設定  by [Ryotai](https://github.com/ryotai-trpg)
 - MP消費のキャンセル機能追加  by [keyslock](https://github.com/keyslock)
 - 適用時のチャット表示変更  by [keyslock](https://github.com/keyslock)
+- 「種族特徴」アイテムに詳細を追加  by [keyslock](https://github.com/keyslock)
+- HPとMPが上限を越えないように修正  by [keyslock](https://github.com/keyslock)
+- 魔物アクターの召還魔神化に対応  by [keyslock](https://github.com/keyslock)
+- ターゲット未選択時のダイアログ表示機能を追加  by [keyslock](https://github.com/keyslock)
 - 同梱マニュアルを削除してリンク先を参照するよう変更
 - 同梱サンプルとマクロを削除
 - bug and UX fix  by [keyslock](https://github.com/keyslock)

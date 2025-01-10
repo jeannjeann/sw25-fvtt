@@ -7,7 +7,7 @@ import { mpCost, hpCost } from "../helpers/mpcost.mjs";
 import { lootRoll } from "../helpers/lootroll.mjs";
 import { growthCheck } from "../helpers/growthcheck.mjs";
 import { actionRoll } from "../helpers/actionroll.mjs";
-import { targetRollDialog } from "../helpers/dialogs.mjs";
+import { targetRollDialog, targetSelectDialog } from "../helpers/dialogs.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -1053,9 +1053,15 @@ export class SW25ActorSheet extends ActorSheet {
     const targetActorName = [];
     const transferEffectName = [];
     const targetedToken = game.user.targets;
+
+    // if no target,show dialog
     if (targetedToken.size === 0) {
-      await this._selectApplyTarget(event, item, targetEffects, orgActor, orgId);
-      return;
+      const title = `${item.name} (${game.i18n.localize("SW25.Effectslong")})`;
+      const selectedTokens = await targetSelectDialog(title);
+      game.user.updateTokenTargets(selectedTokens.map((token) => token.id));
+      if (!selectedTokens) {
+        return;
+      }
     }
 
     // Target Actor
@@ -1097,6 +1103,9 @@ export class SW25ActorSheet extends ActorSheet {
         orgId: orgId,
       });
     }
+
+    // reset target
+    game.user.targets.forEach((target) => target.setTarget(false));
 
     // Chat message
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
@@ -1615,144 +1624,5 @@ export class SW25ActorSheet extends ActorSheet {
       ]);
       await createdItem[0].update(updatedData);
     }
-  }
-  async _selectApplyTarget(event, item, targetEffects, orgActor, orgId) {
-    // 現在のキャンバス上のすべてのトークンを取得
-    const tokens = canvas.tokens.placeables;
-
-    // トークンが存在しない場合のエラーメッセージ
-    if (tokens.length === 0) {
-      return ui.notifications.warn(game.i18n.localize("SW25.NotTokenwarn"));
-    }
-
-    // トークンを分類
-    const categories = {
-      friendly: [],
-      neutral: [],
-      hostile: []
-    };
-
-    tokens.forEach((token) => {
-      switch (token.document.disposition) {
-        case 1: // 友好
-          categories.friendly.push(token);
-          break;
-        case 0: // 中立
-          categories.neutral.push(token);
-          break;
-        case -1: // 敵対
-          categories.hostile.push(token);
-          break;
-      }
-    });
-
-    // 名前をUnicode順でソート
-    for (const key in categories) {
-      categories[key].sort((a, b) => a.name.localeCompare(b.name));
-    }
-
-    // ダイアログの内容を生成
-    const createCategoryBox = (category, title, categoryId) => {
-      let box = `<fieldset class="target-select">
-        <legend id="${categoryId}-toggle" style="cursor: pointer;">
-          <span class="selectable">${title}</span>
-        </legend>`;
-      category.forEach((token) => {
-        box += `
-          <div>
-            <input type="checkbox" id="token-${token.id}" name="${categoryId}" value="${token.id}" />
-            <label for="token-${token.id}" style="font-weight: normal;">${token.name}</label>
-          </div>`;
-      });
-      box += `</fieldset>`;
-      return box;
-    };
-
-    const content = `
-      <div style="width: 100%;">
-        ${createCategoryBox(categories.friendly, game.i18n.localize("SW25.Disposition.Friendly"), "friendly")}
-        ${createCategoryBox(categories.neutral, game.i18n.localize("SW25.Disposition.Neutral"), "neutral")}
-        ${createCategoryBox(categories.hostile, game.i18n.localize("SW25.Disposition.Hostile"), "hostile")}
-      </div>`;
-
-    // ダイアログを表示
-    const dialog = new Dialog({
-      title: game.i18n.localize("SW25.TargetSelect") + `(${item.name})`,
-      content: content,
-      buttons: {
-        process: {
-          label: game.i18n.localize("SW25.Item.EffectB"),
-          callback: (html) => {
-            // 選択されたトークンIDを取得
-            const selectedIds = html.find('input[type="checkbox"]:checked').map((_, el) => el.value).get();
-
-            // 選択されたトークンがない場合の処理
-            if (selectedIds.length === 0) {
-              return ui.notifications.warn(game.i18n.localize("SW25.Notargetwarn"));
-            }
-
-            // 選択されたトークンのIDと名前を取得して処理
-            const selectedTokens = canvas.tokens.placeables
-              .filter(token => selectedIds.includes(token.id));
-            const targetTokenId = Array.from(selectedTokens, (target) => target.id);
-
-            if (game.user.isGM) {
-              selectedTokens.forEach((targetActor) => {
-                targetEffects.forEach((effect) => {
-                  const transferEffect = duplicate(effect);
-                  transferEffect.disabled = false;
-                  transferEffect.sourceName = orgActor;
-                  transferEffect.flags.sourceName = orgActor;
-                  transferEffect.flags.sourceId = `Actor.${orgId}`;
-                  targetActor.actor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
-                });
-              });
-            } else {
-              game.socket.emit("system.sw25", {
-                method: "applyEffect",
-                targetTokens: targetTokenId,
-                targetEffects: targetEffects,
-                orgActor: orgActor,
-                orgId: orgId,
-              });
-            }
-          }
-        },
-        cancel: {
-          label: game.i18n.localize("SW25.Item.Spell.Cancel")
-        }
-      },
-      default: "cancel"
-    });
-
-    // ダイアログをレンダリング
-    dialog.render(true);
-
-    // カテゴリのタイトルをクリックしたときの一括選択／解除のイベントを追加
-    Hooks.once("renderDialog", (app, html) => {
-      const addToggleHandler = (categoryId) => {
-        const toggle = html.find(`#${categoryId}-toggle`);
-        const checkboxes = html.find(`input[name="${categoryId}"]`);
-
-        toggle.on("click", () => {
-          const allChecked = checkboxes.toArray().every(cb => cb.checked);
-          checkboxes.prop("checked", !allChecked).trigger("change");
-        });
-
-        // チェックボックスの変更でフォントを更新
-        checkboxes.on("change", (event) => {
-          const checkbox = $(event.currentTarget);
-          const label = checkbox.next("label");
-          label.css("font-weight", checkbox.is(":checked") ? "bold" : "normal");
-        });
-      };
-
-      addToggleHandler("friendly");
-      addToggleHandler("neutral");
-      addToggleHandler("hostile");
-
-      // ダイアログの横幅を調整
-      html[0].style.width = "500px";
-    });
   }
 }

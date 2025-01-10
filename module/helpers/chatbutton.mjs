@@ -1,7 +1,7 @@
 // Chat button handler
 import { powerRoll } from "./powerroll.mjs";
 import { mpCost, hpCost } from "./mpcost.mjs";
-import { targetRollDialog } from "../helpers/dialogs.mjs";
+import { targetRollDialog, targetSelectDialog } from "../helpers/dialogs.mjs";
 
 /**
  * Execute  chat button click event and return the result.
@@ -1165,23 +1165,42 @@ export async function chatButton(chatMessage, buttonType) {
     let targetTokenId;
     if (!chatMessage.flags.target) {
       const targetTokens = game.user.targets;
+
+      // if no target,show dialog
       if (targetTokens.size === 0) {
-        ui.notifications.warn(game.i18n.localize("SW25.Notargetwarn"));
-        return;
-        /*
-      } else if (targetTokens.size > 1) {
-        ui.notifications.warn(game.i18n.localize("SW25.Multitargetwarn"));
-        return;
-      */
-      } else {
-        const targetTokenIds = [];
-        targetTokens.forEach((token) => {
-          targetTokenIds.push(token.id);
-        });
-        for (let i = 0; i < targetTokenIds.length; i++) {
-          targetTokenId = targetTokenIds[i];
-          await applyExec(targetTokenId);
+        let type = "";
+        switch (buttonType) {
+          case "buttonpd":
+            type = game.i18n.localize("SW25.Item.pd");
+            break;
+          case "buttonmd":
+            type = game.i18n.localize("SW25.Item.md");
+            break;
+          case "buttoncd":
+            type = game.i18n.localize("SW25.Item.cd");
+            break;
+          case "buttonhr":
+            type = game.i18n.localize("SW25.Item.hr");
+            break;
+          case "buttonmr":
+            type = game.i18n.localize("SW25.Item.mr");
+            break;
         }
+        const title = `${type} - ${chatMessage.flavor}`;
+        const selectedTokens = await targetSelectDialog(title);
+        game.user.updateTokenTargets(selectedTokens.map((token) => token.id));
+        if (!selectedTokens) {
+          return;
+        }
+      }
+
+      const targetTokenIds = [];
+      targetTokens.forEach((token) => {
+        targetTokenIds.push(token.id);
+      });
+      for (let i = 0; i < targetTokenIds.length; i++) {
+        targetTokenId = targetTokenIds[i];
+        await applyExec(targetTokenId);
       }
     } else {
       for (let i = 0; i < chatMessage.flags.target.length; i++) {
@@ -1190,6 +1209,9 @@ export async function chatButton(chatMessage, buttonType) {
         await applyExec(targetTokenId);
       }
     }
+
+    // reset target
+    game.user.targets.forEach((target) => target.setTarget(false));
 
     async function applyExec(targetTokenId) {
       const targetToken = canvas.tokens.get(targetTokenId);
@@ -1258,9 +1280,12 @@ export async function chatButton(chatMessage, buttonType) {
       let isView = false;
       let beforeValue = null;
       let afterValue = null;
-      if(CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= targetActor.ownership.default){
+      if (
+        CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <=
+        targetActor.ownership.default
+      ) {
         isView = true;
-        if(buttonType == "buttonmr"){
+        if (buttonType == "buttonmr") {
           beforeValue = targetMP;
           afterValue = resultMP;
         } else {
@@ -1302,9 +1327,15 @@ export async function chatButton(chatMessage, buttonType) {
     const targetActorName = [];
     const transferEffectName = [];
     const targetTokens = game.user.targets;
+
+    // if no target,show dialog
     if (targetTokens.size === 0) {
-      ui.notifications.warn(game.i18n.localize("SW25.Notargetwarn"));
-      return;
+      const title = `${item.name} (${game.i18n.localize("SW25.Effectslong")})`;
+      const selectedTokens = await targetSelectDialog(title);
+      game.user.updateTokenTargets(selectedTokens.map((token) => token.id));
+      if (!selectedTokens) {
+        return;
+      }
     }
 
     // Target Actor
@@ -1345,6 +1376,9 @@ export async function chatButton(chatMessage, buttonType) {
         orgId: orgId,
       });
     }
+
+    // reset target
+    game.user.targets.forEach((target) => target.setTarget(false));
 
     // Chat message
     const speaker = ChatMessage.getSpeaker({ actor: actor });
@@ -1488,7 +1522,7 @@ export async function chatButton(chatMessage, buttonType) {
 
     mpCost(token, cost, name, type, meta, chat, base);
   }
-  
+
   if (buttonType == "buttonmpcancel") {
     let token = canvas.tokens.get(chatMessage.flags.tokenId);
     let cost = chatMessage.flags.cost;
@@ -1498,7 +1532,6 @@ export async function chatButton(chatMessage, buttonType) {
     let chat = chatMessage;
     let base = chatMessage.flags.base;
 
-    
     // Apply MP cost
     if (game.user.isGM) {
       actor.update({
@@ -1514,7 +1547,12 @@ export async function chatButton(chatMessage, buttonType) {
 
     // Apply ChatMessage
     let label =
-      name + " (" + cost + " " + game.i18n.localize("SW25.Item.Spell.Cancel") + ")";
+      name +
+      " (" +
+      cost +
+      " " +
+      game.i18n.localize("SW25.Item.Spell.Cancel") +
+      ")";
     let metaB = false;
     if (type == "spell") metaB = true;
 
@@ -1533,9 +1571,8 @@ export async function chatButton(chatMessage, buttonType) {
         metaB: metaB,
       }
     );
-    await chat.update(chatData);    
+    await chat.update(chatData);
   }
-
 
   if (buttonType == "buttonloot") {
     const selectedTokens = canvas.tokens.controlled;
