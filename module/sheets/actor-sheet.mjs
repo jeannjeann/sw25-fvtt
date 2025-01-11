@@ -641,7 +641,7 @@ export class SW25ActorSheet extends ActorSheet {
     // Grab any data associated with this control.
     const data = duplicate(header.dataset);
     // Initialize a default name.
-    const name = `New ${type.capitalize()}`;
+    const name = game.i18n.format("DOCUMENT.New", {type: game.i18n.localize(`TYPES.Item.${type}`)});
     // Prepare the item object.
     const itemData = {
       name: name,
