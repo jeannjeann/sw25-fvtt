@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.2.1
+- ローカライズ修正  by [Ryotai](https://github.com/ryotai-trpg)
+
 ## 1.2.0
 - アイテムのデフォルトアイコンを設定  by [Ryotai](https://github.com/ryotai-trpg)
 - MP消費のキャンセル機能追加  by [keyslock](https://github.com/keyslock)
