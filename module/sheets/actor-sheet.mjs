@@ -1265,8 +1265,8 @@ export class SW25ActorSheet extends ActorSheet {
     const action = event.currentTarget.dataset.action;
     const input = event.currentTarget.parentElement.querySelector("input");
 
-    if (action === "decrease") input.valueAsNumber -= 1;
-    else if (action === "increase") input.valueAsNumber += 1;
+    if (action === "decrease") (isNaN(input.valueAsNumber) || !input.valueAsNumber) ? input.valueAsNumber = -1 : input.valueAsNumber -= 1;
+    else if (action === "increase") (isNaN(input.valueAsNumber) || !input.valueAsNumber) ? input.valueAsNumber = 1 : input.valueAsNumber += 1;
 
     this.submit();
   }

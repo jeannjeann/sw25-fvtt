@@ -594,6 +594,9 @@ progress.mp-bar::-moz-progress-bar {
   flex: 0 auto;
   overflow: hidden;
   height: auto;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 .sw25 .sheet-header h1.charname {
   height: 50px;
@@ -608,6 +611,11 @@ progress.mp-bar::-moz-progress-bar {
 }
 .sw25 .sheet-tabs {
   flex: 0;
+  position: sticky;
+  top: 0px;
+  z-index: 1002;
+  background-color: var(--background-color, #dad8cc);
+  border-bottom: 1px solid #444;
 }
 .sw25 .sheet-tabs.tabs {
   border: 0;
@@ -642,7 +650,14 @@ progress.mp-bar::-moz-progress-bar {
 }
 
 .sw25 .sheet-body {
+  position: sticky;
   padding: 5px;
+  flex: 1;
+  overflow-y: auto;
+  margin-top: auto;
+  z-index: 1001;
+  background-color: var(--background-color, #dad8cc);
+  border-bottom: 1px solid #444;
 }
 
 .sw25 .sheet-body input:hover,

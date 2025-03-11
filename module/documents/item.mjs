@@ -626,6 +626,7 @@ export class SW25Item extends Item {
     let checkabimod2 = 0;
     let checkabimod3 = 0;
     let powerabimod = 0;
+    let dedicatedDex = (itemData.type === "weapon" && itemData.system.dedicated) ? 2 : 0;
     if (actor.type == "character") {
       if (systemData.checkabi == "dex")
         checkabimod = Math.floor(
@@ -633,7 +634,8 @@ export class SW25Item extends Item {
             actorData.abilities.dex.valuebase +
             actorData.abilities.dex.valuegrowth +
             actorData.abilities.dex.valuemodify +
-            actorData.abilities.dex.efvaluemodify) /
+            actorData.abilities.dex.efvaluemodify +
+            dedicatedDex) /
             6 +
             Number(actorData.abilities.dex.efmodify)
         );
@@ -1613,6 +1615,8 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
+    const actorData = itemData.actor.system;
+    const actoritemData = itemData.actor.items;
 
     if (systemData.type != "-") {
       const i18ntype =
@@ -1740,6 +1744,8 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
+    const actorData = itemData.actor.system;
+    const actoritemData = itemData.actor.items;
 
     if (systemData.category != "-") {
       const i18ncat =
@@ -2026,6 +2032,8 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
+    const actorData = itemData.actor.system;
+    const actoritemData = itemData.actor.items;
 
     if (systemData.type != "-") {
       const i18ntype =
