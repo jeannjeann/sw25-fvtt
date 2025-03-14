@@ -587,6 +587,12 @@ export class SW25ActorSheet extends ActorSheet {
     // Loot roll.
     html.on("click", ".lootrollable", this._onLootRoll.bind(this));
 
+    // Popularity roll.
+    html.on("click", ".popularityrollable", this._onPopularityRoll.bind(this));
+
+    // Preemptive roll.
+    html.on("click", ".preemptiverollable", this._onPreEmptiveRoll.bind(this));
+
     // Drag events for macros.
     if (this.actor.isOwner) {
       let handler = (ev) => this._onDragStart(ev);
@@ -641,7 +647,9 @@ export class SW25ActorSheet extends ActorSheet {
     // Grab any data associated with this control.
     const data = duplicate(header.dataset);
     // Initialize a default name.
-    const name = game.i18n.format("DOCUMENT.New", {type: game.i18n.localize(`TYPES.Item.${type}`)});
+    const name = game.i18n.format("DOCUMENT.New", {
+      type: game.i18n.localize(`TYPES.Item.${type}`),
+    });
     // Prepare the item object.
     const itemData = {
       name: name,
@@ -1220,6 +1228,116 @@ export class SW25ActorSheet extends ActorSheet {
     lootRoll(this.actor);
   }
 
+  async _onPopularityRoll(event) {
+    event.preventDefault();
+
+    let checkName = game.settings.get("sw25", "effectMKnowPC");
+    let inputName = "";
+    let refAbility = "";
+    let modifier = "";
+    let targetValue = 0;
+    let method = "check";
+
+    let isView = false;
+    if (
+      CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= this.actor.ownership.default
+    ) {
+      isView = true;
+    }
+
+    let monsterName = isView
+      ? this.actor.name
+      : this.actor.system.udname
+      ? this.actor.system.udname
+      : game.i18n.localize("SW25.Monster.Unidentifiedmon");
+    monsterName += `(${this.actor.system.type})`;
+    targetValue = this.actor.system.popularity;
+    targetValue += Number.isFinite(this.actor.system.weakpoint) ? "/" + this.actor.system.weakpoint : "";
+
+    let message = `${game.i18n.localize("SW25.Monster.Popularity")}/${game.i18n.localize("SW25.Monster.Weakpoint")}`;
+
+    const speaker = isView ? ChatMessage.getSpeaker({ actor: this.actor }) : ChatMessage.getSpeaker({ alias: "Gamemaster" });
+
+    let chatData = {
+      speaker: speaker,
+      flavor: checkName,
+    };
+    chatData.flags = {
+      checkName: checkName,
+      inputName: inputName,
+      refAbility: refAbility,
+      modifier: modifier,
+      targetValue: targetValue,
+      method: method,
+    };
+    chatData.content = await renderTemplate(
+      "systems/sw25/templates/roll/rollreq-card.hbs",
+      {
+        checkName: checkName,
+        message: message,
+        difficulty: monsterName,
+        targetValue: targetValue,
+        mod: modifier,
+      }
+    );
+
+    ChatMessage.create(chatData);
+  }
+
+  async _onPreEmptiveRoll(event) {
+    event.preventDefault();
+
+    let checkName = game.settings.get("sw25", "effectInitPC");
+    let inputName = "";
+    let refAbility = "";
+    let modifier = "";
+    let targetValue = 0;
+    let method = "check";
+
+    let isView = false;
+    if (
+      CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= this.actor.ownership.default
+    ) {
+      isView = true;
+    }
+
+    let monsterName = isView
+      ? this.actor.name
+      : this.actor.system.udname
+      ? this.actor.system.udname
+      : game.i18n.localize("SW25.Monster.Unidentifiedmon");
+    monsterName += `(${this.actor.system.type})`;
+    targetValue = this.actor.system.preemptive;
+    let message = game.i18n.localize("SW25.Monster.Preemptive");
+
+    const speaker = isView ? ChatMessage.getSpeaker({ actor: this.actor }) : ChatMessage.getSpeaker({ alias: "Gamemaster" });
+
+    let chatData = {
+      speaker: speaker,
+      flavor: checkName,
+    };
+    chatData.flags = {
+      checkName: checkName,
+      inputName: inputName,
+      refAbility: refAbility,
+      modifier: modifier,
+      targetValue: targetValue,
+      method: method,
+    };
+    chatData.content = await renderTemplate(
+      "systems/sw25/templates/roll/rollreq-card.hbs",
+      {
+        checkName: checkName,
+        message: message,
+        difficulty: monsterName,
+        targetValue: targetValue,
+        mod: modifier,
+      }
+    );
+
+    ChatMessage.create(chatData);
+  }
+
   async _showItemDetails(event) {
     event.preventDefault();
     const toggler = $(event.currentTarget);
@@ -1265,8 +1383,14 @@ export class SW25ActorSheet extends ActorSheet {
     const action = event.currentTarget.dataset.action;
     const input = event.currentTarget.parentElement.querySelector("input");
 
-    if (action === "decrease") (isNaN(input.valueAsNumber) || !input.valueAsNumber) ? input.valueAsNumber = -1 : input.valueAsNumber -= 1;
-    else if (action === "increase") (isNaN(input.valueAsNumber) || !input.valueAsNumber) ? input.valueAsNumber = 1 : input.valueAsNumber += 1;
+    if (action === "decrease")
+      isNaN(input.valueAsNumber) || !input.valueAsNumber
+        ? (input.valueAsNumber = -1)
+        : (input.valueAsNumber -= 1);
+    else if (action === "increase")
+      isNaN(input.valueAsNumber) || !input.valueAsNumber
+        ? (input.valueAsNumber = 1)
+        : (input.valueAsNumber += 1);
 
     this.submit();
   }

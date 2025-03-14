@@ -59,6 +59,18 @@
   cursor: pointer;
 }
 
+.popularityrollable:hover, .popularityrollable:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+
+.preemptiverollable:hover, .preemptiverollable:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+
 .quantitychange:hover, .quantitychange:focus {
   color: #000;
   text-shadow: 0 0 10px red;
