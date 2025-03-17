@@ -310,6 +310,43 @@ export class SW25Actor extends Actor {
       if (item.type == "skill") {
         if (item.name == systemData.frskill) {
           systemData.frbase = item.system.skillbase.intnef;
+          let skillLevel = item.system.skilllevel ? item.system.skilllevel : 0;
+
+          let fairyCount = 0;
+          if(systemData.attributes.fairy.earth){
+            fairyCount++;
+          }
+          if(systemData.attributes.fairy.water){
+            fairyCount++;
+          }
+          if(systemData.attributes.fairy.fire){
+            fairyCount++;
+          }
+          if(systemData.attributes.fairy.wind){
+            fairyCount++;
+          }
+          if(systemData.attributes.fairy.light){
+            fairyCount++;
+          }
+          if(systemData.attributes.fairy.dark){
+            fairyCount++;
+          }
+
+          const fairyRank = [0,1,2,4,5,6,8,9,10,12,13,14,15,15,15,15];
+          const fairyAllRank = [0,0,0,2,3,4,4,5,6,6,7,8,8,9,10,10];
+          const fairyExRank = [0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,5];
+
+          let fairyUseRank = "";
+          if(fairyCount < 4) {
+            fairyUseRank = fairyRank[skillLevel];
+          } else if (fairyCount == 4){
+            fairyUseRank = skillLevel;
+          } else if (fairyCount == 5){
+            fairyUseRank = fairyAllRank[skillLevel];
+          } else {
+            fairyUseRank = `${fairyAllRank[skillLevel]}/${fairyExRank[skillLevel]}`;
+          }
+          systemData.frRank = fairyUseRank;
         }
       }
     });

@@ -556,7 +556,17 @@
         <div class="grid grid-12col">
           <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Fairy"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.frcast}}" data-label="{{localize "SW25.Item.Spell.Fairy"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.frpower}}</span>
-          <span class="grid-span-2"></span>
+          <span class="grid-span-2">
+            <div class="fairy-checkbox">
+              <label class="fairy-contract f-earth {{#if system.attributes.fairy.earth}}checked{{/if}}" data-path="system.attributes.fairy.earth">{{localize "SW25.Item.Spell.FairyContract.Earth"}}</label>
+              <label class="fairy-contract f-water {{#if system.attributes.fairy.water}}checked{{/if}}" data-path="system.attributes.fairy.water">{{localize "SW25.Item.Spell.FairyContract.Water"}}</label>
+              <label class="fairy-contract f-fire {{#if system.attributes.fairy.fire}}checked{{/if}}" data-path="system.attributes.fairy.fire">{{localize "SW25.Item.Spell.FairyContract.Fire"}}</label>
+              <label class="fairy-contract f-wind {{#if system.attributes.fairy.wind}}checked{{/if}}" data-path="system.attributes.fairy.wind">{{localize "SW25.Item.Spell.FairyContract.Wind"}}</label>
+              <label class="fairy-contract f-light {{#if system.attributes.fairy.light}}checked{{/if}}" data-path="system.attributes.fairy.light">{{localize "SW25.Item.Spell.FairyContract.Light"}}</label>
+              <label class="fairy-contract f-dark {{#if system.attributes.fairy.dark}}checked{{/if}}" data-path="system.attributes.fairy.dark">{{localize "SW25.Item.Spell.FairyContract.Dark"}}</label>
+            </div>
+            <span class="fairy-rank">{{localize "SW25.Item.Spell.FairyContract.Rank"}}:{{system.frRank}}</span>
+          </span>
           <span class="grid-span-4" style="text-align: right;">
             <select name="system.frskill">
               {{#select system.frskill}}

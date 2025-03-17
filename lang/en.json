@@ -87,6 +87,9 @@
     "InputPlaceHolder": "Input here.",
     "NotTokenwarn": "No Token in canvas.",
 
+    "NotResource": "Resource is not found.",
+    "InputPhaseareaPoint": "Input use point.",
+
     "Disposition": {
       "Friendly": "Friendly",
       "Neutral": "Neutral",
@@ -171,6 +174,7 @@
       "ActiveEffect": "SW25 Effect Sheet"
     },
     "Item": {
+      "Name": "Name",
       "CheckB": "<CK>",
       "PowerB": "<PWR>",
       "EffectB": "<EFF>",
@@ -356,6 +360,15 @@
         "Fairywind": "Wind",
         "Fairylight": "Light",
         "Fairydark": "Dark",
+        "FairyContract":{
+          "Rank": "Rank",
+          "Earth": "Ea",
+          "Water": "Wa",
+          "Fire": "Fi",
+          "Wind": "Wi",
+          "Light": "Li",
+          "Dark": "Da"
+        },
         "Hpresist": "Fortitude",
         "Meta": "Meta",
         "Cancel": "Cancel",
@@ -382,14 +395,20 @@
         "Support": "Supported Mount"
       },
       "Alchemytech": {
+        "MaterialCard": "Material Card",
         "Red": "Red",
         "Green": "Green",
         "Black": "Black",
         "White": "White",
-        "Gold": "Gold"
+        "Gold": "Gold",
+        "B": "B",
+        "A": "A",
+        "S": "S",
+        "SS": "SS"
       },
       "Phasearea": {
         "Phase": "Aspect",
+        "Point": "Pt",
         "Lifeline": "Qi",
         "Ten": "Heaven",
         "Chi": "Earth",
@@ -422,6 +441,20 @@
         "Powerroll": "Power Roll"
       },
       "Resource": {
+        "Battle": "Not Battle",
+        "Type": "Resource Type",
+        "Types": {
+          "None": "None",
+          "Note": "Music",
+          "Material": "Material Card",
+          "Lifeline": "Qi",
+          "Tacspower": "Edge",
+          "AbyssEx": "Abyss Extend"
+        },
+        "Deamonblood": "Deamon Blood",
+        "Deamoncrystal": "Deamon Crystal",
+        "DeamoncrystalLarge": "Deamon Large Crystal",
+        "Abyssshard": "Abyss Shard"
       },
       "Combatability": {
         "Type": "Type",

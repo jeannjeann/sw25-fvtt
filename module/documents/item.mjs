@@ -626,7 +626,8 @@ export class SW25Item extends Item {
     let checkabimod2 = 0;
     let checkabimod3 = 0;
     let powerabimod = 0;
-    let dedicatedDex = (itemData.type === "weapon" && itemData.system.dedicated) ? 2 : 0;
+    let dedicatedDex =
+      itemData.type === "weapon" && itemData.system.dedicated ? 2 : 0;
     if (actor.type == "character") {
       if (systemData.checkabi == "dex")
         checkabimod = Math.floor(
@@ -1729,6 +1730,25 @@ export class SW25Item extends Item {
         }
         */
       }
+    }
+
+    // resourcetype check.
+    if (systemData.resource?.type == "note") {
+      systemData.resource.isNote = true;
+    } else if (systemData.resource?.type == "material") {
+      systemData.resource.isMaterial = true;
+    } else if (systemData?.resource.type == "lifeline") {
+      systemData.resource.isLifeline = true;
+    } else if (systemData?.resource.type == "tacspower") {
+      systemData.resource.isTacsPower = true;
+    } else if (systemData?.resource.type == "abyssex") {
+      systemData.resource.isAbyssEx = true;
+    } else {
+      systemData.resource.isNote = false;
+      systemData.resource.isMaterial = false;
+      systemData.resource.isLifeline = false;
+      systemData.resource.isTacsPower = false;
+      systemData.resource.isAbyssEx = false;
     }
 
     // Sheet refresh
