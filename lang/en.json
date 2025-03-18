@@ -438,7 +438,14 @@
       "Check": {
         "Normalcheck": "Normal Check",
         "Customroll": "Custom Dice Check",
-        "Powerroll": "Power Roll"
+        "Powerroll": "Power Roll",
+        "Package": "Check Package",
+        "Packages": {
+          "Finesse": "Finesse",
+          "Movement": "Movement",
+          "Observation": "Observation",
+          "Knowledge": "Knowledge"
+        }
       },
       "Resource": {
         "Battle": "Not Battle",

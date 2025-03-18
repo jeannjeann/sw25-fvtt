@@ -439,7 +439,14 @@
       "Check": {
         "Normalcheck": "通常判定",
         "Customroll": "カスタムダイス",
-        "Powerroll": "威力ロール"
+        "Powerroll": "威力ロール",
+        "Package": "判定パッケージ",
+        "Packages": {
+          "Finesse": "技巧",
+          "Movement": "運動",
+          "Observation": "観察",
+          "Knowledge": "知識"
+        }
       },
       "Resource": {
         "Battle": "戦闘タブ非表示",

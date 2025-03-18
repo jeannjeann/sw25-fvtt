@@ -508,7 +508,11 @@ export class SW25Actor extends Actor {
     let totalewckmod = null;
     let totalewpwmod = null;
     let totallootmod = null;
-
+    let totalfinechkmod = null;
+    let totalmovechkmod = null;
+    let totalobsechkmod = null;
+    let totalknowchkmod = null;
+    
     const processingRules = [
       { key:"system.attributes.efhitmod", target:"totalhitmod" },
       { key:"system.attributes.efdmod", target:"totaldmod" },
@@ -588,7 +592,11 @@ export class SW25Actor extends Actor {
       { key:"system.attributes.efatckmod", target:"totalatckmod" },
       { key:"system.attributes.efewckmod", target:"totalewckmod" },
       { key:"system.attributes.efewpwmod", target:"totalewpwmod" },
-      { key:"system.eflootmod", target:"totallootmod" }
+      { key:"system.eflootmod", target:"totallootmod" },
+      { key:"system.effect.package.fine", target:"totalfinechkmod" },
+      { key:"system.effect.package.move", target:"totalmovechkmod" },
+      { key:"system.effect.package.obse", target:"totalobsechkmod" },
+      { key:"system.effect.package.know", target:"totalknowchkmod" }
     ];
     let ruleMap = Object.fromEntries(
       processingRules.map((rule) => [rule.key, rule])
@@ -703,6 +711,10 @@ export class SW25Actor extends Actor {
     systemData.totalewckmod = totalewckmod;
     systemData.totalewpwmod = totalewpwmod;
     systemData.totallootmod = totallootmod;
+    systemData.totalfinechkmod = totalfinechkmod;
+    systemData.totalmovechkmod = totalmovechkmod;
+    systemData.totalobsechkmod = totalobsechkmod;
+    systemData.totalknowchkmod = totalknowchkmod;
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
     if (totalcmod > 0) systemData.totalcmod = "+" + totalcmod;
@@ -772,6 +784,10 @@ export class SW25Actor extends Actor {
     if (totalewckmod > 0) systemData.totalewckmod = "+" + totalewckmod;
     if (totalewpwmod > 0) systemData.totalewpwmod = "+" + totalewpwmod;
     if (totallootmod > 0) systemData.totallootmod = "+" + totallootmod;
+    if (totalfinechkmod > 0) systemData.totalfinechkmod = "+" + totalfinechkmod;
+    if (totalmovechkmod > 0) systemData.totalmovechkmod = "+" + totalmovechkmod;
+    if (totalobsechkmod > 0) systemData.totalobsechkmod = "+" + totalobsechkmod;
+    if (totalknowchkmod > 0) systemData.totalknowchkmod = "+" + totalknowchkmod;
 
     // Set initiative formula
     systemData.initiativeFormula = "2d6";

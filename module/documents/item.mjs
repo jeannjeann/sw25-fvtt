@@ -390,6 +390,14 @@ export class SW25Item extends Item {
       }
       if (actorData.effect.allck)
         systemData.efallckmod = Number(actorData.effect.allck);
+      if (systemData.checkpackage == "fine")
+        systemData.efckmod += Number(actorData.effect.package.fine);
+      if (systemData.checkpackage == "move")
+        systemData.efckmod += Number(actorData.effect.package.move);
+      if (systemData.checkpackage == "obse")
+        systemData.efckmod += Number(actorData.effect.package.obse);
+      if (systemData.checkpackage == "know")
+        systemData.efckmod += Number(actorData.effect.package.know);
     }
 
     systemData.checkbase =

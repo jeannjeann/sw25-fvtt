@@ -49,6 +49,10 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.effect.allck":
         case "system.effect.allsk":
         case "system.eflootmod":
+        case "system.effect.package.fine":
+        case "system.effect.package.move":
+        case "system.effect.package.obse":
+        case "system.effect.package.know":
           change.keyClassification = "check";
           change.keyname = change.key.replace(/^system\./, "");
           break;

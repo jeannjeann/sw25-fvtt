@@ -95,6 +95,17 @@
             {{/if}}
           </span>
           {{/unless}}
+          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Check.Package"}}</b><br>
+            <select name="system.checkpackage">
+              {{#select system.checkpackage}}
+              <option value="-">-</option>
+              <option value="fine">{{localize "SW25.Item.Check.Packages.Finesse"}}</option>
+              <option value="move">{{localize "SW25.Item.Check.Packages.Movement"}}</option>
+              <option value="obse">{{localize "SW25.Item.Check.Packages.Observation"}}</option>
+              <option value="know">{{localize "SW25.Item.Check.Packages.Knowledge"}}</option>
+              {{/select}}
+            </select>
+          </span>
         </div>
         <div style="display: {{#if (eq system.checkmethod "power")}}block{{else}}none{{/if}};">
           <div class="flexrow grid grid-8col">
