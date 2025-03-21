@@ -1741,7 +1741,7 @@ export async function chatButton(chatMessage, buttonType) {
       }
     
       if (successCount > 0) {
-        if(targetValues.size > 1){
+        if(targetValues.length > 1){
           resultText = `<span class="success"> ${successCount} ${game.i18n.localize("SW25.Success")} ▶ </span>`;
         } else {
           resultText = `<span class="success"> ${game.i18n.localize("SW25.Success")} ▶ </span>`;
