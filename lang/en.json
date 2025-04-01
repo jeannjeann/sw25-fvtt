@@ -90,6 +90,8 @@
     "NotResource": "Resource is not found.",
     "InputPhaseareaPoint": "Input use point.",
 
+    "TurnendEffect": "Turn end effect",
+
     "Disposition": {
       "Friendly": "Friendly",
       "Neutral": "Neutral",
@@ -552,6 +554,8 @@
       "MppMod": "MDEF Mod",
       "Dreduce": "DMG Reduce",
       "MoveMod": "Move Mod",
+      "HpregenMod": "Hp regen Mod",
+      "MpregenMod": "Mp regen Mod",
       "HpMod": "Max HP Mod",
       "MpMod": "Max MP Mod",
       "DexValueModify": "Ability(Dex)",

@@ -39,7 +39,9 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.efmppmod":
         case "system.attributes.efdreduce":
         case "system.attributes.move.efmovemod":
-          change.keyClassification = "battle";
+        case "system.attributes.turnend.hpregenmod":
+        case "system.attributes.turnend.mpregenmod":
+              change.keyClassification = "battle";
           change.keyname = change.key.replace(/^system\./, "");
           break;
         case "system.effect.vitres":

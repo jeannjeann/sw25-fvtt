@@ -104,6 +104,79 @@ Hooks.once("init", function () {
   return preloadHandlebarsTemplates();
 });
 
+/**
+ * combat hook.
+ */
+Hooks.on("updateCombat", async (combat, changes, options, userId) => {
+  console.log("*** Update combat. ***");
+  const combatant = combat.previous;
+  if (!combatant) return;
+
+  let actor = combatant.actor || game.actors.get(combatant.actorId);
+
+  if (!actor && combatant.tokenId) {
+    const token = canvas.tokens.get(combatant.tokenId);
+    if (token) {
+      actor = token.actor;
+    }
+  }
+
+  if (!actor) return;
+
+  const turnEndEffect = actor.system.attributes?.turnend;
+  if (changes.turn !== undefined || changes.round !== undefined) {
+    
+    if (turnEndEffect?.hpregenmod || turnEndEffect?.mpregenmod) {
+      const hpregen = turnEndEffect.hpregenmod || 0;
+      const mpregen = turnEndEffect.mpregenmod || 0;
+
+      const targetHP = actor.system.hp.value || 0;
+      const resultHP = targetHP + hpregen;
+      const targetMP = actor.system.mp.value || 0;
+      const resultMP = targetMP + mpregen;
+      let isView = false;
+      if (Number(hpregen) != 0 || Number(mpregen) != 0) {
+        if (CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= actor.ownership.default)
+          isView = true;
+
+        // Apply regen
+        const updates = {
+          "system.hp.value": resultHP,
+          "system.mp.value": resultMP,
+        };
+
+        actor.update(updates);
+      }
+
+      // Chat message
+      const speaker = ChatMessage.getSpeaker({ actor: actor });
+      const rollMode = game.settings.get("core", "rollMode");
+      let label = actor.name + "(" + game.i18n.localize("SW25.TurnendEffect") + ")";
+
+      let chatData = {
+        speaker: speaker,
+        flavor: label,
+        rollMode: rollMode,
+      };
+
+      chatData.content = await renderTemplate(
+        "systems/sw25/templates/roll/hpmp-apply.hbs",
+        {
+          targetHP: targetHP,
+          resultHP: resultHP,
+          targetMP: targetMP,
+          resultMP: resultMP,
+          hpregen: 0 < hpregen ? `+${hpregen}` : hpregen,
+          mpregen: 0 < mpregen ? `+${mpregen}` : mpregen,
+          isView: isView,
+        }
+      );
+
+      ChatMessage.create(chatData);
+    }
+  }
+});
+
 /* -------------------------------------------- */
 /*  Handlebars Helpers                          */
 /* -------------------------------------------- */

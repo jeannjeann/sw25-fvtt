@@ -442,6 +442,8 @@ export class SW25Actor extends Actor {
     let totalmppmod = null;
     let totaldreduce = null;
     let totalmovemod = null;
+    let totalhpregenmod = null;
+    let totalmpregenmod = null;
     let totalvitres = null;
     let totalmndres = null;
     let totalinit = null;
@@ -527,6 +529,8 @@ export class SW25Actor extends Actor {
       { key:"system.attributes.efmppmod", target:"totalmppmod" },
       { key:"system.attributes.efdreduce", target:"totaldreduce" },
       { key:"system.attributes.move.efmovemod", target:"totalmovemod" },
+      { key:"system.attributes.turnend.hpregenmod", target:"totalhpregenmod" },
+      { key:"system.attributes.turnend.mpregenmod", target:"totalmpregenmod" },
       { key:"system.effect.vitres", target:"totalvitres" },
       { key:"system.effect.mndres", target:"totalmndres" },
       { key:"system.effect.init", target:"totalinit" },
@@ -645,6 +649,8 @@ export class SW25Actor extends Actor {
     systemData.totalmppmod = totalmppmod;
     systemData.totaldreduce = totaldreduce;
     systemData.totalmovemod = totalmovemod;
+    systemData.totalhpregenmod = totalhpregenmod;
+    systemData.totalmpregenmod = totalmpregenmod;
     systemData.totalvitres = totalvitres;
     systemData.totalmndres = totalmndres;
     systemData.totalinit = totalinit;
@@ -728,6 +734,8 @@ export class SW25Actor extends Actor {
     if (totalmppmod > 0) systemData.totalmppmod = "+" + totalmppmod;
     if (totaldreduce > 0) systemData.totaldreduce = "+" + totaldreduce;
     if (totalmovemod > 0) systemData.totalmovemod = "+" + totalmovemod;
+    if (totalhpregenmod > 0) systemData.totalhpregenmod = "+" + totalhpregenmod;
+    if (totalmpregenmod > 0) systemData.totalmpregenmod = "+" + totalmpregenmod;
     if (totalvitres > 0) systemData.totalvitres = "+" + totalvitres;
     if (totalmndres > 0) systemData.totalmndres = "+" + totalmndres;
     if (totalinit > 0) systemData.totalinit = "+" + totalinit;
@@ -1071,6 +1079,8 @@ export class SW25Actor extends Actor {
     let totalmppmod = null;
     let totaldreduce = null;
     let totalmovemod = null;
+    let totalhpregenmod = null;
+    let totalmpregenmod = null;
     let totalvitres = null;
     let totalmndres = null;
     let totalinit = null;
@@ -1151,6 +1161,8 @@ export class SW25Actor extends Actor {
       { key: "system.attributes.efmppmod", target: "totalmppmod" },
       { key: "system.attributes.efdreduce", target: "totaldreduce" },
       { key: "system.attributes.move.efmovemod", target: "totalmovemod" },
+      { key: "system.attributes.turnend.hpregenmod", target: "totalhpregenmod" },
+      { key: "system.attributes.turnend.mpregenmod", target: "totalmpregenmod" },
       { key: "system.effect.vitres", target: "totalvitres" },
       { key: "system.effect.mndres", target: "totalmndres" },
       { key: "system.effect.init", target: "totalinit" },
@@ -1264,6 +1276,8 @@ export class SW25Actor extends Actor {
     systemData.totalmppmod = totalmppmod;
     systemData.totaldreduce = totaldreduce;
     systemData.totalmovemod = totalmovemod;
+    systemData.totalhpregenmod = totalhpregenmod;
+    systemData.totalmpregenmod = totalmpregenmod;
     systemData.totalvitres = totalvitres;
     systemData.totalmndres = totalmndres;
     systemData.totalinit = totalinit;
@@ -1343,6 +1357,8 @@ export class SW25Actor extends Actor {
     if (totalmppmod > 0) systemData.totalmppmod = "+" + totalmppmod;
     if (totaldreduce > 0) systemData.totaldreduce = "+" + totaldreduce;
     if (totalmovemod > 0) systemData.totalmovemod = "+" + totalmovemod;
+    if (totalhpregenmod > 0) systemData.totalhpregenmod = "+" + totalhpregenmod;
+    if (totalmpregenmod > 0) systemData.totalmpregenmod = "+" + totalmpregenmod;
     if (totalvitres > 0) systemData.totalvitres = "+" + totalvitres;
     if (totalmndres > 0) systemData.totalmndres = "+" + totalmndres;
     if (totalinit > 0) systemData.totalinit = "+" + totalinit;

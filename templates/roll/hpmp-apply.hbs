@@ -1,0 +1,23 @@
+{{#if flavor}}<span class="flavor-text">{{flavor}}</span>{{/if}}
+<div class="flexrow flex-group-center grid grid-3col nogapmargin">
+    {{#if hpregen}}
+    <div class="grid-span-3" style="text-align: center;">
+        HP
+        {{#if isView}}
+        <span style="color: #862020; font-weight: bold; font-size: 1.5em;"> {{targetHP}}</span>
+        >>><span style="color: #862020; font-weight: bold; font-size: 1.5em;"> {{resultHP}}</span>
+        {{/if}}
+        (<span style="color: #202086; font-weight: bold; font-size: 1.5em;">{{hpregen}}</span>)
+    </div>
+    {{/if}}
+    {{#if mpregen}}
+    <div class="grid-span-3" style="text-align: center;">
+        MP
+        {{#if isView}}
+        <span style="color: #862020; font-weight: bold; font-size: 1.5em;"> {{targetMP}}</span>
+        >>><span style="color: #862020; font-weight: bold; font-size: 1.5em;"> {{resultMP}}</span>
+        {{/if}}
+        (<span style="color: #202086; font-weight: bold; font-size: 1.5em;">{{mpregen}}</span>)
+    </div>
+    {{/if}}
+</div>

@@ -91,6 +91,8 @@
     "NotResource": "該当リソースなし",
     "InputPhaseareaPoint": "使用命脈点を入力",
 
+    "TurnendEffect": "ターン終了時効果",
+
     "Disposition": {
       "Friendly": "友好",
       "Neutral": "中立",
@@ -552,6 +554,8 @@
       "MppMod": "魔法防御修正",
       "Dreduce": "ダメージ軽減",
       "MoveMod": "移動力修正",
+      "HpregenMod": "HP継続回復",
+      "MpregenMod": "MP継続回復",
       "HpMod": "最大HP修正",
       "MpMod": "最大MP修正",
       "DexValueModify": "器用度",
