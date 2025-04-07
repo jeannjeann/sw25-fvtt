@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.3.0
+- 複数のUX修正  by [keyslock](https://github.com/keyslock)
+
 ## 1.2.1
 - ローカライズ修正  by [Ryotai](https://github.com/ryotai-trpg)
 
