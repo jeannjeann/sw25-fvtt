@@ -1709,8 +1709,8 @@ export async function chatButton(chatMessage, buttonType) {
       label = `${game.i18n.localize(
         "SW25.StraightRoll"
       )} - ${checkName} (${game.i18n.localize("SW25.Check")})`;
+    label += flags.targetValue ? "/" + flags.targetValue : "";
 
-    let judge = false;
     let resultText = "";
     let fumble =
       roll.terms[0].results[0].result == 1 &&
@@ -1718,18 +1718,39 @@ export async function chatButton(chatMessage, buttonType) {
     let critical =
       roll.terms[0].results[0].result == 6 &&
       roll.terms[0].results[1].result == 6;
+
+    let targetValues;
+
     if (flags.targetValue) {
-      if (roll.total >= parseInt(flags.targetValue, 10)) judge = true;
-      if (judge) {
-        resultText = `<span class="success"> ${game.i18n.localize(
-          "SW25.Success"
-        )} ▶ </span>`;
+      if (typeof flags.targetValue === "number") {
+        targetValues = [flags.targetValue];
+      } else if (typeof flags.targetValue === "string") {
+        targetValues = flags.targetValue.match(/[/,／， 　]/) 
+         ? flags.targetValue.split(/[/,／， 　]/).map(v => parseInt(v, 10)).filter(v => !isNaN(v)) 
+         : [parseInt(flags.targetValue, 10)].filter(v => !isNaN(v));
       } else {
-        resultText = `<span class="failed"> ${game.i18n.localize(
-          "SW25.Failed"
-        )} ▶ </span>`;
+        targetValues = [];
+      }
+
+      let successCount = 0;
+    
+      for (let target of targetValues) {
+        if (roll.total >= target) {
+          successCount++;
+        }
+      }
+    
+      if (successCount > 0) {
+        if(targetValues.length > 1){
+          resultText = `<span class="success"> ${successCount} ${game.i18n.localize("SW25.Success")} ▶ </span>`;
+        } else {
+          resultText = `<span class="success"> ${game.i18n.localize("SW25.Success")} ▶ </span>`;
+        }
+      } else {
+        resultText = `<span class="failed"> ${game.i18n.localize("SW25.Failed")} ▶ </span>`;
       }
     }
+
     if (critical) {
       resultText = `<span class="success">${game.i18n.localize(
         "SW25.Auto"

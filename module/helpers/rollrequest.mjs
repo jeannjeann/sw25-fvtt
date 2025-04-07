@@ -80,28 +80,23 @@ export async function rollreq() {
                   "SW25.Attributes.Advlevel"
                 )}${abi}`;
             }
+            let difficulty = targetValue ? game.i18n.localize("SW25.Difficulty") : "";
 
-            if (message && !targetValue) chatData.content = `${message}`;
-            if (!message && targetValue)
-              chatData.content = `<b>${game.i18n.localize(
-                "SW25.Difficulty"
-              )} : ${targetValue}</b>`;
-            if (message && targetValue)
-              chatData.content = `${message} <b>(${game.i18n.localize(
-                "SW25.Difficulty"
-              )} : ${targetValue}</b>)`;
-
+            let mod = "";
             if (modifier) {
-              let mod = modifier;
-              if (mod > 0) mod = `+${modifier}`;
-              chatData.content += `<div><button class="buttonclick" data-buttontype="buttonrollreq">${name} ${game.i18n.localize(
-                "SW25.Check"
-              )} (${mod})</button></div>`;
-            } else
-              chatData.content += `<div><button class="buttonclick" data-buttontype="buttonrollreq">${name} ${game.i18n.localize(
-                "SW25.Check"
-              )}</button></div>`;
+              mod = modifier > 0 ? `+${modifier}` : modifier;
+            }
 
+            chatData.content = await renderTemplate(
+              "systems/sw25/templates/roll/rollreq-card.hbs",
+              {
+                checkName: name,
+                message: message,
+                difficulty: difficulty,
+                targetValue: targetValue,
+                mod: mod,
+              }
+            );
             ChatMessage.create(chatData);
           },
         },

@@ -158,6 +158,25 @@ export class SW25ActorSheet extends ActorSheet {
     const actionsd28 = [];
     const actionsd49 = [];
     const actionsd610 = [];
+    const notes = [];
+    const materials = {
+      red: { b: [], a: [], s: [], ss: [] },
+      green: { b: [], a: [], s: [], ss: [] },
+      black: { b: [], a: [], s: [], ss: [] },
+      white: { b: [], a: [], s: [], ss: [] },
+      gold: { b: [], a: [], s: [], ss: [] },
+    };
+    const lifelines = [];
+    const tacspowers = [];
+    const abyssexs = [];
+    let materialshow = {
+      all: false,
+      red: false,
+      green: false,
+      black: false,
+      white: false,
+      gold: false,
+    };
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -175,7 +194,29 @@ export class SW25ActorSheet extends ActorSheet {
       }
       // Append to resource.
       if (i.type === "resource") {
-        resources.push(i);
+        if (
+          i.system?.resource?.type == null ||
+          i.system?.resource?.type == "none" ||
+          !i.system?.resource?.isNotBattle
+        ) {
+          resources.push(i);
+        }
+
+        if (i.system?.resource?.type == "note") {
+          notes.push(i);
+        } else if (i.system?.resource?.type == "material") {
+          let materialtype = i.system?.resource?.materialtype;
+          let materialrank = i.system?.resource?.materialrank;
+          materials[materialtype][materialrank].push(i);
+          materialshow.all = true;
+          materialshow[materialtype] = true;
+        } else if (i.system?.resource?.type == "lifeline") {
+          lifelines.push(i);
+        } else if (i.system?.resource?.type == "tacspower") {
+          tacspowers.push(i);
+        } else if (i.system?.resource?.type == "abyssex") {
+          abyssexs.push(i);
+        }
       }
       // Append to weapon.
       else if (i.type === "weapon") {
@@ -526,6 +567,16 @@ export class SW25ActorSheet extends ActorSheet {
     context.actionsd28 = actionsd28;
     context.actionsd49 = actionsd49;
     context.actionsd610 = actionsd610;
+    context.notes = notes;
+    context.materials = materials;
+    context.lifelines = lifelines;
+    context.tacspowers = tacspowers;
+    context.abyssexs = abyssexs;
+    context.noteshow = notes.length > 0;
+    context.materialshow = materialshow;
+    context.lifelineshow = lifelines.length > 0;
+    context.tacspowershow = tacspowers.length > 0;
+    context.abyssexshow = abyssexs.length > 0;
   }
 
   /* -------------------------------------------- */
@@ -587,6 +638,18 @@ export class SW25ActorSheet extends ActorSheet {
     // Loot roll.
     html.on("click", ".lootrollable", this._onLootRoll.bind(this));
 
+    // use Phasearea.
+    html.on("click", ".usephasearea", this._onUsePhasearea.bind(this));
+
+    // Material card cost.
+    html.on("click", ".materialcardcost", this._onMaterialcardCost.bind(this));
+
+    // Popularity roll.
+    html.on("click", ".popularityrollable", this._onPopularityRoll.bind(this));
+
+    // Preemptive roll.
+    html.on("click", ".preemptiverollable", this._onPreEmptiveRoll.bind(this));
+
     // Drag events for macros.
     if (this.actor.isOwner) {
       let handler = (ev) => this._onDragStart(ev);
@@ -626,6 +689,16 @@ export class SW25ActorSheet extends ActorSheet {
 
     // Drag action item to table
     html.find(`.actiontable`).on("drop", this._onActionTableDrag.bind(this));
+
+    // Fairy contract check
+    html.find(".fairy-contract").on("click", async (ev) => {
+      const target = ev.currentTarget;
+      const dataPath = target.dataset.path;
+      const currentState = getProperty(this.actor, dataPath) || false;
+
+      await this.actor.update({ [dataPath]: !currentState });
+      target.classList.toggle("checked", !currentState);
+    });
   }
 
   /**
@@ -641,7 +714,9 @@ export class SW25ActorSheet extends ActorSheet {
     // Grab any data associated with this control.
     const data = duplicate(header.dataset);
     // Initialize a default name.
-    const name = game.i18n.format("DOCUMENT.New", {type: game.i18n.localize(`TYPES.Item.${type}`)});
+    const name = game.i18n.format("DOCUMENT.New", {
+      type: game.i18n.localize(`TYPES.Item.${type}`),
+    });
     // Prepare the item object.
     const itemData = {
       name: name,
@@ -1220,6 +1295,124 @@ export class SW25ActorSheet extends ActorSheet {
     lootRoll(this.actor);
   }
 
+  async _onPopularityRoll(event) {
+    event.preventDefault();
+
+    let checkName = game.settings.get("sw25", "effectMKnowPC");
+    let inputName = "";
+    let refAbility = "";
+    let modifier = "";
+    let targetValue = 0;
+    let method = "check";
+
+    let isView = false;
+    if (
+      CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= this.actor.ownership.default
+    ) {
+      isView = true;
+    }
+
+    let monsterName = isView
+      ? this.actor.name
+      : this.actor.system.udname
+      ? this.actor.system.udname
+      : game.i18n.localize("SW25.Monster.Unidentifiedmon");
+    monsterName += `(${this.actor.system.type})`;
+    targetValue = this.actor.system.popularity;
+    targetValue += Number.isFinite(this.actor.system.weakpoint)
+      ? "/" + this.actor.system.weakpoint
+      : "";
+
+    let message = `${game.i18n.localize(
+      "SW25.Monster.Popularity"
+    )}/${game.i18n.localize("SW25.Monster.Weakpoint")}`;
+
+    const speaker = isView
+      ? ChatMessage.getSpeaker({ actor: this.actor })
+      : ChatMessage.getSpeaker({ alias: "Gamemaster" });
+
+    let chatData = {
+      speaker: speaker,
+      flavor: checkName,
+    };
+    chatData.flags = {
+      checkName: checkName,
+      inputName: inputName,
+      refAbility: refAbility,
+      modifier: modifier,
+      targetValue: targetValue,
+      method: method,
+    };
+    chatData.content = await renderTemplate(
+      "systems/sw25/templates/roll/rollreq-card.hbs",
+      {
+        checkName: checkName,
+        message: message,
+        difficulty: monsterName,
+        targetValue: targetValue,
+        mod: modifier,
+      }
+    );
+
+    ChatMessage.create(chatData);
+  }
+
+  async _onPreEmptiveRoll(event) {
+    event.preventDefault();
+
+    let checkName = game.settings.get("sw25", "effectInitPC");
+    let inputName = "";
+    let refAbility = "";
+    let modifier = "";
+    let targetValue = 0;
+    let method = "check";
+
+    let isView = false;
+    if (
+      CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= this.actor.ownership.default
+    ) {
+      isView = true;
+    }
+
+    let monsterName = isView
+      ? this.actor.name
+      : this.actor.system.udname
+      ? this.actor.system.udname
+      : game.i18n.localize("SW25.Monster.Unidentifiedmon");
+    monsterName += `(${this.actor.system.type})`;
+    targetValue = this.actor.system.preemptive;
+    let message = game.i18n.localize("SW25.Monster.Preemptive");
+
+    const speaker = isView
+      ? ChatMessage.getSpeaker({ actor: this.actor })
+      : ChatMessage.getSpeaker({ alias: "Gamemaster" });
+
+    let chatData = {
+      speaker: speaker,
+      flavor: checkName,
+    };
+    chatData.flags = {
+      checkName: checkName,
+      inputName: inputName,
+      refAbility: refAbility,
+      modifier: modifier,
+      targetValue: targetValue,
+      method: method,
+    };
+    chatData.content = await renderTemplate(
+      "systems/sw25/templates/roll/rollreq-card.hbs",
+      {
+        checkName: checkName,
+        message: message,
+        difficulty: monsterName,
+        targetValue: targetValue,
+        mod: modifier,
+      }
+    );
+
+    ChatMessage.create(chatData);
+  }
+
   async _showItemDetails(event) {
     event.preventDefault();
     const toggler = $(event.currentTarget);
@@ -1265,8 +1458,14 @@ export class SW25ActorSheet extends ActorSheet {
     const action = event.currentTarget.dataset.action;
     const input = event.currentTarget.parentElement.querySelector("input");
 
-    if (action === "decrease") input.valueAsNumber -= 1;
-    else if (action === "increase") input.valueAsNumber += 1;
+    if (action === "decrease")
+      isNaN(input.valueAsNumber) || !input.valueAsNumber
+        ? (input.valueAsNumber = -1)
+        : (input.valueAsNumber -= 1);
+    else if (action === "increase")
+      isNaN(input.valueAsNumber) || !input.valueAsNumber
+        ? (input.valueAsNumber = 1)
+        : (input.valueAsNumber += 1);
 
     this.submit();
   }
@@ -1624,5 +1823,417 @@ export class SW25ActorSheet extends ActorSheet {
       ]);
       await createdItem[0].update(updatedData);
     }
+  }
+
+  async _selectApplyTarget(event, item, targetEffects, orgActor, orgId) {
+    const tokens = canvas.tokens.placeables;
+
+    if (tokens.length === 0) {
+      return ui.notifications.warn(game.i18n.localize("SW25.NotTokenwarn"));
+    }
+
+    const categories = {
+      friendly: [],
+      neutral: [],
+      hostile: [],
+    };
+
+    tokens.forEach((token) => {
+      switch (token.document.disposition) {
+        case 1:
+          categories.friendly.push(token);
+          break;
+        case 0:
+          categories.neutral.push(token);
+          break;
+        case -1:
+          categories.hostile.push(token);
+          break;
+      }
+    });
+
+    for (const key in categories) {
+      categories[key].sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    const createCategoryBox = (category, title, categoryId) => {
+      let box = `<fieldset class="target-select">
+        <legend id="${categoryId}-toggle" style="cursor: pointer;">
+          <span class="selectable">${title}</span>
+        </legend>`;
+      category.forEach((token) => {
+        box += `
+          <div>
+            <input type="checkbox" id="token-${token.id}" name="${categoryId}" value="${token.id}" />
+            <label for="token-${token.id}" style="font-weight: normal;">${token.name}</label>
+          </div>`;
+      });
+      box += `</fieldset>`;
+      return box;
+    };
+
+    const content = `
+      <div style="width: 100%;">
+        ${createCategoryBox(
+          categories.friendly,
+          game.i18n.localize("SW25.Disposition.Friendly"),
+          "friendly"
+        )}
+        ${createCategoryBox(
+          categories.neutral,
+          game.i18n.localize("SW25.Disposition.Neutral"),
+          "neutral"
+        )}
+        ${createCategoryBox(
+          categories.hostile,
+          game.i18n.localize("SW25.Disposition.Hostile"),
+          "hostile"
+        )}
+      </div>`;
+
+    const dialog = new Dialog({
+      title: game.i18n.localize("SW25.TargetSelect") + `(${item.name})`,
+      content: content,
+      buttons: {
+        process: {
+          label: game.i18n.localize("SW25.Item.EffectB"),
+          callback: (html) => {
+            const selectedIds = html
+              .find('input[type="checkbox"]:checked')
+              .map((_, el) => el.value)
+              .get();
+
+            if (selectedIds.length === 0) {
+              return ui.notifications.warn(
+                game.i18n.localize("SW25.Notargetwarn")
+              );
+            }
+
+            const selectedTokens = canvas.tokens.placeables.filter((token) =>
+              selectedIds.includes(token.id)
+            );
+            const targetTokenId = Array.from(
+              selectedTokens,
+              (target) => target.id
+            );
+
+            if (game.user.isGM) {
+              selectedTokens.forEach((targetActor) => {
+                targetEffects.forEach((effect) => {
+                  const transferEffect = duplicate(effect);
+                  transferEffect.disabled = false;
+                  transferEffect.sourceName = orgActor;
+                  transferEffect.flags.sourceName = orgActor;
+                  transferEffect.flags.sourceId = `Actor.${orgId}`;
+                  targetActor.actor.createEmbeddedDocuments("ActiveEffect", [
+                    transferEffect,
+                  ]);
+                });
+              });
+            } else {
+              console.log(targetTokenId);
+              console.log(targetEffects);
+              game.socket.emit("system.sw25", {
+                method: "applyEffect",
+                targetTokens: targetTokenId,
+                targetEffects: targetEffects,
+                orgActor: orgActor,
+                orgId: orgId,
+              });
+            }
+          },
+        },
+        cancel: {
+          label: game.i18n.localize("SW25.Item.Spell.Cancel"),
+        },
+      },
+      default: "cancel",
+    });
+
+    dialog.render(true);
+
+    Hooks.once("renderDialog", (app, html) => {
+      const addToggleHandler = (categoryId) => {
+        const toggle = html.find(`#${categoryId}-toggle`);
+        const checkboxes = html.find(`input[name="${categoryId}"]`);
+
+        toggle.on("click", () => {
+          const allChecked = checkboxes.toArray().every((cb) => cb.checked);
+          checkboxes.prop("checked", !allChecked).trigger("change");
+        });
+
+        checkboxes.on("change", (event) => {
+          const checkbox = $(event.currentTarget);
+          const label = checkbox.next("label");
+          label.css("font-weight", checkbox.is(":checked") ? "bold" : "normal");
+        });
+      };
+
+      addToggleHandler("friendly");
+      addToggleHandler("neutral");
+      addToggleHandler("hostile");
+
+      html[0].style.width = "500px";
+    });
+  }
+
+  async _onUsePhasearea(event) {
+    event.preventDefault();
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+    let cost = item.system.mincost ? item.system.mincost : 0;
+
+    if (item.system.maxcost && item.system.mincost != item.system.maxcost) {
+      this._inputUsePhaseareaCost(item);
+    } else {
+      this._applyPhasearea(item, cost);
+    }
+  }
+
+  async _applyPhasearea(item, cost) {
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+
+    const orgActor = this.actor.name;
+    const orgId = this.actor._id;
+    const name =
+      item.name +
+      game.i18n.localize("SW25.Use") +
+      " " +
+      cost +
+      game.i18n.localize("SW25.Item.Phasearea.Point");
+    let effects = [
+      {
+        name: name,
+        img: item.img,
+        origin: "Item." + item._id,
+        disabled: false,
+        changes: [],
+        description: item.system.description,
+        transfer: false,
+        statuses: [],
+        flags: {
+          sourceName: orgActor,
+          sourceId: `Actor.${orgId}`,
+        },
+        tint: null,
+      },
+    ];
+
+    let lifeline = "";
+    if (item.system.type == "ten") {
+      lifeline = "Ten";
+    } else if (item.system.type == "chi") {
+      lifeline = "Chi";
+    } else if (item.system.type == "jin") {
+      lifeline = "Jin";
+    }
+
+    let resource = this.actor.items.find(i =>
+      i.type === "resource" &&
+      i.system?.resource?.type === "lifeline" &&
+      i.system?.resource?.lifelinetype === item.system.type
+    );
+
+    if (!resource) {
+      ui.notifications.warn(game.i18n.localize("SW25.NotResource") + ":" + game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`));
+    } else {
+      let oldVal = resource.system.quantity ? resource.system.quantity : 0;
+      let newVal = oldVal - cost;
+
+      await resource.update({ "system.quantity": newVal });
+    }
+
+    if (item.system.type == "ten") {
+      let val = this.actor.system.attributes.qi.heaven.value - cost;
+      this.actor.update({
+        "system.attributes.qi.heaven.value": val,
+      });
+    } else if (item.system.type == "chi") {
+      let val = this.actor.system.attributes.qi.earth.value - cost;
+      this.actor.update({
+        "system.attributes.qi.earth.value": val,
+      });
+    } else if (item.system.type == "jin") {
+      let val = this.actor.system.attributes.qi.spirit.value - cost;
+      this.actor.update({
+        "system.attributes.qi.spirit.value": val,
+      });
+    }
+
+    // Apply
+    if (game.user.isGM) {
+      selectedTokens[0].actor.createEmbeddedDocuments("ActiveEffect", effects);
+    } else {
+      const targetTokenId = Array.from(selectedTokens, (target) => target.id);
+      game.socket.emit("system.sw25", {
+        method: "applyEffect",
+        targetTokens: targetTokenId,
+        targetEffects: effects,
+        orgActor: orgActor,
+        orgId: orgId,
+      });
+    }
+
+    // Chat message
+    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+    let label = game.i18n.localize("SW25.Effectslong");
+    let chatActorName = ">>> " + selectedTokens[0].actor.name + "<br>";
+    let chatEffectName = effects[0].name + game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`) + "<br>";
+
+    let chatData = {
+      speaker: speaker,
+      flavor: label,
+    };
+    chatData.content = await renderTemplate(
+      "systems/sw25/templates/roll/effect-apply.hbs",
+      {
+        targetActorName: chatActorName,
+        transferEffectName: chatEffectName,
+      }
+    );
+
+    ChatMessage.create(chatData);
+  }
+
+  async _inputUsePhaseareaCost(item) {
+    const title = game.i18n.localize("SW25.InputPhaseareaPoint");
+    new Dialog({
+      title: `${title} (${item.name})`,
+      content: `
+        <form>
+          <div class="form-group">
+            <label for="number">${title} (${item.system.mincost}-${item.system.maxcost})</label>
+          </div>
+          <div class="form-group">
+            <input id="number" name="number" type="number" value="0" />
+          </div>
+        </form>
+      `,
+      buttons: {
+        ok: {
+          label: game.i18n.localize("SW25.Use"),
+          callback: (html) => {
+            const cost = parseInt(html.find("#number").val());
+            if (isNaN(cost)) {
+              ui.notifications.error(
+                game.i18n.localize("SW25.Item.Spell.Cancel")
+              );
+              return;
+            }
+            this._applyPhasearea(item, cost);
+          },
+        },
+        cancel: {
+          label: game.i18n.localize("SW25.Item.Spell.Cancel"),
+        },
+      },
+      default: "ok",
+    }).render(true);
+  }
+
+  async _onMaterialcardCost(event) {
+    event.preventDefault();
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+
+    const useRank = event.target.textContent.trim().toLowerCase();
+    let update = {};
+    const cards = [
+      { color: "red", mark: "fa-paw" },
+      { color: "green", mark: "fa-leaf" },
+      { color: "black", mark: "fa-gem" },
+      { color: "white", mark: "fa-heart" },
+      { color: "gold", mark: "fa-sun" },
+    ];
+    let message = `${item.name}<br>`;
+    
+    for (let card of cards) {
+      if(!isNaN(item.system[card.color]) && item.system[card.color] <= 0){
+        continue;
+      } 
+
+      let resource = this.actor.items.find(i =>
+          i.type === "resource" &&
+          i.system?.resource?.type === "material" &&
+          i.system?.resource?.materialtype === card.color &&
+          i.system?.resource?.materialrank === useRank
+      );
+
+      let cardCap =
+        card.color.charAt(0).toUpperCase() +
+        card.color.slice(1).toLowerCase();
+      if (!resource) {
+        message +=
+          `<div class="materialcard" style="text-align:center;"><div class="${card.color}"><i class="fa-solid ${card.mark}"></i>` +
+          game.i18n.localize(`SW25.Item.Alchemytech.${cardCap}`) +
+          event.target.textContent.trim() +
+          `(${item.system[card.color]})` +
+          ` ... <span style="font-size:1.5em">` +
+          game.i18n.localize(`SW25.NotResource`) +
+          `</span></div></div>`;
+      } else {
+        let oldVal = resource.system.quantity ? resource.system.quantity : 0;
+        let newVal = oldVal - item.system[card.color];
+
+        message +=
+          `<div class="materialcard" style="text-align:center;"><div class="${card.color}"><i class="fa-solid ${card.mark}"></i>` +
+          game.i18n.localize(`SW25.Item.Alchemytech.${cardCap}`) +
+          event.target.textContent.trim() +
+          `(${item.system[card.color]})` +
+          ` ... <span style="font-size:1.5em">${oldVal} -> ${newVal}</span></div></div>`;
+
+        await resource.update({ "system.quantity": newVal });
+      }
+    }
+
+    this.actor.update(update);
+
+    // Chat message
+    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+    let label =
+      game.i18n.localize("SW25.Item.Alchemytech.MaterialCard") +
+      game.i18n.localize("SW25.Cost");
+
+    let chatData = {
+      speaker: speaker,
+      flavor: label,
+    };
+    chatData.content = await renderTemplate(
+      "systems/sw25/templates/roll/card-apply.hbs",
+      {
+        message: message,
+      }
+    );
+
+    ChatMessage.create(chatData);
   }
 }

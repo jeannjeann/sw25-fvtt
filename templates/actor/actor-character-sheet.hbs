@@ -531,7 +531,7 @@
         <div class="grid grid-12col">
           <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Magitech"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.mtcast}}" data-label="{{localize "SW25.Item.Spell.Magitech"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.mtpower}}</span>
-          <span class="grid-span-2"></span>
+          <span class="rollable resource-label-l grid-span-2" style="text-align: center;" data-resusequantity={{system.resusequantity}} data-resuse="{{system.resuse}}" data-roll="{{system.itemhitformula}}+{{system.itemhitbase}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Weapon.Hit"}})" data-pt="{{system.itempowertable}}" data-apply="{{system.itemapplycheck}}" data-checktype="{{system.itemchecktype}}">{{localize "SW25.Item.Weapon.Hit"}} : {{system.itemhitbase}}</span>
           <span class="grid-span-4" style="text-align: right;">
             <select name="system.mtskill">
               {{#select system.mtskill}}
@@ -556,7 +556,17 @@
         <div class="grid grid-12col">
           <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Fairy"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.frcast}}" data-label="{{localize "SW25.Item.Spell.Fairy"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.frpower}}</span>
-          <span class="grid-span-2"></span>
+          <span class="grid-span-2">
+            <div class="fairy-checkbox">
+              <label class="fairy-contract f-earth {{#if system.attributes.fairy.earth}}checked{{/if}}" data-path="system.attributes.fairy.earth">{{localize "SW25.Item.Spell.FairyContract.Earth"}}</label>
+              <label class="fairy-contract f-water {{#if system.attributes.fairy.water}}checked{{/if}}" data-path="system.attributes.fairy.water">{{localize "SW25.Item.Spell.FairyContract.Water"}}</label>
+              <label class="fairy-contract f-fire {{#if system.attributes.fairy.fire}}checked{{/if}}" data-path="system.attributes.fairy.fire">{{localize "SW25.Item.Spell.FairyContract.Fire"}}</label>
+              <label class="fairy-contract f-wind {{#if system.attributes.fairy.wind}}checked{{/if}}" data-path="system.attributes.fairy.wind">{{localize "SW25.Item.Spell.FairyContract.Wind"}}</label>
+              <label class="fairy-contract f-light {{#if system.attributes.fairy.light}}checked{{/if}}" data-path="system.attributes.fairy.light">{{localize "SW25.Item.Spell.FairyContract.Light"}}</label>
+              <label class="fairy-contract f-dark {{#if system.attributes.fairy.dark}}checked{{/if}}" data-path="system.attributes.fairy.dark">{{localize "SW25.Item.Spell.FairyContract.Dark"}}</label>
+            </div>
+            <span class="fairy-rank">{{localize "SW25.Item.Spell.FairyContract.Rank"}}:{{system.frRank}}</span>
+          </span>
           <span class="grid-span-4" style="text-align: right;">
             <select name="system.frskill">
               {{#select system.frskill}}
@@ -680,6 +690,8 @@
           {{#if system.totalmppmod}}<div><b>{{localize "SW25.Effect.MppMod"}}: {{system.totalmppmod}}</b></div>{{/if}}
           {{#if system.totaldreduce}}<div><b>{{localize "SW25.Effect.Dreduce"}}: {{system.totaldreduce}}</b></div>{{/if}}
           {{#if system.totalmovemod}}<div><b>{{localize "SW25.Effect.MoveMod"}}: {{system.totalmovemod}}</b></div>{{/if}}
+          {{#if system.totalhpregenmod}}<div><b>{{localize "SW25.Effect.HpregenMod"}}: {{system.totalhpregenmod}}</b></div>{{/if}}
+          {{#if system.totalmpregenmod}}<div><b>{{localize "SW25.Effect.MpregenMod"}}: {{system.totalmpregenmod}}</b></div>{{/if}}
           {{#if system.totalvitres}}<div><b>{{localize "SW25.Config.ResVit"}}: {{system.totalvitres}}</b></div>{{/if}}
           {{#if system.totalmndres}}<div><b>{{localize "SW25.Config.ResMnd"}}: {{system.totalmndres}}</b></div>{{/if}}
           {{#if system.totalinit}}<div><b>{{localize "SW25.Config.Init"}}: {{system.totalinit}}</b></div>{{/if}}
@@ -746,6 +758,10 @@
           {{#if system.totalewckmod}}<div><b>{{localize "TYPES.Item.essenceweave"}} / {{localize "SW25.Effect.Force"}}: {{system.totalewckmod}}</b></div>{{/if}}
           {{#if system.totalewpwmod}}<div><b>{{localize "TYPES.Item.essenceweave"}} / {{localize "SW25.Effect.MPower"}}: {{system.totalewpwmod}}</b></div>{{/if}}
           {{#if system.totallootmod}}<div><b>{{localize "SW25.Monster.Loot"}}: {{system.totallootmod}}</b></div>{{/if}}
+          {{#if system.totalfinechkmod}}<div><b>{{localize "SW25.Item.Check.Packages.Finesse"}}{{localize "SW25.Check"}}: {{system.totalfinechkmod}}</b></div>{{/if}}
+          {{#if system.totalmovechkmod}}<div><b>{{localize "SW25.Item.Check.Packages.Movement"}}{{localize "SW25.Check"}}: {{system.totalmovechkmod}}</b></div>{{/if}}
+          {{#if system.totalobsechkmod}}<div><b>{{localize "SW25.Item.Check.Packages.Observation"}}{{localize "SW25.Check"}}: {{system.totalobsechkmod}}</b></div>{{/if}}
+          {{#if system.totalknowchkmod}}<div><b>{{localize "SW25.Item.Check.Packages.Knowledge"}}{{localize "SW25.Check"}}: {{system.totalknowchkmod}}</b></div>{{/if}}
         </div>
       </div>
       <div>

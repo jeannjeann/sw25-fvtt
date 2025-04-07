@@ -87,6 +87,11 @@
     "InputPlaceHolder": "Input here.",
     "NotTokenwarn": "No Token in canvas.",
 
+    "NotResource": "Resource is not found.",
+    "InputPhaseareaPoint": "Input use point.",
+
+    "TurnendEffect": "Turn end effect",
+
     "Disposition": {
       "Friendly": "Friendly",
       "Neutral": "Neutral",
@@ -171,6 +176,7 @@
       "ActiveEffect": "SW25 Effect Sheet"
     },
     "Item": {
+      "Name": "Name",
       "CheckB": "<CK>",
       "PowerB": "<PWR>",
       "EffectB": "<EFF>",
@@ -356,6 +362,15 @@
         "Fairywind": "Wind",
         "Fairylight": "Light",
         "Fairydark": "Dark",
+        "FairyContract":{
+          "Rank": "Rank",
+          "Earth": "Ea",
+          "Water": "Wa",
+          "Fire": "Fi",
+          "Wind": "Wi",
+          "Light": "Li",
+          "Dark": "Da"
+        },
         "Hpresist": "Fortitude",
         "Meta": "Meta",
         "Cancel": "Cancel",
@@ -382,14 +397,20 @@
         "Support": "Supported Mount"
       },
       "Alchemytech": {
+        "MaterialCard": "Material Card",
         "Red": "Red",
         "Green": "Green",
         "Black": "Black",
         "White": "White",
-        "Gold": "Gold"
+        "Gold": "Gold",
+        "B": "B",
+        "A": "A",
+        "S": "S",
+        "SS": "SS"
       },
       "Phasearea": {
         "Phase": "Aspect",
+        "Point": "Pt",
         "Lifeline": "Qi",
         "Ten": "Heaven",
         "Chi": "Earth",
@@ -419,9 +440,30 @@
       "Check": {
         "Normalcheck": "Normal Check",
         "Customroll": "Custom Dice Check",
-        "Powerroll": "Power Roll"
+        "Powerroll": "Power Roll",
+        "Package": "Check Package",
+        "Packages": {
+          "Finesse": "Finesse",
+          "Movement": "Movement",
+          "Observation": "Observation",
+          "Knowledge": "Knowledge"
+        }
       },
       "Resource": {
+        "Battle": "Not Battle",
+        "Type": "Resource Type",
+        "Types": {
+          "None": "None",
+          "Note": "Music",
+          "Material": "Material Card",
+          "Lifeline": "Qi",
+          "Tacspower": "Edge",
+          "AbyssEx": "Abyss Extend"
+        },
+        "Deamonblood": "Deamon Blood",
+        "Deamoncrystal": "Deamon Crystal",
+        "DeamoncrystalLarge": "Arcdeamon Crystal",
+        "Abyssshard": "Abyss Shard"
       },
       "Combatability": {
         "Type": "Type",
@@ -512,6 +554,8 @@
       "MppMod": "MDEF Mod",
       "Dreduce": "DMG Reduce",
       "MoveMod": "Move Mod",
+      "HpregenMod": "Hp regen Mod",
+      "MpregenMod": "Mp regen Mod",
       "HpMod": "Max HP Mod",
       "MpMod": "Max MP Mod",
       "DexValueModify": "Ability(Dex)",

@@ -39,7 +39,9 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.attributes.efmppmod":
         case "system.attributes.efdreduce":
         case "system.attributes.move.efmovemod":
-          change.keyClassification = "battle";
+        case "system.attributes.turnend.hpregenmod":
+        case "system.attributes.turnend.mpregenmod":
+              change.keyClassification = "battle";
           change.keyname = change.key.replace(/^system\./, "");
           break;
         case "system.effect.vitres":
@@ -49,6 +51,10 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         case "system.effect.allck":
         case "system.effect.allsk":
         case "system.eflootmod":
+        case "system.effect.package.fine":
+        case "system.effect.package.move":
+        case "system.effect.package.obse":
+        case "system.effect.package.know":
           change.keyClassification = "check";
           change.keyname = change.key.replace(/^system\./, "");
           break;

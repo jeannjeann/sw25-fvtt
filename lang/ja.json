@@ -88,6 +88,11 @@
     "InputPlaceHolder": "ここに入力",
     "NotTokenwarn": "トークンが存在しません。",
 
+    "NotResource": "該当リソースなし",
+    "InputPhaseareaPoint": "使用命脈点を入力",
+
+    "TurnendEffect": "ターン終了時効果",
+
     "Disposition": {
       "Friendly": "友好",
       "Neutral": "中立",
@@ -172,6 +177,7 @@
       "ActiveEffect": "SW25バフデバフシート"
     },
     "Item": {
+      "Name": "名称",
       "CheckB": "判定",
       "PowerB": "威力",
       "EffectB": "バフ",
@@ -357,6 +363,15 @@
         "Fairywind": "風",
         "Fairylight": "光",
         "Fairydark": "闇",
+        "FairyContract":{
+          "Rank": "ランク",
+          "Earth": "土",
+          "Water": "水",
+          "Fire": "炎",
+          "Wind": "風",
+          "Light": "光",
+          "Dark": "闇"
+        },
         "Hpresist": "生命",
         "Meta": "拡大",
         "Cancel": "取消",
@@ -383,14 +398,20 @@
         "Support": "対応"
       },
       "Alchemytech": {
+        "MaterialCard": "マテリアルカード",
         "Red": "赤",
         "Green": "緑",
         "Black": "黒",
         "White": "白",
-        "Gold": "金"
+        "Gold": "金",
+        "B": "B",
+        "A": "A",
+        "S": "S",
+        "SS": "SS"
       },
       "Phasearea": {
         "Phase": "相",
+        "Point": "命脈点",
         "Lifeline": "命脈",
         "Ten": "天",
         "Chi": "地",
@@ -420,9 +441,30 @@
       "Check": {
         "Normalcheck": "通常判定",
         "Customroll": "カスタムダイス",
-        "Powerroll": "威力ロール"
+        "Powerroll": "威力ロール",
+        "Package": "判定パッケージ",
+        "Packages": {
+          "Finesse": "技巧",
+          "Movement": "運動",
+          "Observation": "観察",
+          "Knowledge": "知識"
+        }
       },
       "Resource": {
+        "Battle": "戦闘タブ非表示",
+        "Type": "リソース種別",
+        "Types": {
+          "None": "なし",
+          "Note": "楽素",
+          "Material": "マテリアルカード",
+          "Lifeline": "命脈点",
+          "Tacspower": "陣気",
+          "AbyssEx": "奈落魔法拡張素材"
+        },
+        "Deamonblood": "悪魔の血",
+        "Deamoncrystal": "悪魔の血晶",
+        "DeamoncrystalLarge": "大悪魔の血晶",
+        "Abyssshard": "アビスシャード"
       },
       "Combatability": {
         "Type": "種別",
@@ -512,6 +554,8 @@
       "MppMod": "魔法防御修正",
       "Dreduce": "ダメージ軽減",
       "MoveMod": "移動力修正",
+      "HpregenMod": "HP継続回復",
+      "MpregenMod": "MP継続回復",
       "HpMod": "最大HP修正",
       "MpMod": "最大MP修正",
       "DexValueModify": "器用度",

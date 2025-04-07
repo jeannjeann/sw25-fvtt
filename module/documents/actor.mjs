@@ -310,6 +310,43 @@ export class SW25Actor extends Actor {
       if (item.type == "skill") {
         if (item.name == systemData.frskill) {
           systemData.frbase = item.system.skillbase.intnef;
+          let skillLevel = item.system.skilllevel ? item.system.skilllevel : 0;
+
+          let fairyCount = 0;
+          if(systemData.attributes.fairy.earth){
+            fairyCount++;
+          }
+          if(systemData.attributes.fairy.water){
+            fairyCount++;
+          }
+          if(systemData.attributes.fairy.fire){
+            fairyCount++;
+          }
+          if(systemData.attributes.fairy.wind){
+            fairyCount++;
+          }
+          if(systemData.attributes.fairy.light){
+            fairyCount++;
+          }
+          if(systemData.attributes.fairy.dark){
+            fairyCount++;
+          }
+
+          const fairyRank = [0,1,2,4,5,6,8,9,10,12,13,14,15,15,15,15];
+          const fairyAllRank = [0,0,0,2,3,4,4,5,6,6,7,8,8,9,10,10];
+          const fairyExRank = [0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,5];
+
+          let fairyUseRank = "";
+          if(fairyCount < 4) {
+            fairyUseRank = fairyRank[skillLevel];
+          } else if (fairyCount == 4){
+            fairyUseRank = skillLevel;
+          } else if (fairyCount == 5){
+            fairyUseRank = fairyAllRank[skillLevel];
+          } else {
+            fairyUseRank = `${fairyAllRank[skillLevel]}/${fairyExRank[skillLevel]}`;
+          }
+          systemData.frRank = fairyUseRank;
         }
       }
     });
@@ -405,6 +442,8 @@ export class SW25Actor extends Actor {
     let totalmppmod = null;
     let totaldreduce = null;
     let totalmovemod = null;
+    let totalhpregenmod = null;
+    let totalmpregenmod = null;
     let totalvitres = null;
     let totalmndres = null;
     let totalinit = null;
@@ -471,7 +510,11 @@ export class SW25Actor extends Actor {
     let totalewckmod = null;
     let totalewpwmod = null;
     let totallootmod = null;
-
+    let totalfinechkmod = null;
+    let totalmovechkmod = null;
+    let totalobsechkmod = null;
+    let totalknowchkmod = null;
+    
     const processingRules = [
       { key:"system.attributes.efhitmod", target:"totalhitmod" },
       { key:"system.attributes.efdmod", target:"totaldmod" },
@@ -486,6 +529,8 @@ export class SW25Actor extends Actor {
       { key:"system.attributes.efmppmod", target:"totalmppmod" },
       { key:"system.attributes.efdreduce", target:"totaldreduce" },
       { key:"system.attributes.move.efmovemod", target:"totalmovemod" },
+      { key:"system.attributes.turnend.hpregenmod", target:"totalhpregenmod" },
+      { key:"system.attributes.turnend.mpregenmod", target:"totalmpregenmod" },
       { key:"system.effect.vitres", target:"totalvitres" },
       { key:"system.effect.mndres", target:"totalmndres" },
       { key:"system.effect.init", target:"totalinit" },
@@ -551,7 +596,11 @@ export class SW25Actor extends Actor {
       { key:"system.attributes.efatckmod", target:"totalatckmod" },
       { key:"system.attributes.efewckmod", target:"totalewckmod" },
       { key:"system.attributes.efewpwmod", target:"totalewpwmod" },
-      { key:"system.eflootmod", target:"totallootmod" }
+      { key:"system.eflootmod", target:"totallootmod" },
+      { key:"system.effect.package.fine", target:"totalfinechkmod" },
+      { key:"system.effect.package.move", target:"totalmovechkmod" },
+      { key:"system.effect.package.obse", target:"totalobsechkmod" },
+      { key:"system.effect.package.know", target:"totalknowchkmod" }
     ];
     let ruleMap = Object.fromEntries(
       processingRules.map((rule) => [rule.key, rule])
@@ -600,6 +649,8 @@ export class SW25Actor extends Actor {
     systemData.totalmppmod = totalmppmod;
     systemData.totaldreduce = totaldreduce;
     systemData.totalmovemod = totalmovemod;
+    systemData.totalhpregenmod = totalhpregenmod;
+    systemData.totalmpregenmod = totalmpregenmod;
     systemData.totalvitres = totalvitres;
     systemData.totalmndres = totalmndres;
     systemData.totalinit = totalinit;
@@ -666,6 +717,10 @@ export class SW25Actor extends Actor {
     systemData.totalewckmod = totalewckmod;
     systemData.totalewpwmod = totalewpwmod;
     systemData.totallootmod = totallootmod;
+    systemData.totalfinechkmod = totalfinechkmod;
+    systemData.totalmovechkmod = totalmovechkmod;
+    systemData.totalobsechkmod = totalobsechkmod;
+    systemData.totalknowchkmod = totalknowchkmod;
     if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
     if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
     if (totalcmod > 0) systemData.totalcmod = "+" + totalcmod;
@@ -679,6 +734,8 @@ export class SW25Actor extends Actor {
     if (totalmppmod > 0) systemData.totalmppmod = "+" + totalmppmod;
     if (totaldreduce > 0) systemData.totaldreduce = "+" + totaldreduce;
     if (totalmovemod > 0) systemData.totalmovemod = "+" + totalmovemod;
+    if (totalhpregenmod > 0) systemData.totalhpregenmod = "+" + totalhpregenmod;
+    if (totalmpregenmod > 0) systemData.totalmpregenmod = "+" + totalmpregenmod;
     if (totalvitres > 0) systemData.totalvitres = "+" + totalvitres;
     if (totalmndres > 0) systemData.totalmndres = "+" + totalmndres;
     if (totalinit > 0) systemData.totalinit = "+" + totalinit;
@@ -735,6 +792,10 @@ export class SW25Actor extends Actor {
     if (totalewckmod > 0) systemData.totalewckmod = "+" + totalewckmod;
     if (totalewpwmod > 0) systemData.totalewpwmod = "+" + totalewpwmod;
     if (totallootmod > 0) systemData.totallootmod = "+" + totallootmod;
+    if (totalfinechkmod > 0) systemData.totalfinechkmod = "+" + totalfinechkmod;
+    if (totalmovechkmod > 0) systemData.totalmovechkmod = "+" + totalmovechkmod;
+    if (totalobsechkmod > 0) systemData.totalobsechkmod = "+" + totalobsechkmod;
+    if (totalknowchkmod > 0) systemData.totalknowchkmod = "+" + totalknowchkmod;
 
     // Set initiative formula
     systemData.initiativeFormula = "2d6";
@@ -1018,6 +1079,8 @@ export class SW25Actor extends Actor {
     let totalmppmod = null;
     let totaldreduce = null;
     let totalmovemod = null;
+    let totalhpregenmod = null;
+    let totalmpregenmod = null;
     let totalvitres = null;
     let totalmndres = null;
     let totalinit = null;
@@ -1098,6 +1161,8 @@ export class SW25Actor extends Actor {
       { key: "system.attributes.efmppmod", target: "totalmppmod" },
       { key: "system.attributes.efdreduce", target: "totaldreduce" },
       { key: "system.attributes.move.efmovemod", target: "totalmovemod" },
+      { key: "system.attributes.turnend.hpregenmod", target: "totalhpregenmod" },
+      { key: "system.attributes.turnend.mpregenmod", target: "totalmpregenmod" },
       { key: "system.effect.vitres", target: "totalvitres" },
       { key: "system.effect.mndres", target: "totalmndres" },
       { key: "system.effect.init", target: "totalinit" },
@@ -1211,6 +1276,8 @@ export class SW25Actor extends Actor {
     systemData.totalmppmod = totalmppmod;
     systemData.totaldreduce = totaldreduce;
     systemData.totalmovemod = totalmovemod;
+    systemData.totalhpregenmod = totalhpregenmod;
+    systemData.totalmpregenmod = totalmpregenmod;
     systemData.totalvitres = totalvitres;
     systemData.totalmndres = totalmndres;
     systemData.totalinit = totalinit;
@@ -1290,6 +1357,8 @@ export class SW25Actor extends Actor {
     if (totalmppmod > 0) systemData.totalmppmod = "+" + totalmppmod;
     if (totaldreduce > 0) systemData.totaldreduce = "+" + totaldreduce;
     if (totalmovemod > 0) systemData.totalmovemod = "+" + totalmovemod;
+    if (totalhpregenmod > 0) systemData.totalhpregenmod = "+" + totalhpregenmod;
+    if (totalmpregenmod > 0) systemData.totalmpregenmod = "+" + totalmpregenmod;
     if (totalvitres > 0) systemData.totalvitres = "+" + totalvitres;
     if (totalmndres > 0) systemData.totalmndres = "+" + totalmndres;
     if (totalinit > 0) systemData.totalinit = "+" + totalinit;

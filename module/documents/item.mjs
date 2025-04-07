@@ -390,6 +390,16 @@ export class SW25Item extends Item {
       }
       if (actorData.effect.allck)
         systemData.efallckmod = Number(actorData.effect.allck);
+
+      if (systemData.checkpackage == "fine"){
+        systemData.efckmod += actorData.effect.package?.fine ? Number(actorData.effect.package?.fine) : 0;
+      } else if (systemData.checkpackage == "move"){
+        systemData.efckmod += actorData.effect.package?.move ? Number(actorData.effect.package?.move) : 0;
+      } else if (systemData.checkpackage == "obse"){
+        systemData.efckmod += actorData.effect.package?.obse ? Number(actorData.effect.package?.obse) : 0;
+      } else if (systemData.checkpackage == "know"){
+        systemData.efckmod += actorData.effect.package?.know ? Number(actorData.effect.package?.know) : 0;
+      }
     }
 
     systemData.checkbase =
@@ -626,6 +636,8 @@ export class SW25Item extends Item {
     let checkabimod2 = 0;
     let checkabimod3 = 0;
     let powerabimod = 0;
+    let dedicatedDex =
+      itemData.type === "weapon" && itemData.system.dedicated ? 2 : 0;
     if (actor.type == "character") {
       if (systemData.checkabi == "dex")
         checkabimod = Math.floor(
@@ -633,7 +645,8 @@ export class SW25Item extends Item {
             actorData.abilities.dex.valuebase +
             actorData.abilities.dex.valuegrowth +
             actorData.abilities.dex.valuemodify +
-            actorData.abilities.dex.efvaluemodify) /
+            actorData.abilities.dex.efvaluemodify +
+            dedicatedDex) /
             6 +
             Number(actorData.abilities.dex.efmodify)
         );
@@ -1613,6 +1626,8 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
+    const actorData = itemData.actor.system;
+    const actoritemData = itemData.actor.items;
 
     if (systemData.type != "-") {
       const i18ntype =
@@ -1727,6 +1742,25 @@ export class SW25Item extends Item {
       }
     }
 
+    // resourcetype check.
+    if (systemData.resource?.type == "note") {
+      systemData.resource.isNote = true;
+    } else if (systemData.resource?.type == "material") {
+      systemData.resource.isMaterial = true;
+    } else if (systemData?.resource.type == "lifeline") {
+      systemData.resource.isLifeline = true;
+    } else if (systemData?.resource.type == "tacspower") {
+      systemData.resource.isTacsPower = true;
+    } else if (systemData?.resource.type == "abyssex") {
+      systemData.resource.isAbyssEx = true;
+    } else {
+      systemData.resource.isNote = false;
+      systemData.resource.isMaterial = false;
+      systemData.resource.isLifeline = false;
+      systemData.resource.isTacsPower = false;
+      systemData.resource.isAbyssEx = false;
+    }
+
     // Sheet refresh
     await actor.update({});
     if (actor.sheet.rendered) await actor.sheet.render(true, { focus: false });
@@ -1740,6 +1774,8 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
+    const actorData = itemData.actor.system;
+    const actoritemData = itemData.actor.items;
 
     if (systemData.category != "-") {
       const i18ncat =
@@ -2026,6 +2062,8 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
+    const actorData = itemData.actor.system;
+    const actoritemData = itemData.actor.items;
 
     if (systemData.type != "-") {
       const i18ntype =
