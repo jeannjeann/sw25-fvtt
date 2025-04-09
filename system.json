@@ -18,7 +18,7 @@
       "thumbnail": "systems/sw25/assets/sw25fvtt.png"
     }
   ],
-  "version": "1.2.1",
+  "version": "1.3.0",
   "compatibility": {
     "minimum": "11",
     "verified": "11.315",
