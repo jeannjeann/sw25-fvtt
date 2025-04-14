@@ -2061,23 +2061,6 @@ export class SW25ActorSheet extends ActorSheet {
       await resource.update({ "system.quantity": newVal });
     }
 
-    if (item.system.type == "ten") {
-      let val = this.actor.system.attributes.qi.heaven.value - cost;
-      this.actor.update({
-        "system.attributes.qi.heaven.value": val,
-      });
-    } else if (item.system.type == "chi") {
-      let val = this.actor.system.attributes.qi.earth.value - cost;
-      this.actor.update({
-        "system.attributes.qi.earth.value": val,
-      });
-    } else if (item.system.type == "jin") {
-      let val = this.actor.system.attributes.qi.spirit.value - cost;
-      this.actor.update({
-        "system.attributes.qi.spirit.value": val,
-      });
-    }
-
     // Apply
     if (game.user.isGM) {
       selectedTokens[0].actor.createEmbeddedDocuments("ActiveEffect", effects);
