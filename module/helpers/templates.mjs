@@ -44,10 +44,12 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/sw25/templates/actor/parts/actor-effects.hbs",
     "systems/sw25/templates/actor/parts/actor-monsterabilities.hbs",
     "systems/sw25/templates/actor/parts/actor-monsterspells.hbs",
+    "systems/sw25/templates/actor/parts/actor-monsterskills.hbs",
     "systems/sw25/templates/actor/parts/actor-actions.hbs",
     "systems/sw25/templates/actor/parts/actor-actions-fellow.hbs",
     "systems/sw25/templates/actor/parts/actor-actions-daemon.hbs",
     // Item partials
+    "systems/sw25/templates/item/parts/item-customs.hbs",
     "systems/sw25/templates/item/parts/item-effects.hbs",
     "systems/sw25/templates/item/parts/item-usepower.hbs",
     "systems/sw25/templates/item/parts/item-usedice.hbs",

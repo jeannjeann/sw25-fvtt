@@ -168,6 +168,7 @@ export class SW25ActorSheet extends ActorSheet {
     };
     const lifelines = [];
     const tacspowers = [];
+    const magitechrs = [];
     const abyssexs = [];
     let materialshow = {
       all: false,
@@ -214,6 +215,8 @@ export class SW25ActorSheet extends ActorSheet {
           lifelines.push(i);
         } else if (i.system?.resource?.type == "tacspower") {
           tacspowers.push(i);
+        } else if (i.system?.resource?.type == "magitech") {
+          magitechrs.push(i);
         } else if (i.system?.resource?.type == "abyssex") {
           abyssexs.push(i);
         }
@@ -571,11 +574,13 @@ export class SW25ActorSheet extends ActorSheet {
     context.materials = materials;
     context.lifelines = lifelines;
     context.tacspowers = tacspowers;
+    context.magitechrs = magitechrs;
     context.abyssexs = abyssexs;
     context.noteshow = notes.length > 0;
     context.materialshow = materialshow;
     context.lifelineshow = lifelines.length > 0;
     context.tacspowershow = tacspowers.length > 0;
+    context.magitechrshow = magitechrs.length > 0;
     context.abyssexshow = abyssexs.length > 0;
   }
 
@@ -1319,7 +1324,7 @@ export class SW25ActorSheet extends ActorSheet {
       : game.i18n.localize("SW25.Monster.Unidentifiedmon");
     monsterName += `(${this.actor.system.type})`;
     targetValue = this.actor.system.popularity;
-    targetValue += Number.isFinite(this.actor.system.weakpoint)
+    targetValue += !isNaN(Number(this.actor.system.weakpoint))
       ? "/" + this.actor.system.weakpoint
       : "";
 
@@ -2079,7 +2084,7 @@ export class SW25ActorSheet extends ActorSheet {
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     let label = game.i18n.localize("SW25.Effectslong");
     let chatActorName = ">>> " + selectedTokens[0].actor.name + "<br>";
-    let chatEffectName = effects[0].name + game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`) + "<br>";
+    let chatEffectName = effects[0].name + "(" + game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`) + ")<br>";
 
     let chatData = {
       speaker: speaker,

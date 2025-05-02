@@ -424,7 +424,7 @@
     }
   },
   "Item": {
-    "types": ["weapon", "armor", "accessory", "item", "spell", "enhancearts", "magicalsong", "ridingtrick", "alchemytech", "phasearea", "tactics", "infusion", "barbarousskill", "essenceweave", "otherfeature", "check", "resource", "combatability", "skill", "raceability", "language", "monsterability", "action"],
+    "types": ["weapon", "armor", "accessory", "item", "spell", "enhancearts", "magicalsong", "ridingtrick", "alchemytech", "phasearea", "tactics", "infusion", "barbarousskill", "essenceweave", "otherfeature", "check", "resource", "combatability", "skill", "raceability", "language", "monsterability", "action", "session"],
     "templates": {
       "base": {
         "description": "",
@@ -642,7 +642,7 @@
       "checkmethod": "normal",
       "efckmod": 0,
       "efallckmod": 0
-  },
+    },
     "resource": {
       "templates": ["base", "item", "roll"]
     },
@@ -766,7 +766,11 @@
       "target": "",
       "basempcost": "",
       "mpcost": ""
-  },
+    },
+    "session": {
+      "templates": ["base", "roll"],
+      "character": 1
+    },
     "otherfeature": {
       "templates": ["base", "roll"],
       "type": "",

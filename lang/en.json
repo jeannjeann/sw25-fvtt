@@ -21,6 +21,7 @@
     "Spells": "Spells",
     "Effects": "Effects",
     "Effectslong": "Effects",
+    "Customs": "Customs",
     "Description": "Description",
     "Details": "Details",
     "Abilityname": "Ability",
@@ -458,8 +459,13 @@
           "Material": "Material Card",
           "Lifeline": "Qi",
           "Tacspower": "Edge",
+          "Magitech": "Magitech",
           "AbyssEx": "Abyss Extend"
         },
+        "Bullet": "Bullet",
+        "MagisphereS": "Magi Sphere S",
+        "MagisphereM": "Magi Sphere M",
+        "MagisphereL": "Magi Sphere L",
         "Deamonblood": "Deamon Blood",
         "Deamoncrystal": "Deamon Crystal",
         "DeamoncrystalLarge": "Arcdeamon Crystal",
@@ -520,7 +526,35 @@
         "ActionEffect": "Effect",
         "TableType": "Action Table Type",
         "Label": "Label"
-      }
+      },
+      "Session": {
+        "Information": "Information",
+        "Date": "Date",
+        "GM": "GameMaster",
+        "PC": "PC Num",
+        "Player": "Player",
+        "Exp": "Experience",
+        "Gamel": "Gamel",
+        "Honor": "Honor",
+        "Sword": "Sword Shard",
+        "Abyss": "Abyss Shard",
+        "Tresure": "Tresure Point",
+        "Mission": "Mission",
+        "Middle": "Middle",
+        "OutputResult": "Output Result",
+        "BasicResult": "Basic Info",
+        "SwordResult": "Sword Calc",
+        "CharaResult": "Fumble Calc",
+        "CustomResult" : "Custom Info",
+        "Result": {
+          "Label": "Session Result",
+          "Remainder": "Remainder",
+          "Character": "Character",
+          "Fumble": "Fumble",
+          "Item": "Item",
+          "Value": "Value"
+       }
+     }
     },
     "Effect": {
       "Source": "Source",
@@ -580,6 +614,13 @@
       "DmMod": "Summoning",
       "AbMod": "Abyssal Magic"
     },
+    "Custom": {
+      "Name": "Name",
+      "Value": "Value",
+      "MoveUp": "Move Up",
+      "MoveDown": "Move Down",
+      "Delete": "Delete"
+    },
     "Config": {
       "ResVit": "Fortitude",
       "ResMnd": "Willpower",
@@ -627,7 +668,8 @@
       "language": "Language",
       "otherfeature": "Other Features",
       "monsterability": "Monster Ability",
-      "action": "Action"
+      "action": "Action",
+      "session": "Session"
     }
   },
 
