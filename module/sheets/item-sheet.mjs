@@ -333,11 +333,9 @@ export class SW25ItemSheet extends ItemSheet {
     }
 
     // custom items.
-    const isCustom = item.system.result.custom;
     const fieldsRaw = item.system.customFields;
-    console.log(fieldsRaw);
     const customItems = Object.values(fieldsRaw);
-    console.log(customItems);
+    const isCustom = item.system.result.custom && customItems;
 
     // sword shard result.
     if (item.system.result.sword && 0 < getSword) {

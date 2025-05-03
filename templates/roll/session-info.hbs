@@ -50,42 +50,41 @@
             {{localize "SW25.Item.Session.Tresure"}}:{{getTresure}}
             </div>
         {{/if}}
-        </div>
+    </div>
 
-        {{#if isCharaExp}}
+    {{#if isCharaExp}}
         <div class="character-info">
             <table>
                 <tr>
-                    <th class="header-title"><div>{{localize "SW25.Item.Session.Result.Character"}}</div></th>
-                    <th class="header-value"><div></div>{{localize "SW25.Item.Session.Result.Fumble"}}</div></th>
+                    <th class="header-title">{{localize "SW25.Item.Session.Result.Character"}}</th>
+                    <th class="header-value">{{localize "SW25.Item.Session.Result.Fumble"}}</th>
                 </tr>
                 {{#each charaResult}}
                 <tr>
-                    <td class="contents-title"><div>{{name}}</div></td>
-                    <td class="contents-value"><div>{{value}}</div></td>
+                    <td class="contents-title">{{name}}</td>
+                    <td class="contents-value">{{value}}</td>
                 </tr>
                 {{/each}}
             </table>
         </div>
-        {{/if}}
+    {{/if}}
 
-        {{#if isCustom}}
+    {{#if isCustom}}
         <div class="custom-info">
             <table>
                 <tr>
-                    <th class="header-title"><div>{{localize "SW25.Item.Session.Result.Item"}}</div></th>
-                    <th class="header-value"><div>{{localize "SW25.Item.Session.Result.Value"}}</div></th>
+                    <th class="header-title">{{localize "SW25.Item.Session.Result.Item"}}</th>
+                    <th class="header-value">{{localize "SW25.Item.Session.Result.Value"}}</th>
                 </tr>
                 {{#each customItems}}
                 <tr>
-                    <td class="contents-title"><div>{{label}}</div></td>
-                    <td class="contents-value"><div>{{value}}</div></td>
+                    <td class="contents-title">{{label}}</td>
+                    <td class="contents-value">{{value}}</td>
                 </tr>
                 {{/each}}
             </table>
         </div>
-        {{/if}}
-    </div>
+    {{/if}}
 
     {{#if isRoll}}
         <div class="dice-roll">
