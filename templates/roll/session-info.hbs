@@ -1,0 +1,106 @@
+<div class="session-result-chat">
+    <div class="title">{{title}}</div>
+
+    {{#if isBasic}}
+    <div class="basic-info">
+        {{#if date}}
+            <div class="contents">
+            {{localize "SW25.Item.Session.Date"}}:{{date}}
+            </div>
+        {{/if}}
+        {{#if gm}}
+            <div class="contents">
+            {{localize "SW25.Item.Session.GM"}}:{{gm}}
+            </div>
+        {{/if}}
+        {{#if player}}
+            <div class="contents">
+            {{localize "SW25.Item.Session.Player"}}:{{player}}
+            </div>
+        {{/if}}
+    </div>
+    {{/if}}
+
+    <div class="session-info">
+        {{#if getExp}}
+            <div class="contents">
+            {{localize "SW25.Item.Session.Exp"}}:{{getExp}}
+            </div>
+        {{/if}}
+        {{#if isGamel}}
+            <div class="contents">
+            {{localize "SW25.Item.Session.Gamel"}}:{{getGamel}}
+            {{#if keepGamel}} ({{localize "SW25.Item.Session.Result.Remainder"}}:{{keepGamel}}){{/if}}
+            </div>
+        {{/if}}
+        {{#if isHonor}}
+            <div class="contents">
+            {{localize "SW25.Item.Session.Honor"}}:{{getHonor}}
+            {{#if getSword}} ({{localize "SW25.Item.Session.Sword"}}:{{getSword}}){{/if}}
+            </div>
+        {{/if}}
+        {{#if isAbyss}}
+            <div class="contents">
+            {{localize "SW25.Item.Session.Abyss"}}:{{getAbyss}}
+            {{#if keepAbyss}} ({{localize "SW25.Item.Session.Result.Remainder"}}:{{keepAbyss}}){{/if}}
+            </div>
+        {{/if}}
+        {{#if getTresure}}
+            <div class="contents">
+            {{localize "SW25.Item.Session.Tresure"}}:{{getTresure}}
+            </div>
+        {{/if}}
+    </div>
+
+    {{#if isCharaExp}}
+        <div class="character-info">
+            <table>
+                <tr>
+                    <th class="header-title">{{localize "SW25.Item.Session.Result.Character"}}</th>
+                    <th class="header-value">{{localize "SW25.Item.Session.Result.Fumble"}}</th>
+                </tr>
+                {{#each charaResult}}
+                <tr>
+                    <td class="contents-title">{{name}}</td>
+                    <td class="contents-value">{{value}}</td>
+                </tr>
+                {{/each}}
+            </table>
+        </div>
+    {{/if}}
+
+    {{#if isCustom}}
+        <div class="custom-info">
+            <table>
+                <tr>
+                    <th class="header-title">{{localize "SW25.Item.Session.Result.Item"}}</th>
+                    <th class="header-value">{{localize "SW25.Item.Session.Result.Value"}}</th>
+                </tr>
+                {{#each customItems}}
+                <tr>
+                    <td class="contents-title">{{label}}</td>
+                    <td class="contents-value">{{value}}</td>
+                </tr>
+                {{/each}}
+            </table>
+        </div>
+    {{/if}}
+
+    {{#if isRoll}}
+        <div class="dice-roll">
+            <div class="dice-result">
+                <div class="dice-formula">{{formula}}</div>
+                {{{tooltip}}}
+            </div>
+        </div>
+        <div class="dice-roll" style="margin-top: 0px;">
+            <div class="diceresult-apply">
+                <h4 class="dice-total diceresult-apply" style="flex-grow: 1">
+                    <span class="diceresult-total">
+                        {{{total}}}
+                    </span>
+                </h4>
+            </div>
+        </div>
+    {{/if}}
+</div>
