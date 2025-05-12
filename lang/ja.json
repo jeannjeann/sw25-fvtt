@@ -21,6 +21,7 @@
     "Spells": "魔法",
     "Effects": "バフ",
     "Effectslong": "バフ・デバフ",
+    "Customs": "カスタム項目",
     "Description": "説明",
     "Details": "詳細",
     "Abilityname": "能力値",
@@ -168,7 +169,7 @@
       "Corepart": "コア部位",
       "Ability": "魔物能力",
       "Loot": "戦利品",
-      "Usespell": "魔法使用",
+      "Usespell": "魔法・特技使用",
       "Unidentifiedmon": "不明の魔物"
     },
     "SheetLabels": {
@@ -459,8 +460,13 @@
           "Material": "マテリアルカード",
           "Lifeline": "命脈点",
           "Tacspower": "陣気",
+          "Magitech": "魔動機術",
           "AbyssEx": "奈落魔法拡張素材"
         },
+        "Bullet": "弾丸",
+        "MagisphereS": "マギスフィア小",
+        "MagisphereM": "マギスフィア中",
+        "MagisphereL": "マギスフィア大",
         "Deamonblood": "悪魔の血",
         "Deamoncrystal": "悪魔の血晶",
         "DeamoncrystalLarge": "大悪魔の血晶",
@@ -520,6 +526,34 @@
         "ActionEffect": "効果",
         "TableType": "行動表タイプ",
         "Label": "ラベル"
+      },
+      "Session": {
+        "Information": "セッション情報",
+        "Date": "日付",
+        "GM": "GM名",
+        "PC": "PC数",
+        "Player": "参加者",
+        "Exp": "経験点",
+        "Gamel": "ガメル",
+        "Honor": "名誉点",
+        "Sword": "剣のかけら",
+        "Abyss": "アビスシャード",
+        "Tresure": "トレジャーポイント",
+        "Mission": "依頼達成分",
+        "Middle": "戦利品",
+        "OutputResult": "セッション結果出力",
+        "BasicResult": "基本情報",
+        "SwordResult": "剣のかけら納品",
+        "CharaResult": "1ゾロ回数",
+        "CustomResult" : "カスタム項目",
+        "Result": {
+          "Label": "セッション結果",
+          "Remainder": "余",
+          "Character": "キャラクター",
+          "Fumble": "1ゾロ",
+          "Item": "項目名",
+          "Value": "値"
+       }
       }
     },
     "Effect": {
@@ -580,6 +614,13 @@
       "DmMod": "召異魔法",
       "AbMod": "奈落魔法"
     },
+    "Custom": {
+      "Name": "項目名",
+      "Value": "値",
+      "MoveUp": "上に移動",
+      "MoveDown": "下に移動",
+      "Delete": "削除"
+    },
     "Config": {
       "ResVit": "生命抵抗力",
       "ResMnd": "精神抵抗力",
@@ -627,7 +668,8 @@
       "language": "言語",
       "otherfeature": "その他の特技",
       "monsterability": "魔物能力",
-      "action": "行動"
+      "action": "行動",
+      "session": "セッション"
     }
   },
 

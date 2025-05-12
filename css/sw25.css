@@ -83,6 +83,11 @@
   cursor: pointer;
 }
 
+.session-result:hover, .session-result:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
 
 .grid,
 .grid-2col {
@@ -1452,4 +1457,59 @@ input.weakapply[type="checkbox"] {
 
 .fairy-rank {
   font-size: 0.7em;
+}
+
+.session-result-title {
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.session-result-chat .title{
+  background: linear-gradient(210deg, rgb(160, 205, 255), rgb(255, 165, 180));
+  border: 1px solid #333;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-weight:bold;
+}
+
+.session-result-chat .basic-info,
+.session-result-chat .session-info{
+  border: 1px solid #333;
+  padding: 2px;
+  margin: 2px;
+}
+
+.session-result-chat .basic-info .contents,
+.session-result-chat .session-info .contents{
+  padding-left:1em;
+	text-indent:-1em;
+}
+
+.session-result-chat .custom-info table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.session-result-chat .custom-info .header-title,
+.session-result-chat .custom-info .contents-title,
+.session-result-chat .custom-info .header-value,
+.session-result-chat .custom-info .contents-value{
+  min-width: 10%;
+}
+
+.sw25 .customs .item .custom-value,
+.sw25 .customs .item .custom-controls {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+
+.sw25 .customs .item .effect-controls {
+  border: none;
+}
+
+.sw25 .details .session-detail {
+  gap: 0px;
+  margin: 0px;
 }
