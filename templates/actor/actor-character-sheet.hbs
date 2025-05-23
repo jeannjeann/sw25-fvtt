@@ -276,20 +276,10 @@
         <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.dmod"><b>D{{localize "SW25.Modifier"}}</b></label> <input id="{{actor._id}}system.attributes.dmod" style="max-width: calc(40% - 7px); text-align: center;" type="text" name="system.attributes.dmod" value="{{system.attributes.dmod}}" data-dtype="Number"/></span>
         <span class="grid-span-8" style="text-align: right;">
           <select name="system.hitweapon">
-            {{#select system.hitweapon}}
-            <option value="-">{{localize "SW25.Selecthitweapon"}}</option>
-            {{#each battleweapons as |item id|}}
-            <option value="{{item.name}}">{{item.name}}</option>
-            {{/each}}
-            {{/select}}
+            {{selectOptions battleweapons selected=system.hitweapon nameAttr="name" labelAttr="name" localize=true blank="SW25.Selecthitweapon"}}
           </select>
           <select name="system.attackskill">
-            {{#select system.attackskill}}
-            <option value="-">{{localize "SW25.Selectattackskill"}}</option>
-            {{#each skills as |item id|}}
-            <option value="{{item.name}}">{{item.name}}</option>
-            {{/each}}
-            {{/select}}
+            {{selectOptions skills selected=system.attackskill nameAttr="name" labelAttr="name" localize=true blank="SW25.Selectattackskill"}}
           </select>
 
         </span>
@@ -299,12 +289,7 @@
         <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.dreduce"><b>D{{localize "SW25.Reduce"}}</b></label> <input id="{{actor._id}}system.attributes.dreduce" style="max-width: calc(40% - 7px); text-align: center;" type="text" name="system.attributes.dreduce" value="{{system.attributes.dreduce}}" data-dtype="Number"/></span>
         <span class="grid-span-4" style="text-align: right;">
           <select name="system.dodgeskill">
-            {{#select system.dodgeskill}}
-            <option value="-">{{localize "SW25.Selectdodgeskill"}}</option>
-            {{#each skills as |item id|}}
-            <option value="{{item.name}}">{{item.name}}</option>
-            {{/each}}
-            {{/select}}
+            {{selectOptions skills selected=system.dodgeskill nameAttr="name" labelAttr="name" localize=true blank="SW25.Selectdodgeskill"}}
           </select>
         </span>
       </div>
@@ -434,12 +419,7 @@
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
             <select name="system.scskill">
-              {{#select system.scskill}}
-              <option value="-">{{localize "SW25.Selectspellskill"}}</option>
-              {{#each skills as |item id|}}
-              <option value="{{item.name}}">{{item.name}}</option>
-              {{/each}}
-              {{/select}}
+              {{selectOptions skills selected=system.scskill nameAttr="name" labelAttr="name" localize=true blank="SW25.Selectspellskill"}}
             </select>
           </span>
           <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.scmod"><b>{{localize "SW25.Modifier"}}</b></label> <input id="{{actor._id}}system.attributes.scmod" style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.scmod" value="{{system.attributes.scmod}}" data-dtype="Number"/></span>
@@ -459,12 +439,7 @@
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
             <select name="system.cnskill">
-              {{#select system.cnskill}}
-              <option value="-">{{localize "SW25.Selectspellskill"}}</option>
-              {{#each skills as |item id|}}
-              <option value="{{item.name}}">{{item.name}}</option>
-              {{/each}}
-              {{/select}}
+              {{selectOptions skills selected=system.cnskill nameAttr="name" labelAttr="name" localize=true blank="SW25.Selectspellskill"}}
             </select>
           </span>
           <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.cnmod"><b>{{localize "SW25.Modifier"}}</b></label> <input id="{{actor._id}}system.attributes.cnmod" style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.cnmod" value="{{system.attributes.cnmod}}" data-dtype="Number"/></span>
@@ -484,12 +459,7 @@
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
             <select name="system.wzskill">
-              {{#select system.wzskill}}
-              <option value="-">{{localize "SW25.Selectspellskill"}}</option>
-              {{#each skills as |item id|}}
-              <option value="{{item.name}}">{{item.name}}</option>
-              {{/each}}
-              {{/select}}
+              {{selectOptions skills selected=system.wzskill nameAttr="name" labelAttr="name" localize=true blank="SW25.Selectspellskill"}}
             </select>
           </span>
           <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.wzmod"><b>{{localize "SW25.Modifier"}}</b></label> <input id="{{actor._id}}system.attributes.wzmod" style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.wzmod" value="{{system.attributes.wzmod}}" data-dtype="Number"/></span>
@@ -509,12 +479,7 @@
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
             <select name="system.prskill">
-              {{#select system.prskill}}
-              <option value="-">{{localize "SW25.Selectspellskill"}}</option>
-              {{#each skills as |item id|}}
-              <option value="{{item.name}}">{{item.name}}</option>
-              {{/each}}
-              {{/select}}
+              {{selectOptions skills selected=system.prskill nameAttr="name" labelAttr="name" localize=true blank="SW25.Selectspellskill"}}
             </select>
           </span>
           <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.prmod"><b>{{localize "SW25.Modifier"}}</b></label> <input id="{{actor._id}}system.attributes.prmod" style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.prmod" value="{{system.attributes.prmod}}" data-dtype="Number"/></span>
@@ -534,12 +499,7 @@
           <span class="rollable resource-label-l grid-span-2" style="text-align: center;" data-resusequantity={{system.resusequantity}} data-resuse="{{system.resuse}}" data-roll="{{system.itemhitformula}}+{{system.itemhitbase}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Weapon.Hit"}})" data-pt="{{system.itempowertable}}" data-apply="{{system.itemapplycheck}}" data-checktype="{{system.itemchecktype}}">{{localize "SW25.Item.Weapon.Hit"}} : {{system.itemhitbase}}</span>
           <span class="grid-span-4" style="text-align: right;">
             <select name="system.mtskill">
-              {{#select system.mtskill}}
-              <option value="-">{{localize "SW25.Selectspellskill"}}</option>
-              {{#each skills as |item id|}}
-              <option value="{{item.name}}">{{item.name}}</option>
-              {{/each}}
-              {{/select}}
+              {{selectOptions skills selected=system.mtskill nameAttr="name" labelAttr="name" localize=true blank="SW25.Selectspellskill"}}
             </select>
           </span>
           <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.mtmod"><b>{{localize "SW25.Modifier"}}</b></label> <input id="{{actor._id}}system.attributes.mtmod" style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.mtmod" value="{{system.attributes.mtmod}}" data-dtype="Number"/></span>
@@ -569,12 +529,7 @@
           </span>
           <span class="grid-span-4" style="text-align: right;">
             <select name="system.frskill">
-              {{#select system.frskill}}
-              <option value="-">{{localize "SW25.Selectspellskill"}}</option>
-              {{#each skills as |item id|}}
-              <option value="{{item.name}}">{{item.name}}</option>
-              {{/each}}
-              {{/select}}
+              {{selectOptions skills selected=system.frskill nameAttr="name" labelAttr="name" localize=true blank="SW25.Selectspellskill"}}
             </select>
           </span>
           <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.frmod"><b>{{localize "SW25.Modifier"}}</b></label> <input id="{{actor._id}}system.attributes.frmod" style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.frmod" value="{{system.attributes.frmod}}" data-dtype="Number"/></span>
@@ -594,12 +549,7 @@
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
             <select name="system.drskill">
-              {{#select system.drskill}}
-              <option value="-">{{localize "SW25.Selectspellskill"}}</option>
-              {{#each skills as |item id|}}
-              <option value="{{item.name}}">{{item.name}}</option>
-              {{/each}}
-              {{/select}}
+              {{selectOptions skills selected=system.drskill nameAttr="name" labelAttr="name" localize=true blank="SW25.Selectspellskill"}}
             </select>
           </span>
           <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.drmod"><b>{{localize "SW25.Modifier"}}</b></label> <input id="{{actor._id}}system.attributes.drmod" style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.drmod" value="{{system.attributes.drmod}}" data-dtype="Number"/></span>
@@ -619,12 +569,7 @@
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
             <select name="system.dmskill">
-              {{#select system.dmskill}}
-              <option value="-">{{localize "SW25.Selectspellskill"}}</option>
-              {{#each skills as |item id|}}
-              <option value="{{item.name}}">{{item.name}}</option>
-              {{/each}}
-              {{/select}}
+              {{selectOptions skills selected=system.dmskill nameAttr="name" labelAttr="name" localize=true blank="SW25.Selectspellskill"}}
             </select>
           </span>
           <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.dmmod"><b>{{localize "SW25.Modifier"}}</b></label> <input id="{{actor._id}}system.attributes.dmmod" style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.dmmod" value="{{system.attributes.dmmod}}" data-dtype="Number"/></span>
@@ -644,12 +589,7 @@
           <span class="grid-span-2"></span>
           <span class="grid-span-4" style="text-align: right;">
             <select name="system.abskill">
-              {{#select system.abskill}}
-              <option value="-">{{localize "SW25.Selectspellskill"}}</option>
-              {{#each skills as |item id|}}
-              <option value="{{item.name}}">{{item.name}}</option>
-              {{/each}}
-              {{/select}}
+              {{selectOptions skills selected=system.abskill nameAttr="name" labelAttr="name" localize=true blank="SW25.Selectspellskill"}}
             </select>
           </span>
           <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.abmod"><b>{{localize "SW25.Modifier"}}</b></label> <input id="{{actor._id}}system.attributes.abmod" style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.abmod" value="{{system.attributes.abmod}}" data-dtype="Number"/></span>
@@ -811,34 +751,19 @@
             <span class="grid-span-3" style="text-align: right;">{{localize "SW25.Selectherbskill"}}</span>
             <span class="grid-span-3" style="text-align: left;">
               <select name="system.herbskill">
-                {{#select system.herbskill}}
-                <option value="-">{{localize "SW25.Item.None"}}</option>
-                {{#each skills as |item id|}}
-                <option value="{{item.name}}">{{item.name}}</option>
-                {{/each}}
-                {{/select}}
+                {{selectOptions skills selected=system.herbskill nameAttr="name" labelAttr="name" localize=true blank="SW25.Item.None"}}
               </select>
             </span>
             <span class="grid-span-3" style="text-align: right;">{{localize "SW25.Selectpotionskill"}}</span>
             <span class="grid-span-3" style="text-align: left;">
               <select name="system.potionskill">
-                {{#select system.potionskill}}
-                <option value="-">{{localize "SW25.Item.None"}}</option>
-                {{#each skills as |item id|}}
-                <option value="{{item.name}}">{{item.name}}</option>
-                {{/each}}
-                {{/select}}
+                {{selectOptions skills selected=system.potionskill nameAttr="name" labelAttr="name" localize=true blank="SW25.Item.None"}}
               </select>
             </span>
             <span class="grid-span-3" style="text-align: right;">{{localize "SW25.Selectrepairskill"}}</span>
             <span class="grid-span-3" style="text-align: left;">
               <select name="system.repairskill">
-                {{#select system.repairskill}}
-                <option value="-">{{localize "SW25.Item.None"}}</option>
-                {{#each skills as |item id|}}
-                <option value="{{item.name}}">{{item.name}}</option>
-                {{/each}}
-                {{/select}}
+                {{selectOptions skills selected=system.repairskill nameAttr="name" labelAttr="name" localize=true blank="SW25.Item.None"}}
               </select>
             </span>
           </div>

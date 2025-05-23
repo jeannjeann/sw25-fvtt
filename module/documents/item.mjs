@@ -284,8 +284,8 @@ export class SW25Item extends Item {
     }
     actoritemData.forEach((item) => {
       if (item.type != "skill") return;
-      if (!systemData.skilllist.includes(item.name)) {
-        systemData.skilllist.push(item.name);
+      if (!systemData.skilllist.includes(item)) {
+        systemData.skilllist.push(item);
       }
       if (systemData.checkskill == "adv") {
         if (
@@ -540,8 +540,8 @@ export class SW25Item extends Item {
     let powerlevelmod = 0;
     actoritemData.forEach((item) => {
       if (item.type != "skill") return;
-      if (!systemData.skilllist.includes(item.name)) {
-        systemData.skilllist.push(item.name);
+      if (!systemData.skilllist.includes(item)) {
+        systemData.skilllist.push(item);
       }
       if (systemData.checkskill == "adv") {
         if (

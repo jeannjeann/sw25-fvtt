@@ -49,6 +49,8 @@ export class SW25ItemSheet extends ItemSheet {
     context.system = itemData.system;
     context.flags = itemData.flags;
 
+    context.config = CONFIG.SW25;
+
     if (itemData.type == "skill") {
       this._prepareSkillData(context);
     }
