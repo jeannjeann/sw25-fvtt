@@ -42,22 +42,12 @@
         <div class="flexrow grid grid-10col nogapmargin">
           <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Item.Clickitem"}}</b><br>
             <select name="system.clickitem">
-              {{#select system.clickitem}}
-              <option value="all">{{localize "SW25.Item.All"}}</option>
-              <option value="power">{{localize "SW25.Item.Powerroll"}}</option>
-              <option value="dice">{{localize "SW25.Item.Diceroll"}}</option>
-              <option value="description">{{localize "SW25.Item.Onlydescription"}}</option>
-              {{/select}}
+              {{selectOptions clickitemOptions selected=system.clickitem localize=true}}
             </select>
           </span>
           <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Item.Item.Type"}}</b><br>
             <select name="system.type">
-              {{#select system.type}}
-              <option value="-">{{localize "SW25.Item.Item.General"}}</option>
-              <option value="herb">{{localize "SW25.Item.Item.Herb"}}</option>
-              <option value="potion">{{localize "SW25.Item.Item.Potion"}}</option>
-              <option value="repair">{{localize "SW25.Item.Item.Repair"}}</option>
-              {{/select}}
+              {{selectOptions config.itemTypes selected=system.type localize=true blank="SW25.Item.Item.General"}}
             </select>
           </span>
           <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.usedice"><b>{{localize "SW25.Item.Usedice"}}</b></label><br>

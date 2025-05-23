@@ -62,14 +62,7 @@
         <div class="flexrow grid grid-10col nogapmargin">
           <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Item.Clickitem"}}</b><br>
             <select name="system.clickitem">
-              {{#select system.clickitem}}
-              <option value="all">{{localize "SW25.Item.All"}}</option>
-              <option value="power">{{localize "SW25.Item.Power"}}</option>
-              <option value="dice2">{{localize "SW25.Check"}}</option>
-              <option value="dice1">{{localize "SW25.Item.Action.ActionValue"}}</option>
-              <option value="mpcost">{{localize "SW25.Mp"}}{{localize "SW25.Cost"}}</option>
-              <option value="description">{{localize "SW25.Item.Onlydescription"}}</option>
-              {{/select}}
+              {{selectOptions clickitemOptions selected=system.clickitem localize=true}}
             </select>
           </span>
           <span class="grid-span-4"></span>
@@ -151,11 +144,7 @@
             {{!--
             <span class="grid-span-2" style="text-align: left;">
               <select name="system.applycheck1">
-                {{#select system.applycheck1}}
-                <option value="-">{{localize "SW25.Item.Noapply"}}</option>
-                <option value="on">{{localize "SW25.Item.applyon"}}</option>
-                <option value="custom">{{localize "SW25.Item.Custom"}}</option>
-                {{/select}}
+                {{selectOptions applyOptions selected=system.applycheck1 localize=true}}
               </select>
             </span>
             --}}

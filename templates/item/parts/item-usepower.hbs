@@ -3,11 +3,7 @@
   <span class="grid-span-2" style="text-align: left;">{{localize "SW25.Item.Power"}}{{localize "SW25.Basenumber"}} : <b>{{system.powerbase}}</b></span>
   <span class="grid-span-2" style="text-align: left;">
     <select name="system.applypower">
-      {{#select system.applypower}}
-      <option value="-">{{localize "SW25.Item.Noapply"}}</option>
-      <option value="on">{{localize "SW25.Item.applyon"}}</option>
-      <option value="custom">{{localize "SW25.Item.Custom"}}</option>
-      {{/select}}
+      {{selectOptions applyOptions selected=system.applypower localize=true}}
     </select>
   </span>
   <span class="grid-span-4">

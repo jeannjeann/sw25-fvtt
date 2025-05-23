@@ -11,11 +11,7 @@
         <div>
           <span>
             <select name="system.checkmethod">
-              {{#select system.checkmethod}}
-              <option value="normal">{{localize "SW25.Item.Check.Normalcheck"}}</option>
-              <option value="dice">{{localize "SW25.Item.Check.Customroll"}}</option>
-              <option value="power">{{localize "SW25.Item.Check.Powerroll"}}</option>
-              {{/select}}
+              {{selectOptions checkmethodOptions selected=system.checkmethod localize=true}}
             </select>
           </span>
         </div>
@@ -68,11 +64,7 @@
           {{#unless (eq system.checkmethod "power")}}
           <span class="grid-span-8" style="text-align: left;">
             <select name="system.applycheck">
-              {{#select system.applycheck}}
-              <option value="-">{{localize "SW25.Item.Noapply"}}</option>
-              <option value="on">{{localize "SW25.Item.applyon"}}</option>
-              <option value="custom">{{localize "SW25.Item.Custom"}}</option>
-              {{/select}}
+              {{selectOptions applyOptions selected=system.applycheck localize=true}}
             </select>
             {{#if (eq system.applycheck "custom")}}
             <label for="{{item._id}}system.ckpdbt"><input id="{{item._id}}system.ckpdbt" type="checkbox" class="small-checkbox" name="system.ckpdbt" data-dtype="Boolean" {{#if system.ckpdbt}} checked {{/if}}/>{{localize "SW25.Item.pd"}}</label>
@@ -85,13 +77,7 @@
           {{/unless}}
           <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Check.Package"}}</b><br>
             <select name="system.checkpackage">
-              {{#select system.checkpackage}}
-              <option value="-">-</option>
-              <option value="fine">{{localize "SW25.Item.Check.Packages.Finesse"}}</option>
-              <option value="move">{{localize "SW25.Item.Check.Packages.Movement"}}</option>
-              <option value="obse">{{localize "SW25.Item.Check.Packages.Observation"}}</option>
-              <option value="know">{{localize "SW25.Item.Check.Packages.Knowledge"}}</option>
-              {{/select}}
+              {{selectOptions config.checkpackages selected=system.checkpackage localize=true blank=""}}
             </select>
           </span>
         </div>
@@ -100,11 +86,7 @@
             <span class="resource-label grid-span-2" style="text-decoration: underline;">{{localize "SW25.Item.Powertable"}}{{localize "SW25.Setting"}}</span>
             <span class="grid-span-6" style="text-align: left;">
               <select name="system.applypower">
-                {{#select system.applypower}}
-                <option value="-">{{localize "SW25.Item.Noapply"}}</option>
-                <option value="on">{{localize "SW25.Item.applyon"}}</option>
-                <option value="custom">{{localize "SW25.Item.Custom"}}</option>
-                {{/select}}
+                {{selectOptions applyOptions selected=system.applypower localize=true}}
               </select>
               {{#if (eq system.applypower "custom")}}
               <label for="{{item._id}}system.pwpdbt"><input id="{{item._id}}system.pwpdbt" type="checkbox" class="small-checkbox" name="system.pwpdbt" data-dtype="Boolean" {{#if system.pwpdbt}} checked {{/if}}/>{{localize "SW25.Item.pd"}}</label>

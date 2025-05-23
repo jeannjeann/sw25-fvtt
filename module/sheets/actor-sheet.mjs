@@ -8,6 +8,7 @@ import { lootRoll } from "../helpers/lootroll.mjs";
 import { growthCheck } from "../helpers/growthcheck.mjs";
 import { actionRoll } from "../helpers/actionroll.mjs";
 import { targetRollDialog, targetSelectDialog } from "../helpers/dialogs.mjs";
+import { SW25 } from "../helpers/config.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -51,6 +52,8 @@ export class SW25ActorSheet extends ActorSheet {
     // Add the actor's data to context.data for easier access, as well as flags.
     context.system = actorData.system;
     context.flags = actorData.flags;
+
+    context.config = CONFIG.SW25;
 
     // Prepare character data and items.
     if (actorData.type == "character") {
