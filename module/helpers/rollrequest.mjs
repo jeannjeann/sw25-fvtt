@@ -66,12 +66,14 @@ export async function rollreq() {
             const chatData = {
               speaker: ChatMessage.getSpeaker({ alias: "Gamemaster" }),
               flags: {
-                checkName: checkName,
-                inputName: inputName,
-                refAbility: refAbility,
-                modifier: modifier,
-                targetValue: targetValue,
-                method: method,
+                sw25: {
+                  checkName: checkName,
+                  inputName: inputName,
+                  refAbility: refAbility,
+                  modifier: modifier,
+                  targetValue: targetValue,
+                  method: method,
+                }
               },
             };
 

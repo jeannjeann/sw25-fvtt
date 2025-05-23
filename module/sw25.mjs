@@ -717,8 +717,12 @@ Hooks.once("ready", async function () {
           const transferEffect = duplicate(effect);
           transferEffect.disabled = false;
           transferEffect.sourceName = orgActor;
-          transferEffect.flags.sourceName = orgActor;
-          transferEffect.flags.sourceId = `Actor.${data.orgId}`;
+          transferEffect.flags = {
+            sw25: {
+              sourceName: orgActor,
+              sourceId: `Actor.${orgId}`
+            }
+          };
           targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
         });
       });

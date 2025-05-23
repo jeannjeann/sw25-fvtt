@@ -162,26 +162,28 @@ export async function customCommand(command, messageData, parameters) {
       let chatapply = "on";
 
       chatData.flags = {
-        formula: chatFormula,
-        tooltip: await roll.fakeResult.getTooltip(),
-        power: chatPower,
-        lethalTech: chatLethalTech,
-        criticalRay: chatCriticalRay,
-        pharmTool: chatPharmTool,
-        powup: chatPowup,
-        result: chatResult,
-        mod: chatMod,
-        half: chatHalf,
-        results: chatResults,
-        total: chatTotal,
-        extraRoll: chatExtraRoll,
-        fumble: chatFumble,
-        orghalf: roll.halfPowMod,
-        orgtotal: chatTotal,
-        orgextraRoll: chatExtraRoll,
-        showhalf: showhalf,
-        shownoc: shownoc,
-        apply: chatapply,
+        sw25: {
+          formula: chatFormula,
+          tooltip: await roll.fakeResult.getTooltip(),
+          power: chatPower,
+          lethalTech: chatLethalTech,
+          criticalRay: chatCriticalRay,
+          pharmTool: chatPharmTool,
+          powup: chatPowup,
+          result: chatResult,
+          mod: chatMod,
+          half: chatHalf,
+          results: chatResults,
+          total: chatTotal,
+          extraRoll: chatExtraRoll,
+          fumble: chatFumble,
+          orghalf: roll.halfPowMod,
+          orgtotal: chatTotal,
+          orgextraRoll: chatExtraRoll,
+          showhalf: showhalf,
+          shownoc: shownoc,
+          apply: chatapply,
+        }
       };
 
       chatData.content = await renderTemplate(

@@ -71,7 +71,9 @@ export async function growthCheck(actor) {
     rollMode: rollMode,
     rolls: [roll],
     flags: {
-      actor: `${actor._id}`,
+      sw25: {
+        actor: `${actor._id}`,
+      },
     },
   };
 
@@ -82,7 +84,7 @@ export async function growthCheck(actor) {
       event.preventDefault();
 
       const beforeValueGrowth = parseInt(event.currentTarget.dataset.value);
-      const target = game.actors.get(message.flags.actor);
+      const target = game.actors.get(message.flags.sw25.actor);
       const growth = event.currentTarget.dataset.ability;
       const currentValueGrowth = target.system.abilities[growth].valuegrowth;
       const afterValueGrowth = currentValueGrowth + 1;
