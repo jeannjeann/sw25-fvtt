@@ -246,7 +246,7 @@ export async function chatButton(chatMessage, buttonType) {
       }
 
       let resuse = item.system.resuse;
-      if (resuse !== "-" && item.system.autouseres) {
+      if (resuse !== "" && item.system.autouseres) {
         let actoritem = actor.items.get(resuse);
         let resusequantity = item.system.resusequantity;
         let actoritemquantity = actoritem.system.quantity;
