@@ -274,7 +274,9 @@
       <div class="grid grid-12col gap-s">
         <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.hitmod"><b>{{localize "SW25.Item.Weapon.Hit"}}{{localize "SW25.Modifier"}}</b></label> <input id="{{actor._id}}system.attributes.hitmod" style="max-width: calc(40% - 7px); text-align: center;" type="text" name="system.attributes.hitmod" value="{{system.attributes.hitmod}}" data-dtype="Number"/></span>
         <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.dmod"><b>D{{localize "SW25.Modifier"}}</b></label> <input id="{{actor._id}}system.attributes.dmod" style="max-width: calc(40% - 7px); text-align: center;" type="text" name="system.attributes.dmod" value="{{system.attributes.dmod}}" data-dtype="Number"/></span>
-        <span class="grid-span-8" style="text-align: right;">
+        <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.ltmod"><b>{{localize "SW25.Item.Lethaltech"}}</b></label> <input id="{{actor._id}}system.attributes.ltmod" style="max-width: calc(40% - 7px); text-align: center;" type="text" name="system.attributes.ltmod" value="{{system.attributes.ltmod}}" data-dtype="Number"/></span>
+        <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.crmod"><b>{{localize "SW25.Item.Criticalray"}}</b></label> <input id="{{actor._id}}system.attributes.crmod" style="max-width: calc(40% - 7px); text-align: center;" type="text" name="system.attributes.crmod" value="{{system.attributes.crmod}}" data-dtype="Number"/></span>
+        <span class="grid-span-4" style="text-align: right;">
           <select name="system.hitweapon">
             {{#select system.hitweapon}}
             <option value="-">{{localize "SW25.Selecthitweapon"}}</option>

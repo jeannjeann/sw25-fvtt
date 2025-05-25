@@ -5,7 +5,7 @@
       <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
       <div class="grid grid-6col flex-group-left nogapmargin">
         <div class="grid-span-6">
-          {{#if system.constant}}○{{/if}}{{#if system.main}}▶{{/if}}{{#if system.aux}}≫{{/if}}{{#if system.prep}}△{{/if}}{{#if system.decla}}□{{/if}}
+          {{> "systems/sw25/templates/helper/action-marks.hbs"}}
         </div>
         {{#if system.usedice1}}
         <div class="grid-span-2">

@@ -936,6 +936,8 @@ Hooks.once("ready", async function () {
 
   // Item update hook
   Hooks.on("updateItem", async (item, updateData, options, userId) => {
+    if (!game.user.isGM) return;
+    
     // Linking equip and effect
     if (updateData.system && updateData.system.hasOwnProperty("equip")) {
       for (let activeEffect of item.effects) {

@@ -198,6 +198,7 @@
       "hr": "HP回",
       "mr": "MP回",
       "Price": "価格",
+      "Selfbuff": "自己バフ",
       "Usepower": "威力表使用",
       "Usedice": "判定使用",
       "UseAmmunition": "矢弾消費",
@@ -467,9 +468,9 @@
         "MagisphereS": "マギスフィア小",
         "MagisphereM": "マギスフィア中",
         "MagisphereL": "マギスフィア大",
-        "Deamonblood": "悪魔の血",
-        "Deamoncrystal": "悪魔の血晶",
-        "DeamoncrystalLarge": "大悪魔の血晶",
+        "Daemonblood": "悪魔の血",
+        "Daemoncrystal": "悪魔の血晶",
+        "ArcDaemoncrystal": "大悪魔の血晶",
         "Abyssshard": "アビスシャード"
       },
       "Combatability": {

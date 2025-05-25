@@ -5,7 +5,7 @@
       <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
       <div class="grid grid-6col flex-group-left nogapmargin">
         <div class="grid-span-2">
-          {{#if system.aux}}≫{{/if}}{{#if system.prep}}△{{/if}}
+          {{> "systems/sw25/templates/helper/action-marks.hbs"}}
         </div>
         <div class="grid-span-2">
           <b>{{system.level}}{{localize "SW25.Level"}}{{localize "TYPES.Item.alchemytech"}}</b>
@@ -67,7 +67,9 @@
               {{/select}}
             </select>
           </span>
-          <div class="grid-span-3"></div>
+          <div class="grid-span-1"></div>
+          <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.selfbuff"><b>{{localize "SW25.Item.Selfbuff"}}</b></label><br>
+            <input id="{{item._id}}system.selfbuff" type="checkbox" name="system.selfbuff" data-dtype="Boolean" {{#if system.selfbuff}} checked {{/if}}/></span>
           <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.usedice"><b>{{localize "SW25.Item.Usedice"}}</b></label><br>
             <input id="{{item._id}}system.usedice" type="checkbox" name="system.usedice" data-dtype="Boolean" {{#if system.usedice}} checked {{/if}}/></span>
           <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.usepower"><b>{{localize "SW25.Item.Usepower"}}</b></label><br>

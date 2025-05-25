@@ -1135,7 +1135,7 @@ export class SW25ActorSheet extends ActorSheet {
     const targetedToken = game.user.targets;
 
     // if no target,show dialog
-    if (targetedToken.size === 0) {
+    if (!item.system.selfbuff && targetedToken.size === 0) {
       const title = `${item.name} (${game.i18n.localize("SW25.Effectslong")})`;
       const selectedTokens = await targetSelectDialog(title);
       game.user.updateTokenTargets(selectedTokens.map((token) => token.id));
@@ -1144,15 +1144,6 @@ export class SW25ActorSheet extends ActorSheet {
       }
     }
 
-    // Target Actor
-    const targetActors = [];
-    targetedToken.forEach((token) => {
-      targetActors.push(token.actor);
-
-      // Actor name stock for chat message
-      const actorName = token.actor.name;
-      targetActorName.push({ actorName });
-    });
 
     // Effect name stock for chat message
     targetEffects.forEach((effect) => {
@@ -1162,7 +1153,34 @@ export class SW25ActorSheet extends ActorSheet {
 
     // Apply
     const targetTokens = game.user.targets;
-    const targetTokenId = Array.from(targetTokens, (target) => target.id);
+    let targetTokenId = Array.from(targetTokens, (target) => target.id);
+
+    // Target Actor
+    let targetActors = [];
+    if (item.system.selfbuff){
+      if ( game.user.isGM ) {
+        const actorName = this.actor.name;
+        targetActorName.push({ actorName });
+        targetActors.push(this.actor);
+      } else {
+        const actorName = this.actor.name;
+        targetActorName.push({ actorName });
+        targetTokenId = this.actor.token 
+         ? this.actor.token.id
+         : [this.actor.getActiveTokens()[0]?.id];
+      }
+    } else {
+      targetedToken.forEach((token) => {
+        targetActors.push(token.actor);
+  
+        // Actor name stock for chat message
+        const actorName = token.actor.name;
+        targetActorName.push({ actorName });
+      });
+      targetTokenId = Array.from(targetTokens, (target) => target.id);
+
+    }
+    
     if (game.user.isGM) {
       targetActors.forEach((targetActor) => {
         targetEffects.forEach((effect) => {

@@ -160,9 +160,11 @@ export class SW25Actor extends Actor {
             systemData.itempowerbase += systemData.attributes.efwphalfmod;
           systemData.itempowertable = item.system.powertable;
           systemData.itempowertable[16] += systemData.lt;
+          systemData.itempowertable[16] += Number(systemData?.attributes?.ltmod) || 0;
           if (!/^f\d+$/.test(systemData.itempowertable[17])) {
             systemData.itempowertable[17] =
-              Number(systemData.itempowertable[17]) + systemData.cr;
+              Number(systemData.itempowertable[17]) + systemData.cr
+            systemData.itempowertable[17] += Number(systemData?.attributes?.crmod) || 0;
           }
         }
       }

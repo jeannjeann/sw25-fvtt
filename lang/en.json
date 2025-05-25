@@ -197,6 +197,7 @@
       "hr": "HPR",
       "mr": "MPR",
       "Price": "Price",
+      "Selfbuff": "Self Buff",
       "Usepower": "Use Power",
       "Usedice": "Use Dice",
       "UseAmmunition": "Ammunition",
@@ -466,9 +467,9 @@
         "MagisphereS": "Magi Sphere S",
         "MagisphereM": "Magi Sphere M",
         "MagisphereL": "Magi Sphere L",
-        "Deamonblood": "Deamon Blood",
-        "Deamoncrystal": "Deamon Crystal",
-        "DeamoncrystalLarge": "Arcdeamon Crystal",
+        "Daemonblood": "Daemon Blood",
+        "Daemoncrystal": "Daemon Crystal",
+        "ArcDaemoncrystal": "Arcdaemon Crystal",
         "Abyssshard": "Abyss Shard"
       },
       "Combatability": {

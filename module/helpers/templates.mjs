@@ -55,5 +55,7 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/sw25/templates/item/parts/item-usedice.hbs",
     // Dialog
     "systems/sw25/templates/roll/rollreq-dialog.hbs",
+    // Helper
+    "systems/sw25/templates/helper/action-marks.hbs",
   ]);
 };

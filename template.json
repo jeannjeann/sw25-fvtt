@@ -53,12 +53,12 @@
           "showaction": false
         }
       },
-      "deamon": {
+      "daemon": {
         "toFellow": false,
         "fellowmemo": "",
-        "fellowtype": "deamon",
+        "fellowtype": "daemon",
         "showaction": false,
-        "tabletype": "deamon",
+        "tabletype": "daemon",
         "canceldialog": "",
         "attributes": {
           "skill": "",
@@ -111,6 +111,8 @@
         "efhitmod": 0,
         "dmod": 0,
         "efdmod": 0,
+        "ltmod": 0,
+        "crmod": 0,
         "efwphalfmod": 0,
         "efsphalfmod": 0,
         "dodgemod": 0,
@@ -307,7 +309,7 @@
       }
     },
     "monster": {
-      "templates": ["base", "deamon"],
+      "templates": ["base", "daemon"],
       "monlevel": 1,
       "exp": 0,
       "overview": "",

@@ -1513,3 +1513,43 @@ input.weakapply[type="checkbox"] {
   gap: 0px;
   margin: 0px;
 }
+
+.sw25 .item .item-equip {
+  width: 50px;
+}
+
+.sw25 .item .equip-toggle {
+  display: inline-block;
+  position: relative;
+  width: 40px;
+  height: 20px;
+  border-radius: 20px;
+  background-color: #aaaaaa;
+  cursor: pointer;
+  transition: background-color .4s;
+}
+
+.sw25 .item .equip-toggle:has(:checked) {
+  background-color: #4bd865;
+}
+
+.sw25 .item .equip-toggle::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+  background-color: #ffffff;
+  content: '';
+  transition: left .4s;
+}
+
+.sw25 .item .equip-toggle:has(:checked)::after {
+  left: 20px;
+}
+
+.sw25 .item .equip-toggle input {
+  display: none;
+}

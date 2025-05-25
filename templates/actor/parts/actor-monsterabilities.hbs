@@ -26,7 +26,8 @@
               />
             </a>
           </div>
-          {{#if item.system.constant}}○{{/if}}{{#if item.system.main}}▶{{/if}}{{#if item.system.aux}}≫{{/if}}{{#if item.system.prep}}△{{/if}}{{#if item.system.decla}}□{{/if}}<h4 class="item-label">{{item.name}}</h4>
+          {{> "systems/sw25/templates/helper/action-marks.hbs"}}
+          <h4 class="item-label">{{item.name}}</h4>
         </div>
         <div class="rollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usedice1}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{item.system.label1}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton}}">
           <b>{{item.system.label1}}:{{item.system.checkbase1}}({{item.system.checkbasefix1}})</b>
