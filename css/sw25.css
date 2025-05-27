@@ -1553,3 +1553,18 @@ input.weakapply[type="checkbox"] {
 .sw25 .item .equip-toggle input {
   display: none;
 }
+
+.sw25 .items-list .ability-resource .resources {
+  flex: 1;
+  margin: 0;
+  font-size: 13px;
+  text-align: left;
+  align-items: center;
+  display: flex;
+  /* flex-wrap: wrap; */
+}
+.sw25 .items-list .ability-resource .resources h3, .sw25 .items-list  .ability-resource .resources h4 {
+  margin: 0;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
