@@ -14,7 +14,7 @@
             <select id="checkname" name="checkname" style="width: 50%;">
                 <option value="">-</option>
                 <option value="adv" {{#if (eq checkname "adv")}}selected{{/if}}>{{localize "SW25.Attributes.Advlevel"}}</option>
-                {{selectOptions skilllist selected=checkname nameAttr="name" labelAttr="name"}}
+                {{selectOptions skilllist selected=checkname valueAttr="name" labelAttr="name"}}
                 <option value="di" {{#if (eq checkname "di")}}selected{{/if}}>{{localize "SW25.Effect.DirectInput"}}</option>
             </select>
             {{#if (eq checkname "di")}}
@@ -35,7 +35,7 @@
             <label for="checkname" style="text-align: right;">{{localize "SW25.Check"}}:</label>
             <select id="checkname" name="checkname">
                 <option value="">-</option>
-                {{selectOptions checklist selected=checkname nameAttr="name" labelAttr="name"}}
+                {{selectOptions checklist selected=checkname valueAttr="name" labelAttr="name"}}
                 <option value="di" {{#if (eq checkname "di")}}selected{{/if}}>{{localize "SW25.Effect.DirectInput"}}</option>
             </select>
             {{#if (eq checkname "di")}}

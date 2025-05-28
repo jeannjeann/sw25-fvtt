@@ -170,7 +170,7 @@
               <select name="system.checkskill1">
                 <option value="">-</option>
                 <option value="adv" {{#if (eq system.checkskill1 "adv")}}selected{{/if}}>{{localize "SW25.Attributes.Advlevel"}}</option>
-                {{selectOptions system.skilllist selected=system.checkskill1 nameAttr="name" labelAttr="name"}}
+                {{selectOptions system.skilllist selected=system.checkskill1 valueAttr="name" labelAttr="name"}}
               </select>
             </span>
             <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Action.ActionValue"}}{{localize "SW25.Abilityname"}}</b><br>
