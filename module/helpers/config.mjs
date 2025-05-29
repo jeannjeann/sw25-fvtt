@@ -161,18 +161,6 @@ SW25.tacticsLines = {
   inspire: "SW25.Item.Tactics.Inspire"
 };
 
-SW25.keyClassifications = {
-  battle: "SW25.Effect.Battle",
-  check: "SW25.Effect.Check",
-  parameter: "SW25.Effect.Parameter",
-  magicpower: "SW25.Effect.MagicPower",
-  magicckroll: "SW25.Effect.MagicCKRoll",
-  magicpwroll: "SW25.Effect.MagicPWRoll",
-  mpsave: "SW25.Effect.MPSave",
-  feature: "SW25.Features",
-  input: "SW25.Effect.DirectInput"
-};
-
 SW25.checkpackages = {
   fine: "SW25.Item.Check.Packages.Finesse",
   move: "SW25.Item.Check.Packages.Movement",
@@ -287,4 +275,119 @@ SW25.deffects = {
 SW25.faiths = {
   first: "SW25.Item.Spell.First",
   second: "SW25.Item.Spell.Second"
+};
+
+SW25.Effect = {
+  keyClassifications: {
+    battle: "SW25.Effect.Battle",
+    check: "SW25.Effect.Check",
+    parameter: "SW25.Effect.Parameter",
+    magicpower: "SW25.Effect.MagicPower",
+    magicckroll: "SW25.Effect.MagicCKRoll",
+    magicpwroll: "SW25.Effect.MagicPWRoll",
+    mpsave: "SW25.Effect.MPSave",
+    feature: "SW25.Features",
+    input: "SW25.Effect.DirectInput"
+  },
+  battle: {
+    "attributes.efhitmod": "SW25.Effect.HitMod",
+    "attributes.efdmod": "SW25.Effect.DamageMod",
+    "effect.efcvalue": "SW25.Effect.CMod",
+    "effect.efspellcvalue": "SW25.Effect.SpCMod",
+    "lt": "SW25.Effect.LethalTech",
+    "cr": "SW25.Effect.CriticalRay",
+    "attributes.efwphalfmod": "SW25.Effect.WeaponHalfMod",
+    "attributes.efsphalfmod": "SW25.Effect.SpellHalfMod",
+    "attributes.efdodgemod": "SW25.Effect.DodgeMod",
+    "attributes.efppmod": "SW25.Effect.PpMod",
+    "attributes.efmppmod": "SW25.Effect.MppMod",
+    "attributes.efdreduce": "SW25.Effect.Dreduce",
+    "attributes.move.efmovemod": "SW25.Effect.MoveMod",
+    "attributes.turnend.hpregenmod": "SW25.Effect.HpregenMod",
+    "attributes.turnend.mpregenmod": "SW25.Effect.MpregenMod"
+  },
+  check: {
+    "effect.vitres": "SW25.Config.ResVit",
+    "effect.mndres": "SW25.Config.ResMnd",
+    "effect.init": "SW25.Config.Init",
+    "effect.mknow": "SW25.Config.MKnow",
+    "effect.allck": "SW25.Config.AllCk",
+    "effect.allsk": "SW25.Config.AllSk",
+    "eflootmod": "SW25.Monster.Loot",
+    "effect.package.fine": "SW25.Item.Check.Packages.Finesse",
+    "effect.package.move": "SW25.Item.Check.Packages.Movement",
+    "effect.package.obse": "SW25.Item.Check.Packages.Observation",
+    "effect.package.know": "SW25.Item.Check.Packages.Knowledge"
+  },
+  parameter: {
+    "hp.efhpmod": "SW25.Effect.HpMod",
+    "mp.efmpmod": "SW25.Effect.MpMod",
+    "abilities.dex.efvaluemodify": "SW25.Effect.DexValueModify",
+    "abilities.agi.efvaluemodify": "SW25.Effect.AgiValueModify",
+    "abilities.str.efvaluemodify": "SW25.Effect.StrValueModify",
+    "abilities.vit.efvaluemodify": "SW25.Effect.VitValueModify",
+    "abilities.int.efvaluemodify": "SW25.Effect.IntValueModify",
+    "abilities.mnd.efvaluemodify": "SW25.Effect.MndValueModify",
+    "abilities.dex.efmodify": "SW25.Effect.DexModModify",
+    "abilities.agi.efmodify": "SW25.Effect.AgiModModify",
+    "abilities.str.efmodify": "SW25.Effect.StrModModify",
+    "abilities.vit.efmodify": "SW25.Effect.VitModModify",
+    "abilities.int.efmodify": "SW25.Effect.IntModModify",
+    "abilities.mnd.efmodify": "SW25.Effect.MndModModify"
+  },
+  magicpower: {
+    "attributes.efscmod": "SW25.Effect.ScMod",
+    "attributes.efcnmod": "SW25.Effect.CnMod",
+    "attributes.efwzmod": "SW25.Effect.WzMod",
+    "attributes.efprmod": "SW25.Effect.PrMod",
+    "attributes.efmtmod": "SW25.Effect.MtMod",
+    "attributes.effrmod": "SW25.Effect.FrMod",
+    "attributes.efdrmod": "SW25.Effect.DrMod",
+    "attributes.efdmmod": "SW25.Effect.DmMod",
+    "attributes.efabmod": "SW25.Effect.AbMod",
+    "effect.allmgp": "SW25.Config.AllMgp"
+  },
+  magicckroll: {
+    "attributes.efscckmod": "SW25.Effect.ScMod",
+    "attributes.efcnckmod": "SW25.Effect.CnMod",
+    "attributes.efwzckmod": "SW25.Effect.WzMod",
+    "attributes.efprckmod": "SW25.Effect.PrMod",
+    "attributes.efmtckmod": "SW25.Effect.MtMod",
+    "attributes.effrckmod": "SW25.Effect.FrMod",
+    "attributes.efdrckmod": "SW25.Effect.DrMod",
+    "attributes.efdmckmod": "SW25.Effect.DmMod",
+    "attributes.efabckmod": "SW25.Effect.AbMod",
+    "attributes.efmckall": "SW25.Item.All"
+  },
+  magicpwroll: {
+    "attributes.efscpwmod": "SW25.Effect.ScMod",
+    "attributes.efcnpwmod": "SW25.Effect.CnMod",
+    "attributes.efwzpwmod": "SW25.Effect.WzMod",
+    "attributes.efprpwmod": "SW25.Effect.PrMod",
+    "attributes.efmtpwmod": "SW25.Effect.MtMod",
+    "attributes.effrpwmod": "SW25.Effect.FrMod",
+    "attributes.efdrpwmod": "SW25.Effect.DrMod",
+    "attributes.efdmpwmod": "SW25.Effect.DmMod",
+    "attributes.efabpwmod": "SW25.Effect.AbMod",
+    "attributes.efmpwall": "SW25.Item.All"
+  },
+  mpsave: {
+    "attributes.efmpsc": "SW25.Effect.ScMod",
+    "attributes.efmpcn": "SW25.Effect.CnMod",
+    "attributes.efmpwz": "SW25.Effect.WzMod",
+    "attributes.efmppr": "SW25.Effect.PrMod",
+    "attributes.efmpmt": "SW25.Effect.MtMod",
+    "attributes.efmpfr": "SW25.Effect.FrMod",
+    "attributes.efmpdr": "SW25.Effect.DrMod",
+    "attributes.efmpdm": "SW25.Effect.DmMod",
+    "attributes.efmpab": "SW25.Effect.AbMod",
+    "attributes.efmpall": "SW25.Item.All"
+  },
+  feature: {
+    "attributes.efmsckmod": "SW25.Effect.MagicalsongPeform",
+    "attributes.efmspwmod": "SW25.Effect.MagicalsongPower",
+    "attributes.efatckmod": "TYPES.Item.alchemytech",
+    "attributes.efewckmod": "SW25.Effect.EssenceweaveForce",
+    "attributes.efewpwmod": "SW25.Effect.EssenceweavePower"
+  }
 };
