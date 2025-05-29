@@ -769,13 +769,25 @@ Hooks.once("ready", async function () {
         displayBars = 0;
     }
 
-    if(actor.prototypeToken){
-        displayName = actor.prototypeToken.displayName || displayName;
-        actorLink = actor.prototypeToken.actorLink || actorLink;
-        appendNumber = actor.prototypeToken.appendNumber || appendNumber;
-        prependAdjective = actor.prototypeToken.prependAdjective || prependAdjective;
-        disposition = actor.prototypeToken.disposition || disposition;
-        displayBars = actor.prototypeToken.displayBars || displayBars;
+    if (actor.prototypeToken) {
+      displayName = actor.prototypeToken.hasOwnProperty("displayName")
+        ? actor.prototypeToken.displayName
+        : displayName;
+      actorLink = actor.prototypeToken.hasOwnProperty("actorLink")
+        ? actor.prototypeToken.actorLink
+        : actorLink;
+      appendNumber = actor.prototypeToken.hasOwnProperty("appendNumber")
+        ? actor.prototypeToken.appendNumber
+        : appendNumber;
+      prependAdjective = actor.prototypeToken.hasOwnProperty("prependAdjective")
+        ? actor.prototypeToken.prependAdjective
+        : prependAdjective;
+      disposition = actor.prototypeToken.hasOwnProperty("disposition")
+        ? actor.prototypeToken.disposition
+        : disposition;
+      displayBars = actor.prototypeToken.hasOwnProperty("displayBars")
+        ? actor.prototypeToken.displayBars
+        : displayBars;
     }
 
     // Update actor
