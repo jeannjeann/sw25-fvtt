@@ -125,7 +125,6 @@ Hooks.on("updateCombat", async (combat, changes, options, userId) => {
 
   const turnEndEffect = actor.system.attributes?.turnend;
   if (changes.turn !== undefined || changes.round !== undefined) {
-    
     if (turnEndEffect?.hpregenmod || turnEndEffect?.mpregenmod) {
       const hpregen = turnEndEffect.hpregenmod || 0;
       const mpregen = turnEndEffect.mpregenmod || 0;
@@ -151,7 +150,8 @@ Hooks.on("updateCombat", async (combat, changes, options, userId) => {
       // Chat message
       const speaker = ChatMessage.getSpeaker({ actor: actor });
       const rollMode = game.settings.get("core", "rollMode");
-      let label = actor.name + "(" + game.i18n.localize("SW25.TurnendEffect") + ")";
+      let label =
+        actor.name + "(" + game.i18n.localize("SW25.TurnendEffect") + ")";
 
       let chatData = {
         speaker: speaker,
@@ -769,6 +769,15 @@ Hooks.once("ready", async function () {
         displayBars = 0;
     }
 
+    if(actor.prototypeToken){
+        displayName = actor.prototypeToken.displayName || displayName;
+        actorLink = actor.prototypeToken.actorLink || actorLink;
+        appendNumber = actor.prototypeToken.appendNumber || appendNumber;
+        prependAdjective = actor.prototypeToken.prependAdjective || prependAdjective;
+        disposition = actor.prototypeToken.disposition || disposition;
+        displayBars = actor.prototypeToken.displayBars || displayBars;
+    }
+
     // Update actor
     actor.updateSource({
       "prototypeToken.displayName": displayName,
@@ -937,7 +946,7 @@ Hooks.once("ready", async function () {
   // Item update hook
   Hooks.on("updateItem", async (item, updateData, options, userId) => {
     if (!game.user.isGM) return;
-    
+
     // Linking equip and effect
     if (updateData.system && updateData.system.hasOwnProperty("equip")) {
       for (let activeEffect of item.effects) {
