@@ -117,6 +117,14 @@ export async function chatButton(chatMessage, buttonType) {
     const labelmonpow = item.system.labelmonpow;
 
     // Roll Setting
+    if (buttonType == "buttoncheck") {
+      item.system.checkbase = item.system.checkbase;
+      if (item.system.usefix == true) {
+        item.system.formula = 7;
+      } else if (item.system.customdice == true)
+        item.system.formula = item.system.customformula;
+      else item.system.formula = "2d6";
+    }
     if (buttonType == "buttoncheck1") {
       item.system.checkbase = item.system.checkbase1;
       if (item.system.usefix1 == true) {
