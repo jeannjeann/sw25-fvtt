@@ -296,7 +296,6 @@ export async function chatButton(chatMessage, buttonType) {
       let chatTotal = roll.total;
       if (roll.terms[0].total == 12) chatCritical = 1;
       if (roll.terms[0].total == 2) chatFumble = 1;
-
       // when selected target
       let target = null;
       let targetName = null;
@@ -319,6 +318,8 @@ export async function chatButton(chatMessage, buttonType) {
         checktype: checktype,
         target,
         targetName: targetName,
+        dohalf: false,
+        orgtotal: chatTotal,
       };
 
       chatData.content = await renderTemplate(
@@ -1004,7 +1005,6 @@ export async function chatButton(chatMessage, buttonType) {
     let chatFumble = null;
     if (rollTotal == 12) chatCritical = 1;
     if (rollTotal == 2) chatFumble = 1;
-console.log(chatMessage);
     if (chatMessage.flags.dohalf == false || chatMessage.flags.dohalf == null) {
       let newtotal = halftotal + Number(aftermod);
       let newtotaltext = newtotal;
@@ -1116,8 +1116,8 @@ console.log(chatMessage);
         `;
 
     let roll = chatMessage.flags.rolls;
-    let rollTotal =
-      roll.terms[0].results[0].result + roll.terms[0].results[1].result;
+    let rollTotal = roll.dice.size > 0 ?
+      roll.terms[0].results[0].result + roll.terms[0].results[1].result : 0;
     let chatCritical = null;
     let chatFumble = null;
     if (rollTotal == 12) chatCritical = 1;
