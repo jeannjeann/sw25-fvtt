@@ -171,7 +171,6 @@ export async function hpCost(token, cost, max, name, type) {
     speaker: speaker,
     flavor: label,
     rollMode: rollMode,
-    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
     rolls: [result],
   };
 

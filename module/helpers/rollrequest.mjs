@@ -1,38 +1,42 @@
+import { SW25 } from "./config.mjs";
+
 /**
  * Execute roll request dialog.
  */
 export async function rollreq() {
   let method = "skill";
-  let checkname = "-";
-  let ability = "-";
+  let checkname = "";
+  let ability = "";
 
   const tokens = canvas.tokens.placeables;
-  const skillNames = new Set();
-  const checkNames = new Set();
+  const skills = new Set();
+  const checks = new Set();
   for (const token of tokens) {
     if (token.actor) {
       const items = token.actor.items;
       for (const item of items) {
-        if (item.type === "skill") skillNames.add(item.name);
-        if (item.type === "check") checkNames.add(item.name);
+        if (item.type === "skill") skills.add(item);
+        if (item.type === "check") checks.add(item);
       }
     }
   }
-  const skilllist = Array.from(skillNames);
-  const checklist = Array.from(checkNames);
+  const skilllist = Array.from(skills);
+  const checklist = Array.from(checks);
+  const abilities = SW25.abilityAbbreviations;
 
-  await renderDialog(method, checkname, ability, skilllist, checklist);
+  await renderDialog(method, checkname, ability, skilllist, checklist, abilities);
 
   async function renderDialog(
     method,
     checkname,
     ability,
     skilllist,
-    checklist
+    checklist,
+    abilities
   ) {
     const html = await renderTemplate(
       "systems/sw25/templates/roll/rollreq-dialog.hbs",
-      { method, checkname, ability, skilllist, checklist }
+      { method, checkname, ability, skilllist, checklist, abilities}
     );
 
     const dialog = new Dialog({
@@ -107,12 +111,12 @@ export async function rollreq() {
           method = event.target.value;
           checkname = html.find('[name="checkname"]').val();
           ability = html.find('[name="ability"]').val();
-          await updateDialog(method, checkname, ability, skilllist, checklist);
+          await updateDialog(method, checkname, ability, skilllist, checklist, abilities);
         });
         html.find('select[name="checkname"]').change(async (event) => {
           checkname = event.target.value;
           ability = html.find('[name="ability"]').val();
-          await updateDialog(method, checkname, ability, skilllist, checklist);
+          await updateDialog(method, checkname, ability, skilllist, checklist, abilities);
         });
       },
     });
@@ -125,11 +129,12 @@ export async function rollreq() {
     checkname,
     ability,
     skilllist,
-    checklist
+    checklist,
+    abilities
   ) {
     const html = await renderTemplate(
       "systems/sw25/templates/roll/rollreq-dialog.hbs",
-      { method, checkname, ability, skilllist, checklist }
+      { method, checkname, ability, skilllist, checklist, abilities}
     );
     const variable = $(html).find("#variablearea").html();
     $("form #variablearea").html(variable);
@@ -138,12 +143,12 @@ export async function rollreq() {
       method = event.target.value;
       checkname = $("select[name='checkname']").val();
       ability = $("select[name='ability']").val();
-      await updateDialog(method, checkname, ability, skilllist, checklist);
+      await updateDialog(method, checkname, ability, skilllist, checklist, abilities);
     });
     $("select[name='checkname']").change(async (event) => {
       checkname = event.target.value;
       ability = $("select[name='ability']").val();
-      await updateDialog(method, checkname, ability, skilllist, checklist);
+      await updateDialog(method, checkname, ability, skilllist, checklist, abilities);
     });
   }
 }

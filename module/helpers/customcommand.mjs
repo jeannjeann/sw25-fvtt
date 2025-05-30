@@ -149,7 +149,6 @@ export async function customCommand(command, messageData, parameters) {
         speaker: ChatMessage.getSpeaker({ actor: messageData.speaker.actor }),
         flavor: chatLabel,
         rollMode: game.settings.get("core", "rollMode"),
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         rolls: [roll.fakeResult],
       };
 

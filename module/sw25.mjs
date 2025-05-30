@@ -829,8 +829,8 @@ Hooks.once("ready", async function () {
           type: "check",
           system: {
             description: "",
-            checkskill: "-",
-            checkabi: "-",
+            checkskill: "",
+            checkabi: "",
             showbtcheck: true,
           },
         });
@@ -841,8 +841,8 @@ Hooks.once("ready", async function () {
           type: "check",
           system: {
             description: "",
-            checkskill: "-",
-            checkabi: "-",
+            checkskill: "",
+            checkabi: "",
             showbtcheck: true,
           },
         });

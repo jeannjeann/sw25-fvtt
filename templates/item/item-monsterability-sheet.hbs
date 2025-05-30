@@ -98,10 +98,7 @@
             <span class="grid-span-2" style="text-align: left;">{{localize "SW25.Basenumber"}}{{localize "SW25.Value"}} : <b>{{system.checkbase1}} ({{system.checkbasefix1}})</b></span>
             <span class="grid-span-2" style="text-align: left;">
               <select name="system.applycheck1">
-                {{#select system.applycheck1}}
-                <option value="-">{{localize "SW25.Item.Noapply"}}</option>
-                <option value="on">{{localize "SW25.Item.applyon"}}</option>
-                {{/select}}
+                {{selectOptions applyOptions selected=system.applycheck1 localize=true}}
               </select>
             </span>
           </div>
@@ -132,10 +129,7 @@
             <span class="grid-span-2" style="text-align: left;">{{localize "SW25.Basenumber"}}{{localize "SW25.Value"}} : <b>{{system.checkbase2}} ({{system.checkbasefix2}})</b></span>
             <span class="grid-span-2" style="text-align: left;">
               <select name="system.applycheck2">
-                {{#select system.applycheck2}}
-                <option value="-">{{localize "SW25.Item.Noapply"}}</option>
-                <option value="on">{{localize "SW25.Item.applyon"}}</option>
-                {{/select}}
+                {{selectOptions applyOptions selected=system.applycheck2 localize=true}}
               </select>
             </span>
           </div>
@@ -166,10 +160,7 @@
             <span class="grid-span-2" style="text-align: left;">{{localize "SW25.Basenumber"}}{{localize "SW25.Value"}} : <b>{{system.checkbase3}} ({{system.checkbasefix3}})</b></span>
             <span class="grid-span-2" style="text-align: left;">
               <select name="system.applycheck3">
-                {{#select system.applycheck3}}
-                <option value="-">{{localize "SW25.Item.Noapply"}}</option>
-                <option value="on">{{localize "SW25.Item.applyon"}}</option>
-                {{/select}}
+                {{selectOptions applyOptions selected=system.applycheck3 localize=true}}
               </select>
             </span>
           </div>
@@ -200,10 +191,7 @@
             </span><span class="grid-span-2" style="text-align: left;">{{localize "SW25.Item.Power"}}{{localize "SW25.Basenumber"}}{{localize "SW25.Value"}} : <b>{{system.powerbase}}</b></span>
             <span class="grid-span-2" style="text-align: left;">
               <select name="system.applypower">
-                {{#select system.applypower}}
-                <option value="-">{{localize "SW25.Item.Noapply"}}</option>
-                <option value="on">{{localize "SW25.Item.applyon"}}</option>
-                {{/select}}
+                {{selectOptions applyOptions selected=system.applypower localize=true}}
               </select>
             </span>
           </div>

@@ -19,135 +19,39 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
     // Retrieve base data structure.
     const context = await super.getData();
 
+    context.effectOptions = CONFIG.SW25.Effect;
+
     // Use a safe clone of the actor data for further operations.
-    const effectData = context.effect;
+    const effectData = context.data;
 
     // Set  keyClassification and kename of exsisting keys
     for (let i = 0; i < effectData.changes.length; i++) {
       let change = effectData.changes[i];
-      switch (change.key) {
-        case "system.attributes.efhitmod":
-        case "system.attributes.efdmod":
-        case "system.effect.efcvalue":
-        case "system.effect.efspellcvalue":
-        case "system.lt":
-        case "system.cr":
-        case "system.attributes.efwphalfmod":
-        case "system.attributes.efsphalfmod":
-        case "system.attributes.efdodgemod":
-        case "system.attributes.efppmod":
-        case "system.attributes.efmppmod":
-        case "system.attributes.efdreduce":
-        case "system.attributes.move.efmovemod":
-        case "system.attributes.turnend.hpregenmod":
-        case "system.attributes.turnend.mpregenmod":
-              change.keyClassification = "battle";
-          change.keyname = change.key.replace(/^system\./, "");
-          break;
-        case "system.effect.vitres":
-        case "system.effect.mndres":
-        case "system.effect.init":
-        case "system.effect.mknow":
-        case "system.effect.allck":
-        case "system.effect.allsk":
-        case "system.eflootmod":
-        case "system.effect.package.fine":
-        case "system.effect.package.move":
-        case "system.effect.package.obse":
-        case "system.effect.package.know":
-          change.keyClassification = "check";
-          change.keyname = change.key.replace(/^system\./, "");
-          break;
-        case "system.hp.efhpmod":
-        case "system.mp.efmpmod":
-        case "system.abilities.dex.efvaluemodify":
-        case "system.abilities.agi.efvaluemodify":
-        case "system.abilities.str.efvaluemodify":
-        case "system.abilities.vit.efvaluemodify":
-        case "system.abilities.int.efvaluemodify":
-        case "system.abilities.mnd.efvaluemodify":
-        case "system.abilities.dex.efmodify":
-        case "system.abilities.agi.efmodify":
-        case "system.abilities.str.efmodify":
-        case "system.abilities.vit.efmodify":
-        case "system.abilities.int.efmodify":
-        case "system.abilities.mnd.efmodify":
-          change.keyClassification = "parameter";
-          change.keyname = change.key.replace(/^system\./, "");
-          break;
-        case "system.attributes.efscmod":
-        case "system.attributes.efcnmod":
-        case "system.attributes.efwzmod":
-        case "system.attributes.efprmod":
-        case "system.attributes.efmtmod":
-        case "system.attributes.effrmod":
-        case "system.attributes.efdrmod":
-        case "system.attributes.efdmmod":
-        case "system.attributes.efabmod":
-        case "system.effect.allmgp":
-          change.keyClassification = "magicpower";
-          change.keyname = change.key.replace(/^system\./, "");
-          break;
-        case "system.attributes.efscckmod":
-        case "system.attributes.efcnckmod":
-        case "system.attributes.efwzckmod":
-        case "system.attributes.efprckmod":
-        case "system.attributes.efmtckmod":
-        case "system.attributes.effrckmod":
-        case "system.attributes.efdrckmod":
-        case "system.attributes.efdmckmod":
-        case "system.attributes.efabckmod":
-        case "system.attributes.efmckall":
-          change.keyClassification = "magicckroll";
-          change.keyname = change.key.replace(/^system\./, "");
-          break;
-        case "system.attributes.efscpwmod":
-        case "system.attributes.efcnpwmod":
-        case "system.attributes.efwzpwmod":
-        case "system.attributes.efprpwmod":
-        case "system.attributes.efmtpwmod":
-        case "system.attributes.effrpwmod":
-        case "system.attributes.efdrpwmod":
-        case "system.attributes.efdmpwmod":
-        case "system.attributes.efabpwmod":
-        case "system.attributes.efmpwall":
-          change.keyClassification = "magicpwroll";
-          change.keyname = change.key.replace(/^system\./, "");
-          break;
-        case "system.attributes.efmpsc":
-        case "system.attributes.efmpcn":
-        case "system.attributes.efmpwz":
-        case "system.attributes.efmppr":
-        case "system.attributes.efmpmt":
-        case "system.attributes.efmpfr":
-        case "system.attributes.efmpdr":
-        case "system.attributes.efmpdm":
-        case "system.attributes.efmpab":
-        case "system.attributes.efmpall":
-          change.keyClassification = "mpsave";
-          change.keyname = change.key.replace(/^system\./, "");
-          break;
-        case "system.attributes.efmsckmod":
-        case "system.attributes.efmspwmod":
-        case "system.attributes.efatckmod":
-        case "system.attributes.efewckmod":
-        case "system.attributes.efewpwmod":
-          change.keyClassification = "feature";
-          change.keyname = change.key.replace(/^system\./, "");
-          break;
-        case "system.":
-          change.key = "";
-          break;
-        case null:
-        case "":
-          change.keyname = "";
-          break;
-        default:
-          change.keyClassification = "input";
-          break;
+      change.keyname = change.key.replace(/^system\./, "");
+      if (change.keyname in context.effectOptions.battle) {
+        change.keyClassification = "battle";
+      } else if (change.keyname in context.effectOptions.check) {
+        change.keyClassification = "check";
+      } else if (change.keyname in context.effectOptions.parameter) {
+        change.keyClassification = "parameter";
+      } else if (change.keyname in context.effectOptions.magicpower) {
+        change.keyClassification = "magicpower";
+      } else if (change.keyname in context.effectOptions.magicckroll) {
+        change.keyClassification = "magicckroll";
+      } else if (change.keyname in context.effectOptions.magicpwroll) {
+        change.keyClassification = "magicpwroll";
+      } else if (change.keyname in context.effectOptions.mpsave) {
+        change.keyClassification = "mpsave";
+      } else if (change.keyname in context.effectOptions.feature) {
+        change.keyClassification = "feature";
+      } else if (change.key === "system.") {
+        change.key = "";
+      } else if (change.key === null || change.key === "") {
+        change.keyname = "";
+      } else {
+        change.keyClassification = "input";
       }
     }
-
     return context;
   }
   /** @override */

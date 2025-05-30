@@ -29,11 +29,10 @@ export async function actionRoll(element, actor) {
 
     result = Number(roll.result);
     total = result;
-    chatData.type = CONST.CHAT_MESSAGE_TYPES.ROLL;
     chatData.rolls = [roll];
   } else {
     result = dataset.result;
-    chatData.type = CONST.CHAT_MESSAGE_TYPES.OTHER;
+    chatData.type = CONST.CHAT_MESSAGE_STYLES.OTHER;
   }
 
   // action setting
