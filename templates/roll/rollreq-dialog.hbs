@@ -12,14 +12,10 @@
         <div class="form-group">
             <label for="checkname" style="text-align: right;">{{localize "SW25.Skillname"}}:</label>
             <select id="checkname" name="checkname" style="width: 50%;">
-                {{#select checkname}}
-                <option value="-">-</option>
-                <option value="adv">{{localize "SW25.Attributes.Advlevel"}}</option>
-                {{#each skilllist as |skill|}}
-                <option value="{{skill}}">{{skill}}</option>
-                {{/each}}
-                <option value="di">{{localize "SW25.Effect.DirectInput"}}</option>
-                {{/select}}
+                <option value="">-</option>
+                <option value="adv" {{#if (eq checkname "adv")}}selected{{/if}}>{{localize "SW25.Attributes.Advlevel"}}</option>
+                {{selectOptions skilllist selected=checkname nameAttr="name" labelAttr="name"}}
+                <option value="di" {{#if (eq checkname "di")}}selected{{/if}}>{{localize "SW25.Effect.DirectInput"}}</option>
             </select>
             {{#if (eq checkname "di")}}
             <input type="text" id="inputcheckname" name="inputcheckname" placeholder="{{localize "SW25.InputPlaceHolder"}}" />
@@ -30,15 +26,7 @@
             <div></div>
             <label for="ability" style="text-align: right;">{{localize "SW25.Abilityname"}} : </label>
             <select id="ability" name="ability" style="text-align: center; width: 50%;">
-                {{#select ability}}
-                <option value="-">-</option>
-                <option value="dex">{{localize "SW25.Ability.Dex.abbr"}}</option>
-                <option value="agi">{{localize "SW25.Ability.Agi.abbr"}}</option>
-                <option value="str">{{localize "SW25.Ability.Str.abbr"}}</option>
-                <option value="vit">{{localize "SW25.Ability.Vit.abbr"}}</option>
-                <option value="int">{{localize "SW25.Ability.Int.abbr"}}</option>
-                <option value="mnd">{{localize "SW25.Ability.Mnd.abbr"}}</option>
-                {{/select}}
+                {{selectOptions abilities selected=ability localize=true blank="-"}}
             </select>
         </div>
         {{/if}}
@@ -46,13 +34,9 @@
         <div class="form-group">
             <label for="checkname" style="text-align: right;">{{localize "SW25.Check"}}:</label>
             <select id="checkname" name="checkname">
-                {{#select checkname}}
-                <option value="-">-</option>
-                {{#each checklist as |check|}}
-                <option value="{{check}}">{{check}}</option>
-                {{/each}}
-                <option value="di">{{localize "SW25.Effect.DirectInput"}}</option>
-                {{/select}}
+                <option value="">-</option>
+                {{selectOptions checklist selected=checkname nameAttr="name" labelAttr="name"}}
+                <option value="di" {{#if (eq checkname "di")}}selected{{/if}}>{{localize "SW25.Effect.DirectInput"}}</option>
             </select>
             {{#if (eq checkname "di")}}
             <input type="text" id="inputcheckname" name="inputcheckname" placeholder="{{localize "SW25.InputPlaceHolder"}}" />
