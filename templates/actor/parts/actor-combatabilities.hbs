@@ -18,6 +18,13 @@
     <li class='item' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
         <div class='item-name'>
+          <div class="item-equip">
+            {{#if system.useequip}}
+            <label class="equip-toggle">
+              <input class="eq-change" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
+            </label>
+            {{/if}}
+          </div>
           <div class='item-image'>
             <a class='rollable' data-roll-type='item'>
               <img
@@ -28,7 +35,8 @@
               />
             </a>
           </div>
-          {{#if system.prep}}△{{/if}}<h4 class="item-label">{{item.name}}</h4>{{#if system.secret}} ({{system.school}}){{/if}}
+          {{> "systems/sw25/templates/helper/action-marks.hbs"}}
+          <h4 class="item-label">{{item.name}}</h4>{{#if system.secret}} ({{system.school}}){{/if}}
         </div>
         <div class="rollable" style="flex: 0 0 40px; display: {{#if system.usedice}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula}}+{{item.system.checkbase}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck}}" data-checktype="{{system.checkTypesButton}}">
           <b>{{localize "SW25.Item.CheckB"}}</b>

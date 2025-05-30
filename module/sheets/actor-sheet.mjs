@@ -168,6 +168,7 @@ export class SW25ActorSheet extends ActorSheet {
     };
     const lifelines = [];
     const tacspowers = [];
+    const magitechrs = [];
     const abyssexs = [];
     let materialshow = {
       all: false,
@@ -214,6 +215,8 @@ export class SW25ActorSheet extends ActorSheet {
           lifelines.push(i);
         } else if (i.system?.resource?.type == "tacspower") {
           tacspowers.push(i);
+        } else if (i.system?.resource?.type == "magitech") {
+          magitechrs.push(i);
         } else if (i.system?.resource?.type == "abyssex") {
           abyssexs.push(i);
         }
@@ -571,11 +574,13 @@ export class SW25ActorSheet extends ActorSheet {
     context.materials = materials;
     context.lifelines = lifelines;
     context.tacspowers = tacspowers;
+    context.magitechrs = magitechrs;
     context.abyssexs = abyssexs;
     context.noteshow = notes.length > 0;
     context.materialshow = materialshow;
     context.lifelineshow = lifelines.length > 0;
     context.tacspowershow = tacspowers.length > 0;
+    context.magitechrshow = magitechrs.length > 0;
     context.abyssexshow = abyssexs.length > 0;
   }
 
@@ -1130,7 +1135,7 @@ export class SW25ActorSheet extends ActorSheet {
     const targetedToken = game.user.targets;
 
     // if no target,show dialog
-    if (targetedToken.size === 0) {
+    if (!item.system.selfbuff && targetedToken.size === 0) {
       const title = `${item.name} (${game.i18n.localize("SW25.Effectslong")})`;
       const selectedTokens = await targetSelectDialog(title);
       game.user.updateTokenTargets(selectedTokens.map((token) => token.id));
@@ -1139,15 +1144,6 @@ export class SW25ActorSheet extends ActorSheet {
       }
     }
 
-    // Target Actor
-    const targetActors = [];
-    targetedToken.forEach((token) => {
-      targetActors.push(token.actor);
-
-      // Actor name stock for chat message
-      const actorName = token.actor.name;
-      targetActorName.push({ actorName });
-    });
 
     // Effect name stock for chat message
     targetEffects.forEach((effect) => {
@@ -1157,7 +1153,34 @@ export class SW25ActorSheet extends ActorSheet {
 
     // Apply
     const targetTokens = game.user.targets;
-    const targetTokenId = Array.from(targetTokens, (target) => target.id);
+    let targetTokenId = Array.from(targetTokens, (target) => target.id);
+
+    // Target Actor
+    let targetActors = [];
+    if (item.system.selfbuff){
+      if ( game.user.isGM ) {
+        const actorName = this.actor.name;
+        targetActorName.push({ actorName });
+        targetActors.push(this.actor);
+      } else {
+        const actorName = this.actor.name;
+        targetActorName.push({ actorName });
+        targetTokenId = this.actor.token 
+         ? this.actor.token.id
+         : [this.actor.getActiveTokens()[0]?.id];
+      }
+    } else {
+      targetedToken.forEach((token) => {
+        targetActors.push(token.actor);
+  
+        // Actor name stock for chat message
+        const actorName = token.actor.name;
+        targetActorName.push({ actorName });
+      });
+      targetTokenId = Array.from(targetTokens, (target) => target.id);
+
+    }
+    
     if (game.user.isGM) {
       targetActors.forEach((targetActor) => {
         targetEffects.forEach((effect) => {
@@ -1319,7 +1342,7 @@ export class SW25ActorSheet extends ActorSheet {
       : game.i18n.localize("SW25.Monster.Unidentifiedmon");
     monsterName += `(${this.actor.system.type})`;
     targetValue = this.actor.system.popularity;
-    targetValue += Number.isFinite(this.actor.system.weakpoint)
+    targetValue += !isNaN(Number(this.actor.system.weakpoint))
       ? "/" + this.actor.system.weakpoint
       : "";
 
@@ -2061,23 +2084,6 @@ export class SW25ActorSheet extends ActorSheet {
       await resource.update({ "system.quantity": newVal });
     }
 
-    if (item.system.type == "ten") {
-      let val = this.actor.system.attributes.qi.heaven.value - cost;
-      this.actor.update({
-        "system.attributes.qi.heaven.value": val,
-      });
-    } else if (item.system.type == "chi") {
-      let val = this.actor.system.attributes.qi.earth.value - cost;
-      this.actor.update({
-        "system.attributes.qi.earth.value": val,
-      });
-    } else if (item.system.type == "jin") {
-      let val = this.actor.system.attributes.qi.spirit.value - cost;
-      this.actor.update({
-        "system.attributes.qi.spirit.value": val,
-      });
-    }
-
     // Apply
     if (game.user.isGM) {
       selectedTokens[0].actor.createEmbeddedDocuments("ActiveEffect", effects);
@@ -2096,7 +2102,7 @@ export class SW25ActorSheet extends ActorSheet {
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     let label = game.i18n.localize("SW25.Effectslong");
     let chatActorName = ">>> " + selectedTokens[0].actor.name + "<br>";
-    let chatEffectName = effects[0].name + game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`) + "<br>";
+    let chatEffectName = effects[0].name + "(" + game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`) + ")<br>";
 
     let chatData = {
       speaker: speaker,

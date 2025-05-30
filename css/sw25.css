@@ -83,6 +83,11 @@
   cursor: pointer;
 }
 
+.session-result:hover, .session-result:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
 
 .grid,
 .grid-2col {
@@ -1452,4 +1457,114 @@ input.weakapply[type="checkbox"] {
 
 .fairy-rank {
   font-size: 0.7em;
+}
+
+.session-result-title {
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.session-result-chat .title{
+  background: linear-gradient(210deg, rgb(160, 205, 255), rgb(255, 165, 180));
+  border: 1px solid #333;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-weight:bold;
+}
+
+.session-result-chat .basic-info,
+.session-result-chat .session-info{
+  border: 1px solid #333;
+  padding: 2px;
+  margin: 2px;
+}
+
+.session-result-chat .basic-info .contents,
+.session-result-chat .session-info .contents{
+  padding-left:1em;
+	text-indent:-1em;
+}
+
+.session-result-chat .custom-info table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.session-result-chat .custom-info .header-title,
+.session-result-chat .custom-info .contents-title,
+.session-result-chat .custom-info .header-value,
+.session-result-chat .custom-info .contents-value{
+  min-width: 10%;
+}
+
+.sw25 .customs .item .custom-value,
+.sw25 .customs .item .custom-controls {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+
+.sw25 .customs .item .effect-controls {
+  border: none;
+}
+
+.sw25 .details .session-detail {
+  gap: 0px;
+  margin: 0px;
+}
+
+.sw25 .item .item-equip {
+  width: 50px;
+}
+
+.sw25 .item .equip-toggle {
+  display: inline-block;
+  position: relative;
+  width: 40px;
+  height: 20px;
+  border-radius: 20px;
+  background-color: #aaaaaa;
+  cursor: pointer;
+  transition: background-color .4s;
+}
+
+.sw25 .item .equip-toggle:has(:checked) {
+  background-color: #4bd865;
+}
+
+.sw25 .item .equip-toggle::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+  background-color: #ffffff;
+  content: '';
+  transition: left .4s;
+}
+
+.sw25 .item .equip-toggle:has(:checked)::after {
+  left: 20px;
+}
+
+.sw25 .item .equip-toggle input {
+  display: none;
+}
+
+.sw25 .items-list .ability-resource .resources {
+  flex: 1;
+  margin: 0;
+  font-size: 13px;
+  text-align: left;
+  align-items: center;
+  display: flex;
+  /* flex-wrap: wrap; */
+}
+.sw25 .items-list .ability-resource .resources h3, .sw25 .items-list  .ability-resource .resources h4 {
+  margin: 0;
+  white-space: nowrap;
+  overflow-x: hidden;
 }

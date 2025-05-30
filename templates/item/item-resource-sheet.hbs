@@ -63,6 +63,7 @@
               <option value="material">{{localize "SW25.Item.Resource.Types.Material"}}</option>
               <option value="lifeline">{{localize "SW25.Item.Resource.Types.Lifeline"}}</option>
               <option value="tacspower">{{localize "SW25.Item.Resource.Types.Tacspower"}}</option>
+              <option value="magitech">{{localize "SW25.Item.Resource.Types.Magitech"}}</option>
               <option value="abyssex">{{localize "SW25.Item.Resource.Types.AbyssEx"}}</option>
               {{/select}}
             </select>
@@ -107,13 +108,24 @@
               {{/select}}
             </select>
           </div>
+          <div class="grid-span-3" style="display: {{#if system.resource.isMagitech}}block{{else}}none{{/if}}; text-align: center;">
+            <b>{{localize "SW25.Item.Resource.Types.Magitech"}}</b><br>
+            <select name="system.resource.magitechtype">
+              {{#select system.resource.magitechtype}}
+              <option value="bullet">{{localize "SW25.Item.Resource.Bullet"}}</option>
+              <option value="magisphereS">{{localize "SW25.Item.Resource.MagisphereS"}}</option>
+              <option value="magisphereM">{{localize "SW25.Item.Resource.MagisphereM"}}</option>
+              <option value="magisphereL">{{localize "SW25.Item.Resource.MagisphereL"}}</option>
+              {{/select}}
+            </select>
+          </div>
           <div class="grid-span-3" style="display: {{#if system.resource.isAbyssEx}}block{{else}}none{{/if}}; text-align: center;">
             <b>{{localize "SW25.Item.Resource.Types.AbyssEx"}}</b><br>
             <select name="system.resource.abyssextype">
               {{#select system.resource.abyssextype}}
-              <option value="deamonblood">{{localize "SW25.Item.Resource.Deamonblood"}}</option>
-              <option value="deamoncrystal">{{localize "SW25.Item.Resource.Deamoncrystal"}}</option>
-              <option value="deamoncrystalL">{{localize "SW25.Item.Resource.DeamoncrystalLarge"}}</option>
+              <option value="daemonblood">{{localize "SW25.Item.Resource.Daemonblood"}}</option>
+              <option value="daemoncrystal">{{localize "SW25.Item.Resource.Daemoncrystal"}}</option>
+              <option value="daemoncrystalL">{{localize "SW25.Item.Resource.ArcDaemoncrystal"}}</option>
               <option value="abyssshard">{{localize "SW25.Item.Resource.Abyssshard"}}</option>
               {{/select}}
             </select>
