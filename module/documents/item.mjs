@@ -87,6 +87,29 @@ export class SW25Item extends Item {
     super.prepareData();
   }
 
+  static migrateData(source) {
+    if (source?.system?.category === "-") source.system.category = "";
+    if (source?.system?.type === "-") source.system.type = "";
+    if (source?.system?.rank === "-") source.system.rank = "";
+    if (source?.system?.accpart === "-") source.system.accpart = "";
+    if (source?.system?.deffect === "-") source.system.deffect = "";
+    if (source?.system?.condtype === "-") source.system.condtype = "";
+    if (source?.system?.resist === "-") source.system.resist = "";
+    if (source?.system?.prop === "-") source.system.prop = "";
+    if (source?.system?.fairytype === "-") source.system.fairytype = "";
+    if (source?.system?.fairyprop === "-") source.system.fairyprop = "";
+    if (source?.system?.resuse === "-") source.system.resuse = "";
+    if (source?.system?.checkabi === "-") source.system.checkabi = "";
+    if (source?.system?.checkabi1 === "-") source.system.checkabi1 = ""
+    if (source?.system?.checkabi2 === "-") source.system.checkabi2 = "";
+    if (source?.system?.powerabi === "-") source.system.powerabi = "";
+    if (source?.system?.checkskill === "-") source.system.checkskill = "";
+    if (source?.system?.checkskill1 === "-") source.system.checkskill1 = "";
+    if (source?.system?.checkskill2 === "-") source.system.checkskill2 = "";
+    if (source?.system?.powerskill === "-") source.system.powerskill = "";
+    return super.migrateData(source)
+  }
+
   prepareDerivedData() {
     const itemData = this;
     const systemData = itemData.system;
