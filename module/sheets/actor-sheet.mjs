@@ -51,6 +51,7 @@ export class SW25ActorSheet extends ActorSheet {
     // Add the actor's data to context.data for easier access, as well as flags.
     context.system = actorData.system;
     context.flags = actorData.flags;
+    context.isOwner = this.actor.isOwner;
 
     // Prepare character data and items.
     if (actorData.type == "character") {
@@ -79,7 +80,7 @@ export class SW25ActorSheet extends ActorSheet {
       // as well as any items
       this.actor.allApplicableEffects()
     );
-
+    
     return context;
   }
 

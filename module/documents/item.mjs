@@ -1025,7 +1025,7 @@ export class SW25Item extends Item {
 
     if (itemData.type == "raceability") {
       const result = Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
-      systemData.mpcost = isNaN(result) ? null : (result <= 0 ? 1 : result);
+      systemData.mpcost = isNaN(result) || systemData.basempcost == null ? null : (result <= 0 ? 1 : result);
     }
     
     if (itemData.type == "weapon") {
@@ -1529,6 +1529,8 @@ export class SW25Item extends Item {
           Number(powerabimod) +
           Number(systemData.efmod);
       }
+      const result = Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
+      systemData.mpcost = isNaN(result) || systemData.basempcost == null ? null : (result <= 0 ? 1 : result);
     }
     if (itemData.type == "action") {
       systemData.actionvalue =
@@ -1953,6 +1955,21 @@ export class SW25Item extends Item {
         `SW25.Item.Combatability.${i18ncondtype}`
       );
     } else systemData.condtypename = "-";
+    
+    let updateData = {
+      constant: false,
+      main: false,
+      decla: false
+    };
+
+    if (systemData.type === "allways") {
+      updateData.constant = true;
+    } else if (systemData.type === "declaration") {
+      updateData.decla = true;
+    } else if (systemData.type === "mainop") {
+      updateData.main = true;
+    }
+    itemData.update({ system: updateData });
   }
 
   _prepareEnhanceartsData(itemData) {}

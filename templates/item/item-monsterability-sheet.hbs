@@ -89,6 +89,8 @@
           <span></span>
           <span class="grid-span-4" style="text-align: left;"><label for="{{item._id}}system.remark"><b>{{localize "SW25.Item.Monsterability.Remark"}}</b></label><br>
             <input id="{{item._id}}system.remark" type="text" name="system.remark" value="{{system.remark}}" data-dtype="String"/></span>
+          <span class="grid-span-3"  style="text-align: center;"><label for="{{item._id}}system.basempcost"><b>MP{{localize "SW25.Cost"}}</b></label><br>
+            <input id="{{item._id}}system.basempcost" style="max-width: calc(50% - 7px);" type="text" name="system.basempcost" value="{{system.basempcost}}" data-dtype="Number"/></span>
         </div>
         <div style="display: {{#if system.usedice1}}block{{else}}none{{/if}};">
           <div class="flexrow grid grid-8col">

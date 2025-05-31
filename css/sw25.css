@@ -1515,15 +1515,16 @@ input.weakapply[type="checkbox"] {
 }
 
 .sw25 .item .item-equip {
-  width: 50px;
+  width: 30px;
+  text-align: center;
 }
 
 .sw25 .item .equip-toggle {
   display: inline-block;
   position: relative;
-  width: 40px;
-  height: 20px;
-  border-radius: 20px;
+  width: 20px;
+  height: 10px;
+  border-radius: 10px;
   background-color: #aaaaaa;
   cursor: pointer;
   transition: background-color .4s;
@@ -1537,8 +1538,8 @@ input.weakapply[type="checkbox"] {
   position: absolute;
   top: 0;
   left: 0;
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   box-shadow: 0 0 5px rgb(0 0 0 / 20%);
   background-color: #ffffff;
@@ -1547,7 +1548,7 @@ input.weakapply[type="checkbox"] {
 }
 
 .sw25 .item .equip-toggle:has(:checked)::after {
-  left: 20px;
+  left: 10px;
 }
 
 .sw25 .item .equip-toggle input {

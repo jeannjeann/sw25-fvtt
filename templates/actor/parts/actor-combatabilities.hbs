@@ -2,7 +2,6 @@
   <li class='item flexrow items-header'>
     <div class='item-name'>{{localize "TYPES.Item.combatability"}}</div>
     <div class='item-element' style="flex: 1 0 0;">{{localize "SW25.Item.Combatability.App"}} / {{localize "SW25.Item.Combatability.Risk"}}</div>
-    <div class='item-element' style="flex: 0 0 70px;">{{localize "SW25.Item.Combatability.Type"}}</div>
     <div class='item-controls'>
       <a
         class='item-control item-create'
@@ -36,7 +35,7 @@
             </a>
           </div>
           {{> "systems/sw25/templates/helper/action-marks.hbs"}}
-          <h4 class="item-label">{{item.name}}</h4>{{#if system.secret}} ({{system.school}}){{/if}}
+          <h4 class="item-label">{{item.name}}</h4>
         </div>
         <div class="rollable" style="flex: 0 0 40px; display: {{#if system.usedice}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula}}+{{item.system.checkbase}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck}}" data-checktype="{{system.checkTypesButton}}">
           <b>{{localize "SW25.Item.CheckB"}}</b>
@@ -50,28 +49,37 @@
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 1 0 0;">
           {{system.app}} / {{system.risk}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 70px;">
-          {{system.typename}}
-        </div>
-        <div class='item-controls'>
-          <a
-            class='item-control item-edit'
-            title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.combatability")}}'
-          >
-            <i class='fas fa-edit'></i>
-          </a>
-          <a
-            class='item-control item-delete'
-            title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.combatability")}}'
-          >
-            <i class='fas fa-trash'></i>
-          </a>
-        </div>
+        {{#if ../isOwner}}
+          <div class='item-controls'>
+            <a
+              class='item-control item-edit'
+              title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.combatability")}}'
+            >
+              <i class='fas fa-edit'></i>
+            </a>
+            <a
+              class='item-control item-delete'
+              title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.combatability")}}'
+            >
+              <i class='fas fa-trash'></i>
+            </a>
+          </div>
+        {{else}}
+          <div class='item-controls'>
+            <a
+              class='item-control item-edit'
+              title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.combatability")}}'
+            >
+              <i class='fa-solid fa-eye'></i>
+            </a>
+          </div>
+        {{/if}}
       </div>
       <div class="item-description nogapmargin">
         <div class="flexrow">
           <div style="flex: 0 0 60px;"></div>
           <div style="font-size: 0.8em;">
+            {{#if system.secret}}{{system.school}}<hr>{{/if}}
             {{{system.description}}}
           </div>
           <div style="flex: 0 0 50px;"></div>

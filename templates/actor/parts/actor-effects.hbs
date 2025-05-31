@@ -20,17 +20,25 @@
         </div>
         <div class="effect-source">{{#if effect.flags.sourceName}}{{effect.flags.sourceName}}{{else}}{{effect.parent.name}}{{/if}}</div>
         <div class="effect-duration">{{effect.duration.label}}</div>
-        <div class="item-controls effect-controls flexrow" style="flex: 0 0 70px;">
-          <a class="effect-control" data-action="toggle" title="{{localize 'SW25.Effect.Toggle'}}">
-            <i class="fas {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
-          </a>
-          <a class="effect-control" data-action="edit" title="{{localize 'DOCUMENT.Update' type=(localize "SW25.Effects")}}">
-            <i class="fas fa-edit"></i>
-          </a>
-          <a class="effect-control" data-action="delete" title="{{localize 'DOCUMENT.Delete' type=(localize "SW25.Effects")}}">
-            <i class="fas fa-trash"></i>
-          </a>
-        </div>
+        {{#if ../isOwner}}
+          <div class="item-controls effect-controls flexrow" style="flex: 0 0 70px;">
+            <a class="effect-control" data-action="toggle" title="{{localize 'SW25.Effect.Toggle'}}">
+              <i class="fas {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
+            </a>
+            <a class="effect-control" data-action="edit" title="{{localize 'DOCUMENT.Update' type=(localize "SW25.Effects")}}">
+              <i class="fas fa-edit"></i>
+            </a>
+            <a class="effect-control" data-action="delete" title="{{localize 'DOCUMENT.Delete' type=(localize "SW25.Effects")}}">
+              <i class="fas fa-trash"></i>
+            </a>
+          </div>
+        {{else}}
+          <div class="item-controls effect-controls flexrow" style="flex: 0 0 70px;">
+            <a class="effect-control" data-action="edit" title="{{localize 'DOCUMENT.Update' type=(localize "SW25.Effects")}}">
+              <i class='fa-solid fa-eye'></i>
+            </a>
+          </div>
+        {{/if}}
       </li>
     {{/each}}
     </ol>

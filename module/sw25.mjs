@@ -769,7 +769,7 @@ Hooks.once("ready", async function () {
         displayBars = 0;
     }
 
-    if (actor.prototypeToken) {
+    if (actor._stats.compendiumSource || options._stats.compendiumSource) {
       displayName = actor.prototypeToken.hasOwnProperty("displayName")
         ? actor.prototypeToken.displayName
         : displayName;
