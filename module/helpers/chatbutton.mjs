@@ -1708,7 +1708,7 @@ export async function chatButton(chatMessage, buttonType) {
       checkbase += `${flagMod}`;
     }
 
-    let formula = item ? itemData.formula + checkbase : "2d6";
+    let formula = item ? "2d6" + checkbase : "2d6";
     if (flags.checkName == "adv") formula = "2d6" + checkbase;
 
     let roll = new Roll(formula, rollData);
