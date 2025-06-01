@@ -34,9 +34,7 @@
           </div>
           <h4 class="item-label">{{item.name}}</h4>{{#if item.system.dedicated}} ({{localize "SW25.Item.Dedicated"}}{{item.system.deffectname}}){{/if}}
         </div>
-        <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
-          <b>{{localize "SW25.Item.EffectB"}}</b>
-        </div>
+        {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
         <div style="text-align: center; flex: 0 0 80px;">
           {{item.system.accpartname}}
         </div>

@@ -122,9 +122,9 @@
       "Totalexp": "総計",
       "Move": "移動力",
       "Movemod": "移動力修正",
-      "Normalmove": "通常",
-      "Maxmove": "全力",
-      "Limitedmove": "制限",
+      "Normalmove": "通常移動",
+      "Maxmove": "全力移動",
+      "Limitedmove": "制限移動",
       "Protectionpoint": { "long": "防護点", "abbr": "防護" },
       "Magicprotection": { "long": "魔法防御", "abbr": "魔防" },
       "Showfeature": "空欄グループ表示",
@@ -412,7 +412,11 @@
         "B": "B",
         "A": "A",
         "S": "S",
-        "SS": "SS"
+        "SS": "SS",
+        "EffectiveValue": "効果値",
+        "Value": "値",
+        "Time": "時間(ラウンド)",
+        "DiceFormula": "ダイス式"
       },
       "Phasearea": {
         "Phase": "相",

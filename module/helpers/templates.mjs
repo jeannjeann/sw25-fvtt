@@ -48,6 +48,7 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/sw25/templates/actor/parts/actor-actions.hbs",
     "systems/sw25/templates/actor/parts/actor-actions-fellow.hbs",
     "systems/sw25/templates/actor/parts/actor-actions-daemon.hbs",
+    "systems/sw25/templates/actor/parts/actor-useitems.hbs",
     // Item partials
     "systems/sw25/templates/item/parts/item-customs.hbs",
     "systems/sw25/templates/item/parts/item-effects.hbs",

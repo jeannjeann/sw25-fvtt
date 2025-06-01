@@ -2222,6 +2222,34 @@ export class SW25ActorSheet extends ActorSheet {
       }
     }
 
+    // alchemitech effective change.
+    if (item.system.effectvalue.type !== "-" && item.effects) {
+      const changeValue = item.system.effectvalue[useRank];
+      if (changeValue) {
+        const updates = [];
+
+        if(item.system.effectvalue.type === "diceformula"){
+          await item.update({ "system.customformula": String(changeValue) });
+        } else {
+          for (let effect of item.effects) {
+            const updateData = { _id: effect.id };
+
+            if (item.system.effectvalue.type === "time") {
+              updateData.duration = { rounds: Number(changeValue) };
+            } else if (item.system.effectvalue.type === "value") {
+              updateData.changes = effect.changes.map(c => ({
+                ...c,
+                value: Number(changeValue)
+              }));
+            }
+
+            updates.push(updateData);
+          }
+          await item.updateEmbeddedDocuments("ActiveEffect", updates);
+        }
+      }
+    }
+
     this.actor.update(update);
 
     // Chat message

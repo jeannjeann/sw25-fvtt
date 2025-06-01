@@ -121,9 +121,9 @@
       "Totalexp": "Total",
       "Move": "Move",
       "Movemod": "Move Mod",
-      "Normalmove": "Normal",
-      "Maxmove": "Max",
-      "Limitedmove": "Limited",
+      "Normalmove": "Normal Move",
+      "Maxmove": "Max Move",
+      "Limitedmove": "Limited Move",
       "Protectionpoint": { "long": "DEF", "abbr": "DEF" },
       "Magicprotection": { "long": "MDEF", "abbr": "MDEF" },
       "Showfeature": "Show Empty Groups",
@@ -411,7 +411,11 @@
         "B": "B",
         "A": "A",
         "S": "S",
-        "SS": "SS"
+        "SS": "SS",
+        "EffectiveValue": "Effective Value",
+        "Value": "Value",
+        "Time": "Time(Round)",
+        "DiceFormula": "Dice Formula"
       },
       "Phasearea": {
         "Phase": "Aspect",
