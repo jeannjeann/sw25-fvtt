@@ -178,6 +178,9 @@
     },
     "Item": {
       "Name": "Name",
+      "Popularity": "Popularity",
+      "Shape": "Shape",
+      "Create": "Create",
       "CheckB": "<CK>",
       "PowerB": "<PWR>",
       "EffectB": "<EFF>",

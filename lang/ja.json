@@ -179,6 +179,9 @@
     },
     "Item": {
       "Name": "名称",
+      "Popularity": "知名度",
+      "Shape": "形状",
+      "Create": "製造時期",
       "CheckB": "判定",
       "PowerB": "威力",
       "EffectB": "バフ",
