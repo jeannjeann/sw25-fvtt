@@ -1283,7 +1283,7 @@ export async function chatButton(chatMessage, buttonType) {
         }
         const title = `${type} - ${chatMessage.flavor}`;
         const selectedTokens = await targetSelectDialog(title);
-        game.user.updateTokenTargets(selectedTokens.map((token) => token.id));
+        selectedTokens.forEach(token => game.user.targets.add(token))
         if (!selectedTokens) {
           return;
         }
@@ -1435,7 +1435,7 @@ export async function chatButton(chatMessage, buttonType) {
     if (targetTokens.size === 0) {
       const title = `${item.name} (${game.i18n.localize("SW25.Effectslong")})`;
       const selectedTokens = await targetSelectDialog(title);
-      game.user.updateTokenTargets(selectedTokens.map((token) => token.id));
+      selectedTokens.forEach(token => game.user.targets.add(token))
       if (!selectedTokens) {
         return;
       }

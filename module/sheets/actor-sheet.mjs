@@ -1177,7 +1177,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (!item.system.selfbuff && targetedToken.size === 0) {
       const title = `${item.name} (${game.i18n.localize("SW25.Effectslong")})`;
       const selectedTokens = await targetSelectDialog(title);
-      game.user.updateTokenTargets(selectedTokens.map((token) => token.id));
+      selectedTokens.forEach(token => game.user.targets.add(token))
       if (!selectedTokens) {
         return;
       }
