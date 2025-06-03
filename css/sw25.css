@@ -1398,13 +1398,23 @@ input.weakapply[type="checkbox"] {
   min-width: 3em;
 }
 
-.materialcardcost{
-  font-weight: bold;
+.materialcardcost, .notesget, .notescost, .notesaddget, .tacspowerget, .tacspowercost{
   text-align: center;
   margin: 2px;
 }
 
-.materialcardcost:hover, .usephasearea:focus {
+.notesget, .notesaddget, .tacspowerget{
+  color: #2d53ff;
+}
+
+.notescost, .tacspowercost{
+  color: #862020;
+}
+
+.materialcardcost:hover,
+.notesget:hover, .notescost:hover, .notesaddget:hover,
+.tacspowerget:hover, .tacspowercost:hover,
+.usephasearea:focus {
   color: #000;
   text-shadow: 0 0 10px red;
   cursor: pointer;

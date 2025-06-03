@@ -650,6 +650,21 @@ export class SW25ActorSheet extends ActorSheet {
     // Material card cost.
     html.on("click", ".materialcardcost", this._onMaterialcardCost.bind(this));
 
+    // Notes get.
+    html.on("click", ".notesget", this._onNotesGet.bind(this));
+
+    // Notes cost.
+    html.on("click", ".notescost", this._onNotesCost.bind(this));
+
+    // Notes add cost.
+    html.on("click", ".notesaddget", this._onNotesAddGet.bind(this));
+
+    // Tacspower get.
+    html.on("click", ".tacspowerget", this._onTacspowerGet.bind(this));
+
+    // Tacspower cost.
+    html.on("click", ".tacspowercost", this._onTacspowerCost.bind(this));
+
     // Popularity roll.
     html.on("click", ".popularityrollable", this._onPopularityRoll.bind(this));
 
@@ -2288,5 +2303,201 @@ export class SW25ActorSheet extends ActorSheet {
     );
 
     ChatMessage.create(chatData);
+  }
+
+  async _onNotesGet(event) {
+    event.preventDefault();
+
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+
+    if (item.system.upget) {
+      let resourceType = {
+        type: "note",
+        notetype: "up",
+      };
+      await this._updateResource(resourceType, item.system.upget);
+    }
+    if (item.system.downget) {
+      let resourceType = {
+        type: "note",
+        notetype: "down",
+      };
+      await this._updateResource(resourceType, item.system.downget);
+    }
+    if (item.system.charmget) {
+      let resourceType = {
+        type: "note",
+        notetype: "charm",
+      };
+      await this._updateResource(resourceType, item.system.charmget);
+    }
+  }
+
+  async _onNotesCost(event) {
+    event.preventDefault();
+
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+
+    if (item.system.upcost) {
+      let resourceType = {
+        type: "note",
+        notetype: "up",
+      };
+      await this._updateResource(resourceType, item.system.upcost, -1);
+    }
+    if (item.system.downcost) {
+      let resourceType = {
+        type: "note",
+        notetype: "down",
+      };
+      await this._updateResource(resourceType, item.system.downcost, -1);
+    }
+    if (item.system.charmcost) {
+      let resourceType = {
+        type: "note",
+        notetype: "charm",
+      };
+      await this._updateResource(resourceType, item.system.charmcost, -1);
+    }
+  }
+
+  async _onNotesAddGet(event) {
+    event.preventDefault();
+
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+
+    if (item.system.upadd) {
+      let resourceType = {
+        type: "note",
+        notetype: "up",
+      };
+      await this._updateResource(resourceType, item.system.upadd);
+    }
+    if (item.system.downadd) {
+      let resourceType = {
+        type: "note",
+        notetype: "down",
+      };
+      await this._updateResource(resourceType, item.system.downadd);
+    }
+    if (item.system.charmadd) {
+      let resourceType = {
+        type: "note",
+        notetype: "charm",
+      };
+      await this._updateResource(resourceType, item.system.charmadd);
+    }
+  }
+
+  async _onTacspowerGet(event) {
+    event.preventDefault();
+
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+
+    if (item.system.get) {
+      let resourceType = {
+        type: "tacspower",
+      };
+      await this._updateResource(resourceType, item.system.get);
+    }
+  }
+
+  async _onTacspowerCost(event) {
+    event.preventDefault();
+
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+
+    if (item.system.cost) {
+      let resourceType = {
+        type: "tacspower",
+      };
+      await this._updateResource(resourceType, item.system.cost, -1);
+    }
+  }
+
+  async _updateResource(resourceType, modifyValue, multiple=1) {
+    const result = isNaN(Number(modifyValue))
+      ? 0
+      : Number(modifyValue) * multiple;
+
+    let resource = this.actor.items.find((i) => {
+      if (i.type !== "resource") return false;
+
+      const res = i.system?.resource;
+      return (
+        res &&
+        Object.entries(resourceType).every(([key, value]) => res[key] === value)
+      );
+    });
+
+    if (resource) {
+      let oldVal = resource.system.quantity ? resource.system.quantity : 0;
+      let newVal = oldVal + Number(result);
+
+      await resource.update({ "system.quantity": newVal });
+    } else {
+      ui.notifications.warn(game.i18n.localize("SW25.NotResource"));
+      return;
+    }
   }
 }

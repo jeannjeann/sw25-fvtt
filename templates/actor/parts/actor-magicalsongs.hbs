@@ -85,11 +85,11 @@
         </div>
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 50px;">
-          {{#if (eq system.type "song")}}{{#unless (eq system.upget 0)}}↑{{system.upget}}{{/unless}}{{#unless (eq system.downget 0)}}↓{{system.downget}}{{/unless}}{{#unless (eq system.charmget 0)}}♡{{system.charmget}}{{/unless}}{{/if}}
-          {{#if (eq system.type "final")}}{{#unless (eq system.upcost 0)}}↑{{system.upcost}}{{/unless}}{{#unless (eq system.downcost 0)}}↓{{system.downcost}}{{/unless}}{{#unless (eq system.charmcost 0)}}♡{{system.charmcost}}{{/unless}}{{/if}}
+          {{#if (eq system.type "song")}}<div class="notesget">{{#unless (eq system.upget 0)}}<i class="fa-solid fa-arrow-turn-up"></i>{{system.upget}}{{/unless}}{{#unless (eq system.downget 0)}}<i class="fa-solid fa-arrow-turn-down"></i>{{system.downget}}{{/unless}}{{#unless (eq system.charmget 0)}}<i class="fa-regular fa-heart"></i>{{system.charmget}}{{/unless}}</div>{{/if}}
+          {{#if (eq system.type "final")}}<div class="notescost">{{#unless (eq system.upcost 0)}}<i class="fa-solid fa-arrow-turn-up"></i>{{system.upcost}}{{/unless}}{{#unless (eq system.downcost 0)}}<i class="fa-solid fa-arrow-turn-down"></i>{{system.downcost}}{{/unless}}{{#unless (eq system.charmcost 0)}}<i class="fa-regular fa-heart"></i>{{system.charmcost}}{{/unless}}</div>{{/if}}
         </div>
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 70px;">
-          {{#if (eq system.type "song")}}{{#unless (eq system.upadd 0)}}↑{{system.upadd}}{{/unless}}{{#unless (eq system.downadd 0)}}↓{{system.downadd}}{{/unless}}{{#unless (eq system.charmadd 0)}}♡{{system.charmadd}}{{/unless}}({{system.singpoint}}){{/if}}
+          {{#if (eq system.type "song")}}<div class="notesaddget">{{#unless (eq system.upadd 0)}}<i class="fa-solid fa-arrow-turn-up"></i>{{system.upadd}}{{/unless}}{{#unless (eq system.downadd 0)}}<i class="fa-solid fa-arrow-turn-down"></i>{{system.downadd}}{{/unless}}{{#unless (eq system.charmadd 0)}}<i class="fa-regular fa-heart"></i>{{system.charmadd}}{{/unless}}({{system.singpoint}})</div>{{/if}}
         </div>
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 40px;">
           {{system.resistname}}

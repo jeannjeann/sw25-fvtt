@@ -91,10 +91,10 @@
           {{#if (eq system.type "drum")}}{{system.linename}} ({{system.rank}}){{/if}}
         </div>
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;">
-          {{system.get}}
+          <div class="tacspowerget">{{system.get}}</div>
         </div>
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;">
-          {{system.cost}}
+          <div class="tacspowercost">{{system.cost}}</div>
         </div>
         {{#if ../isOwner}}
           <div class='item-controls'>
