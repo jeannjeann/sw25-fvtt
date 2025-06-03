@@ -1095,6 +1095,44 @@ export async function chatButton(chatMessage, buttonType) {
     }
   }
 
+  if (buttonType == "applycancel") {
+    console.log("cancel.");
+    console.log(chatMessage);
+
+    const targetToken = canvas.tokens.get(chatMessage.flags.targetToken);
+    const targetActor = targetToken.actor;
+    let resultHP = targetActor.system.hp.value;
+    let resultMP = targetActor.system.mp.value;
+    if (chatMessage.flags.type == "buttonmr") {
+      resultMP = chatMessage.flags.beforeValue;
+    } else {
+      resultHP = chatMessage.flags.beforeValue;
+    }
+    if (game.user.isGM) {
+      targetActor.update({
+        "system.hp.value": resultHP,
+        "system.mp.value": resultMP,
+      });
+    } else {
+      game.socket.emit("system.sw25", {
+        method: "applyRoll",
+        targetToken: chatMessage.flags.targetToken,
+        resultHP: resultHP,
+        resultMP: resultMP,
+      });
+    }
+
+    let content = await renderTemplate(
+      "systems/sw25/templates/roll/roll-apply.hbs",
+      {
+        target: targetToken.document.name,
+        type: buttonType,
+        cancel: true,
+      }
+    );
+    chatMessage.update({ content: content });
+  }
+
   if (buttonType == "checkdecrease" || buttonType == "checkincrease") {
     let aftermod = 0;
     if (buttonType == "checkdecrease") aftermod = -1;
@@ -1116,8 +1154,10 @@ export async function chatButton(chatMessage, buttonType) {
         `;
 
     let roll = chatMessage.flags.rolls;
-    let rollTotal = roll.dice.size > 0 ?
-      roll.terms[0].results[0].result + roll.terms[0].results[1].result : 0;
+    let rollTotal =
+      roll.dice.size > 0
+        ? roll.terms[0].results[0].result + roll.terms[0].results[1].result
+        : 0;
     let chatCritical = null;
     let chatFumble = null;
     if (rollTotal == 12) chatCritical = 1;
@@ -1315,6 +1355,12 @@ export async function chatButton(chatMessage, buttonType) {
         speaker: speaker,
         flavor: label,
         rollMode: rollMode,
+        flags: {
+          targetToken: targetTokenId,
+          type: buttonType,
+          beforeValue: beforeValue,
+          afterValue: afterValue,
+        },
       };
 
       chatData.content = await renderTemplate(
@@ -1738,29 +1784,38 @@ export async function chatButton(chatMessage, buttonType) {
       if (typeof flags.targetValue === "number") {
         targetValues = [flags.targetValue];
       } else if (typeof flags.targetValue === "string") {
-        targetValues = flags.targetValue.match(/[/,／， 　]/) 
-         ? flags.targetValue.split(/[/,／， 　]/).map(v => parseInt(v, 10)).filter(v => !isNaN(v)) 
-         : [parseInt(flags.targetValue, 10)].filter(v => !isNaN(v));
+        targetValues = flags.targetValue.match(/[/,／， 　]/)
+          ? flags.targetValue
+              .split(/[/,／， 　]/)
+              .map((v) => parseInt(v, 10))
+              .filter((v) => !isNaN(v))
+          : [parseInt(flags.targetValue, 10)].filter((v) => !isNaN(v));
       } else {
         targetValues = [];
       }
 
       let successCount = 0;
-    
+
       for (let target of targetValues) {
         if (roll.total >= target) {
           successCount++;
         }
       }
-    
+
       if (successCount > 0) {
-        if(targetValues.length > 1){
-          resultText = `<span class="success"> ${successCount} ${game.i18n.localize("SW25.Success")} ▶ </span>`;
+        if (targetValues.length > 1) {
+          resultText = `<span class="success"> ${successCount} ${game.i18n.localize(
+            "SW25.Success"
+          )} ▶ </span>`;
         } else {
-          resultText = `<span class="success"> ${game.i18n.localize("SW25.Success")} ▶ </span>`;
+          resultText = `<span class="success"> ${game.i18n.localize(
+            "SW25.Success"
+          )} ▶ </span>`;
         }
       } else {
-        resultText = `<span class="failed"> ${game.i18n.localize("SW25.Failed")} ▶ </span>`;
+        resultText = `<span class="failed"> ${game.i18n.localize(
+          "SW25.Failed"
+        )} ▶ </span>`;
       }
     }
 

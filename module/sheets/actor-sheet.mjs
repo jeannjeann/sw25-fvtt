@@ -80,7 +80,7 @@ export class SW25ActorSheet extends ActorSheet {
       // as well as any items
       this.actor.allApplicableEffects()
     );
-    
+
     return context;
   }
 
@@ -1145,7 +1145,6 @@ export class SW25ActorSheet extends ActorSheet {
       }
     }
 
-
     // Effect name stock for chat message
     targetEffects.forEach((effect) => {
       const effectName = effect.name;
@@ -1158,30 +1157,29 @@ export class SW25ActorSheet extends ActorSheet {
 
     // Target Actor
     let targetActors = [];
-    if (item.system.selfbuff){
-      if ( game.user.isGM ) {
+    if (item.system.selfbuff) {
+      if (game.user.isGM) {
         const actorName = this.actor.name;
         targetActorName.push({ actorName });
         targetActors.push(this.actor);
       } else {
         const actorName = this.actor.name;
         targetActorName.push({ actorName });
-        targetTokenId = this.actor.token 
-         ? this.actor.token.id
-         : [this.actor.getActiveTokens()[0]?.id];
+        targetTokenId = this.actor.token
+          ? this.actor.token.id
+          : [this.actor.getActiveTokens()[0]?.id];
       }
     } else {
       targetedToken.forEach((token) => {
         targetActors.push(token.actor);
-  
+
         // Actor name stock for chat message
         const actorName = token.actor.name;
         targetActorName.push({ actorName });
       });
       targetTokenId = Array.from(targetTokens, (target) => target.id);
-
     }
-    
+
     if (game.user.isGM) {
       targetActors.forEach((targetActor) => {
         targetEffects.forEach((effect) => {
@@ -2070,14 +2068,19 @@ export class SW25ActorSheet extends ActorSheet {
       lifeline = "Jin";
     }
 
-    let resource = this.actor.items.find(i =>
-      i.type === "resource" &&
-      i.system?.resource?.type === "lifeline" &&
-      i.system?.resource?.lifelinetype === item.system.type
+    let resource = this.actor.items.find(
+      (i) =>
+        i.type === "resource" &&
+        i.system?.resource?.type === "lifeline" &&
+        i.system?.resource?.lifelinetype === item.system.type
     );
 
     if (!resource) {
-      ui.notifications.warn(game.i18n.localize("SW25.NotResource") + ":" + game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`));
+      ui.notifications.warn(
+        game.i18n.localize("SW25.NotResource") +
+          ":" +
+          game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`)
+      );
     } else {
       let oldVal = resource.system.quantity ? resource.system.quantity : 0;
       let newVal = oldVal - cost;
@@ -2103,7 +2106,11 @@ export class SW25ActorSheet extends ActorSheet {
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     let label = game.i18n.localize("SW25.Effectslong");
     let chatActorName = ">>> " + selectedTokens[0].actor.name + "<br>";
-    let chatEffectName = effects[0].name + "(" + game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`) + ")<br>";
+    let chatEffectName =
+      effects[0].name +
+      "(" +
+      game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`) +
+      ")<br>";
 
     let chatData = {
       speaker: speaker,
@@ -2181,14 +2188,16 @@ export class SW25ActorSheet extends ActorSheet {
       { color: "white", mark: "fa-heart" },
       { color: "gold", mark: "fa-sun" },
     ];
-    let message = `${item.name}<br>`;
-    
-    for (let card of cards) {
-      if(!isNaN(item.system[card.color]) && item.system[card.color] <= 0){
-        continue;
-      } 
+    let name = `${item.name}(${event.target.textContent.trim()})`;
+    let materialcards = [];
 
-      let resource = this.actor.items.find(i =>
+    for (let card of cards) {
+      if (!isNaN(item.system[card.color]) && item.system[card.color] <= 0) {
+        continue;
+      }
+
+      let resource = this.actor.items.find(
+        (i) =>
           i.type === "resource" &&
           i.system?.resource?.type === "material" &&
           i.system?.resource?.materialtype === card.color &&
@@ -2196,29 +2205,37 @@ export class SW25ActorSheet extends ActorSheet {
       );
 
       let cardCap =
-        card.color.charAt(0).toUpperCase() +
-        card.color.slice(1).toLowerCase();
+        card.color.charAt(0).toUpperCase() + card.color.slice(1).toLowerCase();
+      let name =
+        game.i18n.localize(`SW25.Item.Alchemytech.${cardCap}`) +
+        event.target.textContent.trim();
+
       if (!resource) {
-        message +=
-          `<div class="materialcard" style="text-align:center;"><div class="${card.color}"><i class="fa-solid ${card.mark}"></i>` +
-          game.i18n.localize(`SW25.Item.Alchemytech.${cardCap}`) +
-          event.target.textContent.trim() +
-          `(${item.system[card.color]})` +
-          ` ... <span style="font-size:1.5em">` +
-          game.i18n.localize(`SW25.NotResource`) +
-          `</span></div></div>`;
+        materialcards.push({
+          key: item.system[card.color],
+          name: name,
+          color: card.color,
+          cost: item.system[card.color],
+          resource: false,
+          oldVal: null,
+          newVal: null,
+        });
       } else {
         let oldVal = resource.system.quantity ? resource.system.quantity : 0;
         let newVal = oldVal - item.system[card.color];
 
-        message +=
-          `<div class="materialcard" style="text-align:center;"><div class="${card.color}"><i class="fa-solid ${card.mark}"></i>` +
-          game.i18n.localize(`SW25.Item.Alchemytech.${cardCap}`) +
-          event.target.textContent.trim() +
-          `(${item.system[card.color]})` +
-          ` ... <span style="font-size:1.5em">${oldVal} -> ${newVal}</span></div></div>`;
-
         await resource.update({ "system.quantity": newVal });
+
+        materialcards.push({
+          key: item.system[card.color],
+          name: name,
+          color: card.color,
+          mark: card.mark,
+          cost: item.system[card.color],
+          resource: true,
+          oldVal: oldVal,
+          newVal: newVal,
+        });
       }
     }
 
@@ -2228,7 +2245,7 @@ export class SW25ActorSheet extends ActorSheet {
       if (changeValue) {
         const updates = [];
 
-        if(item.system.effectvalue.type === "diceformula"){
+        if (item.system.effectvalue.type === "diceformula") {
           await item.update({ "system.customformula": String(changeValue) });
         } else {
           for (let effect of item.effects) {
@@ -2237,9 +2254,9 @@ export class SW25ActorSheet extends ActorSheet {
             if (item.system.effectvalue.type === "time") {
               updateData.duration = { rounds: Number(changeValue) };
             } else if (item.system.effectvalue.type === "value") {
-              updateData.changes = effect.changes.map(c => ({
+              updateData.changes = effect.changes.map((c) => ({
                 ...c,
-                value: Number(changeValue)
+                value: Number(changeValue),
               }));
             }
 
@@ -2265,7 +2282,8 @@ export class SW25ActorSheet extends ActorSheet {
     chatData.content = await renderTemplate(
       "systems/sw25/templates/roll/card-apply.hbs",
       {
-        message: message,
+        name: name,
+        materialcards: materialcards,
       }
     );
 
