@@ -15,14 +15,6 @@
 
 ## 開発目標
 ### なるべく早めに
-- V12対応
-    ~~powerroll"NaN"~~
-    select"selectOption"
-    CONST.CHAT_MESSAGE_TYPES"CONST.CHAT_MESSAGE_STYLES"
-    CONST.CHAT_MESSAGE_STYLES.ROLL"ChatMessage#rolls"
-    Effect#icon"#img"
-    {{colorPicker}}<color-picker>
-    ~~gridDistance"grid.distance"~~
 ### ゆっくり作業
 - 諸々の自動処理（MP消費、リソース消費）
 - アイテムアイコンクリック時の挙動をチェックボックス化

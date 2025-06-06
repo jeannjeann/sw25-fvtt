@@ -1,7 +1,12 @@
 # CHANGELOG
 
+## 1.4.0
+- 複数のUX修正  by [keyslock](https://github.com/keyslock)  from [#34](https://github.com/jeannjeann/sw25-fvtt/pull/34)
+- 複数のアイテムの仕様変更  by [keyslock](https://github.com/keyslock)  from [#34](https://github.com/jeannjeann/sw25-fvtt/pull/34)
+- bug fix  by [keyslock](https://github.com/keyslock)  from [#34](https://github.com/jeannjeann/sw25-fvtt/pull/34)
+
 ## 1.3.0
-- 複数のUX修正  by [keyslock](https://github.com/keyslock)
+- 複数のUX修正  by [keyslock](https://github.com/keyslock)  from [#33](https://github.com/jeannjeann/sw25-fvtt/pull/33)
 
 ## 1.2.1
 - ローカライズ修正  by [Ryotai](https://github.com/ryotai-trpg)
