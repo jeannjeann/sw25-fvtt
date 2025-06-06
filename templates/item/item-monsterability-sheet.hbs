@@ -124,6 +124,25 @@
             </div>
             <div class="grid-span-2">
             </div>
+
+            <div class="grid-span-2 flex-group-center">
+              <span style="text-align: center;"><label for="{{item._id}}system.dice1.resist.type"><b>{{localize "SW25.Item.Resisttype"}}</b></label><br>
+              <select name="system.dice1.resist.type">
+                {{selectOptions config.resistCheck selected=system.dice1.resist.type localize=true blank="-"}}
+              </select>
+            </div>
+            {{#if (eq system.dice1.resist.type "input")}}
+            <div class="grid-span-3" style="display: {{#if system.dice1.resist.type}}block{{else}}none{{/if}};">
+              <label for="{{item._id}}system.dice1.resist.input" class="resource-label">{{localize "SW25.Item.Resistinput"}}</label>
+              <input id="{{item._id}}system.dice1.resist.input" type="text" name="system.dice1.resist.input" value="{{system.dice1.resist.input}}" data-dtype="String"/>
+            </div>
+            {{/if}}
+            <div class="grid-span-3">
+              <span style="text-align: center;"><label for="{{item._id}}system.dice1.resist.result"><b>{{localize "SW25.Item.Resist"}}</b></label><br>
+              <select name="system.dice1.resist.result">
+                {{selectOptions config.resistResult selected=system.dice1.resist.result localize=true blank="-"}}
+              </select>
+            </div>
           </div>
         </div>
         <div style="display: {{#if system.usedice2}}block{{else}}none{{/if}};">
@@ -158,6 +177,25 @@
             </div>
             <div class="grid-span-2">
             </div>
+
+            <div class="grid-span-2 flex-group-center">
+              <span style="text-align: center;"><label for="{{item._id}}system.dice2.resist.type"><b>{{localize "SW25.Item.Resisttype"}}</b></label><br>
+              <select name="system.dice2.resist.type">
+                {{selectOptions config.resistCheck selected=system.dice2.resist.type localize=true blank="-"}}
+              </select>
+            </div>
+            {{#if (eq system.dice2.resist.type "input")}}
+            <div class="grid-span-3" style="display: {{#if system.dice2.resist.type}}block{{else}}none{{/if}};">
+              <label for="{{item._id}}system.dice2.resist.input" class="resource-label">{{localize "SW25.Item.Resistinput"}}</label>
+              <input id="{{item._id}}system.dice2.resist.input" type="text" name="system.dice2.resist.input" value="{{system.dice2.resist.input}}" data-dtype="String"/>
+            </div>
+            {{/if}}
+            <div class="grid-span-3">
+              <span style="text-align: center;"><label for="{{item._id}}system.dice2.resist.result"><b>{{localize "SW25.Item.Resist"}}</b></label><br>
+              <select name="system.dice2.resist.result">
+                {{selectOptions config.resistResult selected=system.dice2.resist.result localize=true blank="-"}}
+              </select>
+            </div>
           </div>
         </div>
         <div style="display: {{#if system.usedice3}}block{{else}}none{{/if}};">
@@ -191,6 +229,25 @@
               <input id="{{item._id}}system.customformula3" type="text" name="system.customformula3" value="{{system.customformula3}}" data-dtype="String"/>
             </div>
             <div class="grid-span-2">
+            </div>
+
+            <div class="grid-span-2 flex-group-center">
+              <span style="text-align: center;"><label for="{{item._id}}system.dice3.resist.type"><b>{{localize "SW25.Item.Resisttype"}}</b></label><br>
+                <select name="system.dice3.resist.type">
+                  {{selectOptions config.resistCheck selected=system.dice3.resist.type localize=true blank="-"}}
+                </select>
+            </div>
+            {{#if (eq system.dice3.resist.type "input")}}
+            <div class="grid-span-3" style="display: {{#if system.dice3.resist.type}}block{{else}}none{{/if}};">
+              <label for="{{item._id}}system.dice3.resist.input" class="resource-label">{{localize "SW25.Item.Resistinput"}}</label>
+              <input id="{{item._id}}system.dice3.resist.input" type="text" name="system.dice3.resist.input" value="{{system.dice3.resist.input}}" data-dtype="String"/>
+            </div>
+            {{/if}}
+            <div class="grid-span-3">
+              <span style="text-align: center;"><label for="{{item._id}}system.dice3.resist.result"><b>{{localize "SW25.Item.Resist"}}</b></label><br>
+              <select name="system.dice3.resist.result">
+                {{selectOptions config.resistResult selected=system.dice3.resist.result localize=true blank="-"}}
+              </select>
             </div>
           </div>
         </div>

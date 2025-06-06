@@ -2,6 +2,7 @@ import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
 } from "../helpers/effects.mjs";
+import { SW25 } from "../helpers/config.mjs";
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
@@ -48,6 +49,8 @@ export class SW25ItemSheet extends ItemSheet {
     // Add the item's data to context.data for easier access, as well as flags.
     context.system = itemData.system;
     context.flags = itemData.flags;
+
+    context.config = CONFIG.SW25;
 
     if (itemData.type == "skill") {
       this._prepareSkillData(context);

@@ -80,6 +80,7 @@
     "UnderZero": "0 or less",
     "NoCost": "No Cost",
     "Applyall": "Apply All",
+    "TargetSelect": "Select Target",
 
     "Notargetwarn": "No targets selected.",
     "Multitargetwarn": "Multi targets selected.",
@@ -210,6 +211,8 @@
       "Dice": "Dice ",
       "Customdice": "Custom Dice",
       "Formula": "Roll Formula",
+      "Resisttype": "Resist Type",
+      "Resistinput": "Resist Name",
       "Power": "Power ",
       "Cvalue": "Crit",
       "Noc": "No Crit",
@@ -231,6 +234,7 @@
       "Powupwarn": "* For Executioner's Blade, enter the power increase value after a Crit (usually 5)",
       "Noresquantitiywarn": "There are not enough quiantity: ",
       "Equip": "Equip",
+      "Activation": "Activate",
       "Dedicated": "Personalized",
       "Category": "Category",
       "Rank": "Rank",
@@ -644,6 +648,21 @@
       "MonDmg": "Damage",
       "MonDge": "Evasion",
       "AllMgp": "All Magic Power"
+    },
+    "Resist": {
+      "Check": {
+        "Dodge": "Dodge",
+        "Vitres": "VitRes",
+        "Mndres": "MndRes"
+      },
+      "Result": {
+        "decide": "Decide",
+        "any": "Any",
+        "none": "None",
+        "disappear": "Disappear",
+        "halving": "Halving",
+        "shortening": "Shortage"
+      }
     }
   },
 

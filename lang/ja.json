@@ -211,6 +211,8 @@
       "Dice": "ダイス",
       "Customdice": "ダイス変更",
       "Formula": "ダイス式",
+      "Resisttype": "抵抗基準値",
+      "Resistinput": "抵抗判定名",
       "Power": "威力",
       "Cvalue": "C値",
       "Noc": "Cなし",
@@ -232,6 +234,7 @@
       "Powupwarn": "*首切り刀はクリティカル時の威力の増加値を入力（通常は「5」）",
       "Noresquantitiywarn": "数量不足：",
       "Equip": "装備",
+      "Activation": "有効化",
       "Dedicated": "専用化",
       "Category": "カテゴリ",
       "Rank": "ランク",
@@ -493,6 +496,7 @@
         "Use": "使用",
         "App": "適用",
         "Risk": "リスク",
+        "Overview": "概要",
         "Secret": "秘伝",
         "Scholl": "流派",
         "Honercost": "必要名誉点",
@@ -585,12 +589,12 @@
       "DirectInput": "直接入力",
       "HitMod": "命中修正",
       "DamageMod": "ダメージ修正",
+      "WeaponHalfMod": "武器半減後修正",
+      "SpellHalfMod": "魔法半減後修正",
       "CMod": "C値修正",
       "SpCMod": "魔法C値修正",
       "LethalTech": "必殺攻撃",
       "CriticalRay": "クリレイ",
-      "WeaponHalfMod": "武器半減後修正",
-      "SpellHalfMod": "魔法半減後修正",
       "DodgeMod": "回避修正",
       "PpMod": "防護修正",
       "MppMod": "魔法防御修正",
@@ -644,6 +648,21 @@
       "MonDmg": "打撃",
       "MonDge": "回避",
       "AllMgp": "全魔力"
+    },
+    "Resist": {
+      "Check": {
+        "Dodge": "回避",
+        "Vitres": "生命抵抗力",
+        "Mndres": "精神抵抗力"
+      },
+      "Result": {
+        "decide": "必中",
+        "any": "任意",
+        "none": "なし",
+        "disappear": "消滅",
+        "halving": "半減",
+        "shortening": "短縮"
+      }
     }
   },
 

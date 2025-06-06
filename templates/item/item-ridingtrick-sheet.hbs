@@ -56,8 +56,10 @@
               {{/select}}
             </select>
           </span>
-          <div class="grid-span-1"></div>
-          <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.selfbuff"><b>{{localize "SW25.Item.Selfbuff"}}</b></label><br>
+          <div></div>
+          <span style="text-align: center;"><label for="{{item._id}}system.equip"><b>{{localize "SW25.Item.Activation"}}</b></label><br>
+            <input id="{{item._id}}system.equip" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/></span>
+          <span style="text-align: center;"><label for="{{item._id}}system.selfbuff"><b>{{localize "SW25.Item.Selfbuff"}}</b></label><br>
             <input id="{{item._id}}system.selfbuff" type="checkbox" name="system.selfbuff" data-dtype="Boolean" {{#if system.selfbuff}} checked {{/if}}/></span>
           <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.usedice"><b>{{localize "SW25.Item.Usedice"}}</b></label><br>
             <input id="{{item._id}}system.usedice" type="checkbox" name="system.usedice" data-dtype="Boolean" {{#if system.usedice}} checked {{/if}}/></span>

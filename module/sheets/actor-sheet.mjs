@@ -889,6 +889,15 @@ export class SW25ActorSheet extends ActorSheet {
         targetName = targetName + ``;
       }
 
+      let resistData = null;
+
+      if ( dataset.resist && dataset.resistresult != "none"){
+        resistData = {
+          name: dataset.resist,
+          result: dataset.resistresult,
+        };
+      }
+
       chatData.flags = {
         total: roll.total,
         orgtotal: roll.total,
@@ -900,6 +909,7 @@ export class SW25ActorSheet extends ActorSheet {
         checktype: checktype,
         target,
         targetName: targetName,
+        resist: resistData,
       };
 
       chatData.content = await renderTemplate(
@@ -915,6 +925,7 @@ export class SW25ActorSheet extends ActorSheet {
           checktype: checktype,
           resusetext: chatresuse,
           targetName: targetName,
+          resist: resistData,
         }
       );
 

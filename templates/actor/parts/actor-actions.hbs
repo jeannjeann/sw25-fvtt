@@ -32,7 +32,7 @@
         </div>
         <div class='item-name item-label item-prop'>{{{system.displayaction}}}</div>
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
-        <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}">
+        <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}"{{#if system.dice1.resist.type}} data-resist="{{#if (eq system.dice1.resist.type "input")}}{{system.dice1.resist.input}}{{else}}{{localize (concat "SW25.Resist.Check." system.dice1.resist.type)}}{{/if}}"{{#if system.dice1.resist.result}} data-resistresult="{{system.dice1.resist.result}}"{{/if}}{{/if}}>
           {{system.actionvalue}} ({{system.actionresult}})
         </div>
         {{#if ../isOwner}}

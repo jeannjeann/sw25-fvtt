@@ -278,7 +278,7 @@
               <label for="{{actor._id}}system.attributes.move.movemod"><i class="fa-solid fa-person-running"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Attributes.Movemod"}}</span></label>
                <input id="{{actor._id}}system.attributes.move.movemod" style="max-width: calc(40% - 7px);" type="text" name="system.attributes.move.movemod" value="{{system.attributes.move.movemod}}" data-dtype="Number"/></span>
 
-            <span class="rollable common-display" data-resusequantity={{system.resusequantity}} data-resuse="{{system.resuse}}" data-roll="{{system.itemhitformula}}+{{system.itemhitbase}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Weapon.Hit"}})" data-pt="{{system.itempowertable}}" data-apply="{{system.itemapplycheck}}" data-checktype="{{system.itemchecktype}}">
+            <span class="rollable common-display" data-resusequantity={{system.resusequantity}} data-resuse="{{system.resuse}}" data-roll="{{system.itemhitformula}}+{{system.itemhitbase}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Weapon.Hit"}})" data-pt="{{system.itempowertable}}" data-apply="{{system.itemapplycheck}}" data-checktype="{{system.itemchecktype}}" data-resist="{{localize "SW25.Resist.Check.Dodge"}}" data-resistresult="disappear">
               <span class="common-label">{{localize "SW25.Item.Weapon.Hit"}}</span>
               <span class="common-value">{{system.itemhitbase}}</span>
               <span class="common-icon icon-top"><i class="fa-solid fa-dice"></i></span>
