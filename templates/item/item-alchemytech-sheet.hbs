@@ -5,7 +5,7 @@
       <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
       <div class="grid grid-6col flex-group-left nogapmargin">
         <div class="grid-span-2">
-          {{#if system.aux}}≫{{/if}}{{#if system.prep}}△{{/if}}
+          {{> "systems/sw25/templates/helper/action-marks.hbs"}}
         </div>
         <div class="grid-span-2">
           <b>{{system.level}}{{localize "SW25.Level"}}{{localize "TYPES.Item.alchemytech"}}</b>
@@ -62,7 +62,11 @@
               {{selectOptions clickitemOptions selected=system.clickitem localize=true}}
             </select>
           </span>
-          <div class="grid-span-3"></div>
+          <div></div>
+          <span style="text-align: center;"><label for="{{item._id}}system.equip"><b>{{localize "SW25.Item.Activation"}}</b></label><br>
+            <input id="{{item._id}}system.equip" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/></span>
+          <span style="text-align: center;"><label for="{{item._id}}system.selfbuff"><b>{{localize "SW25.Item.Selfbuff"}}</b></label><br>
+            <input id="{{item._id}}system.selfbuff" type="checkbox" name="system.selfbuff" data-dtype="Boolean" {{#if system.selfbuff}} checked {{/if}}/></span>
           <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.usedice"><b>{{localize "SW25.Item.Usedice"}}</b></label><br>
             <input id="{{item._id}}system.usedice" type="checkbox" name="system.usedice" data-dtype="Boolean" {{#if system.usedice}} checked {{/if}}/></span>
           <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.usepower"><b>{{localize "SW25.Item.Usepower"}}</b></label><br>
@@ -99,6 +103,24 @@
             <input id="{{item._id}}system.gold" type="text" name="system.gold" value="{{system.gold}}" data-dtype="Number"/></span>
           <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.overview"><b>{{localize "SW25.Item.Overview"}}</b></label><br>
             <input id="{{item._id}}system.overview" type="text" name="system.overview" value="{{system.overview}}" data-dtype="String"/></span>        
+          <span class="grid-span-4" style="text-align: center;"><label for="{{item._id}}system.resist"><b>{{localize "SW25.Item.Alchemytech.EffectiveValue"}}</b></label><br>
+            <select id="{{item._id}}system.effectvalue.type" name="system.effectvalue.type">
+              {{#select system.effectvalue.type}}
+              <option value="-">-</option>
+              <option value="value">{{localize "SW25.Item.Alchemytech.Value"}}</option>
+              <option value="time">{{localize "SW25.Item.Alchemytech.Time"}}</option>
+              <option value="diceformula">{{localize "SW25.Item.Alchemytech.DiceFormula"}}</option>
+              {{/select}}
+            </select>
+          </span>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.effectvalue.b"><b>{{localize "SW25.Item.Alchemytech.B"}}</b></label><br>
+            <input id="{{item._id}}system.effectvalue.b" type="text" name="system.effectvalue.b" value="{{system.effectvalue.b}}" data-dtype="Number"/></span>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.effectvalue.a"><b>{{localize "SW25.Item.Alchemytech.A"}}</b></label><br>
+            <input id="{{item._id}}system.effectvalue.a" type="text" name="system.effectvalue.a" value="{{system.effectvalue.a}}" data-dtype="Number"/></span>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.effectvalue.s"><b>{{localize "SW25.Item.Alchemytech.S"}}</b></label><br>
+            <input id="{{item._id}}system.effectvalue.s" type="text" name="system.effectvalue.s" value="{{system.effectvalue.s}}" data-dtype="Number"/></span>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.effectvalue.ss"><b>{{localize "SW25.Item.Alchemytech.SS"}}</b></label><br>
+            <input id="{{item._id}}system.effectvalue.ss" type="text" name="system.effectvalue.ss" value="{{system.effectvalue.ss}}" data-dtype="Number"/></span>
         </div>
         <div style="display: {{#if system.usedice}}block{{else}}none{{/if}};">
           {{> "systems/sw25/templates/item/parts/item-usedice.hbs"}}

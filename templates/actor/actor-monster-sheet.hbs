@@ -143,6 +143,9 @@
         <div>
           {{> "systems/sw25/templates/actor/parts/actor-monsterspells.hbs"}}
         </div>
+        <div>
+          {{> "systems/sw25/templates/actor/parts/actor-monsterskills.hbs"}}
+        </div>
         {{/if}}
       </div>
 
@@ -311,22 +314,6 @@
     </section>
     {{/unless}}
 
-    {{#if system.limited}}
-    <header class="sheet-header">
-      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-      <div class="header-fields">
-        <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
-        <div class="resources grid grid-4col">
-          <div></div>
-          <div class="grid-span-3">
-            <b>{{localize "SW25.Overview"}}</b><br>{{{system.overview}}}
-          </div>
-        </div>
-      </div>
-    </header>
-    {{/if}}
-  {{/unless}}
-
   {{#if system.toFellow}}
   {{!-- Fellow Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
@@ -381,6 +368,22 @@
     </div>
 
   </section>
+  {{/if}}
+  {{/unless}}
+
+  {{#if system.limited}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+      <div class="resources grid grid-4col">
+        <div></div>
+        <div class="grid-span-3">
+          <b>{{localize "SW25.Overview"}}</b><br>{{{system.overview}}}
+        </div>
+      </div>
+    </div>
+  </header>
   {{/if}}
 
 </form>

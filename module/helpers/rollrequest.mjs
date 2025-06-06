@@ -91,6 +91,7 @@ export async function rollreq() {
               mod = modifier > 0 ? `+${modifier}` : modifier;
             }
 
+            console.log(chatData)
             chatData.content = await renderTemplate(
               "systems/sw25/templates/roll/rollreq-card.hbs",
               {
@@ -106,6 +107,7 @@ export async function rollreq() {
         },
         cancel: { label: game.i18n.localize("Cancel") },
       },
+      default: "buttonloot",
       render: (html) => {
         html.find('input[name="method"]').change(async (event) => {
           method = event.target.value;

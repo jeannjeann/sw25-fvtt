@@ -5,7 +5,7 @@
       <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
       <div class="grid grid-6col flex-group-left nogapmargin">
         <div class="grid-span-2">
-          {{#if system.constant}}○{{/if}}{{#if system.main}}▶{{/if}}{{#if system.aux}}≫{{/if}}{{#if system.prep}}△{{/if}}
+          {{> "systems/sw25/templates/helper/action-marks.hbs"}}
         </div>
         <div class="grid-span-3">
           <b>{{system.race}}{{localize "TYPES.Item.barbarousskill"}}</b>
@@ -57,7 +57,11 @@
               {{selectOptions clickitemOptions selected=system.clickitem localize=true}}
             </select>
           </span>
-          <div class="grid-span-3"></div>
+          <div></div>
+          <span style="text-align: center;"><label for="{{item._id}}system.equip"><b>{{localize "SW25.Item.Activation"}}</b></label><br>
+            <input id="{{item._id}}system.equip" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/></span>
+          <span style="text-align: center;"><label for="{{item._id}}system.selfbuff"><b>{{localize "SW25.Item.Selfbuff"}}</b></label><br>
+            <input id="{{item._id}}system.selfbuff" type="checkbox" name="system.selfbuff" data-dtype="Boolean" {{#if system.selfbuff}} checked {{/if}}/></span>
           <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.usedice"><b>{{localize "SW25.Item.Usedice"}}</b></label><br>
             <input id="{{item._id}}system.usedice" type="checkbox" name="system.usedice" data-dtype="Boolean" {{#if system.usedice}} checked {{/if}}/></span>
           <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.usepower"><b>{{localize "SW25.Item.Usepower"}}</b></label><br>
@@ -84,14 +88,24 @@
           </span>
           <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.basempcost"><b>MP{{localize "SW25.Cost"}}</b></label><br>
             <input id="{{item._id}}system.basempcost" style="max-width: calc(50% - 7px);" type="text" name="system.basempcost" value="{{system.basempcost}}" data-dtype="Number"/></span>
-          <span class="grid-span-1"></span>
-          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Resist"}}</b><br>
+          <div class="grid-span-2 flex-group-center">
+            <span style="text-align: center;"><label for="{{item._id}}system.resistinfo.type"><b>{{localize "SW25.Item.Resisttype"}}</b></label><br>
+            <select name="system.resistinfo.type">
+              {{selectOptions config.resistCheck selected=system.resistinfo.type localize=true blank="-"}}
+            </select>
+          </div>
+          {{#if (eq system.resistinfo.type "input")}}
+          <div class="grid-span-2" style="display: {{#if system.resistinfo.type}}block{{else}}none{{/if}};">
+            <label for="{{item._id}}system.resistinfo.input" class="resource-label">{{localize "SW25.Item.Resistinput"}}</label>
+            <input id="{{item._id}}system.resistinfo.input" type="text" name="system.resistinfo.input" value="{{system.resistinfo.input}}" data-dtype="String"/>
+          </div>
+          {{/if}}
+          <div class="grid-span-2">
+            <span style="text-align: center;"><label for="{{item._id}}system.resist"><b>{{localize "SW25.Item.Resist"}}</b></label><br>
             <select name="system.resist">
               {{selectOptions config.spellResists selected=system.resist localize=true blank="-"}}
             </select>
-          </span>
-          <span class="grid-span-3" style="text-align: center;"><label for="{{item._id}}system.resistbase"></label><b>{{localize "SW25.Item.BarbarousSkill.ResistBase"}}</b><br>
-            <input id="{{item._id}}system.resistbase" style="max-width: calc(90% - 7px);" type="text" name="system.resistbase" value="{{system.resistbase}}" data-dtype="String"/></span>
+          </div>
           <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.overview"></label><b>{{localize "SW25.Item.Overview"}}</b><br>
             <input id="{{item._id}}system.overview" type="text" name="system.overview" value="{{system.overview}}" data-dtype="String"/></span>
         </div>

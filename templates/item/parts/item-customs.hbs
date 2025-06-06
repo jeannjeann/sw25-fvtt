@@ -1,0 +1,35 @@
+<ol class="items-list custom-list">
+  <li class="items-header flexrow">
+    <div class="custom-name" data-idx="{{idx}}">
+      <h3 class="item-name">{{localize "SW25.Customs"}}</h3>
+    </div>
+    <div class="custom-value">{{localize "SW25.Custom.Value"}}</div>
+    <div class="item-controls custom-controls flexrow"  style="flex: 0 0 70px;">
+      <a class="add-field" title="{{localize "SW25.Adding"}}">
+        <i class="fas fa-plus"></i> {{localize "DOCUMENT.New" type=""}}
+      </a>
+    </div>
+  </li>
+
+  {{#each system.customFields as |field idx|}}
+  <li class="item custom flexrow" data-effect-id="{{effect.id}}" data-parent-id="{{effect.parent.id}}">
+    <div class="custom-name" data-idx="{{idx}}">
+      <input type="text" name="system.customFields.{{idx}}.label" value="{{field.label}}" placeholder="{{localize "SW25.Custom.Name"}}" />
+    </div>
+    <div class="custom-value" data-idx="{{idx}}">
+      <input type="text" name="system.customFields.{{idx}}.value" value="{{field.value}}" placeholder="{{localize "SW25.Custom.Value"}}" />
+    </div>
+    <div class="item-controls custom-controls flexrow"  style="flex: 0 0 70px;">
+      <a class="move-up" data-idx="{{idx}}" title="{{localize "SW25.Custom.MoveUp"}}">
+        <i class="fa-solid fa-arrow-up"></i>
+      </a>
+      <a class="move-down" data-idx="{{idx}}" title="{{localize "SW25.Custom.MoveDown"}}">
+        <i class="fa-solid fa-arrow-down"></i>
+      </a>
+      <a class="remove-field" data-idx="{{idx}}" title="{{localize "SW25.Custom.Delete"}}">
+        <i class="fas fa-trash"></i>
+      </a>
+    </div>
+  </li>
+  {{/each}}
+</ol>

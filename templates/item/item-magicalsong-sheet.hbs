@@ -6,6 +6,7 @@
       <div class="grid grid-6col flex-group-left nogapmargin">
         <div class="grid-span-2">
           <b>{{system.level}}{{localize "SW25.Level"}}{{system.typename}}</b>
+          {{> "systems/sw25/templates/helper/action-marks.hbs"}}
         </div>
         <div class="grid-span-2">
           <b>{{localize "SW25.Item.Resist"}} : </b>{{localizeResist system.resist}}
@@ -21,22 +22,22 @@
           <b>{{localize "SW25.Item.Magicalsong.Pet"}} : </b>{{system.pet}}
         </div>
         <div class="grid-span-2">
-          <b>{{localize "SW25.Item.Magicalsong.Cond"}} :</b>{{#unless (eq system.upcond 0)}} ↑{{system.upcond}}{{/unless}}{{#unless (eq system.downcond 0)}} ↓{{system.downcond}}{{/unless}}{{#unless (eq system.charmcond 0)}} ♡{{system.charmcond}}{{/unless}}
+          <b>{{localize "SW25.Item.Magicalsong.Cond"}} :</b>{{#unless (eq system.upcond 0)}} <i class="fa-solid fa-arrow-turn-up"></i>{{system.upcond}}{{/unless}}{{#unless (eq system.downcond 0)}} <i class="fa-solid fa-arrow-turn-down"></i>{{system.downcond}}{{/unless}}{{#unless (eq system.charmcond 0)}} <i class="fa-regular fa-heart"></i>{{system.charmcond}}{{/unless}}
         </div>
         <div class="grid-span-4"></div>
         <div class="grid-span-2">
-          <b>{{localize "SW25.Item.Magicalsong.Get"}} :</b>{{#unless (eq system.upget 0)}} ↑{{system.upget}}{{/unless}}{{#unless (eq system.downget 0)}} ↓{{system.downget}}{{/unless}}{{#unless (eq system.charmget 0)}} ♡{{system.charmget}}{{/unless}}
+          <b>{{localize "SW25.Item.Magicalsong.Get"}} :</b>{{#unless (eq system.upget 0)}} <i class="fa-solid fa-arrow-turn-up"></i>{{system.upget}}{{/unless}}{{#unless (eq system.downget 0)}} <i class="fa-solid fa-arrow-turn-down"></i>{{system.downget}}{{/unless}}{{#unless (eq system.charmget 0)}} <i class="fa-regular fa-heart"></i>{{system.charmget}}{{/unless}}
         </div>
         <div class="grid-span-2">
           <b>{{localize "SW25.Item.Magicalsong.Singpoint"}} : </b>{{system.singpoint}}
         </div>
         <div class="grid-span-2">
-          <b>{{localize "SW25.Adding"}} : </b>{{#unless (eq system.upadd 0)}} ↑{{system.upadd}}{{/unless}}{{#unless (eq system.downadd 0)}} ↓{{system.downadd}}{{/unless}}{{#unless (eq system.charmadd 0)}} ♡{{system.charmadd}}{{/unless}}
+          <b>{{localize "SW25.Adding"}} : </b>{{#unless (eq system.upadd 0)}} <i class="fa-solid fa-arrow-turn-up"></i>{{system.upadd}}{{/unless}}{{#unless (eq system.downadd 0)}} <i class="fa-solid fa-arrow-turn-down"></i>{{system.downadd}}{{/unless}}{{#unless (eq system.charmadd 0)}} <i class="fa-regular fa-heart"></i>{{system.charmadd}}{{/unless}}
         </div>
         {{/if}}
         {{#if (eq system.type "final")}}
         <div class="grid-span-2">
-          <b>{{localize "SW25.Cost"}} :</b>{{#unless (eq system.upcost 0)}} ↑{{system.upcost}}{{/unless}}{{#unless (eq system.downcost 0)}} ↓{{system.downcost}}{{/unless}}{{#unless (eq system.charmcost 0)}} ♡{{system.charmcost}}{{/unless}}
+          <b>{{localize "SW25.Cost"}} :</b>{{#unless (eq system.upcost 0)}} <i class="fa-solid fa-arrow-turn-up"></i>{{system.upcost}}{{/unless}}{{#unless (eq system.downcost 0)}} <i class="fa-solid fa-arrow-turn-down"></i>{{system.downcost}}{{/unless}}{{#unless (eq system.charmcost 0)}} <i class="fa-regular fa-heart"></i>{{system.charmcost}}{{/unless}}
         </div>
         {{/if}}
         <div class="grid-span-6">
@@ -70,7 +71,11 @@
               {{selectOptions clickitemOptions selected=system.clickitem localize=true}}
             </select>
           </span>
-          <div class="grid-span-3"></div>
+          <div></div>
+          <span style="text-align: center;"><label for="{{item._id}}system.equip"><b>{{localize "SW25.Item.Activation"}}</b></label><br>
+            <input id="{{item._id}}system.equip" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/></span>
+          <span style="text-align: center;"><label for="{{item._id}}system.selfbuff"><b>{{localize "SW25.Item.Selfbuff"}}</b></label><br>
+            <input id="{{item._id}}system.selfbuff" type="checkbox" name="system.selfbuff" data-dtype="Boolean" {{#if system.selfbuff}} checked {{/if}}/></span>
           <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.usedice"><b>{{localize "SW25.Item.Usedice"}}</b></label><br>
             <input id="{{item._id}}system.usedice" type="checkbox" name="system.usedice" data-dtype="Boolean" {{#if system.usedice}} checked {{/if}}/></span>
           <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.usepower"><b>{{localize "SW25.Item.Usepower"}}</b></label><br>
@@ -83,7 +88,8 @@
             </select>
           </span>
           <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.level"><b>{{localize "SW25.Level"}}</b></label><br>
-            <input id="{{item._id}}system.level" style="max-width: calc(50% - 7px);" type="text" name="system.level" value="{{system.level}}" data-dtype="Number"/></span>          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Resist"}}</b><br>
+            <input id="{{item._id}}system.level" style="max-width: calc(50% - 7px);" type="text" name="system.level" value="{{system.level}}" data-dtype="Number"/></span>
+          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Resist"}}</b><br>
             <select name="system.resist">
               {{selectOptions config.magicalsongResists selected=system.resist localize=true blank="-"}}
             </select>
@@ -100,37 +106,37 @@
           <span class="grid-span-3" style="text-align: left;"><label for="{{item._id}}system.pet"><b>{{localize "SW25.Item.Magicalsong.Pet"}}</b></label><br>
             <input id="{{item._id}}system.pet" type="text" name="system.pet" value="{{system.pet}}" data-dtype="String"/></span>
           <span style="text-align: right;"><br><b>{{localize "SW25.Item.Magicalsong.Get"}}</b></span>
-          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.upget"><b>{{localize "SW25.Item.Magicalsong.Up"}}</b></label><br>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.upget"><b><i class="fa-solid fa-arrow-turn-up"></i></b></label><br>
             <input id="{{item._id}}system.upget" type="text" name="system.upget" value="{{system.upget}}" data-dtype="Number"/></span>
-          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.downget"><b>{{localize "SW25.Item.Magicalsong.Down"}}</b></label><br>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.downget"><b><i class="fa-solid fa-arrow-turn-down"></i></b></label><br>
             <input id="{{item._id}}system.downget" type="text" name="system.downget" value="{{system.downget}}" data-dtype="Number"/></span>
-          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.charmget"><b>{{localize "SW25.Item.Magicalsong.Charm"}}</b></label><br>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.charmget"><b><i class="fa-regular fa-heart"></i></b></label><br>
             <input id="{{item._id}}system.charmget" type="text" name="system.charmget" value="{{system.charmget}}" data-dtype="Number"/></span>
           <div></div>
           <span style="text-align: right;"><br><b>{{localize "SW25.Item.Magicalsong.Cond"}}</b></span>
-          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.upcond"><b>{{localize "SW25.Item.Magicalsong.Up"}}</b></label><br>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.upcond"><b><i class="fa-solid fa-arrow-turn-up"></i></b></label><br>
             <input id="{{item._id}}system.upcond" type="text" name="system.upcond" value="{{system.upcond}}" data-dtype="Number"/></span>
-          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.downcond"><b>{{localize "SW25.Item.Magicalsong.Down"}}</b></label><br>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.downcond"><b><i class="fa-solid fa-arrow-turn-down"></i></b></label><br>
             <input id="{{item._id}}system.downcond" type="text" name="system.downcond" value="{{system.downcond}}" data-dtype="Number"/></span>
-          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.charmcond"><b>{{localize "SW25.Item.Magicalsong.Charm"}}</b></label><br>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.charmcond"><b><i class="fa-regular fa-heart"></i></b></label><br>
             <input id="{{item._id}}system.charmcond" type="text" name="system.charmcond" value="{{system.charmcond}}" data-dtype="Number"/></span>
           <span style="text-align: right;"><br><b>{{localize "SW25.Adding"}}</b></span>
-          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.upadd"><b>{{localize "SW25.Item.Magicalsong.Up"}}</b></label><br>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.upadd"><b><i class="fa-solid fa-arrow-turn-up"></i></b></label><br>
             <input id="{{item._id}}system.upadd" type="text" name="system.upadd" value="{{system.upadd}}" data-dtype="Number"/></span>
-          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.downadd"><b>{{localize "SW25.Item.Magicalsong.Down"}}</b></label><br>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.downadd"><b><i class="fa-solid fa-arrow-turn-down"></i></b></label><br>
             <input id="{{item._id}}system.downadd" type="text" name="system.downadd" value="{{system.downadd}}" data-dtype="Number"/></span>
-          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.charmadd"><b>{{localize "SW25.Item.Magicalsong.Charm"}}</b></label><br>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.charmadd"><b><i class="fa-regular fa-heart"></i></b></label><br>
             <input id="{{item._id}}system.charmadd" type="text" name="system.charmadd" value="{{system.charmadd}}" data-dtype="Number"/></span>
           <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.singpoint"><b>{{localize "SW25.Item.Magicalsong.Singpoint"}}</b></label><br>
             <input id="{{item._id}}system.singpoint" type="text" name="system.singpoint" value="{{system.singpoint}}" data-dtype="Number"/></span>
           {{/if}}
           {{#if (eq system.type "final")}}
           <span style="text-align: right;"><br><b>{{localize "SW25.Cost"}}</b></span>
-          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.upcost"><b>{{localize "SW25.Item.Magicalsong.Up"}}</b></label><br>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.upcost"><b><i class="fa-solid fa-arrow-turn-up"></i></b></label><br>
             <input id="{{item._id}}system.upcost" type="text" name="system.upcost" value="{{system.upcost}}" data-dtype="Number"/></span>
-          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.downcost"><b>{{localize "SW25.Item.Magicalsong.Down"}}</b></label><br>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.downcost"><b><i class="fa-solid fa-arrow-turn-down"></i></b></label><br>
             <input id="{{item._id}}system.downcost" type="text" name="system.downcost" value="{{system.downcost}}" data-dtype="Number"/></span>
-          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.charmcost"><b>{{localize "SW25.Item.Magicalsong.Charm"}}</b></label><br>
+          <span class="grid-span-1" style="text-align: center;"><label for="{{item._id}}system.charmcost"><b><i class="fa-regular fa-heart"></i></b></label><br>
             <input id="{{item._id}}system.charmcost" type="text" name="system.charmcost" value="{{system.charmcost}}" data-dtype="Number"/></span>
           {{/if}}
           <span class="grid-span-9" style="text-align: left;"><label for="{{item._id}}system.overview"><b>{{localize "SW25.Item.Overview"}}</b></label><br>

@@ -8,20 +8,13 @@
 - SHIFTクリック（判定、威力、バフ、MP消費、HP消費、適用）
 - 多部位魔物対応
 - バレット系呪文の使い勝手向上
+- TAHCore2.0対応（v12完全対応、v11切り捨て）
 
 ## 更新作業
 - マニュアル、マクロ、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ、告知
 
 ## 開発目標
 ### なるべく早めに
-- V12対応
-    ~~powerroll"NaN"~~
-    select"selectOption"
-    CONST.CHAT_MESSAGE_TYPES"CONST.CHAT_MESSAGE_STYLES"
-    CONST.CHAT_MESSAGE_STYLES.ROLL"ChatMessage#rolls"
-    Effect#icon"#img"
-    {{colorPicker}}<color-picker>
-    ~~gridDistance"grid.distance"~~
 ### ゆっくり作業
 - 諸々の自動処理（MP消費、リソース消費）
 - アイテムアイコンクリック時の挙動をチェックボックス化

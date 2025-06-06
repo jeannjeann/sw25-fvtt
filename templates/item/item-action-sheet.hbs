@@ -68,8 +68,8 @@
           <span class="grid-span-4"></span>
           <span class="grid-span-1"  style="text-align: center;"><label for="{{item._id}}system.usedice1"><b>{{localize "SW25.Item.Action.ActionValue"}}</b></label><br>
             <input id="{{item._id}}system.usedice1" type="checkbox" name="system.usedice1" data-dtype="Boolean" {{#if system.usedice1}} checked {{/if}}/></span>
-          <span class="grid-span-1"  style="text-align: center;"><label for="{{item._id}}system.usedice2"><b>{{localize "SW25.Check"}}</b></label><br>
-            <input id="{{item._id}}system.usedice2" type="checkbox" name="system.usedice2" data-dtype="Boolean" {{#if system.usedice2}} checked {{/if}}/></span>
+          <span class="grid-span-1"  style="text-align: center;"><label for="{{item._id}}system.usedice"><b>{{localize "SW25.Check"}}</b></label><br>
+            <input id="{{item._id}}system.usedice" type="checkbox" name="system.usedice" data-dtype="Boolean" {{#if system.usedice}} checked {{/if}}/></span>
           <span class="grid-span-1"  style="text-align: center;"><label for="{{item._id}}system.usepower"><b>{{localize "SW25.Item.Power"}}</b></label><br>
             <input id="{{item._id}}system.usepower" type="checkbox" name="system.usepower" data-dtype="Boolean" {{#if system.usepower}} checked {{/if}}/></span>
           <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.ActionTable"}}</b><br>
@@ -180,6 +180,26 @@
             </span>
             <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.checkmod1"><b>{{localize "SW25.Basenumber"}}{{localize "SW25.Value"}}</b></label><br>
               <input id="{{item._id}}system.checkmod1" style="max-width: calc(50% - 7px);" type="text" name="system.checkmod1" value="{{system.checkmod1}}" data-dtype="Number"/></span>
+            <div class="grid-span-2"></div>
+
+            <div class="grid-span-2 flex-group-center">
+              <span style="text-align: center;"><label for="{{item._id}}system.dice1.resist.type"><b>{{localize "SW25.Item.Resisttype"}}</b></label><br>
+              <select name="system.dice1.resist.type">
+                {{selectOptions config.resistCheck selected=system.dice1.resist.type localize=true blank="-"}}
+              </select>
+            </div>
+            {{#if (eq system.dice1.resist.type "input")}}
+            <div class="grid-span-3" style="display: {{#if system.dice1.resist.type}}block{{else}}none{{/if}};">
+              <label for="{{item._id}}system.dice1.resist.input" class="resource-label">{{localize "SW25.Item.Resistinput"}}</label>
+              <input id="{{item._id}}system.dice1.resist.input" type="text" name="system.dice1.resist.input" value="{{system.dice1.resist.input}}" data-dtype="String"/>
+            </div>
+            {{/if}}
+            <div class="grid-span-4">
+              <span style="text-align: center;"><label for="{{item._id}}system.dice1.resist.result"><b>{{localize "SW25.Item.Resisttype"}}</b></label><br>
+              <select name="system.dice1.resist.result">
+                {{selectOptions config.resistResult selected=system.dice1.resist.result localize=true blank="-"}}
+              </select>
+            </div>
           </div>
           {{!--
           <div class="flexcol grid grid-8col nogapmargin">
@@ -196,7 +216,7 @@
           </div>
           --}}
         </div>
-        <div style="display: {{#if system.usedice2}}block{{else}}none{{/if}};">
+        <div style="display: {{#if system.usedice}}block{{else}}none{{/if}};">
           {{> "systems/sw25/templates/item/parts/item-usedice.hbs"}}
         </div>
         <div style="display: {{#if system.usepower}}block{{else}}none{{/if}};">
