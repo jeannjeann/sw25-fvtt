@@ -69,7 +69,6 @@ export async function growthCheck(actor) {
     flavor: game.i18n.localize(`SW25.Ability.Growth`),
     content: chatContent,
     rollMode: rollMode,
-    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
     rolls: [roll],
     flags: {
       actor: `${actor._id}`,

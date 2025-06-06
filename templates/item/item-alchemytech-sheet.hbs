@@ -59,12 +59,7 @@
         <div class="flexrow grid grid-10col nogapmargin">
           <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Item.Clickitem"}}</b><br>
             <select name="system.clickitem">
-              {{#select system.clickitem}}
-              <option value="all">{{localize "SW25.Item.All"}}</option>
-              <option value="power">{{localize "SW25.Item.Powerroll"}}</option>
-              <option value="dice">{{localize "SW25.Item.Diceroll"}}</option>
-              <option value="description">{{localize "SW25.Item.Onlydescription"}}</option>
-              {{/select}}
+              {{selectOptions clickitemOptions selected=system.clickitem localize=true}}
             </select>
           </span>
           <div></div>
@@ -92,13 +87,7 @@
             <input id="{{item._id}}system.time" style="max-width: calc(90% - 7px);" type="text" name="system.time" value="{{system.time}}" data-dtype="String"/></span>
           <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.resist"><b>{{localize "SW25.Item.Resist"}}</b></label><br>
             <select id="{{item._id}}system.resist" name="system.resist">
-              {{#select system.resist}}
-              <option value="-">-</option>
-              <option value="decide">{{localize "SW25.Item.Decide"}}</option>
-              <option value="any">{{localize "SW25.Item.Any"}}</option>
-              <option value="disappear">{{localize "SW25.Item.Disappear"}}</option>
-              <option value="shortening">{{localize "SW25.Item.Shortening"}}</option>
-              {{/select}}
+            {{selectOptions resistOptions selected=system.resist localize=true blank="-"}}
             </select>
           </span>
           <span style="text-align: right;"><br><b>{{localize "SW25.Cost"}}</b></span>

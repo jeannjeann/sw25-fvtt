@@ -192,6 +192,9 @@
       "Powerroll": "威力ロール",
       "Diceroll": "ダイスロール",
       "Onlydescription": "説明のみ",
+      "Hpcost": "HP消費",
+      "Mpcost": "MP消費",
+      "Resourcecost": "リソース消費",
       "Noapply": "適用なし",
       "applyon": "適用あり",
       "Custom": "カスタム",
@@ -624,7 +627,11 @@
       "FrMod": "妖精魔法",
       "DrMod": "森羅魔法",
       "DmMod": "召異魔法",
-      "AbMod": "奈落魔法"
+      "AbMod": "奈落魔法",
+      "MagicalsongPeform": "呪歌・終律 / 演奏",
+      "MagicalsongPower": "呪歌・終律 / 威力",
+      "EssenceweaveForce": "操気 / 理力",
+      "EssenceweavePower": "操気 / 威力"
     },
     "Custom": {
       "Name": "項目名",
