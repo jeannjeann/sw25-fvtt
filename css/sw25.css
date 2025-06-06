@@ -83,6 +83,11 @@
   cursor: pointer;
 }
 
+.session-result:hover, .session-result:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
 
 .grid,
 .grid-2col {
@@ -1393,13 +1398,23 @@ input.weakapply[type="checkbox"] {
   min-width: 3em;
 }
 
-.materialcardcost{
-  font-weight: bold;
+.materialcardcost, .notesget, .notescost, .notesaddget, .tacspowerget, .tacspowercost{
   text-align: center;
   margin: 2px;
 }
 
-.materialcardcost:hover, .usephasearea:focus {
+.notesget, .notesaddget, .tacspowerget{
+  color: #2d53ff;
+}
+
+.notescost, .tacspowercost{
+  color: #862020;
+}
+
+.materialcardcost:hover,
+.notesget:hover, .notescost:hover, .notesaddget:hover,
+.tacspowerget:hover, .tacspowercost:hover,
+.usephasearea:focus {
   color: #000;
   text-shadow: 0 0 10px red;
   cursor: pointer;
@@ -1452,4 +1467,341 @@ input.weakapply[type="checkbox"] {
 
 .fairy-rank {
   font-size: 0.7em;
+}
+
+.session-result-title {
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.session-result-chat .title{
+  background: linear-gradient(210deg, rgb(160, 205, 255), rgb(255, 165, 180));
+  border: 1px solid #333;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-weight:bold;
+}
+
+.session-result-chat .basic-info,
+.session-result-chat .session-info{
+  border: 1px solid #333;
+  padding: 2px;
+  margin: 2px;
+}
+
+.session-result-chat .basic-info .contents,
+.session-result-chat .session-info .contents{
+  padding-left:1em;
+	text-indent:-1em;
+}
+
+.session-result-chat .custom-info table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.session-result-chat .custom-info .header-title,
+.session-result-chat .custom-info .contents-title,
+.session-result-chat .custom-info .header-value,
+.session-result-chat .custom-info .contents-value{
+  min-width: 10%;
+}
+
+.sw25 .customs .item .custom-value,
+.sw25 .customs .item .custom-controls {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+
+.sw25 .customs .item .effect-controls {
+  border: none;
+}
+
+.sw25 .details .session-detail {
+  gap: 0px;
+  margin: 0px;
+}
+
+.sw25 .item .item-equip {
+  width: 30px;
+  text-align: center;
+}
+
+.sw25 .item .equip-toggle {
+  display: inline-block;
+  position: relative;
+  width: 20px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: #aaaaaa;
+  cursor: pointer;
+  transition: background-color .4s;
+}
+
+.sw25 .item .equip-toggle:has(:checked) {
+  background-color: #4bd865;
+}
+
+.sw25 .item .equip-toggle::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+  background-color: #ffffff;
+  content: '';
+  transition: left .4s;
+}
+
+.sw25 .item .equip-toggle:has(:checked)::after {
+  left: 10px;
+}
+
+.sw25 .item .equip-toggle input {
+  display: none;
+}
+
+.sw25 .items-list .ability-resource .resources {
+  flex: 1;
+  margin: 0;
+  font-size: 13px;
+  text-align: left;
+  align-items: center;
+  display: flex;
+  /* flex-wrap: wrap; */
+}
+.sw25 .items-list .ability-resource .resources h3, .sw25 .items-list  .ability-resource .resources h4 {
+  margin: 0;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.sw25 .tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+.sw25 .tooltip-text {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -30px;
+  display: inline-block;
+  padding: 5px;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  line-height: 1.3;
+  background: #000;
+  color: #fff;
+  border-radius: 3px;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 2000;
+}
+
+.sw25 .tooltip:hover .tooltip-text {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sw25 .tooltip-right {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block;
+  padding: 5px;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  line-height: 1.3;
+  background: #000;
+  color: #fff;
+  border-radius: 3px;
+  transition: opacity 0.3s ease-in, visibility 0s linear 0s;
+  z-index: 2000;
+  margin-left: 6px;
+}
+
+.sw25 .tooltip:hover .tooltip-right {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sw25 .tooltip-top {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(100% + 10px);
+  display: inline-block;
+  padding: 5px;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  line-height: 1.3;
+  background: #000;
+  color: #fff;
+  border-radius: 3px;
+  transition: opacity 0.3s ease-in, visibility 0s linear 0s;
+  z-index: 2000;
+}
+
+.sw25 .tooltip:hover .tooltip-top {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sw25 .battle .mod-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sw25 .battle .mod-label {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.sw25 .battle .mod-input {
+  max-width: 50%;
+  text-align: center;
+  flex: 0 0 auto;
+}
+
+.sw25 .toggle-area {
+  width: 30px;
+  text-align: center;
+}
+
+.sw25 .common-toggle {
+  display: inline-block;
+  position: relative;
+  width: 20px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: #aaaaaa;
+  cursor: pointer;
+  transition: background-color .4s;
+}
+
+.sw25 .common-toggle:has(:checked) {
+  background-color: #4bd865;
+}
+
+.sw25 .common-toggle::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+  background-color: #ffffff;
+  content: '';
+  transition: left .4s;
+}
+
+.sw25 .common-toggle:has(:checked)::after {
+  left: 10px;
+}
+
+.sw25 .common-toggle input {
+  display: none;
+}
+
+.sw25 .common-display {
+  position: relative;
+  display: inline-block;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 4px 8px;
+  text-align: center;
+  background: #f9f9f9;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.sw25 .common-display .common-label {
+  display: block;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+}
+
+.sw25 .common-display .common-value {
+  display: block;
+  font-size: 0.7rem;
+  color: #222;
+}
+
+.sw25 .common-display .common-icon {
+  position: absolute;
+  font-size: 0.6rem;
+  color: #555;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.sw25 .common-display .icon-bottom {
+  right: 2px;
+  bottom: 2px;
+}
+
+.sw25 .common-display .icon-top {
+  right: 2px;
+  top: 2px;
+}
+
+.sw25 .item .applybutton{
+  flex: 0 0 30px;
+  margin: 0 5px;
+  background-color: #2e2e2e;
+  color: #fff;
+  border-radius: 6px;
+  border: 1px solid #555;
+  text-align: center;
+  cursor: pointer;
+  padding: 2px;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+/* アイコン中央寄せ */
+.sw25 .item .usedice i,
+.sw25 .item .usepower i,
+.sw25 .item .useeffect i {
+  pointer-events: none;
+}
+
+/* ホバー時の効果 */
+.sw25 .item .usedice:hover,
+.sw25 .item .usepower:hover,
+.sw25 .item .useeffect:hover {
+  background-color: #444;
+  transform: translateY(-1px);
+}
+
+.sw25 .item .usedice {
+  color:#6eb4f0;
+}
+
+.sw25 .item .usepower {
+  color:#ea5532;
+}
+
+.sw25 .item .useeffect {
+  color:#d07fff;
+}
+
+.sw25 .item .usephasearea {
+  color:#2faf2f;
 }

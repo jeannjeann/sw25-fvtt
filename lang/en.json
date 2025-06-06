@@ -21,6 +21,7 @@
     "Spells": "Spells",
     "Effects": "Effects",
     "Effectslong": "Effects",
+    "Customs": "Customs",
     "Description": "Description",
     "Details": "Details",
     "Abilityname": "Ability",
@@ -79,6 +80,7 @@
     "UnderZero": "0 or less",
     "NoCost": "No Cost",
     "Applyall": "Apply All",
+    "TargetSelect": "Select Target",
 
     "Notargetwarn": "No targets selected.",
     "Multitargetwarn": "Multi targets selected.",
@@ -120,9 +122,9 @@
       "Totalexp": "Total",
       "Move": "Move",
       "Movemod": "Move Mod",
-      "Normalmove": "Normal",
-      "Maxmove": "Max",
-      "Limitedmove": "Limited",
+      "Normalmove": "Normal Move",
+      "Maxmove": "Max Move",
+      "Limitedmove": "Limited Move",
       "Protectionpoint": { "long": "DEF", "abbr": "DEF" },
       "Magicprotection": { "long": "MDEF", "abbr": "MDEF" },
       "Showfeature": "Show Empty Groups",
@@ -177,6 +179,9 @@
     },
     "Item": {
       "Name": "Name",
+      "Popularity": "Popularity",
+      "Shape": "Shape",
+      "Create": "Create",
       "CheckB": "<CK>",
       "PowerB": "<PWR>",
       "EffectB": "<EFF>",
@@ -196,6 +201,7 @@
       "hr": "HPR",
       "mr": "MPR",
       "Price": "Price",
+      "Selfbuff": "Self Buff",
       "Usepower": "Use Power",
       "Usedice": "Use Dice",
       "UseAmmunition": "Ammunition",
@@ -205,6 +211,8 @@
       "Dice": "Dice ",
       "Customdice": "Custom Dice",
       "Formula": "Roll Formula",
+      "Resisttype": "Resist Type",
+      "Resistinput": "Resist Name",
       "Power": "Power ",
       "Cvalue": "Crit",
       "Noc": "No Crit",
@@ -226,6 +234,7 @@
       "Powupwarn": "* For Executioner's Blade, enter the power increase value after a Crit (usually 5)",
       "Noresquantitiywarn": "There are not enough quiantity: ",
       "Equip": "Equip",
+      "Activation": "Activate",
       "Dedicated": "Personalized",
       "Category": "Category",
       "Rank": "Rank",
@@ -406,7 +415,11 @@
         "B": "B",
         "A": "A",
         "S": "S",
-        "SS": "SS"
+        "SS": "SS",
+        "EffectiveValue": "Effective Value",
+        "Value": "Value",
+        "Time": "Time(Round)",
+        "DiceFormula": "Dice Formula"
       },
       "Phasearea": {
         "Phase": "Aspect",
@@ -458,11 +471,16 @@
           "Material": "Material Card",
           "Lifeline": "Qi",
           "Tacspower": "Edge",
+          "Magitech": "Magitech",
           "AbyssEx": "Abyss Extend"
         },
-        "Deamonblood": "Deamon Blood",
-        "Deamoncrystal": "Deamon Crystal",
-        "DeamoncrystalLarge": "Arcdeamon Crystal",
+        "Bullet": "Bullet",
+        "MagisphereS": "Magi Sphere S",
+        "MagisphereM": "Magi Sphere M",
+        "MagisphereL": "Magi Sphere L",
+        "Daemonblood": "Daemon Blood",
+        "Daemoncrystal": "Daemon Crystal",
+        "ArcDaemoncrystal": "Arcdaemon Crystal",
         "Abyssshard": "Abyss Shard"
       },
       "Combatability": {
@@ -520,7 +538,35 @@
         "ActionEffect": "Effect",
         "TableType": "Action Table Type",
         "Label": "Label"
-      }
+      },
+      "Session": {
+        "Information": "Information",
+        "Date": "Date",
+        "GM": "GameMaster",
+        "PC": "PC Num",
+        "Player": "Player",
+        "Exp": "Experience",
+        "Gamel": "Gamel",
+        "Honor": "Honor",
+        "Sword": "Sword Shard",
+        "Abyss": "Abyss Shard",
+        "Tresure": "Tresure Point",
+        "Mission": "Mission",
+        "Middle": "Middle",
+        "OutputResult": "Output Result",
+        "BasicResult": "Basic Info",
+        "SwordResult": "Sword Calc",
+        "CharaResult": "Fumble Calc",
+        "CustomResult" : "Custom Info",
+        "Result": {
+          "Label": "Session Result",
+          "Remainder": "Remainder",
+          "Character": "Character",
+          "Fumble": "Fumble",
+          "Item": "Item",
+          "Value": "Value"
+       }
+     }
     },
     "Effect": {
       "Source": "Source",
@@ -580,6 +626,13 @@
       "DmMod": "Summoning",
       "AbMod": "Abyssal Magic"
     },
+    "Custom": {
+      "Name": "Name",
+      "Value": "Value",
+      "MoveUp": "Move Up",
+      "MoveDown": "Move Down",
+      "Delete": "Delete"
+    },
     "Config": {
       "ResVit": "Fortitude",
       "ResMnd": "Willpower",
@@ -595,6 +648,21 @@
       "MonDmg": "Damage",
       "MonDge": "Evasion",
       "AllMgp": "All Magic Power"
+    },
+    "Resist": {
+      "Check": {
+        "Dodge": "Dodge",
+        "Vitres": "VitRes",
+        "Mndres": "MndRes"
+      },
+      "Result": {
+        "decide": "Decide",
+        "any": "Any",
+        "none": "None",
+        "disappear": "Disappear",
+        "halving": "Halving",
+        "shortening": "Shortage"
+      }
     }
   },
 
@@ -627,7 +695,8 @@
       "language": "Language",
       "otherfeature": "Other Features",
       "monsterability": "Monster Ability",
-      "action": "Action"
+      "action": "Action",
+      "session": "Session"
     }
   },
 

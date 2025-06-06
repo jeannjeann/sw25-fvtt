@@ -21,3 +21,19 @@ SW25.abilityAbbreviations = {
   int: "SW25.Ability.Int.abbr",
   mnd: "SW25.Ability.Mnd.abbr",
 };
+
+SW25.resistCheck = {
+  Dodge: "SW25.Resist.Check.Dodge",
+  Vitres: "SW25.Resist.Check.Vitres",
+  Mndres: "SW25.Resist.Check.Mndres",
+  input: "SW25.Effect.DirectInput",
+};
+
+SW25.resistResult = {
+  decide: "SW25.Resist.Result.decide",
+  any: "SW25.Resist.Result.any",
+  none: "SW25.Resist.Result.none",
+  disappear: "SW25.Resist.Result.disappear",
+  halving: "SW25.Resist.Result.halving",
+  shortening: "SW25.Resist.Result.shortening"
+};

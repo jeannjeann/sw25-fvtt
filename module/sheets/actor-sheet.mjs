@@ -51,6 +51,7 @@ export class SW25ActorSheet extends ActorSheet {
     // Add the actor's data to context.data for easier access, as well as flags.
     context.system = actorData.system;
     context.flags = actorData.flags;
+    context.isOwner = this.actor.isOwner;
 
     // Prepare character data and items.
     if (actorData.type == "character") {
@@ -168,6 +169,7 @@ export class SW25ActorSheet extends ActorSheet {
     };
     const lifelines = [];
     const tacspowers = [];
+    const magitechrs = [];
     const abyssexs = [];
     let materialshow = {
       all: false,
@@ -214,6 +216,8 @@ export class SW25ActorSheet extends ActorSheet {
           lifelines.push(i);
         } else if (i.system?.resource?.type == "tacspower") {
           tacspowers.push(i);
+        } else if (i.system?.resource?.type == "magitech") {
+          magitechrs.push(i);
         } else if (i.system?.resource?.type == "abyssex") {
           abyssexs.push(i);
         }
@@ -571,11 +575,13 @@ export class SW25ActorSheet extends ActorSheet {
     context.materials = materials;
     context.lifelines = lifelines;
     context.tacspowers = tacspowers;
+    context.magitechrs = magitechrs;
     context.abyssexs = abyssexs;
     context.noteshow = notes.length > 0;
     context.materialshow = materialshow;
     context.lifelineshow = lifelines.length > 0;
     context.tacspowershow = tacspowers.length > 0;
+    context.magitechrshow = magitechrs.length > 0;
     context.abyssexshow = abyssexs.length > 0;
   }
 
@@ -643,6 +649,21 @@ export class SW25ActorSheet extends ActorSheet {
 
     // Material card cost.
     html.on("click", ".materialcardcost", this._onMaterialcardCost.bind(this));
+
+    // Notes get.
+    html.on("click", ".notesget", this._onNotesGet.bind(this));
+
+    // Notes cost.
+    html.on("click", ".notescost", this._onNotesCost.bind(this));
+
+    // Notes add cost.
+    html.on("click", ".notesaddget", this._onNotesAddGet.bind(this));
+
+    // Tacspower get.
+    html.on("click", ".tacspowerget", this._onTacspowerGet.bind(this));
+
+    // Tacspower cost.
+    html.on("click", ".tacspowercost", this._onTacspowerCost.bind(this));
 
     // Popularity roll.
     html.on("click", ".popularityrollable", this._onPopularityRoll.bind(this));
@@ -868,6 +889,15 @@ export class SW25ActorSheet extends ActorSheet {
         targetName = targetName + ``;
       }
 
+      let resistData = null;
+
+      if ( dataset.resist && dataset.resistresult != "none"){
+        resistData = {
+          name: dataset.resist,
+          result: dataset.resistresult,
+        };
+      }
+
       chatData.flags = {
         total: roll.total,
         orgtotal: roll.total,
@@ -879,6 +909,7 @@ export class SW25ActorSheet extends ActorSheet {
         checktype: checktype,
         target,
         targetName: targetName,
+        resist: resistData,
       };
 
       chatData.content = await renderTemplate(
@@ -894,6 +925,7 @@ export class SW25ActorSheet extends ActorSheet {
           checktype: checktype,
           resusetext: chatresuse,
           targetName: targetName,
+          resist: resistData,
         }
       );
 
@@ -1130,7 +1162,7 @@ export class SW25ActorSheet extends ActorSheet {
     const targetedToken = game.user.targets;
 
     // if no target,show dialog
-    if (targetedToken.size === 0) {
+    if (!item.system.selfbuff && targetedToken.size === 0) {
       const title = `${item.name} (${game.i18n.localize("SW25.Effectslong")})`;
       const selectedTokens = await targetSelectDialog(title);
       game.user.updateTokenTargets(selectedTokens.map((token) => token.id));
@@ -1138,16 +1170,6 @@ export class SW25ActorSheet extends ActorSheet {
         return;
       }
     }
-
-    // Target Actor
-    const targetActors = [];
-    targetedToken.forEach((token) => {
-      targetActors.push(token.actor);
-
-      // Actor name stock for chat message
-      const actorName = token.actor.name;
-      targetActorName.push({ actorName });
-    });
 
     // Effect name stock for chat message
     targetEffects.forEach((effect) => {
@@ -1157,7 +1179,33 @@ export class SW25ActorSheet extends ActorSheet {
 
     // Apply
     const targetTokens = game.user.targets;
-    const targetTokenId = Array.from(targetTokens, (target) => target.id);
+    let targetTokenId = Array.from(targetTokens, (target) => target.id);
+
+    // Target Actor
+    let targetActors = [];
+    if (item.system.selfbuff) {
+      if (game.user.isGM) {
+        const actorName = this.actor.name;
+        targetActorName.push({ actorName });
+        targetActors.push(this.actor);
+      } else {
+        const actorName = this.actor.name;
+        targetActorName.push({ actorName });
+        targetTokenId = this.actor.token
+          ? this.actor.token.id
+          : [this.actor.getActiveTokens()[0]?.id];
+      }
+    } else {
+      targetedToken.forEach((token) => {
+        targetActors.push(token.actor);
+
+        // Actor name stock for chat message
+        const actorName = token.actor.name;
+        targetActorName.push({ actorName });
+      });
+      targetTokenId = Array.from(targetTokens, (target) => target.id);
+    }
+
     if (game.user.isGM) {
       targetActors.forEach((targetActor) => {
         targetEffects.forEach((effect) => {
@@ -1319,7 +1367,7 @@ export class SW25ActorSheet extends ActorSheet {
       : game.i18n.localize("SW25.Monster.Unidentifiedmon");
     monsterName += `(${this.actor.system.type})`;
     targetValue = this.actor.system.popularity;
-    targetValue += Number.isFinite(this.actor.system.weakpoint)
+    targetValue += !isNaN(Number(this.actor.system.weakpoint))
       ? "/" + this.actor.system.weakpoint
       : "";
 
@@ -2046,36 +2094,24 @@ export class SW25ActorSheet extends ActorSheet {
       lifeline = "Jin";
     }
 
-    let resource = this.actor.items.find(i =>
-      i.type === "resource" &&
-      i.system?.resource?.type === "lifeline" &&
-      i.system?.resource?.lifelinetype === item.system.type
+    let resource = this.actor.items.find(
+      (i) =>
+        i.type === "resource" &&
+        i.system?.resource?.type === "lifeline" &&
+        i.system?.resource?.lifelinetype === item.system.type
     );
 
     if (!resource) {
-      ui.notifications.warn(game.i18n.localize("SW25.NotResource") + ":" + game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`));
+      ui.notifications.warn(
+        game.i18n.localize("SW25.NotResource") +
+          ":" +
+          game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`)
+      );
     } else {
       let oldVal = resource.system.quantity ? resource.system.quantity : 0;
       let newVal = oldVal - cost;
 
       await resource.update({ "system.quantity": newVal });
-    }
-
-    if (item.system.type == "ten") {
-      let val = this.actor.system.attributes.qi.heaven.value - cost;
-      this.actor.update({
-        "system.attributes.qi.heaven.value": val,
-      });
-    } else if (item.system.type == "chi") {
-      let val = this.actor.system.attributes.qi.earth.value - cost;
-      this.actor.update({
-        "system.attributes.qi.earth.value": val,
-      });
-    } else if (item.system.type == "jin") {
-      let val = this.actor.system.attributes.qi.spirit.value - cost;
-      this.actor.update({
-        "system.attributes.qi.spirit.value": val,
-      });
     }
 
     // Apply
@@ -2096,7 +2132,11 @@ export class SW25ActorSheet extends ActorSheet {
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     let label = game.i18n.localize("SW25.Effectslong");
     let chatActorName = ">>> " + selectedTokens[0].actor.name + "<br>";
-    let chatEffectName = effects[0].name + game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`) + "<br>";
+    let chatEffectName =
+      effects[0].name +
+      "(" +
+      game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`) +
+      ")<br>";
 
     let chatData = {
       speaker: speaker,
@@ -2174,14 +2214,16 @@ export class SW25ActorSheet extends ActorSheet {
       { color: "white", mark: "fa-heart" },
       { color: "gold", mark: "fa-sun" },
     ];
-    let message = `${item.name}<br>`;
-    
-    for (let card of cards) {
-      if(!isNaN(item.system[card.color]) && item.system[card.color] <= 0){
-        continue;
-      } 
+    let name = `${item.name}(${event.target.textContent.trim()})`;
+    let materialcards = [];
 
-      let resource = this.actor.items.find(i =>
+    for (let card of cards) {
+      if (!isNaN(item.system[card.color]) && item.system[card.color] <= 0) {
+        continue;
+      }
+
+      let resource = this.actor.items.find(
+        (i) =>
           i.type === "resource" &&
           i.system?.resource?.type === "material" &&
           i.system?.resource?.materialtype === card.color &&
@@ -2189,29 +2231,65 @@ export class SW25ActorSheet extends ActorSheet {
       );
 
       let cardCap =
-        card.color.charAt(0).toUpperCase() +
-        card.color.slice(1).toLowerCase();
+        card.color.charAt(0).toUpperCase() + card.color.slice(1).toLowerCase();
+      let name =
+        game.i18n.localize(`SW25.Item.Alchemytech.${cardCap}`) +
+        event.target.textContent.trim();
+
       if (!resource) {
-        message +=
-          `<div class="materialcard" style="text-align:center;"><div class="${card.color}"><i class="fa-solid ${card.mark}"></i>` +
-          game.i18n.localize(`SW25.Item.Alchemytech.${cardCap}`) +
-          event.target.textContent.trim() +
-          `(${item.system[card.color]})` +
-          ` ... <span style="font-size:1.5em">` +
-          game.i18n.localize(`SW25.NotResource`) +
-          `</span></div></div>`;
+        materialcards.push({
+          key: item.system[card.color],
+          name: name,
+          color: card.color,
+          cost: item.system[card.color],
+          resource: false,
+          oldVal: null,
+          newVal: null,
+        });
       } else {
         let oldVal = resource.system.quantity ? resource.system.quantity : 0;
         let newVal = oldVal - item.system[card.color];
 
-        message +=
-          `<div class="materialcard" style="text-align:center;"><div class="${card.color}"><i class="fa-solid ${card.mark}"></i>` +
-          game.i18n.localize(`SW25.Item.Alchemytech.${cardCap}`) +
-          event.target.textContent.trim() +
-          `(${item.system[card.color]})` +
-          ` ... <span style="font-size:1.5em">${oldVal} -> ${newVal}</span></div></div>`;
-
         await resource.update({ "system.quantity": newVal });
+
+        materialcards.push({
+          key: item.system[card.color],
+          name: name,
+          color: card.color,
+          mark: card.mark,
+          cost: item.system[card.color],
+          resource: true,
+          oldVal: oldVal,
+          newVal: newVal,
+        });
+      }
+    }
+
+    // alchemitech effective change.
+    if (item.system.effectvalue.type !== "-" && item.effects) {
+      const changeValue = item.system.effectvalue[useRank];
+      if (changeValue) {
+        const updates = [];
+
+        if (item.system.effectvalue.type === "diceformula") {
+          await item.update({ "system.customformula": String(changeValue) });
+        } else {
+          for (let effect of item.effects) {
+            const updateData = { _id: effect.id };
+
+            if (item.system.effectvalue.type === "time") {
+              updateData.duration = { rounds: Number(changeValue) };
+            } else if (item.system.effectvalue.type === "value") {
+              updateData.changes = effect.changes.map((c) => ({
+                ...c,
+                value: Number(changeValue),
+              }));
+            }
+
+            updates.push(updateData);
+          }
+          await item.updateEmbeddedDocuments("ActiveEffect", updates);
+        }
       }
     }
 
@@ -2230,10 +2308,207 @@ export class SW25ActorSheet extends ActorSheet {
     chatData.content = await renderTemplate(
       "systems/sw25/templates/roll/card-apply.hbs",
       {
-        message: message,
+        name: name,
+        materialcards: materialcards,
       }
     );
 
     ChatMessage.create(chatData);
+  }
+
+  async _onNotesGet(event) {
+    event.preventDefault();
+
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+
+    if (item.system.upget) {
+      let resourceType = {
+        type: "note",
+        notetype: "up",
+      };
+      await this._updateResource(resourceType, item.system.upget);
+    }
+    if (item.system.downget) {
+      let resourceType = {
+        type: "note",
+        notetype: "down",
+      };
+      await this._updateResource(resourceType, item.system.downget);
+    }
+    if (item.system.charmget) {
+      let resourceType = {
+        type: "note",
+        notetype: "charm",
+      };
+      await this._updateResource(resourceType, item.system.charmget);
+    }
+  }
+
+  async _onNotesCost(event) {
+    event.preventDefault();
+
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+
+    if (item.system.upcost) {
+      let resourceType = {
+        type: "note",
+        notetype: "up",
+      };
+      await this._updateResource(resourceType, item.system.upcost, -1);
+    }
+    if (item.system.downcost) {
+      let resourceType = {
+        type: "note",
+        notetype: "down",
+      };
+      await this._updateResource(resourceType, item.system.downcost, -1);
+    }
+    if (item.system.charmcost) {
+      let resourceType = {
+        type: "note",
+        notetype: "charm",
+      };
+      await this._updateResource(resourceType, item.system.charmcost, -1);
+    }
+  }
+
+  async _onNotesAddGet(event) {
+    event.preventDefault();
+
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+
+    if (item.system.upadd) {
+      let resourceType = {
+        type: "note",
+        notetype: "up",
+      };
+      await this._updateResource(resourceType, item.system.upadd);
+    }
+    if (item.system.downadd) {
+      let resourceType = {
+        type: "note",
+        notetype: "down",
+      };
+      await this._updateResource(resourceType, item.system.downadd);
+    }
+    if (item.system.charmadd) {
+      let resourceType = {
+        type: "note",
+        notetype: "charm",
+      };
+      await this._updateResource(resourceType, item.system.charmadd);
+    }
+  }
+
+  async _onTacspowerGet(event) {
+    event.preventDefault();
+
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+
+    if (item.system.get) {
+      let resourceType = {
+        type: "tacspower",
+      };
+      await this._updateResource(resourceType, item.system.get);
+    }
+  }
+
+  async _onTacspowerCost(event) {
+    event.preventDefault();
+
+    const selectedTokens = canvas.tokens.controlled;
+    if (selectedTokens.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    } else if (selectedTokens.length > 1) {
+      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
+      return;
+    }
+
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+
+    if (item.system.cost) {
+      let resourceType = {
+        type: "tacspower",
+      };
+      await this._updateResource(resourceType, item.system.cost, -1);
+    }
+  }
+
+  async _updateResource(resourceType, modifyValue, multiple=1) {
+    const result = isNaN(Number(modifyValue))
+      ? 0
+      : Number(modifyValue) * multiple;
+
+    let resource = this.actor.items.find((i) => {
+      if (i.type !== "resource") return false;
+
+      const res = i.system?.resource;
+      return (
+        res &&
+        Object.entries(resourceType).every(([key, value]) => res[key] === value)
+      );
+    });
+
+    if (resource) {
+      let oldVal = resource.system.quantity ? resource.system.quantity : 0;
+      let newVal = oldVal + Number(result);
+
+      await resource.update({ "system.quantity": newVal });
+    } else {
+      ui.notifications.warn(game.i18n.localize("SW25.NotResource"));
+      return;
+    }
   }
 }

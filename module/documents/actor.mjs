@@ -160,9 +160,11 @@ export class SW25Actor extends Actor {
             systemData.itempowerbase += systemData.attributes.efwphalfmod;
           systemData.itempowertable = item.system.powertable;
           systemData.itempowertable[16] += systemData.lt;
+          systemData.itempowertable[16] += Number(systemData?.attributes?.ltmod) || 0;
           if (!/^f\d+$/.test(systemData.itempowertable[17])) {
             systemData.itempowertable[17] =
-              Number(systemData.itempowertable[17]) + systemData.cr;
+              Number(systemData.itempowertable[17]) + systemData.cr
+            systemData.itempowertable[17] += Number(systemData?.attributes?.crmod) || 0;
           }
         }
       }
@@ -1013,11 +1015,13 @@ export class SW25Actor extends Actor {
     systemData.hp.max =
       Number(systemData.hpbase) +
       Number(systemData.hp.hpmod) +
-      Number(systemData.hp.efhpmod);
+      Number(systemData.hp.efhpmod) +
+      Math.floor((systemData.abilities?.vit?.efvaluemodify ?? 0) / 6);
     systemData.mp.max =
       Number(systemData.mpbase) +
       Number(systemData.mp.mpmod) +
-      Number(systemData.mp.efmpmod);
+      Number(systemData.mp.efmpmod) +
+      Math.floor((systemData.abilities?.mnd?.efvaluemodify ?? 0) / 6);
     systemData.pp =
       Number(systemData.ppbase) +
       Number(systemData.attributes.ppmod) +
@@ -1263,6 +1267,18 @@ export class SW25Actor extends Actor {
       }
     });
 
+    // Convert Status Monster Parameter.
+    totalhitmod += Math.floor((totaldex ?? 0) / 6) + (totaldexmod ?? 0);
+    totaldmod += Math.floor((totalstr ?? 0) / 6) + (totalstrmod ?? 0);
+    totaldodgemod += Math.floor((totalagi ?? 0) / 6) + (totalagimod ?? 0);
+    totalvitres += Math.floor((totalvit ?? 0) / 6) + (totalvitmod ?? 0);
+    totalmndres += Math.floor((totalmnd ?? 0) / 6) + (totalmndmod ?? 0);
+    totalmovemod += (totalagi ?? 0);
+    totalinit += Math.floor((totalagi ?? 0) / 6) + (totalagimod ?? 0);
+    totalhpmod += (totalvit ?? 0);
+    totalmpmod += (totalmnd ?? 0);
+    totalallmgp += Math.floor((totalint ?? 0) / 6) + (totalintmod ?? 0);
+    
     systemData.totalhitmod = totalhitmod;
     systemData.totaldmod = totaldmod;
     systemData.totalcmod = totalcmod;

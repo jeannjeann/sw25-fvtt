@@ -33,6 +33,21 @@
 
     {{!-- Description Tab --}}
     <div class="tab" data-group="primary" data-tab="description">
+      <div class="flexcol">
+        <div class="flexrow grid grid-10col nogapmargin">
+          <span style="text-align: center;"><b>{{localize "SW25.Item.Popularity"}}</b><br>
+            <input id="{{item._id}}system.info.popularity" type="number" name="system.info.popularity" value="{{system.info.popularity}}" data-dtype="String"/></span>
+          <span class="grid-span-5" style="text-align: left;"><label for="{{item._id}}system.info.shape"><b>{{localize "SW25.Item.Shape"}}</b></label><br>
+            <input id="{{item._id}}system.info.shape" type="text" name="system.info.shape" value="{{system.info.shape}}" data-dtype="String"/></span>
+          <span class="grid-span-2" style="text-align: left;"><label for="{{item._id}}system.info.category"><b>{{localize "SW25.Item.Category"}}</b></label><br>
+            <input id="{{item._id}}system.info.category" type="text" name="system.info.category" value="{{system.info.category}}" data-dtype="String"/></span>
+          <span class="grid-span-2" style="text-align: left;"><label for="{{item._id}}system.info.create"><b>{{localize "SW25.Item.Create"}}</b></label><br>
+            <input id="{{item._id}}system.info.create" type="text" name="system.info.create" value="{{system.info.create}}" data-dtype="String"/></span>
+
+          <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.info.overview"><b>{{localize "SW25.Item.Overview"}}</b></label><br>
+            <input id="{{item._id}}system.info.overview" type="text" name="system.info.overview" value="{{system.info.overview}}" data-dtype="String"/></span>
+        </div>
+      </div>
       {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
     </div>
 

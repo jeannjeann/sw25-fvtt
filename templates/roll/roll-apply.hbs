@@ -1,10 +1,21 @@
 {{#if flavor}}<span class="flavor-text">{{flavor}}</span>{{/if}}
 <div style="text-align: center;">
-    {{#if (eq type "buttonpd")}}<span style="color: #862020; font-weight: bold; font-size: 1.5em;">{{value}}</span> {{localize "SW25.Pdamage"}}{{/if}}
-    {{#if (eq type "buttonmd")}}<span style="color: #862020; font-weight: bold; font-size: 1.5em;">{{value}}</span> {{localize "SW25.Mdamage"}}{{/if}}
-    {{#if (eq type "buttoncd")}}<span style="color: #862020; font-weight: bold; font-size: 1.5em;">{{value}}</span> {{localize "SW25.Cdamage"}}{{/if}}
-    {{#if (eq type "buttonhr")}}<span style="color: #0f6f0f; font-weight: bold; font-size: 1.5em;">{{value}}</span> HP{{localize "SW25.Recovery"}}{{/if}}
-    {{#if (eq type "buttonmr")}}<span style="color: #0f6f0f; font-weight: bold; font-size: 1.5em;">{{value}}</span> MP{{localize "SW25.Recovery"}}{{/if}}
-    {{#if isView}}&nbsp;:&nbsp;<span style="color: gray;"><span style="font-weight: bold; font-size: 1.1em;"> {{beforeValue}}</span> >>> <span style="font-weight: bold; font-size: 1.1em;">{{afterValue}}</span></span>{{/if}}
-    <div style="text-align: right; font-size: 0.7em;"> >>><span style="font-size:1.2em;"> {{target}}</span></div>
+    {{#if cancel}}
+        <span style="color: #333; font-weight: bold; font-size: 1.5em;">{{localize "SW25.Item.Spell.Cancel"}}</span>
+        <div style="text-align: right; font-size: 0.7em;"> >>><span style="font-size:1.2em;"> {{target}}</span></div>
+    {{else}}
+        {{#if (eq type "buttonpd")}}<span style="color: #862020; font-weight: bold; font-size: 1.5em;">{{value}}</span> {{localize "SW25.Pdamage"}}{{/if}}
+        {{#if (eq type "buttonmd")}}<span style="color: #862020; font-weight: bold; font-size: 1.5em;">{{value}}</span> {{localize "SW25.Mdamage"}}{{/if}}
+        {{#if (eq type "buttoncd")}}<span style="color: #862020; font-weight: bold; font-size: 1.5em;">{{value}}</span> {{localize "SW25.Cdamage"}}{{/if}}
+        {{#if (eq type "buttonhr")}}<span style="color: #0f6f0f; font-weight: bold; font-size: 1.5em;">{{value}}</span> HP{{localize "SW25.Recovery"}}{{/if}}
+        {{#if (eq type "buttonmr")}}<span style="color: #0f6f0f; font-weight: bold; font-size: 1.5em;">{{value}}</span> MP{{localize "SW25.Recovery"}}{{/if}}
+        {{#if isView}}&nbsp;:&nbsp;<span style="color: gray;"><span style="font-weight: bold; font-size: 1.1em;"> {{beforeValue}}</span> >>> <span style="font-weight: bold; font-size: 1.1em;">{{afterValue}}</span></span>{{/if}}
+        <div style="text-align: right; font-size: 0.7em;"> >>><span style="font-size:1.2em;"> {{target}}</span></div>
+        <div class="flexrow flex-group-center grid grid-5col nogapmargin">
+            <div class="grid-span-4" style="text-align: center;"></div>
+            <div>
+                <button class="buttonclick" data-buttontype="applycancel" style="font-size:0.8em;"><span style="color: #0f6f0f;"><i class="fa-solid fa-arrow-rotate-left"></i></span>{{localize "SW25.Item.Spell.Cancel"}}</button>
+            </div>
+        </div>
+    {{/if}}
 </div>

@@ -1,4 +1,16 @@
 {{#if flavor}}<span class="flavor-text">{{flavor}}</span>{{/if}}
 <div style="text-align: left;">
-    {{{message}}}
+    {{name}}
+    {{#each materialcards as |card key|}}
+    <div class="materialcard" style="text-align:center;">
+        <div class="{{color}}">
+            <i class="fa-solid {{mark}}"></i> {{name}}({{cost}})
+            {{#if resource}}
+            ... <span style="font-size:1.5em">{{oldVal}} -> {{newVal}}</span>
+            {{else}}
+            ... <span style="font-size:1.5em">{{localize "SW25.NotResource"}}</span>
+                {{/if}}
+        </div>
+    </div>
+    {{/each}}
 </div>

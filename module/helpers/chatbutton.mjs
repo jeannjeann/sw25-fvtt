@@ -117,6 +117,14 @@ export async function chatButton(chatMessage, buttonType) {
     const labelmonpow = item.system.labelmonpow;
 
     // Roll Setting
+    if (buttonType == "buttoncheck") {
+      item.system.checkbase = item.system.checkbase;
+      if (item.system.usefix == true) {
+        item.system.formula = 7;
+      } else if (item.system.customdice == true)
+        item.system.formula = item.system.customformula;
+      else item.system.formula = "2d6";
+    }
     if (buttonType == "buttoncheck1") {
       item.system.checkbase = item.system.checkbase1;
       if (item.system.usefix1 == true) {
@@ -288,7 +296,6 @@ export async function chatButton(chatMessage, buttonType) {
       let chatTotal = roll.total;
       if (roll.terms[0].total == 12) chatCritical = 1;
       if (roll.terms[0].total == 2) chatFumble = 1;
-
       // when selected target
       let target = null;
       let targetName = null;
@@ -310,6 +317,9 @@ export async function chatButton(chatMessage, buttonType) {
         rolls: roll,
         checktype: checktype,
         target,
+        targetName: targetName,
+        dohalf: false,
+        orgtotal: chatTotal,
       };
 
       chatData.content = await renderTemplate(
@@ -995,7 +1005,6 @@ export async function chatButton(chatMessage, buttonType) {
     let chatFumble = null;
     if (rollTotal == 12) chatCritical = 1;
     if (rollTotal == 2) chatFumble = 1;
-
     if (chatMessage.flags.dohalf == false || chatMessage.flags.dohalf == null) {
       let newtotal = halftotal + Number(aftermod);
       let newtotaltext = newtotal;
@@ -1012,6 +1021,7 @@ export async function chatButton(chatMessage, buttonType) {
           critical: chatCritical,
           fumble: chatFumble,
           checktype: chatMessage.flags.checktype,
+          targetName: chatMessage.flags.targetName,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-check.hbs",
@@ -1025,6 +1035,11 @@ export async function chatButton(chatMessage, buttonType) {
             halfdone: true,
             apply: chatMessage.flags.apply,
             checktype: chatMessage.flags.checktype,
+            targetName: chatMessage.flags.targetName,
+            resist:{
+              name: chatMessage.flags.resist.name,
+              result: chatMessage.flags.resist.result,
+            },
           }
         ),
       };
@@ -1054,6 +1069,7 @@ export async function chatButton(chatMessage, buttonType) {
           critical: chatCritical,
           fumble: chatFumble,
           checktype: chatMessage.flags.checktype,
+          targetName: chatMessage.flags.targetName,
         },
         content: await renderTemplate(
           "systems/sw25/templates/roll/roll-check.hbs",
@@ -1067,6 +1083,11 @@ export async function chatButton(chatMessage, buttonType) {
             halfdone: false,
             apply: chatMessage.flags.apply,
             checktype: chatMessage.flags.checktype,
+            targetName: chatMessage.flags.targetName,
+            resist:{
+              name: chatMessage.flags.resist.name,
+              result: chatMessage.flags.resist.result,
+            },
           }
         ),
       };
@@ -1080,6 +1101,44 @@ export async function chatButton(chatMessage, buttonType) {
 
       return;
     }
+  }
+
+  if (buttonType == "applycancel") {
+    console.log("cancel.");
+    console.log(chatMessage);
+
+    const targetToken = canvas.tokens.get(chatMessage.flags.targetToken);
+    const targetActor = targetToken.actor;
+    let resultHP = targetActor.system.hp.value;
+    let resultMP = targetActor.system.mp.value;
+    if (chatMessage.flags.type == "buttonmr") {
+      resultMP = chatMessage.flags.beforeValue;
+    } else {
+      resultHP = chatMessage.flags.beforeValue;
+    }
+    if (game.user.isGM) {
+      targetActor.update({
+        "system.hp.value": resultHP,
+        "system.mp.value": resultMP,
+      });
+    } else {
+      game.socket.emit("system.sw25", {
+        method: "applyRoll",
+        targetToken: chatMessage.flags.targetToken,
+        resultHP: resultHP,
+        resultMP: resultMP,
+      });
+    }
+
+    let content = await renderTemplate(
+      "systems/sw25/templates/roll/roll-apply.hbs",
+      {
+        target: targetToken.document.name,
+        type: buttonType,
+        cancel: true,
+      }
+    );
+    chatMessage.update({ content: content });
   }
 
   if (buttonType == "checkdecrease" || buttonType == "checkincrease") {
@@ -1104,7 +1163,9 @@ export async function chatButton(chatMessage, buttonType) {
 
     let roll = chatMessage.flags.rolls;
     let rollTotal =
-      roll.terms[0].results[0].result + roll.terms[0].results[1].result;
+      roll.dice.size > 0
+        ? roll.terms[0].results[0].result + roll.terms[0].results[1].result
+        : 0;
     let chatCritical = null;
     let chatFumble = null;
     if (rollTotal == 12) chatCritical = 1;
@@ -1141,6 +1202,10 @@ export async function chatButton(chatMessage, buttonType) {
           spell: chatMessage.flags.spell,
           checktype: chatMessage.flags.checktype,
           targetName: chatMessage.flags.targetName,
+          resist:{
+            name: chatMessage.flags.resist.name,
+            result: chatMessage.flags.resist.result,
+          },
         }
       ),
     };
@@ -1302,6 +1367,12 @@ export async function chatButton(chatMessage, buttonType) {
         speaker: speaker,
         flavor: label,
         rollMode: rollMode,
+        flags: {
+          targetToken: targetTokenId,
+          type: buttonType,
+          beforeValue: beforeValue,
+          afterValue: afterValue,
+        },
       };
 
       chatData.content = await renderTemplate(
@@ -1636,160 +1707,229 @@ export async function chatButton(chatMessage, buttonType) {
     return roll;
   }
 
-  if (buttonType == "buttonrollreq") {
-    const selectedTokens = canvas.tokens.controlled;
+  if (buttonType == "buttonrollreq" || buttonType == "buttonresist") {
+
+    let roll;
+    const flags = chatMessage.flags;
+
+    const target = flags.target;
+    const selectedTokens = target ? canvas.tokens.placeables.filter(token => target.includes(token.id)): canvas.tokens.controlled;
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
-    } else if (selectedTokens.length > 1) {
-      ui.notifications.warn(game.i18n.localize("SW25.Multiselectwarn"));
-      return;
-    }
-    const selectActor = selectedTokens[0].actor;
-    const rollData = selectActor.getRollData();
-    const flags = chatMessage.flags;
-
-    let checkItem = "";
-    let checkName = flags.checkName;
-    if (checkName == "di") checkName = flags.inputName;
-
-    for (const item of selectActor.items) {
-      if (item.type == flags.method && checkName == item.name) {
-        checkItem = item;
-        break;
-      }
     }
 
-    const item = checkItem;
-    const itemData = item.system;
-    let checkbase;
-
-    if (flags.method == "skill") {
-      let skillbase;
-      if (checkName == "adv") {
-        checkName = `${game.i18n.localize("SW25.Attributes.Advlevel")}`;
-        skillbase = selectActor.system.abilities[flags.refAbility].advbase;
-      } else if (itemData) {
-        skillbase = itemData.skillbase[flags.refAbility];
-      } else checkbase = 0;
-      if (skillbase >= 0) checkbase = `+ ${skillbase}`;
-      if (skillbase < 0) checkbase = `${skillbase}`;
-      if (flags.refAbility != "-") {
-        let i18ncat =
-          flags.refAbility.charAt(0).toUpperCase() + flags.refAbility.slice(1);
-        let abi = " + " + game.i18n.localize(`SW25.Ability.${i18ncat}.abbr`);
-        checkName = `${checkName}${abi}`;
-      }
-    }
-    if (flags.method == "check") {
-      if (itemData) {
-        if (itemData.checkbase >= 0) checkbase = `+ ${itemData.checkbase}`;
-        if (itemData.checkbase < 0) checkbase = `${itemData.checkbase}`;
-      } else checkbase = 0;
+    if(buttonType == "buttonresist"){
+      flags.targetValue = flags.total;
+      flags.method = "check";
+      flags.checkName = flags.resist.name;
     }
 
-    let flagMod = parseInt(flags.modifier, 10);
-    if (0 < flagMod) {
-      checkbase += `+ ${flagMod}`;
-    } else if (flagMod < 0) {
-      checkbase += `${flagMod}`;
-    }
+    for (let token of selectedTokens) {
+      const selectActor = token.actor;
+      const rollData = selectActor.getRollData();
 
-    let formula = item ? itemData.formula + checkbase : "2d6";
-    if (flags.checkName == "adv") formula = "2d6" + checkbase;
+      let checkItem = "";
+      let checkName = flags.checkName;
+      let checkbase;
+      let checkformula = "2d6";
 
-    let roll = new Roll(formula, rollData);
-    await roll.evaluate();
+      if (checkName == "di") checkName = flags.inputName;
 
-    const speaker = ChatMessage.getSpeaker({ actor: selectActor });
-    const rollMode = game.settings.get("core", "rollMode");
-    let label = `${game.i18n.localize("SW25.Check")}`;
-    if (checkName) label = `${checkName} (${game.i18n.localize("SW25.Check")})`;
-    if (checkName && !item && flags.checkName != "adv")
-      label = `${game.i18n.localize(
-        "SW25.StraightRoll"
-      )} - ${checkName} (${game.i18n.localize("SW25.Check")})`;
-    label += flags.targetValue ? "/" + flags.targetValue : "";
-
-    let resultText = "";
-    let fumble =
-      roll.terms[0].results[0].result == 1 &&
-      roll.terms[0].results[1].result == 1;
-    let critical =
-      roll.terms[0].results[0].result == 6 &&
-      roll.terms[0].results[1].result == 6;
-
-    let targetValues;
-
-    if (flags.targetValue) {
-      if (typeof flags.targetValue === "number") {
-        targetValues = [flags.targetValue];
-      } else if (typeof flags.targetValue === "string") {
-        targetValues = flags.targetValue.match(/[/,／， 　]/) 
-         ? flags.targetValue.split(/[/,／， 　]/).map(v => parseInt(v, 10)).filter(v => !isNaN(v)) 
-         : [parseInt(flags.targetValue, 10)].filter(v => !isNaN(v));
-      } else {
-        targetValues = [];
-      }
-
-      let successCount = 0;
-    
-      for (let target of targetValues) {
-        if (roll.total >= target) {
-          successCount++;
+      if(selectActor.type == "character"){
+        for (const item of selectActor.items) {
+          if (item.type == flags.method && checkName == item.name) {
+            checkItem = item;
+            break;
+          }
+        }
+      } else if(selectActor.type == "monster"){
+        for (const item of selectActor.items.filter(i => i.type === "monsterability")) {
+          if (checkName == game.i18n.localize("SW25.Resist.Check.Dodge")) {
+            if (
+              item.system.label1 == game.i18n.localize("SW25.Config.MonHit") &&
+              item.system.label2 == game.i18n.localize("SW25.Config.MonDmg") &&
+              item.system.label3 == game.i18n.localize("SW25.Config.MonDge")
+            ){
+              checkItem = item;
+              checkbase = item.system.checkbase3;
+              if (item.system.usefix3 == true) checkformula = 7;
+              break;
+            }
+          } else if (checkName == game.i18n.localize("SW25.Resist.Check.Vitres")) {
+            if (item.name == game.i18n.localize("SW25.Config.MonRes")){
+              checkItem = item;
+              checkbase = item.system.checkbase1;
+              if (item.system.usefix1 == true) checkformula = 7;
+              break;
+            }
+          } else if (checkName == game.i18n.localize("SW25.Resist.Check.Mndres")) {
+            if (item.name == game.i18n.localize("SW25.Config.MonRes")){
+              checkItem = item;
+              checkbase = item.system.checkbase2;
+              if (item.system.usefix2 == true) checkformula = 7;
+              break;
+            }
+          }
+        }
+        if (checkbase){
+          if (checkbase >= 0) checkbase = `+ ${checkbase}`;
+          else if (checkbase < 0) checkbase = `${checkbase}`;
         }
       }
-    
-      if (successCount > 0) {
-        if(targetValues.length > 1){
-          resultText = `<span class="success"> ${successCount} ${game.i18n.localize("SW25.Success")} ▶ </span>`;
+
+      const item = checkItem;
+      const itemData = item.system;
+      let dodgeskill = "";
+
+      if(selectActor.type == "character"){
+        if (flags.method == "skill") {
+          let skillbase;
+          if (checkName == "adv") {
+            checkName = `${game.i18n.localize("SW25.Attributes.Advlevel")}`;
+            skillbase = selectActor.system.abilities[flags.refAbility].advbase;
+          } else if (itemData) {
+            skillbase = itemData.skillbase[flags.refAbility];
+          } else checkbase = 0;
+          if (skillbase >= 0) checkbase = `+ ${skillbase}`;
+          if (skillbase < 0) checkbase = `${skillbase}`;
+          if (flags.refAbility != "-") {
+            let i18ncat =
+              flags.refAbility.charAt(0).toUpperCase() + flags.refAbility.slice(1);
+            let abi = " + " + game.i18n.localize(`SW25.Ability.${i18ncat}.abbr`);
+            checkName = `${checkName}${abi}`;
+          }
+        } else if (flags.method == "check") {
+          if (itemData) {
+            if (itemData.checkbase >= 0) checkbase = `+ ${itemData.checkbase}`;
+            if (itemData.checkbase < 0) checkbase = `${itemData.checkbase}`;
+          } else if (checkName == game.i18n.localize("SW25.Resist.Check.Dodge")) {
+            checkbase = `+ ${selectActor.system.dodgebase}`;
+            dodgeskill = selectActor.system.dodgeskill;
+          } else checkbase = 0;
+        }
+      }
+
+      let flagMod = parseInt(flags.modifier, 10);
+      flagMod = isNaN(flagMod) ? "" : flagMod;
+      if (0 < flagMod) {
+        flagMod = `+ ${flagMod}`;
+      }
+
+      let formula = (item || checkName == game.i18n.localize("SW25.Resist.Check.Dodge"))
+      ? checkformula + checkbase + flagMod
+      : checkformula + flagMod;
+      if (flags.checkName == "adv") formula = checkformula + checkbase + flagMod;
+
+      roll = new Roll(formula, rollData);
+      await roll.evaluate();
+
+      const speaker = ChatMessage.getSpeaker({ actor: selectActor });
+      const rollMode = game.settings.get("core", "rollMode");
+      let label = `${game.i18n.localize("SW25.Check")}`;
+      
+      if (checkName){
+        label = `${checkName} (${game.i18n.localize("SW25.Check")})`;
+      }
+
+      if (checkName == game.i18n.localize("SW25.Resist.Check.Dodge") && dodgeskill != "-") {
+        label = `${checkName} (${dodgeskill}${game.i18n.localize("SW25.Check")})`;
+      } else if (checkName && !item && flags.checkName != "adv") {
+        label = `${game.i18n.localize("SW25.StraightRoll")}
+        - ${checkName} (${game.i18n.localize("SW25.Check")})`;
+      }
+      label += flags.targetValue ? "/" + flags.targetValue : "";
+
+      let resultText = "";
+      let fumble =
+        roll.terms[0]?.results?.[0]?.result === 1 &&
+        roll.terms[0]?.results?.[1]?.result === 1;
+
+      let critical =
+        roll.terms[0]?.results?.[0]?.result === 6 &&
+        roll.terms[0]?.results?.[1]?.result === 6;
+
+      let targetValues;
+
+      if (flags.targetValue) {
+        if (typeof flags.targetValue === "number") {
+          targetValues = [flags.targetValue];
+        } else if (typeof flags.targetValue === "string") {
+          targetValues = flags.targetValue.match(/[/,／， 　]/)
+            ? flags.targetValue
+                .split(/[/,／， 　]/)
+                .map((v) => parseInt(v, 10))
+                .filter((v) => !isNaN(v))
+            : [parseInt(flags.targetValue, 10)].filter((v) => !isNaN(v));
         } else {
-          resultText = `<span class="success"> ${game.i18n.localize("SW25.Success")} ▶ </span>`;
+          targetValues = [];
         }
-      } else {
-        resultText = `<span class="failed"> ${game.i18n.localize("SW25.Failed")} ▶ </span>`;
+
+        let successCount = 0;
+
+        for (let target of targetValues) {
+          if (roll.total >= target) {
+            successCount++;
+          }
+        }
+
+        if (successCount > 0) {
+          if (targetValues.length > 1) {
+            resultText = `<span class="success"> ${successCount} ${game.i18n.localize(
+              "SW25.Success"
+            )} ▶ </span>`;
+          } else {
+            resultText = `<span class="success"> ${game.i18n.localize(
+              "SW25.Success"
+            )} ▶ </span>`;
+          }
+        } else {
+          resultText = `<span class="failed"> ${game.i18n.localize(
+            "SW25.Failed"
+          )} ▶ </span>`;
+        }
       }
-    }
 
-    if (critical) {
-      resultText = `<span class="success">${game.i18n.localize(
-        "SW25.Auto"
-      )}${game.i18n.localize("SW25.Success")} ▶ </span>`;
-    }
-    if (fumble) {
-      resultText = `<span class="failed"> ${game.i18n.localize(
-        "SW25.Auto"
-      )}${game.i18n.localize("SW25.Failed")} ▶ </span>`;
-    }
-
-    let chatData = {
-      speaker: speaker,
-      flavor: label,
-      rollMode: rollMode,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      rolls: [roll],
-    };
-
-    let chatFormula = roll.formula;
-    if (flags.targetValue)
-      chatFormula = roll.formula + ` >= ${parseInt(flags.targetValue, 10)}`;
-    let chatTotal = roll.total;
-    if (critical)
-      chatTotal = `${Number(
-        roll.total + 5
-      )} <span style="font-size:0.7em;"> ( ${roll.total} + 5 )</span>`;
-
-    chatData.content = await renderTemplate(
-      "systems/sw25/templates/roll/roll-check.hbs",
-      {
-        formula: chatFormula,
-        tooltip: await roll.getTooltip(),
-        total: chatTotal,
-        resultText,
+      if (critical) {
+        resultText = `<span class="success">${game.i18n.localize(
+          "SW25.Auto"
+        )}${game.i18n.localize("SW25.Success")} ▶ </span>`;
       }
-    );
+      if (fumble) {
+        resultText = `<span class="failed"> ${game.i18n.localize(
+          "SW25.Auto"
+        )}${game.i18n.localize("SW25.Failed")} ▶ </span>`;
+      }
 
-    ChatMessage.create(chatData);
+      let chatData = {
+        speaker: speaker,
+        flavor: label,
+        rollMode: rollMode,
+        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+        rolls: [roll],
+      };
+
+      let chatFormula = roll.formula;
+      if (flags.targetValue)
+        chatFormula = roll.formula + ` >= ${parseInt(flags.targetValue, 10)}`;
+      let chatTotal = roll.total;
+      if (critical)
+        chatTotal = `${Number(
+          roll.total + 5
+        )} <span style="font-size:0.7em;"> ( ${roll.total} + 5 )</span>`;
+
+      chatData.content = await renderTemplate(
+        "systems/sw25/templates/roll/roll-check.hbs",
+        {
+          formula: chatFormula,
+          tooltip: await roll.getTooltip(),
+          total: chatTotal,
+          resultText,
+        }
+      );
+
+      ChatMessage.create(chatData);
+    }
 
     return roll;
   }

@@ -1,0 +1,118 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+      <div class="grid grid-6col flex-group-left nogapmargin">
+        <div class="grid-span-2">
+          <div class="session-result">{{localize "SW25.Item.Session.OutputResult"}}</div>
+        </div>
+        <div class="grid-span-1 session-result-title">
+          <label for="{{item._id}}system.result.basic" class="nobreak">{{localize "SW25.Item.Session.BasicResult"}}</label><br>
+          <input id="{{item._id}}system.result.basic" type="checkbox" name="system.result.basic" {{checked system.result.basic}} data-dtype="Boolean" class="basic" />
+        </div>
+        <div class="grid-span-1 session-result-title">
+          <label for="{{item._id}}system.result.sword" class="nobreak">{{localize "SW25.Item.Session.SwordResult"}}</label><br>
+          <input id="{{item._id}}system.result.sword" type="checkbox" name="system.result.sword" {{checked system.result.sword}} data-dtype="Boolean" class="sword" />
+        </div>
+        <div class="grid-span-1 session-result-title">
+          <label for="{{item._id}}system.result.character" class="nobreak">{{localize "SW25.Item.Session.CharaResult"}}</label><br>
+          <input id="{{item._id}}system.result.character" type="checkbox" name="system.result.character" {{checked system.result.character}} data-dtype="Boolean" class="character" />
+        </div>
+        <div class="grid-span-1 session-result-title">
+          <label for="{{item._id}}system.result.custom" class="nobreak">{{localize "SW25.Item.Session.CustomResult"}}</label><br>
+          <input id="{{item._id}}system.result.custom" type="checkbox" name="system.result.custom" {{checked system.result.custom}} data-dtype="Boolean" class="custom" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
+    <a class="item" data-tab="details">{{localize "SW25.Details"}}</a>
+    <a class="item" data-tab="customs">{{localize "SW25.Customs"}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
+    </div>
+
+    {{!-- Detail Tab --}}
+    <div class="tab details" data-group="primary" data-tab="details">
+      <div class="flexcol">
+
+        <fieldset class="target-select">
+          <legend id="session-info">
+            <span class="session-title">{{localize "SW25.Item.Session.Information"}}</span>
+          </legend>
+
+          <div class="flexrow grid grid-10col session-detail">
+            <span class="grid-span-2" style="text-align: left;"><label for="{{item._id}}system.session.date"><b>{{localize "SW25.Item.Session.Date"}}</b></label><br>
+              <input id="{{item._id}}system.session.date" type="text" name="system.session.date" value="{{system.session.date}}" data-dtype="String"/></span>
+            <span class="grid-span-3" style="text-align: left;"><label for="{{item._id}}system.session.gamemaster"><b>{{localize "SW25.Item.Session.GM"}}</b></label><br>
+              <input id="{{item._id}}system.session.gamemaster" type="text" name="system.session.gamemaster" value="{{system.session.gamemaster}}" data-dtype="String"/></span>
+            <span class="grid-span-1" style="text-align: left;"><label for="{{item._id}}system.session.pcnum"><b>{{localize "SW25.Item.Session.PC"}}</b></label><br>
+              <input id="{{item._id}}system.session.pcnum" type="number" name="system.session.pcnum" value="{{system.session.pcnum}}" data-dtype="String"/></span>
+            <span class="grid-span-4" style="text-align: left;"></span>
+
+            <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.session.player"><b>{{localize "SW25.Item.Session.Player"}}</b></label><br>
+              <input id="{{item._id}}system.session.player" type="text" name="system.session.player" value="{{system.session.player}}" data-dtype="String"/></span>
+          </div>
+        </fieldset>
+
+        <fieldset class="target-select">
+          <legend id="session-info">
+            <span class="session-title">{{localize "SW25.Item.Session.Mission"}}</span>
+          </legend>
+
+          <div class="flexrow grid grid-10col session-detail">
+            <span class="grid-span-3" style="text-align: left;"><label for="{{item._id}}system.session.mission.exp"><b>{{localize "SW25.Item.Session.Exp"}}</b></label><br>
+              <input id="{{item._id}}system.session.mission.exp" type="number" name="system.session.mission.exp" value="{{system.session.mission.exp}}" data-dtype="String"/></span>
+            <span class="grid-span-3" style="text-align: left;"><label for="{{item._id}}system.session.mission.gamel"><b>{{localize "SW25.Item.Session.Gamel"}}</b></label><br>
+              <input id="{{item._id}}system.session.mission.gamel" type="number" name="system.session.mission.gamel" value="{{system.session.mission.gamel}}" data-dtype="String"/></span>
+            <span class="grid-span-2" style="text-align: left;"><label for="{{item._id}}system.session.mission.honor"><b>{{localize "SW25.Item.Session.Honor"}}</b></label><br>
+              <input id="{{item._id}}system.session.mission.honor" type="number" name="system.session.mission.honor" value="{{system.session.mission.honor}}" data-dtype="String"/></span>
+            <span class="grid-span-2" style="text-align: left;"></span>
+
+          </div>
+        </fieldset>
+
+        <fieldset class="target-select">
+          <legend id="session-info">
+            <span class="session-title">{{localize "SW25.Item.Session.Middle"}}</span>
+          </legend>
+
+          <div class="flexrow grid grid-10col session-detail">
+
+            <span class="grid-span-3" style="text-align: left;"><label for="{{item._id}}system.session.middle.exp"><b>{{localize "SW25.Item.Session.Exp"}}</b></label><br>
+              <input id="{{item._id}}system.session.middle.exp" type="number" name="system.session.middle.exp" value="{{system.session.middle.exp}}" data-dtype="String"/></span>
+            <span class="grid-span-3" style="text-align: left;"><label for="{{item._id}}system.session.middle.gamel"><b>{{localize "SW25.Item.Session.Gamel"}}</b></label><br>
+              <input id="{{item._id}}system.session.middle.gamel" type="number" name="system.session.middle.gamel" value="{{system.session.middle.gamel}}" data-dtype="String"/></span>
+            <span class="grid-span-2" style="text-align: left;"><label for="{{item._id}}system.session.middle.sword"><b>{{localize "SW25.Item.Session.Sword"}}</b></label><br>
+              <input id="{{item._id}}system.session.middle.sword" type="number" name="system.session.middle.sword" value="{{system.session.middle.sword}}" data-dtype="String"/></span>
+            <span class="grid-span-2" style="text-align: left;"></span>
+
+            <span class="grid-span-3" style="text-align: left;"><label for="{{item._id}}system.session.middle.abyss"><b>{{localize "SW25.Item.Session.Abyss"}}</b></label><br>
+              <input id="{{item._id}}system.session.middle.abyss" type="number" name="system.session.middle.abyss" value="{{system.session.middle.abyss}}" data-dtype="String"/></span>
+            <span class="grid-span-3" style="text-align: left;"><label for="{{item._id}}system.session.middle.tresure"><b>{{localize "SW25.Item.Session.Tresure"}}</b></label><br>
+              <input id="{{item._id}}system.session.middle.tresure" type="number" name="system.session.middle.tresure" value="{{system.session.middle.tresure}}" data-dtype="String"/></span>
+            <span class="grid-span-4" style="text-align: left;"></span>
+          </div>
+        </fieldset>
+
+      </div>
+    </div>
+
+
+    {{!-- Effects Tab --}}
+    <div class="tab customs" data-group="primary" data-tab="customs">
+      {{> "systems/sw25/templates/item/parts/item-customs.hbs"}}
+    </div>
+
+  </section>
+</form>

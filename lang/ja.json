@@ -21,6 +21,7 @@
     "Spells": "魔法",
     "Effects": "バフ",
     "Effectslong": "バフ・デバフ",
+    "Customs": "カスタム項目",
     "Description": "説明",
     "Details": "詳細",
     "Abilityname": "能力値",
@@ -121,9 +122,9 @@
       "Totalexp": "総計",
       "Move": "移動力",
       "Movemod": "移動力修正",
-      "Normalmove": "通常",
-      "Maxmove": "全力",
-      "Limitedmove": "制限",
+      "Normalmove": "通常移動",
+      "Maxmove": "全力移動",
+      "Limitedmove": "制限移動",
       "Protectionpoint": { "long": "防護点", "abbr": "防護" },
       "Magicprotection": { "long": "魔法防御", "abbr": "魔防" },
       "Showfeature": "空欄グループ表示",
@@ -168,7 +169,7 @@
       "Corepart": "コア部位",
       "Ability": "魔物能力",
       "Loot": "戦利品",
-      "Usespell": "魔法使用",
+      "Usespell": "魔法・特技使用",
       "Unidentifiedmon": "不明の魔物"
     },
     "SheetLabels": {
@@ -178,6 +179,9 @@
     },
     "Item": {
       "Name": "名称",
+      "Popularity": "知名度",
+      "Shape": "形状",
+      "Create": "製造時期",
       "CheckB": "判定",
       "PowerB": "威力",
       "EffectB": "バフ",
@@ -197,6 +201,7 @@
       "hr": "HP回",
       "mr": "MP回",
       "Price": "価格",
+      "Selfbuff": "自己バフ",
       "Usepower": "威力表使用",
       "Usedice": "判定使用",
       "UseAmmunition": "矢弾消費",
@@ -206,6 +211,8 @@
       "Dice": "ダイス",
       "Customdice": "ダイス変更",
       "Formula": "ダイス式",
+      "Resisttype": "抵抗基準値",
+      "Resistinput": "抵抗判定名",
       "Power": "威力",
       "Cvalue": "C値",
       "Noc": "Cなし",
@@ -227,6 +234,7 @@
       "Powupwarn": "*首切り刀はクリティカル時の威力の増加値を入力（通常は「5」）",
       "Noresquantitiywarn": "数量不足：",
       "Equip": "装備",
+      "Activation": "有効化",
       "Dedicated": "専用化",
       "Category": "カテゴリ",
       "Rank": "ランク",
@@ -407,7 +415,11 @@
         "B": "B",
         "A": "A",
         "S": "S",
-        "SS": "SS"
+        "SS": "SS",
+        "EffectiveValue": "効果値",
+        "Value": "値",
+        "Time": "時間(ラウンド)",
+        "DiceFormula": "ダイス式"
       },
       "Phasearea": {
         "Phase": "相",
@@ -459,11 +471,16 @@
           "Material": "マテリアルカード",
           "Lifeline": "命脈点",
           "Tacspower": "陣気",
+          "Magitech": "魔動機術",
           "AbyssEx": "奈落魔法拡張素材"
         },
-        "Deamonblood": "悪魔の血",
-        "Deamoncrystal": "悪魔の血晶",
-        "DeamoncrystalLarge": "大悪魔の血晶",
+        "Bullet": "弾丸",
+        "MagisphereS": "マギスフィア小",
+        "MagisphereM": "マギスフィア中",
+        "MagisphereL": "マギスフィア大",
+        "Daemonblood": "悪魔の血",
+        "Daemoncrystal": "悪魔の血晶",
+        "ArcDaemoncrystal": "大悪魔の血晶",
         "Abyssshard": "アビスシャード"
       },
       "Combatability": {
@@ -479,6 +496,7 @@
         "Use": "使用",
         "App": "適用",
         "Risk": "リスク",
+        "Overview": "概要",
         "Secret": "秘伝",
         "Scholl": "流派",
         "Honercost": "必要名誉点",
@@ -520,6 +538,34 @@
         "ActionEffect": "効果",
         "TableType": "行動表タイプ",
         "Label": "ラベル"
+      },
+      "Session": {
+        "Information": "セッション情報",
+        "Date": "日付",
+        "GM": "GM名",
+        "PC": "PC数",
+        "Player": "参加者",
+        "Exp": "経験点",
+        "Gamel": "ガメル",
+        "Honor": "名誉点",
+        "Sword": "剣のかけら",
+        "Abyss": "アビスシャード",
+        "Tresure": "トレジャーポイント",
+        "Mission": "依頼達成分",
+        "Middle": "戦利品",
+        "OutputResult": "セッション結果出力",
+        "BasicResult": "基本情報",
+        "SwordResult": "剣のかけら納品",
+        "CharaResult": "1ゾロ回数",
+        "CustomResult" : "カスタム項目",
+        "Result": {
+          "Label": "セッション結果",
+          "Remainder": "余",
+          "Character": "キャラクター",
+          "Fumble": "1ゾロ",
+          "Item": "項目名",
+          "Value": "値"
+       }
       }
     },
     "Effect": {
@@ -543,12 +589,12 @@
       "DirectInput": "直接入力",
       "HitMod": "命中修正",
       "DamageMod": "ダメージ修正",
+      "WeaponHalfMod": "武器半減後修正",
+      "SpellHalfMod": "魔法半減後修正",
       "CMod": "C値修正",
       "SpCMod": "魔法C値修正",
       "LethalTech": "必殺攻撃",
       "CriticalRay": "クリレイ",
-      "WeaponHalfMod": "武器半減後修正",
-      "SpellHalfMod": "魔法半減後修正",
       "DodgeMod": "回避修正",
       "PpMod": "防護修正",
       "MppMod": "魔法防御修正",
@@ -580,6 +626,13 @@
       "DmMod": "召異魔法",
       "AbMod": "奈落魔法"
     },
+    "Custom": {
+      "Name": "項目名",
+      "Value": "値",
+      "MoveUp": "上に移動",
+      "MoveDown": "下に移動",
+      "Delete": "削除"
+    },
     "Config": {
       "ResVit": "生命抵抗力",
       "ResMnd": "精神抵抗力",
@@ -595,6 +648,21 @@
       "MonDmg": "打撃",
       "MonDge": "回避",
       "AllMgp": "全魔力"
+    },
+    "Resist": {
+      "Check": {
+        "Dodge": "回避",
+        "Vitres": "生命抵抗力",
+        "Mndres": "精神抵抗力"
+      },
+      "Result": {
+        "decide": "必中",
+        "any": "任意",
+        "none": "なし",
+        "disappear": "消滅",
+        "halving": "半減",
+        "shortening": "短縮"
+      }
     }
   },
 
@@ -627,7 +695,8 @@
       "language": "言語",
       "otherfeature": "その他の特技",
       "monsterability": "魔物能力",
-      "action": "行動"
+      "action": "行動",
+      "session": "セッション"
     }
   },
 
