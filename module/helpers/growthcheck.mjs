@@ -55,6 +55,17 @@ export async function growthCheck(actor) {
       total: result,
     }
   );
+  // v12 or older
+  if (!foundry.utils.isNewerVersion(game.version, "13")) {
+    chatContent = await renderTemplate(
+      "systems/sw25/templates/roll/v12/roll-check.hbs",
+      {
+        formula: chatFormula,
+        tooltip: await roll.getTooltip(),
+        total: result,
+      }
+    );
+  }
 
   chatContent += `
       <div class="flexrow">

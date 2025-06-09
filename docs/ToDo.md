@@ -9,6 +9,7 @@
 - 多部位魔物対応
 - バレット系呪文の使い勝手向上
 - TAHCore2.0対応（v12完全対応、v11切り捨て）
+- v13　roll-checkとroll-powerのHTML変更（Ver分岐）、チャットボタンの挙動  bugfix
 
 ## 更新作業
 - マニュアル、マクロ、翻訳、辞典データ更新、ToDo、changelog、README、system.json、リリース、公式更新、バックアップ、告知

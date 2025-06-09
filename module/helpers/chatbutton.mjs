@@ -313,7 +313,8 @@ export async function chatButton(chatMessage, buttonType) {
       chatData.flags = {
         total: chatTotal,
         apply: chatapply,
-        rolls: roll,
+        //rolls: roll,
+        rolls: roll.toJSON(),
         checktype: checktype,
         target,
         targetName: targetName,
@@ -335,6 +336,23 @@ export async function chatButton(chatMessage, buttonType) {
           targetName: targetName,
         }
       );
+      // v12 or older
+      if (!foundry.utils.isNewerVersion(game.version, "13")) {
+        chatData.content = await renderTemplate(
+          "systems/sw25/templates/roll/v12/roll-check.hbs",
+          {
+            formula: chatFormula,
+            tooltip: await roll.getTooltip(),
+            critical: chatCritical,
+            fumble: chatFumble,
+            total: chatTotal,
+            apply: chatapply,
+            checktype: checktype,
+            resusetext: chatresuse,
+            targetName: targetName,
+          }
+        );
+      }
 
       let chatMessageId;
       await ChatMessage.create(chatData).then((chatMessage) => {
@@ -488,6 +506,33 @@ export async function chatButton(chatMessage, buttonType) {
           targetName: targetName,
         }
       );
+      // v12 or older
+      if (!foundry.utils.isNewerVersion(game.version, "13")) {
+        chatData.content = await renderTemplate(
+          "systems/sw25/templates/roll/v12/roll-power.hbs",
+          {
+            formula: chatFormula,
+            tooltip: await roll.fakeResult.getTooltip(),
+            power: chatPower,
+            lethalTech: chatLethalTech,
+            criticalRay: chatCriticalRay,
+            pharmTool: chatPharmTool,
+            powup: chatPowup,
+            result: chatResult,
+            mod: chatModTotal,
+            half: chatHalf,
+            results: chatResults,
+            total: chatTotal,
+            extraRoll: chatExtraRoll,
+            fumble: chatFumble,
+            showhalf: showhalf,
+            shownoc: shownoc,
+            apply: chatapply,
+            powertype: powertype,
+            targetName: targetName,
+          }
+        );
+      }
 
       let chatMessageId;
       await ChatMessage.create(chatData).then((chatMessage) => {
@@ -548,6 +593,46 @@ export async function chatButton(chatMessage, buttonType) {
           }
         ),
       };
+      // v12 or older
+      if (!foundry.utils.isNewerVersion(game.version, "13")) {
+        chatData = {
+          flags: {
+            dohalf: true,
+            dohalfc: false,
+            noc: false,
+            apply: chatMessage.flags.apply,
+            total: newtotal,
+            aftermod: aftermod,
+            powertype: chatMessage.flags.powertype,
+            targetName: chatMessage.flags.targetName,
+          },
+          content: await renderTemplate(
+            "systems/sw25/templates/roll/v12/roll-power.hbs",
+            {
+              formula: chatMessage.flags.formula,
+              tooltip: chatMessage.flags.tooltip,
+              power: chatMessage.flags.power,
+              lethalTech: chatMessage.flags.lethalTech,
+              criticalRay: chatMessage.flags.criticalRay,
+              pharmTool: chatMessage.flags.pharmTool,
+              result: chatMessage.flags.result,
+              mod: chatMessage.flags.mod,
+              half: chatMessage.flags.orghalf,
+              results: chatMessage.flags.results,
+              total: newtotaltext,
+              extraRoll: newextraRoll,
+              fumble: chatMessage.flags.fumble,
+              halfdone: true,
+              showhalf: chatMessage.flags.showhalf,
+              nocdone: chatMessage.flags.nocdone,
+              shownoc: chatMessage.flags.shownoc,
+              apply: chatMessage.flags.apply,
+              powertype: chatMessage.flags.powertype,
+              targetName: chatMessage.flags.targetName,
+            }
+          ),
+        };
+      }
 
       await chatMessage.update({
         content: chatData.content,
@@ -602,6 +687,46 @@ export async function chatButton(chatMessage, buttonType) {
           }
         ),
       };
+      // v12 or older
+      if (!foundry.utils.isNewerVersion(game.version, "13")) {
+        chatData = {
+          flags: {
+            dohalf: false,
+            dohalfc: false,
+            noc: false,
+            apply: chatMessage.flags.apply,
+            total: chatMessage.flags.orgtotal,
+            aftermod: aftermod,
+            powertype: chatMessage.flags.powertype,
+            targetName: chatMessage.flags.targetName,
+          },
+          content: await renderTemplate(
+            "systems/sw25/templates/roll/v12/roll-power.hbs",
+            {
+              formula: chatMessage.flags.formula,
+              tooltip: chatMessage.flags.tooltip,
+              power: chatMessage.flags.power,
+              lethalTech: chatMessage.flags.lethalTech,
+              criticalRay: chatMessage.flags.criticalRay,
+              pharmTool: chatMessage.flags.pharmTool,
+              result: chatMessage.flags.result,
+              mod: chatMessage.flags.modTotal,
+              half: chatMessage.flags.half,
+              results: chatMessage.flags.results,
+              total: newtotaltext,
+              extraRoll: chatMessage.flags.extraRoll,
+              fumble: chatMessage.flags.fumble,
+              halfdone: false,
+              showhalf: chatMessage.flags.showhalf,
+              nocdone: chatMessage.flags.nocdone,
+              shownoc: chatMessage.flags.shownoc,
+              apply: chatMessage.flags.apply,
+              powertype: chatMessage.flags.powertype,
+              targetName: chatMessage.flags.targetName,
+            }
+          ),
+        };
+      }
 
       await chatMessage.update({
         content: chatData.content,
@@ -667,6 +792,47 @@ export async function chatButton(chatMessage, buttonType) {
           }
         ),
       };
+      // v12 or older
+      if (!foundry.utils.isNewerVersion(game.version, "13")) {
+        chatData = {
+          flags: {
+            dohalf: false,
+            dohalfc: true,
+            noc: false,
+            apply: chatMessage.flags.apply,
+            total: halfctoal,
+            aftermod: aftermod,
+            powertype: chatMessage.flags.powertype,
+            targetName: chatMessage.flags.targetName,
+          },
+          content: await renderTemplate(
+            "systems/sw25/templates/roll/v12/roll-power.hbs",
+            {
+              formula: chatMessage.flags.formula,
+              tooltip: chatMessage.flags.tooltip,
+              power: chatMessage.flags.power,
+              lethalTech: chatMessage.flags.lethalTech,
+              criticalRay: chatMessage.flags.criticalRay,
+              pharmTool: chatMessage.flags.pharmTool,
+              result: chatMessage.flags.result,
+              mod: chatMessage.flags.mod,
+              half: chatMessage.flags.orghalf,
+              results: chatMessage.flags.results,
+              total: newtotaltext,
+              extraRoll: newextraRoll,
+              fumble: chatMessage.flags.fumble,
+              halfcdone: true,
+              showhalf: chatMessage.flags.showhalf,
+              nocdone: chatMessage.flags.nocdone,
+              shownoc: chatMessage.flags.shownoc,
+              apply: chatMessage.flags.apply,
+              powertype: chatMessage.flags.powertype,
+              targetName: chatMessage.flags.targetName,
+            }
+          ),
+        };
+      }
+
       await chatMessage.update({
         content: chatData.content,
         flags: chatData.flags,
@@ -717,6 +883,47 @@ export async function chatButton(chatMessage, buttonType) {
           }
         ),
       };
+      // v12 or older
+      if (!foundry.utils.isNewerVersion(game.version, "13")) {
+        chatData = {
+          flags: {
+            dohalf: false,
+            dohalfc: false,
+            noc: false,
+            apply: chatMessage.flags.apply,
+            total: chatMessage.flags.orgtotal,
+            aftermod: aftermod,
+            powertype: chatMessage.flags.powertype,
+            targetName: chatMessage.flags.targetName,
+          },
+          content: await renderTemplate(
+            "systems/sw25/templates/roll/v12/roll-power.hbs",
+            {
+              formula: chatMessage.flags.formula,
+              tooltip: chatMessage.flags.tooltip,
+              power: chatMessage.flags.power,
+              lethalTech: chatMessage.flags.lethalTech,
+              criticalRay: chatMessage.flags.criticalRay,
+              pharmTool: chatMessage.flags.pharmTool,
+              result: chatMessage.flags.result,
+              mod: chatMessage.flags.modTotal,
+              half: chatMessage.flags.half,
+              results: chatMessage.flags.results,
+              total: newtotaltext,
+              extraRoll: chatMessage.flags.extraRoll,
+              fumble: chatMessage.flags.fumble,
+              halfcdone: false,
+              showhalf: chatMessage.flags.showhalf,
+              nocdone: chatMessage.flags.nocdone,
+              shownoc: chatMessage.flags.shownoc,
+              apply: chatMessage.flags.apply,
+              powertype: chatMessage.flags.powertype,
+              targetName: chatMessage.flags.targetName,
+            }
+          ),
+        };
+      }
+
       await chatMessage.update({
         content: chatData.content,
         flags: chatData.flags,
@@ -773,6 +980,47 @@ export async function chatButton(chatMessage, buttonType) {
           }
         ),
       };
+      // v12 or older
+      if (!foundry.utils.isNewerVersion(game.version, "13")) {
+        chatData = {
+          flags: {
+            dohalf: false,
+            dohalfc: false,
+            noc: true,
+            apply: chatMessage.flags.apply,
+            total: noctotal,
+            aftermod: aftermod,
+            powertype: chatMessage.flags.powertype,
+            targetName: chatMessage.flags.targetName,
+          },
+          content: await renderTemplate(
+            "systems/sw25/templates/roll/v12/roll-power.hbs",
+            {
+              formula: chatMessage.flags.formula,
+              tooltip: chatMessage.flags.tooltip,
+              power: chatMessage.flags.power,
+              lethalTech: chatMessage.flags.lethalTech,
+              criticalRay: chatMessage.flags.criticalRay,
+              pharmTool: chatMessage.flags.pharmTool,
+              result: chatMessage.flags.result,
+              mod: chatMessage.flags.mod,
+              half: chatMessage.flags.half,
+              results: chatMessage.flags.results,
+              total: newtotaltext,
+              extraRoll: newextraRoll,
+              fumble: chatMessage.flags.fumble,
+              halfdone: chatMessage.flags.halfdone,
+              showhalf: chatMessage.flags.showhalf,
+              nocdone: true,
+              shownoc: chatMessage.flags.shownoc,
+              apply: chatMessage.flags.apply,
+              powertype: chatMessage.flags.powertype,
+              targetName: chatMessage.flags.targetName,
+            }
+          ),
+        };
+      }
+
       await chatMessage.update({
         content: chatData.content,
         flags: chatData.flags,
@@ -821,6 +1069,45 @@ export async function chatButton(chatMessage, buttonType) {
           }
         ),
       };
+      // v12 or older
+      if (!foundry.utils.isNewerVersion(game.version, "13")) {
+        chatData = {
+          flags: {
+            dohalf: false,
+            dohalfc: false,
+            noc: false,
+            apply: chatMessage.flags.apply,
+            total: chatMessage.flags.orgtotal,
+            aftermod: aftermod,
+            powertype: chatMessage.flags.powertype,
+          },
+          content: await renderTemplate(
+            "systems/sw25/templates/roll/v12/roll-power.hbs",
+            {
+              formula: chatMessage.flags.formula,
+              tooltip: chatMessage.flags.tooltip,
+              power: chatMessage.flags.power,
+              lethalTech: chatMessage.flags.lethalTech,
+              criticalRay: chatMessage.flags.criticalRay,
+              pharmTool: chatMessage.flags.pharmTool,
+              result: chatMessage.flags.result,
+              mod: chatMessage.flags.mod,
+              half: chatMessage.flags.half,
+              results: chatMessage.flags.results,
+              total: newtotaltext,
+              extraRoll: chatMessage.flags.extraRoll,
+              fumble: chatMessage.flags.fumble,
+              halfdone: chatMessage.flags.halfdone,
+              showhalf: chatMessage.flags.showhalf,
+              nocdone: false,
+              shownoc: chatMessage.flags.shownoc,
+              apply: chatMessage.flags.apply,
+              powertype: chatMessage.flags.powertype,
+            }
+          ),
+        };
+      }
+
       await chatMessage.update({
         content: chatData.content,
         flags: chatData.flags,
@@ -900,6 +1187,43 @@ export async function chatButton(chatMessage, buttonType) {
         }
       ),
     };
+    // v12 or older
+    if (!foundry.utils.isNewerVersion(game.version, "13")) {
+      chatData = {
+        flags: {
+          total: newtotal,
+          aftermod: aftermod,
+          powertype: chatMessage.flags.powertype,
+          targetName: chatMessage.flags.targetName,
+        },
+        content: await renderTemplate(
+          "systems/sw25/templates/roll/v12/roll-power.hbs",
+          {
+            formula: chatMessage.flags.formula,
+            tooltip: chatMessage.flags.tooltip,
+            power: chatMessage.flags.power,
+            lethalTech: chatMessage.flags.lethalTech,
+            criticalRay: chatMessage.flags.criticalRay,
+            pharmTool: chatMessage.flags.pharmTool,
+            result: chatMessage.flags.result,
+            mod: chatMessage.flags.mod,
+            half: chatMessage.flags.orghalf,
+            results: chatMessage.flags.results,
+            total: newtotaltext,
+            extraRoll: newextraRoll,
+            fumble: chatMessage.flags.fumble,
+            halfdone: halfdone,
+            halfcdone: halfcdone,
+            nocdone: nocdone,
+            showhalf: chatMessage.flags.showhalf,
+            shownoc: chatMessage.flags.shownoc,
+            apply: chatMessage.flags.apply,
+            powertype: chatMessage.flags.powertype,
+            targetName: chatMessage.flags.targetName,
+          }
+        ),
+      };
+    }
 
     await chatMessage.update({
       content: chatData.content,
@@ -982,6 +1306,43 @@ export async function chatButton(chatMessage, buttonType) {
         }
       ),
     };
+    // v12 or older
+    if (!foundry.utils.isNewerVersion(game.version, "13")) {
+      chatData = {
+        flags: {
+          total: newtotal,
+          aftermod: aftermod,
+          powertype: chatMessage.flags.powertype,
+          targetName: chatMessage.flags.targetName,
+        },
+        content: await renderTemplate(
+          "systems/sw25/templates/roll/v12/roll-power.hbs",
+          {
+            formula: chatMessage.flags.formula,
+            tooltip: chatMessage.flags.tooltip,
+            power: chatMessage.flags.power,
+            lethalTech: chatMessage.flags.lethalTech,
+            criticalRay: chatMessage.flags.criticalRay,
+            pharmTool: chatMessage.flags.pharmTool,
+            result: chatMessage.flags.result,
+            mod: chatMessage.flags.mod,
+            half: chatMessage.flags.orghalf,
+            results: chatMessage.flags.results,
+            total: newtotaltext,
+            extraRoll: newextraRoll,
+            fumble: chatMessage.flags.fumble,
+            halfdone: halfdone,
+            halfcdone: halfcdone,
+            nocdone: nocdone,
+            showhalf: chatMessage.flags.showhalf,
+            shownoc: chatMessage.flags.shownoc,
+            apply: chatMessage.flags.apply,
+            powertype: chatMessage.flags.powertype,
+            targetName: chatMessage.flags.targetName,
+          }
+        ),
+      };
+    }
 
     await chatMessage.update({
       content: chatData.content,
@@ -1034,13 +1395,51 @@ export async function chatButton(chatMessage, buttonType) {
             apply: chatMessage.flags.apply,
             checktype: chatMessage.flags.checktype,
             targetName: chatMessage.flags.targetName,
-            resist:{
-              name: chatMessage.flags.resist.name,
-              result: chatMessage.flags.resist.result,
-            },
+            resist: chatMessage.flags.resist
+              ? {
+                  name: chatMessage.flags.resist.name,
+                  result: chatMessage.flags.resist.result,
+                }
+              : null,
           }
         ),
       };
+      // v12 or older
+      if (!foundry.utils.isNewerVersion(game.version, "13")) {
+        chatData = {
+          flags: {
+            dohalf: true,
+            apply: chatMessage.flags.apply,
+            total: newtotal,
+            aftermod: aftermod,
+            critical: chatCritical,
+            fumble: chatFumble,
+            checktype: chatMessage.flags.checktype,
+            targetName: chatMessage.flags.targetName,
+          },
+          content: await renderTemplate(
+            "systems/sw25/templates/roll/v12/roll-check.hbs",
+            {
+              formula: chatMessage.flags.formula,
+              tooltip: chatMessage.flags.tooltip,
+              result: chatMessage.flags.result,
+              total: newtotaltext,
+              critical: chatCritical,
+              fumble: chatFumble,
+              halfdone: true,
+              apply: chatMessage.flags.apply,
+              checktype: chatMessage.flags.checktype,
+              targetName: chatMessage.flags.targetName,
+              resist: chatMessage.flags.resist
+                ? {
+                    name: chatMessage.flags.resist.name,
+                    result: chatMessage.flags.resist.result,
+                  }
+                : null,
+            }
+          ),
+        };
+      }
 
       await chatMessage.update({
         content: chatData.content,
@@ -1082,13 +1481,51 @@ export async function chatButton(chatMessage, buttonType) {
             apply: chatMessage.flags.apply,
             checktype: chatMessage.flags.checktype,
             targetName: chatMessage.flags.targetName,
-            resist:{
-              name: chatMessage.flags.resist.name,
-              result: chatMessage.flags.resist.result,
-            },
+            resist: chatMessage.flags.resist
+              ? {
+                  name: chatMessage.flags.resist.name,
+                  result: chatMessage.flags.resist.result,
+                }
+              : null,
           }
         ),
       };
+      // v12 or older
+      if (!foundry.utils.isNewerVersion(game.version, "13")) {
+        chatData = {
+          flags: {
+            dohalf: false,
+            apply: chatMessage.flags.apply,
+            total: chatMessage.flags.orgtotal,
+            aftermod: aftermod,
+            critical: chatCritical,
+            fumble: chatFumble,
+            checktype: chatMessage.flags.checktype,
+            targetName: chatMessage.flags.targetName,
+          },
+          content: await renderTemplate(
+            "systems/sw25/templates/roll/v12/roll-check.hbs",
+            {
+              formula: chatMessage.flags.formula,
+              tooltip: chatMessage.flags.tooltip,
+              result: chatMessage.flags.result,
+              total: newtotaltext,
+              critical: chatCritical,
+              fumble: chatFumble,
+              halfdone: false,
+              apply: chatMessage.flags.apply,
+              checktype: chatMessage.flags.checktype,
+              targetName: chatMessage.flags.targetName,
+              resist: chatMessage.flags.resist
+                ? {
+                    name: chatMessage.flags.resist.name,
+                    result: chatMessage.flags.resist.result,
+                  }
+                : null,
+            }
+          ),
+        };
+      }
 
       await chatMessage.update({
         content: chatData.content,
@@ -1102,9 +1539,6 @@ export async function chatButton(chatMessage, buttonType) {
   }
 
   if (buttonType == "applycancel") {
-    console.log("cancel.");
-    console.log(chatMessage);
-
     const targetToken = canvas.tokens.get(chatMessage.flags.targetToken);
     const targetActor = targetToken.actor;
     let resultHP = targetActor.system.hp.value;
@@ -1200,13 +1634,57 @@ export async function chatButton(chatMessage, buttonType) {
           spell: chatMessage.flags.spell,
           checktype: chatMessage.flags.checktype,
           targetName: chatMessage.flags.targetName,
-          resist:{
-            name: chatMessage.flags.resist.name,
-            result: chatMessage.flags.resist.result,
-          },
+          resist: chatMessage.flags.resist
+            ? {
+                name: chatMessage.flags.resist.name,
+                result: chatMessage.flags.resist.result,
+              }
+            : null,
         }
       ),
     };
+    // v12 or older
+    if (!foundry.utils.isNewerVersion(game.version, "13")) {
+      chatData = {
+        flags: {
+          total: newtotal,
+          apply: chatMessage.flags.apply,
+          spell: chatMessage.flags.spell,
+          rolls: chatMessage.flags.rolls,
+          formula: chatMessage.flags.formula,
+          tooltip: chatMessage.flags.tooltip,
+          orgtotal: chatMessage.flags.orgtotal,
+          critical: chatCritical,
+          fumble: chatFumble,
+          dohalf: halfdone,
+          aftermod: aftermod,
+          checktype: chatMessage.flags.checktype,
+          targetName: chatMessage.flags.targetName,
+        },
+        content: await renderTemplate(
+          "systems/sw25/templates/roll/v12/roll-check.hbs",
+          {
+            formula: chatMessage.flags.formula,
+            tooltip: chatMessage.flags.tooltip,
+            critical: chatCritical,
+            fumble: chatFumble,
+            result: chatMessage.flags.result,
+            total: newtotaltext,
+            halfdone: halfdone,
+            apply: chatMessage.flags.apply,
+            spell: chatMessage.flags.spell,
+            checktype: chatMessage.flags.checktype,
+            targetName: chatMessage.flags.targetName,
+            resist: chatMessage.flags.resist
+              ? {
+                  name: chatMessage.flags.resist.name,
+                  result: chatMessage.flags.resist.result,
+                }
+              : null,
+          }
+        ),
+      };
+    }
 
     await chatMessage.update({
       content: chatData.content,
@@ -1698,6 +2176,18 @@ export async function chatButton(chatMessage, buttonType) {
         chatLootItem,
       }
     );
+    // v12 or older
+    if (!foundry.utils.isNewerVersion(game.version, "13")) {
+      chatData.content = await renderTemplate(
+        "systems/sw25/templates/roll/v12/roll-check.hbs",
+        {
+          formula: chatFormula,
+          tooltip: await roll.getTooltip(),
+          total: chatTotal,
+          chatLootItem,
+        }
+      );
+    }
 
     ChatMessage.create(chatData);
 
@@ -1705,18 +2195,19 @@ export async function chatButton(chatMessage, buttonType) {
   }
 
   if (buttonType == "buttonrollreq" || buttonType == "buttonresist") {
-
     let roll;
     const flags = chatMessage.flags;
 
     const target = flags.target;
-    const selectedTokens = target ? canvas.tokens.placeables.filter(token => target.includes(token.id)): canvas.tokens.controlled;
+    const selectedTokens = target
+      ? canvas.tokens.placeables.filter((token) => target.includes(token.id))
+      : canvas.tokens.controlled;
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
     }
 
-    if(buttonType == "buttonresist"){
+    if (buttonType == "buttonresist") {
       flags.targetValue = flags.total;
       flags.method = "check";
       flags.checkName = flags.resist.name;
@@ -1733,35 +2224,41 @@ export async function chatButton(chatMessage, buttonType) {
 
       if (checkName == "di") checkName = flags.inputName;
 
-      if(selectActor.type == "character"){
+      if (selectActor.type == "character") {
         for (const item of selectActor.items) {
           if (item.type == flags.method && checkName == item.name) {
             checkItem = item;
             break;
           }
         }
-      } else if(selectActor.type == "monster"){
-        for (const item of selectActor.items.filter(i => i.type === "monsterability")) {
+      } else if (selectActor.type == "monster") {
+        for (const item of selectActor.items.filter(
+          (i) => i.type === "monsterability"
+        )) {
           if (checkName == game.i18n.localize("SW25.Resist.Check.Dodge")) {
             if (
               item.system.label1 == game.i18n.localize("SW25.Config.MonHit") &&
               item.system.label2 == game.i18n.localize("SW25.Config.MonDmg") &&
               item.system.label3 == game.i18n.localize("SW25.Config.MonDge")
-            ){
+            ) {
               checkItem = item;
               checkbase = item.system.checkbase3;
               if (item.system.usefix3 == true) checkformula = 7;
               break;
             }
-          } else if (checkName == game.i18n.localize("SW25.Resist.Check.Vitres")) {
-            if (item.name == game.i18n.localize("SW25.Config.MonRes")){
+          } else if (
+            checkName == game.i18n.localize("SW25.Resist.Check.Vitres")
+          ) {
+            if (item.name == game.i18n.localize("SW25.Config.MonRes")) {
               checkItem = item;
               checkbase = item.system.checkbase1;
               if (item.system.usefix1 == true) checkformula = 7;
               break;
             }
-          } else if (checkName == game.i18n.localize("SW25.Resist.Check.Mndres")) {
-            if (item.name == game.i18n.localize("SW25.Config.MonRes")){
+          } else if (
+            checkName == game.i18n.localize("SW25.Resist.Check.Mndres")
+          ) {
+            if (item.name == game.i18n.localize("SW25.Config.MonRes")) {
               checkItem = item;
               checkbase = item.system.checkbase2;
               if (item.system.usefix2 == true) checkformula = 7;
@@ -1769,7 +2266,7 @@ export async function chatButton(chatMessage, buttonType) {
             }
           }
         }
-        if (checkbase){
+        if (checkbase) {
           if (checkbase >= 0) checkbase = `+ ${checkbase}`;
           else if (checkbase < 0) checkbase = `${checkbase}`;
         }
@@ -1779,7 +2276,7 @@ export async function chatButton(chatMessage, buttonType) {
       const itemData = item.system;
       let dodgeskill = "";
 
-      if(selectActor.type == "character"){
+      if (selectActor.type == "character") {
         if (flags.method == "skill") {
           let skillbase;
           if (checkName == "adv") {
@@ -1792,15 +2289,19 @@ export async function chatButton(chatMessage, buttonType) {
           if (skillbase < 0) checkbase = `${skillbase}`;
           if (flags.refAbility != "-") {
             let i18ncat =
-              flags.refAbility.charAt(0).toUpperCase() + flags.refAbility.slice(1);
-            let abi = " + " + game.i18n.localize(`SW25.Ability.${i18ncat}.abbr`);
+              flags.refAbility.charAt(0).toUpperCase() +
+              flags.refAbility.slice(1);
+            let abi =
+              " + " + game.i18n.localize(`SW25.Ability.${i18ncat}.abbr`);
             checkName = `${checkName}${abi}`;
           }
         } else if (flags.method == "check") {
           if (itemData) {
             if (itemData.checkbase >= 0) checkbase = `+ ${itemData.checkbase}`;
             if (itemData.checkbase < 0) checkbase = `${itemData.checkbase}`;
-          } else if (checkName == game.i18n.localize("SW25.Resist.Check.Dodge")) {
+          } else if (
+            checkName == game.i18n.localize("SW25.Resist.Check.Dodge")
+          ) {
             checkbase = `+ ${selectActor.system.dodgebase}`;
             dodgeskill = selectActor.system.dodgeskill;
           } else checkbase = 0;
@@ -1813,10 +2314,12 @@ export async function chatButton(chatMessage, buttonType) {
         flagMod = `+ ${flagMod}`;
       }
 
-      let formula = (item || checkName == game.i18n.localize("SW25.Resist.Check.Dodge"))
-      ? checkformula + checkbase + flagMod
-      : checkformula + flagMod;
-      if (flags.checkName == "adv") formula = checkformula + checkbase + flagMod;
+      let formula =
+        item || checkName == game.i18n.localize("SW25.Resist.Check.Dodge")
+          ? checkformula + checkbase + flagMod
+          : checkformula + flagMod;
+      if (flags.checkName == "adv")
+        formula = checkformula + checkbase + flagMod;
 
       roll = new Roll(formula, rollData);
       await roll.evaluate();
@@ -1824,13 +2327,18 @@ export async function chatButton(chatMessage, buttonType) {
       const speaker = ChatMessage.getSpeaker({ actor: selectActor });
       const rollMode = game.settings.get("core", "rollMode");
       let label = `${game.i18n.localize("SW25.Check")}`;
-      
-      if (checkName){
+
+      if (checkName) {
         label = `${checkName} (${game.i18n.localize("SW25.Check")})`;
       }
 
-      if (checkName == game.i18n.localize("SW25.Resist.Check.Dodge") && dodgeskill != "-") {
-        label = `${checkName} (${dodgeskill}${game.i18n.localize("SW25.Check")})`;
+      if (
+        checkName == game.i18n.localize("SW25.Resist.Check.Dodge") &&
+        dodgeskill != "-"
+      ) {
+        label = `${checkName} (${dodgeskill}${game.i18n.localize(
+          "SW25.Check"
+        )})`;
       } else if (checkName && !item && flags.checkName != "adv") {
         label = `${game.i18n.localize("SW25.StraightRoll")}
         - ${checkName} (${game.i18n.localize("SW25.Check")})`;
@@ -1864,12 +2372,12 @@ export async function chatButton(chatMessage, buttonType) {
 
         let successCount = 0;
 
-    let chatData = {
-      speaker: speaker,
-      flavor: label,
-      rollMode: rollMode,
-      rolls: [roll],
-    };
+        let chatData = {
+          speaker: speaker,
+          flavor: label,
+          rollMode: rollMode,
+          rolls: [roll],
+        };
 
         for (let target of targetValues) {
           if (roll.total >= target) {
@@ -1931,6 +2439,18 @@ export async function chatButton(chatMessage, buttonType) {
           resultText,
         }
       );
+      // v12 or older
+      if (!foundry.utils.isNewerVersion(game.version, "13")) {
+        chatData.content = await renderTemplate(
+          "systems/sw25/templates/roll/v12/roll-check.hbs",
+          {
+            formula: chatFormula,
+            tooltip: await roll.getTooltip(),
+            total: chatTotal,
+            resultText,
+          }
+        );
+      }
 
       ChatMessage.create(chatData);
     }
