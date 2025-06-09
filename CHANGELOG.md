@@ -2,7 +2,7 @@
 
 ## 1.4.1
 - UX修正  by [keyslock](https://github.com/keyslock)  from [#37](https://github.com/jeannjeann/sw25-fvtt/pull/37)
-- bug fix  by [keyslock](https://github.com/keyslock)  from [#34](https://github.com/jeannjeann/sw25-fvtt/pull/37)
+- bug fix  by [keyslock](https://github.com/keyslock)  from [#37](https://github.com/jeannjeann/sw25-fvtt/pull/37)
 - bug fix
 
 ## 1.4.0
