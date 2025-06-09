@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2.0.0  Rquire Foundry VTT ver.12 or newer
+- v12互換性向上  by [Ryotai](https://github.com/ryotai-trpg)  from [#35](https://github.com/jeannjeann/sw25-fvtt/pull/35)
+- v11非互換
+- bug fix
+
 ## 1.4.1
 - UX修正  by [keyslock](https://github.com/keyslock)  from [#37](https://github.com/jeannjeann/sw25-fvtt/pull/37)
 - bug fix  by [keyslock](https://github.com/keyslock)  from [#37](https://github.com/jeannjeann/sw25-fvtt/pull/37)
