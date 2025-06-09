@@ -8,6 +8,7 @@ import { lootRoll } from "../helpers/lootroll.mjs";
 import { growthCheck } from "../helpers/growthcheck.mjs";
 import { actionRoll } from "../helpers/actionroll.mjs";
 import { targetRollDialog, targetSelectDialog } from "../helpers/dialogs.mjs";
+import { SW25 } from "../helpers/config.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -52,6 +53,8 @@ export class SW25ActorSheet extends ActorSheet {
     context.system = actorData.system;
     context.flags = actorData.flags;
     context.isOwner = this.actor.isOwner;
+
+    context.config = CONFIG.SW25;
 
     // Prepare character data and items.
     if (actorData.type == "character") {
@@ -865,7 +868,6 @@ export class SW25ActorSheet extends ActorSheet {
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
         rollMode: game.settings.get("core", "rollMode"),
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         rolls: [roll],
       };
 
@@ -1063,7 +1065,6 @@ export class SW25ActorSheet extends ActorSheet {
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: chatLabel,
       rollMode: game.settings.get("core", "rollMode"),
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       rolls: [roll.fakeResult],
     };
 
@@ -2017,8 +2018,6 @@ export class SW25ActorSheet extends ActorSheet {
                 });
               });
             } else {
-              console.log(targetTokenId);
-              console.log(targetEffects);
               game.socket.emit("system.sw25", {
                 method: "applyEffect",
                 targetTokens: targetTokenId,

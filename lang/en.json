@@ -195,6 +195,9 @@
       "Powerroll": "Power Roll",
       "Diceroll": "Dice Roll",
       "Onlydescription": "Description",
+      "Hpcost": "HP Cost",
+      "Mpcost": "MP Cost",
+      "Resourcecost": "Resource Cost",
       "Noapply": "Do not Apply",
       "applyon": "Apply",
       "Custom": "Customize",
@@ -627,7 +630,11 @@
       "FrMod": "Fairy",
       "DrMod": "Nature",
       "DmMod": "Summoning",
-      "AbMod": "Abyssal Magic"
+      "AbMod": "Abyssal Magic",
+      "MagicalsongPeform": "Spellsong / Performance",
+      "MagicalsongPower": "Spellsong / Power",
+      "EssenceweaveForce": "Essence Weaving / Force",
+      "EssenceweavePower": "Essence Weaving / Power"
     },
     "Custom": {
       "Name": "Name",

@@ -108,7 +108,6 @@ Hooks.once("init", function () {
  * combat hook.
  */
 Hooks.on("updateCombat", async (combat, changes, options, userId) => {
-  console.log("*** Update combat. ***");
   const combatant = combat.previous;
   if (!combatant) return;
 
@@ -850,8 +849,8 @@ Hooks.once("ready", async function () {
           type: "check",
           system: {
             description: "",
-            checkskill: "-",
-            checkabi: "-",
+            checkskill: "",
+            checkabi: "",
             showbtcheck: true,
           },
         });
@@ -862,8 +861,8 @@ Hooks.once("ready", async function () {
           type: "check",
           system: {
             description: "",
-            checkskill: "-",
-            checkabi: "-",
+            checkskill: "",
+            checkabi: "",
             showbtcheck: true,
           },
         });
@@ -989,7 +988,7 @@ Hooks.once("ready", async function () {
 
 // SceneControl Hook
 Hooks.on("getSceneControlButtons", function (controls) {
-  controls[0].tools.push({
+  const rollRequestBtn = {
     name: "rollRequest(Skill)",
     title: game.i18n.localize("SETTING.rollRequest"),
     icon: "fas fa-dice-d6",
@@ -998,7 +997,24 @@ Hooks.on("getSceneControlButtons", function (controls) {
       rollreq();
     },
     button: true,
-  });
+  };
+  const isV13Plus = foundry.utils.isNewerVersion(game.version, "13");
+  // v13 or newer
+  if (isV13Plus) {
+    if (!controls.tokens.tools) controls.tokens.tools = {};
+    controls.tokens.tools[rollRequestBtn.name] = rollRequestBtn;
+  }
+  // v12 or older
+  else {
+    if (controls[0] && controls[0].tools) {
+      const existingButton = controls[0].tools.find(
+        (tool) => tool.name === rollRequestBtn.name
+      );
+      if (!existingButton) {
+        controls[0].tools.push(rollRequestBtn);
+      }
+    }
+  }
 });
 
 // textarea edit hook

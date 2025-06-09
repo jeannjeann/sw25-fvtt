@@ -52,32 +52,69 @@ export class SW25ItemSheet extends ItemSheet {
 
     context.config = CONFIG.SW25;
 
+
+    context.applyOptions = {
+      "-": "SW25.Item.Noapply",
+      on: "SW25.Item.applyon",
+      custom: "SW25.Item.Custom"
+    };
+
     if (itemData.type == "skill") {
       this._prepareSkillData(context);
     }
 
     if (itemData.type == "check") {
       this._prepareCheckData(context);
+      context.checkmethodOptions = {
+        normal: "SW25.Item.Check.Normalcheck",
+        dice: "SW25.Item.Check.Customroll",
+        power: "SW25.Item.Check.Powerroll"
+      };
     }
 
     if (itemData.type == "weapon") {
       this._prepareItemRollData(context);
       this._prepareWeaponData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        rescost: "SW25.Item.Resourcecost",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "armor") {
       this._prepareItemRollData(context);
       this._prepareArmorData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "accessory") {
       this._prepareItemRollData(context);
       this._prepareAccessoryData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "item") {
       this._prepareItemRollData(context);
       this._prepareItemData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "resource") {
@@ -88,81 +125,197 @@ export class SW25ItemSheet extends ItemSheet {
     if (itemData.type == "combatability") {
       this._prepareItemRollData(context);
       this._prepareCombatabilityData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "enhancearts") {
       this._prepareItemRollData(context);
       this._prepareEnhanceartsData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        mpcost: "SW25.Item.Mpcost",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "magicalsong") {
       this._prepareItemRollData(context);
       this._prepareMagicalsongData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "ridingtrick") {
       this._prepareItemRollData(context);
       this._prepareRidingtrickData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "alchemytech") {
       this._prepareItemRollData(context);
       this._prepareAlchemytechData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        description: "SW25.Item.Onlydescription"
+      }
+
+      context.resistOptions = {
+        decide: "SW25.Item.Decide",
+        any: "SW25.Item.Any",
+        disappear: "SW25.Item.Disappear",
+        shortening: "SW25.Item.Shortening"
+      }
     }
 
     if (itemData.type == "phasearea") {
       this._prepareItemRollData(context);
       this._preparePhaseareaData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "tactics") {
       this._prepareItemRollData(context);
       this._prepareTacticsData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "infusion") {
       this._prepareItemRollData(context);
       this._prepareInfusionData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "barbarousskill") {
       this._prepareItemRollData(context);
       this._prepareBarbarousskillData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        mpcost: "SW25.Item.Mpcost",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "essenceweave") {
       this._prepareItemRollData(context);
       this._prepareEssenceweaveData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        hpcost: "SW25.Item.Hpcost",
+        description: "SW25.Item.Onlydescription"
+      }
+
+      context.resistOptions = {
+        decide: "SW25.Item.Decide",
+        any: "SW25.Item.Any",
+        none: "SW25.Item.None",
+        disappear: "SW25.Item.Disappear",
+        halving: "SW25.Item.Halving"
+      }
     }
 
     if (itemData.type == "otherfeature") {
       this._prepareItemRollData(context);
       this._prepareOtherFeatureData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        mpcost: "SW25.Item.Mpcost",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "raceability") {
       this._prepareItemRollData(context);
       this._prepareRaceabilityData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "language") {
       this._prepareItemRollData(context);
       this._prepareLanguageData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "spell") {
       this._prepareItemRollData(context);
       this._prepareSpellData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Powerroll",
+        dice: "SW25.Item.Diceroll",
+        mpcost: "SW25.Item.Mpcost",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "monsterability") {
       this._prepareItemRollData(context);
       this._prepareMonsterabilityData(context);
+      context.applyOptions = {
+        "-": "SW25.Item.Noapply",
+        on: "SW25.Item.applyon"
+      }
     }
 
     if (itemData.type == "action") {
       this._prepareItemRollData(context);
       this._prepareActionData(context);
+      context.clickitemOptions = {
+        all: "SW25.Item.All",
+        power: "SW25.Item.Power",
+        dice2: "SW25.Check",
+        dice1: "SW25.Item.Action.ActionValue",
+        mpcost: "SW25.Item.Mpcost",
+        description: "SW25.Item.Onlydescription"
+      }
     }
 
     if (itemData.type == "session") {

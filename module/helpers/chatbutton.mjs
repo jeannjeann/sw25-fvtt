@@ -254,7 +254,7 @@ export async function chatButton(chatMessage, buttonType) {
       }
 
       let resuse = item.system.resuse;
-      if (resuse !== "-" && item.system.autouseres) {
+      if (resuse !== "" && item.system.autouseres) {
         let actoritem = actor.items.get(resuse);
         let resusequantity = item.system.resusequantity;
         let actoritemquantity = actoritem.system.quantity;
@@ -286,7 +286,6 @@ export async function chatButton(chatMessage, buttonType) {
         speaker: speaker,
         flavor: label,
         rollMode: rollMode,
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         rolls: [roll],
       };
 
@@ -410,7 +409,6 @@ export async function chatButton(chatMessage, buttonType) {
         speaker: speaker,
         flavor: label,
         rollMode: rollMode,
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         rolls: [roll.fakeResult],
       };
 
@@ -1036,10 +1034,12 @@ export async function chatButton(chatMessage, buttonType) {
             apply: chatMessage.flags.apply,
             checktype: chatMessage.flags.checktype,
             targetName: chatMessage.flags.targetName,
-            resist:{
-              name: chatMessage.flags.resist.name,
-              result: chatMessage.flags.resist.result,
-            },
+            resist: chatMessage.flags.resist
+              ? {
+                  name: chatMessage.flags.resist.name,
+                  result: chatMessage.flags.resist.result,
+                }
+              : null,
           }
         ),
       };
@@ -1084,10 +1084,12 @@ export async function chatButton(chatMessage, buttonType) {
             apply: chatMessage.flags.apply,
             checktype: chatMessage.flags.checktype,
             targetName: chatMessage.flags.targetName,
-            resist:{
-              name: chatMessage.flags.resist.name,
-              result: chatMessage.flags.resist.result,
-            },
+            resist: chatMessage.flags.resist
+              ? {
+                  name: chatMessage.flags.resist.name,
+                  result: chatMessage.flags.resist.result,
+                }
+              : null,
           }
         ),
       };
@@ -1104,9 +1106,6 @@ export async function chatButton(chatMessage, buttonType) {
   }
 
   if (buttonType == "applycancel") {
-    console.log("cancel.");
-    console.log(chatMessage);
-
     const targetToken = canvas.tokens.get(chatMessage.flags.targetToken);
     const targetActor = targetToken.actor;
     let resultHP = targetActor.system.hp.value;
@@ -1202,10 +1201,12 @@ export async function chatButton(chatMessage, buttonType) {
           spell: chatMessage.flags.spell,
           checktype: chatMessage.flags.checktype,
           targetName: chatMessage.flags.targetName,
-          resist:{
-            name: chatMessage.flags.resist.name,
-            result: chatMessage.flags.resist.result,
-          },
+          resist: chatMessage.flags.resist
+            ? {
+                name: chatMessage.flags.resist.name,
+                result: chatMessage.flags.resist.result,
+              }
+            : null,
         }
       ),
     };
@@ -1676,7 +1677,6 @@ export async function chatButton(chatMessage, buttonType) {
       speaker: speaker,
       flavor: label,
       rollMode: rollMode,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       rolls: [roll],
     };
 
@@ -1708,18 +1708,19 @@ export async function chatButton(chatMessage, buttonType) {
   }
 
   if (buttonType == "buttonrollreq" || buttonType == "buttonresist") {
-
     let roll;
     const flags = chatMessage.flags;
 
     const target = flags.target;
-    const selectedTokens = target ? canvas.tokens.placeables.filter(token => target.includes(token.id)): canvas.tokens.controlled;
+    const selectedTokens = target
+      ? canvas.tokens.placeables.filter((token) => target.includes(token.id))
+      : canvas.tokens.controlled;
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
     }
 
-    if(buttonType == "buttonresist"){
+    if (buttonType == "buttonresist") {
       flags.targetValue = flags.total;
       flags.method = "check";
       flags.checkName = flags.resist.name;
@@ -1736,35 +1737,41 @@ export async function chatButton(chatMessage, buttonType) {
 
       if (checkName == "di") checkName = flags.inputName;
 
-      if(selectActor.type == "character"){
+      if (selectActor.type == "character") {
         for (const item of selectActor.items) {
           if (item.type == flags.method && checkName == item.name) {
             checkItem = item;
             break;
           }
         }
-      } else if(selectActor.type == "monster"){
-        for (const item of selectActor.items.filter(i => i.type === "monsterability")) {
+      } else if (selectActor.type == "monster") {
+        for (const item of selectActor.items.filter(
+          (i) => i.type === "monsterability"
+        )) {
           if (checkName == game.i18n.localize("SW25.Resist.Check.Dodge")) {
             if (
               item.system.label1 == game.i18n.localize("SW25.Config.MonHit") &&
               item.system.label2 == game.i18n.localize("SW25.Config.MonDmg") &&
               item.system.label3 == game.i18n.localize("SW25.Config.MonDge")
-            ){
+            ) {
               checkItem = item;
               checkbase = item.system.checkbase3;
               if (item.system.usefix3 == true) checkformula = 7;
               break;
             }
-          } else if (checkName == game.i18n.localize("SW25.Resist.Check.Vitres")) {
-            if (item.name == game.i18n.localize("SW25.Config.MonRes")){
+          } else if (
+            checkName == game.i18n.localize("SW25.Resist.Check.Vitres")
+          ) {
+            if (item.name == game.i18n.localize("SW25.Config.MonRes")) {
               checkItem = item;
               checkbase = item.system.checkbase1;
               if (item.system.usefix1 == true) checkformula = 7;
               break;
             }
-          } else if (checkName == game.i18n.localize("SW25.Resist.Check.Mndres")) {
-            if (item.name == game.i18n.localize("SW25.Config.MonRes")){
+          } else if (
+            checkName == game.i18n.localize("SW25.Resist.Check.Mndres")
+          ) {
+            if (item.name == game.i18n.localize("SW25.Config.MonRes")) {
               checkItem = item;
               checkbase = item.system.checkbase2;
               if (item.system.usefix2 == true) checkformula = 7;
@@ -1772,7 +1779,7 @@ export async function chatButton(chatMessage, buttonType) {
             }
           }
         }
-        if (checkbase){
+        if (checkbase) {
           if (checkbase >= 0) checkbase = `+ ${checkbase}`;
           else if (checkbase < 0) checkbase = `${checkbase}`;
         }
@@ -1782,7 +1789,7 @@ export async function chatButton(chatMessage, buttonType) {
       const itemData = item.system;
       let dodgeskill = "";
 
-      if(selectActor.type == "character"){
+      if (selectActor.type == "character") {
         if (flags.method == "skill") {
           let skillbase;
           if (checkName == "adv") {
@@ -1795,15 +1802,19 @@ export async function chatButton(chatMessage, buttonType) {
           if (skillbase < 0) checkbase = `${skillbase}`;
           if (flags.refAbility != "-") {
             let i18ncat =
-              flags.refAbility.charAt(0).toUpperCase() + flags.refAbility.slice(1);
-            let abi = " + " + game.i18n.localize(`SW25.Ability.${i18ncat}.abbr`);
+              flags.refAbility.charAt(0).toUpperCase() +
+              flags.refAbility.slice(1);
+            let abi =
+              " + " + game.i18n.localize(`SW25.Ability.${i18ncat}.abbr`);
             checkName = `${checkName}${abi}`;
           }
         } else if (flags.method == "check") {
           if (itemData) {
             if (itemData.checkbase >= 0) checkbase = `+ ${itemData.checkbase}`;
             if (itemData.checkbase < 0) checkbase = `${itemData.checkbase}`;
-          } else if (checkName == game.i18n.localize("SW25.Resist.Check.Dodge")) {
+          } else if (
+            checkName == game.i18n.localize("SW25.Resist.Check.Dodge")
+          ) {
             checkbase = `+ ${selectActor.system.dodgebase}`;
             dodgeskill = selectActor.system.dodgeskill;
           } else checkbase = 0;
@@ -1816,10 +1827,12 @@ export async function chatButton(chatMessage, buttonType) {
         flagMod = `+ ${flagMod}`;
       }
 
-      let formula = (item || checkName == game.i18n.localize("SW25.Resist.Check.Dodge"))
-      ? checkformula + checkbase + flagMod
-      : checkformula + flagMod;
-      if (flags.checkName == "adv") formula = checkformula + checkbase + flagMod;
+      let formula =
+        item || checkName == game.i18n.localize("SW25.Resist.Check.Dodge")
+          ? checkformula + checkbase + flagMod
+          : checkformula + flagMod;
+      if (flags.checkName == "adv")
+        formula = checkformula + checkbase + flagMod;
 
       roll = new Roll(formula, rollData);
       await roll.evaluate();
@@ -1827,13 +1840,18 @@ export async function chatButton(chatMessage, buttonType) {
       const speaker = ChatMessage.getSpeaker({ actor: selectActor });
       const rollMode = game.settings.get("core", "rollMode");
       let label = `${game.i18n.localize("SW25.Check")}`;
-      
-      if (checkName){
+
+      if (checkName) {
         label = `${checkName} (${game.i18n.localize("SW25.Check")})`;
       }
 
-      if (checkName == game.i18n.localize("SW25.Resist.Check.Dodge") && dodgeskill != "-") {
-        label = `${checkName} (${dodgeskill}${game.i18n.localize("SW25.Check")})`;
+      if (
+        checkName == game.i18n.localize("SW25.Resist.Check.Dodge") &&
+        dodgeskill != "-"
+      ) {
+        label = `${checkName} (${dodgeskill}${game.i18n.localize(
+          "SW25.Check"
+        )})`;
       } else if (checkName && !item && flags.checkName != "adv") {
         label = `${game.i18n.localize("SW25.StraightRoll")}
         - ${checkName} (${game.i18n.localize("SW25.Check")})`;
@@ -1866,6 +1884,13 @@ export async function chatButton(chatMessage, buttonType) {
         }
 
         let successCount = 0;
+
+        let chatData = {
+          speaker: speaker,
+          flavor: label,
+          rollMode: rollMode,
+          rolls: [roll],
+        };
 
         for (let target of targetValues) {
           if (roll.total >= target) {
@@ -1943,7 +1968,7 @@ export async function chatButton(chatMessage, buttonType) {
       const content = actor.system.canceldialog;
       let chatData = {
         speaker: ChatMessage.getSpeaker({ actor: actor }),
-        type: CONST.CHAT_MESSAGE_TYPES.IC,
+        type: CONST.CHAT_MESSAGE_STYLES.IC,
         content: content,
       };
       ChatMessage.create(chatData);
@@ -1952,7 +1977,7 @@ export async function chatButton(chatMessage, buttonType) {
         const content = item.system.dialog;
         let chatData = {
           speaker: ChatMessage.getSpeaker({ actor: actor }),
-          type: CONST.CHAT_MESSAGE_TYPES.IC,
+          type: CONST.CHAT_MESSAGE_STYLES.IC,
           content: content,
         };
         ChatMessage.create(chatData);
