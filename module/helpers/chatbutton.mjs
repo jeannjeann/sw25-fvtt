@@ -1034,10 +1034,12 @@ export async function chatButton(chatMessage, buttonType) {
             apply: chatMessage.flags.apply,
             checktype: chatMessage.flags.checktype,
             targetName: chatMessage.flags.targetName,
-            resist: {
-              name: chatMessage.flags.resist.name,
-              result: chatMessage.flags.resist.result,
-            },
+            resist: chatMessage.flags.resist
+              ? {
+                  name: chatMessage.flags.resist.name,
+                  result: chatMessage.flags.resist.result,
+                }
+              : null,
           }
         ),
       };
@@ -1082,10 +1084,12 @@ export async function chatButton(chatMessage, buttonType) {
             apply: chatMessage.flags.apply,
             checktype: chatMessage.flags.checktype,
             targetName: chatMessage.flags.targetName,
-            resist: {
-              name: chatMessage.flags.resist.name,
-              result: chatMessage.flags.resist.result,
-            },
+            resist: chatMessage.flags.resist
+              ? {
+                  name: chatMessage.flags.resist.name,
+                  result: chatMessage.flags.resist.result,
+                }
+              : null,
           }
         ),
       };
@@ -1197,10 +1201,12 @@ export async function chatButton(chatMessage, buttonType) {
           spell: chatMessage.flags.spell,
           checktype: chatMessage.flags.checktype,
           targetName: chatMessage.flags.targetName,
-          resist: {
-            name: chatMessage.flags.resist.name,
-            result: chatMessage.flags.resist.result,
-          },
+          resist: chatMessage.flags.resist
+            ? {
+                name: chatMessage.flags.resist.name,
+                result: chatMessage.flags.resist.result,
+              }
+            : null,
         }
       ),
     };
