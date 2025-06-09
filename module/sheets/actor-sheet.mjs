@@ -671,6 +671,9 @@ export class SW25ActorSheet extends ActorSheet {
     // Preemptive roll.
     html.on("click", ".preemptiverollable", this._onPreEmptiveRoll.bind(this));
 
+    // Change Permission.
+    html.on("click", ".changepermission", this._onChangePermission.bind(this));
+
     // Drag events for macros.
     if (this.actor.isOwner) {
       let handler = (ev) => this._onDragStart(ev);
@@ -891,7 +894,7 @@ export class SW25ActorSheet extends ActorSheet {
 
       let resistData = null;
 
-      if ( dataset.resist && dataset.resistresult != "none"){
+      if (dataset.resist && dataset.resistresult != "none") {
         resistData = {
           name: dataset.resist,
           result: dataset.resistresult,
@@ -1346,6 +1349,9 @@ export class SW25ActorSheet extends ActorSheet {
   async _onPopularityRoll(event) {
     event.preventDefault();
 
+    const actorId = this.actor.id;
+    const actor = game.actors.get(actorId);
+
     let checkName = game.settings.get("sw25", "effectMKnowPC");
     let inputName = "";
     let refAbility = "";
@@ -1354,10 +1360,12 @@ export class SW25ActorSheet extends ActorSheet {
     let method = "check";
 
     let isView = false;
-    if (
-      CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= this.actor.ownership.default
-    ) {
+    if (CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= actor.ownership.default) {
       isView = true;
+    } else {
+      await actor.update({
+        "ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED,
+      });
     }
 
     let monsterName = isView
@@ -1396,7 +1404,7 @@ export class SW25ActorSheet extends ActorSheet {
       {
         checkName: checkName,
         message: message,
-        difficulty: monsterName,
+        difficulty: `@UUID[Actor.${actorId}](${this.actor.system.type})`,
         targetValue: targetValue,
         mod: modifier,
       }
@@ -1408,6 +1416,9 @@ export class SW25ActorSheet extends ActorSheet {
   async _onPreEmptiveRoll(event) {
     event.preventDefault();
 
+    const actorId = this.actor.id;
+    const actor = game.actors.get(actorId);
+
     let checkName = game.settings.get("sw25", "effectInitPC");
     let inputName = "";
     let refAbility = "";
@@ -1416,10 +1427,12 @@ export class SW25ActorSheet extends ActorSheet {
     let method = "check";
 
     let isView = false;
-    if (
-      CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= this.actor.ownership.default
-    ) {
+    if (CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= actor.ownership.default) {
       isView = true;
+    } else {
+      await actor.update({
+        "ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED,
+      });
     }
 
     let monsterName = isView
@@ -1452,11 +1465,36 @@ export class SW25ActorSheet extends ActorSheet {
       {
         checkName: checkName,
         message: message,
-        difficulty: monsterName,
+        difficulty: `@UUID[Actor.${actorId}](${this.actor.system.type})`,
         targetValue: targetValue,
         mod: modifier,
       }
     );
+
+    ChatMessage.create(chatData);
+  }
+
+  async _onChangePermission(event) {
+    event.preventDefault();
+
+    const actorId = this.actor.id;
+    const actor = game.actors.get(actorId);
+    if (
+      CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER > this.actor.ownership.default
+    ) {
+      await actor.update({
+        "ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER,
+      });
+    }
+
+    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+
+    let chatData = {
+      speaker: speaker,
+      flavor: game.i18n.localize("SW25.RevealMonsterData"),
+    };
+    chatData.flags = {};
+    chatData.content = `@UUID[Actor.${this.actor.id}]`;
 
     ChatMessage.create(chatData);
   }
@@ -2486,7 +2524,7 @@ export class SW25ActorSheet extends ActorSheet {
     }
   }
 
-  async _updateResource(resourceType, modifyValue, multiple=1) {
+  async _updateResource(resourceType, modifyValue, multiple = 1) {
     const result = isNaN(Number(modifyValue))
       ? 0
       : Number(modifyValue) * multiple;

@@ -89,6 +89,8 @@
     "InputPlaceHolder": "Input here.",
     "NotTokenwarn": "No Token in canvas.",
 
+    "RevealMonsterData": "Reveal Monster Data",
+
     "NotResource": "Resource is not found.",
     "InputPhaseareaPoint": "Input use point.",
 
@@ -168,6 +170,7 @@
       "Part": "Part",
       "Corepart": "Core Part",
       "Ability": "Ability",
+      "Observer": "Reveal Data",
       "Loot": "Loot",
       "Usespell": "Use Spells",
       "Unidentifiedmon": "Unidentified Monster"
