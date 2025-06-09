@@ -79,14 +79,13 @@ export async function rollreq() {
 
             chatData.content = "";
             let name = checkName;
-            if (checkName == "-") name = "";
             if (checkName == "di") name = inputName;
-            if (method == "skill" && checkName && checkName != "-") {
+            if (method == "skill" && checkName && checkName != "") {
               let i18ncat =
                 refAbility.charAt(0).toUpperCase() + refAbility.slice(1);
               let abi =
                 " + " + game.i18n.localize(`SW25.Ability.${i18ncat}.abbr`);
-              if (refAbility == "-") abi = "";
+              if (refAbility == "") abi = "";
               name = `${name}${abi}`;
               if (checkName == "adv")
                 name = `${game.i18n.localize(
