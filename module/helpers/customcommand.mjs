@@ -206,31 +206,6 @@ export async function customCommand(command, messageData, parameters) {
           apply: chatapply,
         }
       );
-      // v12 or older
-      if (!foundry.utils.isNewerVersion(game.version, "13")) {
-        chatData.content = await renderTemplate(
-          "systems/sw25/templates/roll/v12/roll-power.hbs",
-          {
-            formula: chatFormula,
-            tooltip: await roll.fakeResult.getTooltip(),
-            power: chatPower,
-            lethalTech: chatLethalTech,
-            criticalRay: chatCriticalRay,
-            pharmTool: chatPharmTool,
-            powup: chatPowup,
-            result: chatResult,
-            mod: chatMod,
-            half: chatHalf,
-            results: chatResults,
-            total: chatTotal,
-            extraRoll: chatExtraRoll,
-            fumble: chatFumble,
-            showhalf: showhalf,
-            shownoc: shownoc,
-            apply: chatapply,
-          }
-        );
-      }
 
       ChatMessage.create(chatData);
 

@@ -893,7 +893,7 @@ export class SW25ActorSheet extends ActorSheet {
 
       let resistData = null;
 
-      if (dataset.resist && dataset.resistresult != "none") {
+      if ( dataset.resist && dataset.resistresult != "none"){
         resistData = {
           name: dataset.resist,
           result: dataset.resistresult,
@@ -904,8 +904,7 @@ export class SW25ActorSheet extends ActorSheet {
         total: roll.total,
         orgtotal: roll.total,
         formula: roll.formula,
-        //rolls: roll,
-        rolls: roll.toJSON(),
+        rolls: roll,
         tooltip: await roll.getTooltip(),
         apply: chatapply,
         spell: chatspell,
@@ -931,25 +930,6 @@ export class SW25ActorSheet extends ActorSheet {
           resist: resistData,
         }
       );
-      // v12 or older
-      if (!foundry.utils.isNewerVersion(game.version, "13")) {
-        chatData.content = await renderTemplate(
-          "systems/sw25/templates/roll/v12/roll-check.hbs",
-          {
-            formula: roll.formula,
-            tooltip: await roll.getTooltip(),
-            critical: chatCritical,
-            fumble: chatFumble,
-            total: roll.total,
-            apply: chatapply,
-            spell: chatspell,
-            checktype: checktype,
-            resusetext: chatresuse,
-            targetName: targetName,
-            resist: resistData,
-          }
-        );
-      }
 
       let chatMessageId;
       await ChatMessage.create(chatData).then((chatMessage) => {
@@ -1160,33 +1140,6 @@ export class SW25ActorSheet extends ActorSheet {
         targetName: targetName,
       }
     );
-    // v12 or older
-    if (!foundry.utils.isNewerVersion(game.version, "13")) {
-      chatData.content = await renderTemplate(
-        "systems/sw25/templates/roll/v12/roll-power.hbs",
-        {
-          formula: chatFormula,
-          tooltip: await roll.fakeResult.getTooltip(),
-          power: chatPower,
-          lethalTech: chatLethalTech,
-          criticalRay: chatCriticalRay,
-          pharmTool: chatPharmTool,
-          powup: chatPowup,
-          result: chatResult,
-          mod: chatModTotal,
-          half: chatHalf,
-          results: chatResults,
-          total: chatTotal,
-          extraRoll: chatExtraRoll,
-          fumble: chatFumble,
-          showhalf: showhalf,
-          shownoc: shownoc,
-          apply: chatapply,
-          powertype: powertype,
-          targetName: targetName,
-        }
-      );
-    }
 
     let chatMessageId;
     await ChatMessage.create(chatData).then((chatMessage) => {
@@ -2027,6 +1980,8 @@ export class SW25ActorSheet extends ActorSheet {
                 });
               });
             } else {
+              console.log(targetTokenId);
+              console.log(targetEffects);
               game.socket.emit("system.sw25", {
                 method: "applyEffect",
                 targetTokens: targetTokenId,
@@ -2532,7 +2487,7 @@ export class SW25ActorSheet extends ActorSheet {
     }
   }
 
-  async _updateResource(resourceType, modifyValue, multiple = 1) {
+  async _updateResource(resourceType, modifyValue, multiple=1) {
     const result = isNaN(Number(modifyValue))
       ? 0
       : Number(modifyValue) * multiple;

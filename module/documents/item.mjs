@@ -102,14 +102,14 @@ export class SW25Item extends Item {
     if (source?.system?.fairyprop === "-") source.system.fairyprop = "";
     if (source?.system?.resuse === "-") source.system.resuse = "";
     if (source?.system?.checkabi === "-") source.system.checkabi = "";
-    if (source?.system?.checkabi1 === "-") source.system.checkabi1 = "";
+    if (source?.system?.checkabi1 === "-") source.system.checkabi1 = ""
     if (source?.system?.checkabi2 === "-") source.system.checkabi2 = "";
     if (source?.system?.powerabi === "-") source.system.powerabi = "";
     if (source?.system?.checkskill === "-") source.system.checkskill = "";
     if (source?.system?.checkskill1 === "-") source.system.checkskill1 = "";
     if (source?.system?.checkskill2 === "-") source.system.checkskill2 = "";
     if (source?.system?.powerskill === "-") source.system.powerskill = "";
-    return super.migrateData(source);
+    return super.migrateData(source)
   }
 
   prepareDerivedData() {
@@ -1750,10 +1750,9 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    systemData.typename =
-      systemData.type != ""
-        ? game.i18n.localize(`SW25.Item.Item.${systemData.type.capitalize()}`)
-        : game.i18n.localize(`SW25.Item.Item.General`);
+    systemData.typename = (systemData.type != "")
+      ? game.i18n.localize(`SW25.Item.Item.${systemData.type.capitalize()}`)
+      : game.i18n.localize(`SW25.Item.Item.General`);
 
     if (itemData.actor !== null) {
       const actorData = itemData.actor.system;
@@ -1901,22 +1900,17 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    systemData.categoryname =
-      systemData.category != ""
-        ? game.i18n.localize(
-            `SW25.Item.Weapon.${systemData.category.capitalize()}`
-          )
-        : "-";
+    systemData.categoryname = (systemData.category != "")
+      ? game.i18n.localize(`SW25.Item.Weapon.${systemData.category.capitalize()}`)
+      : "-";
 
-    systemData.usagename =
-      systemData.usage != ""
-        ? game.i18n.localize(`SW25.Item.Weapon.${systemData.usage}`)
-        : "";
+    systemData.usagename = (systemData.usage != "") 
+      ? game.i18n.localize(`SW25.Item.Weapon.${systemData.usage}`)
+      : "";
 
-    systemData.typename =
-      systemData.type != ""
-        ? game.i18n.localize(`SW25.Item.Weapon.${systemData.type.capitalize()}`)
-        : "";
+    systemData.typename = (systemData.type != "")
+      ? game.i18n.localize(`SW25.Item.Weapon.${systemData.type.capitalize()}`)
+      :  "";
 
     if (systemData.checkskill == systemData.powerskill) {
       systemData.showskill = systemData.checkskill;
@@ -1961,15 +1955,13 @@ export class SW25Item extends Item {
       const actoritemData = itemData.actor.items;
     }
 
-    systemData.accpartname =
-      systemData.accpart != ""
-        ? game.i18n.localize(
-            `SW25.Item.Accessory.${systemData.accpart.capitalize()}`
-          )
-        : "-";
+    systemData.accpartname = (systemData.accpart != "")
+      ? game.i18n.localize(`SW25.Item.Accessory.${systemData.accpart.capitalize()}`)
+      : "-";
 
-    systemData.deffectname =
-      systemData.deffect != "" ? ":" + systemData.deffect.toUpperCase() : "";
+    systemData.deffectname = (systemData.deffect != "")
+      ? ":" + systemData.deffect.toUpperCase()
+      : "";
   }
 
   _prepareArmorData(itemData) {
@@ -1983,12 +1975,9 @@ export class SW25Item extends Item {
       const actoritemData = itemData.actor.items;
     }
 
-    systemData.categoryname =
-      systemData.category != ""
-        ? game.i18n.localize(
-            `SW25.Item.Armor.${systemData.category.capitalize()}`
-          )
-        : "-";
+    systemData.categoryname = (systemData.category != "")
+      ? game.i18n.localize(`SW25.Item.Armor.${systemData.category.capitalize()}`)
+      : "-";
   }
 
   _prepareCombatabilityData(itemData) {
@@ -2002,19 +1991,13 @@ export class SW25Item extends Item {
       const actoritemData = itemData.actor.items;
     }
 
-    systemData.typename =
-      systemData.type != ""
-        ? game.i18n.localize(
-            `SW25.Item.Combatability.${systemData.type.capitalize()}`
-          )
-        : "";
+    systemData.typename = (systemData.type != "")
+      ? game.i18n.localize(`SW25.Item.Combatability.${systemData.type.capitalize()}`)
+      : "";
 
-    systemData.condtypename =
-      systemData.condtype != ""
-        ? game.i18n.localize(
-            `SW25.Item.Combatability.${systemData.condtype.capitalize()}`
-          )
-        : "-";
+    systemData.condtypename = (systemData.condtype != "") 
+      ? game.i18n.localize(`SW25.Item.Combatability.${systemData.condtype.capitalize()}`)
+      : "-";
 
     let updateData = {
       constant: false,
@@ -2030,6 +2013,7 @@ export class SW25Item extends Item {
       updateData.main = true;
     }
     itemData.update({ system: updateData });
+
   }
 
   _prepareEnhanceartsData(itemData) {}
@@ -2045,22 +2029,17 @@ export class SW25Item extends Item {
       const actoritemData = itemData.actor.items;
     }
 
-    systemData.typename =
-      systemData.type != ""
-        ? game.i18n.localize(
-            `SW25.Item.Magicalsong.${systemData.type.capitalize()}`
-          )
-        : "-";
+    systemData.typename = (systemData.type != "")
+      ? game.i18n.localize(`SW25.Item.Magicalsong.${systemData.type.capitalize()}`)
+      : "-";
 
-    systemData.resistname =
-      systemData.resist != ""
-        ? game.i18n.localize(`SW25.Item.${systemData.resist.capitalize()}`)
-        : "";
+    systemData.resistname = (systemData.resist != "")
+      ? game.i18n.localize(`SW25.Item.${systemData.resist.capitalize()}`)
+      : "";
 
-    systemData.propname =
-      systemData.prop != ""
-        ? game.i18n.localize(`SW25.Item.${systemData.prop.capitalize()}`)
-        : "-";
+    systemData.propname = (systemData.prop != "")
+      ? game.i18n.localize(`SW25.Item.${systemData.prop.capitalize()}`)
+      : "-";
 
     if (systemData.upget == null) systemData.upget = 0;
     if (systemData.downget == null) systemData.downget = 0;
@@ -2089,10 +2068,9 @@ export class SW25Item extends Item {
       const actoritemData = itemData.actor.items;
     }
 
-    systemData.resistname =
-      systemData.resist != ""
-        ? game.i18n.localize(`SW25.Item.${systemData.resist.capitalize()}`)
-        : "";
+    systemData.resistname = (systemData.resist != "") 
+      ? game.i18n.localize(`SW25.Item.${systemData.resist.capitalize()}`)
+      : "";
 
     if (systemData.red == null) systemData.red = 0;
     if (systemData.green == null) systemData.green = 0;
@@ -2112,17 +2090,13 @@ export class SW25Item extends Item {
       const actoritemData = itemData.actor.items;
     }
 
-    systemData.typename =
-      systemData.type != ""
-        ? game.i18n.localize(
-            `SW25.Item.Phasearea.${systemData.type.capitalize()}`
-          )
-        : "-";
+    systemData.typename = (systemData.type != "") 
+      ? game.i18n.localize(`SW25.Item.Phasearea.${systemData.type.capitalize()}`)
+      : "-";
 
-    systemData.propname =
-      systemData.prop != ""
-        ? game.i18n.localize(`SW25.Item.${systemData.prop.capitalize()}`)
-        : "-";
+    systemData.propname = (systemData.prop != "") 
+      ? game.i18n.localize(`SW25.Item.${systemData.prop.capitalize()}`)
+      : "-";
 
     if (systemData.mincost == null) systemData.mincost = 0;
     if (systemData.maxcost == null) systemData.maxcost = 0;
@@ -2139,19 +2113,13 @@ export class SW25Item extends Item {
       const actoritemData = itemData.actor.items;
     }
 
-    systemData.typename =
-      systemData.type != ""
-        ? game.i18n.localize(
-            `SW25.Item.Tactics.${systemData.type.capitalize()}`
-          )
-        : "-";
+    systemData.typename = (systemData.type != "") 
+      ? game.i18n.localize(`SW25.Item.Tactics.${systemData.type.capitalize()}`)
+      : "-";
 
-    systemData.linename =
-      systemData.line != ""
-        ? game.i18n.localize(
-            `SW25.Item.Tactics.${systemData.line.capitalize()}`
-          )
-        : "-";
+    systemData.linename = (systemData.line != "") 
+      ? game.i18n.localize(`SW25.Item.Tactics.${systemData.line.capitalize()}`)
+      : "-";
   }
 
   _prepareInfusionData(itemData) {}
@@ -2167,10 +2135,9 @@ export class SW25Item extends Item {
       const actoritemData = itemData.actor.items;
     }
 
-    systemData.resistname =
-      systemData.resist != ""
-        ? game.i18n.localize(`SW25.Item.${systemData.resist.capitalize()}`)
-        : "";
+    systemData.resistname = (systemData.resist != "") 
+      ? game.i18n.localize(`SW25.Item.${systemData.resist.capitalize()}`)
+      : "";
   }
 
   _prepareEssenceweaveData(itemData) {}
@@ -2184,34 +2151,25 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    systemData.typename =
-      systemData.type != ""
-        ? game.i18n.localize(`SW25.Item.Spell.${systemData.type.capitalize()}`)
-        : "-";
+    systemData.typename = (systemData.type != "") 
+      ? game.i18n.localize(`SW25.Item.Spell.${systemData.type.capitalize()}`)
+      : "-";
 
-    systemData.resistname =
-      systemData.resist != ""
-        ? game.i18n.localize(`SW25.Item.${systemData.resist.capitalize()}`)
-        : "-";
+    systemData.resistname = (systemData.resist != "") 
+      ? game.i18n.localize(`SW25.Item.${systemData.resist.capitalize()}`)
+      : "-";
 
-    systemData.propname =
-      systemData.prop != ""
-        ? game.i18n.localize(`SW25.Item.${systemData.prop.capitalize()}`)
-        : "-";
+    systemData.propname = (systemData.prop != "")
+      ? game.i18n.localize(`SW25.Item.${systemData.prop.capitalize()}`)
+      : "-";
 
-    systemData.fairytypename =
-      systemData.fairytype != ""
-        ? game.i18n.localize(
-            `SW25.Item.Spell.${systemData.fairytype.capitalize()}`
-          )
-        : "-";
+    systemData.fairytypename = (systemData.fairytype != "") 
+      ? game.i18n.localize(`SW25.Item.Spell.${systemData.fairytype.capitalize()}`)
+      : "-";
 
-    systemData.fairypropname =
-      systemData.fairyprop != ""
-        ? game.i18n.localize(
-            `SW25.Item.Spell.${systemData.fairyprop.capitalize()}`
-          )
-        : "-";
+    systemData.fairypropname = (systemData.fairyprop != "") 
+      ? game.i18n.localize(`SW25.Item.Spell.${systemData.fairyprop.capitalize()}`)
+      : "-";
 
     if (itemData.actor !== null) {
       const actorData = itemData.actor.system;
@@ -2671,8 +2629,7 @@ export class SW25Item extends Item {
         total: chatTotal,
         orgtotal: chatTotal,
         formula: roll.formula,
-        //rolls: roll,
-        rolls: roll.toJSON(),
+        rolls: roll,
         tooltip: await roll.getTooltip(),
         apply: chatapply,
         checktype: checktype,
@@ -2693,22 +2650,6 @@ export class SW25Item extends Item {
           targetName: targetName,
         }
       );
-      // v12 or older
-      if (!foundry.utils.isNewerVersion(game.version, "13")) {
-        chatData.content = await renderTemplate(
-          "systems/sw25/templates/roll/v12/roll-check.hbs",
-          {
-            formula: chatFormula,
-            tooltip: await roll.getTooltip(),
-            critical: chatCritical,
-            fumble: chatFumble,
-            total: chatTotal,
-            apply: chatapply,
-            checktype: checktype,
-            targetName: targetName,
-          }
-        );
-      }
 
       let chatMessageId;
       await ChatMessage.create(chatData).then((chatMessage) => {
@@ -2859,33 +2800,6 @@ export class SW25Item extends Item {
           targetName: targetName,
         }
       );
-      // v12 or older
-      if (!foundry.utils.isNewerVersion(game.version, "13")) {
-        chatData.content = await renderTemplate(
-          "systems/sw25/templates/roll/v12/roll-power.hbs",
-          {
-            formula: chatFormula,
-            tooltip: await roll.fakeResult.getTooltip(),
-            power: chatPower,
-            lethalTech: chatLethalTech,
-            criticalRay: chatCriticalRay,
-            pharmTool: chatPharmTool,
-            powup: chatPowup,
-            result: chatResult,
-            mod: chatModTotal,
-            half: chatHalf,
-            results: chatResults,
-            total: chatTotal,
-            extraRoll: chatExtraRoll,
-            fumble: chatFumble,
-            showhalf: showhalf,
-            shownoc: shownoc,
-            apply: chatapply,
-            powertype: powertype,
-            targetName: targetName,
-          }
-        );
-      }
 
       let chatMessageId;
       await ChatMessage.create(chatData).then((chatMessage) => {
