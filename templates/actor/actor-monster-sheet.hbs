@@ -108,9 +108,14 @@
             </div>
             <div class="monster-blank">
             </div>
-            <div class="monster-loot">
-              <span class="monster-label lootrollable">{{localize "SW25.Monster.Loot"}}</span>
+            {{#if isOwner}}
+            <div class="monster-observer">
+              <span class="monster-label changepermission">{{localize "SW25.Monster.Observer"}}<br><i class="fa-solid fa-arrows-to-eye"></i></span>
             </div>
+            <div class="monster-loot">
+              <span class="monster-label lootrollable">{{localize "SW25.Monster.Loot"}}<br><i class="fa-solid fa-web-awesome"></i></span>
+            </div>
+            {{/if}}
           </div>
           <hr>
         </div>

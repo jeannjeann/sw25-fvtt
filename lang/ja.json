@@ -89,6 +89,8 @@
     "InputPlaceHolder": "ここに入力",
     "NotTokenwarn": "トークンが存在しません。",
 
+    "RevealMonsterData": "魔物情報を公開",
+
     "NotResource": "該当リソースなし",
     "InputPhaseareaPoint": "使用命脈点を入力",
 
@@ -168,6 +170,7 @@
       "Part": "部位数",
       "Corepart": "コア部位",
       "Ability": "魔物能力",
+      "Observer": "閲覧変更",
       "Loot": "戦利品",
       "Usespell": "魔法・特技使用",
       "Unidentifiedmon": "不明の魔物"

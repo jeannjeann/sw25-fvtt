@@ -71,6 +71,12 @@
   cursor: pointer;
 }
 
+.changepermission:hover, .changepermission:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+
 .usephasearea:hover, .usephasearea:focus {
   color: #000;
   text-shadow: 0 0 10px red;
@@ -1111,11 +1117,13 @@ progress.mp-bar::-moz-progress-bar {
 .sw25 .sheet-header .header-fields .monster-parameters .monster-blank{
   flex: 1;
 }
-.sw25 .sheet-header .header-fields .monster-parameters .monster-loot{
+.sw25 .sheet-header .header-fields .monster-parameters .monster-loot,
+.sw25 .sheet-header .header-fields .monster-parameters .monster-observer{
   display: flex;
-  flex: 0 0 60px;
+  flex: 0 0 80px;
   align-items: center;
   margin-left: auto;
+  text-align: center;
 }
 
 .sw25 .monster-label {
