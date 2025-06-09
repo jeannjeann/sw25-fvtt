@@ -108,7 +108,6 @@ Hooks.once("init", function () {
  * combat hook.
  */
 Hooks.on("updateCombat", async (combat, changes, options, userId) => {
-  console.log("*** Update combat. ***");
   const combatant = combat.previous;
   if (!combatant) return;
 

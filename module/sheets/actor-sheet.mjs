@@ -893,7 +893,7 @@ export class SW25ActorSheet extends ActorSheet {
 
       let resistData = null;
 
-      if ( dataset.resist && dataset.resistresult != "none"){
+      if (dataset.resist && dataset.resistresult != "none") {
         resistData = {
           name: dataset.resist,
           result: dataset.resistresult,
@@ -1980,8 +1980,6 @@ export class SW25ActorSheet extends ActorSheet {
                 });
               });
             } else {
-              console.log(targetTokenId);
-              console.log(targetEffects);
               game.socket.emit("system.sw25", {
                 method: "applyEffect",
                 targetTokens: targetTokenId,
@@ -2487,7 +2485,7 @@ export class SW25ActorSheet extends ActorSheet {
     }
   }
 
-  async _updateResource(resourceType, modifyValue, multiple=1) {
+  async _updateResource(resourceType, modifyValue, multiple = 1) {
     const result = isNaN(Number(modifyValue))
       ? 0
       : Number(modifyValue) * multiple;
