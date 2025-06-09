@@ -266,10 +266,7 @@
       <div class="grid grid-10col margin-s">
         <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Action.TableType"}}</b><br>
           <select name="system.tabletype">
-            {{#select system.tabletype}}
-            <option value="fellow">{{localize "SW25.Fellow"}}</option>
-            <option value="daemon">{{localize "SW25.Daemon"}}</option>
-            {{/select}}
+            {{selectOptions config.fellowTypes selected=system.tabletype localize=true}}
          </select>
         </span>
         <span class="grid-span-8"></span>

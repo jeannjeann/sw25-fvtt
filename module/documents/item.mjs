@@ -89,6 +89,29 @@ export class SW25Item extends Item {
     super.prepareData();
   }
 
+  static migrateData(source) {
+    if (source?.system?.category === "-") source.system.category = "";
+    if (source?.system?.type === "-") source.system.type = "";
+    if (source?.system?.rank === "-") source.system.rank = "";
+    if (source?.system?.accpart === "-") source.system.accpart = "";
+    if (source?.system?.deffect === "-") source.system.deffect = "";
+    if (source?.system?.condtype === "-") source.system.condtype = "";
+    if (source?.system?.resist === "-") source.system.resist = "";
+    if (source?.system?.prop === "-") source.system.prop = "";
+    if (source?.system?.fairytype === "-") source.system.fairytype = "";
+    if (source?.system?.fairyprop === "-") source.system.fairyprop = "";
+    if (source?.system?.resuse === "-") source.system.resuse = "";
+    if (source?.system?.checkabi === "-") source.system.checkabi = "";
+    if (source?.system?.checkabi1 === "-") source.system.checkabi1 = ""
+    if (source?.system?.checkabi2 === "-") source.system.checkabi2 = "";
+    if (source?.system?.powerabi === "-") source.system.powerabi = "";
+    if (source?.system?.checkskill === "-") source.system.checkskill = "";
+    if (source?.system?.checkskill1 === "-") source.system.checkskill1 = "";
+    if (source?.system?.checkskill2 === "-") source.system.checkskill2 = "";
+    if (source?.system?.powerskill === "-") source.system.powerskill = "";
+    return super.migrateData(source)
+  }
+
   prepareDerivedData() {
     const itemData = this;
     const systemData = itemData.system;
@@ -287,8 +310,8 @@ export class SW25Item extends Item {
     }
     actoritemData.forEach((item) => {
       if (item.type != "skill") return;
-      if (!systemData.skilllist.includes(item.name)) {
-        systemData.skilllist.push(item.name);
+      if (!systemData.skilllist.includes(item)) {
+        systemData.skilllist.push(item);
       }
       if (systemData.checkskill == "adv") {
         if (
@@ -561,8 +584,8 @@ export class SW25Item extends Item {
     let powerlevelmod = 0;
     actoritemData.forEach((item) => {
       if (item.type != "skill") return;
-      if (!systemData.skilllist.includes(item.name)) {
-        systemData.skilllist.push(item.name);
+      if (!systemData.skilllist.includes(item)) {
+        systemData.skilllist.push(item);
       }
       if (systemData.checkskill == "adv") {
         if (
@@ -649,7 +672,7 @@ export class SW25Item extends Item {
       }
     });
 
-    if (systemData.resuse == "-") systemData.autouseres = false;
+    if (systemData.resuse == "") systemData.autouseres = false;
 
     await actor.update({});
     let checkabimod = 0;
@@ -1726,8 +1749,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-    const actorData = itemData.actor.system;
-    const actoritemData = itemData.actor.items;
 
     if (systemData.type != "-" && systemData.type != null) {
       const i18ntype =
@@ -1741,33 +1762,33 @@ export class SW25Item extends Item {
 
       // Set default skill and ability
       if (systemData.type == "herb") {
-        if (actorData.herbskill != "-") {
-          if (systemData.checkskill == "-")
+        if (actorData.herbskill != "") {
+          if (systemData.checkskill == "")
             systemData.checkskill = actorData.herbskill;
-          if (systemData.checkabi == "-") systemData.checkabi = "dex";
-          if (systemData.powerskill == "-")
+          if (systemData.checkabi == "") systemData.checkabi = "dex";
+          if (systemData.powerskill == "")
             systemData.powerskill = actorData.herbskill;
-          if (systemData.powerabi == "-") systemData.powerabi = "dex";
+          if (systemData.powerabi == "") systemData.powerabi = "dex";
         }
       }
       if (systemData.type == "potion") {
-        if (actorData.potionskill != "-") {
-          if (systemData.checkskill == "-")
+        if (actorData.potionskill != "") {
+          if (systemData.checkskill == "")
             systemData.checkskill = actorData.potionskill;
-          if (systemData.checkabi == "-") systemData.checkabi = "int";
-          if (systemData.powerskill == "-")
+          if (systemData.checkabi == "") systemData.checkabi = "int";
+          if (systemData.powerskill == "")
             systemData.powerskill = actorData.potionskill;
-          if (systemData.powerabi == "-") systemData.powerabi = "int";
+          if (systemData.powerabi == "") systemData.powerabi = "int";
         }
       }
       if (systemData.type == "repair") {
-        if (actorData.repairskill != "-") {
-          if (systemData.checkskill == "-")
+        if (actorData.repairskill != "") {
+          if (systemData.checkskill == "")
             systemData.checkskill = actorData.repairskill;
-          if (systemData.checkabi == "-") systemData.checkabi = "dex";
-          if (systemData.powerskill == "-")
+          if (systemData.checkabi == "") systemData.checkabi = "dex";
+          if (systemData.powerskill == "")
             systemData.powerskill = actorData.repairskill;
-          if (systemData.powerabi == "-") systemData.powerabi = "dex";
+          if (systemData.powerabi == "") systemData.powerabi = "dex";
         }
       }
     }
@@ -1880,8 +1901,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-    const actorData = itemData.actor.system;
-    const actoritemData = itemData.actor.items;
 
     if (systemData.category != "-" && systemData.category != null) {
       const i18ncat =
@@ -1892,12 +1911,9 @@ export class SW25Item extends Item {
       );
     } else systemData.categoryname = "-";
 
-    if (systemData.usage != "-") {
-      const i18nusage = systemData.usage;
-      systemData.usagename = game.i18n.localize(
-        `SW25.Item.Weapon.${i18nusage}`
-      );
-    } else systemData.usage = "-";
+    systemData.usagename = (systemData.usage != "") 
+      ? game.i18n.localize(`SW25.Item.Weapon.${systemData.usage}`)
+      : "";
 
     if (systemData.type != "-" && systemData.type != null) {
       const i18ntype =
@@ -1910,13 +1926,13 @@ export class SW25Item extends Item {
     } else
       systemData.showskill =
         systemData.checkskill + "/" + systemData.powerskill;
-    if (systemData.checkskill == "-" || systemData.checkskill == null) {
-      if (systemData.powerskill == "-" || systemData.powerskill == null)
+    if (systemData.checkskill == "" || systemData.checkskill == null) {
+      if (systemData.powerskill == "" || systemData.powerskill == null)
         systemData.showskill = "";
       else systemData.showskill = systemData.powerskill;
     }
-    if (systemData.powerskill == "-" || systemData.powerskill == null) {
-      if (systemData.checkskill == "-" || systemData.checkskill == null)
+    if (systemData.powerskill == "" || systemData.powerskill == null) {
+      if (systemData.checkskill == "" || systemData.checkskill == null)
         systemData.showskill = "";
       else systemData.showskill = systemData.checkskill;
     }
@@ -1926,13 +1942,13 @@ export class SW25Item extends Item {
       const actoritemData = itemData.actor.items;
 
       // Set default skill and ability
-      if (actorData.attackskill != "-") {
-        if (systemData.checkskill == "-")
+      if (actorData.attackskill != "") {
+        if (systemData.checkskill == "")
           systemData.checkskill = actorData.attackskill;
-        if (systemData.checkabi == "-") systemData.checkabi = "dex";
-        if (systemData.powerskill == "-")
+        if (systemData.checkabi == "") systemData.checkabi = "dex";
+        if (systemData.powerskill == "")
           systemData.powerskill = actorData.attackskill;
-        if (systemData.powerabi == "-") systemData.powerabi = "str";
+        if (systemData.powerabi == "") systemData.powerabi = "str";
       }
     }
   }
@@ -1957,9 +1973,9 @@ export class SW25Item extends Item {
       );
     } else systemData.accpartname = "-";
 
-    if (systemData.deffect != "-") {
-      systemData.deffectname = ":" + systemData.deffect.toUpperCase();
-    } else systemData.deffectname = "";
+    systemData.deffectname = (systemData.deffect != "")
+      ? ":" + systemData.deffect.toUpperCase()
+      : "";
   }
 
   _prepareArmorData(itemData) {
@@ -1972,6 +1988,7 @@ export class SW25Item extends Item {
       const actorData = itemData.actor.system;
       const actoritemData = itemData.actor.items;
     }
+
 
     if (systemData.category != "-" && systemData.category != null) {
       const i18ncat =
@@ -2025,6 +2042,7 @@ export class SW25Item extends Item {
       updateData.main = true;
     }
     itemData.update({ system: updateData });
+
   }
 
   _prepareEnhanceartsData(itemData) {}
@@ -2183,8 +2201,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-    const actorData = itemData.actor.system;
-    const actoritemData = itemData.actor.items;
 
     if (systemData.type != "-" && systemData.type != null) {
       const i18ntype =
@@ -2228,93 +2244,93 @@ export class SW25Item extends Item {
 
       // Set default skill and ability
       if (systemData.type == "sorcerer") {
-        if (actorData.scskill != "-") {
-          if (systemData.checkskill == "-")
+        if (actorData.scskill != "") {
+          if (systemData.checkskill == "")
             systemData.checkskill = actorData.scskill;
-          if (systemData.checkabi == "-") systemData.checkabi = "int";
-          if (systemData.powerskill == "-")
+          if (systemData.checkabi == "") systemData.checkabi = "int";
+          if (systemData.powerskill == "")
             systemData.powerskill = actorData.scskill;
-          if (systemData.powerabi == "-") systemData.powerabi = "int";
+          if (systemData.powerabi == "") systemData.powerabi = "int";
         }
       }
       if (systemData.type == "conjurer") {
-        if (actorData.cnskill != "-") {
-          if (systemData.checkskill == "-")
+        if (actorData.cnskill != "") {
+          if (systemData.checkskill == "")
             systemData.checkskill = actorData.cnskill;
-          if (systemData.checkabi == "-") systemData.checkabi = "int";
-          if (systemData.powerskill == "-")
+          if (systemData.checkabi == "") systemData.checkabi = "int";
+          if (systemData.powerskill == "")
             systemData.powerskill = actorData.cnskill;
-          if (systemData.powerabi == "-") systemData.powerabi = "int";
+          if (systemData.powerabi == "") systemData.powerabi = "int";
         }
       }
       if (systemData.type == "wizard") {
-        if (actorData.wzskill != "-") {
-          if (systemData.checkskill == "-")
+        if (actorData.wzskill != "") {
+          if (systemData.checkskill == "")
             systemData.checkskill = actorData.wzskill;
-          if (systemData.checkabi == "-") systemData.checkabi = "int";
-          if (systemData.powerskill == "-")
+          if (systemData.checkabi == "") systemData.checkabi = "int";
+          if (systemData.powerskill == "")
             systemData.powerskill = actorData.wzskill;
-          if (systemData.powerabi == "-") systemData.powerabi = "int";
+          if (systemData.powerabi == "") systemData.powerabi = "int";
         }
       }
       if (systemData.type == "priest") {
-        if (actorData.prskill != "-") {
-          if (systemData.checkskill == "-")
+        if (actorData.prskill != "") {
+          if (systemData.checkskill == "")
             systemData.checkskill = actorData.prskill;
-          if (systemData.checkabi == "-") systemData.checkabi = "int";
-          if (systemData.powerskill == "-")
+          if (systemData.checkabi == "") systemData.checkabi = "int";
+          if (systemData.powerskill == "")
             systemData.powerskill = actorData.prskill;
-          if (systemData.powerabi == "-") systemData.powerabi = "int";
+          if (systemData.powerabi == "") systemData.powerabi = "int";
         }
       }
       if (systemData.type == "magitech") {
-        if (actorData.mtskill != "-") {
-          if (systemData.checkskill == "-")
+        if (actorData.mtskill != "") {
+          if (systemData.checkskill == "")
             systemData.checkskill = actorData.mtskill;
-          if (systemData.checkabi == "-") systemData.checkabi = "int";
-          if (systemData.powerskill == "-")
+          if (systemData.checkabi == "") systemData.checkabi = "int";
+          if (systemData.powerskill == "")
             systemData.powerskill = actorData.mtskill;
-          if (systemData.powerabi == "-") systemData.powerabi = "int";
+          if (systemData.powerabi == "") systemData.powerabi = "int";
         }
       }
       if (systemData.type == "fairy") {
-        if (actorData.frskill != "-") {
-          if (systemData.checkskill == "-")
+        if (actorData.frskill != "") {
+          if (systemData.checkskill == "")
             systemData.checkskill = actorData.frskill;
-          if (systemData.checkabi == "-") systemData.checkabi = "int";
-          if (systemData.powerskill == "-")
+          if (systemData.checkabi == "") systemData.checkabi = "int";
+          if (systemData.powerskill == "")
             systemData.powerskill = actorData.frskill;
-          if (systemData.powerabi == "-") systemData.powerabi = "int";
+          if (systemData.powerabi == "") systemData.powerabi = "int";
         }
       }
       if (systemData.type == "druid") {
-        if (actorData.drskill != "-") {
-          if (systemData.checkskill == "-")
+        if (actorData.drskill != "") {
+          if (systemData.checkskill == "")
             systemData.checkskill = actorData.drskill;
-          if (systemData.checkabi == "-") systemData.checkabi = "int";
-          if (systemData.powerskill == "-")
+          if (systemData.checkabi == "") systemData.checkabi = "int";
+          if (systemData.powerskill == "")
             systemData.powerskill = actorData.drskill;
-          if (systemData.powerabi == "-") systemData.powerabi = "int";
+          if (systemData.powerabi == "") systemData.powerabi = "int";
         }
       }
       if (systemData.type == "daemon") {
-        if (actorData.dmskill != "-") {
-          if (systemData.checkskill == "-")
+        if (actorData.dmskill != "") {
+          if (systemData.checkskill == "")
             systemData.checkskill = actorData.dmskill;
-          if (systemData.checkabi == "-") systemData.checkabi = "int";
-          if (systemData.powerskill == "-")
+          if (systemData.checkabi == "") systemData.checkabi = "int";
+          if (systemData.powerskill == "")
             systemData.powerskill = actorData.dmskill;
-          if (systemData.powerabi == "-") systemData.powerabi = "int";
+          if (systemData.powerabi == "") systemData.powerabi = "int";
         }
       }
       if (systemData.type == "abyssal") {
-        if (actorData.abskill != "-") {
-          if (systemData.checkskill == "-")
+        if (actorData.abskill != "") {
+          if (systemData.checkskill == "")
             systemData.checkskill = actorData.abskill;
-          if (systemData.checkabi == "-") systemData.checkabi = "int";
-          if (systemData.powerskill == "-")
+          if (systemData.checkabi == "") systemData.checkabi = "int";
+          if (systemData.powerskill == "")
             systemData.powerskill = actorData.abskill;
-          if (systemData.powerabi == "-") systemData.powerabi = "int";
+          if (systemData.powerabi == "") systemData.powerabi = "int";
         }
       }
     }
@@ -2542,7 +2558,7 @@ export class SW25Item extends Item {
     }
     let resource = false;
     if (item.type == "weapon") {
-      if (item.system.resuse != "-") resource = true;
+      if (item.system.resuse != "") resource = true;
     }
 
     if (this.system.clickitem == "dice") label = label + " (" + label0 + ")";
@@ -2636,7 +2652,6 @@ export class SW25Item extends Item {
         speaker: speaker,
         flavor: label,
         rollMode: rollMode,
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         rolls: [roll],
       };
 
@@ -2773,7 +2788,6 @@ export class SW25Item extends Item {
         speaker: speaker,
         flavor: label,
         rollMode: rollMode,
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         rolls: [roll.fakeResult],
       };
 
@@ -2897,7 +2911,7 @@ export class SW25Item extends Item {
     }
 
     if (this.system.clickitem == "rescost") {
-      if (this.system.resuse != "-" || !this.system.resuse) {
+      if (this.system.resuse != "" || !this.system.resuse) {
         let resuse = this.system.resuse;
         let resusequantity = this.system.resusequantity;
         let actoritem = this.actor.items.get(resuse);

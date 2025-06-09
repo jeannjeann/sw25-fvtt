@@ -54,13 +54,7 @@
         <div class="flexrow grid grid-10col nogapmargin">
           <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Item.Clickitem"}}</b><br>
             <select name="system.clickitem">
-              {{#select system.clickitem}}
-              <option value="all">{{localize "SW25.Item.All"}}</option>
-              <option value="power">{{localize "SW25.Item.Powerroll"}}</option>
-              <option value="dice">{{localize "SW25.Item.Diceroll"}}</option>
-              <option value="mpcost">{{localize "SW25.Mp"}}{{localize "SW25.Cost"}}</option>
-              <option value="description">{{localize "SW25.Item.Onlydescription"}}</option>
-              {{/select}}
+              {{selectOptions clickitemOptions selected=system.clickitem localize=true}}
             </select>
           </span>
           <div></div>
@@ -89,13 +83,7 @@
             <input id="{{item._id}}system.base" style="max-width: calc(90% - 7px);" type="text" name="system.base" value="{{system.base}}" data-dtype="String"/></span>
           <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Rank"}}</b><br>
             <select name="system.rank">
-              {{#select system.rank}}
-              <option value="">-</option>
-              <option value="B">B</option>
-              <option value="A">A</option>
-              <option value="S">S</option>
-              <option value="SS">SS</option>
-              {{/select}}
+              {{selectOptions config.ranks selected=system.rank blank="-"}}
             </select>
           </span>
           <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.basempcost"><b>MP{{localize "SW25.Cost"}}</b></label><br>
@@ -115,7 +103,7 @@
           <div class="grid-span-2">
             <span style="text-align: center;"><label for="{{item._id}}system.resist"><b>{{localize "SW25.Item.Resist"}}</b></label><br>
             <select name="system.resist">
-              {{selectOptions config.resistResult selected=system.resist localize=true blank="-"}}
+              {{selectOptions config.spellResists selected=system.resist localize=true blank="-"}}
             </select>
           </div>
           <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.overview"></label><b>{{localize "SW25.Item.Overview"}}</b><br>
