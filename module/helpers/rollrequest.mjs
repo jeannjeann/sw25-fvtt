@@ -81,10 +81,8 @@ export async function rollreq() {
             let name = checkName;
             if (checkName == "di") name = inputName;
             if (method == "skill" && checkName && checkName != "") {
-              let i18ncat =
-                refAbility.charAt(0).toUpperCase() + refAbility.slice(1);
               let abi =
-                " + " + game.i18n.localize(`SW25.Ability.${i18ncat}.abbr`);
+                " + " + game.i18n.localize(`SW25.Ability.${refAbility.capitalize()}.abbr`);
               if (refAbility == "") abi = "";
               name = `${name}${abi}`;
               if (checkName == "adv")

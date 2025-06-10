@@ -2289,10 +2289,8 @@ export class SW25ActorSheet extends ActorSheet {
           i.system?.resource?.materialrank === useRank
       );
 
-      let cardCap =
-        card.color.charAt(0).toUpperCase() + card.color.slice(1).toLowerCase();
       let name =
-        game.i18n.localize(`SW25.Item.Alchemytech.${cardCap}`) +
+        game.i18n.localize(`SW25.Item.Alchemytech.${card.color.capitalize()}`) +
         event.target.textContent.trim();
 
       if (!resource) {

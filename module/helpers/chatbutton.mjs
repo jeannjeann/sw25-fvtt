@@ -1838,11 +1838,8 @@ export async function chatButton(chatMessage, buttonType) {
           if (skillbase >= 0) checkbase = `+ ${skillbase}`;
           if (skillbase < 0) checkbase = `${skillbase}`;
           if (flags.sw25.refAbility != "-") {
-            let i18ncat =
-              flags.sw25.refAbility.charAt(0).toUpperCase() +
-              flags.sw25.refAbility.slice(1);
             let abi =
-              " + " + game.i18n.localize(`SW25.Ability.${i18ncat}.abbr`);
+              " + " + game.i18n.localize(`SW25.Ability.${flags.sw25.refAbility.capitalize()}.abbr`);
             checkName = `${checkName}${abi}`;
           }
         } else if (flags.sw25.method == "check") {
