@@ -506,7 +506,6 @@ export class SW25ItemSheet extends ItemSheet {
       chatData = {
         speaker: ChatMessage.getSpeaker(),
         flavor: label,
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         rolls: [roll],
       };
     } else {

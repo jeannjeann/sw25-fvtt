@@ -1967,7 +1967,6 @@ export async function chatButton(chatMessage, buttonType) {
         speaker: speaker,
         flavor: label,
         rollMode: rollMode,
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         rolls: [roll],
       };
 
