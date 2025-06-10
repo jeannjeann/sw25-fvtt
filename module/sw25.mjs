@@ -6,7 +6,10 @@ import { SW25Combat } from "./documents/combat.mjs";
 // Import sheet classes.
 import { SW25ActorSheet } from "./sheets/actor-sheet.mjs";
 import { SW25ItemSheet } from "./sheets/item-sheet.mjs";
-import { SW25ActiveEffectConfig } from "./sheets/active-effect-config.mjs";
+import { SW25ActiveEffectConfigV1 } from "./sheets/active-effect-config-V1.mjs";
+import { SW25ActiveEffectConfigV2 } from "./sheets/active-effect-config-V2.mjs";
+let SW25ActiveEffectConfig;
+
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { SW25 } from "./helpers/config.mjs";
@@ -90,6 +93,15 @@ Hooks.once("init", function () {
 
   // Register Active effect sheet Class
   DocumentSheetConfig.unregisterSheet(ActiveEffect, "core", ActiveEffectConfig);
+
+  if (foundry.utils.isNewerVersion(game.version, "13")) {
+  // v13 or newer
+    SW25ActiveEffectConfig = SW25ActiveEffectConfigV2
+  } else {
+  // v12 or older
+    SW25ActiveEffectConfig = SW25ActiveEffectConfigV1
+  }
+
   DocumentSheetConfig.registerSheet(
     ActiveEffect,
     "sw25",
