@@ -3,10 +3,10 @@
     <div class='item-element' style="flex: 0 0 30px;">Lv</div>
     <div class='item-name'>{{localize "SW25.Item.Spell.Druid"}}</div>
     <div class='item-element' style="flex: 0 0 30px;">MP</div>
-    <div class='item-element' style="flex: 0 0 60px;">{{localize "SW25.Target"}}</div>
-    <div class='item-element' style="flex: 0 0 60px;">{{localize "SW25.Rangeshape"}}</div>
-    <div class='item-element' style="flex: 0 0 100px;">{{localize "SW25.Time"}}</div>
-    <div class='item-element' style="flex: 0 0 40px;">{{localize "SW25.Item.Resist"}}</div>
+    <div class='item-element {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 60px;">{{localize "SW25.Target"}}</div>
+    <div class='item-element {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 60px;">{{localize "SW25.Rangeshape"}}</div>
+    <div class='item-element {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 100px;">{{localize "SW25.Time"}}</div>
+    <div class='item-element {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 40px;">{{localize "SW25.Item.Resist"}}</div>
     <div class='item-element' style="flex: 0 0 80px;">{{localize "SW25.Item.Prop"}}</div>
   </li>
   {{#each druid as |item id|}}
@@ -33,16 +33,16 @@
         <div class='mpcost item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
           {{system.mpcost}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
+        <div class='item-quantity item-prop flexrow flex-group-center {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 60px;">
           {{system.target}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
+        <div class='item-quantity item-prop flexrow flex-group-center {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 60px;">
           {{system.rangeshape}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 100px;">
+        <div class='item-quantity item-prop flexrow flex-group-center {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 100px;">
           {{system.time}} 
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 40px;">
+        <div class='item-quantity item-prop flexrow flex-group-center {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 40px;">
           {{system.resistname}}
         </div>
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 80px;">

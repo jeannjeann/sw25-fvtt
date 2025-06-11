@@ -1,10 +1,10 @@
 <ol class='items-list'>
   <li class='item flexrow items-header'>
     <div class='item-name'>{{localize "TYPES.Item.essenceweave"}}</div>
-    <div class='item-element' style="flex: 0 0 60px;">{{localize "SW25.Target"}}</div>
-    <div class='item-element' style="flex: 0 0 60px;">{{localize "SW25.Rangeshape"}}</div>
-    <div class='item-element' style="flex: 0 0 100px;">{{localize "SW25.Time"}}</div>
-    <div class='item-element' style="flex: 0 0 40px;">{{localize "SW25.Item.Resist"}}</div>
+    <div class='item-element {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 60px;">{{localize "SW25.Target"}}</div>
+    <div class='item-element {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 60px;">{{localize "SW25.Rangeshape"}}</div>
+    <div class='item-element {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 100px;">{{localize "SW25.Time"}}</div>
+    <div class='item-element {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 40px;">{{localize "SW25.Item.Resist"}}</div>
     <div class='item-element' style="flex: 0 0 50px;">HP</div>
     <div class='item-controls'>
       <a
@@ -42,16 +42,16 @@
           <h4 class="item-label">{{item.name}}</h4>
         </div>
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
+        <div class='item-quantity item-prop flexrow flex-group-center {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 60px;">
           {{system.target}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
+        <div class='item-quantity item-prop flexrow flex-group-center {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 60px;">
           {{system.rangeshape}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 100px;">
+        <div class='item-quantity item-prop flexrow flex-group-center {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 100px;">
           {{system.time}} 
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 40px;">
+        <div class='item-quantity item-prop flexrow flex-group-center {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 40px;">
           {{system.resistname}}
         </div>
         <div class='hpcost item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 50px;" data-cost="{{item.system.hpcost}}" data-max="{{item.system.maxhpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">

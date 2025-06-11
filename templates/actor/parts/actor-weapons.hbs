@@ -3,7 +3,7 @@
     <div class='item-element' style="flex: 0 0 40px;">{{localize "SW25.Item.Equip"}}</div>
     <div class='item-name'>{{localize "TYPES.Item.weapon"}}</div>
     <div class='item-element' style="flex: 1 0 0;">{{localize "SW25.Item.Category"}}</div>
-    <div class='item-element' style="flex: 1 0 0;">{{localize "SW25.Item.Weapon.Usage"}}({{localize "SW25.Item.Weapon.Type"}})</div>
+    <div class='item-element' style="flex: 1 0 0;">{{localize "SW25.Item.Weapon.Usage"}}{{#if ../system.isSidebar}}({{localize "SW25.Item.Weapon.Type"}}){{/if}}</div>
     <div class='item-element' style="flex: 0 0 50px;">{{localize "SW25.Item.Reqstr"}}</div>
     <div class='item-quantity item-element' style="flex: 0 0 60px;">{{localize "SW25.Quantity"}}</div>
     <div class='item-controls'>

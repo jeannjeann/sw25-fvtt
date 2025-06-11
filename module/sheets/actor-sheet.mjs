@@ -19,13 +19,18 @@ export class SW25ActorSheet extends ActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["sw25", "sheet", "actor"],
-      width: 700,
-      height: 600,
+      width: 800,
+      height: 700,
       tabs: [
         {
           navSelector: ".sheet-tabs",
           contentSelector: ".sheet-body",
           initial: "abilityskill",
+        },
+        {
+          navSelector: ".sidebar-tabs",
+          contentSelector: ".sidebar-body",
+          initial: "status",
         },
       ],
     });
@@ -182,6 +187,10 @@ export class SW25ActorSheet extends ActorSheet {
       white: false,
       gold: false,
     };
+    let contentItem = {
+      vitRes: null,
+      mndRes: null
+    };
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -195,6 +204,11 @@ export class SW25ActorSheet extends ActorSheet {
         checks.push(i);
         if (i.system.showbtcheck === true) {
           battlechecks.push(i);
+        }
+        if (i.name === "生命抵抗力"){
+          contentItem.vitRes = i;
+        } else if (i.name === "精神抵抗力"){
+          contentItem.mndRes = i;
         }
       }
       // Append to resource.
@@ -586,6 +600,7 @@ export class SW25ActorSheet extends ActorSheet {
     context.tacspowershow = tacspowers.length > 0;
     context.magitechrshow = magitechrs.length > 0;
     context.abyssexshow = abyssexs.length > 0;
+    context.contentItem = contentItem;
   }
 
   /* -------------------------------------------- */
@@ -1364,9 +1379,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= actor.ownership.default) {
       isView = true;
     } else {
-      await actor.update({
-        "ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED,
-      });
+      await actor.update({"ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED});
     }
 
     let monsterName = isView
@@ -1431,9 +1444,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= actor.ownership.default) {
       isView = true;
     } else {
-      await actor.update({
-        "ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED,
-      });
+      await actor.update({"ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED});
     }
 
     let monsterName = isView
@@ -2547,5 +2558,40 @@ export class SW25ActorSheet extends ActorSheet {
       ui.notifications.warn(game.i18n.localize("SW25.NotResource"));
       return;
     }
+  }
+
+  async render(force = false, options = {}) {
+    let scrollPositions = this.getScrollPositions(this.element);
+
+    const rendered = await super.render(force, options);
+
+    setTimeout(() => {
+      if (this.element?.length) {
+        this.setScrollPositions(this.element, scrollPositions);
+      }
+    }, 10);
+
+    return rendered;
+  }
+
+    
+  getScrollPositions(html) {
+    const positions = {};
+    let tmpCnt = 0;
+    html.find('[data-scrollable="true"]').each((i, element) => {
+      const id = element.id || `scrollable-${i}`;
+      positions[id] = element.scrollTop;
+      tmpCnt += element.scrollTop;
+    });
+    return tmpCnt > 0 ? positions : null;
+  }
+
+  setScrollPositions(html, positions) {
+    html.find('[data-scrollable="true"]').each((i, element) => {
+      const id = element.id || `scrollable-${i}`;
+      if (positions[id] !== undefined) {
+        element.scrollTop = positions[id];
+      }
+    });
   }
 }

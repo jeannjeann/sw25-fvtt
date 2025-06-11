@@ -1473,6 +1473,62 @@ input.weakapply[type="checkbox"] {
   background-color: #9c979f;
 }
 
+.fairyearth {
+  color: #e9d1a0;
+  background-color: #000000;
+  padding: 0 0.3em;
+  border: 0px solid #000;
+  border-radius: 100%;
+  margin: 0 0.2em;
+}
+.fairyice {
+  color: #9bbdec;
+  background-color: #000000;
+  padding: 0 0.3em;
+  border: 0px solid #000;
+  border-radius: 100%;
+  margin: 0 0.2em;
+}
+.fairyfire {
+  color: #e8979f;
+  background-color: #000000;
+  padding: 0 0.3em;
+  border: 0px solid #000;
+  border-radius: 100%;
+  margin: 0 0.2em;
+}
+.fairywind {
+  color: #9be49f;
+  background-color: #000000;
+  padding: 0 0.3em;
+  border: 0px solid #000;
+  border-radius: 100%;
+  margin: 0 0.2em;
+}
+.fairylight {
+  color: #e7e3ea;
+  background-color: #000000;
+  padding: 0 0.3em;
+  border: 0px solid #000;
+  border-radius: 100%;
+  margin: 0 0.2em;
+}
+.fairydark {
+  color: #9c979f;
+  background-color: #000000;
+  padding: 0 0.3em;
+  border: 0px solid #000;
+  border-radius: 100%;
+  margin: 0 0.2em;
+}
+.specialfairy {
+  color: #ffff00;
+  background-color: #000000;
+  padding: 0 0.3em;
+  border: 0px solid #000;
+  border-radius: 100%;
+  margin: 0 0.2em;
+}
 .fairy-rank {
   font-size: 0.7em;
 }
@@ -1731,11 +1787,12 @@ input.weakapply[type="checkbox"] {
   display: inline-block;
   border: 1px solid #aaa;
   border-radius: 4px;
-  padding: 4px 8px;
+  padding: 4px 0px;
   text-align: center;
   background: #f9f9f9;
   font-size: 0.8rem;
   line-height: 1.4;
+  color: #000;
 }
 
 .sw25 .common-display .common-label {
@@ -1813,3 +1870,406 @@ input.weakapply[type="checkbox"] {
 .sw25 .item .usephasearea {
   color:#2faf2f;
 }
+
+/* 栞タブスイッチャー */
+.sw25-character-sheet .sw25-tab-switcher {
+  position: absolute;
+  margin-left: 5px;
+  top: 230px;
+  right: -2.5em;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  background: transparent;
+}
+
+.sw25-character-sheet .sheet-tabs > .sw25-tab-label {
+  background: #bbb;
+  padding: 0.5em;
+  border-radius: 4px 0 0 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+  margin-bottom: 5px;
+  margin-left: 5px;
+  border: 1px solid #000;
+  border-radius: 0 4 4 0;
+}
+
+.sw25-character-sheet .sheet-tabs > .sw25-tab-label.active {
+  background: #fbb;
+  padding: 0.5em;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+.sw25 .tooltip-tabs {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block;
+  padding: 5px;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  line-height: 1.3;
+  background: #000;
+  color: #fff;
+  border-radius: 3px;
+  transition: opacity 0.3s ease-in, visibility 0s linear 0s;
+  z-index: 2000;
+  margin-left: 6px;
+}
+
+.sw25 .tooltip:hover .tooltip-tabs {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* メイン */
+.sw25-character-sheet .sw25cs__body__main {
+  flex: 1;
+  padding: 0 0 0 0;
+  margin: 0 0.5em 0 1em;
+}
+
+/* ラッパーでサイドバーとボタンを囲む */
+.sw25cs__body__sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  transition: width 0.3s ease;
+  min-height: 0; /* ← これが超重要 */
+  height:  100%; /* または100vhなど固定高さ */
+}
+
+/* サイドバー本体 */
+.sw25cs__body__sidebar__contents {
+  width: 250px;
+  background: #eee;
+  padding: 0;
+  box-sizing: border-box;
+  transition: width 0s ease, padding 0s ease;
+  height:  100%; /* または100vhなど固定高さ */
+}
+
+/* トグルボタン本体 */
+.sw25-sidebar-toggle {
+  position: absolute;
+  top: 0.5em;
+  right: -1.8em;
+  background: #888;
+  color: white;
+  padding: 0.3em 0.6em;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.5em;
+  text-align: center;
+  height: 50px;
+  line-height: 40px;
+}
+
+/* 疑似要素でアイコンを表示 */
+.sw25-sidebar-toggle::before {
+  content: "◀"; /* 初期表示（開いてるとき） */
+}
+
+/* 閉じた状態のときだけ ▶ に変える */
+#sw25-toggle-sidebar:checked ~ .sw25-sidebar-toggle::before {
+  content: "▶";
+  color:#4bd865;
+}
+
+/* 閉じたとき（チェック時） */
+#sw25-toggle-sidebar:checked ~ .sw25cs__body__sidebar__contents {
+  width: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#sw25-toggle-sidebar:checked ~ .sw25cs__body__sidebar {
+  width: 0;
+  min-width: 0;
+}
+
+
+.sw25-character-sheet {
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+}
+
+.sw25-character-sheet .sw25cs__header {
+  flex: 0 0 200px;
+  background: #333;
+  color: white;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  position: relative; /* 基準位置を親に */
+}
+
+.sw25-character-sheet .sw25cs__body {
+  flex: 1;
+  display: flex;
+  height: calc(100% - 200px);
+}
+
+
+.sw25cs__body__main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto; /* 残り全部 */
+  min-height: 0; /* ← これが超重要 */
+}
+
+.sheet-body {
+  flex: 1 1 auto;   /* 余白なく伸びる */
+  overflow-y: auto; /* 縦スクロール */
+  box-sizing: border-box; /* パディング込みでサイズ計算 */
+  min-height: 0; /* ← これが超重要 */
+  height:  100px; /* または100vhなど固定高さ */
+}
+
+body, .sw25cs__body__sidebar,.sw25cs__body__sidebar__contents,.tab {
+  height: 100%;
+}
+.sw25-character-sheet, .sw25-monster-sheet{
+  height: 100%;
+}
+.togglearea{
+  position: absolute;
+  top: 0;
+  right: 0px;
+  padding: 5px 10px;
+  color: white;
+  z-index: 1000; /* 高めに設定 */
+}
+
+.sw25 .togglearea__btn {
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 12px;
+  background-color: #bbb;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sw25 .togglearea__btn input {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.sw25 .togglearea__btn--slider {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  color: #888;
+  transition: left 0.3s, color 0.3s;
+}
+
+.sw25 .togglearea__btn input:checked + .togglearea__btn--slider {
+  left: calc(100% - 11px);
+  color: tomato;
+}
+
+.sw25 .togglearea__btn:has(:checked) {
+  background-color: #4bd865;
+}
+
+.sw25 .togglearea__btn input:checked {
+  opacity: 0;
+}
+
+.sw25 .sidebar-body {
+  padding: 5px;
+  flex: 1;
+  overflow-y: auto;
+  margin-top: auto;
+  z-index: 1001;
+  background-color: var(--background-color, #dad8cc);
+  border-bottom: 1px solid #444;
+  height: 100%;
+}
+
+.sw25 .sidebar-body input:hover,
+.sw25 .sidebar-body select:hover,
+.sw25 .sidebar-body textarea:hover {
+  box-shadow: 0 0 5px var(--color-shadow-primary);
+}
+
+.sw25 .sidebar-body,
+.sw25 .sidebar-body .tab {
+  height: auto;
+}
+.sw25 .sidebar-body .tab .editor {
+  height: 100%;
+  min-height: 100px;
+}
+
+.adventure{
+  overflow-y: auto;
+}
+
+.sw25 .sidebar-body {
+  height: calc(100% - 20px);
+  /* display: flex; */
+  flex-direction: column;
+}
+
+.sw25 .sidebar-body .tab {
+  flex: 1 1 auto;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.window-app .window-resizable-handle {
+  z-index: 1500;
+}
+
+/* サイズ変更のアイコンをかえるには
+.window-resizable-handle i {
+  display: inline-block;
+}
+
+.window-resizable-handle i::before {
+  content: "<i class='fa-solid fa-house'></i>";
+  font-weight: 900;
+  font-size: 14px;
+  color: #FF0000;
+} */
+
+.sidebar-hidden{
+  display:none;
+}
+
+/* TODO:暫定…後で直す必要がある */
+
+/* キャラクターシートHP/MP関連 */
+.sw25 .sw25cs__header .adventurer-details {
+  align-self: flex-start;
+  flex: 0 0 150px;
+  height: auto;
+  width: 150px;
+  margin-right: var(--spacing-sm);
+}
+
+.sw25 .sw25cs__header .adventurer-details .profile-img {
+  height: 100%;
+  max-height: 120px;
+  width: 100%;
+  max-width: 120px;
+  border-radius: 5%;
+  margin: 0;
+  object-fit: contain; 
+}
+
+.sw25 .sw25cs__header .header-resources {
+  margin: 0 var(--spacing-xs);
+  position: relative;
+  margin-top: -12%;
+}
+.sw25 .sw25cs__header .header-fields .resources.grid {
+  grid-template-columns: 24px 1fr auto;
+  gap: 0 var(--spacing-xs);
+  margin: 0;
+}
+.sw25 .sw25cs__header .header-resources label {
+  height: var(--form-field-height);
+  line-height: var(--form-field-height);
+  vertical-align: middle;
+}
+.sw25 .sw25cs__header .header-resources .current-max-resource {
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+.sw25 .sw25cs__header .header-resources input {
+  border: 0;
+  background: none;
+}
+.sw25 .sw25cs__header input:hover,
+.sw25 .sw25cs__header select:hover {
+  box-shadow: 0 0 5px var(--color-shadow-primary);
+}
+.sw25 .sw25cs__header .header-resources .current-max-resource input {
+  color: white;
+}
+
+.sw25 .sw25cs__header .header-resources .current-max-resource span {
+  vertical-align: middle;
+}
+
+.sw25 .sw25cs__header .header-resources input {
+  text-align: center;
+  vertical-align: middle;
+}
+.sw25 .sw25cs__header .header-resources .resources input[type="number"] {
+  width: 2rem;
+  text-align: right;
+}
+.sw25 .sw25cs__header .header-resources .character-resources {
+  position: absolute;
+  bottom: var(--spacing-xs);
+}
+
+.sw25 .sw25cs__header .header-resources .character-resources .character-al .adventurer-level {
+  display: block;
+}
+
+/* キャラクターシート高さ関連 */
+.window-content {
+  height: calc(100% - 30px); /* header差分 */
+}
+
+.sw25-character-sheet {
+  height: 100%; /* window-content に準拠 */
+  display: flex;
+  flex-direction: column;
+}
+
+.sw25cs__header {
+  height: 200px;
+  flex: 0 0 auto;
+}
+
+.sw25cs__body {
+  flex: 1 1 auto; /* 残り全部 */
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  overflow: hidden; /* 内側だけスクロール */
+}
+
+
+.sidebar-body {
+  height: calc(100% - 20px);
+  overflow-y: auto;
+}
+
+.sw25cs__body__main {
+  height: 100%;
+  overflow-y: auto;
+}
+/* TODO終わり */

@@ -1,6 +1,21 @@
+<div class="grid grid-3col nogapmargin">
+  <div class="grid-span-3 flex-group-right" style="display: flex; align-items: flex-end;">
+    {{localize "SW25.Attributes.Exp"}} [ {{localize "SW25.Attributes.Useexp"}}: {{#if (gt system.attributes.useexp system.attributes.totalexp)}}<span class="warning-text">{{/if}}{{system.attributes.useexp}}{{#if (gt system.attributes.useexp system.attributes.totalexp)}}</span>{{/if}}<span> / {{localize "SW25.Attributes.Totalexp"}}: 
+      {{#if system.isEdit}}
+      {{!-- <div class="character-experience"> --}}
+      <input id="{{actor._id}}exp" style="width:100px;" type="number" name="system.attributes.totalexp" value="{{system.attributes.totalexp}}" data-dtype="Number"/>
+      {{!-- </div> --}}
+      {{else}}
+      {{system.attributes.totalexp}}
+      {{/if}} ]
+      </span>
+  </div>
+</div>
+
 <ol class='items-list'>
   <li class='item flexrow items-header'>
     <div class='item-name'  style="flex: 3;">{{localize "SW25.Skillname"}}</div>
+    <div class='item-checklabel item-element' style="flex-basis:60px;">Lv</div>
     <div class='item-checklabel item-element'>{{localize "SW25.Ability.Dex.abbr"}}</div>
     <div class='item-checklabel item-element'>{{localize "SW25.Ability.Agi.abbr"}}</div>
     <div class='item-checklabel item-element'>{{localize "SW25.Ability.Str.abbr"}}</div>
@@ -8,9 +23,22 @@
     <div class='item-checklabel item-element'>{{localize "SW25.Ability.Int.abbr"}}</div>
     <div class='item-checklabel item-element'>{{localize "SW25.Ability.Mnd.abbr"}}</div>
     <div class='item-scmod'>{{localize "SW25.Modifier"}}</div>
+    {{#if system.isEdit}}
+    <div class='item-controls'>
+      <a
+        class='item-control item-create'
+        title='{{localize "DOCUMENT.Create" type=(localize "TYPES.Item.skill")}}'
+        data-type='skill'
+      >
+        <i class='fas fa-plus'></i>
+        {{localize 'DOCUMENT.New' type=''}}
+      </a>
+    </div>
+    {{/if}}
   </li>
   <li class='item flexrow'>
     <div class='item-name item-label'  style="flex: 3;"><h4>{{localize "SW25.Attributes.Advlevel"}}</h4></div>
+    <span class='item-checklabel align-center resource-label item-element' style="flex-basis: 60px;">{{system.attributes.advlevel.value}}</span>
     <span class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.dex.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Dex.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">{{system.abilities.dex.advbase}}</span>
     <span class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.agi.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Agi.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">{{system.abilities.agi.advbase}}</span>
     <span class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.str.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Str.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">{{system.abilities.str.advbase}}</span>
@@ -40,6 +68,19 @@
   {{#each skills as |item id|}}
     <li class='item flexrow' data-item-id='{{item._id}}'>
       <div class='item-name item-label' style="flex: 3;"><h4>{{item.name}}</h4></div>
+      <span class='item-checklevel align-center resource-label item-element' style="flex-basis:60px;{{#if ../system.isEdit}} font-size:0.8em{{/if}}">
+        {{#if ../system.isEdit}}
+          <a class="changesl-button" data-action="decrease" data-property="item.system.skilllevel">
+            <i class="fas fa-minus"></i>
+          </a>
+        <input class="sl-change" style="width: 3em;" type="text" name="skilllevelInput" value="{{item.system.skilllevel}}" data-dtype="Number"/>
+          <a class="changesl-button" data-action="increase" data-property="item.system.skilllevel">
+            <i class="fas fa-plus"></i>
+          </a>
+        {{else}}
+        {{item.system.skilllevel}}
+        {{/if}}
+      </span>
       <span class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+{{item.system.skillbase.dex}}" data-label="{{item.name}}+{{localize "SW25.Ability.Dex.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">
         {{item.system.skillbase.dex}}
       </span>
@@ -59,6 +100,23 @@
         {{item.system.skillbase.mnd}}
       </span>
       <div class='item-scmod item-prop input'><input class="sc-change" type="text" name="skillModInput" value="{{item.system.skillmod}}" data-dtype="Number"/></div>
+        {{#if ../system.isEdit}}
+          <div class='item-controls'>
+            <a
+              class='item-control item-edit'
+              title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.skill")}}'
+            >
+              <i class='fas fa-edit'></i>
+            </a>
+            <a
+              class='item-control item-delete'
+              title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.skill")}}'
+            >
+              <i class='fas fa-trash'></i>
+            </a>
+          </div>
+        {{/if}}
+
       <div class="item-description">
         <div class="flexrow">
           <div style="flex: 0 0 20px;"></div>

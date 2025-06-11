@@ -1,8 +1,7 @@
 <ol class='items-list'>
   <li class='item flexrow items-header'>
     <div class='item-name'>{{localize "SW25.Resource"}}</div>
-    <div class='item-quantity item-element' style="flex: 0 0 70px;">{{localize "SW25.eMin"}} - {{localize "SW25.eMax"}}</div>
-    <div class='item-quantity item-element' style="flex: 0 0 80px;">{{localize "SW25.Quantity"}}</div>
+    <div class='item-quantity item-element'>{{localize "SW25.Quantity"}}</div>
     <div class='item-controls'>
       <a
         class='item-control item-create'
@@ -18,10 +17,7 @@
     <li class='item' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
         <div class='item-name' style="flex: 3;"><h4 class="item-label">{{item.name}}</h4></div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 70px;">
-          {{item.system.qmin}} - {{item.system.qmax}}
-        </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 80px;">
+        <div class='item-quantity item-prop flexrow flex-group-center' style="flex-shrink:0; flex-basis: 40px;">
           <a class="quantity-button" data-action="decrease" data-property="item.system.quantity">
             <i class="fas fa-minus"></i>
           </a>
@@ -31,20 +27,22 @@
           </a>
         </div>
         {{#if ../isOwner}}
-          <div class='item-controls'>
-            <a
-              class='item-control item-edit'
-              title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.resource")}}'
-            >
-              <i class='fas fa-edit'></i>
-            </a>
-            <a
-              class='item-control item-delete'
-              title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.resource")}}'
-            >
-              <i class='fas fa-trash'></i>
-            </a>
-          </div>
+          {{#if ../system.isEdit}}
+            <div class='item-controls'>
+              <a
+                class='item-control item-edit'
+                title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.resource")}}'
+              >
+                <i class='fas fa-edit'></i>
+              </a>
+              <a
+                class='item-control item-delete'
+                title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.resource")}}'
+              >
+                <i class='fas fa-trash'></i>
+              </a>
+            </div>
+          {{/if}}
         {{else}}
           <div class='item-controls'>
             <a
@@ -56,30 +54,6 @@
           </div>
         {{/if}}
       </div>
-{{!--
-      <div class="item-description nogapmargin">
-        <div class="flexrow">
-          <div style="flex: 0 0 60px;"></div>
-          <div style="font-size: 0.8em;">
-            {{{system.description}}}
-          </div>
-          <div class='item-controls' style="flex: 0 0 50px;">
-            <a
-              class='item-control item-edit'
-              title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.resource")}}'
-            >
-              <i class='fas fa-edit'></i>
-            </a>
-            <a
-              class='item-control item-delete'
-              title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.resource")}}'
-            >
-              <i class='fas fa-trash'></i>
-            </a>
-          </div>
-        </div>
-      </div>
---}}
       <div class="item-description nogapmargin">
         <div class="flexrow">
           <div style="flex: 0 0 60px;"></div>

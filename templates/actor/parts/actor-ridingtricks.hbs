@@ -2,7 +2,7 @@
   <li class='item flexrow items-header'>
     <div class='item-name'>{{localize "TYPES.Item.ridingtrick"}}</div>
     <div class='item-element' style="flex: 0 0 120px;">{{localize "SW25.Item.Ridingtrick.Support"}}</div>
-    <div class='item-element' style="flex: 0 0 110px;">{{localize "SW25.Item.Part"}}</div>
+    <div class='item-element {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 110px;">{{localize "SW25.Item.Part"}}</div>
     <div class='item-controls'>
       <a
         class='item-control item-create'
@@ -42,7 +42,7 @@
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 120px;">
           {{system.support}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 110px;">
+        <div class='item-quantity item-prop flexrow flex-group-center {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 110px;">
           {{system.rtpart}}
         </div>
         {{#if ../isOwner}}

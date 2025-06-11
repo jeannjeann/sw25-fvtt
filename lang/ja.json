@@ -14,7 +14,10 @@
     "Abilityskill": "能力値・技能",
     "Skillname": "技能",
     "Check": "判定",
+    "Equip": "装備",
     "Battle": "戦闘",
+    "Adventure": "冒険",
+    "Status": "ステータス",
     "Items": "所持品",
     "Mymoney" :"所持金",
     "Features": "特技等",
@@ -170,7 +173,7 @@
       "Part": "部位数",
       "Corepart": "コア部位",
       "Ability": "魔物能力",
-      "Observer": "データを公開",
+      "Observer": "データ公開",
       "Loot": "戦利品",
       "Usespell": "魔法・特技使用",
       "Unidentifiedmon": "不明の魔物"
@@ -650,7 +653,7 @@
       "MKnow": "魔物知識",
       "AllCk": "全判定アイテム",
       "AllSk": "全技能判定",
-      "MonRes": "抵抗判定",
+      "MonRes": "01.抵抗判定",
       "MonResVit": "生命",
       "MonResMnd": "精神",
       "MonWp": "武器など",
@@ -811,5 +814,8 @@
     "rollMethod": "複数ターゲットへのロール方法を選択",
     "once": "一括",
     "individual": "個別"
+  },
+  "DOCUMENT": {
+    "View": "{type}閲覧"
   }
 }

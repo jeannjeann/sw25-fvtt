@@ -34,25 +34,18 @@
         <div class='item-checkmod item-prop input'><input class="cm-change" type="text" name="checkmodInput" value="{{item.system.checkmod}}" data-dtype="Number"/></div>
         {{#if ../isOwner}}
           <div class='item-controls'>
-            <a
-              class='item-control item-edit'
-              title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.check")}}'
-            >
+            <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.check")}}'>
               <i class='fas fa-edit'></i>
             </a>
-            <a
-              class='item-control item-delete'
-              title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.check")}}'
-            >
+            {{#if ../system.isEdit}}
+            <a class='item-control item-delete' title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.check")}}'>
               <i class='fas fa-trash'></i>
             </a>
+            {{/if}}
           </div>
         {{else}}
           <div class='item-controls'>
-            <a
-              class='item-control item-edit'
-              title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.check")}}'
-            >
+            <a class='item-control item-edit' title='{{localize "DOCUMENT.View" type=(localize "TYPES.Item.check")}}'>
               <i class='fa-solid fa-eye'></i>
             </a>
           </div>
