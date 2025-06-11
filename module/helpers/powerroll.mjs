@@ -67,7 +67,7 @@ export async function powerRoll(formula, powertable) {
   if (total > 12) total = 12;
 
   let ptv = powertable[total];
-  if (powertable[total] == null || powertable[total] == 0) {
+  if (powertable[total] == null) {
     ptv = rpt[power][total - 3];
   }
 
