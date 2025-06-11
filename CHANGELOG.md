@@ -2,7 +2,7 @@
 
 ## 2.1.0
 - v13一部対応  by [Ryotai](https://github.com/ryotai-trpg)  from [#38](https://github.com/jeannjeann/sw25-fvtt/pull/38)
-- bugfix
+- bug fix
 
 ## 2.0.0  Rquire Foundry VTT ver.12 or newer
 - v12互換性向上  by [Ryotai](https://github.com/ryotai-trpg)  from [#35](https://github.com/jeannjeann/sw25-fvtt/pull/35)

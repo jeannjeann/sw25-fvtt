@@ -49,6 +49,7 @@ FVTT用ソード・ワールド2.5ゲームシステム
 - FVTT:バージョン12.343
 
 ## 注意事項
+- FoundryVTTのv11対応は、v1.4.1で終了しています。
 - バグを見つけたら報告していただけると助かります。
 - Modとの相性などはほとんど検証していません。「Dice So Nice!」「Times Up」「Chat Commander」「Token Action HUD」「Polyglot」は簡単に検証済み。
 - バフ・デバフの持続時間の管理には「Times Up」Modの使用をオススメします。
