@@ -53,8 +53,10 @@ export async function lootRoll(actor) {
   );
 
   chatData.flags = {
-    actorId: actorId,
-    loot: lootitems,
+    sw25: {
+      actorId: actorId,
+      loot: lootitems,
+    }
   };
 
   ChatMessage.create(chatData);

@@ -17,8 +17,7 @@ export async function growthCheck(actor) {
   const abilities = ["dex", "agi", "str", "vit", "int", "mnd"];
 
   let growth1Label = abilities[roll1 - 1];
-  let growth1LabelUc =
-    growth1Label.charAt(0).toUpperCase() + growth1Label.slice(1).toLowerCase();
+  let growth1LabelUc = growth1Label.capitalize();
   let growth1 = target.system.abilities[`${growth1Label}`];
   let growth1Name = game.i18n.localize(`SW25.Ability.${growth1LabelUc}.long`);
   let growth1Abbr = game.i18n.localize(`SW25.Ability.${growth1LabelUc}.abbr`);
@@ -29,8 +28,7 @@ export async function growthCheck(actor) {
   if (growth1.mod < growth1aftermod) upcss1 = `color: #0f6f0f;`;
 
   let growth2Label = abilities[roll2 - 1];
-  let growth2LabelUc =
-    growth2Label.charAt(0).toUpperCase() + growth2Label.slice(1).toLowerCase();
+  let growth2LabelUc = growth2Label.capitalize();
   let growth2 = target.system.abilities[`${growth2Label}`];
   let growth2Name = game.i18n.localize(`SW25.Ability.${growth2LabelUc}.long`);
   let growth2Abbr = game.i18n.localize(`SW25.Ability.${growth2LabelUc}.abbr`);
@@ -71,7 +69,9 @@ export async function growthCheck(actor) {
     rollMode: rollMode,
     rolls: [roll],
     flags: {
-      actor: `${actor._id}`,
+      sw25: {
+        actor: `${actor._id}`,
+      },
     },
   };
 
@@ -82,12 +82,11 @@ export async function growthCheck(actor) {
       event.preventDefault();
 
       const beforeValueGrowth = parseInt(event.currentTarget.dataset.value);
-      const target = game.actors.get(message.flags.actor);
+      const target = game.actors.get(message.flags.sw25.actor);
       const growth = event.currentTarget.dataset.ability;
       const currentValueGrowth = target.system.abilities[growth].valuegrowth;
       const afterValueGrowth = currentValueGrowth + 1;
-      let ability =
-        growth.charAt(0).toUpperCase() + growth.slice(1).toLowerCase();
+      let ability = growth.capitalize();
       let abilityName = game.i18n.localize(`SW25.Ability.${ability}.long`);
       let abilityDie = game.i18n.localize(`SW25.Ability.${ability}.die`);
 

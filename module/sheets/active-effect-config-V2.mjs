@@ -2,28 +2,46 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActiveEffectConfig}
  */
-export class SW25ActiveEffectConfig extends ActiveEffectConfig {
+export class SW25ActiveEffectConfigV2 extends ActiveEffectConfig {
   /** @override */
-  static get defaultOptions() {
-    //return mergeObject(super.defaultOptions, {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["sw25", "sheet", "active-effect-sheet"],
-      template: "systems/sw25/templates/effect/active-effect-config.hbs",
-    });
-  }
+  // static DEFAULT_OPTIONS = {
+  //   classes: ["sw25", "sheet", "active-effect-sheet"],
+  // };
+
+  static PARTS = {
+    header: {template: "templates/sheets/active-effect/header.hbs"},
+    tabs: {template: "templates/generic/tab-navigation.hbs"},
+    details: {template: "templates/sheets/active-effect/details.hbs", scrollable: [""]},
+    duration: {template: "templates/sheets/active-effect/duration.hbs"},
+    changes: {template: "systems/sw25/templates/effect/changes.hbs", scrollable: ["ol[data-changes]"]},
+    footer: {template: "templates/generic/form-footer.hbs"}
+  };
 
   /* -------------------------------------------- */
 
   /** @override */
-  async getData() {
+  async _prepareContext() {
     // Retrieve base data structure.
-    const context = await super.getData();
+    const context = await super._prepareContext();
 
-    context.effectOptions = CONFIG.SW25.Effect;
+    const systemPrefixedEffects = {};
+    for (const [category, entries] of Object.entries(CONFIG.SW25.Effect)) {
+      if (category === "keyClassifications") {
+        systemPrefixedEffects[category] = entries;
+        continue;
+      }
+
+      systemPrefixedEffects[category] = Object.fromEntries(
+        Object.entries(entries).map(([key, value]) => [`system.${key}`, value])
+      );
+    }
+
+    context.effectOptions = systemPrefixedEffects;
 
     // Use a safe clone of the actor data for further operations.
-    const effectData = context.data;
+    // const effectData = context.source;
 
+    /*
     // Set  keyClassification and kename of exsisting keys
     for (let i = 0; i < effectData.changes.length; i++) {
       let change = effectData.changes[i];
@@ -52,11 +70,14 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
         change.keyClassification = "input";
       }
     }
+    */
     return context;
   }
   /** @override */
-  activateListeners(html) {
-    super.activateListeners(html);
+  /*
+  _onRender(contest, options) {
+    super._onRender(contest, options);
+    const html = $(this.element);
 
     html
       .find(".select-keyClassification")
@@ -101,4 +122,5 @@ export class SW25ActiveEffectConfig extends ActiveEffectConfig {
     if (effectData.sheet.rendered)
       await effectData.sheet.render(true, { focus: false });
   }
+  */
 }

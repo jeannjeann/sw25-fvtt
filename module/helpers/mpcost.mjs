@@ -61,12 +61,14 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
     );
 
     chatData.flags = {
-      tokenId: targetTokenId,
-      cost: cost,
-      name: name,
-      type: type,
-      meta: 1,
-      base: baseMP,
+      sw25: {
+        tokenId: targetTokenId,
+        cost: cost,
+        name: name,
+        type: type,
+        meta: 1,
+        base: baseMP,
+      }
     };
 
     ChatMessage.create(chatData);
@@ -80,8 +82,10 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
     let chatData = {
       flavor: label,
       flags: {
-        meta: meta,
-        type: type,
+        sw25: {
+          meta: meta,
+          type: type,
+        }
       },
     };
     chatData.content = await renderTemplate(
@@ -189,11 +193,13 @@ export async function hpCost(token, cost, max, name, type) {
   );
 
   chatData.flags = {
-    tokenId: targetTokenId,
-    cost: resultValue,
-    name: name,
-    type: type,
-    base: baseHP,
+    sw25: {
+      tokenId: targetTokenId,
+      cost: resultValue,
+      name: name,
+      type: type,
+      base: baseHP,
+    }
   };
 
   ChatMessage.create(chatData);
