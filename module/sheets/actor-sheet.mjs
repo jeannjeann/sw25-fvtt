@@ -809,7 +809,9 @@ export class SW25ActorSheet extends ActorSheet {
           flavor: `${label} - <b>${game.i18n.localize("SW25.Applyall")}</b>`,
         };
         chatData.flags = {
-          targetMessage: chatMessageId,
+          sw25: {
+            targetMessage: chatMessageId,
+          }
         };
         chatData.content = await renderTemplate(
           "systems/sw25/templates/roll/roll-applyall.hbs",
@@ -919,17 +921,19 @@ export class SW25ActorSheet extends ActorSheet {
       }
 
       chatData.flags = {
-        total: roll.total,
-        orgtotal: roll.total,
-        formula: roll.formula,
-        rolls: roll,
-        tooltip: await roll.getTooltip(),
-        apply: chatapply,
-        spell: chatspell,
-        checktype: checktype,
-        target,
-        targetName: targetName,
-        resist: resistData,
+        sw25: {
+          total: roll.total,
+          orgtotal: roll.total,
+          formula: roll.formula,
+          rolls: roll,
+          tooltip: await roll.getTooltip(),
+          apply: chatapply,
+          spell: chatspell,
+          checktype: checktype,
+          target,
+          targetName: targetName,
+          resist: resistData,
+        }
       };
 
       chatData.content = await renderTemplate(
@@ -995,7 +999,9 @@ export class SW25ActorSheet extends ActorSheet {
           flavor: `${label} - <b>${game.i18n.localize("SW25.Applyall")}</b>`,
         };
         chatData.flags = {
-          targetMessage: chatMessageId,
+          sw25: {
+            targetMessage: chatMessageId,
+          }
         };
         chatData.content = await renderTemplate(
           "systems/sw25/templates/roll/roll-applyall.hbs",
@@ -1108,30 +1114,32 @@ export class SW25ActorSheet extends ActorSheet {
     }
 
     chatData.flags = {
-      formula: chatFormula,
-      tooltip: await roll.fakeResult.getTooltip(),
-      power: chatPower,
-      lethalTech: chatLethalTech,
-      criticalRay: chatCriticalRay,
-      pharmTool: chatPharmTool,
-      powup: chatPowup,
-      result: chatResult,
-      mod: chatMod,
-      modTotal: chatModTotal,
-      half: chatHalf,
-      results: chatResults,
-      total: chatTotal,
-      extraRoll: chatExtraRoll,
-      fumble: chatFumble,
-      orghalf: roll.halfPowMod,
-      orgtotal: chatTotal,
-      orgextraRoll: chatExtraRoll,
-      showhalf: showhalf,
-      shownoc: shownoc,
-      apply: chatapply,
-      powertype: powertype,
-      target,
-      targetName: targetName,
+      sw25: {
+        formula: chatFormula,
+        tooltip: await roll.fakeResult.getTooltip(),
+        power: chatPower,
+        lethalTech: chatLethalTech,
+        criticalRay: chatCriticalRay,
+        pharmTool: chatPharmTool,
+        powup: chatPowup,
+        result: chatResult,
+        mod: chatMod,
+        modTotal: chatModTotal,
+        half: chatHalf,
+        results: chatResults,
+        total: chatTotal,
+        extraRoll: chatExtraRoll,
+        fumble: chatFumble,
+        orghalf: roll.halfPowMod,
+        orgtotal: chatTotal,
+        orgextraRoll: chatExtraRoll,
+        showhalf: showhalf,
+        shownoc: shownoc,
+        apply: chatapply,
+        powertype: powertype,
+        target,
+        targetName: targetName,
+      }
     };
 
     chatData.content = await renderTemplate(
@@ -1184,7 +1192,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (!item.system.selfbuff && targetedToken.size === 0) {
       const title = `${item.name} (${game.i18n.localize("SW25.Effectslong")})`;
       const selectedTokens = await targetSelectDialog(title);
-      game.user.updateTokenTargets(selectedTokens.map((token) => token.id));
+      selectedTokens.forEach(token => game.user.targets.add(token))
       if (!selectedTokens) {
         return;
       }
@@ -1231,8 +1239,12 @@ export class SW25ActorSheet extends ActorSheet {
           const transferEffect = duplicate(effect);
           transferEffect.disabled = false;
           transferEffect.sourceName = orgActor;
-          transferEffect.flags.sourceName = orgActor;
-          transferEffect.flags.sourceId = `Actor.${orgId}`;
+          transferEffect.flags = {
+            sw25: {
+              sourceName: orgActor,
+              sourceId: `Actor.${orgId}`
+            }
+          };
           targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
         });
       });
@@ -1406,12 +1418,14 @@ export class SW25ActorSheet extends ActorSheet {
       flavor: checkName,
     };
     chatData.flags = {
-      checkName: checkName,
-      inputName: inputName,
-      refAbility: refAbility,
-      modifier: modifier,
-      targetValue: targetValue,
-      method: method,
+      sw25: {
+        checkName: checkName,
+        inputName: inputName,
+        refAbility: refAbility,
+        modifier: modifier,
+        targetValue: targetValue,
+        method: method,
+      }
     };
     chatData.content = await renderTemplate(
       "systems/sw25/templates/roll/rollreq-card.hbs",
@@ -1465,12 +1479,14 @@ export class SW25ActorSheet extends ActorSheet {
       flavor: checkName,
     };
     chatData.flags = {
-      checkName: checkName,
-      inputName: inputName,
-      refAbility: refAbility,
-      modifier: modifier,
-      targetValue: targetValue,
-      method: method,
+      sw25: {
+        checkName: checkName,
+        inputName: inputName,
+        refAbility: refAbility,
+        modifier: modifier,
+        targetValue: targetValue,
+        method: method,
+      }
     };
     chatData.content = await renderTemplate(
       "systems/sw25/templates/roll/rollreq-card.hbs",
@@ -2021,8 +2037,12 @@ export class SW25ActorSheet extends ActorSheet {
                   const transferEffect = duplicate(effect);
                   transferEffect.disabled = false;
                   transferEffect.sourceName = orgActor;
-                  transferEffect.flags.sourceName = orgActor;
-                  transferEffect.flags.sourceId = `Actor.${orgId}`;
+                  transferEffect.flags = {
+                    sw25: {
+                      sourceName: orgActor,
+                      sourceId: `Actor.${orgId}`
+                    }
+                  };
                   targetActor.actor.createEmbeddedDocuments("ActiveEffect", [
                     transferEffect,
                   ]);
@@ -2126,8 +2146,10 @@ export class SW25ActorSheet extends ActorSheet {
         transfer: false,
         statuses: [],
         flags: {
-          sourceName: orgActor,
-          sourceId: `Actor.${orgId}`,
+          sw25: {
+            sourceName: orgActor,
+            sourceId: `Actor.${orgId}`,
+          }
         },
         tint: null,
       },
@@ -2278,10 +2300,8 @@ export class SW25ActorSheet extends ActorSheet {
           i.system?.resource?.materialrank === useRank
       );
 
-      let cardCap =
-        card.color.charAt(0).toUpperCase() + card.color.slice(1).toLowerCase();
       let name =
-        game.i18n.localize(`SW25.Item.Alchemytech.${cardCap}`) +
+        game.i18n.localize(`SW25.Item.Alchemytech.${card.color.capitalize()}`) +
         event.target.textContent.trim();
 
       if (!resource) {

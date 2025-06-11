@@ -2,6 +2,7 @@
 
 ![Foundry v11](https://img.shields.io/badge/foundry-v11-green)
 ![Foundry v12](https://img.shields.io/badge/foundry-v12-green)
+![Foundry v13](https://img.shields.io/badge/foundry-v13-green)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X415YUSP)
 [![OFUSE](https://img.shields.io/badge/OFUSE-9cf.svg?style=for-the-badge)](https://ofuse.me/o?uid=81619)
@@ -48,6 +49,7 @@ FVTT用ソード・ワールド2.5ゲームシステム
 - FVTT:バージョン12.343
 
 ## 注意事項
+- FoundryVTTのv11対応は、v1.4.1で終了しています。
 - バグを見つけたら報告していただけると助かります。
 - Modとの相性などはほとんど検証していません。「Dice So Nice!」「Times Up」「Chat Commander」「Token Action HUD」「Polyglot」は簡単に検証済み。
 - バフ・デバフの持続時間の管理には「Times Up」Modの使用をオススメします。

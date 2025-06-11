@@ -1,38 +1,40 @@
-<div class="dice-roll">
+<div class="dice-roll" data-action="expandRoll">
     {{#if flavor}}<div class="dice-flavor">{{flavor}}</div>{{/if}}
     {{#if targetName}}<div class="dice-flavor">{{{targetName}}}</div>{{/if}}
     <div class="dice-result">
         <div class="dice-formula">{{formula}}</div>
         {{{tooltip}}}
         <div class="dice-tooltip">
-            <section class="tooltip-part">
-                <div class="dice">
-                    <header class="part-header flexrow">
-                        <span class="part-formula">{{localize "SW25.Item.Power"}}:{{power}}</span>
-                        {{#if lethalTech}}<span class="part-flavor"> {{localize "SW25.Item.Lethaltech"}}:{{lethalTech}}</span>{{/if}}
-                        {{#if criticalRay}}<span class="part-flavor"> {{localize "SW25.Item.Criticalray"}}:{{criticalRay}}</span>{{/if}}
-                        {{#if pharmTool}}<span class="part-flavor"> {{localize "SW25.Item.Pharmtool"}}:{{pharmTool}}</span>{{/if}}
-                        {{#if powup}}<span class="part-flavor"> {{localize "SW25.Item.Powup"}}:{{powup}}</span>{{/if}}
-                        <span class="part-total">{{results}}</span>
-                        <span class="part-flavor">+{{mod}}</span>
-                        {{#if half}}<span class="part-flavor"> {{localize "SW25.Item.Halfpow"}}:{{half}}</span>{{/if}}
-                    </header>
-                    <ol class="dice-rolls">
-                        {{#each result as |powerResult|}}
-                        <li class="roll die d20">{{powerResult}}</li>
-                        {{/each}}
-                    </ol>
+            <div class="wrapper">
+                <section class="tooltip-part">
+                    <div class="dice">
+                        <header class="part-header flexrow">
+                            <span class="part-formula">{{localize "SW25.Item.Power"}}:{{power}}</span>
+                            {{#if lethalTech}}<span class="part-flavor"> {{localize "SW25.Item.Lethaltech"}}:{{lethalTech}}</span>{{/if}}
+                            {{#if criticalRay}}<span class="part-flavor"> {{localize "SW25.Item.Criticalray"}}:{{criticalRay}}</span>{{/if}}
+                            {{#if pharmTool}}<span class="part-flavor"> {{localize "SW25.Item.Pharmtool"}}:{{pharmTool}}</span>{{/if}}
+                            {{#if powup}}<span class="part-flavor"> {{localize "SW25.Item.Powup"}}:{{powup}}</span>{{/if}}
+                            <span class="part-total">{{results}}</span>
+                            <span class="part-flavor">+{{mod}}</span>
+                            {{#if half}}<span class="part-flavor"> {{localize "SW25.Item.Halfpow"}}:{{half}}</span>{{/if}}
+                        </header>
+                        <ol class="dice-rolls">
+                            {{#each result as |powerResult|}}
+                            <li class="roll die d20">{{powerResult}}</li>
+                            {{/each}}
+                        </ol>
+                    </div>
+                </section>
+                <div class="flexrow">
+                    {{#if shownoc}}
+                    <button class="buttonclick" data-buttontype="buttonhalfc">
+                        {{#if halfcdone}}<span style="color: #0f6f0f;">✔</span>{{/if}}<span style="font-size: 0.8em;">{{localize "SW25.Item.HalfpowC"}}</span>
+                    </button>
+                    <button class="buttonclick" data-buttontype="buttonnoc">
+                        {{#if nocdone}}<span style="color: #0f6f0f;">✔</span>{{/if}}<span style="font-size: 0.8em;">{{localize "SW25.Item.Noc"}}</span>
+                    </button>
+                    {{/if}}
                 </div>
-            </section>
-            <div class="flexrow">
-                {{#if shownoc}}
-                <button class="buttonclick" data-buttontype="buttonhalfc">
-                    {{#if halfcdone}}<span style="color: #0f6f0f;">✔</span>{{/if}}<span style="font-size: 0.8em;">{{localize "SW25.Item.HalfpowC"}}</span>
-                </button>
-                <button class="buttonclick" data-buttontype="buttonnoc">
-                    {{#if nocdone}}<span style="color: #0f6f0f;">✔</span>{{/if}}<span style="font-size: 0.8em;">{{localize "SW25.Item.Noc"}}</span>
-                </button>
-                {{/if}}
             </div>
         </div>
     </div>

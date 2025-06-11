@@ -66,25 +66,24 @@ export async function rollreq() {
             const chatData = {
               speaker: ChatMessage.getSpeaker({ alias: "Gamemaster" }),
               flags: {
-                checkName: checkName,
-                inputName: inputName,
-                refAbility: refAbility,
-                modifier: modifier,
-                targetValue: targetValue,
-                method: method,
+                sw25: {
+                  checkName: checkName,
+                  inputName: inputName,
+                  refAbility: refAbility,
+                  modifier: modifier,
+                  targetValue: targetValue,
+                  method: method,
+                }
               },
             };
 
             chatData.content = "";
             let name = checkName;
-            if (checkName == "-") name = "";
             if (checkName == "di") name = inputName;
-            if (method == "skill" && checkName && checkName != "-") {
-              let i18ncat =
-                refAbility.charAt(0).toUpperCase() + refAbility.slice(1);
+            if (method == "skill" && checkName && checkName != "") {
               let abi =
-                " + " + game.i18n.localize(`SW25.Ability.${i18ncat}.abbr`);
-              if (refAbility == "-") abi = "";
+                " + " + game.i18n.localize(`SW25.Ability.${refAbility.capitalize()}.abbr`);
+              if (refAbility == "") abi = "";
               name = `${name}${abi}`;
               if (checkName == "adv")
                 name = `${game.i18n.localize(
