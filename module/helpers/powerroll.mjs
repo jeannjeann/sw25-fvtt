@@ -23,7 +23,9 @@ export async function powerRoll(formula, powertable) {
   let power = Number(powertable[0]);
   let cValue = Number(powertable[1]);
   for (let i = 2; i <= 12; i++) {
-    powertable[i] = Number(powertable[i]);
+    powertable[i] = (powertable[i] === null || powertable[i] === "" || powertable[i] === undefined || Number.isNaN(powertable[i]))
+      ? null
+      : Number(powertable[i]);
   }
   let powMod = Number(powertable[13]);
   let halfPow = Number(powertable[14]);

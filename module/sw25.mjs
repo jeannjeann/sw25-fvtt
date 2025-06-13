@@ -724,6 +724,7 @@ Hooks.once("ready", async function () {
       const target = targetTokens.map((token) => token.actor);
       const targetEffects = data.targetEffects;
       const orgActor = data.orgActor;
+      const orgId = data.orgId;
       target.forEach((targetActor) => {
         targetEffects.forEach((effect) => {
           const transferEffect = duplicate(effect);
