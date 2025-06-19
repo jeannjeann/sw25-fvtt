@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2.1.2
+- bug fix
+
 ## 2.1.1
 - bug fix  by [keyslock](https://github.com/keyslock)  from [#40](https://github.com/jeannjeann/sw25-fvtt/pull/40)
 

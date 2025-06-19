@@ -22,11 +22,26 @@ export async function powerRoll(formula, powertable) {
   let fumble = 0;
   let power = Number(powertable[0]);
   let cValue = Number(powertable[1]);
+
+  let blankpt = true;
   for (let i = 2; i <= 12; i++) {
-    powertable[i] = (powertable[i] === null || powertable[i] === "" || powertable[i] === undefined || Number.isNaN(powertable[i]))
-      ? null
-      : Number(powertable[i]);
+    powertable[i] =
+      powertable[i] === null ||
+      powertable[i] === "" ||
+      powertable[i] === undefined ||
+      Number.isNaN(powertable[i])
+        ? null
+        : Number(powertable[i]);
+    if (typeof powertable[i] === "number" && powertable[i] !== 0) {
+      blankpt = false;
+    }
   }
+  if (blankpt) {
+    for (let i = 2; i <= 12; i++) {
+      powertable[i] = null;
+    }
+  }
+
   let powMod = Number(powertable[13]);
   let halfPow = Number(powertable[14]);
   let halfPowMod = Number(powertable[15]);
@@ -109,7 +124,7 @@ export async function powerRoll(formula, powertable) {
       ptv = rpt[uppow][total - 3];
     } else {
       ptv = powertable[total];
-      if (powertable[total] == null || powertable[total] == 0) {
+      if (powertable[total] == null) {
         ptv = rpt[power][total - 3];
       }
     }
