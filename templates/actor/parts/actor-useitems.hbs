@@ -1,23 +1,25 @@
 <div class="rollable tooltip usedice applybutton" style="display: {{#if system.usedice}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula}}+{{item.system.checkbase}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck}}" data-checktype="{{system.checkTypesButton}}"
 {{#if system.resistinfo}}
- {{#if (eq system.resistinfo.type "input")}}
- data-resist="{{system.resistinfo.input}}"
- {{else}}
- data-resist="{{localize (concat "SW25.Resist.Check." system.resistinfo.type)}}"
- {{/if}}
+    {{#if system.resistinfo.type}}
+        {{#if (eq system.resistinfo.type "input")}}
+        data-resist="{{system.resistinfo.input}}"
+        {{else}}
+        data-resist="{{localize (concat "SW25.Resist.Check." system.resistinfo.type)}}"
+        {{/if}}
+    {{/if}}
+    {{#if system.resistinfo.result}}
+        data-resistresult="{{system.resistinfo.result}}"
+    {{/if}}
 {{else}}
- {{#if (eq type "weapon")}}
- data-resist="{{localize "SW25.Resist.Check.Dodge"}}"
- {{else}}
-  {{#if system.hpresist}}
-   data-resist="{{localize "SW25.Resist.Check.Vitres"}}"
-  {{else}}
-   data-resist="{{localize "SW25.Resist.Check.Mndres"}}"
-  {{/if}}
- {{/if}}
-{{/if}}
-{{#if system.resist}}
- data-resistresult="{{system.resist}}"
+    {{#if (eq type "weapon")}}
+    data-resist="{{localize "SW25.Resist.Check.Dodge"}}"
+    {{else}}
+    {{#if system.hpresist}}
+        data-resist="{{localize "SW25.Resist.Check.Vitres"}}"
+    {{else}}
+    data-resist="{{localize "SW25.Resist.Check.Mndres"}}"
+    {{/if}}
+    {{/if}}
 {{/if}}>
     <i class="fa-solid fa-dice"></i><span class="tooltip-top">{{localize "SW25.Item.CheckB"}}</span>
 </div>

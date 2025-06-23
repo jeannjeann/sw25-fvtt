@@ -191,6 +191,7 @@ export class SW25ActorSheet extends ActorSheet {
       vitRes: null,
       mndRes: null
     };
+    const bookmarks = [];
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -423,6 +424,12 @@ export class SW25ActorSheet extends ActorSheet {
           }
         }
       }
+
+      // Append to bookmarks.
+      if (i.system.bookmark) {
+        bookmarks.push(i);
+      }
+
     }
 
     let eashow = true;
@@ -520,6 +527,20 @@ export class SW25ActorSheet extends ActorSheet {
       abshow = false;
     } else abshow = true;
 
+    const typeOrder = CONFIG.SW25.itemTypeList.map(e => e.type);
+
+    const sortedBookmarks = bookmarks.sort((a, b) => {
+      const ai = typeOrder.indexOf(a.type);
+      const bi = typeOrder.indexOf(b.type);
+
+      const aOrder = ai === -1 ? Infinity : ai;
+      const bOrder = bi === -1 ? Infinity : bi;
+
+      if (aOrder !== bOrder) return aOrder - bOrder;
+      return a.name.localeCompare(b.name, "ja");
+    });
+
+    
     // Assign and return
     context.skills = skills;
     context.checks = checks;
@@ -601,6 +622,7 @@ export class SW25ActorSheet extends ActorSheet {
     context.magitechrshow = magitechrs.length > 0;
     context.abyssexshow = abyssexs.length > 0;
     context.contentItem = contentItem;
+    context.bookmarks = sortedBookmarks;
   }
 
   /* -------------------------------------------- */
@@ -692,6 +714,28 @@ export class SW25ActorSheet extends ActorSheet {
     // Change Permission.
     html.on("click", ".changepermission", this._onChangePermission.bind(this));
 
+    // Change Permission.
+    html.on("click", ".changebookmark", this._onChangeBookmark.bind(this));
+
+    // 要素取得（外枠と中身）
+    const outer = html.find("#bookmark-outer")[0];
+    const inner = html.find("#bookmark-inner")[0];
+    let currentOffset = 0;
+    const scrollAmount = 116;
+
+    // 左スクロールボタン
+    html.find(".scroll-button.left").on("click", () => {
+      currentOffset = Math.min(currentOffset + scrollAmount, 0); // 左限界
+      inner.style.transform = `translateX(${currentOffset}px)`;
+    });
+
+    // 右スクロールボタン
+    html.find(".scroll-button.right").on("click", () => {
+      const maxOffset = -(inner.scrollWidth - outer.clientWidth);
+      currentOffset = Math.max(currentOffset - scrollAmount, maxOffset); // 右限界
+      inner.style.transform = `translateX(${currentOffset}px)`;
+    });
+
     // Drag events for macros.
     if (this.actor.isOwner) {
       let handler = (ev) => this._onDragStart(ev);
@@ -741,6 +785,11 @@ export class SW25ActorSheet extends ActorSheet {
       await this.actor.update({ [dataPath]: !currentState });
       target.classList.toggle("checked", !currentState);
     });
+
+    const dropArea = html.find(".bookmark-drop-area");
+    if (dropArea.length > 0) {
+      dropArea.on("drop", this._onBookmarkDrop.bind(this));
+    }
   }
 
   /**
@@ -2609,9 +2658,94 @@ export class SW25ActorSheet extends ActorSheet {
   setScrollPositions(html, positions) {
     html.find('[data-scrollable="true"]').each((i, element) => {
       const id = element.id || `scrollable-${i}`;
-      if (positions[id] !== undefined) {
+      if (positions?.[id] !== undefined) {
         element.scrollTop = positions[id];
       }
     });
   }
+  async _onBookmarkDrop(event) {
+    event.preventDefault();
+
+    const data = JSON.parse(event.originalEvent.dataTransfer.getData("text/plain"));
+    if (data.type !== "Item") return;
+
+    const droppedItem = await fromUuid(data.uuid ?? data.data?.uuid);
+    if (!droppedItem) return;
+
+    // ドロップされたアイテムのIDと名前
+    const droppedItemId = droppedItem.id;
+    const droppedItemName = droppedItem.name;
+
+    // アクターがすでに同じIDのアイテムを持っているか確認
+    let ownedItem = this.actor.items.get(droppedItemId);
+
+    if (ownedItem) {
+      // 所持しているアイテム：system.bookmark を更新
+      await ownedItem.update({ "system.bookmark": true });
+    } else {
+      // 所持していない場合：同名アイテムがあればそれを参照（IDは異なることが多い）
+      const sameNameItem = this.actor.items.find(i => i.name === droppedItemName);
+
+      if (sameNameItem) {
+        // 同名アイテムがあれば、それを更新（IDは違っても同名なら上書きしたい場合）
+        await sameNameItem.update({ "system.bookmark": true });
+      } else {
+        // 完全に未所持 → 複製して system.bookmark を true にして追加
+        const newItemData = duplicate(droppedItem.toObject());
+        newItemData.system.bookmark = true;
+
+        await this.actor.createEmbeddedDocuments("Item", [newItemData]);
+      }
+    }
+  }
+
+  /** ドロップ時のカスタム処理（元のコピー処理を阻止） */
+  async _onDropItem(event, data) {
+    // ドロップがカスタム領域（bookmark-drop-area）で発生したかどうか確認
+    const isBookmarkDrop = event.target.closest(".bookmark-drop-area");
+    if (!isBookmarkDrop) {
+      // 通常のドロップ → 元の処理を実行
+      return super._onDropItem(event, data);
+    }
+
+    // bookmark-drop-area にドロップされた → カスタム処理
+    const droppedItem = await fromUuid(data.uuid ?? data.data?.uuid);
+    if (!droppedItem) return;
+
+    const droppedItemId = droppedItem.id;
+    const droppedItemName = droppedItem.name;
+
+    // アクターがすでに同じ ID を持っている？
+    let ownedItem = this.actor.items.get(droppedItemId);
+
+    if (ownedItem) {
+      await ownedItem.update({ "system.bookmark": true });
+    } else {
+      // 名前で探して同一アイテムがあれば更新（オプション）
+      const sameNameItem = this.actor.items.find(i => i.name === droppedItemName);
+
+      if (sameNameItem) {
+        await sameNameItem.update({ "system.bookmark": true });
+      } else {
+        // 新しいアイテムとして複製・追加
+        const newItemData = duplicate(droppedItem.toObject());
+        newItemData.system.bookmark = true;
+
+        await this.actor.createEmbeddedDocuments("Item", [newItemData]);
+      }
+    }
+
+    // 元のドロップ処理をキャンセル（何も return しない）
+    return;
+  }
+
+  async _onChangeBookmark(event) {
+    event.preventDefault();
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+    item.update({ "system.bookmark": !item.system.bookmark });
+  }
+
 }

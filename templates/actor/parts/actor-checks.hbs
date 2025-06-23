@@ -20,14 +20,40 @@
         {{#if (eq system.checkmethod "power")}}
         <span class='item-name item-checklabel powerrollable resource-label' data-roll="{{item.system.formula}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applypower}}" data-powertype="{{item.system.powerTypesButton}}">
         {{else}}
-        <span class='item-name item-checklabel rollable resource-label' data-roll="{{item.system.formula}}+{{item.system.checkbase}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applycheck}}" data-checktype="{{item.system.checkTypesButton}}">
+        <span class='item-name item-checklabel rollable resource-label' data-roll="{{item.system.formula}}+{{item.system.checkbase}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applycheck}}" data-checktype="{{item.system.checkTypesButton}}"
+        {{#if system.resistinfo}}
+            {{#if system.resistinfo.type}}
+                {{#if (eq system.resistinfo.type "input")}}
+                data-resist="{{system.resistinfo.input}}"
+                {{else}}
+                data-resist="{{localize (concat "SW25.Resist.Check." system.resistinfo.type)}}"
+                {{/if}}
+            {{/if}}
+            {{#if system.resistinfo.result}}
+                data-resistresult="{{system.resistinfo.result}}"
+            {{/if}}
+        {{/if}}
+        >
         {{/if}}
           <h4>{{item.name}}</h4>
         </span>
         {{#if (eq system.checkmethod "power")}}
         <span class='item-checkbase align-center powerrollable resource-label item-element' data-roll="{{item.system.formula}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applypower}}" data-powertype="{{item.system.powerTypesButton}}">
         {{else}}
-        <span class='item-checkbase align-center rollable resource-label item-element' data-roll="{{item.system.formula}}+{{item.system.checkbase}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applycheck}}" data-checktype="{{item.system.checkTypesButton}}">
+        <span class='item-checkbase align-center rollable resource-label item-element' data-roll="{{item.system.formula}}+{{item.system.checkbase}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applycheck}}" data-checktype="{{item.system.checkTypesButton}}"
+        {{#if system.resistinfo}}
+            {{#if system.resistinfo.type}}
+                {{#if (eq system.resistinfo.type "input")}}
+                data-resist="{{system.resistinfo.input}}"
+                {{else}}
+                data-resist="{{localize (concat "SW25.Resist.Check." system.resistinfo.type)}}"
+                {{/if}}
+            {{/if}}
+            {{#if system.resistinfo.result}}
+                data-resistresult="{{system.resistinfo.result}}"
+            {{/if}}
+        {{/if}}
+        >
         {{/if}}
           {{item.system.checkbase}}
         </span>

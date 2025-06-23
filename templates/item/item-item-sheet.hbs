@@ -1,28 +1,50 @@
 <form class="{{cssClass}}" autocomplete="off">
-  <header class="sheet-header">
-    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
-    <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
-      <div class="grid grid-6col flex-group-center nogapmargin">
-        <div class="grid-span-2">
-          <b>{{system.typename}}</b>
-        </div>
-        <div class="grid-span-3"></div>
-        <div class="resource">
-          <label for="{{item._id}}system.quantity" class="resource-label">{{localize "SW25.Quantity"}}</label>
-          <input id="{{item._id}}system.quantity" type="text" name="system.quantity" value="{{system.quantity}}" data-dtype="Number"/>
-        </div>
-        <div class="grid-span-5"></div>
-        <div class="resource">
-          <label for="{{item._id}}system.price" class="resource-label">{{localize "SW25.Item.Price"}}</label>
-          <input id="{{item._id}}system.price" type="text" name="system.price" value="{{system.price}}" data-dtype="Number"/>
-        </div>
+<section class="sw25item">
+  <header class="header">
+    <section class="header__img">
+      <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    </section>
+    <section class="header__title">
+      <h1 class="charname">
+        {{#if system.isEdit}}
+          <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+        {{else}}
+          {{#if system.isMagicitem}}
+          <span class="icon-stack">
+            <i class="mgc_diamond_square_fill"></i>
+            <i class="mgc_quill_pen_line" style="color: #ffffff"></i>
+          </span>
+          {{/if}}
+          {{item.name}}
+        {{/if}}
+      </h1>
+    </section>
+    <section class="header__subtitle">
+      <span class="header__subtitle--label">
+        {{localize "SW25.Item.Price"}} : {{system.price}}
+        {{#if system.isHonoritem}}
+          + {{system.honor}} {{localize "SW25.Item.Honor"}}
+        {{/if}}
+      </span>
+      <div class="header__subtitle--overview">{{system.overview}}</div>
+    </section>
+    <section class="header__activate">
+      <div class="property-col">
+        <label class="property--label-col" for="{{item._id}}system.quantity" class="resource-label">{{localize "SW25.Quantity"}}</label>
+        <input class="property--value align-center" id="{{item._id}}system.quantity" type="text" name="system.quantity" value="{{system.quantity}}" data-dtype="Number"/>
       </div>
-    </div>
+    </section>
+    <section class="togglearea">
+      <label class="togglearea__btn">
+        <input id="{{item._id}}isEdit" type="checkbox" name="system.isEdit" {{#if system.isEdit}}checked{{/if}} data-dtype="Boolean"/>
+        <div class="togglearea__btn--slider"><i class="fa-solid fa-wrench"></i></div>
+      </label>
+    </section>
   </header>
 
+  <main class="main">
   {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
+  <nav class="sheet-tabs tabs" data-group="primary" style="margin: 0px;">
     <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
     <a class="item" data-tab="details">{{localize "SW25.Details"}}</a>
     <a class="item" data-tab="effects">{{localize "SW25.Effects"}}</a>
@@ -32,57 +54,152 @@
   <section class="sheet-body">
 
     {{!-- Description Tab --}}
-    <div class="tab" data-group="primary" data-tab="description">
-      <div class="flexcol">
-        <div class="flexrow grid grid-10col nogapmargin">
-          <span style="text-align: center;"><b>{{localize "SW25.Item.Popularity"}}</b><br>
-            <input id="{{item._id}}system.info.popularity" type="number" name="system.info.popularity" value="{{system.info.popularity}}" data-dtype="String"/></span>
-          <span class="grid-span-5" style="text-align: left;"><label for="{{item._id}}system.info.shape"><b>{{localize "SW25.Item.Shape"}}</b></label><br>
-            <input id="{{item._id}}system.info.shape" type="text" name="system.info.shape" value="{{system.info.shape}}" data-dtype="String"/></span>
-          <span class="grid-span-2" style="text-align: left;"><label for="{{item._id}}system.info.category"><b>{{localize "SW25.Item.Category"}}</b></label><br>
-            <input id="{{item._id}}system.info.category" type="text" name="system.info.category" value="{{system.info.category}}" data-dtype="String"/></span>
-          <span class="grid-span-2" style="text-align: left;"><label for="{{item._id}}system.info.create"><b>{{localize "SW25.Item.Create"}}</b></label><br>
-            <input id="{{item._id}}system.info.create" type="text" name="system.info.create" value="{{system.info.create}}" data-dtype="String"/></span>
-
-          <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.info.overview"><b>{{localize "SW25.Item.Overview"}}</b></label><br>
-            <input id="{{item._id}}system.info.overview" type="text" name="system.info.overview" value="{{system.info.overview}}" data-dtype="String"/></span>
+    <section class="tab" data-group="primary" data-tab="description" style="height: 100%;">
+      <div class="grid grid-6col flex-group-left">
+        <div class="grid-span-1 overview">
+          <div class="overview--label">
+            {{localize "SW25.Item.Popularity"}}
+          </div>
+          <div class="overview--value">
+            {{system.info.popularity}}
+          </div>
+        </div>
+        <div class="grid-span-3 overview">
+          <div class="overview--label">
+            {{localize "SW25.Item.Shape"}}
+          </div>
+          <div class="overview--value">
+            {{system.info.shape}}
+          </div>
+        </div>
+        <div class="grid-span-2 overview">
+          <div class="overview--label">
+            {{localize "SW25.Item.Category"}}
+          </div>
+          <div class="overview--value">
+            {{system.info.category}}
+          </div>
+        </div>
+        <div class="grid-span-4 overview">
+          <div class="overview--label">
+            {{localize "SW25.Item.Overview"}}
+          </div>
+          <div class="overview--value">
+            {{system.overview}}
+          </div>
+        </div>
+        <div class="grid-span-2 overview">
+          <div class="overview--label">
+            {{localize "SW25.Item.Create"}}
+          </div>
+          <div class="overview--value">
+            {{system.info.create}}
+          </div>
         </div>
       </div>
       {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
-    </div>
+    </section>
 
     {{!-- Detail Tab --}}
-    <div class="tab details" data-group="primary" data-tab="details">
-      <div class="flexcol">
-        <div class="flexrow grid grid-10col nogapmargin">
-          <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Item.Clickitem"}}</b><br>
-            <select name="system.clickitem">
-              {{selectOptions clickitemOptions selected=system.clickitem localize=true}}
-            </select>
-          </span>
-          <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Item.Item.Type"}}</b><br>
-            <select name="system.type">
-              {{selectOptions config.itemTypes selected=system.type localize=true blank="SW25.Item.Item.General"}}
-            </select>
-          </span>
-          <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.usedice"><b>{{localize "SW25.Item.Usedice"}}</b></label><br>
-            <input id="{{item._id}}system.usedice" type="checkbox" name="system.usedice" data-dtype="Boolean" {{#if system.usedice}} checked {{/if}}/></span>
-          <span class="grid-span-2"  style="text-align: center;"><label for="{{item._id}}system.usepower"><b>{{localize "SW25.Item.Usepower"}}</b></label><br>
-            <input id="{{item._id}}system.usepower" type="checkbox" name="system.usepower" data-dtype="Boolean" {{#if system.usepower}} checked {{/if}}/></span>
+    <section class="tab details" data-group="primary" data-tab="details">
+
+      {{!-- Basic Category --}}
+      <fieldset class="category flexrow grid grid-10col">
+        <legend class="category__title">
+          {{localize "SW25.Item.Field.Basic"}}
+        </legend>
+        <div class="grid-span-5 property">
+          <label class="property--label">{{localize "SW25.Item.Clickitem"}}</label>
+          <select class="property--value" name="system.clickitem"{{#unless system.isEdit}} disabled{{/unless}}>
+            {{selectOptions clickitemOptions selected=system.clickitem localize=true}}
+          </select>
         </div>
+        <div class="blank"></div>
+        <div class="grid-span-2">
+          <input class="checkbox--hidden" id="{{item._id}}system.selfbuff" type="checkbox" name="system.selfbuff" data-dtype="Boolean" {{#if system.selfbuff}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+          <label class="checkbox--label" for="{{item._id}}system.selfbuff">{{localize "SW25.Item.Selfbuff"}}</label>
+        </div>
+        <div class="blank grid-span-2"></div>
+        <div class="grid-span-10 property">
+          <label class="property--label" for="{{item._id}}system.overview">{{localize "SW25.Item.Overview"}}</label>
+          <input class="property--value" id="{{item._id}}system.overview" type="text" name="system.overview" value="{{system.overview}}" data-dtype="String"{{#unless system.isEdit}} disabled{{/unless}}/>
+        </div>
+      </fieldset>
+
+      {{!-- Item Category --}}
+      <fieldset class="category flexrow grid grid-10col">
+        <legend class="category__title">
+          {{localize "SW25.Item.Field.Item"}}
+        </legend>
+        <div class="grid-span-5 property">
+          <label class="property--label" for="{{item._id}}system.type">{{localize "SW25.Item.Item.Type"}}</label>
+          <select class="property--value" id="{{item._id}}system.type" name="system.type"{{#unless system.isEdit}} disabled {{/unless}}>
+            {{selectOptions config.itemTypes selected=system.type localize=true blank="SW25.Item.Item.General"}}
+          </select>
+        </div>
+        <div class="grid-span-5 property">
+          <label class="property--label" for="{{item._id}}system.price">{{localize "SW25.Item.Price"}}</label>
+          <input class="property--value" id="{{item._id}}system.price" type="text" name="system.price" value="{{system.price}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
+        </div>
+
+        <div class="grid-span-3 property">
+          <input class="checkbox--hidden" id="{{item._id}}system.isMagicitem" type="checkbox" name="system.isMagicitem" data-dtype="Boolean" {{#if system.isMagicitem}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+          <label class="checkbox--label" for="{{item._id}}system.isMagicitem">{{localize "SW25.Item.MagicItem"}}</label>
+        </div>
+        <div class="grid-span-3 property">
+          <input class="checkbox--hidden" id="{{item._id}}system.isHonoritem" type="checkbox" name="system.isHonoritem" data-dtype="Boolean" {{#if system.isHonoritem}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+          <label class="checkbox--label" for="{{item._id}}system.isHonoritem">{{localize "SW25.Item.HonorItem"}}</label>
+        </div>
+        <div class="grid-span-4 property">
+          <label class="property--label" for="{{item._id}}system.honor">{{localize "SW25.Item.Honor"}}</label>
+          <input class="property--value" id="{{item._id}}system.honor" type="text" name="system.honor" value="{{system.honor}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
+        </div>
+
+        <div class="grid-span-1 property-col">
+          <label class="property--label-col" for="{{item._id}}system.info.popularity">{{localize "SW25.Item.Popularity"}}</label>
+          <input class="property--value" id="{{item._id}}system.info.popularity" type="number" name="system.info.popularity" value="{{system.info.popularity}}" data-dtype="String"{{#unless system.isEdit}} disabled{{/unless}}/>
+        </div>
+        <div class="grid-span-5 property-col">
+          <label class="property--label-col" for="{{item._id}}system.info.shape">{{localize "SW25.Item.Shape"}}</label>
+          <input class="property--value" id="{{item._id}}system.info.shape" type="text" name="system.info.shape" value="{{system.info.shape}}" data-dtype="String"{{#unless system.isEdit}} disabled{{/unless}}/>
+        </div>
+        <div class="grid-span-2 property-col">
+          <label class="property--label-col" for="{{item._id}}system.info.category">{{localize "SW25.Item.Category"}}</label>
+          <input class="property--value" id="{{item._id}}system.info.category" type="text" name="system.info.category" value="{{system.info.category}}" data-dtype="String"{{#unless system.isEdit}} disabled{{/unless}}/>
+        </div>
+        <div class="grid-span-2 property-col">
+          <label class="property--label-col" for="{{item._id}}system.info.create">{{localize "SW25.Item.Create"}}</label>
+          <input class="property--value" id="{{item._id}}system.info.create" type="text" name="system.info.create" value="{{system.info.create}}" data-dtype="String"{{#unless system.isEdit}} disabled{{/unless}}/>
+        </div>
+      </fieldset>
+
+      {{!-- Use-dice Category --}}
+      <fieldset class="category">
+        <legend class="category__title">
+          <input class="checkbox--hidden" id="{{item._id}}system.usedice" type="checkbox" name="system.usedice" data-dtype="Boolean" {{#if system.usedice}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+          <label class="checkbox--label" for="{{item._id}}system.usedice">{{localize "SW25.Item.Usedice"}}</label>
+        </legend>
         <div style="display: {{#if system.usedice}}block{{else}}none{{/if}};">
           {{> "systems/sw25/templates/item/parts/item-usedice.hbs"}}
         </div>
+      </fieldset>
+
+      {{!-- Use-power Category --}}
+      <fieldset class="category">
+        <legend class="category__title">
+          <input class="checkbox--hidden" id="{{item._id}}system.usepower" type="checkbox" name="system.usepower" data-dtype="Boolean" {{#if system.usepower}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+          <label class="checkbox--label" for="{{item._id}}system.usepower">{{localize "SW25.Item.Usepower"}}</label>
+        </legend>
         <div style="display: {{#if system.usepower}}block{{else}}none{{/if}};">
           {{> "systems/sw25/templates/item/parts/item-usepower.hbs"}}
         </div>
-      </div>
-    </div>
+      </fieldset>
+    </section>
 
     {{!-- Effects Tab --}}
-    <div class="tab effects" data-group="primary" data-tab="effects">
+    <section class="tab effects" data-group="primary" data-tab="effects">
       {{> "systems/sw25/templates/item/parts/item-effects.hbs"}}
-    </div>
-
-  </section>
+    </section>
+  </main>
+</section>
 </form>

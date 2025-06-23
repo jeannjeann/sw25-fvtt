@@ -46,6 +46,9 @@
     <span class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.int.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Int.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">{{system.abilities.int.advbase}}</span>
     <span class='item-checklabel align-center rollable resource-label item-element' data-roll="2d6+@abilities.mnd.advbase" data-label="{{localize "SW25.Attributes.Advlevel"}}+{{localize "SW25.Ability.Mnd.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">{{system.abilities.mnd.advbase}}</span>
     <div class='item-scmod item-prop input'><input type="text" name="system.attributes.advlevel.mod" value="{{system.attributes.advlevel.mod}}" data-dtype="Number"/></div>
+    {{#if system.isEdit}}
+      <div class='item-controls'></div>
+    {{/if}}
     <div class="item-description">
       <div class="flexrow">
         <div style="flex: 0 0 20px;"></div>

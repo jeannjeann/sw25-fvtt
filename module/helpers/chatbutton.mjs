@@ -1630,6 +1630,51 @@ export async function chatButton(chatMessage, buttonType) {
     mpCost(token, cost, name, type, meta, chat, base);
   }
 
+  if (buttonType == "buttonhpcancel") {
+    let token = canvas.tokens.get(chatMessage.flags.sw25.tokenId);
+    let cost = chatMessage.flags.sw25.cost;
+    let name = chatMessage.flags.sw25.name;
+    let type = chatMessage.flags.sw25.type;
+    let meta = 0;
+    let chat = chatMessage;
+    let base = chatMessage.flags.sw25.base;
+
+    // Apply HP cost
+    if (game.user.isGM) {
+      actor.update({
+        "system.hp.value": base,
+      });
+    } else {
+      game.socket.emit("system.sw25", {
+        method: "applyHp",
+        targetToken: chatMessage.flags.sw25.tokenId,
+        resultHP: base,
+      });
+    }
+
+    // Apply ChatMessage
+    let label =
+      name +
+      " (" +
+      cost +
+      " " +
+      game.i18n.localize("SW25.Item.Spell.Cancel") +
+      ")";
+
+    let chatData = {
+      flavor: label,
+    };
+    
+    chatData.content = await renderTemplate(
+      "systems/sw25/templates/roll/hp-apply.hbs",
+      {
+        targetHP: base,
+        resultHP: base,
+      }
+    );
+    await chat.update(chatData);
+  }
+
   if (buttonType == "buttonmpcancel") {
     let token = canvas.tokens.get(chatMessage.flags.sw25.tokenId);
     let cost = chatMessage.flags.sw25.cost;
@@ -1767,6 +1812,7 @@ export async function chatButton(chatMessage, buttonType) {
       const selectActor = token.actor;
       const rollData = selectActor.getRollData();
 
+      let name = token.name;
       let checkItem = "";
       let checkName = flags.sw25.checkName;
       let checkbase;
@@ -1979,6 +2025,7 @@ export async function chatButton(chatMessage, buttonType) {
       chatData.content = await renderTemplate(
         "systems/sw25/templates/roll/roll-check.hbs",
         {
+          name: name,
           formula: chatFormula,
           tooltip: await roll.getTooltip(),
           total: chatTotal,

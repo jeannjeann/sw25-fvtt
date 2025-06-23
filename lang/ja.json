@@ -83,6 +83,7 @@
     "UnderZero": "0以下",
     "NoCost": "消費なし",
     "Applyall": "すべて適用",
+    "AddBookmark": "アイテムをここにドロップするとブックマークされます",
     "TargetSelect": "ターゲット選択",
 
     "Notargetwarn": "ターゲットが指定されていません",
@@ -91,6 +92,9 @@
     "Multiselectwarn": "トークンが複数選択されています",
     "InputPlaceHolder": "ここに入力",
     "NotTokenwarn": "トークンが存在しません。",
+
+    "StartMigration": "データのマイグレーションを開始します...",
+    "CompleteMigration": "マイグレーション完了！",
 
     "RevealMonsterData": "魔物情報を公開",
 
@@ -106,6 +110,9 @@
     },
 
     "CharacterName": "キャラクター名",
+    "SwitchImage": "{image}に切り替え",
+    "ActorImage": "立ち絵",
+    "TokenImage": "トークン画像",
     "Hp": "HP",
     "Mp": "MP",
     "Race": "種族",
@@ -114,6 +121,7 @@
     "Attributes": {
       "Advlevel": "冒険者レベル",
       "Age": "年齢",
+      "AgeLabel": "{age}歳",
       "Gender": "性別",
       "Born": "生まれ",
       "Faith": "信仰",
@@ -183,6 +191,15 @@
       "Item": "SW25アイテムシート",
       "ActiveEffect": "SW25バフデバフシート"
     },
+    "Actor": {
+      "ColorSetting": {
+        "Title": "カラー設定",
+        "Main": "メインカラー",
+        "Sub": "サブカラー",
+        "Background": "背景色",
+        "Text": "テキスト色"
+      }
+    },
     "Item": {
       "Name": "名称",
       "Popularity": "知名度",
@@ -210,6 +227,9 @@
       "hr": "HP回",
       "mr": "MP回",
       "Price": "価格",
+      "Honor": "名誉点",
+      "MagicItem": "魔法のアイテム",
+      "HonorItem": "名誉アイテム",
       "Selfbuff": "自己バフ",
       "Usepower": "威力表使用",
       "Usedice": "判定使用",
@@ -220,7 +240,7 @@
       "Dice": "ダイス",
       "Customdice": "ダイス変更",
       "Formula": "ダイス式",
-      "Resisttype": "抵抗基準値",
+      "Resisttype": "基準値",
       "Resistinput": "抵抗判定名",
       "Power": "威力",
       "Cvalue": "C値",
@@ -244,20 +264,21 @@
       "Noresquantitiywarn": "数量不足：",
       "Equip": "装備",
       "Activation": "有効化",
+      "Bookmark": "お気に入り",
       "Dedicated": "専用化",
       "Category": "カテゴリ",
       "Rank": "ランク",
       "Reqstr": "必筋",
       "Rest": "残数",
-      "Constant": "常時型",
+      "Constant": "常時",
       "Constantabbr": "常時",
-      "Prep": "戦闘準備型",
+      "Prep": "戦闘準備",
       "Prepabbr": "準備",
-      "Main": "主動作型",
+      "Main": "主動作",
       "Mainabbr": "主動作",
-      "Aux": "補助動作型",
+      "Aux": "補助動作",
       "Auxabbr": "補助",
-      "Decla": "宣言型",
+      "Decla": "宣言特技",
       "Declaabbr": "宣言",
       "Overview": "概要",
       "Resist": "抵抗",
@@ -405,11 +426,14 @@
         "Pet": "ペット",
         "Cond": "条件",
         "Get": "発生",
+        "Cost": "消費",
         "Music": "楽素",
         "Up": "↑",
         "Down": "↓",
         "Charm": "♡",
-        "Singpoint": "巧奏値"
+        "Singpoint": "巧奏値",
+        "Singing": "あり",
+        "Instrumental": "なし"
       },
       "Ridingtrick": {
         "Support": "対応"
@@ -453,9 +477,16 @@
         "Premise": "前提"
       },
       "Infusion": {
-        "HumanoidForm": "人間形態時"
+        "HumanoidForm": "人間形態時",
+        "Common": "共通魔装",
+        "Race": "種族専用魔装",
+        "InputRace": "種族名を入力",
+        "Enabled": "有効",
+        "Disabled": "無効"
       },
       "BarbarousSkill": {
+        "Ability": "{race}の特殊能力",
+        "Rank": "ランク",
         "Base": "基準値",
         "ResistBase": "抵抗基準値"
       },
@@ -537,7 +568,10 @@
         "Check2": "判定2",
         "Check3": "判定3",
         "Label": "ラベル",
-        "Usefix": "固定値"
+        "Action": "行動",
+        "Usefix": "固定値",
+        "Method": "判定方法",
+        "Roll": "ダイスロール"
       },
       "Action": {
         "ActionResult": "想定出目",
@@ -574,7 +608,33 @@
           "Fumble": "1ゾロ",
           "Item": "項目名",
           "Value": "値"
-       }
+        }
+      },
+      "Field" : {
+        "Basic": "基本設定",
+        "Resist": "抵抗設定",
+        "Timing": "使用タイミング",
+        "Resource": "リソース設定",
+
+        "Check": "判定設定",
+        "Item": "アイテム設定",
+        "Action": "行動設定",
+        "Spell": "魔法設定",
+        "AbyssEx": "奈落魔法拡張",
+        "Enhancearts": "練技設定",
+        "Magicalsong": "呪歌・終律設定",
+        "Ridingtrick": "騎芸設定",
+        "Alchemytech": "賦術設定",
+        "Phasearea": "相域設定",
+        "Tactics": "鼓咆・陣率設定",
+        "Infusion": "魔装設定",
+        "Barbarousskill": "蛮族特殊能力設定",
+        "Essenceweave": "操気設定",
+        "ChangeEffect": "効果変更設定",
+        "Raceability": "種族特徴設定",
+        "Combatability": "戦闘特技設定",
+        "Otherfeature": "汎用設定",
+        "MonsterAbility": "魔物能力設定"
       }
     },
     "Effect": {
@@ -817,5 +877,10 @@
   },
   "DOCUMENT": {
     "View": "{type}閲覧"
+  },
+  "PROGRESS": {
+    "Item": "アイテム",
+    "Actor": "アクター",
+    "Complete": "完了"
   }
 }

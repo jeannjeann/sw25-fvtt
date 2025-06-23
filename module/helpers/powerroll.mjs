@@ -1,5 +1,4 @@
 // Power Roll
-
 import { rpt } from "../sw25.mjs";
 
 /**
@@ -11,7 +10,8 @@ export async function powerRoll(formula, powertable) {
     if (
       powertable[i] === null ||
       Number.isNaN(powertable[i]) ||
-      powertable[i] === undefined
+      powertable[i] === undefined ||
+      powertable[i] === ""
     ) {
       powertable[i] = 0;
     }
@@ -22,8 +22,9 @@ export async function powerRoll(formula, powertable) {
   let fumble = 0;
   let power = Number(powertable[0]);
   let cValue = Number(powertable[1]);
-  for (let i = 2; i <= 12; i++) {
-    powertable[i] = Number(powertable[i]);
+  let cntPower = 0;
+  for (let i = 3; i <= 12; i++) {
+    cntPower += Number(powertable[i]);
   }
   let powMod = Number(powertable[13]);
   let halfPow = Number(powertable[14]);
@@ -67,7 +68,7 @@ export async function powerRoll(formula, powertable) {
   if (total > 12) total = 12;
 
   let ptv = powertable[total];
-  if (powertable[total] == null) {
+  if (cntPower == 0) {
     ptv = rpt[power][total - 3];
   }
 
@@ -107,7 +108,7 @@ export async function powerRoll(formula, powertable) {
       ptv = rpt[uppow][total - 3];
     } else {
       ptv = powertable[total];
-      if (powertable[total] == null) {
+      if (powertable[total] == null || powertable[total] == 0) {
         ptv = rpt[power][total - 3];
       }
     }

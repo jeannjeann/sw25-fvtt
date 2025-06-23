@@ -97,6 +97,7 @@ SW25.resourceTypes = {
   material: "SW25.Item.Resource.Types.Material",
   lifeline: "SW25.Item.Resource.Types.Lifeline",
   tacspower: "SW25.Item.Resource.Types.Tacspower",
+  magitech: "SW25.Item.Resource.Types.Magitech",
   abyssex: "SW25.Item.Resource.Types.AbyssEx",
 };
 
@@ -159,6 +160,11 @@ SW25.tacticsLines = {
   deffence: "SW25.Item.Tactics.Deffence",
   resist: "SW25.Item.Tactics.Resist",
   inspire: "SW25.Item.Tactics.Inspire"
+};
+
+SW25.infusionTypes = {
+  common: "SW25.Item.Infusion.Common",
+  race: "SW25.Item.Infusion.Race"
 };
 
 SW25.checkpackages = {
@@ -248,10 +254,18 @@ SW25.materialRanks = {
   s: "SW25.Item.Alchemytech.S",
   ss: "SW25.Item.Alchemytech.SS"
 };
+
+SW25.magitechTypes = {
+  bullet: "SW25.Item.Resource.Bullet",
+  magisphereS: "SW25.Item.Resource.MagisphereS",
+  magisphereM: "SW25.Item.Resource.MagisphereM",
+  magisphereL: "SW25.Item.Resource.MagisphereL"
+};
+
 SW25.abyssexTypes = {
-  deamonblood: "SW25.Item.Resource.Deamonblood",
-  deamoncrystal: "SW25.Item.Resource.Deamoncrystal",
-  deamoncrystalL: "SW25.Item.Resource.DeamoncrystalLarge",
+  deamonblood: "SW25.Item.Resource.Daemonblood",
+  deamoncrystal: "SW25.Item.Resource.Daemoncrystal",
+  deamoncrystalL: "SW25.Item.Resource.ArcDaemoncrystal",
   abyssshard: "SW25.Item.Resource.Abyssshard"
 };
 
@@ -408,3 +422,29 @@ SW25.resistResult = {
   shortening: "SW25.Resist.Result.shortening"
 };
 
+SW25.itemTypeList = [
+  { type: "weapon", label: "SW25.TYPES.Item.weapon" },
+  { type: "armor", label: "SW25.TYPES.Item.armor" },
+  { type: "accessory", label: "SW25.TYPES.Item.accessory" },
+  { type: "item", label: "SW25.TYPES.Item.item" },
+  { type: "spell", label: "SW25.TYPES.Item.spell" },
+  { type: "enhancearts", label: "SW25.TYPES.Item.enhancearts" },
+  { type: "magicalsong", label: "SW25.TYPES.Item.magicalsong" },
+  { type: "ridingtrick", label: "SW25.TYPES.Item.ridingtrick" },
+  { type: "alchemytech", label: "SW25.TYPES.Item.alchemytech" },
+  { type: "phasearea", label: "SW25.TYPES.Item.phasearea" },
+  { type: "tactics", label: "SW25.TYPES.Item.tactics" },
+  { type: "infusion", label: "SW25.TYPES.Item.infusion" },
+  { type: "barbarousskill", label: "SW25.TYPES.Item.barbarousskill" },
+  { type: "essenceweave", label: "SW25.TYPES.Item.essenceweave" },
+  { type: "otherfeature", label: "SW25.TYPES.Item.otherfeature" },
+  { type: "check", label: "SW25.TYPES.Item.check" },
+  { type: "resource", label: "SW25.TYPES.Item.resource" },
+  { type: "combatability", label: "SW25.TYPES.Item.combatability" },
+  { type: "skill", label: "SW25.TYPES.Item.skill" },
+  { type: "raceability", label: "SW25.TYPES.Item.raceability" },
+  { type: "language", label: "SW25.TYPES.Item.language" },
+  { type: "monsterability", label: "SW25.TYPES.Item.monsterability" },
+  { type: "action", label: "SW25.TYPES.Item.action" },
+  { type: "session", label: "SW25.TYPES.Item.session" }
+];

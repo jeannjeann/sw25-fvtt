@@ -22,6 +22,7 @@ import { actionRoll } from "./helpers/actionroll.mjs";
 import { rollreq } from "./helpers/rollrequest.mjs";
 import { targetRollDialog, targetSelectDialog } from "./helpers/dialogs.mjs";
 import { preparePolyglot } from "./helpers/sw25languageprovider.mjs";
+import { Migrator } from "./helpers/migrator.mjs";
 
 // Export variable.
 export const rpt = {};
@@ -95,11 +96,11 @@ Hooks.once("init", function () {
   DocumentSheetConfig.unregisterSheet(ActiveEffect, "core", ActiveEffectConfig);
 
   if (foundry.utils.isNewerVersion(game.version, "13")) {
-  // v13 or newer
-    SW25ActiveEffectConfig = SW25ActiveEffectConfigV2
+    // v13 or newer
+    SW25ActiveEffectConfig = SW25ActiveEffectConfigV2;
   } else {
-  // v12 or older
-    SW25ActiveEffectConfig = SW25ActiveEffectConfigV1
+    // v12 or older
+    SW25ActiveEffectConfig = SW25ActiveEffectConfigV1;
   }
 
   DocumentSheetConfig.registerSheet(
@@ -112,8 +113,41 @@ Hooks.once("init", function () {
     }
   );
 
+  // migration setting.
+  game.settings.register("sw25", "systemMigrationVersion", {
+    name: "System Migration Version",
+    scope: "world",
+    config: false,
+    type: String,
+    default: "0.0.0",
+  });
+
+  Actor.prototype.migrateSystemData = function (currentVersion, storedVersion) {
+    return Migrator.migrateActor(this, currentVersion, storedVersion);
+  };
+  Item.prototype.migrateSystemData = function (currentVersion, storedVersion) {
+    return Migrator.migrateItem(this, currentVersion, storedVersion);
+  };
+
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
+});
+
+/**
+ * migration hook.
+ */
+Hooks.once("ready", async () => {
+  if (game.user.isGM) {
+    const currentVersion = game.system.version;
+    const storedVersion = game.settings.get("sw25", "systemMigrationVersion");
+
+    if (Migrator.isVersionBefore(storedVersion, currentVersion)) {
+      ui.notifications.info(game.i18n.localize("SW25.StartMigration"));
+      await Migrator.migrateWorld(storedVersion, currentVersion);
+      await game.settings.set("sw25", "systemMigrationVersion", currentVersion);
+      ui.notifications.info(game.i18n.localize("SW25.CompleteMigration"));
+    }
+  }
 });
 
 /**
@@ -164,7 +198,7 @@ Hooks.on("updateCombat", async (combat, changes, options, userId) => {
       let label =
         actor.name + "(" + game.i18n.localize("SW25.TurnendEffect") + ")";
 
-      let chatData = {
+      let chatData = {  
         speaker: speaker,
         flavor: label,
         rollMode: rollMode,
@@ -315,6 +349,58 @@ Handlebars.registerHelper("localizePhasetype", function (phasetype) {
       return game.i18n.localize("SW25.Item.Phasearea.Chi");
     case "jin":
       return game.i18n.localize("SW25.Item.Phasearea.Jin");
+  }
+  return "-";
+});
+
+Handlebars.registerHelper("localizeStatus", function (ability) {
+  switch (ability) {
+    case "dex":
+      return game.i18n.localize("SW25.Ability.Dex.long");
+    case "agi":
+      return game.i18n.localize("SW25.Ability.Agi.long");
+    case "str":
+      return game.i18n.localize("SW25.Ability.Str.long");
+    case "vit":
+      return game.i18n.localize("SW25.Ability.Vit.long");
+    case "int":
+      return game.i18n.localize("SW25.Ability.Int.long");
+    case "mnd":
+      return game.i18n.localize("SW25.Ability.Mnd.long");
+  }
+  return "-";
+});
+
+Handlebars.registerHelper("localizeResistType", function (type, input) {
+  switch (type) {
+    case "Dodge":
+      return game.i18n.localize("SW25.Resist.Check.Dodge");
+    case "Vitres":
+      return game.i18n.localize("SW25.Resist.Check.Vitres");
+    case "Mndres":
+      return game.i18n.localize("SW25.Resist.Check.Mndres");
+    case "input":
+      return input;
+  }
+  return "-";
+});
+
+Handlebars.registerHelper("localizeResourceType", function (type) {
+  switch (type) {
+    case "none":
+      return game.i18n.localize("SW25.Item.Resource.Types.None");
+    case "note":
+      return game.i18n.localize("SW25.Item.Resource.Types.Note");
+    case "material":
+      return game.i18n.localize("SW25.Item.Resource.Types.Material");
+    case "lifeline":
+      return game.i18n.localize("SW25.Item.Resource.Types.Lifeline");
+    case "tacspower":
+      return game.i18n.localize("SW25.Item.Resource.Types.Tacspower");
+    case "magitech":
+      return game.i18n.localize("SW25.Item.Resource.Types.Magitech");
+    case "abyssex":
+      return game.i18n.localize("SW25.Item.Resource.Types.AbyssEx");
   }
   return "-";
 });
@@ -665,7 +751,6 @@ Hooks.once("ready", async function () {
   const ptParser = new DOMParser();
   const ptHtmlString = ptPage.text.content;
   const ptDoc = ptParser.parseFromString(ptHtmlString, "text/html");
-
   const ptDivs = ptDoc.querySelectorAll("div.pt-item");
   let power = "";
 
@@ -724,6 +809,7 @@ Hooks.once("ready", async function () {
       const target = targetTokens.map((token) => token.actor);
       const targetEffects = data.targetEffects;
       const orgActor = data.orgActor;
+      const orgId = data.orgId;
       target.forEach((targetActor) => {
         targetEffects.forEach((effect) => {
           const transferEffect = duplicate(effect);
@@ -732,8 +818,8 @@ Hooks.once("ready", async function () {
           transferEffect.flags = {
             sw25: {
               sourceName: orgActor,
-              sourceId: `Actor.${orgId}`
-            }
+              sourceId: `Actor.${orgId}`,
+            },
           };
           targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
         });

@@ -463,7 +463,11 @@ export class SW25Item extends Item {
     }
 
     // Roll Setting
-    if (systemData.checkmethod == "normal") systemData.formula = "2d6";
+    if (systemData.checkmethod == "normal"){
+      systemData.formula = "2d6";
+      if (systemData.customdice == true)
+        systemData.formula = systemData.customformula;
+    }
     if (systemData.checkmethod == "dice")
       systemData.formula = systemData.customformula;
     if (systemData.checkmethod == "power") {
@@ -1000,20 +1004,20 @@ export class SW25Item extends Item {
     systemData.checkbase1 =
       Number(systemData.checkbasemod1) +
       Number(systemData.checkmod1) +
-      Number(checklevelmod1) +
-      Number(checkabimod1);
+      Number(checklevelmod1 ?? 0) +
+      Number(checkabimod1 ?? 0);
     systemData.checkbasefix1 = Number(systemData.checkbase1) + 7;
     systemData.checkbase2 =
       Number(systemData.checkbasemod2) +
       Number(systemData.checkmod2) +
-      Number(checklevelmod2) +
-      Number(checkabimod2);
+      Number(checklevelmod2 ?? 0) +
+      Number(checkabimod2 ?? 0);
     systemData.checkbasefix2 = Number(systemData.checkbase2) + 7;
     systemData.checkbase3 =
       Number(systemData.checkbasemod3) +
       Number(systemData.checkmod3) +
-      Number(checklevelmod3) +
-      Number(checkabimod3);
+      Number(checklevelmod3 ?? 0) +
+      Number(checkabimod3 ?? 0);
     systemData.checkbasefix3 = Number(systemData.checkbase3) + 7;
 
     // prepare apply button
@@ -1059,6 +1063,7 @@ export class SW25Item extends Item {
     }
 
     if (itemData.type == "raceability") {
+      systemData.hpcost = systemData.basehpcost;
       const result =
         Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
       systemData.mpcost =
@@ -1100,6 +1105,7 @@ export class SW25Item extends Item {
       systemData.powerbase =
         Number(systemData.powerbase) + Number(systemData.efallmgpmod);
 
+      systemData.hpcost = systemData.basehpcost;
       switch (systemData.type) {
         case "sorcerer":
           systemData.checkbase =
@@ -1296,6 +1302,7 @@ export class SW25Item extends Item {
     }
 
     if (itemData.type == "barbarousskill") {
+      systemData.hpcost = systemData.basehpcost;
       systemData.mpcost = Number(systemData.basempcost);
     }
 
@@ -1308,6 +1315,7 @@ export class SW25Item extends Item {
     }
 
     if (itemData.type == "otherfeature") {
+      systemData.hpcost = systemData.basehpcost;
       systemData.mpcost =
         Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
       if (systemData.mpcost < 1) systemData.mpcost = 1;
@@ -1497,15 +1505,15 @@ export class SW25Item extends Item {
         switch (i) {
           case 1:
             systemData.checkbase1 +=
-              Number(checklevelmod1) + Number(checkabimod1);
+              Number(checklevelmod1 ?? 0) + Number(checkabimod1 ?? 0);
             break;
           case 2:
             systemData.checkbase2 +=
-              Number(checklevelmod2) + Number(checkabimod2);
+              Number(checklevelmod2 ?? 0) + Number(checkabimod2 ?? 0);
             break;
           case 3:
             systemData.checkbase3 +=
-              Number(checklevelmod3) + Number(checkabimod3);
+              Number(checklevelmod3 ?? 0) + Number(checkabimod3 ?? 0);
             break;
         }
         systemData[`checkbasefix${i}`] =
@@ -1749,8 +1757,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-    const actorData = itemData.actor.system;
-    const actoritemData = itemData.actor.items;
     systemData.typename = 
       (systemData.type != "" && systemData.type != null)
         ? game.i18n.localize(`SW25.Item.Item.${systemData.type.capitalize()}`)
@@ -1798,8 +1804,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-    const actorData = itemData.actor.system;
-    const actoritemData = itemData.actor.items;
 
     // Quantity limit
     if (systemData.qmax || systemData.qmax == 0) {
@@ -1955,11 +1959,6 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
-
     systemData.accpartname = 
       (systemData.accpart != "" && systemData.accpart != null)
         ? game.i18n.localize(`SW25.Item.Accessory.${systemData.accpart.capitalize()}`)
@@ -1975,11 +1974,6 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
-
     systemData.categoryname = 
       (systemData.category != "" && systemData.category != null)
         ? game.i18n.localize(`SW25.Item.Armor.${systemData.category.capitalize()}`)
@@ -1991,11 +1985,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
 
     systemData.typename = 
       (systemData.type != "" && systemData.type != null)
@@ -2030,11 +2019,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
 
     systemData.typename = 
       (systemData.type != "" && systemData.type != null)
@@ -2073,11 +2057,6 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
-
     systemData.resistname = 
       (systemData.resist != "" && systemData.resist != null)
         ? game.i18n.localize(`SW25.Item.${systemData.resist.capitalize()}`)
@@ -2095,11 +2074,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
 
     systemData.typename = 
       (systemData.type != "" && systemData.type != null)
@@ -2121,11 +2095,6 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
-
     systemData.typename = 
       (systemData.type != "" && systemData.type != null)
         ? game.i18n.localize(`SW25.Item.Tactics.${systemData.type.capitalize()}`)
@@ -2144,11 +2113,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
 
     systemData.resistname = 
       (systemData.resist != "" && systemData.resist != null)
@@ -2297,11 +2261,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
 
     // result setting
     switch (systemData.actiondice) {

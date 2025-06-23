@@ -113,6 +113,9 @@ export async function hpCost(token, cost, max, name, type) {
   let chatResult = 0;
   let costLabel = cost;
   if (max) costLabel = `${cost}(${max})`;
+  let isView = false;
+  if (CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= actor.ownership.default)
+    isView = true;
 
   // roll &  Calculate HP cost
   let result = new Roll(cost);
@@ -189,6 +192,7 @@ export async function hpCost(token, cost, max, name, type) {
       tooltip: await result.getTooltip(),
       targetHP: targetHP,
       resultHP: chatResult,
+      isView: isView,
     }
   );
 

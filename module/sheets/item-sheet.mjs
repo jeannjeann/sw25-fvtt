@@ -380,7 +380,11 @@ export class SW25ItemSheet extends ItemSheet {
     // Add Field.
     html.find(".add-field").click((ev) => {
       ev.preventDefault();
-      const fields = duplicate(this.item.system.customFields || []);
+      
+      let fieldsRaw = this.item.system.customFields;
+      let fields = Array.isArray(fieldsRaw)
+        ? duplicate(fieldsRaw)
+        : Object.values(duplicate(fieldsRaw));
       fields.push({ label: "", value: "" });
       this.item.update({ "system.customFields": fields });
     });
@@ -389,7 +393,7 @@ export class SW25ItemSheet extends ItemSheet {
     html.find(".remove-field").click((ev) => {
       ev.preventDefault();
       const idx = Number(ev.currentTarget.dataset.idx);
-      //const fields = duplicate(this.item.system.customFields || []);
+      
       let fieldsRaw = this.item.system.customFields;
       let fields = Array.isArray(fieldsRaw)
         ? duplicate(fieldsRaw)

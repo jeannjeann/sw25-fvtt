@@ -14,7 +14,10 @@
     "Abilityskill": "Ability & Class",
     "Skillname": "Class",
     "Check": "Check",
+    "Equip": "装備",
     "Battle": "Battle",
+    "Adventure": "冒険",
+    "Status": "ステータス",
     "Items": "Items",
     "Mymoney" :"Money",
     "Features": "Features",
@@ -80,6 +83,7 @@
     "UnderZero": "0 or less",
     "NoCost": "No Cost",
     "Applyall": "Apply All",
+    "AddBookmark": "Drop items here to be bookmarked.",
     "TargetSelect": "Select Target",
 
     "Notargetwarn": "No targets selected.",
@@ -88,6 +92,9 @@
     "Multiselectwarn": "Multi Tokens selected.",
     "InputPlaceHolder": "Input here.",
     "NotTokenwarn": "No Token in canvas.",
+    
+    "StartMigration": "Start data migration...",
+    "CompleteMigration": "Migration completed!",
 
     "RevealMonsterData": "Reveal Monster Data",
 
@@ -103,6 +110,9 @@
     },
 
     "CharacterName": "Character Name",
+    "SwitchImage": "Switch to {image}",
+    "ActorImage": "Actor Image",
+    "TokenImage": "Token Image",
     "Hp": "HP",
     "Mp": "MP",
     "Race": "Race",
@@ -111,6 +121,7 @@
     "Attributes": {
       "Advlevel": "Adventurer Level",
       "Age": "Age",
+      "AgeLabel": "Age {age}",
       "Gender": "Gender",
       "Born": "Born",
       "Faith": "Faith",
@@ -180,6 +191,15 @@
       "Item": "SW25 Item Sheet",
       "ActiveEffect": "SW25 Effect Sheet"
     },
+    "Actor": {
+      "ColorSetting": {
+        "Title": "Color Setting",
+        "Main": "Main Color",
+        "Sub": "Sub Color",
+        "Background": "Background",
+        "Text": "Text"
+      }
+    },
     "Item": {
       "Name": "Name",
       "Popularity": "Popularity",
@@ -207,6 +227,9 @@
       "hr": "HPR",
       "mr": "MPR",
       "Price": "Price",
+      "Honor": "Honor",
+      "MagicItem": "Magic Item",
+      "HonorItem": "Honor Item",
       "Selfbuff": "Self Buff",
       "Usepower": "Use Power",
       "Usedice": "Use Dice",
@@ -241,6 +264,7 @@
       "Noresquantitiywarn": "There are not enough quiantity: ",
       "Equip": "Equip",
       "Activation": "Activate",
+      "Bookmark": "お気に入り",
       "Dedicated": "Personalized",
       "Category": "Category",
       "Rank": "Rank",
@@ -402,11 +426,14 @@
         "Pet": "Pet",
         "Cond": "Required",
         "Get": "Base",
+        "Cost": "消費",
         "Music": "Music",
         "Up": "↑",
         "Down": "↓",
         "Charm": "♡",
-        "Singpoint": "Rhythm"
+        "Singpoint": "Rhythm",
+        "Singing": "Sing",
+        "Instrumental": "Inst"
       },
       "Ridingtrick": {
         "Support": "Supported Mount"
@@ -450,9 +477,16 @@
         "Premise": "Prerequisite"
       },
       "Infusion": {
-        "HumanoidForm": "Humanoid Form"
+        "HumanoidForm": "Humanoid Form",
+        "Common": "Common",
+        "Race": "Race Specific",
+        "InputRace": "Input Race",
+        "Enabled": "Enabled",
+        "Disabled": "Disabled"
       },
       "BarbarousSkill": {
+        "Ability": "{race}'s Ability",
+        "Rank": "Rank",
         "Base": "Base Number",
         "ResistBase": "Resistance Base"
       },
@@ -534,7 +568,10 @@
         "Check2": "Check2",
         "Check3": "Check3",
         "Label": "Label",
-        "Usefix": "Fix"
+        "Action": "Action",
+        "Usefix": "Fix",
+        "Method": "Method",
+        "Roll": "Dice roll"
       },
       "Action": {
         "ActionResult": "Result",
@@ -571,8 +608,34 @@
           "Fumble": "Fumble",
           "Item": "Item",
           "Value": "Value"
-       }
-     }
+        }
+      },
+      "Field" : {
+        "Basic": "Basic Setting",
+        "Resist": "Resist Setting",
+        "Timing": "Use timing",
+        "Resource": "Resource Setting",
+
+        "Check": "Check Setting",
+        "Item": "Item Setting",
+        "Action": "Action Setting",
+        "Spell": "Spell Setting",
+        "AbyssEx": "Abyss Extend",
+        "Enhancearts": "Enhancearts Setting",
+        "Magicalsong": "Magicalsong Setting",
+        "Ridingtrick": "Ridingtrick Setting",
+        "Alchemytech": "Alchemytech Setting",
+        "Phasearea": "Phaseare Setting",
+        "Tactics": "Tacics Setting",
+        "Infusion": "Infusion Setting",
+        "Barbarousskill": "Barbarousskill Setting",
+        "Essenceweave": "Essenceweave Setting",
+        "ChangeEffect": "Change effect Setting",
+        "Raceability": "Raceability Setting",
+        "Combatability": "Combatability Setting",
+        "Otherfeature": "Otherfeature Setting",
+        "MonsterAbility": "MonsterAbility Setting"
+      }
     },
     "Effect": {
       "Source": "Source",
@@ -811,5 +874,13 @@
     "rollMethod": "Select roll method to multiple targets",
     "once": "Once",
     "individual": "Individual"
+  },
+  "DOCUMENT": {
+    "View": "{type} View"
+  },
+  "PROGRESS": {
+    "Item": "Item",
+    "Actor": "Actor",
+    "Complete": "Complete"
   }
 }

@@ -10,19 +10,19 @@
     <li class='item' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
         <div class='item-name'>
+          <div class="item-equip">
+            <label class="equip-toggle">
+              <input class="eq-change" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
+            </label>
+          </div>
           <div class='item-image'>
             <a class='rollable' data-roll-type='item'>
-              <img
-                src='{{item.img}}'
-                title='{{item.name}}'
-                width='24'
-                height='24'
-              />
+              <img src='{{item.img}}' title='{{item.name}}' width='24' height='24'/>
             </a>
           </div>
           <h4 class="item-label">{{item.name}}{{#if item.system.dedicated}} ({{localize "SW25.Item.Dedicated"}}){{/if}}</h4>
         </div>
-        <div class="resourcecost" style="flex: 0 0 40px; display: {{#unless (eq item.system.resuse "-")}}block{{else}}none{{/unless}};" data-resusequantity={{system.resusequantity}} data-resuse="{{system.resuse}}">
+        <div class="resourcecost" style="flex: 0 0 40px; display: {{#if item.system.resuse}}block{{else}}none{{/if}};" data-resusequantity={{system.resusequantity}} data-resuse="{{system.resuse}}">
           <b>{{localize "SW25.Item.CostB"}}</b>
         </div>
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 120px;">

@@ -45,7 +45,7 @@
   {{/if}}
   <li class='item flexrow items-header'>
     <div class='item-name'>{{#if tacspowershow}}{{localize "SW25.Item.Name"}}{{else}}{{localize "TYPES.Item.tactics"}}{{/if}}</div>
-    <div class='item-element {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 90px;">{{localize "SW25.Condition"}}</div>
+    <div class='item-element sidebar-hidden' style="flex: 0 0 90px;">{{localize "SW25.Condition"}}</div>
     <div class='item-element' style="flex: 0 0 80px;">{{localize "SW25.Item.Tactics.Line"}}({{localize "SW25.Item.Tactics.Rank"}})</div>
     <div class='item-element' style="flex: 0 0 30px;">{{localize "SW25.Item.Tactics.Get"}}</div>
     <div class='item-element' style="flex: 0 0 30px;">{{localize "SW25.Cost"}}</div>
@@ -85,7 +85,7 @@
           <{{system.typename}}><h4 class="item-label">{{item.name}}</h4>
         </div>
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
-        <div class='item-quantity item-prop flexrow flex-group-center {{#unless system.isSidebar}}sidebar-hidden{{/unless}}' style="flex: 0 0 90px;">
+        <div class='item-quantity item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 90px;">
           {{#if (eq system.type "camp")}}{{system.cond}}{{/if}}
         </div>
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 80px;">
@@ -105,21 +105,38 @@
             >
               <i class='fas fa-edit'></i>
             </a>
-            <a
-              class='item-control item-delete'
-              title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.tactics")}}'
-            >
-              <i class='fas fa-trash'></i>
-            </a>
+            {{#if ../system.isEdit}}
+              <a
+                class='item-control item-delete'
+                title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.tactics")}}'
+              >
+                <i class='fas fa-trash'></i>
+              </a>
+            {{else}}
+              <div class="item-equip">
+                {{#if system.useequip}}
+                <label class="equip-toggle">
+                  <input class="eq-change" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
+                </label>
+                {{/if}}
+              </div>
+            {{/if}}
           </div>
         {{else}}
           <div class='item-controls'>
             <a
               class='item-control item-edit'
-              title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.tactics")}}'
+              title='{{localize "DOCUMENT.View" type=(localize "TYPES.Item.tactics")}}'
             >
-                <i class='fa-solid fa-eye'></i>
+              <i class='fa-solid fa-eye'></i>
             </a>
+            <div class="item-equip">
+              {{#if system.useequip}}
+              <label class="equip-toggle">
+                <input class="eq-change" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
+              </label>
+              {{/if}}
+            </div>
           </div>
         {{/if}}
       </div>

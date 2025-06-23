@@ -1,112 +1,155 @@
 <form class="{{cssClass}}" autocomplete="off">
-  <header class="sheet-header">
-    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
-    <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
-      <div class="grid grid-6col flex-group-center nogapmargin">
-        <div class="grid-span-2"></div>
-        <div class="resource grid-span-2">
-          <span class="resource-label"><br>{{localize "SW25.Quantity"}}{{localize "SW25.Limit"}}</span>
-        </div>
-        <div class="grid-span-1"></div>
-        <div class="resource">
-          <label for="{{item._id}}system.quantity" class="resource-label">{{localize "SW25.Quantity"}}</label>
-          <input id="{{item._id}}system.quantity" type="text" name="system.quantity" value="{{system.quantity}}" data-dtype="Number"/>
-        </div>
-        <div class="grid-span-2"></div>
-        <div class="resource">
-          <label for="{{item._id}}system.qmin" class="resource-label">{{localize "SW25.Min"}}</label>
-          <input id="{{item._id}}system.qmin" type="text" name="system.qmin" value="{{system.qmin}}" data-dtype="Number"/>
-        </div>
-        <div class="resource">
-          <label for="{{item._id}}system.qmax" class="resource-label">{{localize "SW25.Max"}}</label>
-          <input id="{{item._id}}system.qmax" type="text" name="system.qmax" value="{{system.qmax}}" data-dtype="Number"/>
-        </div>
-        <div class="grid-span-1"></div>
-        <div class="resource">
-          <label for="{{item._id}}system.price" class="resource-label">{{localize "SW25.Item.Price"}}</label>
-          <input id="{{item._id}}system.price" type="text" name="system.price" value="{{system.price}}" data-dtype="Number"/>
-        </div>
+<section class="sw25item">
+  <header class="header">
+    <section class="header__img">
+      <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    </section>
+    <section class="header__title">
+      <h1 class="charname">
+        {{#if system.isEdit}}
+          <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+        {{else}}
+          {{item.name}}
+        {{/if}}
+      </h1>
+    </section>
+    <section class="header__subtitle">
+      <span class="header__subtitle--label">{{localize "SW25.Item.Resource.Type"}} : {{localizeResourceType system.resource.type}}</span>
+      <div class="header__subtitle--overview">{{system.overview}}</div>
+    </section>
+    <section class="header__activate">
+      <div class="property-col">
+        <label class="property--label-col" for="{{item._id}}system.quantity" class="resource-label">{{localize "SW25.Quantity"}}</label>
+        <input class="property--value align-center" id="{{item._id}}system.quantity" type="text" name="system.quantity" value="{{system.quantity}}" data-dtype="Number"/>
       </div>
-    </div>
+    </section>
+    <section class="togglearea">
+      <label class="togglearea__btn">
+        <input id="{{item._id}}isEdit" type="checkbox" name="system.isEdit" {{#if system.isEdit}}checked{{/if}} data-dtype="Boolean"/>
+        <div class="togglearea__btn--slider"><i class="fa-solid fa-wrench"></i></div>
+      </label>
+    </section>
   </header>
 
+  <main class="main">
   {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
+  <nav class="sheet-tabs tabs" data-group="primary" style="margin: 0px;">
     <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
     <a class="item" data-tab="details">{{localize "SW25.Details"}}</a>
-    {{!--
-    <a class="item" data-tab="effects">{{localize "SW25.Effects"}}</a>
-    --}}
+    {{!-- <a class="item" data-tab="effects">{{localize "SW25.Effects"}}</a> --}}
   </nav>
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
 
     {{!-- Description Tab --}}
-    <div class="tab" data-group="primary" data-tab="description">
-      {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
-    </div>
-
-    {{!-- Detail Tab --}}
-    <div class="tab details" data-group="primary" data-tab="details">
-      <div class="flexcol">
-        <div class="flexrow grid grid-10col nogapmargin">
-          <span class="grid-span-2"  style="text-align: center;"><b>{{localize "SW25.Item.Resource.Battle"}}</b></label><br>
-            <input id="{{item._id}}system.resource.isNotBattle" type="checkbox" name="system.resource.isNotBattle" data-dtype="Boolean" {{#if system.resource.isNotBattle}} checked {{/if}}/></span>
-          <span class="grid-span-3" style="text-align: center;">
-            <b>{{localize "SW25.Item.Resource.Type"}}</b><br>
-            <select name="system.resource.type">
-              {{selectOptions config.resourceTypes selected=system.resource.type localize=true}}
-            </select>
-          </span>
-          <div class="grid-span-3" style="display: {{#if system.resource.isNote}}block{{else}}none{{/if}}; text-align: center;">
-            <b>{{localize "SW25.Item.Resource.Types.Note"}}</b><br>
-            <select name="system.resource.notetype">
-              {{selectOptions config.noteTypes selected=system.resource.notetype localize=true}}
-            </select>
+    <section class="tab" data-group="primary" data-tab="description" style="height: 100%;">
+      <div class="grid grid-6col flex-group-left">
+        <div class="grid-span-6 overview">
+          <div class="overview--label">
+            {{localize "SW25.Item.Overview"}}
           </div>
-          <div class="grid-span-3" style="display: {{#if system.resource.isMaterial}}block{{else}}none{{/if}}; text-align: center;">
-            <b>{{localize "SW25.Item.Resource.Types.Material"}}</b><br>
-            <select name="system.resource.materialtype">
-              {{selectOptions config.materialTypes selected=system.resource.materialtype localize=true}}
-            </select>
-            <select name="system.resource.materialrank">
-              {{selectOptions config.materialRanks selected=system.resource.materialrank localize=true}}
-            </select>
+          <div class="overview--value">
+            {{system.overview}}
           </div>
-          <div class="grid-span-3" style="display: {{#if system.resource.isLifeline}}block{{else}}none{{/if}}; text-align: center;">
-            <b>{{localize "SW25.Item.Resource.Types.Lifeline"}}</b><br>
-            <select name="system.resource.lifelinetype">
-              {{selectOptions config.phaseareaTypes selected=system.resource.lifelinetype localize=true}}
-            </select>
-          </div>
-          <div class="grid-span-3" style="display: {{#if system.resource.isMagitech}}block{{else}}none{{/if}}; text-align: center;">
-            <b>{{localize "SW25.Item.Resource.Types.Magitech"}}</b><br>
-            <select name="system.resource.magitechtype">
-              {{#select system.resource.magitechtype}}
-              <option value="bullet">{{localize "SW25.Item.Resource.Bullet"}}</option>
-              <option value="magisphereS">{{localize "SW25.Item.Resource.MagisphereS"}}</option>
-              <option value="magisphereM">{{localize "SW25.Item.Resource.MagisphereM"}}</option>
-              <option value="magisphereL">{{localize "SW25.Item.Resource.MagisphereL"}}</option>
-              {{/select}}
-            </select>
-          </div>
-          <div class="grid-span-3" style="display: {{#if system.resource.isAbyssEx}}block{{else}}none{{/if}}; text-align: center;">
-            <b>{{localize "SW25.Item.Resource.Types.AbyssEx"}}</b><br>
-            <select name="system.resource.abyssextype">
-              {{selectOptions config.abyssexTypes selected=system.resource.abyssextype localize=true}}
-            </select>
-          </div>
-          <div class="grid-span-2"></div>
         </div>
       </div>
-    </div>
+      {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
+    </section>
 
+    {{!-- Detail Tab --}}
+    <section class="tab details" data-group="primary" data-tab="details">
+
+      {{!-- Basic Category --}}
+      <fieldset class="category flexrow grid grid-10col">
+        <legend class="category__title">
+          {{localize "SW25.Item.Field.Basic"}}
+        </legend>
+
+        <div class="grid-span-10 property">
+          <label class="property--label" for="{{item._id}}system.overview">{{localize "SW25.Item.Overview"}}</label>
+          <input class="property--value" id="{{item._id}}system.overview" type="text" name="system.overview" value="{{system.overview}}" data-dtype="String"{{#unless system.isEdit}} disabled {{/unless}}/>
+        </div>
+      </fieldset>
+
+      {{!-- ResourceType Category --}}
+      <fieldset class="category flexrow grid grid-10col">
+        <legend class="category__title">
+          {{localize "SW25.Item.Field.Resource"}}
+        </legend>
+
+        <div class="grid-span-3 property">
+          <input class="checkbox--hidden" id="{{item._id}}system.resource.isNotBattle" type="checkbox" name="system.resource.isNotBattle" data-dtype="Boolean" {{#if system.resource.isNotBattle}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>
+          <label class="checkbox--label" for="{{item._id}}system.resource.isNotBattle">{{localize "SW25.Item.Resource.Battle"}}</label>
+        </div>
+        <div class="grid-span-2 blank"></div>
+        <div class="grid-span-5 property">
+          <label class="property--label" for="{{item._id}}system.price">{{localize "SW25.Item.Price"}}</label>
+          <input class="property--value" id="{{item._id}}system.price" type="text" name="system.price" value="{{system.price}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
+        </div>
+        <fieldset class="subcategory grid-span-4 flexrow grid grid-10col">
+          <legend>{{localize "SW25.Quantity"}}{{localize "SW25.Limit"}}</legend>
+          <div class="grid-span-2 property">
+            <label class="property--label" for="{{item._id}}system.qmin">{{localize "SW25.Min"}}</label>
+            <input class="property--value" id="{{item._id}}system.qmin" type="text" name="system.qmin" value="{{system.qmin}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
+          </div>
+          <div class="grid-span-2 property">
+            <label class="property--label-col" for="{{item._id}}system.qmax">{{localize "SW25.Max"}}</label>
+            <input class="property--value" id="{{item._id}}system.qmax" type="text" name="system.qmax" value="{{system.qmax}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
+          </div>
+        </fieldset>
+
+        <div class="grid-span-5 property">
+          <label class="property--label" for="{{item._id}}system.resource.type">{{localize "SW25.Item.Resource.Type"}}</label>
+          <select class="property--value" id="{{item._id}}system.resource.type" name="system.resource.type"{{#unless system.isEdit}} disabled {{/unless}}>
+            {{selectOptions config.resourceTypes selected=system.resource.type localize=true}}
+          </select>
+        </div>
+
+        {{#if (eq system.resource.type "note")}}
+        <div class="grid-span-2 property">
+          <select class="property--value" id="{{item._id}}system.resource.notetype" name="system.resource.notetype"{{#unless system.isEdit}} disabled {{/unless}}>
+            {{selectOptions config.noteTypes selected=system.resource.notetype localize=true}}
+          </select>
+        </div>
+        {{/if}}
+        {{#if (eq system.resource.type "material")}}
+        <div class="grid-span-3 property">
+          <select class="property--value" name="system.resource.materialtype"{{#unless system.isEdit}} disabled {{/unless}}>
+            {{selectOptions config.materialTypes selected=system.resource.materialtype localize=true}}
+          </select>
+          <select class="property--value" name="system.resource.materialrank"{{#unless system.isEdit}} disabled {{/unless}}>
+            {{selectOptions config.materialRanks selected=system.resource.materialrank localize=true}}
+          </select>
+        </div>
+        {{/if}}
+        {{#if (eq system.resource.type "lifeline")}}
+        <div class="grid-span-2 property">
+          <select class="property--value" name="system.resource.lifelinetype"{{#unless system.isEdit}} disabled {{/unless}}>
+            {{selectOptions config.phaseareaTypes selected=system.resource.lifelinetype localize=true}}
+          </select>
+        </div>
+        {{/if}}
+        {{#if (eq system.resource.type "magitech")}}
+        <div class="grid-span-4 property">
+          <select class="property--value" name="system.resource.magitechtype"{{#unless system.isEdit}} disabled {{/unless}}>
+            {{selectOptions config.magitechTypes selected=system.resource.magitechtype localize=true}}
+          </select>
+        </div>
+        {{/if}}
+        {{#if (eq system.resource.type "abyssex")}}
+        <div class="grid-span-4 property">
+          <select class="property--value" name="system.resource.abyssextype"{{#unless system.isEdit}} disabled {{/unless}}>
+            {{selectOptions config.abyssexTypes selected=system.resource.abyssextype localize=true}}
+          </select>
+        </div>
+        {{/if}}
+      </fieldset>
+    </section>
     {{!-- Effects Tab --}}
-    <div class="tab effects" data-group="primary" data-tab="effects">
+    <section class="tab effects" data-group="primary" data-tab="effects">
       {{> "systems/sw25/templates/item/parts/item-effects.hbs"}}
-    </div>
-
-  </section>
+    </section>
+  </main>
+</section>
 </form>

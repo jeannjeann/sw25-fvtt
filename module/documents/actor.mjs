@@ -85,11 +85,11 @@ export class SW25Actor extends Actor {
 
     for (let [key, ability] of Object.entries(systemData.abilities)) {
       ability.value =
-        ability.racevalue +
-        ability.valuebase +
-        ability.valuegrowth +
-        ability.valuemodify +
-        ability.efvaluemodify;
+        Number(ability.racevalue) +
+        Number(ability.valuebase) +
+        Number(ability.valuegrowth) +
+        Number(ability.valuemodify) +
+        Number(ability.efvaluemodify);
       ability.mod = Math.floor(ability.value / 6) + Number(ability.efmodify);
       ability.advbase =
         Number(ability.mod) +
@@ -315,22 +315,22 @@ export class SW25Actor extends Actor {
           let skillLevel = item.system.skilllevel ? item.system.skilllevel : 0;
 
           let fairyCount = 0;
-          if(systemData.attributes.fairy.earth){
+          if(systemData.attributes.fairy?.earth){
             fairyCount++;
           }
-          if(systemData.attributes.fairy.water){
+          if(systemData.attributes.fairy?.water){
             fairyCount++;
           }
-          if(systemData.attributes.fairy.fire){
+          if(systemData.attributes.fairy?.fire){
             fairyCount++;
           }
-          if(systemData.attributes.fairy.wind){
+          if(systemData.attributes.fairy?.wind){
             fairyCount++;
           }
-          if(systemData.attributes.fairy.light){
+          if(systemData.attributes.fairy?.light){
             fairyCount++;
           }
-          if(systemData.attributes.fairy.dark){
+          if(systemData.attributes.fairy?.dark){
             fairyCount++;
           }
 

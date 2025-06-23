@@ -25,7 +25,7 @@
     "maximum": "13"
   },
   "esmodules": ["module/sw25.mjs"],
-  "styles": ["css/sw25.css"],
+  "styles": ["css/sw25.css", "fonts/MingCute/MingCute.css"],
   "languages": [
     {
       "lang": "en",
@@ -52,6 +52,13 @@
       "system": "SW25",
       "type": "JournalEntry",
       "path": "packs/reference"
+    },
+    {
+      "name": "macro",
+      "label": "Macros",
+      "system": "SW25",
+      "type": "Macro",
+      "path": "packs/macro"
     }
   ],
   "packFolders": [
