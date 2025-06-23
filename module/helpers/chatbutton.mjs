@@ -1479,7 +1479,7 @@ export async function chatButton(chatMessage, buttonType) {
     if (game.user.isGM) {
       targetActors.forEach((targetActor) => {
         targetEffects.forEach((effect) => {
-          const transferEffect = duplicate(effect);
+          const transferEffect = foundry.utils.duplicate(effect);
           transferEffect.disabled = false;
           transferEffect.sourceName = orgActor;
           transferEffect.flags = {

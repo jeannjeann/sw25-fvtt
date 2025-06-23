@@ -739,7 +739,7 @@ export class SW25ActorSheet extends ActorSheet {
     // Get the type of item to create.
     const type = header.dataset.type;
     // Grab any data associated with this control.
-    const data = duplicate(header.dataset);
+    const data = foundry.utils.duplicate(header.dataset);
     // Initialize a default name.
     const name = game.i18n.format("DOCUMENT.New", {
       type: game.i18n.localize(`TYPES.Item.${type}`),
@@ -796,7 +796,7 @@ export class SW25ActorSheet extends ActorSheet {
         chatData.flags = {
           sw25: {
             targetMessage: chatMessageId,
-          }
+          },
         };
         chatData.content = await renderTemplate(
           "systems/sw25/templates/roll/roll-applyall.hbs",
@@ -918,7 +918,7 @@ export class SW25ActorSheet extends ActorSheet {
           target,
           targetName: targetName,
           resist: resistData,
-        }
+        },
       };
 
       chatData.content = await renderTemplate(
@@ -986,7 +986,7 @@ export class SW25ActorSheet extends ActorSheet {
         chatData.flags = {
           sw25: {
             targetMessage: chatMessageId,
-          }
+          },
         };
         chatData.content = await renderTemplate(
           "systems/sw25/templates/roll/roll-applyall.hbs",
@@ -1124,7 +1124,7 @@ export class SW25ActorSheet extends ActorSheet {
         powertype: powertype,
         target,
         targetName: targetName,
-      }
+      },
     };
 
     chatData.content = await renderTemplate(
@@ -1177,7 +1177,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (!item.system.selfbuff && targetedToken.size === 0) {
       const title = `${item.name} (${game.i18n.localize("SW25.Effectslong")})`;
       const selectedTokens = await targetSelectDialog(title);
-      selectedTokens.forEach(token => game.user.targets.add(token))
+      selectedTokens.forEach((token) => game.user.targets.add(token));
       if (!selectedTokens) {
         return;
       }
@@ -1221,14 +1221,14 @@ export class SW25ActorSheet extends ActorSheet {
     if (game.user.isGM) {
       targetActors.forEach((targetActor) => {
         targetEffects.forEach((effect) => {
-          const transferEffect = duplicate(effect);
+          const transferEffect = foundry.utils.duplicate(effect);
           transferEffect.disabled = false;
           transferEffect.sourceName = orgActor;
           transferEffect.flags = {
             sw25: {
               sourceName: orgActor,
-              sourceId: `Actor.${orgId}`
-            }
+              sourceId: `Actor.${orgId}`,
+            },
           };
           targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
         });
@@ -1412,7 +1412,7 @@ export class SW25ActorSheet extends ActorSheet {
         modifier: modifier,
         targetValue: targetValue,
         method: method,
-      }
+      },
     };
     chatData.content = await renderTemplate(
       "systems/sw25/templates/roll/rollreq-card.hbs",
@@ -1475,7 +1475,7 @@ export class SW25ActorSheet extends ActorSheet {
         modifier: modifier,
         targetValue: targetValue,
         method: method,
-      }
+      },
     };
     chatData.content = await renderTemplate(
       "systems/sw25/templates/roll/rollreq-card.hbs",
@@ -2023,14 +2023,14 @@ export class SW25ActorSheet extends ActorSheet {
             if (game.user.isGM) {
               selectedTokens.forEach((targetActor) => {
                 targetEffects.forEach((effect) => {
-                  const transferEffect = duplicate(effect);
+                  const transferEffect = foundry.utils.duplicate(effect);
                   transferEffect.disabled = false;
                   transferEffect.sourceName = orgActor;
                   transferEffect.flags = {
                     sw25: {
                       sourceName: orgActor,
-                      sourceId: `Actor.${orgId}`
-                    }
+                      sourceId: `Actor.${orgId}`,
+                    },
                   };
                   targetActor.actor.createEmbeddedDocuments("ActiveEffect", [
                     transferEffect,
@@ -2138,7 +2138,7 @@ export class SW25ActorSheet extends ActorSheet {
           sw25: {
             sourceName: orgActor,
             sourceId: `Actor.${orgId}`,
-          }
+          },
         },
         tint: null,
       },
