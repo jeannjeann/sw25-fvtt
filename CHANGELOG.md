@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2.1.3
+- bug fix
+
+## 2.1.2
+- bug fix
+
+## 2.1.1
+- bug fix  by [keyslock](https://github.com/keyslock)  from [#40](https://github.com/jeannjeann/sw25-fvtt/pull/40)
+
 ## 2.1.0
 - v13一部対応  by [Ryotai](https://github.com/ryotai-trpg)  from [#38](https://github.com/jeannjeann/sw25-fvtt/pull/38)
 - bug fix

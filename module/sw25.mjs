@@ -770,6 +770,13 @@ Hooks.once("ready", async function () {
   game.socket.on("system.sw25", (data) => {
     if (!game.user.isGM) return;
 
+    // multiple GM treatment
+    let activeGMs = game.users
+      .filter((user) => user.isGM && user.active)
+      .map((user) => user.id)
+      .sort();
+    if (activeGMs.length > 1 && game.user.id !== activeGMs[0]) return;
+
     // Apply roll
     if (data.method == "applyRoll") {
       const targetToken = canvas.tokens.get(data.targetToken);
@@ -812,7 +819,7 @@ Hooks.once("ready", async function () {
       const orgId = data.orgId;
       target.forEach((targetActor) => {
         targetEffects.forEach((effect) => {
-          const transferEffect = duplicate(effect);
+          const transferEffect = foundry.utils.duplicate(effect);
           transferEffect.disabled = false;
           transferEffect.sourceName = orgActor;
           transferEffect.flags = {

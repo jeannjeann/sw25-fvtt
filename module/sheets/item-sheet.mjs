@@ -52,11 +52,10 @@ export class SW25ItemSheet extends ItemSheet {
 
     context.config = CONFIG.SW25;
 
-
     context.applyOptions = {
       "-": "SW25.Item.Noapply",
       on: "SW25.Item.applyon",
-      custom: "SW25.Item.Custom"
+      custom: "SW25.Item.Custom",
     };
 
     if (itemData.type == "skill") {
@@ -68,7 +67,7 @@ export class SW25ItemSheet extends ItemSheet {
       context.checkmethodOptions = {
         normal: "SW25.Item.Check.Normalcheck",
         dice: "SW25.Item.Check.Customroll",
-        power: "SW25.Item.Check.Powerroll"
+        power: "SW25.Item.Check.Powerroll",
       };
     }
 
@@ -80,8 +79,8 @@ export class SW25ItemSheet extends ItemSheet {
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
         rescost: "SW25.Item.Resourcecost",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "armor") {
@@ -91,8 +90,8 @@ export class SW25ItemSheet extends ItemSheet {
         all: "SW25.Item.All",
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "accessory") {
@@ -102,8 +101,8 @@ export class SW25ItemSheet extends ItemSheet {
         all: "SW25.Item.All",
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "item") {
@@ -113,8 +112,8 @@ export class SW25ItemSheet extends ItemSheet {
         all: "SW25.Item.All",
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "resource") {
@@ -129,8 +128,8 @@ export class SW25ItemSheet extends ItemSheet {
         all: "SW25.Item.All",
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "enhancearts") {
@@ -141,8 +140,8 @@ export class SW25ItemSheet extends ItemSheet {
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
         mpcost: "SW25.Item.Mpcost",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "magicalsong") {
@@ -152,8 +151,8 @@ export class SW25ItemSheet extends ItemSheet {
         all: "SW25.Item.All",
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "ridingtrick") {
@@ -163,8 +162,8 @@ export class SW25ItemSheet extends ItemSheet {
         all: "SW25.Item.All",
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "alchemytech") {
@@ -174,15 +173,15 @@ export class SW25ItemSheet extends ItemSheet {
         all: "SW25.Item.All",
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
 
       context.resistOptions = {
         decide: "SW25.Item.Decide",
         any: "SW25.Item.Any",
         disappear: "SW25.Item.Disappear",
-        shortening: "SW25.Item.Shortening"
-      }
+        shortening: "SW25.Item.Shortening",
+      };
     }
 
     if (itemData.type == "phasearea") {
@@ -192,8 +191,8 @@ export class SW25ItemSheet extends ItemSheet {
         all: "SW25.Item.All",
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "tactics") {
@@ -203,8 +202,8 @@ export class SW25ItemSheet extends ItemSheet {
         all: "SW25.Item.All",
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "infusion") {
@@ -214,8 +213,8 @@ export class SW25ItemSheet extends ItemSheet {
         all: "SW25.Item.All",
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "barbarousskill") {
@@ -226,8 +225,8 @@ export class SW25ItemSheet extends ItemSheet {
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
         mpcost: "SW25.Item.Mpcost",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "essenceweave") {
@@ -238,16 +237,16 @@ export class SW25ItemSheet extends ItemSheet {
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
         hpcost: "SW25.Item.Hpcost",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
 
       context.resistOptions = {
         decide: "SW25.Item.Decide",
         any: "SW25.Item.Any",
         none: "SW25.Item.None",
         disappear: "SW25.Item.Disappear",
-        halving: "SW25.Item.Halving"
-      }
+        halving: "SW25.Item.Halving",
+      };
     }
 
     if (itemData.type == "otherfeature") {
@@ -258,8 +257,8 @@ export class SW25ItemSheet extends ItemSheet {
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
         mpcost: "SW25.Item.Mpcost",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "raceability") {
@@ -269,8 +268,8 @@ export class SW25ItemSheet extends ItemSheet {
         all: "SW25.Item.All",
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "language") {
@@ -280,8 +279,8 @@ export class SW25ItemSheet extends ItemSheet {
         all: "SW25.Item.All",
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "spell") {
@@ -292,8 +291,8 @@ export class SW25ItemSheet extends ItemSheet {
         power: "SW25.Item.Powerroll",
         dice: "SW25.Item.Diceroll",
         mpcost: "SW25.Item.Mpcost",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "monsterability") {
@@ -301,8 +300,8 @@ export class SW25ItemSheet extends ItemSheet {
       this._prepareMonsterabilityData(context);
       context.applyOptions = {
         "-": "SW25.Item.Noapply",
-        on: "SW25.Item.applyon"
-      }
+        on: "SW25.Item.applyon",
+      };
     }
 
     if (itemData.type == "action") {
@@ -314,8 +313,8 @@ export class SW25ItemSheet extends ItemSheet {
         dice2: "SW25.Check",
         dice1: "SW25.Item.Action.ActionValue",
         mpcost: "SW25.Item.Mpcost",
-        description: "SW25.Item.Onlydescription"
-      }
+        description: "SW25.Item.Onlydescription",
+      };
     }
 
     if (itemData.type == "session") {
@@ -383,8 +382,8 @@ export class SW25ItemSheet extends ItemSheet {
       
       let fieldsRaw = this.item.system.customFields;
       let fields = Array.isArray(fieldsRaw)
-        ? duplicate(fieldsRaw)
-        : Object.values(duplicate(fieldsRaw));
+        ? foundry.utils.duplicate(fieldsRaw)
+        : Object.values(foundry.utils.duplicate(fieldsRaw));
       fields.push({ label: "", value: "" });
       this.item.update({ "system.customFields": fields });
     });
@@ -393,11 +392,10 @@ export class SW25ItemSheet extends ItemSheet {
     html.find(".remove-field").click((ev) => {
       ev.preventDefault();
       const idx = Number(ev.currentTarget.dataset.idx);
-      
       let fieldsRaw = this.item.system.customFields;
       let fields = Array.isArray(fieldsRaw)
-        ? duplicate(fieldsRaw)
-        : Object.values(duplicate(fieldsRaw));
+        ? foundry.utils.duplicate(fieldsRaw)
+        : Object.values(foundry.utils.duplicate(fieldsRaw));
       fields.splice(idx, 1);
       this.item.update({ "system.customFields": fields });
     });
@@ -408,8 +406,8 @@ export class SW25ItemSheet extends ItemSheet {
       const idx = Number(ev.currentTarget.dataset.idx);
       let fieldsRaw = this.item.system.customFields;
       let fields = Array.isArray(fieldsRaw)
-        ? duplicate(fieldsRaw)
-        : Object.values(duplicate(fieldsRaw));
+        ? foundry.utils.duplicate(fieldsRaw)
+        : Object.values(foundry.utils.duplicate(fieldsRaw));
       if (idx > 0) {
         [fields[idx - 1], fields[idx]] = [fields[idx], fields[idx - 1]];
         this.item.update({ "system.customFields": fields });
@@ -422,8 +420,8 @@ export class SW25ItemSheet extends ItemSheet {
       const idx = Number(ev.currentTarget.dataset.idx);
       let fieldsRaw = this.item.system.customFields;
       let fields = Array.isArray(fieldsRaw)
-        ? duplicate(fieldsRaw)
-        : Object.values(duplicate(fieldsRaw));
+        ? foundry.utils.duplicate(fieldsRaw)
+        : Object.values(foundry.utils.duplicate(fieldsRaw));
       if (idx < fields.length - 1) {
         [fields[idx], fields[idx + 1]] = [fields[idx + 1], fields[idx]];
         this.item.update({ "system.customFields": fields });
@@ -487,7 +485,7 @@ export class SW25ItemSheet extends ItemSheet {
         const targetActor = game.actors.find((a) => a.name === name);
         if (targetActor) {
           const oneRollValue = targetActor.system.attributes.fumble ?? 0;
-          charaResult.push({name: name, value: oneRollValue});
+          charaResult.push({ name: name, value: oneRollValue });
         }
       }
     }
@@ -504,7 +502,7 @@ export class SW25ItemSheet extends ItemSheet {
       roll = new Roll(formula);
       await roll.evaluate({ async: true });
       tooltip = await roll.getTooltip();
-      total= roll.total;
+      total = roll.total;
 
       getHonor += Number(roll.total);
       chatData = {
@@ -518,9 +516,9 @@ export class SW25ItemSheet extends ItemSheet {
         flavor: label,
       };
     }
-    const isGamel = (0 < getGamel || 0 < keepGamel);
-    const isHonor = (0 < getHonor || 0 < getSword);
-    const isAbyss = (0 < getAbyss || 0 < keepAbyss);
+    const isGamel = 0 < getGamel || 0 < keepGamel;
+    const isHonor = 0 < getHonor || 0 < getSword;
+    const isAbyss = 0 < getAbyss || 0 < keepAbyss;
 
     chatData.content = await renderTemplate(
       "systems/sw25/templates/roll/session-info.hbs",

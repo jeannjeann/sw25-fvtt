@@ -9,12 +9,18 @@ export class SW25ActiveEffectConfigV2 extends ActiveEffectConfig {
   // };
 
   static PARTS = {
-    header: {template: "templates/sheets/active-effect/header.hbs"},
-    tabs: {template: "templates/generic/tab-navigation.hbs"},
-    details: {template: "templates/sheets/active-effect/details.hbs", scrollable: [""]},
-    duration: {template: "templates/sheets/active-effect/duration.hbs"},
-    changes: {template: "systems/sw25/templates/effect/changes.hbs", scrollable: ["ol[data-changes]"]},
-    footer: {template: "templates/generic/form-footer.hbs"}
+    header: { template: "templates/sheets/active-effect/header.hbs" },
+    tabs: { template: "templates/generic/tab-navigation.hbs" },
+    details: {
+      template: "templates/sheets/active-effect/details.hbs",
+      scrollable: [""],
+    },
+    duration: { template: "templates/sheets/active-effect/duration.hbs" },
+    changes: {
+      template: "systems/sw25/templates/effect/changes.hbs",
+      scrollable: ["ol[data-changes]"],
+    },
+    footer: { template: "templates/generic/form-footer.hbs" },
   };
 
   /* -------------------------------------------- */
@@ -110,7 +116,7 @@ export class SW25ActiveEffectConfigV2 extends ActiveEffectConfig {
       .data("index");
     const effectData = this.object;
     const keytData = effectData.changes[index];
-    const changeData = duplicate(effectData.changes); // Create a copy of changes array
+    const changeData = foundry.utils.duplicate(effectData.changes); // Create a copy of changes array
 
     keytData.keyname = selected;
     keytData.key = "system." + selected;
