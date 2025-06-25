@@ -7,11 +7,7 @@
     <div class='item-element sidebar-hidden' style="flex: 0 0 40px;">{{localize "SW25.Item.Resist"}}</div>
     <div class='item-element' style="flex: 0 0 50px;">HP</div>
     <div class='item-controls'>
-      <a
-        class='item-control item-create'
-        title='{{localize "DOCUMENT.Create" type=(localize "TYPES.Item.essenceweave")}}'
-        data-type='essenceweave'
-      >
+      <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type=(localize "TYPES.Item.essenceweave")}}' data-type='essenceweave'>
         <i class='fas fa-plus'></i>
         {{localize 'DOCUMENT.New' type=''}}
       </a>
@@ -23,12 +19,7 @@
         <div class='item-name'>
           <div class='item-image'>
             <a class='rollable' data-roll-type='item'>
-              <img
-                src='{{item.img}}'
-                title='{{item.name}}'
-                width='24'
-                height='24'
-              />
+              <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
             </a>
           </div>
           {{> "systems/sw25/templates/helper/action-marks.hbs"}}
@@ -52,17 +43,11 @@
         </div>
         {{#if ../isOwner}}
           <div class='item-controls'>
-            <a
-              class='item-control item-edit'
-              title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.essenceweave")}}'
-            >
+            <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.essenceweave")}}'>
               <i class='fas fa-edit'></i>
             </a>
             {{#if ../system.isEdit}}
-              <a
-                class='item-control item-delete'
-                title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.essenceweave")}}'
-              >
+              <a class='item-control item-delete' title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.essenceweave")}}'>
                 <i class='fas fa-trash'></i>
               </a>
             {{else}}
@@ -77,10 +62,7 @@
           </div>
         {{else}}
           <div class='item-controls'>
-            <a
-              class='item-control item-edit'
-              title='{{localize "DOCUMENT.View" type=(localize "TYPES.Item.essenceweave")}}'
-            >
+            <a class='item-control item-edit' title='{{localize "DOCUMENT.View" type=(localize "TYPES.Item.essenceweave")}}'>
               <i class='fa-solid fa-eye'></i>
             </a>
             <div class="item-equip">

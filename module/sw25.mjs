@@ -405,6 +405,63 @@ Handlebars.registerHelper("localizeResourceType", function (type) {
   return "-";
 });
 
+Handlebars.registerHelper("backgroundStyleFromMaterialcards", function(system) {
+  const map = {
+    green: "#abf3c8",
+    red: "#f3aba0",
+    gold: "#ffff88",
+    black: "#999999",
+    white: "#eeeeee"
+  };
+
+  const colors = Object.entries(map)
+    .filter(([key]) => system[key])
+    .map(([, color]) => color);
+
+  if (colors.length === 1) {
+    return `background-color: ${colors[0]};`;
+  } else if (colors.length > 1) {
+    return `background: linear-gradient(90deg, ${colors.join(",")});`;
+  } else {
+    return "";
+  }
+});
+
+Handlebars.registerHelper("resistAttributes", function(type, resistinfo, hpresist) {
+  const info = resistinfo || {};
+  const resistHp = hpresist ?? false;
+
+  let resist = "";
+  let result = "";
+
+  if (info?.type) {
+    if (info.type === "input") {
+      resist = info.input ?? "";
+    } else {
+      resist = game.i18n.localize(`SW25.Resist.Check.${info.type}`);
+    }
+  } else {
+    if (type === "weapon") {
+      resist = game.i18n.localize("SW25.Resist.Check.Dodge");
+    } else {
+      resist = resistHp
+        ? game.i18n.localize("SW25.Resist.Check.Vitres")
+        : game.i18n.localize("SW25.Resist.Check.Mndres");
+    }
+  }
+
+  if (info.result) {
+    result = info.result;
+  }
+
+  let html = `data-resist="${resist}"`;
+  if (result) {
+    html += ` data-resistresult="${result}"`;
+  }
+
+  return new Handlebars.SafeString(html);
+});
+
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */

@@ -83,7 +83,9 @@
     "UnderZero": "0以下",
     "NoCost": "消費なし",
     "Applyall": "すべて適用",
-    "AddBookmark": "アイテムをここにドロップするとブックマークされます",
+    "AddBookmark": "アイテムをここにドロップするとブックマークされます。解除する際は右下の×を押下してください。",
+    "Reset": "{type}初期化",
+    "Add": "{type}追加",
     "TargetSelect": "ターゲット選択",
 
     "Notargetwarn": "ターゲットが指定されていません",

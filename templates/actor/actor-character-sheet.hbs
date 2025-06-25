@@ -1,9 +1,9 @@
 <form class="{{cssClass}} {{actor.type}}" autocomplete="off">
 <input id="sidebar-hidden" type="checkbox" name="system.isSidebar" {{#if system.isSidebar}}checked{{/if}} data-dtype="Boolean" hidden/>
-<section class="sw25pc" {{#if system.color}} style="--main-bg-color:{{system.color.main.bg}}; --main-bg-color-gr:{{system.color.main.bg}}40; --main-text-color:{{system.color.main.text}}; --sub-bg-color:{{system.color.sub.bg}}; --sub-text-color:{{system.color.sub.text}}; --background-color:{{system.color.sub.bg}}; --base-text-color:{{system.color.sub.text}};"{{/if}}>
+<section class="sw25pc" {{#if system.color}} style="--main-bg-color:{{colorSetting.main.bg.r}},{{colorSetting.main.bg.g}},{{colorSetting.main.bg.b}}; --main-text-color:{{colorSetting.main.text.r}},{{colorSetting.main.text.g}},{{colorSetting.main.text.b}}; --sub-bg-color:{{colorSetting.sub.bg.r}},{{colorSetting.sub.bg.g}},{{colorSetting.sub.bg.b}}; --sub-text-color:{{colorSetting.sub.text.r}},{{colorSetting.sub.text.g}},{{colorSetting.sub.text.b}}; --background-color:{{system.color.sub.bg}}; --base-text-color:{{system.color.sub.text}};"{{/if}}>
 
   {{!-- Sheet Header --}}
-  <header class="header" style="background: linear-gradient(70deg, var(--main-bg-color), var(--main-bg-color-gr));{{#if system.color.main.text}} color:{{system.color.main.text}};{{/if}}">
+  <header class="header" style="background: linear-gradient(70deg, rgba(var(--main-bg-color), 1), rgba(var(--main-bg-color), 0.1)); color:rgba(var(--main-text-color), 1);">
     <section class="togglearea">
       <label class="togglearea__btn">
         <input id="{{actor._id}}isEdit" type="checkbox" name="system.isEdit" {{#if system.isEdit}}checked{{/if}} data-dtype="Boolean"/>
@@ -104,7 +104,7 @@
           &nbsp;/&nbsp;{{localize "SW25.Attributes.AgeLabel" age=system.attributes.age}}
         </div>
         <div class="header__overview--rank">
-          <i class="fa-solid fa-medal">{{system.attributes.honer.rank}}</i>
+          <i class="fa-solid fa-medal"></i>{{system.attributes.honer.rank}}
         </div>
         <div class="header__overview--honer">
           / {{system.attributes.honer.value}}
@@ -140,93 +140,92 @@
     <section class="header__roll">
       {{#if contentItem.vitRes}}
         {{#with contentItem.vitRes as |item|}}
-        <span class="common-display item" data-item-id='{{item._id}}'>
+        <div class="common-display item" data-item-id='{{item._id}}'>
           <span class='rollable' data-roll="{{item.system.formula}}+{{item.system.checkbase}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applycheck}}" data-checktype="{{item.system.checkTypesButton}}">
-            <span class="common-label">{{localize "SW25.Config.ResVit"}}</span>
-            <span class="common-value">{{item.system.checkbase}}</span>
-            <span class="common-icon icon-top"><i class="fa-solid fa-dice"></i></span>
+            <div class="common-label">{{localize "SW25.Config.ResVit"}}</div>
+            <div class="common-value">{{item.system.checkbase}}</div>
+            <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
           </span>
-          <span class="tooltip mod-content" style="text-align: right;">
+          <div class="tooltip mod-content">
             <label class="mod-label">
-              <i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Effect.MppMod"}}</span></label>
-              <input class="cm-change" style="max-width: 60%; height: 1.5em;" type="text" name="checkmodInput" value="{{item.system.checkmod}}" data-dtype="Number"/>
-          </span>
-        </span>
+              <i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Config.ResVit"}}{{localize "SW25.Modifier"}}</span></label>
+              <input class="cm-change common-display--input" type="text" name="checkmodInput" value="{{item.system.checkmod}}" data-dtype="Number"/>
+          </div>
+        </div>
         {{/with}}
       {{else}}
-        <span class="common-display">
-        <span class="common-label">{{localize "SW25.Config.ResVit"}}</span>
-        <span class="common-value"> - </span>
-        </span>
+        <div class="common-display">
+        <div class="common-label">{{localize "SW25.Config.ResVit"}}</div>
+        <div class="common-value"> - </div>
+        </div>
       {{/if}}
       {{#if contentItem.mndRes}}
         {{#with contentItem.mndRes as |item|}}
-        <span class="common-display item" data-item-id='{{item._id}}'>
+        <div class="common-display item" data-item-id='{{item._id}}'>
           <span class='rollable' data-roll="{{item.system.formula}}+{{item.system.checkbase}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applycheck}}" data-checktype="{{item.system.checkTypesButton}}">
-            <span class="common-label">{{localize "SW25.Config.ResMnd"}}</span>
-            <span class="common-value">{{item.system.checkbase}}</span>
-            <span class="common-icon icon-top"><i class="fa-solid fa-dice"></i></span>
+            <div class="common-label">{{localize "SW25.Config.ResMnd"}}</div>
+            <div class="common-value">{{item.system.checkbase}}</div>
+            <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
           </span>
-          <span class="tooltip mod-content" style="text-align: right;">
+          <span class="tooltip mod-content">
             <label class="mod-label">
-              <i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Effect.MppMod"}}</span></label>
-              <input class="cm-change" style="max-width: 60%; height: 1.5em;" type="text" name="checkmodInput" value="{{item.system.checkmod}}" data-dtype="Number"/>
+              <i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Config.ResMnd"}}{{localize "SW25.Modifier"}}</span></label>
+              <input class="cm-change common-display--input" type="text" name="checkmodInput" value="{{item.system.checkmod}}" data-dtype="Number"/>
           </span>
-        </span>
+        </div>
         {{/with}}
       {{else}}
-        <span class="common-display">
-        <span class="common-label">{{localize "SW25.Config.ResMnd"}}</span>
-        <span class="common-value"> - </span>
-        </span>
+        <div class="common-display">
+        <div class="common-label">{{localize "SW25.Config.ResMnd"}}</div>
+        <div class="common-value"> - </div>
+        </div>
       {{/if}}
-      <span class="common-display">
-        <span class="common-label">{{localize "SW25.Attributes.Protectionpoint.long"}}</span>
-        <span class="common-value">{{system.attributes.protectionpoint}}{{#if system.baredreduce}} ({{system.barepp}}+{{system.baredreduce}}){{/if}}</span>
-        <span class="tooltip mod-content" style="text-align: right;">
-          <label class="mod-label" for="{{actor._id}}system.attributes.ppmod">
-            <i class="fa-solid fa-shield"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Effect.PpMod"}}</span></label>
-          <input id="{{actor._id}}system.attributes.ppmod" class="mod-input" style="max-width: 60%; height: 1.5em;" type="text" name="system.attributes.ppmod" value="{{system.attributes.ppmod}}" data-dtype="Number"/>
-        </span>
-      </span>
-      <span class="common-display">
-        <span class="common-label">{{localize "SW25.Attributes.Magicprotection.long"}}</span>
-        <span class="common-value">{{system.attributes.magicprotection}}{{#if system.baredreduce}} ({{system.barempp}}+{{system.baredreduce}}){{/if}}</span>
-        <span class="tooltip mod-content" style="text-align: right;">
-          <label class="mod-label" for="{{actor._id}}system.attributes.mppmod">
-            <i class="fa-solid fa-star-of-david"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Effect.MppMod"}}</span></label> <input id="{{actor._id}}system.attributes.mppmod" class="mod-input" style="max-width: 60%; height: 1.5em;" type="text" name="system.attributes.mppmod" value="{{system.attributes.mppmod}}" data-dtype="Number"/>
-        </span>
-      </span>
-      <span class="common-display">
-        <div class="flexrow grid grid-3col gap-m nomargin">
+      <div class="common-display">
+        <div class="common-label">{{localize "SW25.Attributes.Protectionpoint.long"}}</div>
+        <div class="common-value">{{system.attributes.protectionpoint}}{{#if system.baredreduce}} ({{system.barepp}}+{{system.baredreduce}}){{/if}}</div>
+        <div class="tooltip mod-content">
+          <label class="mod-label" for="{{actor._id}}system.attributes.ppmod"><i class="fa-solid fa-shield"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Effect.PpMod"}}</span></label>
+          <input class="mod-input common-display--input" id="{{actor._id}}system.attributes.ppmod" type="text" name="system.attributes.ppmod" value="{{system.attributes.ppmod}}" data-dtype="Number"/>
+        </div>
+      </div>
+      <div class="common-display">
+        <div class="common-label">{{localize "SW25.Attributes.Magicprotection.long"}}</div>
+        <div class="common-value">{{system.attributes.magicprotection}}{{#if system.baredreduce}} ({{system.barempp}}+{{system.baredreduce}}){{/if}}</div>
+        <div class="tooltip mod-content">
+          <label class="mod-label" for="{{actor._id}}system.attributes.mppmod"><i class="fa-solid fa-star-of-david"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Effect.MppMod"}}</span></label>
+          <input class="mod-input common-display--input" id="{{actor._id}}system.attributes.mppmod" type="text" name="system.attributes.mppmod" value="{{system.attributes.mppmod}}" data-dtype="Number"/>
+        </div>
+      </div>
+      <div class="common-display">
+        <div class="grid grid-3col gap-m nomargin">
           <div>
-            <span class="common-label tooltip">
+            <div class="common-label tooltip">
               <span class="tooltip-text">{{localize "SW25.Attributes.Limitedmove"}}</span>
               <i class="fa-solid fa-person-walking-with-cane"></i>
-            </span>
-            <span class="common-value">{{system.attributes.move.limited}}</span>
+            </div>
+            <div class="common-value">{{system.attributes.move.limited}}</div>
           </div>
           <div>
-            <span class="common-label tooltip">
+            <div class="common-label tooltip">
               <span class="tooltip-text">{{localize "SW25.Attributes.Normalmove"}}</span>
               <i class="fa-solid fa-person-walking"></i>
-            </span>
-            <span class="common-value">{{system.attributes.move.normal}}</span>
+            </div>
+            <div class="common-value">{{system.attributes.move.normal}}</div>
           </div>
           <div>
-            <span class="common-label tooltip">
+            <div class="common-label tooltip">
               <span class="tooltip-text">{{localize "SW25.Attributes.Maxmove"}}</span>
               <i class="fa-solid fa-person-running"></i>
-            </span>
-            <span class="common-value">{{system.attributes.move.max}}</span>
+            </div>
+            <div class="common-value">{{system.attributes.move.max}}</div>
           </div>
           <div class="flexcol grid-span-3">
-            <span class="tooltip" style="text-align: center;">
-              <label for="{{actor._id}}system.attributes.move.movemod"><i class="fa-solid fa-person-running"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Attributes.Movemod"}}</span></label>
-              <input id="{{actor._id}}system.attributes.move.movemod" style="max-width: 60%; height: 1.5em;" type="text" name="system.attributes.move.movemod" value="{{system.attributes.move.movemod}}" data-dtype="Number"/></span>
+            <div class="tooltip mod-content">
+              <label class="mod-label" for="{{actor._id}}system.attributes.move.movemod"><i class="fa-solid fa-person-running"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Attributes.Movemod"}}</span></label>
+              <input class="mod-input common-display--input" id="{{actor._id}}system.attributes.move.movemod" type="text" name="system.attributes.move.movemod" value="{{system.attributes.move.movemod}}" data-dtype="Number"/></div>
           </div>
         </div>
-      </span>
+      </div>
 
       <div class="property-col">
         <label class="property--label-col" for="{{actor._id}}fumble" class="resource-label">{{localize "SW25.Attributes.Fumble"}}</label>
@@ -259,7 +258,7 @@
         </a>
         <a class="item tooltip" data-tab="adventure">
           <span class="tooltip-text">{{localize "SW25.Adventure"}}</span>
-          <i class="fa-solid fa-magnifying-glass"></i>
+          <i class="fa-solid fa-binoculars"></i>
         </a>
       </nav>
       
@@ -332,7 +331,7 @@
         <div class="tab battle" style="overflow-x: hidden" data-group="sidebar" data-tab="battle" data-scrollable="true" id="sidebar-battle">
           <div class="grid grid-3col margin-s">
             <div class="flexcol grid-span-3">
-              <div class="flexrow grid grid-3col gap-m nomargin">
+              <div class="grid grid-3col gap-m nomargin">
                 <span class="rollable common-display" data-resusequantity={{system.resusequantity}} data-resuse="{{system.resuse}}" data-roll="{{system.itemhitformula}}+{{system.itemhitbase}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Weapon.Hit"}})" data-pt="{{system.itempowertable}}" data-apply="{{system.itemapplycheck}}" data-checktype="{{system.itemchecktype}}" data-resist="{{localize "SW25.Resist.Check.Dodge"}}" data-resistresult="disappear">
                   <span class="common-label">{{localize "SW25.Item.Weapon.Hit"}}</span>
                   <span class="common-value">{{system.itemhitbase}}</span>
@@ -379,7 +378,7 @@
                 </div>
               </fieldset>
               <div class="grid-span-3 nobreak">
-                <i class="fa-solid fa-hand-fist"></i>
+                <i class="mgc_knife_fill"></i>
                 <select name="system.hitweapon">
                   {{#select system.hitweapon}}
                   <option value="-">{{localize "SW25.Selecthitweapon"}}</option>
@@ -579,7 +578,7 @@
     {{!-- Owned Spells Tab --}}
     <div class="tab spells" data-group="primary" data-tab="spells">
       {{#if scshow}}
-      <div class="item flexrow">
+      <div class="item">
         <div class="grid grid-12col">
           <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Sorcerer"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.sccast}}" data-label="{{localize "SW25.Item.Spell.Sorcerer"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.scpower}}</span>
@@ -604,7 +603,7 @@
       </div>
       {{/if}}
       {{#if cnshow}}
-      <div class="item flexrow">
+      <div class="item">
         <div class="grid grid-12col">
           <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Conjurer"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.cncast}}" data-label="{{localize "SW25.Item.Spell.Conjurer"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.cnpower}}</span>
@@ -629,7 +628,7 @@
       </div>
       {{/if}}
       {{#if wzshow}}
-      <div class="item flexrow">
+      <div class="item">
         <div class="grid grid-12col">
           <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Wizard"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.wzcast}}" data-label="{{localize "SW25.Item.Spell.Wizard"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.wzpower}}</span>
@@ -649,7 +648,7 @@
       </div>
       {{/if}}
       {{#if prshow}}
-      <div class="item flexrow">
+      <div class="item">
         <div class="grid grid-12col">
           <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Priest"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.prcast}}" data-label="{{localize "SW25.Item.Spell.Priest"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.prpower}}</span>
@@ -669,7 +668,7 @@
       </div>
       {{/if}}
       {{#if mtshow}}
-      <div class="item flexrow">
+      <div class="item">
         <div class="grid grid-12col">
           <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Magitech"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.mtcast}}" data-label="{{localize "SW25.Item.Spell.Magitech"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.mtpower}}</span>
@@ -689,7 +688,7 @@
       </div>
       {{/if}}
       {{#if frshow}}
-      <div class="item flexrow">
+      <div class="item">
         <div class="grid grid-12col">
           <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Fairy"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.frcast}}" data-label="{{localize "SW25.Item.Spell.Fairy"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.frpower}}</span>
@@ -719,7 +718,7 @@
       </div>
       {{/if}}
       {{#if drshow}}
-      <div class="item flexrow">
+      <div class="item">
         <div class="grid grid-12col">
           <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Druid"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.drcast}}" data-label="{{localize "SW25.Item.Spell.Druid"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.drpower}}</span>
@@ -739,7 +738,7 @@
       </div>
       {{/if}}
       {{#if dmshow}}
-      <div class="item flexrow">
+      <div class="item">
         <div class="grid grid-12col">
           <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Daemon"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.dmcast}}" data-label="{{localize "SW25.Item.Spell.Daemon"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.dmpower}}</span>
@@ -759,7 +758,7 @@
       </div>
       {{/if}}
       {{#if abshow}}
-      <div class="item flexrow">
+      <div class="item">
         <div class="grid grid-12col">
           <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Abyssal"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.abcast}}" data-label="{{localize "SW25.Item.Spell.Abyssal"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.abpower}}</span>
@@ -891,7 +890,7 @@
       <div class="flexcol margin-s">
         <div class="grid grid-4col nogapmargin">
           <div class="grid-span-3"></div>
-          <div class="flexrow resource-label flex-group-right tooltip"><label for="{{actor._id}}system.money"><i class="fa-solid fa-coins"></i><span class="tooltip-text">{{localize "SW25.Mymoney"}}</span></label> <input id="{{actor._id}}system.money" style="max-width: calc(60% - 7px);" type="text" name="system.money" value="{{system.money}}" data-dtype="Number"/> G</div>
+          <div class="resource-label flex-group-right tooltip"><label for="{{actor._id}}system.money"><i class="fa-solid fa-coins"></i><span class="tooltip-text">{{localize "SW25.Mymoney"}}</span></label> <input id="{{actor._id}}system.money" style="max-width: calc(60% - 7px);" type="text" name="system.money" value="{{system.money}}" data-dtype="Number"/> G</div>
         </div>
         <div>
           {{> "systems/sw25/templates/actor/parts/actor-items.hbs"}}
@@ -915,11 +914,11 @@
           {{> "systems/sw25/templates/actor/parts/actor-languages.hbs"}}
         </div>
         <div class="flexcol grid-span-3">
-          <div class="flexrow grid grid-6col nogapmargin">
+          <div class="grid grid-6col nogapmargin">
             <span class="grid-span-2" style="text-align: center;"><label for="{{actor._id}}system.attributes.born"><b>{{localize "SW25.Attributes.Born"}}</b></label><br>
-            <input id="{{actor._id}}system.attributes.born" type="text" name="system.attributes.born" value="{{system.attributes.born}}" data-dtype="String"/></span>
+            <input id="{{actor._id}}system.attributes.born" type="text" name="system.attributes.born" value="{{system.attributes.born}}" data-dtype="String"{{#unless system.isEdit}} disabled{{/unless}}/></span>
             <span class="grid-span-2" style="text-align: center;"><label for="{{actor._id}}system.attributes.faith"><b>{{localize "SW25.Attributes.Faith"}}</b></label><br>
-            <input id="{{actor._id}}system.attributes.faith" type="text" name="system.attributes.faith" value="{{system.attributes.faith}}" data-dtype="String"/></span>
+            <input id="{{actor._id}}system.attributes.faith" type="text" name="system.attributes.faith" value="{{system.attributes.faith}}" data-dtype="String"{{#unless system.isEdit}} disabled{{/unless}}/></span>
             <span class="grid-span-2" style="text-align: center;"><label for="{{actor._id}}impurity" class="resource-label">{{localize "SW25.Attributes.Impurity"}}</label><br>
             <div class="adjustable-container">
               <a class="adjustment-button" data-action="decrease" data-property="system.attributes.impurity">
@@ -931,32 +930,50 @@
               </a>
             </div>
           </div>
-          <fieldset class="category flexrow grid grid-6col nogapmargin">
+          <fieldset class="category itemselect">
             <legend class="category__title">{{localize "SW25.Defaultitemskill"}}</legend>
-            <span class="grid-span-3" style="text-align: right;">{{localize "SW25.Selectherbskill"}}</span>
-            <span class="grid-span-3" style="text-align: left;">
-              <select name="system.herbskill">
+            <div class="property align-right">
+              <label class="property--label">
+                <i class="fa-solid fa-leaf" style="display:{{#if system.isSidebar}}none{{else}}block{{/if}};"></i>
+                <span class="sidebar-hidden">{{localize "SW25.Selectherbskill"}}</span>
+              </label>
+            </div>
+            <div class="property tooltip">
+              <select class="property--value" name="system.herbskill">
                 {{selectOptions skills selected=system.herbskill valueAttr="name" labelAttr="name" localize=true blank="SW25.Item.None"}}
               </select>
-            </span>
-            <span class="grid-span-3" style="text-align: right;">{{localize "SW25.Selectpotionskill"}}</span>
-            <span class="grid-span-3" style="text-align: left;">
-              <select name="system.potionskill">
+              <span class="tooltip-top">{{localize "SW25.Selectherbskill"}}</span>
+            </div>
+            <div class="property align-right">
+              <label class="property--label">
+                <i class="fa-solid fa-flask" style="display:{{#if system.isSidebar}}none{{else}}block{{/if}};"></i>
+                <span class="sidebar-hidden">{{localize "SW25.Selectpotionskill"}}</span>
+              </label>
+            </div>
+            <div class="property tooltip">
+              <select class="property--value" name="system.potionskill">
                 {{selectOptions skills selected=system.potionskill valueAttr="name" labelAttr="name" localize=true blank="SW25.Item.None"}}
               </select>
-            </span>
-            <span class="grid-span-3" style="text-align: right;">{{localize "SW25.Selectrepairskill"}}</span>
-            <span class="grid-span-3" style="text-align: left;">
-              <select name="system.repairskill">
+              <span class="tooltip-top">{{localize "SW25.Selectpotionskill"}}</span>
+            </div>
+            <div class="property align-right">
+              <label class="property--label">
+                <i class="fa-solid fa-screwdriver-wrench" style="display:{{#if system.isSidebar}}none{{else}}block{{/if}};"></i>
+                <span class="sidebar-hidden">{{localize "SW25.Selectrepairskill"}}</span>
+              </label>
+            </div>
+            <div class="property tooltip">
+              <select class="property--value" name="system.repairskill">
                 {{selectOptions skills selected=system.repairskill valueAttr="name" labelAttr="name" localize=true blank="SW25.Item.None"}}
               </select>
-            </span>
+              <span class="tooltip-top">{{localize "SW25.Selectrepairskill"}}</span>
+            </div>
           </fieldset>
           {{#if system.isEdit}}
-          <fieldset class="category flexrow grid grid-6col nogapmargin">
+          <fieldset class="category grid grid-6col nogapmargin">
             <legend class="category__title">{{localize "SW25.Actor.ColorSetting.Title"}}</legend>
 
-              <fieldset class="subcategory grid-span-6 flexrow grid grid-6col nogapmargin">
+              <fieldset class="subcategory grid-span-6 grid grid-6col nogapmargin">
                 <legend class="category__title">{{localize "SW25.Actor.ColorSetting.Main"}}</legend>
                 <div class="grid-span-3">
                   <label for="system.color.main.bg">{{localize "SW25.Actor.ColorSetting.Background"}}</label>
@@ -967,7 +984,7 @@
                   <input type="color" name="system.color.main.text" value="{{system.color.main.text}}" />
                 </div>
               </fieldset>
-              <fieldset class="subcategory grid-span-6 flexrow grid grid-6col nogapmargin">
+              <fieldset class="subcategory grid-span-6 grid grid-6col nogapmargin">
                 <legend class="category__title">{{localize "SW25.Actor.ColorSetting.Sub"}}</legend>
                 <div class="grid-span-3">
                   <label for="system.color.sub.bg">{{localize "SW25.Actor.ColorSetting.Background"}}</label>
@@ -980,6 +997,7 @@
               </fieldset>
           </fieldset>
           {{/if}}
+          <div class="grid grid-6col nogapmargin flex-blank"></div>
         </div>
       </div>
 
@@ -1055,10 +1073,10 @@
 
       <hr>
       {{#if system.toFellow}}
-      <div class="character-details-secondary textalign-center flexrow">
+      <div class="character-details-secondary textalign-center">
       </div>
       <hr>
-      <div class="textalign-left flexrow">
+      <div class="textalign-left">
         <div class="detail__fellowlanglabel">
           <span for="{{actor._id}}fellowlang" class="resource-label">{{localize "SW25.Languages"}}:</span>
         </div>
@@ -1067,7 +1085,7 @@
         </div>
       </div>
       <hr>
-      <div class="textalign-left flexrow">
+      <div class="textalign-left">
         <div class="detail__fellowmemolabel">
           <span for="{{actor._id}}fellowmemo" class="resource-label">{{localize "SW25.Fellowmemo"}}:</span>
         </div>
@@ -1088,104 +1106,7 @@
       <div id="bookmark-inner">
       <ul class="bookmarks">
       {{#each bookmarks as |item id|}}
-
-        <li class="bookmarks__item">
-        <span class="item-display item tooltip" data-item-id='{{item._id}}'>
-            <div class="label">
-              {{item.name}}
-            </div>
-            <div class="contents">
-              <div class='item-image'>
-                <a class='rollable' data-roll-type='item'>
-                  <img
-                    src='{{item.img}}'
-                    title='{{item.name}}'
-                    width='24'
-                    height='24'
-                  />
-                </a>
-              </div>
-
-              <div class="item-resource">
-                {{#if system.hpcost}}
-                  <div class='hpcost item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 50px;" data-cost="{{item.system.hpcost}}" data-max="{{item.system.maxhpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
-                    HP:{{system.hpcost}}{{#if system.maxhpcost}} ({{system.maxhpcost}}){{/if}}
-                  </div>
-                {{/if}}
-
-                {{#if system.mpcost}}
-                  <div class='mpcost item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
-                    MP:{{system.mpcost}}
-                  </div>
-                {{/if}}
-
-                {{#if (eq type "alchemytech")}}
-                  <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
-                    <div class="materialcardcost">B</div>
-                    <div class="materialcardcost">A</div>
-                    <div class="materialcardcost">S</div>
-                    <div class="materialcardcost">SS</div>
-                  </div>
-                {{/if}}
-
-                {{#if (eq type "tactics")}}
-                  <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
-                    {{#if system.get}}<div class="tacspowerget">+{{system.get}}</div>{{/if}}
-                    {{#if system.cost}}<div class="tacspowercost">-{{system.cost}}</div>{{/if}}
-                  </div>
-                {{/if}}
-              </div>
-
-              {{#if system.usedice}}
-                <div class="item-button rollable usedice" data-roll="{{item.system.checkformula}}+{{item.system.checkbase}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck}}" data-checktype="{{system.checkTypesButton}}"
-                {{#if system.resistinfo}}
-                  {{#if system.resistinfo.type}}
-                    {{#if (eq system.resistinfo.type "input")}}
-                    data-resist="{{system.resistinfo.input}}"
-                    {{else}}
-                    data-resist="{{localize (concat "SW25.Resist.Check." system.resistinfo.type)}}"
-                    {{/if}}
-                  {{/if}}
-                  {{#if system.resistinfo.result}}
-                      data-resistresult="{{system.resistinfo.result}}"
-                  {{/if}}
-                {{else}}
-                {{#if (eq type "weapon")}}
-                data-resist="{{localize "SW25.Resist.Check.Dodge"}}"
-                {{else}}
-                  {{#if system.hpresist}}
-                  data-resist="{{localize "SW25.Resist.Check.Vitres"}}"
-                  {{else}}
-                  data-resist="{{localize "SW25.Resist.Check.Mndres"}}"
-                  {{/if}}
-                {{/if}}
-                {{/if}}
-                >
-                  <i class="fa-solid fa-dice"></i>
-                </div>
-              {{/if}}
-
-              {{#if system.usepower}}
-                <div class="item-button powerrollable usepower" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{localize "SW25.Item.Power"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}" data-powertype="{{system.powerTypesButton}}">
-                  <i class="fa-solid fa-meteor"></i>
-                </div>
-              {{/if}}
-
-              {{#if system.useeffect}}
-                <div class="item-button applyeffect useeffect">
-                  <i class="fa-solid fa-hand-sparkles"></i>
-                </div>
-              {{/if}}
-
-              <div class="item-button changebookmark">
-                <i class="fa-solid fa-xmark"></i>
-              </div>
-            </div>
-            <span class="item-tooltip">{{item.name}}</span>
-            <span class="icon icon-top"><i class="fa-solid fa-bookmark"></i></span>
-        </span>
-          </li>
-
+        {{> "systems/sw25/templates/actor/parts/actor-bookmark-item.hbs" item=item}}
       {{/each}}
       <li style="flex: 1 1 200px; height:calc(100%-10px); border: 2px dashed #999; padding: 1em; text-align: center; margin: 5px;">
         {{localize "SW25.AddBookmark"}}

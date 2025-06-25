@@ -9,6 +9,7 @@ import { growthCheck } from "../helpers/growthcheck.mjs";
 import { actionRoll } from "../helpers/actionroll.mjs";
 import { targetRollDialog, targetSelectDialog } from "../helpers/dialogs.mjs";
 import { SW25 } from "../helpers/config.mjs";
+import { Util } from "../helpers/utils.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -88,6 +89,29 @@ export class SW25ActorSheet extends ActorSheet {
       // as well as any items
       this.actor.allApplicableEffects()
     );
+
+    const colorSetting = actorData.system.color
+    ? {
+        main: {
+          bg: Util.hexToRgb(actorData.system.color.main.bg),
+          text: Util.hexToRgb(actorData.system.color.main.text)
+        },
+        sub: {
+          bg: Util.hexToRgb(actorData.system.color.sub.bg),
+          text: Util.hexToRgb(actorData.system.color.sub.text)
+        }
+      }
+    : {
+        main: {
+          bg: {r:239, g:230, b:216},
+          text: {r:0, g:0, b:0},
+        },
+        sub: {
+          bg: {r:247, g:243, b:232},
+          text: {r:0, g:0, b:0},
+        }
+      }
+    context.colorSetting = colorSetting;
 
     return context;
   }
@@ -687,6 +711,12 @@ export class SW25ActorSheet extends ActorSheet {
     // use Phasearea.
     html.on("click", ".usephasearea", this._onUsePhasearea.bind(this));
 
+    // Lifeline add.
+    html.on("click", ".lifelineadd", this._onLifelineAdd.bind(this));
+
+    // Lifeline reset.
+    html.on("click", ".lifelinereset", this._onLifelineReset.bind(this));
+
     // Material card cost.
     html.on("click", ".materialcardcost", this._onMaterialcardCost.bind(this));
 
@@ -699,11 +729,17 @@ export class SW25ActorSheet extends ActorSheet {
     // Notes add cost.
     html.on("click", ".notesaddget", this._onNotesAddGet.bind(this));
 
+    // Notes reset.
+    html.on("click", ".notesreset", this._onNotesReset.bind(this));
+
     // Tacspower get.
     html.on("click", ".tacspowerget", this._onTacspowerGet.bind(this));
 
     // Tacspower cost.
     html.on("click", ".tacspowercost", this._onTacspowerCost.bind(this));
+
+    // Tacspower reset.
+    html.on("click", ".tacspowerreset", this._onTacspowerReset.bind(this));
 
     // Popularity roll.
     html.on("click", ".popularityrollable", this._onPopularityRoll.bind(this));
@@ -717,19 +753,17 @@ export class SW25ActorSheet extends ActorSheet {
     // Change Permission.
     html.on("click", ".changebookmark", this._onChangeBookmark.bind(this));
 
-    // 要素取得（外枠と中身）
+    // bookmark-scroll
     const outer = html.find("#bookmark-outer")[0];
     const inner = html.find("#bookmark-inner")[0];
     let currentOffset = 0;
     const scrollAmount = 116;
 
-    // 左スクロールボタン
     html.find(".scroll-button.left").on("click", () => {
       currentOffset = Math.min(currentOffset + scrollAmount, 0); // 左限界
       inner.style.transform = `translateX(${currentOffset}px)`;
     });
 
-    // 右スクロールボタン
     html.find(".scroll-button.right").on("click", () => {
       const maxOffset = -(inner.scrollWidth - outer.clientWidth);
       currentOffset = Math.max(currentOffset - scrollAmount, maxOffset); // 右限界
@@ -961,7 +995,6 @@ export class SW25ActorSheet extends ActorSheet {
       }
 
       let resistData = null;
-
       if (dataset.resist && dataset.resistresult != "none") {
         resistData = {
           name: dataset.resist,
@@ -1632,6 +1665,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     this.submit();
   }
+
   async _onQuantityButton(event) {
     event.preventDefault();
     const action = event.currentTarget.dataset.action;
@@ -1650,14 +1684,6 @@ export class SW25ActorSheet extends ActorSheet {
     // Check limit
     if (item.type == "resource") {
       if (item.system.qmax || item.system.qmax == 0) {
-        /*
-        if (quantity == item.system.qmax) {
-          quantity = item.system.qmax;
-          ui.notifications.warn(
-            `"${item.name}"${game.i18n.localize("SW25.isMax")}`
-          );
-        }
-        */
         if (item.system.qmax && quantity > item.system.qmax) {
           quantity = item.system.qmax;
           ui.notifications.warn(
@@ -1666,14 +1692,6 @@ export class SW25ActorSheet extends ActorSheet {
         }
       }
       if (item.system.qmin || item.system.qmin == 0) {
-        /*
-        if (quantity == item.system.qmin) {
-          quantity = item.system.qmin;
-          ui.notifications.warn(
-            `"${item.name}"${game.i18n.localize("SW25.isMin")}`
-          );
-        }
-        */
         if (item.system.qmin && quantity < item.system.qmin) {
           quantity = item.system.qmin;
           ui.notifications.warn(
@@ -1694,6 +1712,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     this.submit();
   }
+
   async _changeQuantity(event) {
     event.preventDefault();
 
@@ -1704,9 +1723,11 @@ export class SW25ActorSheet extends ActorSheet {
     let newQuantity = Number(event.currentTarget.value);
     await this._updateQuantity(item, newQuantity);
   }
+
   async _updateQuantity(item, quantity) {
     await item.update({ "system.quantity": quantity });
   }
+
   async _onSkilllevelButton(event) {
     event.preventDefault();
     const action = event.currentTarget.dataset.action;
@@ -1733,6 +1754,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     this.submit();
   }
+
   async _changeSkillLevel(event) {
     event.preventDefault();
 
@@ -1743,9 +1765,11 @@ export class SW25ActorSheet extends ActorSheet {
     let newSkillLevel = Number(event.currentTarget.value);
     item.update({ "system.skilllevel": newSkillLevel });
   }
+
   async _updateSkilllevel(item, skilllevel) {
     await item.update({ "system.skilllevel": skilllevel });
   }
+
   async _changeSkillMod(event) {
     event.preventDefault();
 
@@ -1783,6 +1807,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     this.submit();
   }
+
   async _changeCheckMod(event) {
     event.preventDefault();
 
@@ -1809,6 +1834,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (newCheckMod == 0) newCheckMod = null;
     item.update({ "system.checkmod1": newCheckMod });
   }
+
   async _updateCheckmod(item, checkmod) {
     await item.update({ "system.checkmod1": checkmod });
   }
@@ -1824,6 +1850,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (newCheckMod == 0) newCheckMod = null;
     item.update({ "system.checkmod2": newCheckMod });
   }
+  
   async _updateCheckmod(item, checkmod) {
     await item.update({ "system.checkmod2": checkmod });
   }
@@ -1839,6 +1866,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (newCheckMod == 0) newCheckMod = null;
     item.update({ "system.checkmod3": newCheckMod });
   }
+
   async _updateCheckmod(item, checkmod) {
     await item.update({ "system.checkmod3": checkmod });
   }
@@ -1854,6 +1882,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (newPowerMod == 0) newPowerMod = null;
     item.update({ "system.powermod": newPowerMod });
   }
+
   async _updatePowermod(item, powermod) {
     await item.update({ "system.powermod": powermod });
   }
@@ -1868,6 +1897,7 @@ export class SW25ActorSheet extends ActorSheet {
     let newEquip = event.currentTarget.checked;
     item.update({ "system.equip": newEquip });
   }
+
   async _updateEquip(item, equip) {
     await item.update({ "system.equip": equip });
   }
@@ -1882,6 +1912,7 @@ export class SW25ActorSheet extends ActorSheet {
     let newReading = event.currentTarget.checked;
     item.update({ "system.reading": newReading });
   }
+
   async _updateReading(item, reading) {
     await item.update({ "system.reading": reading });
   }
@@ -1896,6 +1927,7 @@ export class SW25ActorSheet extends ActorSheet {
     let newConversation = event.currentTarget.checked;
     item.update({ "system.conversation": newConversation });
   }
+
   async _updateConversation(item, conversation) {
     await item.update({ "system.conversation": conversation });
   }
@@ -2603,6 +2635,30 @@ export class SW25ActorSheet extends ActorSheet {
     }
   }
 
+  async _onNotesReset(event) {
+    event.preventDefault();
+
+    await this._updateAllResource({type: "note"}, null);
+  }
+
+  async _onLifelineReset(event) {
+    event.preventDefault();
+
+    await this._updateAllResource({type: "lifeline"}, null);
+  }
+
+  async _onLifelineAdd(event) {
+    event.preventDefault();
+
+    await this._updateAllResource({type: "lifeline"}, 1);
+  }
+
+  async _onTacspowerReset(event) {
+    event.preventDefault();
+
+    await this._updateAllResource({type: "tacspower"}, null);
+  }
+
   async _updateResource(resourceType, modifyValue, multiple = 1) {
     const result = isNaN(Number(modifyValue))
       ? 0
@@ -2627,6 +2683,40 @@ export class SW25ActorSheet extends ActorSheet {
       ui.notifications.warn(game.i18n.localize("SW25.NotResource"));
       return;
     }
+  }
+  
+  async _updateAllResource(resourceType, modifyValue, multiple = 1) {
+    const result = isNaN(Number(modifyValue))
+      ? 0
+      : Number(modifyValue) * multiple;
+
+    const resources = this.actor.items.filter((i) => {
+      if (i.type !== "resource") return false;
+
+      const res = i.system?.resource;
+      return (
+        res &&
+        Object.entries(resourceType).every(([key, value]) => res[key] === value)
+      );
+    });
+
+    if (resources.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.NotResource"));
+      return;
+    }
+
+    const updates = resources.map(resource => {
+      const oldVal = Number(resource.system.quantity ?? 0);
+      const newVal = modifyValue ? oldVal + Number(result) : 0;
+      return {
+        _id: resource.id,
+        system: {
+          quantity: newVal
+        }
+      };
+    });
+
+    await this.actor.updateEmbeddedDocuments("Item", updates);
   }
 
   async render(force = false, options = {}) {
@@ -2672,26 +2762,20 @@ export class SW25ActorSheet extends ActorSheet {
     const droppedItem = await fromUuid(data.uuid ?? data.data?.uuid);
     if (!droppedItem) return;
 
-    // ドロップされたアイテムのIDと名前
     const droppedItemId = droppedItem.id;
     const droppedItemName = droppedItem.name;
 
-    // アクターがすでに同じIDのアイテムを持っているか確認
     let ownedItem = this.actor.items.get(droppedItemId);
 
     if (ownedItem) {
-      // 所持しているアイテム：system.bookmark を更新
       await ownedItem.update({ "system.bookmark": true });
     } else {
-      // 所持していない場合：同名アイテムがあればそれを参照（IDは異なることが多い）
       const sameNameItem = this.actor.items.find(i => i.name === droppedItemName);
 
       if (sameNameItem) {
-        // 同名アイテムがあれば、それを更新（IDは違っても同名なら上書きしたい場合）
         await sameNameItem.update({ "system.bookmark": true });
       } else {
-        // 完全に未所持 → 複製して system.bookmark を true にして追加
-        const newItemData = duplicate(droppedItem.toObject());
+        const newItemData = foundry.utils.duplicate(droppedItem.toObject());
         newItemData.system.bookmark = true;
 
         await this.actor.createEmbeddedDocuments("Item", [newItemData]);
@@ -2699,43 +2783,35 @@ export class SW25ActorSheet extends ActorSheet {
     }
   }
 
-  /** ドロップ時のカスタム処理（元のコピー処理を阻止） */
   async _onDropItem(event, data) {
-    // ドロップがカスタム領域（bookmark-drop-area）で発生したかどうか確認
     const isBookmarkDrop = event.target.closest(".bookmark-drop-area");
     if (!isBookmarkDrop) {
-      // 通常のドロップ → 元の処理を実行
       return super._onDropItem(event, data);
     }
 
-    // bookmark-drop-area にドロップされた → カスタム処理
     const droppedItem = await fromUuid(data.uuid ?? data.data?.uuid);
     if (!droppedItem) return;
 
     const droppedItemId = droppedItem.id;
     const droppedItemName = droppedItem.name;
 
-    // アクターがすでに同じ ID を持っている？
     let ownedItem = this.actor.items.get(droppedItemId);
 
     if (ownedItem) {
       await ownedItem.update({ "system.bookmark": true });
     } else {
-      // 名前で探して同一アイテムがあれば更新（オプション）
       const sameNameItem = this.actor.items.find(i => i.name === droppedItemName);
 
       if (sameNameItem) {
         await sameNameItem.update({ "system.bookmark": true });
       } else {
-        // 新しいアイテムとして複製・追加
-        const newItemData = duplicate(droppedItem.toObject());
+        const newItemData = foundry.utils.duplicate(droppedItem.toObject());
         newItemData.system.bookmark = true;
 
         await this.actor.createEmbeddedDocuments("Item", [newItemData]);
       }
     }
 
-    // 元のドロップ処理をキャンセル（何も return しない）
     return;
   }
 

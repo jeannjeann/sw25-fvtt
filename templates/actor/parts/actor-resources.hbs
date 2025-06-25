@@ -3,11 +3,7 @@
     <div class='item-name'>{{localize "SW25.Resource"}}</div>
     <div class='item-quantity item-element'>{{localize "SW25.Quantity"}}</div>
     <div class='item-controls'>
-      <a
-        class='item-control item-create'
-        title='{{localize "DOCUMENT.Create" type=(localize "TYPES.Item.resource")}}'
-        data-type='resource'
-      >
+      <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type=(localize "TYPES.Item.resource")}}' data-type='resource'>
         <i class='fas fa-plus'></i>
         {{localize 'DOCUMENT.New' type=''}}
       </a>
@@ -29,26 +25,17 @@
         {{#if ../isOwner}}
           {{#if ../system.isEdit}}
             <div class='item-controls'>
-              <a
-                class='item-control item-edit'
-                title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.resource")}}'
-              >
+              <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.resource")}}'>
                 <i class='fas fa-edit'></i>
               </a>
-              <a
-                class='item-control item-delete'
-                title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.resource")}}'
-              >
+              <a class='item-control item-delete' title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.resource")}}'>
                 <i class='fas fa-trash'></i>
               </a>
             </div>
           {{/if}}
         {{else}}
           <div class='item-controls'>
-            <a
-              class='item-control item-edit'
-              title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.resource")}}'
-            >
+            <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.resource")}}'>
               <i class='fa-solid fa-eye'></i>
             </a>
           </div>
