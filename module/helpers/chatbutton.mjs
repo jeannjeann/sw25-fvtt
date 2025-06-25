@@ -1397,13 +1397,13 @@ export async function chatButton(chatMessage, buttonType) {
         targetActor.ownership.default
       ) {
         isView = true;
-        if (buttonType == "buttonmr") {
-          beforeValue = targetMP;
-          afterValue = resultMP;
-        } else {
-          beforeValue = targetHP;
-          afterValue = resultHP;
-        }
+      }
+      if (buttonType == "buttonmr") {
+        beforeValue = targetMP;
+        afterValue = resultMP;
+      } else {
+        beforeValue = targetHP;
+        afterValue = resultHP;
       }
 
       const speaker = ChatMessage.getSpeaker({ actor: actor });
