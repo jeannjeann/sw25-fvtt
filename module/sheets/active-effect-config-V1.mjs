@@ -44,6 +44,11 @@ export class SW25ActiveEffectConfigV1 extends ActiveEffectConfig {
         change.keyClassification = "mpsave";
       } else if (change.keyname in context.effectOptions.feature) {
         change.keyClassification = "feature";
+      } else if (change.keyname in context.effectOptions.powertable) {
+        change.keyClassification = "powertable";
+      } else if (change.keyname.startsWith("effect.checkinputmod.")) {
+        change.keyClassification = "checkname";
+        change.checkname = change.key.replace(/^system\.effect\.checkinputmod\./, "");
       } else if (change.key === "system.") {
         change.key = "";
       } else if (change.key === null || change.key === "") {

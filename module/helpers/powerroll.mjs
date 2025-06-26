@@ -1,17 +1,44 @@
 // Power Roll
+
 import { rpt } from "../sw25.mjs";
+
+/**
+ * Powertable index
+ */
+export const PT = {
+  POWER: 0,
+  CVALUE: 1,
+  TABLE_2: 2,
+  TABLE_3: 3,
+  TABLE_4: 4,
+  TABLE_5: 5,
+  TABLE_6: 6,
+  TABLE_7: 7,
+  TABLE_8: 8,
+  TABLE_9: 9,
+  TABLE_10: 10,
+  TABLE_11: 11,
+  TABLE_12: 12,
+  POWMOD: 13,
+  HALFPOW: 14,
+  HALFPOWMOD: 15,
+  LETHALTECH: 16,
+  CRITICALRAY: 17,
+  PHARMTOOL: 18,
+  POWUP: 19,
+  POWTABLEMOD: 20,
+};
 
 /**
  * Execute a custom roll and return the result.
  */
 export async function powerRoll(formula, powertable) {
   for (let i = 0; i < powertable.length; i++) {
-    if (i == 17) continue;
+    if (i == PT.CRITICALRAY) continue;
     if (
       powertable[i] === null ||
       Number.isNaN(powertable[i]) ||
-      powertable[i] === undefined ||
-      powertable[i] === ""
+      powertable[i] === undefined
     ) {
       powertable[i] = 0;
     }
@@ -20,11 +47,11 @@ export async function powerRoll(formula, powertable) {
   let powerResult = 0;
   let rollCount = 0;
   let fumble = 0;
-  let power = Number(powertable[0]);
-  let cValue = Number(powertable[1]);
+  let power = Number(powertable[PT.POWER]);
+  let cValue = Number(powertable[PT.CVALUE]);
 
   let blankpt = true;
-  for (let i = 2; i <= 12; i++) {
+  for (let i = PT.TABLE_2; i <= PT.TABLE_12; i++) {
     powertable[i] =
       powertable[i] === null ||
       powertable[i] === "" ||
@@ -42,13 +69,13 @@ export async function powerRoll(formula, powertable) {
     }
   }
 
-  let powMod = Number(powertable[13]);
-  let halfPow = Number(powertable[14]);
-  let halfPowMod = Number(powertable[15]);
-  let lethalTech = Number(powertable[16]);
-  let criticalRay = powertable[17];
-  let pharmTool = Number(powertable[18]);
-  let powup = Number(powertable[19]);
+  let powMod = Number(powertable[PT.POWMOD]);
+  let halfPow = Number(powertable[PT.HALFPOW]);
+  let halfPowMod = Number(powertable[PT.HALFPOWMOD]);
+  let lethalTech = Number(powertable[PT.LETHALTECH]);
+  let criticalRay = powertable[PT.CRITICALRAY];
+  let pharmTool = Number(powertable[PT.PHARMTOOL]);
+  let powup = Number(powertable[PT.POWUP]);
 
   if (cValue == null || cValue == 0) cValue = 10;
   if (cValue < 8) cValue = 8;
@@ -84,7 +111,9 @@ export async function powerRoll(formula, powertable) {
   if (total > 12) total = 12;
 
   let ptv = powertable[total];
-  if (cntPower == 0) {
+  if (powertable[total] == null) {
+    power += Number(powertable[PT.POWTABLEMOD] ?? 0);
+    if (power > 100) power = 100;
     ptv = rpt[power][total - 3];
   }
 

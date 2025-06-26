@@ -9,35 +9,38 @@
     <ol class="scrollable" data-changes>
         {{#each source.changes as |change i|}}
         <li data-index="{{i}}">
-          <div class="key">
-            <select name="changes.{{i}}.key">
-              <option value></option>
-              <optgroup label={{localize "SW25.Effect.Battle"}}>
-              {{selectOptions ../effectOptions.battle selected=change.key localize=true}}
-              </optgroup>
-              <optgroup label={{localize "SW25.Effect.Check"}}>
-              {{selectOptions ../effectOptions.check selected=change.key localize=true}}
-              </optgroup>
-              <optgroup label={{localize "SW25.Effect.Parameter"}}>
-              {{selectOptions ../effectOptions.parameter selected=change.key localize=true}}
-              </optgroup>
-              <optgroup label={{localize "SW25.Effect.MagicPower"}}>
-              {{selectOptions ../effectOptions.magicpower selected=change.key localize=true}}
-              </optgroup>
-              <optgroup label={{localize "SW25.Effect.MagicCKRoll"}}>
-              {{selectOptions ../effectOptions.magicckroll selected=change.key localize=true}}
-              </optgroup>
-              <optgroup label={{localize "SW25.Effect.MagicPWRoll"}}>
-              {{selectOptions ../effectOptions.magicpwroll selected=change.key localize=true}}
-              </optgroup>
-              <optgroup label={{localize "SW25.Effect.MPSave"}}>
-              {{selectOptions ../effectOptions.mpsave selected=change.key localize=true}}
-              </optgroup>
-              <optgroup label={{localize "SW25.Features"}}>
-              {{selectOptions ../effectOptions.feature selected=change.key localize=true}}
-              </optgroup>
-            </select>
-          </div>
+            <div class="key">
+                <select name="changes.{{i}}.key">
+                    <option value></option>
+                    <optgroup label={{localize "SW25.Effect.Battle"}}>
+                    {{selectOptions ../effectOptions.battle selected=change.key localize=true}}
+                    </optgroup>
+                    <optgroup label={{localize "SW25.Effect.Check"}}>
+                    {{selectOptions ../effectOptions.check selected=change.key localize=true}}
+                    </optgroup>
+                    <optgroup label={{localize "SW25.Effect.Parameter"}}>
+                    {{selectOptions ../effectOptions.parameter selected=change.key localize=true}}
+                    </optgroup>
+                    <optgroup label={{localize "SW25.Effect.MagicPower"}}>
+                    {{selectOptions ../effectOptions.magicpower selected=change.key localize=true}}
+                    </optgroup>
+                    <optgroup label={{localize "SW25.Effect.MagicCKRoll"}}>
+                    {{selectOptions ../effectOptions.magicckroll selected=change.key localize=true}}
+                    </optgroup>
+                    <optgroup label={{localize "SW25.Effect.MagicPWRoll"}}>
+                    {{selectOptions ../effectOptions.magicpwroll selected=change.key localize=true}}
+                    </optgroup>
+                    <optgroup label={{localize "SW25.Effect.MPSave"}}>
+                    {{selectOptions ../effectOptions.mpsave selected=change.key localize=true}}
+                    </optgroup>
+                    <optgroup label={{localize "SW25.Features"}}>
+                    {{selectOptions ../effectOptions.feature selected=change.key localize=true}}
+                    </optgroup>
+                    <optgroup label={{localize "SW25.Effect.Powertable"}}>
+                    {{selectOptions ../effectOptions.powerroll selected=change.key localize=true}}
+                    </optgroup>
+                </select>
+            </div>
         {{#with ../fields.changes.element.fields as |changeFields|}}
             <div class="mode">
                 {{formInput changeFields.mode name=(concat "changes." i ".mode") value=change.mode choices=@root.modes}}

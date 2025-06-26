@@ -213,7 +213,9 @@ export class SW25ActorSheet extends ActorSheet {
     };
     let contentItem = {
       vitRes: null,
-      mndRes: null
+      mndRes: null,
+      monRes: null,
+      monAtk: null,
     };
     const bookmarks = [];
 
@@ -230,9 +232,9 @@ export class SW25ActorSheet extends ActorSheet {
         if (i.system.showbtcheck === true) {
           battlechecks.push(i);
         }
-        if (i.name === "生命抵抗力"){
+        if (i.name === game.i18n.localize("SW25.Config.ResVit")){
           contentItem.vitRes = i;
-        } else if (i.name === "精神抵抗力"){
+        } else if (i.name === game.i18n.localize("SW25.Config.ResMnd")){
           contentItem.mndRes = i;
         }
       }
@@ -390,6 +392,17 @@ export class SW25ActorSheet extends ActorSheet {
       // Append to monsterability.
       else if (i.type === "monsterability") {
         monsterabilities.push(i);
+        if (i.name === game.i18n.localize("SW25.Config.MonRes")) {
+          contentItem.monRes = i;
+        }
+        if (
+          contentItem.monAtk == null &&
+          i.system.label1 == game.i18n.localize("SW25.Config.MonHit") &&
+          i.system.label2 == game.i18n.localize("SW25.Config.MonDmg") &&
+          i.system.label3 == game.i18n.localize("SW25.Config.MonDge") 
+        ) {
+          contentItem.monAtk = i;
+        }
       }
 
       // Append to action.

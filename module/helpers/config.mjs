@@ -301,6 +301,8 @@ SW25.Effect = {
     magicpwroll: "SW25.Effect.MagicPWRoll",
     mpsave: "SW25.Effect.MPSave",
     feature: "SW25.Features",
+    powerroll: "SW25.Effect.Powertable",
+    checkname: "SW25.Effect.ChecknameInput",
     input: "SW25.Effect.DirectInput"
   },
   battle: {
@@ -403,6 +405,33 @@ SW25.Effect = {
     "attributes.efatckmod": "TYPES.Item.alchemytech",
     "attributes.efewckmod": "SW25.Effect.EssenceweaveForce",
     "attributes.efewpwmod": "SW25.Effect.EssenceweavePower"
+  },
+  powertable: {
+      "attributes.powertablemod.weapon": "TYPES.Item.weapon",
+      "attributes.powertablemod.armor": "TYPES.Item.armor",
+      "attributes.powertablemod.accessory": "TYPES.Item.accessory",
+      "attributes.powertablemod.item": "TYPES.Item.item",
+      "attributes.powertablemod.spell": "TYPES.Item.spell",
+      "attributes.powertablemod.enhancearts": "TYPES.Item.enhancearts",
+      "attributes.powertablemod.magicalsong": "TYPES.Item.magicalsong",
+      "attributes.powertablemod.ridingtrick": "TYPES.Item.ridingtrick",
+      "attributes.powertablemod.alchemytech": "TYPES.Item.alchemytech",
+      "attributes.powertablemod.phasearea": "TYPES.Item.phasearea",
+      "attributes.powertablemod.tactics": "TYPES.Item.tactics",
+      "attributes.powertablemod.infusion": "TYPES.Item.infusion",
+      "attributes.powertablemod.barbarousskill": "TYPES.Item.barbarousskill",
+      "attributes.powertablemod.essenceweave": "TYPES.Item.essenceweave",
+      //"attributes.powertablemod.check": "TYPES.Item.check",
+      //"attributes.powertablemod.resource": "TYPES.Item.resource",
+      //"attributes.powertablemod.combatability": "TYPES.Item.combatability",
+      "attributes.powertablemod.skill": "TYPES.Item.skill",
+      "attributes.powertablemod.raceability": "TYPES.Item.raceability",
+      //"attributes.powertablemod.language": "TYPES.Item.language",
+      "attributes.powertablemod.otherfeature": "TYPES.Item.otherfeature",
+      "attributes.powertablemod.monsterability": "TYPES.Item.monsterability",
+      "attributes.powertablemod.action": "TYPES.Item.action",
+      //"attributes.powertablemod.session": "TYPES.Item.session",
+      "attributes.powertablemod.all": "SW25.Item.All",
   }
 };
 

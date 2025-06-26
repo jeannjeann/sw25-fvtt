@@ -19,4 +19,19 @@ export class Util {
 
     return { r, g, b };
   }
+
+  static getValue(target, keyB = null) {
+    if (!keyB) return target;
+
+    return keyB.split(".").reduce((o, k) => (o ? o[k] : undefined), target);
+  }
+
+  static setValue(target, keyB = null, value) {
+    if (!keyB) return value;
+
+    const keys = keyB.split(".");
+    const lastKey = keys.pop();
+    const container = keys.reduce((o, k) => o[k] ??= {}, target);
+    container[lastKey] = value;
+  }
 }

@@ -192,6 +192,9 @@ export async function chatButton(chatMessage, buttonType) {
       else pharmtool = item.system.pharmtool;
       if (item.system.powup == null || item.system.powup == 0) powup = 0;
       else powup = item.system.powup;
+      
+      let powmod = actor.system.attributes?.powertablemod?.[itemData.type] || 0;
+      powmod += Number(actor.system.attributes?.powerroll?.all) || 0;
 
       item.system.powertable = [
         item.system.power,
@@ -214,6 +217,7 @@ export async function chatButton(chatMessage, buttonType) {
         criticalray,
         pharmtool,
         powup,
+        powmod,
       ];
     }
 

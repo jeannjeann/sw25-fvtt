@@ -39,6 +39,11 @@
         <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
           <b>{{localize "SW25.Item.EffectB"}}</b>
         </div>
+        {{#if system.hpcost}}
+        <div class='hpcost item-quantity item-prop' style="flex: 0 0 {{#if system.maxhpcost}}80px{{else}}40px{{/if}};" data-cost="{{item.system.hpcost}}" data-max="{{item.system.maxhpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
+          <b>HP:{{system.hpcost}}{{#if system.maxhpcost}} ({{system.maxhpcost}}){{/if}}</b>
+        </div>
+        {{/if}}
         {{#if system.mpcost}}
         <div class="mpcost item-quantity item-prop" style="flex: 0 0 40px;" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
           <b>MP:{{system.mpcost}}</b>

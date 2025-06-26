@@ -397,18 +397,26 @@ export class SW25Item extends Item {
         case effectVitResPC:
           if (actorData.effect.vitres)
             systemData.efckmod = Number(actorData.effect.vitres);
+          else 
+            systemData.efckmod = 0;
           break;
         case effectMndResPC:
           if (actorData.effect.mndres)
             systemData.efckmod = Number(actorData.effect.mndres);
+          else 
+            systemData.efckmod = 0;
           break;
         case effectInitPC:
           if (actorData.effect.init)
             systemData.efckmod = Number(actorData.effect.init);
+          else 
+            systemData.efckmod = 0;
           break;
         case effectMKnowPC:
           if (actorData.effect.mknow)
             systemData.efckmod = Number(actorData.effect.mknow);
+          else 
+            systemData.efckmod = 0;
           break;
         default:
           systemData.efckmod = 0;
@@ -434,8 +442,9 @@ export class SW25Item extends Item {
           ? Number(actorData.effect.package?.know)
           : 0;
       }
+      systemData.efckmod += Number(actorData.effect.checkinputmod?.[itemData.name] ?? 0);
     }
-
+    
     systemData.checkbase =
       Number(systemData.checkmod) +
       Number(systemData.checkfixmod) +
@@ -500,6 +509,9 @@ export class SW25Item extends Item {
     else pharmtool = systemData.pharmtool;
     if (systemData.powup == null || systemData.powup == 0) powup = 0;
     else powup = systemData.powup;
+    
+    let powmod = actorData?.attributes?.powertablemod?.[itemData.type] || 0;
+    powmod += Number(actorData.attributes?.powertablemod?.all) || 0;
 
     systemData.powertable = [
       systemData.power,
@@ -522,6 +534,7 @@ export class SW25Item extends Item {
       criticalray,
       pharmtool,
       powup,
+      powmod,
     ];
 
     // Sheet refresh
@@ -657,6 +670,20 @@ export class SW25Item extends Item {
         powerlevelmod = Number(item.system.skilllevel);
       }
     });
+
+    if (itemData.actor?.type === "monster") {
+      let monlevel = Number(actorData.monlevel);
+      if (systemData.checkskill == "adv")
+        checklevelmod = monlevel;
+      if (systemData.checkskill1 == "adv")
+        checklevelmod1 = monlevel;
+      if (systemData.checkskill2 == "adv")
+        checklevelmod2 = monlevel;
+      if (systemData.checkskill3 == "adv")
+        checklevelmod3 = monlevel;
+      if (systemData.powerskill == "adv")
+        powerlevelmod = monlevel;
+    }
 
     if (!Array.isArray(systemData.itemlist)) {
       systemData.itemlist = [];
@@ -1606,6 +1633,7 @@ export class SW25Item extends Item {
           Number(powerabimod) +
           Number(systemData.efmod);
       }
+      systemData.hpcost = systemData.basehpcost;
       const result =
         Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
       systemData.mpcost =
@@ -1720,6 +1748,9 @@ export class SW25Item extends Item {
     else pharmtool = systemData.pharmtool;
     if (systemData.powup == null || systemData.powup == 0) powup = 0;
     else powup = systemData.powup;
+    
+    let powmod = actorData.attributes?.powertablemod?.[itemData.type] || 0;
+    powmod += Number(actorData.attributes?.powertablemod?.all) || 0;
 
     systemData.powertable = [
       systemData.power,
@@ -1742,6 +1773,7 @@ export class SW25Item extends Item {
       criticalray,
       pharmtool,
       powup,
+      powmod,
     ];
 
     // Sheet refresh

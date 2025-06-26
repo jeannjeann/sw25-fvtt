@@ -443,7 +443,7 @@ Handlebars.registerHelper("resistAttributes", function(type, resistinfo, hpresis
   } else {
     if (type === "weapon") {
       resist = game.i18n.localize("SW25.Resist.Check.Dodge");
-    } else {
+    } else if (type === "spell") {
       resist = resistHp
         ? game.i18n.localize("SW25.Resist.Check.Vitres")
         : game.i18n.localize("SW25.Resist.Check.Mndres");
@@ -934,7 +934,7 @@ Hooks.once("ready", async function () {
         displayBars = 0;
     }
 
-    if (actor._stats.compendiumSource || options._stats.compendiumSource) {
+    if (actor._stats?.compendiumSource || options._stats?.compendiumSource) {
       displayName = actor.prototypeToken.hasOwnProperty("displayName")
         ? actor.prototypeToken.displayName
         : displayName;

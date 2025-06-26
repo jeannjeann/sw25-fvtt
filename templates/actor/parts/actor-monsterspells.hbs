@@ -1,6 +1,7 @@
 <ol class='items-list'>
   <li class='item flexrow items-header'>
     <div class='item-name'>{{localize "TYPES.Item.spell"}}</div>
+    <div class='item-element' style="flex: 0 0 30px;">HP</div>
     <div class='item-element' style="flex: 0 0 30px;">MP</div>
     <div class='item-element' style="flex: 0 0 60px;">{{localize "SW25.Target"}}</div>
     <div class='item-element' style="flex: 0 0 60px;">{{localize "SW25.Rangeshape"}}</div>
@@ -27,6 +28,9 @@
           <h4 class="item-label">{{item.name}}</h4>
         </div>
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
+        <div class='hpcost item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;" data-cost="{{item.system.hpcost}}" data-max="{{item.system.maxhpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
+          {{system.hpcost}}
+        </div>
         <div class='mpcost item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
           {{system.mpcost}}
         </div>

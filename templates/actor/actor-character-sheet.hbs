@@ -138,9 +138,25 @@
     </section>
     
     <section class="header__roll">
+      <div class="common-display deffence-display">
+        <div class="common-label">{{localize "SW25.Attributes.Protectionpoint.long"}}</div>
+        <div class="common-value">{{system.attributes.protectionpoint}}{{#if system.baredreduce}} ({{system.barepp}}+{{system.baredreduce}}){{/if}}</div>
+        <div class="tooltip mod-content">
+          <label class="mod-label" for="{{actor._id}}system.attributes.ppmod"><i class="fa-solid fa-shield"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Effect.PpMod"}}</span></label>
+          <input class="mod-input common-display--input" id="{{actor._id}}system.attributes.ppmod" type="text" name="system.attributes.ppmod" value="{{system.attributes.ppmod}}" data-dtype="Number"/>
+        </div>
+      </div>
+      <div class="common-display deffence-display">
+        <div class="common-label">{{localize "SW25.Attributes.Magicprotection.long"}}</div>
+        <div class="common-value">{{system.attributes.magicprotection}}{{#if system.baredreduce}} ({{system.barempp}}+{{system.baredreduce}}){{/if}}</div>
+        <div class="tooltip mod-content">
+          <label class="mod-label" for="{{actor._id}}system.attributes.mppmod"><i class="fa-solid fa-star-of-david"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Effect.MppMod"}}</span></label>
+          <input class="mod-input common-display--input" id="{{actor._id}}system.attributes.mppmod" type="text" name="system.attributes.mppmod" value="{{system.attributes.mppmod}}" data-dtype="Number"/>
+        </div>
+      </div>
       {{#if contentItem.vitRes}}
         {{#with contentItem.vitRes as |item|}}
-        <div class="common-display item" data-item-id='{{item._id}}'>
+        <div class="common-display item resist-display" data-item-id='{{item._id}}'>
           <span class='rollable' data-roll="{{item.system.formula}}+{{item.system.checkbase}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applycheck}}" data-checktype="{{item.system.checkTypesButton}}">
             <div class="common-label">{{localize "SW25.Config.ResVit"}}</div>
             <div class="common-value">{{item.system.checkbase}}</div>
@@ -155,47 +171,31 @@
         {{/with}}
       {{else}}
         <div class="common-display">
-        <div class="common-label">{{localize "SW25.Config.ResVit"}}</div>
-        <div class="common-value"> - </div>
+          <div class="common-label">{{localize "SW25.Config.ResVit"}}</div>
+          <div class="common-value"> - </div>
         </div>
       {{/if}}
       {{#if contentItem.mndRes}}
         {{#with contentItem.mndRes as |item|}}
-        <div class="common-display item" data-item-id='{{item._id}}'>
+        <div class="common-display item resist-display" data-item-id='{{item._id}}'>
           <span class='rollable' data-roll="{{item.system.formula}}+{{item.system.checkbase}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applycheck}}" data-checktype="{{item.system.checkTypesButton}}">
             <div class="common-label">{{localize "SW25.Config.ResMnd"}}</div>
             <div class="common-value">{{item.system.checkbase}}</div>
             <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
           </span>
-          <span class="tooltip mod-content">
+          <div class="tooltip mod-content">
             <label class="mod-label">
               <i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Config.ResMnd"}}{{localize "SW25.Modifier"}}</span></label>
               <input class="cm-change common-display--input" type="text" name="checkmodInput" value="{{item.system.checkmod}}" data-dtype="Number"/>
-          </span>
+          </div>
         </div>
         {{/with}}
       {{else}}
         <div class="common-display">
-        <div class="common-label">{{localize "SW25.Config.ResMnd"}}</div>
-        <div class="common-value"> - </div>
+          <div class="common-label">{{localize "SW25.Config.ResMnd"}}</div>
+          <div class="common-value"> - </div>
         </div>
       {{/if}}
-      <div class="common-display">
-        <div class="common-label">{{localize "SW25.Attributes.Protectionpoint.long"}}</div>
-        <div class="common-value">{{system.attributes.protectionpoint}}{{#if system.baredreduce}} ({{system.barepp}}+{{system.baredreduce}}){{/if}}</div>
-        <div class="tooltip mod-content">
-          <label class="mod-label" for="{{actor._id}}system.attributes.ppmod"><i class="fa-solid fa-shield"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Effect.PpMod"}}</span></label>
-          <input class="mod-input common-display--input" id="{{actor._id}}system.attributes.ppmod" type="text" name="system.attributes.ppmod" value="{{system.attributes.ppmod}}" data-dtype="Number"/>
-        </div>
-      </div>
-      <div class="common-display">
-        <div class="common-label">{{localize "SW25.Attributes.Magicprotection.long"}}</div>
-        <div class="common-value">{{system.attributes.magicprotection}}{{#if system.baredreduce}} ({{system.barempp}}+{{system.baredreduce}}){{/if}}</div>
-        <div class="tooltip mod-content">
-          <label class="mod-label" for="{{actor._id}}system.attributes.mppmod"><i class="fa-solid fa-star-of-david"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-text">{{localize "SW25.Effect.MppMod"}}</span></label>
-          <input class="mod-input common-display--input" id="{{actor._id}}system.attributes.mppmod" type="text" name="system.attributes.mppmod" value="{{system.attributes.mppmod}}" data-dtype="Number"/>
-        </div>
-      </div>
       <div class="common-display">
         <div class="grid grid-3col gap-m nomargin">
           <div>
@@ -332,21 +332,21 @@
           <div class="grid grid-3col margin-s">
             <div class="flexcol grid-span-3">
               <div class="grid grid-3col gap-m nomargin">
-                <span class="rollable common-display" data-resusequantity={{system.resusequantity}} data-resuse="{{system.resuse}}" data-roll="{{system.itemhitformula}}+{{system.itemhitbase}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Weapon.Hit"}})" data-pt="{{system.itempowertable}}" data-apply="{{system.itemapplycheck}}" data-checktype="{{system.itemchecktype}}" data-resist="{{localize "SW25.Resist.Check.Dodge"}}" data-resistresult="disappear">
-                  <span class="common-label">{{localize "SW25.Item.Weapon.Hit"}}</span>
-                  <span class="common-value">{{system.itemhitbase}}</span>
-                  <span class="common-icon icon-top"><i class="fa-solid fa-dice"></i></span>
-                </span>
-                <span class="powerrollable common-display" data-roll="{{system.itempowerformula}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Power"}})" data-pt="{{system.itempowertable}}" data-apply="{{system.itemapplypower}}" data-powertype="{{system.itempowertype}}">
-                  <span class="common-label">{{localize "SW25.Item.Power"}}</span>
-                  <span class="common-value">k{{system.itempower}}{{#if system.itemcvalue}}@{{system.itemcvalue}}{{/if}}{{#if system.itempowerbase}}+{{system.itempowerbase}}{{/if}}</span>
-                  <span class="common-icon icon-top"><i class="fa-solid fa-dice"></i></span>
-                </span>
-                <span class="rollable common-display" data-roll="2d6+{{system.dodgebase}}" data-label="{{localize "SW25.Item.Armor.Dodge"}}" data-pt="">
-                  <span class="common-label">{{localize "SW25.Item.Armor.Dodge"}}</span>
-                  <span class="common-value">{{system.dodgebase}}</span>
-                  <span class="common-icon icon-top"><i class="fa-solid fa-dice"></i></span>
-                </span>
+                <div class="rollable common-display attack-display" data-resusequantity={{system.resusequantity}} data-resuse="{{system.resuse}}" data-roll="{{system.itemhitformula}}+{{system.itemhitbase}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Weapon.Hit"}})" data-pt="{{system.itempowertable}}" data-apply="{{system.itemapplycheck}}" data-checktype="{{system.itemchecktype}}" data-resist="{{localize "SW25.Resist.Check.Dodge"}}" data-resistresult="disappear">
+                  <div class="common-label">{{localize "SW25.Item.Weapon.Hit"}}</div>
+                  <div class="common-value">{{system.itemhitbase}}</div>
+                  <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
+                </div>
+                <div class="powerrollable common-display attack-display" data-roll="{{system.itempowerformula}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Power"}})" data-pt="{{system.itempowertable}}" data-apply="{{system.itemapplypower}}" data-powertype="{{system.itempowertype}}">
+                  <div class="common-label">{{localize "SW25.Item.Power"}}</div>
+                  <div class="common-value-s">k{{system.itempower}}{{#if system.itemcvalue}}@{{system.itemcvalue}}{{/if}}{{#if system.itempowerbase}}+{{system.itempowerbase}}{{/if}}</div>
+                  <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
+                </div>
+                <div class="rollable common-display deffence-display" data-roll="2d6+{{system.dodgebase}}" data-label="{{localize "SW25.Item.Armor.Dodge"}}" data-pt="">
+                  <div class="common-label">{{localize "SW25.Item.Armor.Dodge"}}</div>
+                  <div class="common-value">{{system.dodgebase}}</div>
+                  <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
+                </div>
               </div>
               <fieldset class="target-select grid-span-3" style="padding: 1px;">
                 <legend><i class="fa-solid fa-angles-up"></i></legend>
@@ -793,91 +793,9 @@
       <div class="effective flexcol margin-l gap-m">
         <div class="resource-label-l">{{localize "SW25.Effect.TotalEffects"}}</div>
         <div class="grid {{#if system.isSidebar}}grid-4col{{else}}grid-3col{{/if}}">
-          {{#if system.totalhitmod}}<div class="effective--label">{{localize "SW25.Effect.HitMod"}}: {{system.totalhitmod}}</div>{{/if}}
-          {{#if system.totaldmod}}<div class="effective--label">{{localize "SW25.Effect.DamageMod"}}: {{system.totaldmod}}</div>{{/if}}
-          {{#if system.totalcmod}}<div class="effective--label">{{localize "SW25.Effect.CMod"}}: {{system.totalcmod}}</div>{{/if}}
-          {{#if system.totalspcmod}}<div class="effective--label">{{localize "SW25.Effect.SpCMod"}}: {{system.totalspcmod}}</div>{{/if}}
-          {{#if system.totallt}}<div class="effective--label">{{localize "SW25.Effect.LethalTech"}}: {{system.totallt}}</div>{{/if}}
-          {{#if system.totalcr}}<div class="effective--label">{{localize "SW25.Effect.CriticalRay"}}: {{system.totalcr}}</div>{{/if}}
-          {{#if system.totalwphalfmod}}<div class="effective--label">{{localize "SW25.Effect.WeaponHalfMod"}}: {{system.totalwphalfmod}}</div>{{/if}}
-          {{#if system.totalsphalfmod}}<div class="effective--label">{{localize "SW25.Effect.SpellHalfMod"}}: {{system.totalsphalfmod}}</div>{{/if}}
-          {{#if system.totaldodgemod}}<div class="effective--label">{{localize "SW25.Effect.DodgeMod"}}: {{system.totaldodgemod}}</div>{{/if}}
-          {{#if system.totalppmod}}<div class="effective--label">{{localize "SW25.Effect.PpMod"}}: {{system.totalppmod}}</div>{{/if}}
-          {{#if system.totalmppmod}}<div class="effective--label">{{localize "SW25.Effect.MppMod"}}: {{system.totalmppmod}}</div>{{/if}}
-          {{#if system.totaldreduce}}<div class="effective--label">{{localize "SW25.Effect.Dreduce"}}: {{system.totaldreduce}}</div>{{/if}}
-          {{#if system.totalmovemod}}<div class="effective--label">{{localize "SW25.Effect.MoveMod"}}: {{system.totalmovemod}}</div>{{/if}}
-          {{#if system.totalhpregenmod}}<div class="effective--label">{{localize "SW25.Effect.HpregenMod"}}: {{system.totalhpregenmod}}</div>{{/if}}
-          {{#if system.totalmpregenmod}}<div class="effective--label">{{localize "SW25.Effect.MpregenMod"}}: {{system.totalmpregenmod}}</div>{{/if}}
-          {{#if system.totalvitres}}<div class="effective--label">{{localize "SW25.Config.ResVit"}}: {{system.totalvitres}}</div>{{/if}}
-          {{#if system.totalmndres}}<div class="effective--label">{{localize "SW25.Config.ResMnd"}}: {{system.totalmndres}}</div>{{/if}}
-          {{#if system.totalinit}}<div class="effective--label">{{localize "SW25.Config.Init"}}: {{system.totalinit}}</div>{{/if}}
-          {{#if system.totalmknow}}<div class="effective--label">{{localize "SW25.Config.MKnow"}}: {{system.totalmknow}}</div>{{/if}}
-          {{#if system.totalallck}}<div class="effective--label">{{localize "SW25.Config.AllCk"}}: {{system.totalallck}}</div>{{/if}}
-          {{#if system.totalallsk}}<div class="effective--label">{{localize "SW25.Config.AllSk"}}: {{system.totalallsk}}</div>{{/if}}
-          {{#if system.totalhpmod}}<div class="effective--label">{{localize "SW25.Effect.HpMod"}}: {{system.totalhpmod}}</div>{{/if}}
-          {{#if system.totalmpmod}}<div class="effective--label">{{localize "SW25.Effect.MpMod"}}: {{system.totalmpmod}}</div>{{/if}}
-          {{#if system.totaldex}}<div class="effective--label">{{localize "SW25.Effect.DexValueModify"}}: {{system.totaldex}}</div>{{/if}}
-          {{#if system.totalagi}}<div class="effective--label">{{localize "SW25.Effect.AgiValueModify"}}: {{system.totalagi}}</div>{{/if}}
-          {{#if system.totalstr}}<div class="effective--label">{{localize "SW25.Effect.StrValueModify"}}: {{system.totalstr}}</div>{{/if}}
-          {{#if system.totalvit}}<div class="effective--label">{{localize "SW25.Effect.VitValueModify"}}: {{system.totalvit}}</div>{{/if}}
-          {{#if system.totalint}}<div class="effective--label">{{localize "SW25.Effect.IntValueModify"}}: {{system.totalint}}</div>{{/if}}
-          {{#if system.totalmnd}}<div class="effective--label">{{localize "SW25.Effect.MndValueModify"}}: {{system.totalmnd}}</div>{{/if}}
-          {{#if system.totaldexmod}}<div class="effective--label">{{localize "SW25.Effect.DexModModify"}}: {{system.totaldexmod}}</div>{{/if}}
-          {{#if system.totalagimod}}<div class="effective--label">{{localize "SW25.Effect.AgiModModify"}}: {{system.totalagimod}}</div>{{/if}}
-          {{#if system.totalstrmod}}<div class="effective--label">{{localize "SW25.Effect.StrModModify"}}: {{system.totalstrmod}}</div>{{/if}}
-          {{#if system.totalvitmod}}<div class="effective--label">{{localize "SW25.Effect.VitModModify"}}: {{system.totalvitmod}}</div>{{/if}}
-          {{#if system.totalintmod}}<div class="effective--label">{{localize "SW25.Effect.IntModModify"}}: {{system.totalintmod}}</div>{{/if}}
-          {{#if system.totalmndmod}}<div class="effective--label">{{localize "SW25.Effect.MndModModify"}}: {{system.totalmndmod}}</div>{{/if}}
-          {{#if system.totalscmod}}<div class="effective--label">{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.ScMod"}}: {{system.totalscmod}}</div>{{/if}}
-          {{#if system.totalscckmod}}<div class="effective--label">{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.ScMod"}}: {{system.totalscckmod}}</div>{{/if}}
-          {{#if system.totalscpwmod}}<div class="effective--label">{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.ScMod"}}: {{system.totalscpwmod}}</div>{{/if}}
-          {{#if system.totalcnmod}}<div class="effective--label">{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.CnMod"}}: {{system.totalcnmod}}</div>{{/if}}
-          {{#if system.totalcnckmod}}<div class="effective--label">{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.CnMod"}}: {{system.totalcnckmod}}</div>{{/if}}
-          {{#if system.totalcnpwmod}}<div class="effective--label">{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.CnMod"}}: {{system.totalcnpwmod}}</div>{{/if}}
-          {{#if system.totalwzmod}}<div class="effective--label">{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.WzMod"}}: {{system.totalwzmod}}</div>{{/if}}
-          {{#if system.totalwzckmod}}<div class="effective--label">{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.WzMod"}}: {{system.totalwzckmod}}</div>{{/if}}
-          {{#if system.totalwzpwmod}}<div class="effective--label">{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.WzMod"}}: {{system.totalwzpwmod}}</div>{{/if}}
-          {{#if system.totalprmod}}<div class="effective--label">{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.PrMod"}}: {{system.totalprmod}}</div>{{/if}}
-          {{#if system.totalprckmod}}<div class="effective--label">{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.PrMod"}}: {{system.totalprckmod}}</div>{{/if}}
-          {{#if system.totalprpwmod}}<div class="effective--label">{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.PrMod"}}: {{system.totalprpwmod}}</div>{{/if}}
-          {{#if system.totalmtmod}}<div class="effective--label">{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.MtMod"}}: {{system.totalmtmod}}</div>{{/if}}
-          {{#if system.totalmtckmod}}<div class="effective--label">{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.MtMod"}}: {{system.totalmtckmod}}</div>{{/if}}
-          {{#if system.totalmtpwmod}}<div class="effective--label">{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.MtMod"}}: {{system.totalmtpwmod}}</div>{{/if}}
-          {{#if system.totalfrmod}}<div class="effective--label">{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.FrMod"}}: {{system.totalfrmod}}</div>{{/if}}
-          {{#if system.totalfrckmod}}<div class="effective--label">{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.FrMod"}}: {{system.totalfrckmod}}</div>{{/if}}
-          {{#if system.totalfrpwmod}}<div class="effective--label">{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.FrMod"}}: {{system.totalfrpwmod}}</div>{{/if}}
-          {{#if system.totaldrmod}}<div class="effective--label">{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.DrMod"}}: {{system.totaldrmod}}</div>{{/if}}
-          {{#if system.totaldrckmod}}<div class="effective--label">{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.DrMod"}}: {{system.totaldrckmod}}</div>{{/if}}
-          {{#if system.totaldrpwmod}}<div class="effective--label">{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.DrMod"}}: {{system.totaldrpwmod}}</div>{{/if}}
-          {{#if system.totaldmmod}}<div class="effective--label">{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totaldmmod}}</div>{{/if}}
-          {{#if system.totaldmckmod}}<div class="effective--label">{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totaldmckmod}}</div>{{/if}}
-          {{#if system.totaldmpwmod}}<div class="effective--label">{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totaldmpwmod}}</div>{{/if}}
-          {{#if system.totalabmod}}<div class="effective--label">{{localize "SW25.Effect.MagicPower"}} / {{localize "SW25.Effect.AbMod"}}: {{system.totalabmod}}</div>{{/if}}
-          {{#if system.totalabckmod}}<div class="effective--label">{{localize "SW25.Effect.MCast"}} / {{localize "SW25.Effect.AbMod"}}: {{system.totalabckmod}}</div>{{/if}}
-          {{#if system.totalabpwmod}}<div class="effective--label">{{localize "SW25.Effect.MPower"}} / {{localize "SW25.Effect.AbMod"}}: {{system.totalabpwmod}}</div>{{/if}}
-          {{#if system.totalallmgp}}<div class="effective--label">{{localize "SW25.Config.AllMgp"}}: {{system.totalallmgp}}</div>{{/if}}
-          {{#if system.totalallmck}}<div class="effective--label">{{localize "SW25.Effect.MagicCKRoll"}} / {{localize "SW25.Item.All"}}: {{system.totalallmck}}</div>{{/if}}
-          {{#if system.totalallmpw}}<div class="effective--label">{{localize "SW25.Effect.MagicPWRoll"}} / {{localize "SW25.Item.All"}}: {{system.totalallmpw}}</div>{{/if}}
-          {{#if system.totalmpsc}}<div class="effective--label">{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.ScMod"}}: {{system.totalmpsc}}</div>{{/if}}
-          {{#if system.totalmpcn}}<div class="effective--label">{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.CnMod"}}: {{system.totalmpcn}}</div>{{/if}}
-          {{#if system.totalmpwz}}<div class="effective--label">{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.WzMod"}}: {{system.totalmpwz}}</div>{{/if}}
-          {{#if system.totalmppr}}<div class="effective--label">{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.PrMod"}}: {{system.totalmppr}}</div>{{/if}}
-          {{#if system.totalmpmt}}<div class="effective--label">{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.MtMod"}}: {{system.totalmpmt}}</div>{{/if}}
-          {{#if system.totalmpfr}}<div class="effective--label">{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.FrMod"}}: {{system.totalmpfr}}</div>{{/if}}
-          {{#if system.totalmpdr}}<div class="effective--label">{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.DrMod"}}: {{system.totalmpdr}}</div>{{/if}}
-          {{#if system.totalmpdm}}<div class="effective--label">{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.DmMod"}}: {{system.totalmpdm}}</div>{{/if}}
-          {{#if system.totalmpab}}<div class="effective--label">{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Effect.AbMod"}}: {{system.totalmpab}}</div>{{/if}}
-          {{#if system.totalmpall}}<div class="effective--label">{{localize "SW25.Effect.MPSave"}} / {{localize "SW25.Item.All"}}: {{system.totalmpall}}</div>{{/if}}
-          {{#if system.totalmsckmod}}<div class="effective--label">{{localize "TYPES.Item.magicalsong"}} / {{localize "SW25.Effect.Performance"}}: {{system.totalmsckmod}}</div>{{/if}}
-          {{#if system.totalmspwmod}}<div class="effective--label">{{localize "TYPES.Item.magicalsong"}} / {{localize "SW25.Effect.MPower"}}: {{system.totalmspwmod}}</div>{{/if}}
-          {{#if system.totalatckmod}}<div class="effective--label">{{localize "TYPES.Item.alchemytech"}}: {{system.totalatckmod}}</div>{{/if}}
-          {{#if system.totalewckmod}}<div class="effective--label">{{localize "TYPES.Item.essenceweave"}} / {{localize "SW25.Effect.Force"}}: {{system.totalewckmod}}</div>{{/if}}
-          {{#if system.totalewpwmod}}<div class="effective--label">{{localize "TYPES.Item.essenceweave"}} / {{localize "SW25.Effect.MPower"}}: {{system.totalewpwmod}}</div>{{/if}}
-          {{#if system.totallootmod}}<div class="effective--label">{{localize "SW25.Monster.Loot"}}: {{system.totallootmod}}</div>{{/if}}
-          {{#if system.totalfinechkmod}}<div class="effective--label">{{localize "SW25.Item.Check.Packages.Finesse"}}{{localize "SW25.Check"}}: {{system.totalfinechkmod}}</div>{{/if}}
-          {{#if system.totalmovechkmod}}<div class="effective--label">{{localize "SW25.Item.Check.Packages.Movement"}}{{localize "SW25.Check"}}: {{system.totalmovechkmod}}</div>{{/if}}
-          {{#if system.totalobsechkmod}}<div class="effective--label">{{localize "SW25.Item.Check.Packages.Observation"}}{{localize "SW25.Check"}}: {{system.totalobsechkmod}}</div>{{/if}}
-          {{#if system.totalknowchkmod}}<div class="effective--label">{{localize "SW25.Item.Check.Packages.Knowledge"}}{{localize "SW25.Check"}}: {{system.totalknowchkmod}}</div>{{/if}}
+        {{#each system.modParams}}
+          <div class="effective--label">{{label}}: {{value}}</div>
+        {{/each}}
         </div>
       </div>
       <div>

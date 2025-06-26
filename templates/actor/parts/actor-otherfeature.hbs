@@ -22,6 +22,9 @@
           <h4 class="item-label">{{item.name}}</h4>
         </div>
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
+        <div class='hpcost' style="flex: 0 0 {{#if system.maxhpcost}}80px{{else}}40px{{/if}}; display: {{#if system.basehpcost}}block{{else}}none{{/if}};" data-cost="{{item.system.hpcost}}" data-max="{{item.system.maxhpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
+          <b>HP:{{system.hpcost}}{{#if system.maxhpcost}} ({{system.maxhpcost}}){{/if}}</b>
+        </div>
         <div class="mpcost" style="flex: 0 0 40px; display: {{#if system.basempcost}}block{{else}}none{{/if}};" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
           <b>MP:{{system.mpcost}}</b>
         </div>

@@ -14,7 +14,7 @@
         <a class="item" data-tab="effects"><i class="fas fa-cogs"></i> {{localize "EFFECT.TabEffects"}}</a>
     </nav>
 
-  {{!-- Sheet Body --}}
+    {{!-- Sheet Body --}}
     <section class="sheet-body">
 
         <!-- Details Tab -->
@@ -112,49 +112,57 @@
             <ol class="changes-list">
                 {{#each data.changes as |change i|}}
                 <li class="effect-change flexrow" data-index="{{i}}">
-                <div class="key">
+                    <div class="key">
                         <select name="changes.{{i}}.keyClassification" class="select-keyClassification">
-                          {{selectOptions ../effectOptions.keyClassifications selected=change.keyClassification localize=true blank="-"}}
+                            {{selectOptions ../effectOptions.keyClassifications selected=change.keyClassification localize=true blank="-"}}
                         </select>
                         {{#if (eq change.keyClassification "battle")}}
                             <select name="changes.{{i}}.keyname" class="select-keyname">
-                              {{selectOptions ../effectOptions.battle selected=change.keyname localize=true blank="-"}}
+                                {{selectOptions ../effectOptions.battle selected=change.keyname localize=true blank="-"}}
                             </select>
                         {{/if}}
                         {{#if (eq change.keyClassification "check")}}
                             <select name="changes.{{i}}.keyname" class="select-keyname">
-                              {{selectOptions ../effectOptions.check selected=change.keyname localize=true blank="-"}}
+                                {{selectOptions ../effectOptions.check selected=change.keyname localize=true blank="-"}}
                             </select>
                         {{/if}}
                         {{#if (eq change.keyClassification "parameter")}}
                             <select name="changes.{{i}}.keyname" class="select-keyname">
-                              {{selectOptions ../effectOptions.parameter selected=change.keyname localize=true blank="-"}}
+                                {{selectOptions ../effectOptions.parameter selected=change.keyname localize=true blank="-"}}
                             </select>
                         {{/if}}
                         {{#if (eq change.keyClassification "magicpower")}}
                             <select name="changes.{{i}}.keyname" class="select-keyname">
-                              {{selectOptions ../effectOptions.magicpower selected=change.keyname localize=true blank="-"}}
+                                {{selectOptions ../effectOptions.magicpower selected=change.keyname localize=true blank="-"}}
                             </select>
                         {{/if}}
                         {{#if (eq change.keyClassification "magicckroll")}}
                             <select name="changes.{{i}}.keyname" class="select-keyname">
-                              {{selectOptions ../effectOptions.magicckroll selected=change.keyname localize=true blank="-"}}
+                                {{selectOptions ../effectOptions.magicckroll selected=change.keyname localize=true blank="-"}}
                             </select>
                         {{/if}}
                         {{#if (eq change.keyClassification "magicpwroll")}}
                             <select name="changes.{{i}}.keyname" class="select-keyname">
-                              {{selectOptions ../effectOptions.magicpwroll selected=change.keyname localize=true blank="-"}}
+                                {{selectOptions ../effectOptions.magicpwroll selected=change.keyname localize=true blank="-"}}
                             </select>
                         {{/if}}
                         {{#if (eq change.keyClassification "mpsave")}}
                             <select name="changes.{{i}}.keyname" class="select-keyname">
-                              {{selectOptions ../effectOptions.mpsave selected=change.keyname localize=true blank="-"}}
+                                {{selectOptions ../effectOptions.mpsave selected=change.keyname localize=true blank="-"}}
                             </select>
                         {{/if}}
                         {{#if (eq change.keyClassification "feature")}}
                             <select name="changes.{{i}}.keyname" class="select-keyname">
-                              {{selectOptions ../effectOptions.feature selected=change.keyname localize=true blank="-"}}
+                                {{selectOptions ../effectOptions.feature selected=change.keyname localize=true blank="-"}}
                             </select>
+                        {{/if}}
+                        {{#if (eq change.keyClassification "powertable")}}
+                            <select name="changes.{{i}}.keyname" class="select-keyname">
+                                {{selectOptions ../effectOptions.powertable selected=change.keyname localize=true blank="-"}}
+                            </select>
+                        {{/if}}
+                        {{#if (eq change.keyClassification "checkname")}}
+                            <input style="max-width: calc(60% - 7px);" type="text" name="changes.{{i}}.checkname" value="{{change.checkname}}"/>
                         {{/if}}
                         {{#if (eq change.keyClassification "input")}}
                             <input style="max-width: calc(60% - 7px);" type="text" name="changes.{{i}}.key" value="{{change.key}}"/>

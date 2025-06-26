@@ -1374,7 +1374,7 @@ input.weakapply[type="checkbox"] {
 }
 
 .materialcard .red{
-  background-color:#f3aba0
+  background-color:#f3aba0;
 }
 
 .materialcard .gold{
@@ -1879,7 +1879,14 @@ input.weakapply[type="checkbox"] {
 
 .sw25 .common-display .common-value {
   display: block;
+  font-size: 0.9rem;
+  color: #222;
+}
+
+.sw25 .common-display .common-value-s {
+  display: block;
   font-size: 0.7rem;
+  padding-top: 0.2rem;
   color: #222;
 }
 
@@ -3025,9 +3032,9 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
   height: 1.5em !important;
 }
 
-.sw25pc .main li:nth-child(even),
-.sw25pc .sidebar li:nth-child(even) {
-  background-color: rgba(var(--main-text-color), 0.2);
+.sw25pc .main li:nth-child(odd),
+.sw25pc .sidebar li:nth-child(odd) {
+  background-color: rgba(var(--main-bg-color), 0.1);
 }
 
 .sw25pc .main .items-header,
@@ -3042,4 +3049,50 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
   gap: var(--spacing-sm);
   margin: 10px 5px;
   padding: 5px;
+}
+
+.sw25 .monster-header-sub {
+	position: relative;
+
+	display: grid;
+	grid-template-areas:
+		"weakness weakness owner"
+		"pupularity moving owner"
+    "preemptive corepart owner";
+}
+
+.sw25 .monster-header-sub .monster-weakness {
+  grid-area: weakness;
+}
+
+.sw25 .monster-header-sub .monster-pupularity {
+  grid-area: pupularity;
+}
+
+.sw25 .monster-header-sub .monster-preemptive {
+  grid-area: preemptive;
+}
+
+.sw25 .monster-header-sub .monster-move {
+  grid-area: moving;
+}
+
+.sw25 .monster-header-sub .monster-corepart {
+  grid-area: corepart;
+}
+
+.sw25 .monster-header-sub .monster-owner {
+  grid-area: owner;
+}
+
+.sw25 .attack-display {
+  background-color: #ffe0e0;
+}
+
+.sw25 .deffence-display {
+  background-color: #e0e0ff;
+}
+
+.sw25 .resist-display {
+  background-color: #e0ffe0;
 }

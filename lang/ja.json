@@ -699,7 +699,9 @@
       "MagicalsongPeform": "呪歌・終律 / 演奏",
       "MagicalsongPower": "呪歌・終律 / 威力",
       "EssenceweaveForce": "操気 / 理力",
-      "EssenceweavePower": "操気 / 威力"
+      "EssenceweavePower": "操気 / 威力",
+      "Powertable": "威力表",
+      "ChecknameInput": "判定名入力"
     },
     "Custom": {
       "Name": "項目名",
