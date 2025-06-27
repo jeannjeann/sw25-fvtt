@@ -407,11 +407,11 @@ Handlebars.registerHelper("localizeResourceType", function (type) {
 
 Handlebars.registerHelper("backgroundStyleFromMaterialcards", function(system) {
   const map = {
-    green: "#abf3c8",
-    red: "#f3aba0",
-    gold: "#ffff88",
-    black: "#999999",
-    white: "#eeeeee"
+    green: "rgb(var(--material-green-color))",
+    red: "rgb(var(--material-red-color))",
+    gold: "rgb(var(--material-gold-color))",
+    black: "rgb(var(--material-black-color))",
+    white: "rgb(var(--material-white-color))",
   };
 
   const colors = Object.entries(map)

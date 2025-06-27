@@ -38,7 +38,7 @@
                 </div>
                 {{/if}}
               {{else}}
-                <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 80px;">
+                <div class='item-prop flexrow flex-group-center' style="flex: 0 0 80px;">
                   <input class="qt-change" type="text" name="quantityInput" value="{{item.system.quantity}}" data-dtype="Number"/>
                   / {{item.system.qmax}}
                 </div>
@@ -77,13 +77,13 @@
           <i class="fa-solid fa-wand-magic-sparkles"></i><span class="tooltip-top">{{localize "SW25.Use"}}</span>
         </div>
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 70px;">
+        <div class='item-prop flexrow flex-group-center' style="flex: 0 0 70px;">
           {{system.typename}} : {{system.mincost}}{{#unless (eq system.maxcost 0)}} - {{system.maxcost}}{{/unless}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 100px;">
+        <div class='item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 100px;">
           {{system.time}} 
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 80px;">
+        <div class='item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 80px;">
           {{system.propname}}
         </div>
         {{#if ../isOwner}}

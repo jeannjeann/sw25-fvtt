@@ -26,19 +26,19 @@
           <h4 class="item-label">{{item.name}}</h4>
         </div>
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 50px;">
+        <div class='item-prop flexrow flex-group-center' style="flex: 0 0 50px;">
           {{system.rank}} 
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
+        <div class='item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
           {{system.resistname}} 
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 100px;">
+        <div class='item-prop flexrow flex-group-center' style="flex: 0 0 100px;">
           {{system.resistbase}} 
         </div>
-        <div class='hpcost item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;" data-cost="{{item.system.hpcost}}" data-max="{{item.system.maxhpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
+        <div class='hpcost item-prop flexrow flex-group-center' style="flex: 0 0 30px;" data-cost="{{item.system.hpcost}}" data-max="{{item.system.maxhpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
           {{system.hpcost}}
         </div>
-        <div class='mpcost item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
+        <div class='mpcost item-prop flexrow flex-group-center' style="flex: 0 0 30px;" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
           {{system.mpcost}}
         </div>
         {{#if ../isOwner}}

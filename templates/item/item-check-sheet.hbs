@@ -81,13 +81,13 @@
           {{localize "SW25.Item.Field.Check"}}
         </legend>
         <div class="grid-span-3 property">
-          <select class="property--value" id="{{item._id}}system.checkmethod" name="system.checkmethod">
+          <select class="property--value" id="{{item._id}}system.checkmethod" name="system.checkmethod"{{#unless system.isEdit}} disabled {{/unless}}>
             {{selectOptions checkmethodOptions selected=system.checkmethod localize=true}}
           </select>
         </div>
         <div class="grid-span-3 property">
           <label class="property--label">{{localize "SW25.Item.Check.Package"}}</label>
-          <select class="property--value" name="system.checkpackage">
+          <select class="property--value" name="system.checkpackage"{{#unless system.isEdit}} disabled {{/unless}}>
             {{selectOptions config.checkpackages selected=system.checkpackage localize=true blank=""}}
           </select>
         </div>
@@ -99,7 +99,7 @@
 
         <div class="grid-span-3 property-col">
           <label class="property--label-col">{{localize "SW25.Skillname"}}</label>
-          <select class="property--value" name="system.checkskill">
+          <select class="property--value" name="system.checkskill"{{#unless system.isEdit}} disabled {{/unless}}>
             <option value="">-</option>
             <option value="adv" {{#if (eq system.checkskill "adv")}}selected{{/if}}>{{localize "SW25.Attributes.Advlevel"}}</option>
             {{selectOptions system.skilllist selected=system.checkskill valueAttr="name" labelAttr="name"}}
@@ -107,18 +107,18 @@
         </div>
         <div class="grid-span-2 property-col">
           <label class="property--label-col">{{localize "SW25.Abilityname"}}</label>
-          <select class="property--value" name="system.checkabi">
+          <select class="property--value" name="system.checkabi"{{#unless system.isEdit}} disabled {{/unless}}>
             {{selectOptions config.abilities selected=system.checkabi localize=true blank="-"}}
           </select>
         </div>
         <div class="grid-span-1 property-col">
           <label class="property--label-col" for="{{item._id}}system.checkmod">{{localize "SW25.Modifier"}}</label>
-          <input class="property--value" id="{{item._id}}system.checkmod" type="text" name="system.checkmod" value="{{system.checkmod}}" data-dtype="Number"/></span>
+          <input class="property--value" id="{{item._id}}system.checkmod" type="text" name="system.checkmod" value="{{system.checkmod}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
         </div>
         {{#if (eq system.checkmethod "dice")}}
           <div class="grid-span-4 property-col">
             <label class="property--label-col" for="{{item._id}}system.customformula">{{localize "SW25.Item.Formula"}}</label>
-            <input class="property--value" id="{{item._id}}system.customformula" type="text" name="system.customformula" value="{{system.customformula}}" data-dtype="String"/>
+            <input class="property--value" id="{{item._id}}system.customformula" type="text" name="system.customformula" value="{{system.customformula}}" data-dtype="String"{{#unless system.isEdit}} disabled {{/unless}}/>
           </div>
         {{else}}
           <div class="grid-span-4 blank"></div>
@@ -126,17 +126,17 @@
 
         {{#unless (eq system.checkmethod "power")}}
         <div class="grid-span-2 property">
-          <select class="property--value" name="system.applycheck">
+          <select class="property--value" name="system.applycheck"{{#unless system.isEdit}} disabled {{/unless}}>
             {{selectOptions applyOptions selected=system.applycheck localize=true}}
           </select>
         </div>
         <div class="grid-span-8 property">
           {{#if (eq system.applycheck "custom")}}
-          <label for="{{item._id}}system.ckpdbt"><input id="{{item._id}}system.ckpdbt" type="checkbox" class="small-checkbox" name="system.ckpdbt" data-dtype="Boolean" {{#if system.ckpdbt}} checked {{/if}}/>{{localize "SW25.Item.pd"}}</label>
-          <label for="{{item._id}}system.ckmdbt"><input id="{{item._id}}system.ckmdbt" type="checkbox" class="small-checkbox" name="system.ckmdbt" data-dtype="Boolean" {{#if system.ckmdbt}} checked {{/if}}/>{{localize "SW25.Item.md"}}</label>
-          <label for="{{item._id}}system.ckcdbt"><input id="{{item._id}}system.ckcdbt" type="checkbox" class="small-checkbox" name="system.ckcdbt" data-dtype="Boolean" {{#if system.ckcdbt}} checked {{/if}}/>{{localize "SW25.Item.cd"}}</label>
-          <label for="{{item._id}}system.ckhrbt"><input id="{{item._id}}system.ckhrbt" type="checkbox" class="small-checkbox" name="system.ckhrbt" data-dtype="Boolean" {{#if system.ckhrbt}} checked {{/if}}/>{{localize "SW25.Item.hr"}}</label>
-          <label for="{{item._id}}system.ckmrbt"><input id="{{item._id}}system.ckmrbt" type="checkbox" class="small-checkbox" name="system.ckmrbt" data-dtype="Boolean" {{#if system.ckmrbt}} checked {{/if}}/>{{localize "SW25.Item.mr"}}</label>
+          <label for="{{item._id}}system.ckpdbt"><input id="{{item._id}}system.ckpdbt" type="checkbox" class="small-checkbox" name="system.ckpdbt" data-dtype="Boolean" {{#if system.ckpdbt}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>{{localize "SW25.Item.pd"}}</label>
+          <label for="{{item._id}}system.ckmdbt"><input id="{{item._id}}system.ckmdbt" type="checkbox" class="small-checkbox" name="system.ckmdbt" data-dtype="Boolean" {{#if system.ckmdbt}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>{{localize "SW25.Item.md"}}</label>
+          <label for="{{item._id}}system.ckcdbt"><input id="{{item._id}}system.ckcdbt" type="checkbox" class="small-checkbox" name="system.ckcdbt" data-dtype="Boolean" {{#if system.ckcdbt}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>{{localize "SW25.Item.cd"}}</label>
+          <label for="{{item._id}}system.ckhrbt"><input id="{{item._id}}system.ckhrbt" type="checkbox" class="small-checkbox" name="system.ckhrbt" data-dtype="Boolean" {{#if system.ckhrbt}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>{{localize "SW25.Item.hr"}}</label>
+          <label for="{{item._id}}system.ckmrbt"><input id="{{item._id}}system.ckmrbt" type="checkbox" class="small-checkbox" name="system.ckmrbt" data-dtype="Boolean" {{#if system.ckmrbt}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>{{localize "SW25.Item.mr"}}</label>
           {{/if}}
         </div>
         {{/unless}}
@@ -144,28 +144,28 @@
           <div class="flexrow grid grid-8col">
             <span class="resource-label grid-span-2" style="text-decoration: underline;">{{localize "SW25.Item.Powertable"}}{{localize "SW25.Setting"}}</span>
             <span class="grid-span-6" style="text-align: left;">
-              <select name="system.applypower">
+              <select name="system.applypower"{{#unless system.isEdit}} disabled {{/unless}}>
                 {{selectOptions applyOptions selected=system.applypower localize=true}}
               </select>
               {{#if (eq system.applypower "custom")}}
-              <label for="{{item._id}}system.pwpdbt"><input id="{{item._id}}system.pwpdbt" type="checkbox" class="small-checkbox" name="system.pwpdbt" data-dtype="Boolean" {{#if system.pwpdbt}} checked {{/if}}/>{{localize "SW25.Item.pd"}}</label>
-              <label for="{{item._id}}system.pwmdbt"><input id="{{item._id}}system.pwmdbt" type="checkbox" class="small-checkbox" name="system.pwmdbt" data-dtype="Boolean" {{#if system.pwmdbt}} checked {{/if}}/>{{localize "SW25.Item.md"}}</label>
-              <label for="{{item._id}}system.pwcdbt"><input id="{{item._id}}system.pwcdbt" type="checkbox" class="small-checkbox" name="system.pwcdbt" data-dtype="Boolean" {{#if system.pwcdbt}} checked {{/if}}/>{{localize "SW25.Item.cd"}}</label>
-              <label for="{{item._id}}system.pwhrbt"><input id="{{item._id}}system.pwhrbt" type="checkbox" class="small-checkbox" name="system.pwhrbt" data-dtype="Boolean" {{#if system.pwhrbt}} checked {{/if}}/>{{localize "SW25.Item.hr"}}</label>
-              <label for="{{item._id}}system.pwmrbt"><input id="{{item._id}}system.pwmrbt" type="checkbox" class="small-checkbox" name="system.pwmrbt" data-dtype="Boolean" {{#if system.pwmrbt}} checked {{/if}}/>{{localize "SW25.Item.mr"}}</label>
+              <label for="{{item._id}}system.pwpdbt"><input id="{{item._id}}system.pwpdbt" type="checkbox" class="small-checkbox" name="system.pwpdbt" data-dtype="Boolean" {{#if system.pwpdbt}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>{{localize "SW25.Item.pd"}}</label>
+              <label for="{{item._id}}system.pwmdbt"><input id="{{item._id}}system.pwmdbt" type="checkbox" class="small-checkbox" name="system.pwmdbt" data-dtype="Boolean" {{#if system.pwmdbt}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>{{localize "SW25.Item.md"}}</label>
+              <label for="{{item._id}}system.pwcdbt"><input id="{{item._id}}system.pwcdbt" type="checkbox" class="small-checkbox" name="system.pwcdbt" data-dtype="Boolean" {{#if system.pwcdbt}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>{{localize "SW25.Item.cd"}}</label>
+              <label for="{{item._id}}system.pwhrbt"><input id="{{item._id}}system.pwhrbt" type="checkbox" class="small-checkbox" name="system.pwhrbt" data-dtype="Boolean" {{#if system.pwhrbt}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>{{localize "SW25.Item.hr"}}</label>
+              <label for="{{item._id}}system.pwmrbt"><input id="{{item._id}}system.pwmrbt" type="checkbox" class="small-checkbox" name="system.pwmrbt" data-dtype="Boolean" {{#if system.pwmrbt}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>{{localize "SW25.Item.mr"}}</label>
               {{/if}}
             </span>
           </div>
           <div class="flexrow grid grid-8col">
             <span style="text-align: center;"><label for="{{item.id}}system.power"><b>{{localize "SW25.Item.Power"}}</b></label><br>
-              <input id="{{item._id}}system.power" type="text" name="system.power" value="{{system.power}}" data-dtype="Number"/></span>
+              <input id="{{item._id}}system.power" type="text" name="system.power" value="{{system.power}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/></span>
             <span style="text-align: center;"><label for="{{item.id}}system.cvalue"><b>{{localize "SW25.Item.Cvalue"}}</b></label><br>
-              <input id="{{item._id}}system.cvalue" type="text" name="system.cvalue" value="{{system.cvalue}}" data-dtype="Number"/></span>
+              <input id="{{item._id}}system.cvalue" type="text" name="system.cvalue" value="{{system.cvalue}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/></span>
             <span style="text-align: center;"><label for="{{item._id}}system.halfpow"><b>{{localize "SW25.Item.Halfpow"}}</b></label><br>
-              <input id="{{item._id}}system.halfpow" type="checkbox" name="system.halfpow" data-dtype="Boolean" {{#if system.halfpow}} checked {{/if}}/></span>
+              <input id="{{item._id}}system.halfpow" type="checkbox" name="system.halfpow" data-dtype="Boolean" {{#if system.halfpow}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/></span>
             <div class="grid-span-3"></div>
             <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.showpowmod"><b>{{localize "SW25.Item.Particularmod"}}</b></label><br>
-              <input id="{{item._id}}system.showpowmod" type="checkbox" name="system.showpowmod" data-dtype="Boolean" {{#if system.showpowmod}} checked {{/if}}/></span>
+              <input id="{{item._id}}system.showpowmod" type="checkbox" name="system.showpowmod" data-dtype="Boolean" {{#if system.showpowmod}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/></span>
           </div>
           <div class="grid-powertable">
             <label class="pt-item pt-label" for="{{item._id}}system.pt3">3</label>
@@ -179,25 +179,25 @@
             <label class="pt-item pt-label" for="{{item._id}}system.pt11">11</label>
             <label class="pt-item pt-label" for="{{item._id}}system.pt12">12</label>
 
-            <div class="pt-item"><input type="text" id="{{item._id}}system.pt3" name="system.pt3" value="{{system.pt3}}" data-dtype="Number" /></div>
-            <div class="pt-item"><input type="text" id="{{item._id}}system.pt4" name="system.pt4" value="{{system.pt4}}" data-dtype="Number" /></div>
-            <div class="pt-item"><input type="text" id="{{item._id}}system.pt5" name="system.pt5" value="{{system.pt5}}" data-dtype="Number" /></div>
-            <div class="pt-item"><input type="text" id="{{item._id}}system.pt6" name="system.pt6" value="{{system.pt6}}" data-dtype="Number" /></div>
-            <div class="pt-item"><input type="text" id="{{item._id}}system.pt7" name="system.pt7" value="{{system.pt7}}" data-dtype="Number" /></div>
-            <div class="pt-item"><input type="text" id="{{item._id}}system.pt8" name="system.pt8" value="{{system.pt8}}" data-dtype="Number" /></div>
-            <div class="pt-item"><input type="text" id="{{item._id}}system.pt9" name="system.pt9" value="{{system.pt9}}" data-dtype="Number" /></div>
-            <div class="pt-item"><input type="text" id="{{item._id}}system.pt10" name="system.pt10" value="{{system.pt10}}" data-dtype="Number" /></div>
-            <div class="pt-item"><input type="text" id="{{item._id}}system.pt11" name="system.pt11" value="{{system.pt11}}" data-dtype="Number" /></div>
-            <div class="pt-item"><input type="text" id="{{item._id}}system.pt12" name="system.pt12" value="{{system.pt12}}" data-dtype="Number" /></div>
+            <div class="pt-item"><input type="text" id="{{item._id}}system.pt3" name="system.pt3" value="{{system.pt3}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}} /></div>
+            <div class="pt-item"><input type="text" id="{{item._id}}system.pt4" name="system.pt4" value="{{system.pt4}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}} /></div>
+            <div class="pt-item"><input type="text" id="{{item._id}}system.pt5" name="system.pt5" value="{{system.pt5}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}} /></div>
+            <div class="pt-item"><input type="text" id="{{item._id}}system.pt6" name="system.pt6" value="{{system.pt6}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}} /></div>
+            <div class="pt-item"><input type="text" id="{{item._id}}system.pt7" name="system.pt7" value="{{system.pt7}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}} /></div>
+            <div class="pt-item"><input type="text" id="{{item._id}}system.pt8" name="system.pt8" value="{{system.pt8}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}} /></div>
+            <div class="pt-item"><input type="text" id="{{item._id}}system.pt9" name="system.pt9" value="{{system.pt9}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}} /></div>
+            <div class="pt-item"><input type="text" id="{{item._id}}system.pt10" name="system.pt10" value="{{system.pt10}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}} /></div>
+            <div class="pt-item"><input type="text" id="{{item._id}}system.pt11" name="system.pt11" value="{{system.pt11}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}} /></div>
+            <div class="pt-item"><input type="text" id="{{item._id}}system.pt12" name="system.pt12" value="{{system.pt12}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}} /></div>
           </div>
           <div style="display: {{#if system.showpowmod}}block{{else}}none{{/if}};">
             <div class="flexcol">
               <div class="flexrow grid grid-10col">
-                <label for="{{item._id}}system.halfpowmod" class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Halfpowmod"}}</b><br><input id="{{item._id}}system.halfpowmod" style="max-width: calc(50% - 7px);" type="text" name="system.halfpowmod" value="{{system.halfpowmod}}" data-dtype="Number"/></label>
+                <label for="{{item._id}}system.halfpowmod" class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Halfpowmod"}}</b><br><input id="{{item._id}}system.halfpowmod" style="max-width: calc(50% - 7px);" type="text" name="system.halfpowmod" value="{{system.halfpowmod}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/></label>
                 <label for="{{item._id}}system.lethaltech" class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Lethaltech"}}</b><br><input id="{{item._id}}system.lethaltech" style="max-width: calc(50% - 7px);" type="text" name="system.lethaltech" value="{{system.lethaltech}}" data-dtype="Number"/></label>
                 <label for="{{item._id}}system.criticalray" class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Criticalray"}}</b><br><input id="{{item._id}}system.criticalray" style="max-width: calc(50% - 7px);" type="text" name="system.criticalray" value="{{system.criticalray}}" data-dtype="String"/></label>
-                <label for="{{item._id}}system.pharmtool" class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Pharmtool"}}</b><br><input id="{{item._id}}system.pharmtool" style="max-width: calc(50% - 7px);" type="text" name="system.pharmtool" value="{{system.pharmtool}}" data-dtype="Number"/></label>
-                <label for="{{item._id}}system.powup" class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Powup"}}</b><br><input id="{{item._id}}system.powup" style="max-width: calc(50% - 7px);" type="text" name="system.powup" value="{{system.powup}}" data-dtype="Number"/></label>
+                <label for="{{item._id}}system.pharmtool" class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Pharmtool"}}</b><br><input id="{{item._id}}system.pharmtool" style="max-width: calc(50% - 7px);" type="text" name="system.pharmtool" value="{{system.pharmtool}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/></label>
+                <label for="{{item._id}}system.powup" class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Powup"}}</b><br><input id="{{item._id}}system.powup" style="max-width: calc(50% - 7px);" type="text" name="system.powup" value="{{system.powup}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/></label>
               </div>
               <div>
                 {{localize "SW25.Item.Cwarn"}}<br>

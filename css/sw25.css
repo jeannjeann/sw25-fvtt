@@ -10,6 +10,63 @@
   --spacing-xl: 3.2rem;
   --color-hp-meter: #6bb338;
   --color-mp-meter: #08acff;
+
+  --fairy-earth-color: 233, 209, 160;
+  --fairy-ice-color: 155, 189, 236;
+  --fairy-fire-color: 232, 151, 159;
+  --fairy-wind-color: 155, 228, 159;
+  --fairy-light-color: 231, 227, 234;
+  --fairy-dark-color: 156, 151, 159;
+
+  --material-green-color: 171, 243, 200;
+  --material-red-color: 243, 171, 160;
+  --material-gold-color: 255, 255, 136;
+  --material-black-color: 153, 153, 153;
+  --material-white-color: 238, 238, 238;
+
+  --usedice-color: 110, 180, 240;
+  --usepower-color: 234, 85, 50;
+  --useeffect-color: 208, 127, 255;
+  --usephasearea-color: 47, 175, 47;
+
+  --attack-color: 255, 230, 230;
+  --deffence-color: 230, 255, 230;
+  --resist-color: 230, 230, 255;
+
+  --weapon-color: 230, 230, 230;
+  --armor-color: 230, 230, 230;
+  --accessory-color: 230, 230, 230;
+  --item-color: 230, 230, 230;
+  --spell-color: 230, 230, 230;
+  --enhancearts-color: 230, 230, 230;
+  --magicalsong-color: 230, 230, 230;
+  --ridingtrick-color: 230, 230, 230;
+  --alchemytech-color: 230, 230, 230;
+  --phasearea-color: 230, 230, 230;
+  --tactics-color: 230, 230, 230;
+  --infusion-color: 230, 230, 230;
+  --barbarousskill-color: 230, 230, 230;
+  --essenceweave-color: 230, 230, 230;
+  --check-color: 230, 230, 230;
+  --resource-color: 230, 230, 230;
+  --combatability-color: 230, 230, 230;
+  --skill-color: 230, 230, 230;
+  --raceability-color: 230, 230, 230;
+  --language-color: 230, 230, 230;
+  --otherfeature-color: 230, 230, 230;
+  --monsterability-color: 230, 230, 230;
+  --action-color: 230, 230, 230;
+  --session-color: 230, 230, 230;
+
+  --spell-sorcerer-color: 230, 230, 230;
+  --spell-conjurer-color: 230, 230, 230;
+  --spell-wizard-color: 230, 230, 230;
+  --spell-priest-color: 230, 230, 230;
+  --spell-magitech-color: 230, 230, 230;
+  --spell-fairy-color: 230, 230, 230;
+  --spell-druid-color: 230, 230, 230;
+  --spell-daemon-color: 230, 230, 230;
+  --spell-abyssal-color: 230, 230, 230;
 }
 
 /* Global styles */
@@ -1370,23 +1427,23 @@ input.weakapply[type="checkbox"] {
 }
 
 .materialcard .green{
-  background-color: #abf3c8;
+  background-color: rgb(var(--material-green-color));
 }
 
 .materialcard .red{
-  background-color:#f3aba0;
+  background-color: rgb(var(--material-red-color));
 }
 
 .materialcard .gold{
-  background-color:#ffff88;
+  background-color: rgb(var(--material-gold-color));
 }
 
 .materialcard .black{
-  background-color:#999999;
+  background-color: rgb(var(--material-black-color));
 }
 
 .materialcard .white{
-  background-color:#eeeeee;
+  background-color: rgb(var(--material-white-color));
 }
 
 .materialcard .quantity{
@@ -1468,37 +1525,37 @@ input.weakapply[type="checkbox"] {
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
-  background-color: #dad8cc;
+  background-color: var(--background-color, #dad8cc);;
   transition: background-color 0.3s ease;
   font-size: 0.7em;
 }
 
 .fairy-contract.f-earth.checked {
-  background-color: #e9d1a0;
+  background-color: rgb(var(--fairy-earth-color));
 }
 
 .fairy-contract.f-water.checked {
-  background-color: #9bbdec;
+  background-color: rgb(var(--fairy-ice-color));
 }
 
 .fairy-contract.f-fire.checked {
-  background-color: #e8979f;
+  background-color: rgb(var(--fairy-fire-color));
 }
 
 .fairy-contract.f-wind.checked {
-  background-color: #9be49f;
+  background-color: rgb(var(--fairy-wind-color));
 }
 
 .fairy-contract.f-light.checked {
-  background-color: #e7e3ea;
+  background-color: rgb(var(--fairy-light-color));
 }
 
 .fairy-contract.f-dark.checked {
-  background-color: #9c979f;
+  background-color: rgb(var(--fairy-dark-color));
 }
 
 .fairyearth {
-  color: #e9d1a0;
+  color: rgb(var(--fairy-earth-color));
   background-color: #000000;
   padding: 0 0.3em;
   border: 0px solid #000;
@@ -1507,7 +1564,7 @@ input.weakapply[type="checkbox"] {
 }
 
 .fairyice {
-  color: #9bbdec;
+  color: rgb(var(--fairy-ice-color));
   background-color: #000000;
   padding: 0 0.3em;
   border: 0px solid #000;
@@ -1516,7 +1573,7 @@ input.weakapply[type="checkbox"] {
 }
 
 .fairyfire {
-  color: #e8979f;
+  color: rgb(var(--fairy-fire-color));
   background-color: #000000;
   padding: 0 0.3em;
   border: 0px solid #000;
@@ -1525,7 +1582,7 @@ input.weakapply[type="checkbox"] {
 }
 
 .fairywind {
-  color: #9be49f;
+  color: rgb(var(--fairy-wind-color));
   background-color: #000000;
   padding: 0 0.3em;
   border: 0px solid #000;
@@ -1534,7 +1591,7 @@ input.weakapply[type="checkbox"] {
 }
 
 .fairylight {
-  color: #e7e3ea;
+  color: rgb(var(--fairy-ice-color));
   background-color: #000000;
   padding: 0 0.3em;
   border: 0px solid #000;
@@ -1543,7 +1600,7 @@ input.weakapply[type="checkbox"] {
 }
 
 .fairydark {
-  color: #9c979f;
+  color: rgb(var(--fairy-dark-color));
   background-color: #000000;
   padding: 0 0.3em;
   border: 0px solid #000;
@@ -1559,14 +1616,14 @@ input.weakapply[type="checkbox"] {
   margin: 0 0.2em;
 }
 
-.rainbow-text {
-  background: linear-gradient(to right, #e9d1a0, #9bbdec, #e8979f, #9be49f, #e7e3ea, #9c979f);
+.specialfairy-text {
+  background: linear-gradient(to right, rgb(var(--fairy-earth-color)), rgb(var(--fairy-ice-color)), rgb(var(--fairy-fire-color)), rgb(var(--fairy-wind-color)), rgb(var(--fairy-light-color)), rgb(var(--fairy-dark-color)));
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
 }
 
-.specialfairy-animation {
+.rainbow-animation {
   color: #ffffff;
   background: linear-gradient(
     270deg,
@@ -1935,19 +1992,19 @@ input.weakapply[type="checkbox"] {
 }
 
 .sw25 .item .usedice {
-  color:#6eb4f0;
+  color: rgb(var(--usedice-color));
 }
 
 .sw25 .item .usepower {
-  color:#ea5532;
+  color: rgb(var(--usepower-color));
 }
 
 .sw25 .item .useeffect {
-  color:#d07fff;
+  color: rgb(var(--useeffect-color));
 }
 
 .sw25 .item .usephasearea {
-  color:#2faf2f;
+  color: rgb(var(--usephasearea-color));
 }
 
 .sw25pc .tab-switcher {
@@ -2250,7 +2307,7 @@ body, .sw25cs__body__sidebar {
   max-height: 120px;
   width: 100%;
   max-width: 120px;
-  border-radius: 5%;
+  border: 0px;
   margin: 0;
   object-fit: contain; 
 }
@@ -3086,13 +3143,145 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
 }
 
 .sw25 .attack-display {
-  background-color: #ffe0e0;
+  background: linear-gradient(180deg, rgba(var(--attack-color), 1), rgba(255, 255, 255, 1));
 }
 
 .sw25 .deffence-display {
-  background-color: #e0e0ff;
+  background: linear-gradient(180deg, rgba(var(--deffence-color), 1), rgba(255, 255, 255, 1));
 }
 
 .sw25 .resist-display {
-  background-color: #e0ffe0;
+  background: linear-gradient(180deg, rgba(var(--resist-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .weapon-display {
+  background: linear-gradient(180deg, rgba(var(--weapon-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .armor-display {
+  background: linear-gradient(180deg, rgba(var(--armor-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .accessory-display {
+  background: linear-gradient(180deg, rgba(var(--accessory-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .item-display {
+  background: linear-gradient(180deg, rgba(var(--item-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .spell-display {
+  background: linear-gradient(180deg, rgba(var(--spell-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .enhancearts-display {
+  background: linear-gradient(180deg, rgba(var(--enhancearts-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .magicalsong-display {
+  background: linear-gradient(180deg, rgba(var(--magicalsong-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .ridingtrick-display {
+  background: linear-gradient(180deg, rgba(var(--ridingtrick-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .alchemytech-display {
+  background: linear-gradient(180deg, rgba(var(--alchemytech-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .phasearea-display {
+  background: linear-gradient(180deg, rgba(var(--phasearea-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .tactics-display {
+  background: linear-gradient(180deg, rgba(var(--tactics-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .infusion-display {
+  background: linear-gradient(180deg, rgba(var(--infusion-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .barbarousskill-display {
+  background: linear-gradient(180deg, rgba(var(--barbarousskill-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .essenceweave-display {
+  background: linear-gradient(180deg, rgba(var(--essenceweave-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .check-display {
+  background: linear-gradient(180deg, rgba(var(--check-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .resource-display {
+  background: linear-gradient(180deg, rgba(var(--resource-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .combatability-display {
+  background: linear-gradient(180deg, rgba(var(--combatability-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .skill-display {
+  background: linear-gradient(180deg, rgba(var(--skill-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .raceability-display {
+  background: linear-gradient(180deg, rgba(var(--raceability-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .language-display {
+  background: linear-gradient(180deg, rgba(var(--language-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .otherfeature-display {
+  background: linear-gradient(180deg, rgba(var(--otherfeature-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .monsterability-display {
+  background: linear-gradient(180deg, rgba(var(--monsterability-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .action-display {
+  background: linear-gradient(180deg, rgba(var(--action-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .session-display {
+  background: linear-gradient(180deg, rgba(var(--session-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .spell-sorcerer-display {
+  background: linear-gradient(180deg, rgba(var(--spell-sorcerer-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .spell-conjurer-display {
+  background: linear-gradient(180deg, rgba(var(--spell-conjurer-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .spell-wizard-display {
+  background: linear-gradient(180deg, rgba(var(--spell-wizard-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .spell-priest-display {
+  background: linear-gradient(180deg, rgba(var(--spell-priest-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .spell-magitech-display {
+  background: linear-gradient(180deg, rgba(var(--spell-magitech-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .spell-fairy-display {
+  background: linear-gradient(180deg, rgba(var(--spell-fairy-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .spell-druid-display {
+  background: linear-gradient(180deg, rgba(var(--spell-druid-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .spell-daemon-display {
+  background: linear-gradient(180deg, rgba(var(--spell-daemon-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .spell-abyssal-display {
+  background: linear-gradient(180deg, rgba(var(--spell-abyssal-color), 1), rgba(255, 255, 255, 1));
 }

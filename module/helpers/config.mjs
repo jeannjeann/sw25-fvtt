@@ -99,6 +99,7 @@ SW25.resourceTypes = {
   tacspower: "SW25.Item.Resource.Types.Tacspower",
   magitech: "SW25.Item.Resource.Types.Magitech",
   abyssex: "SW25.Item.Resource.Types.AbyssEx",
+  otherfeature: "SW25.Item.Resource.Types.Otherfeature",
 };
 
 
@@ -433,6 +434,12 @@ SW25.Effect = {
       //"attributes.powertablemod.session": "TYPES.Item.session",
       "attributes.powertablemod.all": "SW25.Item.All",
   }
+};
+
+SW25.alchemyEffecive = {
+  value: "SW25.Item.Alchemytech.Value",
+  time: "SW25.Item.Alchemytech.Time",
+  diceformula: "SW25.Item.Alchemytech.DiceFormula",
 };
 
 SW25.resistCheck = {

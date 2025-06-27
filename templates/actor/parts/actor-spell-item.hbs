@@ -1,6 +1,6 @@
     <li class='item spell' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;">
+        <div class='item-prop flexrow flex-group-center' style="flex: 0 0 30px;">
           {{system.level}}
         </div>
         <div class='item-name'>
@@ -13,31 +13,31 @@
           <span class="{{system.fairyprop}}"><i class="fa-solid fa-gem"></i></span>
           {{/if}}
           {{#if (eq system.fairytype "specialfairy")}}
-          <span class="{{system.fairytype}}"><i class="fa-solid fa-gem rainbow-text"></i></span>
+          <span class="{{system.fairytype}}"><i class="fa-solid fa-gem specialfairy-text"></i></span>
           {{/if}}
           {{> "systems/sw25/templates/helper/action-marks.hbs"}}
           <h4 class="spell-label">{{item.name}}</h4>
         </div>
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
-        <div class='hpcost item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;" data-cost="{{item.system.hpcost}}" data-max="{{item.system.maxhpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
+        <div class='hpcost item-prop flexrow flex-group-center' style="flex: 0 0 30px;" data-cost="{{item.system.hpcost}}" data-max="{{item.system.maxhpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
           {{system.hpcost}}
         </div>
-        <div class='mpcost item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 30px;" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
+        <div class='mpcost item-prop flexrow flex-group-center' style="flex: 0 0 30px;" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
           {{system.mpcost}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 60px;">
+        <div class='item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 60px;">
           {{system.target}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 60px;">
+        <div class='item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 60px;">
           {{system.rangeshape}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 100px;">
+        <div class='item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 100px;">
           {{system.time}} 
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 40px;">
+        <div class='item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 40px;">
           {{system.resistname}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 80px;">
+        <div class='item-prop flexrow flex-group-center' style="flex: 0 0 80px;">
           {{system.propname}}
         </div>
       </div>

@@ -514,7 +514,8 @@
           "Lifeline": "Qi",
           "Tacspower": "Edge",
           "Magitech": "Magitech",
-          "AbyssEx": "Abyss Extend"
+          "AbyssEx": "Abyss Extend",
+          "Otherfeature": "Otherfeature"
         },
         "Bullet": "Bullet",
         "MagisphereS": "Magi Sphere S",

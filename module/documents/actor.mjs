@@ -418,177 +418,8 @@ export class SW25Actor extends Actor {
       itemEffects.push(...item.effects);
     });
     let allEffects = [...actorEffects, ...itemEffects];
-    let activeEffects = allEffects.filter(
-      (effect) => effect.disabled === false
-    );
 
-    let effectsChange = activeEffects.map((effect) => {
-      return effect.changes.map((change) => {
-        return {
-          key: change.key,
-          value: Number(change.value),
-          mode: change.mode,
-        };
-      });
-    }).flat();
-
-    const processingRules = [
-      { key: "system.attributes.efhitmod", target:"totalhitmod", localize: `${game.i18n.localize("SW25.Effect.HitMod")}` },
-      { key: "system.attributes.efdmod", target:"totaldmod", localize: `${game.i18n.localize("SW25.Effect.DamageMod")}` },
-      { key: "system.effect.efcvalue", target:"totalcmod", localize: `${game.i18n.localize("SW25.Effect.CMod")}` },
-      { key: "system.effect.efspellcvalue", target:"totalspcmod", localize: `${game.i18n.localize("SW25.Effect.SpCMod")}` },
-      { key: "system.lt", target:"totallt", localize: `${game.i18n.localize("SW25.Effect.LethalTech")}` },
-      { key: "system.cr", target:"totalcr", localize: `${game.i18n.localize("SW25.Effect.CriticalRay")}` },
-      { key: "system.attributes.efwphalfmod", target:"totalwphalfmod", localize: `${game.i18n.localize("SW25.Effect.WeaponHalfMod")}` },
-      { key: "system.attributes.efsphalfmod", target:"totalsphalfmod", localize: `${game.i18n.localize("SW25.Effect.SpellHalfMod")}` },
-      { key: "system.attributes.efdodgemod", target:"totaldodgemod", localize: `${game.i18n.localize("SW25.Effect.DodgeMod")}` },
-      { key: "system.attributes.efppmod", target:"totalppmod", localize: `${game.i18n.localize("SW25.Effect.PpMod")}` },
-      { key: "system.attributes.efmppmod", target:"totalmppmod", localize: `${game.i18n.localize("SW25.Effect.MppMod")}` },
-      { key: "system.attributes.efdreduce", target:"totaldreduce", localize: `${game.i18n.localize("SW25.Effect.Dreduce")}` },
-      { key: "system.attributes.move.efmovemod", target:"totalmovemod", localize: `${game.i18n.localize("SW25.Effect.MoveMod")}` },
-      { key: "system.attributes.turnend.hpregenmod", target:"totalhpregenmod", localize: `${game.i18n.localize("SW25.Effect.HpregenMod")}` },
-      { key: "system.attributes.turnend.mpregenmod", target:"totalmpregenmod", localize: `${game.i18n.localize("SW25.Effect.MpregenMod")}` },
-      { key: "system.effect.vitres", target:"totalvitres", localize: `${game.i18n.localize("SW25.Config.ResVit")}` },
-      { key: "system.effect.mndres", target:"totalmndres", localize: `${game.i18n.localize("SW25.Config.ResMnd")}` },
-      { key: "system.effect.init", target:"totalinit", localize: `${game.i18n.localize("SW25.Config.Init")}` },
-      { key: "system.effect.mknow", target:"totalmknow", localize: `${game.i18n.localize("SW25.Config.MKnow")}` },
-      { key: "system.effect.allck", target:"totalallck", localize: `${game.i18n.localize("SW25.Config.AllCk")}` },
-      { key: "system.effect.allsk", target:"totalallsk", localize: `${game.i18n.localize("SW25.Config.AllSk")}` },
-      { key: "system.hp.efhpmod", target:"totalhpmod", localize: `${game.i18n.localize("SW25.Effect.HpMod")}` },
-      { key: "system.mp.efmpmod", target:"totalmpmod", localize: `${game.i18n.localize("SW25.Effect.MpMod")}` },
-      { key: "system.abilities.dex.efvaluemodify", target:"totaldex", localize: `${game.i18n.localize("SW25.Effect.DexValueModify")}` },
-      { key: "system.abilities.agi.efvaluemodify", target:"totalagi", localize: `${game.i18n.localize("SW25.Effect.AgiValueModify")}` },
-      { key: "system.abilities.str.efvaluemodify", target:"totalstr", localize: `${game.i18n.localize("SW25.Effect.StrValueModify")}` },
-      { key: "system.abilities.vit.efvaluemodify", target:"totalvit", localize: `${game.i18n.localize("SW25.Effect.VitValueModify")}` },
-      { key: "system.abilities.int.efvaluemodify", target:"totalint", localize: `${game.i18n.localize("SW25.Effect.IntValueModify")}` },
-      { key: "system.abilities.mnd.efvaluemodify", target:"totalmnd", localize: `${game.i18n.localize("SW25.Effect.MndValueModify")}` },
-      { key: "system.abilities.dex.efmodify", target:"totaldexmod", localize: `${game.i18n.localize("SW25.Effect.DexModModify")}` },
-      { key: "system.abilities.agi.efmodify", target:"totalagimod", localize: `${game.i18n.localize("SW25.Effect.AgiModModify")}` },
-      { key: "system.abilities.str.efmodify", target:"totalstrmod", localize: `${game.i18n.localize("SW25.Effect.StrModModify")}` },
-      { key: "system.abilities.vit.efmodify", target:"totalvitmod", localize: `${game.i18n.localize("SW25.Effect.VitModModify")}` },
-      { key: "system.abilities.int.efmodify", target:"totalintmod", localize: `${game.i18n.localize("SW25.Effect.IntModModify")}` },
-      { key: "system.abilities.mnd.efmodify", target:"totalmndmod", localize: `${game.i18n.localize("SW25.Effect.MndModModify")}` },
-      { key: "system.attributes.efscmod", target:"totalscmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.ScMod")}` },
-      { key: "system.attributes.efcnmod", target:"totalcnmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.CnMod")}` },
-      { key: "system.attributes.efwzmod", target:"totalwzmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.WzMod")}` },
-      { key: "system.attributes.efprmod", target:"totalprmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.PrMod")}` },
-      { key: "system.attributes.efmtmod", target:"totalmtmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.MtMod")}` },
-      { key: "system.attributes.effrmod", target:"totalfrmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.FrMod")}` },
-      { key: "system.attributes.efdrmod", target:"totaldrmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.DrMod")}` },
-      { key: "system.attributes.efdmmod", target:"totaldmmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.DmMod")}` },
-      { key: "system.attributes.efabmod", target:"totalabmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.AbMod")}` },
-      { key: "system.attributes.efscckmod", target:"totalscckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.ScMod")}` },
-      { key: "system.attributes.efcnckmod", target:"totalcnckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.CnMod")}` },
-      { key: "system.attributes.efwzckmod", target:"totalwzckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.WzMod")}` },
-      { key: "system.attributes.efprckmod", target:"totalprckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.PrMod")}` },
-      { key: "system.attributes.efmtckmod", target:"totalmtckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.MtMod")}` },
-      { key: "system.attributes.effrckmod", target:"totalfrckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.FrMod")}` },
-      { key: "system.attributes.efdrckmod", target:"totaldrckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.DrMod")}` },
-      { key: "system.attributes.efdmckmod", target:"totaldmckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.DmMod")}` },
-      { key: "system.attributes.efabckmod", target:"totalabckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.AbMod")}` },
-      { key: "system.attributes.efscpwmod", target:"totalscpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.ScMod")}` },
-      { key: "system.attributes.efcnpwmod", target:"totalcnpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.CnMod")}` },
-      { key: "system.attributes.efwzpwmod", target:"totalwzpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.WzMod")}` },
-      { key: "system.attributes.efprpwmod", target:"totalprpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.PrMod")}` },
-      { key: "system.attributes.efmtpwmod", target:"totalmtpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.MtMod")}` },
-      { key: "system.attributes.effrpwmod", target:"totalfrpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.FrMod")}` },
-      { key: "system.attributes.efdrpwmod", target:"totaldrpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.DrMod")}` },
-      { key: "system.attributes.efdmpwmod", target:"totaldmpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.DmMod")}` },
-      { key: "system.attributes.efabpwmod", target:"totalabpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.AbMod")}` },
-      { key: "system.effect.allmgp", target:"totalallmgp", localize: `${game.i18n.localize("SW25.Config.AllMgp")}` },
-      { key: "system.attributes.efmpsc", target:"totalmpsc", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.ScMod")}` },
-      { key: "system.attributes.efmpcn", target:"totalmpcn", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.CnMod")}` },
-      { key: "system.attributes.efmpwz", target:"totalmpwz", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.WzMod")}` },
-      { key: "system.attributes.efmppr", target:"totalmppr", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.PrMod")}` },
-      { key: "system.attributes.efmpmt", target:"totalmpmt", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.MtMod")}` },
-      { key: "system.attributes.efmpfr", target:"totalmpfr", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.FrMod")}` },
-      { key: "system.attributes.efmpdr", target:"totalmpdr", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.DrMod")}` },
-      { key: "system.attributes.efmpdm", target:"totalmpdm", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.DmMod")}` },
-      { key: "system.attributes.efmpab", target:"totalmpab", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.AbMod")}` },
-      { key: "system.attributes.efmpall", target:"totalmpall", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Item.All")}` },
-      { key: "system.attributes.efmckall", target:"totalallmck", localize: `${game.i18n.localize("SW25.Effect.MagicCKRoll")} / ${game.i18n.localize("SW25.Item.All")}` },
-      { key: "system.attributes.efmpwall", target:"totalallmpw", localize: `${game.i18n.localize("SW25.Effect.MagicPWRoll")} / ${game.i18n.localize("SW25.Item.All")}` },
-      { key: "system.attributes.efmsckmod", target:"totalmsckmod", localize: `${game.i18n.localize("TYPES.Item.magicalsong")} / ${game.i18n.localize("SW25.Effect.Performance")}` },
-      { key: "system.attributes.efmspwmod", target:"totalmspwmod", localize: `${game.i18n.localize("TYPES.Item.magicalsong")} / ${game.i18n.localize("SW25.Effect.MPower")}` },
-      { key: "system.attributes.efatckmod", target:"totalatckmod", localize: `${game.i18n.localize("TYPES.Item.alchemytech")}` },
-      { key: "system.attributes.efewckmod", target:"totalewckmod", localize: `${game.i18n.localize("TYPES.Item.essenceweave")} / ${game.i18n.localize("SW25.Effect.Force")}` },
-      { key: "system.attributes.efewpwmod", target:"totalewpwmod", localize: `${game.i18n.localize("TYPES.Item.essenceweave")} / ${game.i18n.localize("SW25.Effect.MPower")}` },
-      { key: "system.eflootmod", target:"totallootmod", localize: `${game.i18n.localize("SW25.Monster.Loot")}` },
-      { key: "system.effect.package.fine", target:"totalfinechkmod", localize: `${game.i18n.localize("SW25.Item.Check.Packages.Finesse")}${game.i18n.localize("SW25.Check")}` },
-      { key: "system.effect.package.move", target:"totalmovechkmod", localize: `${game.i18n.localize("SW25.Item.Check.Packages.Movement")}${game.i18n.localize("SW25.Check")}` },
-      { key: "system.effect.package.obse", target:"totalobsechkmod", localize: `${game.i18n.localize("SW25.Item.Check.Packages.Observation")}${game.i18n.localize("SW25.Check")}` },
-      { key: "system.effect.package.know", target:"totalknowchkmod", localize: `${game.i18n.localize("SW25.Item.Check.Packages.Knowledge")}${game.i18n.localize("SW25.Check")}` },
-      { key: "system.attributes.powertablemod.weapon", target:"ptmodweapon", localize: `${game.i18n.localize("TYPES.Item.weapon")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.armor", target:"ptmodarmor", localize: `${game.i18n.localize("TYPES.Item.armor")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.accessory", target:"ptmodaccessory", localize: `${game.i18n.localize("TYPES.Item.accessory")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.item", target:"ptmoditem", localize: `${game.i18n.localize("TYPES.Item.item")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.spell", target:"ptmodspell", localize: `${game.i18n.localize("TYPES.Item.spell")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.enhancearts", target:"ptmodenhancearts", localize: `${game.i18n.localize("TYPES.Item.enhancearts")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.magicalsong", target:"ptmodmagicalsong", localize: `${game.i18n.localize("TYPES.Item.magicalsong")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.ridingtrick", target:"ptmodridingtrick", localize: `${game.i18n.localize("TYPES.Item.ridingtrick")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.alchemytech", target:"ptmodalchemytech", localize: `${game.i18n.localize("TYPES.Item.alchemytech")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.phasearea", target:"ptmodphasearea", localize: `${game.i18n.localize("TYPES.Item.phasearea")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.tactics", target:"ptmodtactics", localize: `${game.i18n.localize("TYPES.Item.tactics")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.infusion", target:"ptmodinfusion", localize: `${game.i18n.localize("TYPES.Item.infusion")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.barbarousskill", target:"ptmodbarbarousskill", localize: `${game.i18n.localize("TYPES.Item.barbarousskill")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.essenceweave", target:"ptmodessenceweave", localize: `${game.i18n.localize("TYPES.Item.essenceweave")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.skill", target:"ptmodskill", localize: `${game.i18n.localize("TYPES.Item.skill")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.raceability", target:"ptmodraceability", localize: `${game.i18n.localize("TYPES.Item.raceability")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.otherfeature", target:"ptmodotherfeature", localize: `${game.i18n.localize("TYPES.Item.otherfeature")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.monsterability", target:"ptmodmonsterability", localize: `${game.i18n.localize("TYPES.Item.monsterability")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.action", target:"ptmodaction", localize: `${game.i18n.localize("TYPES.Item.action")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.all", target:"ptmodall", localize: `${game.i18n.localize("SW25.Item.All")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.effect.checkinputmod.", target:"checkinputmod", localize:"key" },
-    ];
-
-    let modParams = {};
-    let ruleMap = Object.fromEntries(
-      processingRules.map((rule) => [rule.key, rule])
-    );
-
-    effectsChange.sort((a, b) => a.mode - b.mode);
-    effectsChange.forEach((effects) => {
-      const keys = this.splitEffectKey(effects.key);
-      let rule = keys != null ? ruleMap[keys.keyA] : ruleMap[effects.key];
-      if (rule) {
-        let value = Number(effects.value);
-        let path = keys ? rule.target + keys.keyB : rule.target;
-        let currentValue = foundry.utils.getProperty(modParams, `${path}.value`);
-        if (currentValue === undefined) {
-          currentValue = 0;
-        }
-
-        let newValue = currentValue;
-        switch (effects.mode) {
-          case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
-            newValue = Number(currentValue) * value;
-            break;
-
-          case CONST.ACTIVE_EFFECT_MODES.ADD:
-            newValue = Number(currentValue) + value;
-            break;
-  
-          case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
-            newValue = value;
-            break;
-  
-          case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
-          case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
-          case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
-            //未実装
-            break;
-  
-          default:
-            break;
-        }
-        foundry.utils.setProperty(modParams, `${path}.value`, newValue);
-        
-        if (rule.localize) {
-          let label = rule.localize === "key" ? keys.keyB : rule.localize;
-          foundry.utils.setProperty(modParams, `${path}.label`, label);
-        }
-      }
-    });
+    let modParams = this._getModParams(allEffects);
 
     for (let [key, entry] of Object.entries(modParams)) {
       if (typeof entry.value === "number") {
@@ -599,7 +430,6 @@ export class SW25Actor extends Actor {
         }
       }
     }
-
     systemData.modParams = modParams;
 
     // Set initiative formula
@@ -859,177 +689,8 @@ export class SW25Actor extends Actor {
       itemEffects.push(...item.effects);
     });
     let allEffects = [...actorEffects, ...itemEffects];
-    let activeEffects = allEffects.filter(
-      (effect) => effect.disabled === false
-    );
 
-    let effectsChange = activeEffects.map((effect) => {
-      return effect.changes.map((change) => {
-        return {
-          key: change.key,
-          value: Number(change.value),
-          mode: change.mode,
-        };
-      });
-    }).flat();
-
-    const processingRules = [
-      { key: "system.attributes.efhitmod", target:"totalhitmod", localize: `${game.i18n.localize("SW25.Effect.HitMod")}` },
-      { key: "system.attributes.efdmod", target:"totaldmod", localize: `${game.i18n.localize("SW25.Effect.DamageMod")}` },
-      { key: "system.effect.efcvalue", target:"totalcmod", localize: `${game.i18n.localize("SW25.Effect.CMod")}` },
-      { key: "system.effect.efspellcvalue", target:"totalspcmod", localize: `${game.i18n.localize("SW25.Effect.SpCMod")}` },
-      { key: "system.lt", target:"totallt", localize: `${game.i18n.localize("SW25.Effect.LethalTech")}` },
-      { key: "system.cr", target:"totalcr", localize: `${game.i18n.localize("SW25.Effect.CriticalRay")}` },
-      { key: "system.attributes.efwphalfmod", target:"totalwphalfmod", localize: `${game.i18n.localize("SW25.Effect.WeaponHalfMod")}` },
-      { key: "system.attributes.efsphalfmod", target:"totalsphalfmod", localize: `${game.i18n.localize("SW25.Effect.SpellHalfMod")}` },
-      { key: "system.attributes.efdodgemod", target:"totaldodgemod", localize: `${game.i18n.localize("SW25.Effect.DodgeMod")}` },
-      { key: "system.attributes.efppmod", target:"totalppmod", localize: `${game.i18n.localize("SW25.Effect.PpMod")}` },
-      { key: "system.attributes.efmppmod", target:"totalmppmod", localize: `${game.i18n.localize("SW25.Effect.MppMod")}` },
-      { key: "system.attributes.efdreduce", target:"totaldreduce", localize: `${game.i18n.localize("SW25.Effect.Dreduce")}` },
-      { key: "system.attributes.move.efmovemod", target:"totalmovemod", localize: `${game.i18n.localize("SW25.Effect.MoveMod")}` },
-      { key: "system.attributes.turnend.hpregenmod", target:"totalhpregenmod", localize: `${game.i18n.localize("SW25.Effect.HpregenMod")}` },
-      { key: "system.attributes.turnend.mpregenmod", target:"totalmpregenmod", localize: `${game.i18n.localize("SW25.Effect.MpregenMod")}` },
-      { key: "system.effect.vitres", target:"totalvitres", localize: `${game.i18n.localize("SW25.Config.ResVit")}` },
-      { key: "system.effect.mndres", target:"totalmndres", localize: `${game.i18n.localize("SW25.Config.ResMnd")}` },
-      { key: "system.effect.init", target:"totalinit", localize: `${game.i18n.localize("SW25.Config.Init")}` },
-      { key: "system.effect.mknow", target:"totalmknow", localize: `${game.i18n.localize("SW25.Config.MKnow")}` },
-      { key: "system.effect.allck", target:"totalallck", localize: `${game.i18n.localize("SW25.Config.AllCk")}` },
-      { key: "system.effect.allsk", target:"totalallsk", localize: `${game.i18n.localize("SW25.Config.AllSk")}` },
-      { key: "system.hp.efhpmod", target:"totalhpmod", localize: `${game.i18n.localize("SW25.Effect.HpMod")}` },
-      { key: "system.mp.efmpmod", target:"totalmpmod", localize: `${game.i18n.localize("SW25.Effect.MpMod")}` },
-      { key: "system.abilities.dex.efvaluemodify", target:"totaldex", localize: `${game.i18n.localize("SW25.Effect.DexValueModify")}` },
-      { key: "system.abilities.agi.efvaluemodify", target:"totalagi", localize: `${game.i18n.localize("SW25.Effect.AgiValueModify")}` },
-      { key: "system.abilities.str.efvaluemodify", target:"totalstr", localize: `${game.i18n.localize("SW25.Effect.StrValueModify")}` },
-      { key: "system.abilities.vit.efvaluemodify", target:"totalvit", localize: `${game.i18n.localize("SW25.Effect.VitValueModify")}` },
-      { key: "system.abilities.int.efvaluemodify", target:"totalint", localize: `${game.i18n.localize("SW25.Effect.IntValueModify")}` },
-      { key: "system.abilities.mnd.efvaluemodify", target:"totalmnd", localize: `${game.i18n.localize("SW25.Effect.MndValueModify")}` },
-      { key: "system.abilities.dex.efmodify", target:"totaldexmod", localize: `${game.i18n.localize("SW25.Effect.DexModModify")}` },
-      { key: "system.abilities.agi.efmodify", target:"totalagimod", localize: `${game.i18n.localize("SW25.Effect.AgiModModify")}` },
-      { key: "system.abilities.str.efmodify", target:"totalstrmod", localize: `${game.i18n.localize("SW25.Effect.StrModModify")}` },
-      { key: "system.abilities.vit.efmodify", target:"totalvitmod", localize: `${game.i18n.localize("SW25.Effect.VitModModify")}` },
-      { key: "system.abilities.int.efmodify", target:"totalintmod", localize: `${game.i18n.localize("SW25.Effect.IntModModify")}` },
-      { key: "system.abilities.mnd.efmodify", target:"totalmndmod", localize: `${game.i18n.localize("SW25.Effect.MndModModify")}` },
-      { key: "system.attributes.efscmod", target:"totalscmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.ScMod")}` },
-      { key: "system.attributes.efcnmod", target:"totalcnmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.CnMod")}` },
-      { key: "system.attributes.efwzmod", target:"totalwzmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.WzMod")}` },
-      { key: "system.attributes.efprmod", target:"totalprmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.PrMod")}` },
-      { key: "system.attributes.efmtmod", target:"totalmtmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.MtMod")}` },
-      { key: "system.attributes.effrmod", target:"totalfrmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.FrMod")}` },
-      { key: "system.attributes.efdrmod", target:"totaldrmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.DrMod")}` },
-      { key: "system.attributes.efdmmod", target:"totaldmmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.DmMod")}` },
-      { key: "system.attributes.efabmod", target:"totalabmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.AbMod")}` },
-      { key: "system.attributes.efscckmod", target:"totalscckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.ScMod")}` },
-      { key: "system.attributes.efcnckmod", target:"totalcnckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.CnMod")}` },
-      { key: "system.attributes.efwzckmod", target:"totalwzckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.WzMod")}` },
-      { key: "system.attributes.efprckmod", target:"totalprckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.PrMod")}` },
-      { key: "system.attributes.efmtckmod", target:"totalmtckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.MtMod")}` },
-      { key: "system.attributes.effrckmod", target:"totalfrckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.FrMod")}` },
-      { key: "system.attributes.efdrckmod", target:"totaldrckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.DrMod")}` },
-      { key: "system.attributes.efdmckmod", target:"totaldmckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.DmMod")}` },
-      { key: "system.attributes.efabckmod", target:"totalabckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.AbMod")}` },
-      { key: "system.attributes.efscpwmod", target:"totalscpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.ScMod")}` },
-      { key: "system.attributes.efcnpwmod", target:"totalcnpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.CnMod")}` },
-      { key: "system.attributes.efwzpwmod", target:"totalwzpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.WzMod")}` },
-      { key: "system.attributes.efprpwmod", target:"totalprpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.PrMod")}` },
-      { key: "system.attributes.efmtpwmod", target:"totalmtpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.MtMod")}` },
-      { key: "system.attributes.effrpwmod", target:"totalfrpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.FrMod")}` },
-      { key: "system.attributes.efdrpwmod", target:"totaldrpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.DrMod")}` },
-      { key: "system.attributes.efdmpwmod", target:"totaldmpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.DmMod")}` },
-      { key: "system.attributes.efabpwmod", target:"totalabpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.AbMod")}` },
-      { key: "system.effect.allmgp", target:"totalallmgp", localize: `${game.i18n.localize("SW25.Config.AllMgp")}` },
-      { key: "system.attributes.efmpsc", target:"totalmpsc", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.ScMod")}` },
-      { key: "system.attributes.efmpcn", target:"totalmpcn", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.CnMod")}` },
-      { key: "system.attributes.efmpwz", target:"totalmpwz", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.WzMod")}` },
-      { key: "system.attributes.efmppr", target:"totalmppr", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.PrMod")}` },
-      { key: "system.attributes.efmpmt", target:"totalmpmt", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.MtMod")}` },
-      { key: "system.attributes.efmpfr", target:"totalmpfr", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.FrMod")}` },
-      { key: "system.attributes.efmpdr", target:"totalmpdr", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.DrMod")}` },
-      { key: "system.attributes.efmpdm", target:"totalmpdm", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.DmMod")}` },
-      { key: "system.attributes.efmpab", target:"totalmpab", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.AbMod")}` },
-      { key: "system.attributes.efmpall", target:"totalmpall", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Item.All")}` },
-      { key: "system.attributes.efmckall", target:"totalallmck", localize: `${game.i18n.localize("SW25.Effect.MagicCKRoll")} / ${game.i18n.localize("SW25.Item.All")}` },
-      { key: "system.attributes.efmpwall", target:"totalallmpw", localize: `${game.i18n.localize("SW25.Effect.MagicPWRoll")} / ${game.i18n.localize("SW25.Item.All")}` },
-      { key: "system.attributes.efmsckmod", target:"totalmsckmod", localize: `${game.i18n.localize("TYPES.Item.magicalsong")} / ${game.i18n.localize("SW25.Effect.Performance")}` },
-      { key: "system.attributes.efmspwmod", target:"totalmspwmod", localize: `${game.i18n.localize("TYPES.Item.magicalsong")} / ${game.i18n.localize("SW25.Effect.MPower")}` },
-      { key: "system.attributes.efatckmod", target:"totalatckmod", localize: `${game.i18n.localize("TYPES.Item.alchemytech")}` },
-      { key: "system.attributes.efewckmod", target:"totalewckmod", localize: `${game.i18n.localize("TYPES.Item.essenceweave")} / ${game.i18n.localize("SW25.Effect.Force")}` },
-      { key: "system.attributes.efewpwmod", target:"totalewpwmod", localize: `${game.i18n.localize("TYPES.Item.essenceweave")} / ${game.i18n.localize("SW25.Effect.MPower")}` },
-      { key: "system.eflootmod", target:"totallootmod", localize: `${game.i18n.localize("SW25.Monster.Loot")}` },
-      { key: "system.effect.package.fine", target:"totalfinechkmod", localize: `${game.i18n.localize("SW25.Item.Check.Packages.Finesse")}${game.i18n.localize("SW25.Check")}` },
-      { key: "system.effect.package.move", target:"totalmovechkmod", localize: `${game.i18n.localize("SW25.Item.Check.Packages.Movement")}${game.i18n.localize("SW25.Check")}` },
-      { key: "system.effect.package.obse", target:"totalobsechkmod", localize: `${game.i18n.localize("SW25.Item.Check.Packages.Observation")}${game.i18n.localize("SW25.Check")}` },
-      { key: "system.effect.package.know", target:"totalknowchkmod", localize: `${game.i18n.localize("SW25.Item.Check.Packages.Knowledge")}${game.i18n.localize("SW25.Check")}` },
-      { key: "system.attributes.powertablemod.weapon", target:"ptmodweapon", localize: `${game.i18n.localize("TYPES.Item.weapon")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.armor", target:"ptmodarmor", localize: `${game.i18n.localize("TYPES.Item.armor")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.accessory", target:"ptmodaccessory", localize: `${game.i18n.localize("TYPES.Item.accessory")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.item", target:"ptmoditem", localize: `${game.i18n.localize("TYPES.Item.item")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.spell", target:"ptmodspell", localize: `${game.i18n.localize("TYPES.Item.spell")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.enhancearts", target:"ptmodenhancearts", localize: `${game.i18n.localize("TYPES.Item.enhancearts")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.magicalsong", target:"ptmodmagicalsong", localize: `${game.i18n.localize("TYPES.Item.magicalsong")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.ridingtrick", target:"ptmodridingtrick", localize: `${game.i18n.localize("TYPES.Item.ridingtrick")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.alchemytech", target:"ptmodalchemytech", localize: `${game.i18n.localize("TYPES.Item.alchemytech")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.phasearea", target:"ptmodphasearea", localize: `${game.i18n.localize("TYPES.Item.phasearea")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.tactics", target:"ptmodtactics", localize: `${game.i18n.localize("TYPES.Item.tactics")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.infusion", target:"ptmodinfusion", localize: `${game.i18n.localize("TYPES.Item.infusion")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.barbarousskill", target:"ptmodbarbarousskill", localize: `${game.i18n.localize("TYPES.Item.barbarousskill")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.essenceweave", target:"ptmodessenceweave", localize: `${game.i18n.localize("TYPES.Item.essenceweave")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.skill", target:"ptmodskill", localize: `${game.i18n.localize("TYPES.Item.skill")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.raceability", target:"ptmodraceability", localize: `${game.i18n.localize("TYPES.Item.raceability")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.otherfeature", target:"ptmodotherfeature", localize: `${game.i18n.localize("TYPES.Item.otherfeature")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.monsterability", target:"ptmodmonsterability", localize: `${game.i18n.localize("TYPES.Item.monsterability")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.action", target:"ptmodaction", localize: `${game.i18n.localize("TYPES.Item.action")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.attributes.powertablemod.all", target:"ptmodall", localize: `${game.i18n.localize("SW25.Item.All")}${game.i18n.localize("SW25.Effect.Powertable")}` },
-      { key: "system.effect.checkinputmod.", target:"checkinputmod", localize:"key" },
-    ];
-
-    let modParams = {};
-    let ruleMap = Object.fromEntries(
-      processingRules.map((rule) => [rule.key, rule])
-    );
-
-    effectsChange.sort((a, b) => a.mode - b.mode);
-    effectsChange.forEach((effects) => {
-      const keys = this.splitEffectKey(effects.key);
-      let rule = keys != null ? ruleMap[keys.keyA] : ruleMap[effects.key];
-      if (rule) {
-        let value = Number(effects.value);
-        let path = keys ? rule.target + keys.keyB : rule.target;
-        let currentValue = foundry.utils.getProperty(modParams, `${path}.value`);
-        if (currentValue === undefined) {
-          currentValue = 0;
-        }
-
-        let newValue = currentValue;
-        switch (effects.mode) {
-          case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
-            newValue = Number(currentValue) * value;
-            break;
-
-          case CONST.ACTIVE_EFFECT_MODES.ADD:
-            newValue = Number(currentValue) + value;
-            break;
-  
-          case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
-            newValue = value;
-            break;
-  
-          case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
-          case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
-          case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
-            //未実装
-            break;
-  
-          default:
-            break;
-        }
-        foundry.utils.setProperty(modParams, `${path}.value`, newValue);
-        
-        if (rule.localize) {
-          let label = rule.localize === "key" ? keys.keyB : rule.localize;
-          foundry.utils.setProperty(modParams, `${path}.label`, label);
-        }
-      }
-    });
+    let modParams = this._getModParams(allEffects);
 
     // Convert Status Monster Parameter.
     // convert dex
@@ -1253,6 +914,7 @@ export class SW25Actor extends Actor {
       delete modParams.totalmndmod;
     }
 
+    // normalize
     for (let [key, entry] of Object.entries(modParams)) {
       if (typeof entry.value === "number") {
         if (entry.value > 0) {
@@ -1339,7 +1001,7 @@ export class SW25Actor extends Actor {
     // Process additional Monster data here.
   }
 
-  splitEffectKey(effectKey) {
+  _splitEffectKey(effectKey) {
     const keyPrefixes = [
       "system.effect.checkinputmod.",
     ];
@@ -1353,5 +1015,180 @@ export class SW25Actor extends Actor {
       }
     }
     return null;
+  }
+
+  _getModParams(allEffects){
+    let activeEffects = allEffects.filter(
+      (effect) => effect.disabled === false
+    );
+    let effectsChange = activeEffects.map((effect) => {
+      return effect.changes.map((change) => {
+        return {
+          key: change.key,
+          value: Number(change.value),
+          mode: change.mode,
+        };
+      });
+    }).flat();
+
+    const processingRules = [
+      { key: "system.attributes.efhitmod", target:"totalhitmod", localize: `${game.i18n.localize("SW25.Effect.HitMod")}` },
+      { key: "system.attributes.efdmod", target:"totaldmod", localize: `${game.i18n.localize("SW25.Effect.DamageMod")}` },
+      { key: "system.effect.efcvalue", target:"totalcmod", localize: `${game.i18n.localize("SW25.Effect.CMod")}` },
+      { key: "system.effect.efspellcvalue", target:"totalspcmod", localize: `${game.i18n.localize("SW25.Effect.SpCMod")}` },
+      { key: "system.lt", target:"totallt", localize: `${game.i18n.localize("SW25.Effect.LethalTech")}` },
+      { key: "system.cr", target:"totalcr", localize: `${game.i18n.localize("SW25.Effect.CriticalRay")}` },
+      { key: "system.attributes.efwphalfmod", target:"totalwphalfmod", localize: `${game.i18n.localize("SW25.Effect.WeaponHalfMod")}` },
+      { key: "system.attributes.efsphalfmod", target:"totalsphalfmod", localize: `${game.i18n.localize("SW25.Effect.SpellHalfMod")}` },
+      { key: "system.attributes.efdodgemod", target:"totaldodgemod", localize: `${game.i18n.localize("SW25.Effect.DodgeMod")}` },
+      { key: "system.attributes.efppmod", target:"totalppmod", localize: `${game.i18n.localize("SW25.Effect.PpMod")}` },
+      { key: "system.attributes.efmppmod", target:"totalmppmod", localize: `${game.i18n.localize("SW25.Effect.MppMod")}` },
+      { key: "system.attributes.efdreduce", target:"totaldreduce", localize: `${game.i18n.localize("SW25.Effect.Dreduce")}` },
+      { key: "system.attributes.move.efmovemod", target:"totalmovemod", localize: `${game.i18n.localize("SW25.Effect.MoveMod")}` },
+      { key: "system.attributes.turnend.hpregenmod", target:"totalhpregenmod", localize: `${game.i18n.localize("SW25.Effect.HpregenMod")}` },
+      { key: "system.attributes.turnend.mpregenmod", target:"totalmpregenmod", localize: `${game.i18n.localize("SW25.Effect.MpregenMod")}` },
+      { key: "system.effect.vitres", target:"totalvitres", localize: `${game.i18n.localize("SW25.Config.ResVit")}` },
+      { key: "system.effect.mndres", target:"totalmndres", localize: `${game.i18n.localize("SW25.Config.ResMnd")}` },
+      { key: "system.effect.init", target:"totalinit", localize: `${game.i18n.localize("SW25.Config.Init")}` },
+      { key: "system.effect.mknow", target:"totalmknow", localize: `${game.i18n.localize("SW25.Config.MKnow")}` },
+      { key: "system.effect.allck", target:"totalallck", localize: `${game.i18n.localize("SW25.Config.AllCk")}` },
+      { key: "system.effect.allsk", target:"totalallsk", localize: `${game.i18n.localize("SW25.Config.AllSk")}` },
+      { key: "system.hp.efhpmod", target:"totalhpmod", localize: `${game.i18n.localize("SW25.Effect.HpMod")}` },
+      { key: "system.mp.efmpmod", target:"totalmpmod", localize: `${game.i18n.localize("SW25.Effect.MpMod")}` },
+      { key: "system.abilities.dex.efvaluemodify", target:"totaldex", localize: `${game.i18n.localize("SW25.Effect.DexValueModify")}` },
+      { key: "system.abilities.agi.efvaluemodify", target:"totalagi", localize: `${game.i18n.localize("SW25.Effect.AgiValueModify")}` },
+      { key: "system.abilities.str.efvaluemodify", target:"totalstr", localize: `${game.i18n.localize("SW25.Effect.StrValueModify")}` },
+      { key: "system.abilities.vit.efvaluemodify", target:"totalvit", localize: `${game.i18n.localize("SW25.Effect.VitValueModify")}` },
+      { key: "system.abilities.int.efvaluemodify", target:"totalint", localize: `${game.i18n.localize("SW25.Effect.IntValueModify")}` },
+      { key: "system.abilities.mnd.efvaluemodify", target:"totalmnd", localize: `${game.i18n.localize("SW25.Effect.MndValueModify")}` },
+      { key: "system.abilities.dex.efmodify", target:"totaldexmod", localize: `${game.i18n.localize("SW25.Effect.DexModModify")}` },
+      { key: "system.abilities.agi.efmodify", target:"totalagimod", localize: `${game.i18n.localize("SW25.Effect.AgiModModify")}` },
+      { key: "system.abilities.str.efmodify", target:"totalstrmod", localize: `${game.i18n.localize("SW25.Effect.StrModModify")}` },
+      { key: "system.abilities.vit.efmodify", target:"totalvitmod", localize: `${game.i18n.localize("SW25.Effect.VitModModify")}` },
+      { key: "system.abilities.int.efmodify", target:"totalintmod", localize: `${game.i18n.localize("SW25.Effect.IntModModify")}` },
+      { key: "system.abilities.mnd.efmodify", target:"totalmndmod", localize: `${game.i18n.localize("SW25.Effect.MndModModify")}` },
+      { key: "system.attributes.efscmod", target:"totalscmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.ScMod")}` },
+      { key: "system.attributes.efcnmod", target:"totalcnmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.CnMod")}` },
+      { key: "system.attributes.efwzmod", target:"totalwzmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.WzMod")}` },
+      { key: "system.attributes.efprmod", target:"totalprmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.PrMod")}` },
+      { key: "system.attributes.efmtmod", target:"totalmtmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.MtMod")}` },
+      { key: "system.attributes.effrmod", target:"totalfrmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.FrMod")}` },
+      { key: "system.attributes.efdrmod", target:"totaldrmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.DrMod")}` },
+      { key: "system.attributes.efdmmod", target:"totaldmmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.DmMod")}` },
+      { key: "system.attributes.efabmod", target:"totalabmod", localize: `${game.i18n.localize("SW25.Effect.MagicPower")} / ${game.i18n.localize("SW25.Effect.AbMod")}` },
+      { key: "system.attributes.efscckmod", target:"totalscckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.ScMod")}` },
+      { key: "system.attributes.efcnckmod", target:"totalcnckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.CnMod")}` },
+      { key: "system.attributes.efwzckmod", target:"totalwzckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.WzMod")}` },
+      { key: "system.attributes.efprckmod", target:"totalprckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.PrMod")}` },
+      { key: "system.attributes.efmtckmod", target:"totalmtckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.MtMod")}` },
+      { key: "system.attributes.effrckmod", target:"totalfrckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.FrMod")}` },
+      { key: "system.attributes.efdrckmod", target:"totaldrckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.DrMod")}` },
+      { key: "system.attributes.efdmckmod", target:"totaldmckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.DmMod")}` },
+      { key: "system.attributes.efabckmod", target:"totalabckmod", localize: `${game.i18n.localize("SW25.Effect.MCast")} / ${game.i18n.localize("SW25.Effect.AbMod")}` },
+      { key: "system.attributes.efscpwmod", target:"totalscpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.ScMod")}` },
+      { key: "system.attributes.efcnpwmod", target:"totalcnpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.CnMod")}` },
+      { key: "system.attributes.efwzpwmod", target:"totalwzpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.WzMod")}` },
+      { key: "system.attributes.efprpwmod", target:"totalprpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.PrMod")}` },
+      { key: "system.attributes.efmtpwmod", target:"totalmtpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.MtMod")}` },
+      { key: "system.attributes.effrpwmod", target:"totalfrpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.FrMod")}` },
+      { key: "system.attributes.efdrpwmod", target:"totaldrpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.DrMod")}` },
+      { key: "system.attributes.efdmpwmod", target:"totaldmpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.DmMod")}` },
+      { key: "system.attributes.efabpwmod", target:"totalabpwmod", localize: `${game.i18n.localize("SW25.Effect.MPower")} / ${game.i18n.localize("SW25.Effect.AbMod")}` },
+      { key: "system.effect.allmgp", target:"totalallmgp", localize: `${game.i18n.localize("SW25.Config.AllMgp")}` },
+      { key: "system.attributes.efmpsc", target:"totalmpsc", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.ScMod")}` },
+      { key: "system.attributes.efmpcn", target:"totalmpcn", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.CnMod")}` },
+      { key: "system.attributes.efmpwz", target:"totalmpwz", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.WzMod")}` },
+      { key: "system.attributes.efmppr", target:"totalmppr", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.PrMod")}` },
+      { key: "system.attributes.efmpmt", target:"totalmpmt", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.MtMod")}` },
+      { key: "system.attributes.efmpfr", target:"totalmpfr", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.FrMod")}` },
+      { key: "system.attributes.efmpdr", target:"totalmpdr", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.DrMod")}` },
+      { key: "system.attributes.efmpdm", target:"totalmpdm", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.DmMod")}` },
+      { key: "system.attributes.efmpab", target:"totalmpab", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Effect.AbMod")}` },
+      { key: "system.attributes.efmpall", target:"totalmpall", localize: `${game.i18n.localize("SW25.Effect.MPSave")} / ${game.i18n.localize("SW25.Item.All")}` },
+      { key: "system.attributes.efmckall", target:"totalallmck", localize: `${game.i18n.localize("SW25.Effect.MagicCKRoll")} / ${game.i18n.localize("SW25.Item.All")}` },
+      { key: "system.attributes.efmpwall", target:"totalallmpw", localize: `${game.i18n.localize("SW25.Effect.MagicPWRoll")} / ${game.i18n.localize("SW25.Item.All")}` },
+      { key: "system.attributes.efmsckmod", target:"totalmsckmod", localize: `${game.i18n.localize("TYPES.Item.magicalsong")} / ${game.i18n.localize("SW25.Effect.Performance")}` },
+      { key: "system.attributes.efmspwmod", target:"totalmspwmod", localize: `${game.i18n.localize("TYPES.Item.magicalsong")} / ${game.i18n.localize("SW25.Effect.MPower")}` },
+      { key: "system.attributes.efatckmod", target:"totalatckmod", localize: `${game.i18n.localize("TYPES.Item.alchemytech")}` },
+      { key: "system.attributes.efewckmod", target:"totalewckmod", localize: `${game.i18n.localize("TYPES.Item.essenceweave")} / ${game.i18n.localize("SW25.Effect.Force")}` },
+      { key: "system.attributes.efewpwmod", target:"totalewpwmod", localize: `${game.i18n.localize("TYPES.Item.essenceweave")} / ${game.i18n.localize("SW25.Effect.MPower")}` },
+      { key: "system.eflootmod", target:"totallootmod", localize: `${game.i18n.localize("SW25.Monster.Loot")}` },
+      { key: "system.effect.package.fine", target:"totalfinechkmod", localize: `${game.i18n.localize("SW25.Item.Check.Packages.Finesse")}${game.i18n.localize("SW25.Check")}` },
+      { key: "system.effect.package.move", target:"totalmovechkmod", localize: `${game.i18n.localize("SW25.Item.Check.Packages.Movement")}${game.i18n.localize("SW25.Check")}` },
+      { key: "system.effect.package.obse", target:"totalobsechkmod", localize: `${game.i18n.localize("SW25.Item.Check.Packages.Observation")}${game.i18n.localize("SW25.Check")}` },
+      { key: "system.effect.package.know", target:"totalknowchkmod", localize: `${game.i18n.localize("SW25.Item.Check.Packages.Knowledge")}${game.i18n.localize("SW25.Check")}` },
+      { key: "system.attributes.powertablemod.weapon", target:"ptmodweapon", localize: `${game.i18n.localize("TYPES.Item.weapon")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.armor", target:"ptmodarmor", localize: `${game.i18n.localize("TYPES.Item.armor")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.accessory", target:"ptmodaccessory", localize: `${game.i18n.localize("TYPES.Item.accessory")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.item", target:"ptmoditem", localize: `${game.i18n.localize("TYPES.Item.item")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.spell", target:"ptmodspell", localize: `${game.i18n.localize("TYPES.Item.spell")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.enhancearts", target:"ptmodenhancearts", localize: `${game.i18n.localize("TYPES.Item.enhancearts")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.magicalsong", target:"ptmodmagicalsong", localize: `${game.i18n.localize("TYPES.Item.magicalsong")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.ridingtrick", target:"ptmodridingtrick", localize: `${game.i18n.localize("TYPES.Item.ridingtrick")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.alchemytech", target:"ptmodalchemytech", localize: `${game.i18n.localize("TYPES.Item.alchemytech")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.phasearea", target:"ptmodphasearea", localize: `${game.i18n.localize("TYPES.Item.phasearea")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.tactics", target:"ptmodtactics", localize: `${game.i18n.localize("TYPES.Item.tactics")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.infusion", target:"ptmodinfusion", localize: `${game.i18n.localize("TYPES.Item.infusion")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.barbarousskill", target:"ptmodbarbarousskill", localize: `${game.i18n.localize("TYPES.Item.barbarousskill")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.essenceweave", target:"ptmodessenceweave", localize: `${game.i18n.localize("TYPES.Item.essenceweave")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.skill", target:"ptmodskill", localize: `${game.i18n.localize("TYPES.Item.skill")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.raceability", target:"ptmodraceability", localize: `${game.i18n.localize("TYPES.Item.raceability")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.otherfeature", target:"ptmodotherfeature", localize: `${game.i18n.localize("TYPES.Item.otherfeature")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.monsterability", target:"ptmodmonsterability", localize: `${game.i18n.localize("TYPES.Item.monsterability")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.action", target:"ptmodaction", localize: `${game.i18n.localize("TYPES.Item.action")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.attributes.powertablemod.all", target:"ptmodall", localize: `${game.i18n.localize("SW25.Item.All")}${game.i18n.localize("SW25.Effect.Powertable")}` },
+      { key: "system.effect.checkinputmod.", target:"checkinputmod", localize:"key" },
+    ];
+
+    let modParams = {};
+    let ruleMap = Object.fromEntries(
+      processingRules.map((rule) => [rule.key, rule])
+    );
+
+    effectsChange.sort((a, b) => a.mode - b.mode);
+    effectsChange.forEach((effects) => {
+      const keys = this._splitEffectKey(effects.key);
+      let rule = keys != null ? ruleMap[keys.keyA] : ruleMap[effects.key];
+      if (rule) {
+        let value = Number(effects.value);
+        let path = keys ? rule.target + keys.keyB : rule.target;
+        let currentValue = foundry.utils.getProperty(modParams, `${path}.value`);
+        if (currentValue === undefined) {
+          currentValue = 0;
+        }
+
+        let newValue = currentValue;
+        switch (effects.mode) {
+          case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
+            newValue = Number(currentValue) * value;
+            break;
+
+          case CONST.ACTIVE_EFFECT_MODES.ADD:
+            newValue = Number(currentValue) + value;
+            break;
+  
+          case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
+            newValue = value;
+            break;
+  
+          case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
+          case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
+          case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
+            //未実装
+            break;
+  
+          default:
+            break;
+        }
+        foundry.utils.setProperty(modParams, `${path}.value`, newValue);
+        
+        if (rule.localize) {
+          let label = rule.localize === "key" ? keys.keyB : rule.localize;
+          foundry.utils.setProperty(modParams, `${path}.label`, label);
+        }
+      }
+    });
+
+    return modParams;
   }
 }

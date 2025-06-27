@@ -5,7 +5,7 @@
     <div class='item-element' style="flex: 1 0 0;">{{localize "SW25.Item.Category"}}</div>
     <div class='item-element' style="flex: 1 0 0;">{{localize "SW25.Item.Weapon.Usage"}}</div>
     <div class='item-element' style="flex: 0 0 50px;">{{localize "SW25.Item.Reqstr"}}</div>
-    <div class='item-quantity item-element' style="flex: 0 0 60px;">{{localize "SW25.Quantity"}}</div>
+    <div class='item-element' style="flex: 0 0 60px;">{{localize "SW25.Quantity"}}</div>
     <div class='item-controls'>
       <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type=(localize "TYPES.Item.weapon")}}' data-type='weapon'>
         <i class='fas fa-plus'></i>
@@ -30,13 +30,13 @@
           <h4 class="item-label">{{item.name}}{{#if item.system.dedicated}} ({{localize "SW25.Item.Dedicated"}}){{/if}}</h4>
         </div>
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 1 0 0;">
+        <div class='item-prop flexrow flex-group-center' style="flex: 1 0 0;">
           {{item.system.categoryname}}{{item.system.rank}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 1 0 0;">
+        <div class='item-prop flexrow flex-group-center' style="flex: 1 0 0;">
           {{#if item.system.usagename}}{{item.system.usagename}}({{item.system.typename}}){{/if}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 50px;">
+        <div class='item-prop flexrow flex-group-center' style="flex: 0 0 50px;">
           {{item.system.reqstr}}
         </div>
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">

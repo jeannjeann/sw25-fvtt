@@ -270,7 +270,7 @@
             <input class="property--value" id="{{item._id}}system.basempcost" style="max-width: calc(50% - 7px);" type="text" name="system.basempcost" value="{{system.basempcost}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
           </div>
           <div class="grid-span-5"></div>
-          <div class="grid-span-5 property">
+          <div class="grid-span-7 property">
             <label class="property--label">{{localize "SW25.Item.Resuse"}}</label>
             <select class="property--value" name="system.resuse"{{#unless system.isEdit}} disabled {{/unless}}>
               {{selectOptions system.itemlist selected=system.resuse valueAttr="itemId" labelAttr="itemName" blank="SW25.Item.None" localize=true}}

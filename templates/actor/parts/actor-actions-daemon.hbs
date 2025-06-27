@@ -1,11 +1,11 @@
 <ol class='items-list'>
   <div class='item flexrow items-header'>
-    <div class='item-quantity item-element' style="flex: 0 0 60px;">{{localize "SW25.Item.Dice"}}</div>
-    <div class='item-quantity item-element' style="flex: 0 0 60px;">{{localize "SW25.Item.Action.ActionResult"}}</div>
+    <div class='item-element' style="flex: 0 0 60px;">{{localize "SW25.Item.Dice"}}</div>
+    <div class='item-element' style="flex: 0 0 60px;">{{localize "SW25.Item.Action.ActionResult"}}</div>
     <div class='item-element' style="flex: 0 0 120px;">{{localize "SW25.Item.Action.Label"}}</div>
     <div class='item-name'>{{localize "TYPES.Item.action"}}</div>
-    <div class='item-quantity item-element' style="flex: 0 0 100px;">{{localize "SW25.Item.Action.Label"}}</div>
-    <div class='item-quantity item-element' style="flex: 0 0 60px; margin-right: 10px;">{{localize "SW25.Item.Action.ActionValue"}}</div>
+    <div class='item-element' style="flex: 0 0 100px;">{{localize "SW25.Item.Action.Label"}}</div>
+    <div class='item-element' style="flex: 0 0 60px; margin-right: 10px;">{{localize "SW25.Item.Action.ActionValue"}}</div>
   </div>
   <div class="item flexrow">
     <div class="roll-actiontable rollable" data-result="1" style="flex: 0 0 60px; font-size: 24px; text-align: center;">
@@ -31,8 +31,8 @@
               <div class="mpcost" style="flex: 0 0 40px; display: {{#if system.mpcost}}block{{else}}none{{/if}};" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
                 <b>{{localize "SW25.Item.MPB"}}</b>
               </div>
-              <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 100px;">{{system.target}}</div>
-              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
+              <div class='item-prop flexrow flex-group-center' style="flex: 0 0 100px;">{{system.target}}</div>
+              <div class='rollable item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
                 {{system.actionvalue}} ({{system.actionresult}})
               </div>
             </div>
@@ -90,8 +90,8 @@
               <div class="mpcost" style="flex: 0 0 40px; display: {{#if system.mpcost}}block{{else}}none{{/if}};" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
                 <b>{{localize "SW25.Item.MPB"}}</b>
               </div>
-              <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 100px;">{{system.target}}</div>
-              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
+              <div class='item-prop flexrow flex-group-center' style="flex: 0 0 100px;">{{system.target}}</div>
+              <div class='rollable item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
                 {{system.actionvalue}} ({{system.actionresult}})
               </div>
             </div>
@@ -149,8 +149,8 @@
               <div class="mpcost" style="flex: 0 0 40px; display: {{#if system.mpcost}}block{{else}}none{{/if}};" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
                 <b>{{localize "SW25.Item.MPB"}}</b>
               </div>
-              <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 100px;">{{system.target}}</div>
-              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
+              <div class='item-prop flexrow flex-group-center' style="flex: 0 0 100px;">{{system.target}}</div>
+              <div class='rollable item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
                 {{system.actionvalue}} ({{system.actionresult}})
               </div>
             </div>
@@ -208,8 +208,8 @@
               <div class="mpcost" style="flex: 0 0 40px; display: {{#if system.mpcost}}block{{else}}none{{/if}};" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
                 <b>{{localize "SW25.Item.MPB"}}</b>
               </div>
-              <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 100px;">{{system.target}}</div>
-              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
+              <div class='item-prop flexrow flex-group-center' style="flex: 0 0 100px;">{{system.target}}</div>
+              <div class='rollable item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
                 {{system.actionvalue}} ({{system.actionresult}})
               </div>
             </div>

@@ -647,23 +647,23 @@
           <h4 class="item-label">{{item.name}}</h4>
         </div>
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
+        <div class='item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
           {{#unless (eq system.red 0)}} {{localize "SW25.Item.Alchemytech.Red"}}{{system.red}}{{/unless}}
           {{#unless (eq system.green 0)}} {{localize "SW25.Item.Alchemytech.Green"}}{{system.green}}{{/unless}}
           {{#unless (eq system.black 0)}} {{localize "SW25.Item.Alchemytech.Black"}}{{system.black}}{{/unless}}
           {{#unless (eq system.white 0)}} {{localize "SW25.Item.Alchemytech.White"}}{{system.white}}{{/unless}}
           {{#unless (eq system.gold 0)}} {{localize "SW25.Item.Alchemytech.Gold"}}{{system.gold}}{{/unless}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
+        <div class='item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
           <div class="materialcardcost">B</div>
           <div class="materialcardcost">A</div>
           <div class="materialcardcost">S</div>
           <div class="materialcardcost">SS</div>
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 120px;">
+        <div class='item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 120px;">
           {{system.rangeshape}}
         </div>
-        <div class='item-quantity item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 40px;">
+        <div class='item-prop flexrow flex-group-center sidebar-hidden' style="flex: 0 0 40px;">
           {{system.resistname}}
         </div>
         {{#if ../isOwner}}

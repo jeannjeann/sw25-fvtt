@@ -380,7 +380,7 @@ export class SW25ItemSheet extends ItemSheet {
     html.find(".add-field").click((ev) => {
       ev.preventDefault();
       
-      let fieldsRaw = this.item.system.customFields;
+      let fieldsRaw = this.item.system.customFields ?? [];
       let fields = Array.isArray(fieldsRaw)
         ? foundry.utils.duplicate(fieldsRaw)
         : Object.values(foundry.utils.duplicate(fieldsRaw));

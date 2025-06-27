@@ -22,7 +22,7 @@
           <h4 class="item-label">{{item.name}}</h4>
         </div>
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
-        <div class='item-quantity item-prop flexrow flex-group-center sidebar-hidden' style="flex: 1 0 0;">
+        <div class='item-prop flexrow flex-group-center sidebar-hidden' style="flex: 1 0 0;">
           {{#if system.app}}{{system.app}}{{else}}-{{/if}} / {{#if system.risk}}{{system.risk}}{{else}}-{{/if}}
         </div>
         {{#if ../isOwner}}

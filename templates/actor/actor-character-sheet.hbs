@@ -20,11 +20,13 @@
         </label>
       </section>
       {{/if}}
+      <div class="img-box">
       {{#if system.isToken}}
-      <img class="profile-img" src="{{actor.prototypeToken.texture.src}}" data-edit="prototypeToken.texture.src" title="{{actor.name}}" height="100" width="100"/>
+        <img class="profile-img" src="{{#if token.texture.src}}{{token.texture.src}}{{else}}{{actor.prototypeToken.texture.src}}{{/if}}" title="{{actor.name}}" height="100" width="100"/>
       {{else}}
-      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
       {{/if}}
+      </div>
       <div class="header__resources">
         <div class="resources flexcol">
           {{#unless system.toFellow}}

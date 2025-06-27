@@ -42,6 +42,7 @@
     <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
     <a class="item" data-tab="details">{{localize "SW25.Details"}}</a>
     <a class="item" data-tab="effects">{{localize "SW25.Effects"}}</a>
+    <a class="item" data-tab="customs">{{localize "SW25.Customs"}}</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -167,7 +168,7 @@
             <input class="property--value" id="{{item._id}}system.basempcost" style="max-width: calc(50% - 7px);" type="text" name="system.basempcost" value="{{system.basempcost}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
           </div>
           <div class="grid-span-5"></div>
-          <div class="grid-span-5 property">
+          <div class="grid-span-7 property">
             <label class="property--label">{{localize "SW25.Item.Resuse"}}</label>
             <select class="property--value" name="system.resuse"{{#unless system.isEdit}} disabled {{/unless}}>
               {{selectOptions system.itemlist selected=system.resuse valueAttr="itemId" labelAttr="itemName" blank="SW25.Item.None" localize=true}}
@@ -230,10 +231,17 @@
         </div>
       </fieldset>
     </section>
+
     {{!-- Effects Tab --}}
     <section class="tab effects" data-group="primary" data-tab="effects">
       {{> "systems/sw25/templates/item/parts/item-effects.hbs"}}
     </section>
+
+    {{!-- Custom Tab --}}
+    <div class="tab customs" data-group="primary" data-tab="customs">
+      {{> "systems/sw25/templates/item/parts/item-customs.hbs"}}
+    </div>
+
   </main>
 </section>
 </form>

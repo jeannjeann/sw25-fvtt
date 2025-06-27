@@ -1,7 +1,7 @@
 <ol class='items-list'>
   <li class='item flexrow items-header'>
     <div class='item-name'>{{localize "TYPES.Item.item"}}</div>
-    <div class='item-quantity item-element' style="flex: 0 0 60px;">{{localize "SW25.Quantity"}}</div>
+    <div class='item-element' style="flex: 0 0 60px;">{{localize "SW25.Quantity"}}</div>
     <div class='item-controls'>
       <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type=(localize "TYPES.Item.item")}}' data-type='item' >
         <i class='fas fa-plus'></i>
@@ -22,17 +22,13 @@
         </div>
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
-
           <a class="quantity-button" data-action="decrease" data-property="item.system.quantity">
             <i class="fas fa-minus"></i>
           </a>
-
           <input class="qt-change" type="text" name="quantityInput" value="{{item.system.quantity}}" data-dtype="Number"/>
-
           <a class="quantity-button" data-action="increase" data-property="item.system.quantity">
             <i class="fas fa-plus"></i>
           </a>
-
         </div>
         {{#if ../isOwner}}
           <div class='item-controls'>

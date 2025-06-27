@@ -1,5 +1,5 @@
 <li class="bookmark__item item" data-item-id='{{item._id}}'>
-<section class="bookmark__item-display tooltip">
+<section class="bookmark__item-display tooltip {{item.type}}{{#if (eq item.type "spell")}}-{{item.system.type}}{{/if}}-display">
 
   {{!-- label setting --}}
   <div class="bookmark__item-display--label">
@@ -112,13 +112,13 @@
 
   {{#if (eq type "resource")}}
     <div class='item-quantity item-prop flexrow flex-group-center' style="flex-shrink:0; flex-basis: 40px;">
-    <a class="quantity-button" data-action="decrease" data-property="item.system.quantity">
-      <i class="fas fa-minus"></i>
-    </a>
-    <input class="qt-change" type="text" name="quantityInput" value="{{item.system.quantity}}" data-dtype="Number"/>
-    <a class="quantity-button" data-action="increase" data-property="item.system.quantity">
-      <i class="fas fa-plus"></i>
-    </a>
+      <a class="quantity-button" data-action="decrease" data-property="item.system.quantity">
+        <i class="fas fa-minus"></i>
+      </a>
+      <input class="qt-change" type="text" name="quantityInput" value="{{item.system.quantity}}" data-dtype="Number"/>
+      <a class="quantity-button" data-action="increase" data-property="item.system.quantity">
+        <i class="fas fa-plus"></i>
+      </a>
   </div>
   {{/if}}
 

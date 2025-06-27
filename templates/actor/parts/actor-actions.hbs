@@ -2,7 +2,7 @@
   <li class='item flexrow items-header'>
     <div class='item-element' style="flex: 0 0 150px;">{{localize "SW25.Item.Action.Label"}}</div>
     <div class='item-name'>{{localize "TYPES.Item.action"}}</div>
-    <div class='item-quantity item-element' style="flex: 0 0 60px;">{{localize "SW25.Item.Action.ActionValue"}}</div>
+    <div class='item-element' style="flex: 0 0 60px;">{{localize "SW25.Item.Action.ActionValue"}}</div>
     <div class='item-controls'>
       <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type=(localize "TYPES.Item.action")}}' data-type='action'>
         <i class='fas fa-plus'></i>
@@ -23,7 +23,7 @@
         </div>
         <div class='item-name item-label item-prop'>{{{system.displayaction}}}</div>
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
-        <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
+        <div class='rollable item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
           {{system.actionvalue}} ({{system.actionresult}})
         </div>
         {{#if ../isOwner}}

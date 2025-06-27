@@ -203,6 +203,7 @@ export class SW25ActorSheet extends ActorSheet {
     const tacspowers = [];
     const magitechrs = [];
     const abyssexs = [];
+    const otherfeatureresources = [];
     let materialshow = {
       all: false,
       red: false,
@@ -264,6 +265,8 @@ export class SW25ActorSheet extends ActorSheet {
           magitechrs.push(i);
         } else if (i.system?.resource?.type == "abyssex") {
           abyssexs.push(i);
+        } else if (i.system?.resource?.type == "otherfeature") {
+          otherfeatureresources.push(i);
         }
       }
       // Append to weapon.
@@ -652,12 +655,14 @@ export class SW25ActorSheet extends ActorSheet {
     context.tacspowers = tacspowers;
     context.magitechrs = magitechrs;
     context.abyssexs = abyssexs;
+    context.otherfeatureresources = otherfeatureresources;
     context.noteshow = notes.length > 0;
     context.materialshow = materialshow;
     context.lifelineshow = lifelines.length > 0;
     context.tacspowershow = tacspowers.length > 0;
     context.magitechrshow = magitechrs.length > 0;
     context.abyssexshow = abyssexs.length > 0;
+    context.otherfeaturershow = otherfeatureresources.length > 0;
     context.contentItem = contentItem;
     context.bookmarks = sortedBookmarks;
   }
@@ -1682,7 +1687,7 @@ export class SW25ActorSheet extends ActorSheet {
   async _onQuantityButton(event) {
     event.preventDefault();
     const action = event.currentTarget.dataset.action;
-    const input = event.currentTarget.closest("li").querySelector("input");
+    const input = event.currentTarget.closest("li").querySelector("input.qt-change");
     const property = event.currentTarget.dataset.property;
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
@@ -1744,7 +1749,7 @@ export class SW25ActorSheet extends ActorSheet {
   async _onSkilllevelButton(event) {
     event.preventDefault();
     const action = event.currentTarget.dataset.action;
-    const input = event.currentTarget.closest("li").querySelector("input");
+    const input = event.currentTarget.closest("li").querySelector("input.sl-change");
     const property = event.currentTarget.dataset.property;
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
@@ -1797,7 +1802,7 @@ export class SW25ActorSheet extends ActorSheet {
   async _onCheckmodButton(event) {
     event.preventDefault();
     const action = event.currentTarget.dataset.action;
-    const input = event.currentTarget.closest("li").querySelector("input");
+    const input = event.currentTarget.closest("li").querySelector("input.cm-change");
     const property = event.currentTarget.dataset.property;
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
@@ -2428,7 +2433,8 @@ export class SW25ActorSheet extends ActorSheet {
     }
 
     // alchemitech effective change.
-    if (item.system.effectvalue.type !== "-" && item.effects) {
+    if ((item.system.effectvalue?.type && item.system.effectvalue.type !== "-")
+        && item.effects) {
       const changeValue = item.system.effectvalue[useRank];
       if (changeValue) {
         const updates = [];
