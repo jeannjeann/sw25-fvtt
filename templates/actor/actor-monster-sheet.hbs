@@ -286,25 +286,25 @@
           <div class="flexrow grid grid-5col gap-s">
             <div class="grid-span-1 flex-group-center nogapmargin">
               <div class="grid grid-2col nogapmargin">
-                <div class="grid-span-2">
-                  <span style="text-align: center;"><label for="{{actor._id}}system.monlevel"><b>{{localize "SW25.Monlevel"}}</b></label><br>
-                  <input id="{{actor._id}}system.monlevel" style="max-width: calc(50% - 7px); text-align: center;" type="text" name="system.monlevel" value="{{system.monlevel}}" data-dtype="Number"/></span>
+                <div class="grid-span-2 property-col">
+                  <label class="property--label-col" for="{{actor._id}}system.monlevel">{{localize "SW25.Monlevel"}}</label>
+                  <input class="property--value" id="{{actor._id}}system.monlevel" type="text" name="system.monlevel" value="{{system.monlevel}}" data-dtype="Number"/>
                 </div>
-                <div>
-                  <span style="text-align: center;"><label for="{{actor._id}}system.hpbase"><b>{{localize "SW25.Max"}}{{localize "SW25.Hp"}}</b></label><br>
-                  <input id="{{actor._id}}system.hpbase" style="text-align: center;" type="text" name="system.hpbase" value="{{system.hpbase}}" data-dtype="Number"/></span>
+                <div class="property-col">
+                  <label class="property--label-col" for="{{actor._id}}system.hpbase">{{localize "SW25.Max"}}{{localize "SW25.Hp"}}</label>
+                  <input class="property--value" id="{{actor._id}}system.hpbase" type="text" name="system.hpbase" value="{{system.hpbase}}" data-dtype="Number"/>
                 </div>
-                <div>
-                  <span style="text-align: center;"><label for="{{actor._id}}system.mpbase"><b>{{localize "SW25.Max"}}{{localize "SW25.Mp"}}</b></label><br>
-                  <input id="{{actor._id}}system.mpbase" style="text-align: center;" type="text" name="system.mpbase" value="{{system.mpbase}}" data-dtype="Number"/></span>
+                <div class="property-col">
+                  <label class="property--label-col" for="{{actor._id}}system.mpbase">{{localize "SW25.Max"}}{{localize "SW25.Mp"}}</label>
+                  <input class="property--value" id="{{actor._id}}system.mpbase" type="text" name="system.mpbase" value="{{system.mpbase}}" data-dtype="Number"/>
                 </div>
-                <div>
-                  <span style="text-align: center;"><label for="{{actor._id}}system.ppbase"><b>{{localize "SW25.Attributes.Protectionpoint.abbr"}}</b></label><br>
-                  <input id="{{actor._id}}system.ppbase" style="text-align: center;" type="text" name="system.ppbase" value="{{system.ppbase}}" data-dtype="Number"/></span>
+                <div class="property-col">
+                  <label class="property--label-col" for="{{actor._id}}system.ppbase">{{localize "SW25.Attributes.Protectionpoint.abbr"}}</label>
+                  <input class="property--value" id="{{actor._id}}system.ppbase" type="text" name="system.ppbase" value="{{system.ppbase}}" data-dtype="Number"/>
                 </div>
-                <div>
-                  <span style="text-align: center;"><label for="{{actor._id}}system.mppbase"><b>{{localize "SW25.Attributes.Magicprotection.abbr"}}</b></label><br>
-                  <input id="{{actor._id}}system.mppbase" style="text-align: center;" type="text" name="system.mppbase" value="{{system.mppbase}}" data-dtype="Number"/></span>
+                <div class="property-col">
+                  <label class="property--label-col" for="{{actor._id}}system.mppbase">{{localize "SW25.Attributes.Magicprotection.abbr"}}</label>
+                  <input class="property--value" id="{{actor._id}}system.mppbase" type="text" name="system.mppbase" value="{{system.mppbase}}" data-dtype="Number"/>
                 </div>
               </div>
             </div>
@@ -314,36 +314,69 @@
             </div>
           </div>
           <div class="flexrow grid grid-10col">
-            <span class="grid-span-2" style="text-align: center;"><label for="{{actor._id}}system.type"><b>{{localize "SW25.Monster.Type"}}</b></label><br>
-            <input id="{{actor._id}}system.type" type="text" name="system.type" value="{{system.type}}" data-dtype="String"/></span>
-            <span class="grid-span-2" style="text-align: center;"><label for="{{actor._id}}system.intelligence"><b>{{localize "SW25.Monster.Intelligence"}}</b></label><br>
-            <input id="{{actor._id}}system.intelligence" type="text" name="system.intelligence" value="{{system.intelligence}}" data-dtype="String"/></span>
-            <span class="grid-span-2" style="text-align: center;"><label for="{{actor._id}}system.perception"><b>{{localize "SW25.Monster.Perception"}}</b></label><br>
-            <input id="{{actor._id}}system.perception" type="text" name="system.perception" value="{{system.perception}}" data-dtype="String"/></span>
-            <span class="grid-span-2" style="text-align: center;"><label for="{{actor._id}}system.reaction"><b>{{localize "SW25.Monster.Reaction"}}</b></label><br>
-            <input id="{{actor._id}}system.reaction" type="text" name="system.reaction" value="{{system.reaction}}" data-dtype="String"/></span>
-            <span style="text-align: center;"><label for="{{actor._id}}system.impurity"><b>{{localize "SW25.Monster.Impurity"}}</b></label><br>
-            <input id="{{actor._id}}system.impurity" type="text" name="system.impurity" value="{{system.impurity}}" data-dtype="Number"/></span>
-            <span></span>
-            <span class="grid-span-5" style="text-align: center;"><label for="{{actor._id}}system.language"><b>{{localize "SW25.Monster.Language"}}</b></label><br>
-            <input id="{{actor._id}}system.language" type="text" name="system.language" value="{{system.language}}" data-dtype="String"/></span>
-            <span class="grid-span-4" style="text-align: center;"><label for="{{actor._id}}system.habitat"><b>{{localize "SW25.Monster.Habitat"}}</b></label><br>
-            <input id="{{actor._id}}system.habitat" type="text" name="system.habitat" value="{{system.habitat}}" data-dtype="String"/></span>
-            <span></span>
-            <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Monster.Popularity"}} / {{localize "SW25.Monster.Weakpoint"}}</b><br>
-            <input style="max-width: calc(40% - 7px);" type="text" name="system.popularity" value="{{system.popularity}}" data-dtype="Number"/>/<input style="max-width: calc(40% - 7px);" type="text" name="system.weakpoint" value="{{system.weakpoint}}" data-dtype="Number"/></span>
-            <span class="grid-span-4" style="text-align: center;"><label for="{{actor._id}}system.weakness"><b>{{localize "SW25.Monster.Weakness"}}</b></label><br>
-            <input id="{{actor._id}}system.weakness" type="text" name="system.weakness" value="{{system.weakness}}" data-dtype="String"/></span>
-            <span style="text-align: center;"><label for="{{actor._id}}system.preemptive"><b>{{localize "SW25.Monster.Preemptive"}}</b></label><br>
-            <input id="{{actor._id}}system.preemptive" type="text" name="system.preemptive" value="{{system.preemptive}}" data-dtype="Number"/></span>
-            <span class="grid-span-3" style="text-align: center;"><label for="{{actor._id}}system.move"><b>{{localize "SW25.Monster.Move"}}</b></label><br>
-            <input id="{{actor._id}}system.move" type="text" name="system.move" value="{{system.move}}" data-dtype="String"/></span>
-            <span class="grid-span-4" style="text-align: center;"><label for="{{actor._id}}system.part"><b>{{localize "SW25.Monster.Part"}}</b></label><br>
-            <input id="{{actor._id}}system.part" type="text" name="system.part" value="{{system.part}}" data-dtype="String"/></span>
-            <span class="grid-span-3" style="text-align: center;"><label for="{{actor._id}}system.corepart"><b>{{localize "SW25.Monster.Corepart"}}</b></label><br>
-            <input id="{{actor._id}}system.corepart" type="text" name="system.corepart" value="{{system.corepart}}" data-dtype="String"/></span>
+            <div class="grid-span-3 property-col">
+              <label class="property--label-col" for="system.class">{{localize "SW25.Monster.Type"}}</label>
+              <div class="property">
+                <select class="property--value" name="system.class">
+                  {{selectOptions config.actorClasses selected=system.class localize=true blank="SW25.Item.None"}}
+                </select>
+                {{#if (eq system.class "Other")}}<input class="property--value" id="{{actor._id}}system.type" type="text" name="system.type" value="{{system.type}}" data-dtype="String"/>{{/if}}
+              </div>
+            </div>
+            <div class="grid-span-2 property-col">
+              <label class="property--label-col" for="{{actor._id}}system.intelligence">{{localize "SW25.Monster.Intelligence"}}</label>
+              <input class="property--value" id="{{actor._id}}system.intelligence" type="text" name="system.intelligence" value="{{system.intelligence}}" data-dtype="String"/>
+            </div>
+            <div class="grid-span-2 property-col">
+              <label class="property--label-col" for="{{actor._id}}system.perception">{{localize "SW25.Monster.Perception"}}</label>
+              <input class="property--value" id="{{actor._id}}system.perception" type="text" name="system.perception" value="{{system.perception}}" data-dtype="String"/>
+            </div>
+            <div class="grid-span-2 property-col">
+              <label class="property--label-col" for="{{actor._id}}system.reaction">{{localize "SW25.Monster.Reaction"}}</label>
+              <input class="property--value" id="{{actor._id}}system.reaction" type="text" name="system.reaction" value="{{system.reaction}}" data-dtype="String"/>
+            </div>
+            <div class="property-col">
+              <label class="property--label-col" for="{{actor._id}}system.impurity">{{localize "SW25.Monster.Impurity"}}</label>
+              <input class="property--value" id="{{actor._id}}system.impurity" type="text" name="system.impurity" value="{{system.impurity}}" data-dtype="Number"/>
+            </div>
+
+            <div class="grid-span-5 property-col">
+              <label class="property--label-col" for="{{actor._id}}system.language">{{localize "SW25.Monster.Language"}}</label>
+              <input class="property--value" id="{{actor._id}}system.language" type="text" name="system.language" value="{{system.language}}" data-dtype="String"/>
+            </div>
+            <div class="grid-span-4 property-col">
+              <label class="property--label-col" for="{{actor._id}}system.habitat">{{localize "SW25.Monster.Habitat"}}</label>
+              <input class="property--value" id="{{actor._id}}system.habitat" type="text" name="system.habitat" value="{{system.habitat}}" data-dtype="String"/>
+            </div>
+            <div></div>
+            <div class="grid-span-2 property-col">
+              <label class="property--label-col">{{localize "SW25.Monster.Popularity"}} / {{localize "SW25.Monster.Weakpoint"}}</label>
+              <div class="property">
+                <input class="property--value" type="text" name="system.popularity" value="{{system.popularity}}" data-dtype="Number"/>/<input class="property--value" type="text" name="system.weakpoint" value="{{system.weakpoint}}" data-dtype="Number"/>
+              </div>
+            </div>
+            <div class="grid-span-4 property-col">
+              <label class="property--label-col" for="{{actor._id}}system.weakness">{{localize "SW25.Monster.Weakness"}}</label>
+              <input class="property--value" id="{{actor._id}}system.weakness" type="text" name="system.weakness" value="{{system.weakness}}" data-dtype="String"/>
+            </div>
+            <div style="text-align: center;">
+              <label class="property--label-col" for="{{actor._id}}system.preemptive">{{localize "SW25.Monster.Preemptive"}}</label>
+              <input class="property--value" id="{{actor._id}}system.preemptive" type="text" name="system.preemptive" value="{{system.preemptive}}" data-dtype="Number"/>
+            </div>
+            <div class="grid-span-3 property-col">
+              <label class="property--label-col" for="{{actor._id}}system.move">{{localize "SW25.Monster.Move"}}</label>
+              <input class="property--value" id="{{actor._id}}system.move" type="text" name="system.move" value="{{system.move}}" data-dtype="String"/>
+            </div>
+            <div class="grid-span-4 property-col">
+              <label class="property--label-col" for="{{actor._id}}system.part">{{localize "SW25.Monster.Part"}}</label>
+              <input class="property--value" id="{{actor._id}}system.part" type="text" name="system.part" value="{{system.part}}" data-dtype="String"/>
+            </div>
+            <div class="grid-span-3 property-col">
+              <label class="property--label-col" for="{{actor._id}}system.corepart">{{localize "SW25.Monster.Corepart"}}</label>
+              <input class="property--value" id="{{actor._id}}system.corepart" type="text" name="system.corepart" value="{{system.corepart}}" data-dtype="String"/>
+            </div>
             <div class="flexcol grid-span-10">
-              <div><b>{{localize "SW25.Monster.Loot"}}</b></div>
+              <label><b>{{localize "SW25.Monster.Loot"}}</b></label>
               <div style="border: 1px solid gray; padding: 2px; border-radius: 5px;">
                 {{editor system.loot target="system.loot" rollData=rollData button=true owner=owner editable=editable}}
               </div>

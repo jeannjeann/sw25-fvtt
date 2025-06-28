@@ -200,6 +200,20 @@
         "Sub": "サブカラー",
         "Background": "背景色",
         "Text": "テキスト色"
+      },
+      "Type": "種別",
+      "Class": {
+        "Barbarous": "蛮族",
+        "Animal": "動物",
+        "Plant": "植物",
+        "Undead": "アンデッド",
+        "MagicCreature": "魔法生物",
+        "Machine": "魔動機",
+        "Eidolon": "幻獣",
+        "Fairie": "妖精",
+        "Daemon": "魔神",
+        "Human": "人族",
+        "Other": "その他"
       }
     },
     "Item": {

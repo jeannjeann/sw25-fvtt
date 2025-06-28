@@ -198,7 +198,7 @@
           <div class="common-value"> - </div>
         </div>
       {{/if}}
-      <div class="common-display">
+      <div class="common-display move-display">
         <div class="grid grid-3col gap-m nomargin">
           <div>
             <div class="common-label tooltip">
@@ -834,22 +834,34 @@
           {{> "systems/sw25/templates/actor/parts/actor-languages.hbs"}}
         </div>
         <div class="flexcol grid-span-3">
-          <div class="grid grid-6col nogapmargin">
-            <span class="grid-span-2" style="text-align: center;"><label for="{{actor._id}}system.attributes.born"><b>{{localize "SW25.Attributes.Born"}}</b></label><br>
-            <input id="{{actor._id}}system.attributes.born" type="text" name="system.attributes.born" value="{{system.attributes.born}}" data-dtype="String"{{#unless system.isEdit}} disabled{{/unless}}/></span>
-            <span class="grid-span-2" style="text-align: center;"><label for="{{actor._id}}system.attributes.faith"><b>{{localize "SW25.Attributes.Faith"}}</b></label><br>
-            <input id="{{actor._id}}system.attributes.faith" type="text" name="system.attributes.faith" value="{{system.attributes.faith}}" data-dtype="String"{{#unless system.isEdit}} disabled{{/unless}}/></span>
-            <span class="grid-span-2" style="text-align: center;"><label for="{{actor._id}}impurity" class="resource-label">{{localize "SW25.Attributes.Impurity"}}</label><br>
-            <div class="adjustable-container">
-              <a class="adjustment-button" data-action="decrease" data-property="system.attributes.impurity">
-                <i class="fas fa-minus"></i>
-              </a>
-              <input id="{{actor._id}}impurity" type="number" name="system.attributes.impurity" value="{{system.attributes.impurity}}" data-dtype="Number"/>
-              <a class="adjustment-button" data-action="increase" data-property="system.attributes.impurity">
-                <i class="fas fa-plus"></i>
-              </a>
+          <div class="grid {{#if system.isSidebar}}grid-8col{{else}}grid-4col{{/if}} nogapmargin">
+            <div class="grid-span-2 property-col">
+              <label class="property--label-col" for="{{actor._id}}system.attributes.born">{{localize "SW25.Attributes.Born"}}</label>
+              <input class="property--value" id="{{actor._id}}system.attributes.born" type="text" name="system.attributes.born" value="{{system.attributes.born}}" data-dtype="String"{{#unless system.isEdit}} disabled{{/unless}}/>
             </div>
-          </div>
+            <div class="grid-span-2 property-col">
+              <label class="property--label-col" for="{{actor._id}}system.attributes.faith">{{localize "SW25.Attributes.Faith"}}</label>
+              <input class="property--value" id="{{actor._id}}system.attributes.faith" type="text" name="system.attributes.faith" value="{{system.attributes.faith}}" data-dtype="String"{{#unless system.isEdit}} disabled{{/unless}}/>
+            </div>
+            <div class="grid-span-2 property-col">
+              <label class="property--label-col" for="system.class">{{localize "SW25.Actor.Type"}}</label>
+              <select class="property--value" name="system.class"{{#unless system.isEdit}} disabled{{/unless}}>
+                {{selectOptions config.actorClasses selected=system.class localize=true blank="SW25.Item.None"}}
+              </select>
+            </div>
+            <div class="grid-span-2" style="text-align: center;">
+              <label for="{{actor._id}}impurity" class="resource-label">{{localize "SW25.Attributes.Impurity"}}</label>
+              <div class="adjustable-container">
+                <a class="adjustment-button" data-action="decrease" data-property="system.attributes.impurity">
+                  <i class="fas fa-minus"></i>
+                </a>
+                <input id="{{actor._id}}impurity" type="number" name="system.attributes.impurity" value="{{system.attributes.impurity}}" data-dtype="Number"{{#unless system.isEdit}} disabled{{/unless}}/>
+                <a class="adjustment-button" data-action="increase" data-property="system.attributes.impurity">
+                  <i class="fas fa-plus"></i>
+                </a>
+              </div>
+            </div>
+            </div>
           <fieldset class="category itemselect">
             <legend class="category__title">{{localize "SW25.Defaultitemskill"}}</legend>
             <div class="property align-right">
@@ -921,8 +933,8 @@
         </div>
       </div>
 
-      <div>
-        <span><b>{{localize "SW25.Biography"}}</b></span>
+      <div class="property">
+        <label class="property--label">{{localize "SW25.Biography"}}</label>
         {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
       </div>
     </div>
@@ -972,24 +984,26 @@
     {{!-- Fellow Setting Tab --}}
     <div class="tab fellowSetting flexcol" data-group="primary" data-tab="fellowSetting">
       <div class="grid grid-10col margin-s">
-        <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Action.TableType"}}</b><br>
-          <select name="system.tabletype">
+        <div class="grid-span-4 property">
+          <label class="property--label">{{localize "SW25.Item.Action.TableType"}}</label>
+          <select class="property--value" name="system.tabletype"{{#unless system.isEdit}} disabled{{/unless}}>
             {{selectOptions config.fellowTypes selected=system.tabletype localize=true}}
           </select>
-        </span>
-        <span class="grid-span-6"></span>
-        <div class="grid-span-1 property-col">
-          <label class="property--label-col" for="{{actor._id}}fellowexp">{{localize "SW25.Attributes.Exp"}}</label>
-          <input class="property--value" id="{{actor._id}}fellowexp" type="checkbox" name="system.attributes.fellowexp" {{#if system.attributes.fellowexp}}checked{{/if}} data-dtype="Boolean"{{#unless system.isEdit}} disabled{{/unless}}/>
         </div>
-        <div class="grid-span-1 property-col">
-          <label class="property--label-col" for="{{actor._id}}fellowreward">{{localize "SW25.Reward"}}</label>
-          <input class="property--value" id="{{actor._id}}fellowreward" type="checkbox" name="system.attributes.fellowreward" {{#if system.attributes.fellowreward}}checked{{/if}} data-dtype="Boolean"{{#unless system.isEdit}} disabled{{/unless}}/>
+        <span class="grid-span-2"></span>
+        <div class="grid-span-2 property">
+          <input class="checkbox--hidden" id="{{actor._id}}fellowexp" type="checkbox" name="system.attributes.fellowexp" {{#if system.attributes.fellowexp}}checked{{/if}} data-dtype="Boolean"{{#unless system.isEdit}} disabled{{/unless}}/>
+          <label class="checkbox--label" for="{{actor._id}}fellowexp">{{localize "SW25.Attributes.Exp"}}</label>
         </div>
-        <span class="grid-span-10" style="text-align: left;"><label for="{{actor._id}}system.canceldialog"><b>{{localize "SW25.CancelDialog"}}</b></label><br>
-        <input id="{{actor._id}}system.canceldialog" type="text" name="system.canceldialog" value="{{system.canceldialog}}" data-dtype="String"/></span>        
+        <div class="grid-span-2 property">
+          <input class="checkbox--hidden" id="{{actor._id}}fellowreward" type="checkbox" name="system.attributes.fellowreward" {{#if system.attributes.fellowreward}}checked{{/if}} data-dtype="Boolean"{{#unless system.isEdit}} disabled{{/unless}}/>
+          <label class="checkbox--label" for="{{actor._id}}fellowreward">{{localize "SW25.Reward"}}</label>
+        </div>
+        <div class="grid-span-10 property">
+          <label class="property--label" for="{{actor._id}}system.canceldialog">{{localize "SW25.CancelDialog"}}</label>
+          <input class="property--value" id="{{actor._id}}system.canceldialog" type="text" name="system.canceldialog" value="{{system.canceldialog}}" data-dtype="String"{{#unless system.isEdit}} disabled{{/unless}}/>
+        </div>
       </div>
-
 
       <hr>
       {{#if system.toFellow}}
@@ -1010,7 +1024,7 @@
           <span for="{{actor._id}}fellowmemo" class="resource-label">{{localize "SW25.Fellowmemo"}}:</span>
         </div>
         <div class="detail__fellowmemo">
-          <textarea id="{{actor._id}}fellowmemo" class="textarea-editor" type="text" name="system.fellowmemo" placeholder="Memo" style="width: 100%; height: 40px;">{{system.fellowmemo}}</textarea>
+          <textarea id="{{actor._id}}fellowmemo" class="textarea-editor" type="text" name="system.fellowmemo" placeholder="Memo" style="width: 100%; height: 40px;"{{#unless system.isEdit}} disabled{{/unless}}>{{system.fellowmemo}}</textarea>
         </div>
       </div>
       {{/if}}
@@ -1028,7 +1042,7 @@
       {{#each bookmarks as |item id|}}
         {{> "systems/sw25/templates/actor/parts/actor-bookmark-item.hbs" item=item}}
       {{/each}}
-      <li style="flex: 1 1 200px; height:calc(100%-10px); border: 2px dashed #999; padding: 1em; text-align: center; margin: 5px;">
+      <li class="bookmarks--overview">
         {{localize "SW25.AddBookmark"}}
       </li>
       </ul>

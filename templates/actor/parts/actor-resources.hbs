@@ -12,7 +12,7 @@
   {{#each resources as |item id|}}
     <li class='item' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
-        <div class='item-name' style="flex: 3;"><h4 class="item-label">{{item.name}}</h4></div>
+        <div class='item-name' style="flex: 3;" data-tooltip="{{item.name}}"><h4 class="item-label">{{item.name}}</h4></div>
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex-shrink:0; flex-basis: 40px;">
           <a class="quantity-button" data-action="decrease" data-property="item.system.quantity">
             <i class="fas fa-minus"></i>
@@ -32,9 +32,17 @@
                 <i class='fas fa-trash'></i>
               </a>
             </div>
+          {{else}}
+            <div class="item-equip">
+              {{#if system.useequip}}
+              <label class="equip-toggle">
+                <input class="eq-change" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
+              </label>
+              {{/if}}
+            </div>
           {{/if}}
         {{else}}
-          <div class='item-controls'>
+          <div class="item-equip">
             <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.resource")}}'>
               <i class='fa-solid fa-eye'></i>
             </a>

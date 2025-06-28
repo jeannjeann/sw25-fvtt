@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=New+Rocker&display=swap");
 
 /* Variables */
 :root {
@@ -32,41 +32,42 @@
   --attack-color: 255, 230, 230;
   --deffence-color: 230, 255, 230;
   --resist-color: 230, 230, 255;
+  --move-color: 230, 230, 230;
 
-  --weapon-color: 230, 230, 230;
-  --armor-color: 230, 230, 230;
-  --accessory-color: 230, 230, 230;
-  --item-color: 230, 230, 230;
-  --spell-color: 230, 230, 230;
-  --enhancearts-color: 230, 230, 230;
-  --magicalsong-color: 230, 230, 230;
-  --ridingtrick-color: 230, 230, 230;
-  --alchemytech-color: 230, 230, 230;
-  --phasearea-color: 230, 230, 230;
-  --tactics-color: 230, 230, 230;
-  --infusion-color: 230, 230, 230;
-  --barbarousskill-color: 230, 230, 230;
-  --essenceweave-color: 230, 230, 230;
+  --weapon-color: 255, 255, 230;
+  --armor-color: 255, 255, 230;
+  --accessory-color: 255, 255, 230;
+  --item-color: 255, 255, 230;
+  --spell-color: 255, 230, 255;
+  --enhancearts-color: 230, 255, 255;
+  --magicalsong-color: 230, 255, 255;
+  --ridingtrick-color: 230, 255, 255;
+  --alchemytech-color: 230, 255, 255;
+  --phasearea-color: 230, 255, 255;
+  --tactics-color: 230, 255, 255;
+  --infusion-color: 230, 255, 255;
+  --barbarousskill-color: 230, 255, 255;
+  --essenceweave-color: 230, 255, 255;
   --check-color: 230, 230, 230;
   --resource-color: 230, 230, 230;
-  --combatability-color: 230, 230, 230;
+  --combatability-color: 230, 255, 255;
   --skill-color: 230, 230, 230;
-  --raceability-color: 230, 230, 230;
+  --raceability-color: 230, 255, 255;
   --language-color: 230, 230, 230;
-  --otherfeature-color: 230, 230, 230;
+  --otherfeature-color: 230, 255, 255;
   --monsterability-color: 230, 230, 230;
   --action-color: 230, 230, 230;
   --session-color: 230, 230, 230;
 
-  --spell-sorcerer-color: 230, 230, 230;
-  --spell-conjurer-color: 230, 230, 230;
-  --spell-wizard-color: 230, 230, 230;
-  --spell-priest-color: 230, 230, 230;
-  --spell-magitech-color: 230, 230, 230;
-  --spell-fairy-color: 230, 230, 230;
-  --spell-druid-color: 230, 230, 230;
-  --spell-daemon-color: 230, 230, 230;
-  --spell-abyssal-color: 230, 230, 230;
+  --spell-sorcerer-color: 255, 230, 255;
+  --spell-conjurer-color: 255, 230, 255;
+  --spell-wizard-color: 255, 230, 255;
+  --spell-priest-color: 255, 230, 255;
+  --spell-magitech-color: 255, 230, 255;
+  --spell-fairy-color: 255, 230, 255;
+  --spell-druid-color: 255, 230, 255;
+  --spell-daemon-color: 255, 230, 255;
+  --spell-abyssal-color: 255, 230, 255;
 }
 
 /* Global styles */
@@ -2348,7 +2349,7 @@ body, .sw25cs__body__sidebar {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--main-text-color);
+  color: rgb(var(--main-text-color));
   font-size: 0.7rem;
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(169, 169, 169, 0.7);
@@ -2363,12 +2364,15 @@ body, .sw25cs__body__sidebar {
   left: 50%;
   transform: translate(-50%, -50%);
   color: black;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
-  color:#44f;
-  -webkit-text-stroke: 1px #f88;
-  text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+  color: rgb(var(--main-bg-color));
+  -webkit-text-stroke: 1px rgb(var(--main-text-color));
+  text-shadow: 2px 2px 10px rgba(var(--sub-bg-color), 0.7);
   z-index: 3;
+  font-family: "New Rocker", system-ui;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .sw25pc .header__fellow {
@@ -2540,6 +2544,15 @@ body, .sw25cs__body__sidebar {
   margin: 0;
   width: 100%;
   height:100px;
+}
+
+.bookmarks--overview {
+  flex: 1 1 200px;
+  height:calc(100%-10px);
+  border: 2px dashed #999;
+  padding: 1em;
+  text-align: center;
+  margin: 5px;
 }
 
 .sw25 .item-display {
@@ -3152,6 +3165,10 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
 
 .sw25 .resist-display {
   background: linear-gradient(180deg, rgba(var(--resist-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .move-display {
+  background: linear-gradient(180deg, rgba(var(--move-color), 1), rgba(255, 255, 255, 1));
 }
 
 .sw25 .weapon-display {

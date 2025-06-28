@@ -180,6 +180,20 @@ SW25.fellowTypes = {
   daemon: "SW25.Daemon"
 };
 
+SW25.actorClasses = {
+  Barbarous: "SW25.Actor.Class.Barbarous",
+  Animal: "SW25.Actor.Class.Animal",
+  Plant: "SW25.Actor.Class.Plant",
+  Undead: "SW25.Actor.Class.Undead",
+  MagicCreature: "SW25.Actor.Class.MagicCreature",
+  Machine: "SW25.Actor.Class.Machine",
+  Eidolon: "SW25.Actor.Class.Eidolon",
+  Fairie: "SW25.Actor.Class.Fairie",
+  Daemon: "SW25.Actor.Class.Daemon",
+  Human: "SW25.Actor.Class.Human",
+  Other: "SW25.Actor.Class.Other",
+};
+
 SW25.spellTypes = {
   sorcerer: "SW25.Item.Spell.Sorcerer",
   conjurer: "SW25.Item.Spell.Conjurer",
@@ -302,7 +316,7 @@ SW25.Effect = {
     magicpwroll: "SW25.Effect.MagicPWRoll",
     mpsave: "SW25.Effect.MPSave",
     feature: "SW25.Features",
-    powerroll: "SW25.Effect.Powertable",
+    powertable: "SW25.Effect.Powertable",
     checkname: "SW25.Effect.ChecknameInput",
     input: "SW25.Effect.DirectInput"
   },

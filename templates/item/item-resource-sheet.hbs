@@ -36,7 +36,7 @@
   <nav class="sheet-tabs tabs" data-group="primary" style="margin: 0px;">
     <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
     <a class="item" data-tab="details">{{localize "SW25.Details"}}</a>
-    {{!-- <a class="item" data-tab="effects">{{localize "SW25.Effects"}}</a> --}}
+    <a class="item" data-tab="effects">{{localize "SW25.Effects"}}</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -65,10 +65,13 @@
         <legend class="category__title">
           {{localize "SW25.Item.Field.Basic"}}
         </legend>
-
-        <div class="grid-span-10 property">
+        <div class="grid-span-8 property">
           <label class="property--label" for="{{item._id}}system.overview">{{localize "SW25.Item.Overview"}}</label>
           <input class="property--value" id="{{item._id}}system.overview" type="text" name="system.overview" value="{{system.overview}}" data-dtype="String"{{#unless system.isEdit}} disabled {{/unless}}/>
+        </div>
+        <div class="grid-span-2">
+          <input class="checkbox--hidden" id="{{item._id}}system.selfbuff" type="checkbox" name="system.selfbuff" data-dtype="Boolean" {{#if system.selfbuff}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>
+          <label class="checkbox--label" for="{{item._id}}system.selfbuff">{{localize "SW25.Item.Selfbuff"}}</label>
         </div>
       </fieldset>
 
@@ -146,6 +149,7 @@
         {{/if}}
       </fieldset>
     </section>
+    
     {{!-- Effects Tab --}}
     <section class="tab effects" data-group="primary" data-tab="effects">
       {{> "systems/sw25/templates/item/parts/item-effects.hbs"}}

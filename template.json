@@ -282,7 +282,8 @@
           "bg": "#efe6d8",
           "text": "#000000"
         }
-      }
+      },
+      "class": "Human"
     },
     "npc": {
       "templates": ["base", "fellow"],
