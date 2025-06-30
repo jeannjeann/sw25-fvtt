@@ -9,7 +9,7 @@ import { targetRollDialog, targetSelectDialog } from "../helpers/dialogs.mjs";
 export async function chatButton(chatMessage, buttonType) {
   const actorId = chatMessage.speaker.actor;
   const actor = game.actors.get(actorId);
-  const itemId = chatMessage.flags.sw25.itemid;
+  const itemId = chatMessage.flags?.sw25?.itemid;
   const item = actor ? actor.items.get(itemId) : null;
 
   // Item roll button
