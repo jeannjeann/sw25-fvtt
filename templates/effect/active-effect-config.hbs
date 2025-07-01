@@ -161,6 +161,46 @@
                                 {{selectOptions ../effectOptions.powertable selected=change.keyname localize=true blank="-"}}
                             </select>
                         {{/if}}
+                        {{#if (eq change.keyClassification "classPdamage")}}
+                            <select name="changes.{{i}}.keyname" class="select-keyname">
+                                {{selectOptions ../effectOptions.classPdamage selected=change.keyname localize=true blank="-"}}
+                            </select>
+                        {{/if}}
+                        {{#if (eq change.keyClassification "classPdecay")}}
+                            <select name="changes.{{i}}.keyname" class="select-keyname">
+                                {{selectOptions ../effectOptions.classPdecay selected=change.keyname localize=true blank="-"}}
+                            </select>
+                        {{/if}}
+                        {{#if (eq change.keyClassification "elementPdamage")}}
+                            <select name="changes.{{i}}.keyname" class="select-keyname">
+                                {{selectOptions ../effectOptions.elementPdamage selected=change.keyname localize=true blank="-"}}
+                            </select>
+                        {{/if}}
+                        {{#if (eq change.keyClassification "elementPdecay")}}
+                            <select name="changes.{{i}}.keyname" class="select-keyname">
+                                {{selectOptions ../effectOptions.elementPdecay selected=change.keyname localize=true blank="-"}}
+                            </select>
+                        {{/if}}
+                        {{#if (eq change.keyClassification "classMdamage")}}
+                            <select name="changes.{{i}}.keyname" class="select-keyname">
+                                {{selectOptions ../effectOptions.classMdamage selected=change.keyname localize=true blank="-"}}
+                            </select>
+                        {{/if}}
+                        {{#if (eq change.keyClassification "classMdecay")}}
+                            <select name="changes.{{i}}.keyname" class="select-keyname">
+                                {{selectOptions ../effectOptions.classMdecay selected=change.keyname localize=true blank="-"}}
+                            </select>
+                        {{/if}}
+                        {{#if (eq change.keyClassification "elementMdamage")}}
+                            <select name="changes.{{i}}.keyname" class="select-keyname">
+                                {{selectOptions ../effectOptions.elementMdamage selected=change.keyname localize=true blank="-"}}
+                            </select>
+                        {{/if}}
+                        {{#if (eq change.keyClassification "elementMdecay")}}
+                            <select name="changes.{{i}}.keyname" class="select-keyname">
+                                {{selectOptions ../effectOptions.elementMdecay selected=change.keyname localize=true blank="-"}}
+                            </select>
+                        {{/if}}
                         {{#if (eq change.keyClassification "checkname")}}
                             <input style="max-width: calc(60% - 7px);" type="text" name="changes.{{i}}.checkname" value="{{change.checkname}}"/>
                         {{/if}}

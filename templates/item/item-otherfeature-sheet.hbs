@@ -124,6 +124,13 @@
         </div>
         <div class="grid-span-2"></div>
 
+        {{#if (eq system.prop "other")}}
+        {{!-- Elements Category --}}
+        <div class="grid-span-10">
+          {{> "systems/sw25/templates/item/parts/item-elements.hbs" isMagic=true isPhysical=false}}
+        </div>
+        {{/if}}
+
         {{!-- Timing Category --}}
         <fieldset class="subcategory flexrow grid grid-10col">
           <legend class="category__title">

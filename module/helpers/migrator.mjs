@@ -1,15 +1,16 @@
 export class Migrator {
-
   // item migration
   static async migrateItem(item, storedVersion, currentVersion) {
     let changed = false;
     const updateData = { system: {} };
 
     // v 2.1.2 migration.
-    if ( storedVersion && Migrator.isVersionBefore(storedVersion, "2.1.2") ){
+    if (storedVersion && Migrator.isVersionBefore(storedVersion, "2.1.2")) {
       if (item.type === "spell" && !item.system.resistinfo?.type) {
         updateData.system.resistinfo = {};
-        updateData.system.resistinfo.type = item.system.hpresist ? "Vitres" : "Mndres";
+        updateData.system.resistinfo.type = item.system.hpresist
+          ? "Vitres"
+          : "Mndres";
         updateData.system.hpresist = null;
         changed = true;
       }
@@ -17,7 +18,7 @@ export class Migrator {
       if (item.type === "magicalsong" || item.type === "alchemytech") {
         updateData.system.resistinfo = {
           ...(item.system.resistinfo || {}),
-          type: "Mndres"
+          type: "Mndres",
         };
         changed = true;
       }
@@ -31,8 +32,8 @@ export class Migrator {
           updateData.system.dice1 = {
             resist: {
               type: "Dodge",
-              result: "disappear"
-            }
+              result: "disappear",
+            },
           };
           changed = true;
         }
@@ -43,6 +44,103 @@ export class Migrator {
         updateData.system.resistinfo.result = item.system.resist;
         updateData.system.resist = null;
         changed = true;
+      }
+
+      const prop = item.system?.prop;
+      if (typeof prop === "string") {
+        let clearElements = {};
+        let propElementMap = {};
+
+        if (["spell", "magicalsong", "phasearea"].includes(item.type)) {
+          clearElements = {
+            "system.elements.type": "",
+            "system.elements.magic.earth": false,
+            "system.elements.magic.ice": false,
+            "system.elements.magic.fire": false,
+            "system.elements.magic.wind": false,
+            "system.elements.magic.thunder": false,
+            "system.elements.magic.energy": false,
+            "system.elements.magic.cut": false,
+            "system.elements.magic.impact": false,
+            "system.elements.magic.poison": false,
+            "system.elements.magic.disease": false,
+            "system.elements.magic.curse": false,
+            "system.elements.magic.mental": false,
+            "system.elements.magic.mentalw": false,
+            "system.elements.magic.healing": false,
+            "system.elements.physical.blade": false,
+            "system.elements.physical.blow": false,
+            "system.elements.physical.mithril": false,
+          };
+
+          propElementMap = {
+            earth: { "system.elements.magic.earth": true },
+            ice: { "system.elements.magic.ice": true },
+            fire: { "system.elements.magic.fire": true },
+            wind: { "system.elements.magic.wind": true },
+            thunder: { "system.elements.magic.thunder": true },
+            energy: { "system.elements.magic.energy": true },
+            cut: { "system.elements.magic.cut": true },
+            impact: { "system.elements.magic.impact": true },
+            poison: { "system.elements.magic.poison": true },
+            disease: { "system.elements.magic.disease": true },
+            mental: { "system.elements.magic.mental": true },
+            mentalw: { "system.elements.magic.mentalw": true },
+            curse: { "system.elements.magic.curse": true },
+            curseMental: {
+              "system.elements.type": "or",
+              "system.elements.magic.curse": true,
+              "system.elements.magic.mental": true,
+            },
+            mentalPoison: {
+              "system.elements.type": "or",
+              "system.elements.magic.mental": true,
+              "system.elements.magic.poison": true,
+            },
+            fandw: {
+              "system.elements.type": "and",
+              "system.elements.magic.fire": true,
+              "system.elements.magic.wind": true,
+            },
+            iandt: {
+              "system.elements.type": "and",
+              "system.elements.magic.ice": true,
+              "system.elements.magic.thunder": true,
+            },
+            other: {},
+          };
+        }
+
+        if (item.type === "weapon") {
+          clearElements = {
+            "system.elements.physical.blade": false,
+            "system.elements.physical.blow": false,
+          };
+
+          propElementMap = {
+            blade: { "system.elements.physical.blade": true },
+            blow: { "system.elements.physical.blow": true },
+            both: {
+              "system.elements.physical.blade": true,
+              "system.elements.physical.blow": true,
+            },
+            other: {},
+          };
+        }
+
+        if (Object.keys(clearElements).length > 0) {
+          updateData.system = updateData.system || {};
+          updateData.system.elements = mergeObject({}, clearElements, {
+            inplace: false,
+          });
+
+          const propData = propElementMap[prop] || {};
+          for (const [path, value] of Object.entries(propData)) {
+            setProperty(updateData, path, value);
+          }
+
+          changed = true;
+        }
       }
     }
 
@@ -56,27 +154,67 @@ export class Migrator {
     const updateItems = [];
 
     // v 2.1.2 migration.
-    if ( storedVersion && Migrator.isVersionBefore(storedVersion, "2.1.2") ){
-      if (actor.type === "character"){
+    if (storedVersion && Migrator.isVersionBefore(storedVersion, "2.1.2")) {
+      if (actor.type === "character") {
         updateData.system.color = {
           main: {
             bg: "#000000",
-            text: "#ffffff"
+            text: "#ffffff",
           },
           sub: {
             bg: "#efe6d8",
-            text: "#000000"
-          }
+            text: "#000000",
+          },
         };
         changed = true;
       }
-    }  
+      if (actor.type === "monster") {
+        const classKeys = [
+          "Barbarous",
+          "Animal",
+          "Plant",
+          "Undead",
+          "MagicCreature",
+          "Machine",
+          "Eidolon",
+          "Fairie",
+          "Daemon",
+          "Human",
+          "Other",
+        ];
+
+        const localizedType = actor.system?.type;
+        let matchedKey = null;
+
+        if (localizedType) {
+          for (const key of classKeys) {
+            const localizedName = game.i18n.localize(`SW25.Actor.Class.${key}`);
+            if (localizedType === localizedName) {
+              matchedKey = key;
+              break;
+            }
+          }
+        }
+
+        if (!matchedKey) {
+          matchedKey = "Other";
+        }
+
+        updateData.system = updateData.system || {};
+        updateData.system.classType = matchedKey;
+        changed = true;
+      }
+    }
     for (const item of actor.items) {
-      const updateItem = await this.migrateItem(item, currentVersion, storedVersion);
+      const updateItem = await this.migrateItem(
+        item,
+        currentVersion,
+        storedVersion
+      );
       if (updateItem) updateItems.push({ _id: item.id, ...updateItem });
     }
 
-    if (changed){
+    if (changed) {
       await actor.update(updateData);
     }
 
@@ -145,7 +283,11 @@ export class Migrator {
     let itemBatch = [];
 
     for (const item of allItems) {
-      const changes = await this.migrateItem(item, storedVersion, currentVersion);
+      const changes = await this.migrateItem(
+        item,
+        storedVersion,
+        currentVersion
+      );
       if (changes) {
         itemBatch.push({ _id: item.id, ...changes });
       }
@@ -191,8 +333,8 @@ export class Migrator {
 
   // version check
   static isVersionBefore(oldVer, newVer) {
-    const a = oldVer.split(".").map(n => parseInt(n, 10));
-    const b = newVer.split(".").map(n => parseInt(n, 10));
+    const a = oldVer.split(".").map((n) => parseInt(n, 10));
+    const b = newVer.split(".").map((n) => parseInt(n, 10));
 
     for (let i = 0; i < Math.max(a.length, b.length); i++) {
       const av = a[i] || 0;

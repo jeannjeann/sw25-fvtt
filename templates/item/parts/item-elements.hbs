@@ -1,0 +1,90 @@
+{{#if isMagic}}
+        <fieldset class="subcategory flexrow grid grid-8col">
+          <legend class="category__title">
+            <div class="grid-span-3 property">
+              {{localize "SW25.Item.Field.Element"}}
+              <select class="property--value" name="system.elements.type"{{#unless system.isEdit}} disabled{{/unless}}>
+                {{selectOptions config.elementTypes selected=system.elements.type blank="-" localize=true}}
+              </select>
+            </div>
+          </legend>
+          <div class="element-earth grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.magic.earth" type="checkbox" name="system.elements.magic.earth" data-dtype="Boolean" {{#if system.elements.magic.earth}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.magic.earth">{{localize "SW25.Item.Earth"}}</label>
+          </div>
+          <div class="element-ice grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.magic.ice" type="checkbox" name="system.elements.magic.ice" data-dtype="Boolean" {{#if system.elements.magic.ice}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.magic.ice">{{localize "SW25.Item.Ice"}}</label>
+          </div>
+          <div class="element-fire grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.magic.fire" type="checkbox" name="system.elements.magic.fire" data-dtype="Boolean" {{#if system.elements.magic.fire}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.magic.fire">{{localize "SW25.Item.Fire"}}</label>
+          </div>
+          <div class="element-wind grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.magic.wind" type="checkbox" name="system.elements.magic.wind" data-dtype="Boolean" {{#if system.elements.magic.wind}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.magic.wind">{{localize "SW25.Item.Wind"}}</label>
+          </div>
+          <div class="element-thunder grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.magic.thunder" type="checkbox" name="system.elements.magic.thunder" data-dtype="Boolean" {{#if system.elements.magic.thunder}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.magic.thunder">{{localize "SW25.Item.Thunder"}}</label>
+          </div>
+          <div class="element-energy grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.magic.energy" type="checkbox" name="system.elements.magic.energy" data-dtype="Boolean" {{#if system.elements.magic.energy}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.magic.energy">{{localize "SW25.Item.Energy"}}</label>
+          </div>
+          <div class="element-cut grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.magic.cut" type="checkbox" name="system.elements.magic.cut" data-dtype="Boolean" {{#if system.elements.magic.cut}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.magic.cut">{{localize "SW25.Item.Cut"}}</label>
+          </div>
+          <div class="element-impact grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.magic.impact" type="checkbox" name="system.elements.magic.impact" data-dtype="Boolean" {{#if system.elements.magic.impact}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.magic.impact">{{localize "SW25.Item.Impact"}}</label>
+          </div>
+          <div class="element-poison grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.magic.poison" type="checkbox" name="system.elements.magic.poison" data-dtype="Boolean" {{#if system.elements.magic.poison}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.magic.poison">{{localize "SW25.Item.Poison"}}</label>
+          </div>
+          <div class="element-disease grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.magic.disease" type="checkbox" name="system.elements.magic.disease" data-dtype="Boolean" {{#if system.elements.magic.disease}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.magic.disease">{{localize "SW25.Item.Disease"}}</label>
+          </div>
+          <div class="element-curse grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.magic.curse" type="checkbox" name="system.elements.magic.curse" data-dtype="Boolean" {{#if system.elements.magic.curse}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.magic.curse">{{localize "SW25.Item.Curse"}}</label>
+          </div>
+          <div class="grid-span-2 blank"></div>
+          <div class="element-mental grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.magic.mental" type="checkbox" name="system.elements.magic.mental" data-dtype="Boolean" {{#if system.elements.magic.mental}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.magic.mental">{{localize "SW25.Item.Mental"}}</label>
+          </div>
+          <div class="element-mentalw grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.magic.mentalw" type="checkbox" name="system.elements.magic.mentalw" data-dtype="Boolean" {{#if system.elements.magic.mentalw}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.magic.mentalw">{{localize "SW25.Item.Mentalw"}}</label>
+          </div>
+          <div class="element-healing grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.magic.healing" type="checkbox" name="system.elements.magic.healing" data-dtype="Boolean" {{#if system.elements.magic.healing}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.magic.healing">{{localize "SW25.Item.Healing"}}</label>
+          </div>
+        </fieldset>
+{{/if}}
+{{#if isPhysical}}
+        <fieldset class="subcategory flexrow grid grid-8col">
+          <legend class="category__title">
+            <div class="grid-span-3 property">
+              {{localize "SW25.Item.Field.PhysicalProp"}}
+            </div>
+          </legend>
+          <div class="element-blade grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.physical.blade" type="checkbox" name="system.elements.physical.blade" data-dtype="Boolean" {{#if system.elements.physical.blade}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.physical.blade">{{localize "SW25.Item.Weapon.Blade"}}</label>
+          </div>
+          <div class="element-blow grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.physical.blow" type="checkbox" name="system.elements.physical.blow" data-dtype="Boolean" {{#if system.elements.physical.blow}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.physical.blow">{{localize "SW25.Item.Weapon.Blow"}}</label>
+          </div>
+          <div class="element-mithril grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.physical.mithril" type="checkbox" name="system.elements.physical.mithril" data-dtype="Boolean" {{#if system.elements.physical.mithril}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.physical.mithril">{{localize "SW25.Item.Weapon.Mithril"}}</label>
+          </div>
+        </fieldset>
+{{/if}}

@@ -171,6 +171,11 @@
           <label class="property--label-col" for="{{item._id}}system.info.create">{{localize "SW25.Item.Create"}}</label>
           <input class="property--value" id="{{item._id}}system.info.create" type="text" name="system.info.create" value="{{system.info.create}}" data-dtype="String"{{#unless system.isEdit}} disabled{{/unless}}/>
         </div>
+
+        {{!-- Elements Category --}}
+        <div class="grid-span-10">
+          {{> "systems/sw25/templates/item/parts/item-elements.hbs" isMagic=true isPhysical=true}}
+        </div>
       </fieldset>
 
       {{!-- Use-dice Category --}}

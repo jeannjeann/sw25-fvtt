@@ -1,5 +1,7 @@
 import { powerRoll } from "../helpers/powerroll.mjs";
 import { mpCost, hpCost } from "../helpers/mpcost.mjs";
+import { DamageSupporter } from "../helpers/damagesupport.mjs";
+
 import {
   effectVitResPC,
   effectMndResPC,
@@ -2473,7 +2475,7 @@ export class SW25Item extends Item {
   }
   async rollExec(targetTokens) {
     const item = this;
-
+    const actor = this.actor || null;
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     const rollMode = game.settings.get("core", "rollMode");
@@ -2641,6 +2643,13 @@ export class SW25Item extends Item {
         targetName = targetName + ``;
       }
 
+      // element tags.
+      const elements = this.system.elements;
+      const damage = actor ? actor.system.attributes.damage : null;
+      const classType = actor ? actor.system.classType : null;
+      const isItemType = ["weapon", "armor", "accessory", "item", "monsterability"].includes(this.type);
+      const tags = DamageSupporter.createChatTag(elements, damage, classType, isItemType);
+
       chatData.flags = {
         sw25: {
           total: chatTotal,
@@ -2652,6 +2661,9 @@ export class SW25Item extends Item {
           checktype: checktype,
           target,
           targetName: targetName,
+          elements: elements,
+          damage: damage,
+          tags: tags,
         }
       };
 
@@ -2666,6 +2678,7 @@ export class SW25Item extends Item {
           apply: chatapply,
           checktype: checktype,
           targetName: targetName,
+          tags: tags,
         }
       );
 
@@ -2767,6 +2780,13 @@ export class SW25Item extends Item {
         targetName = targetName + ``;
       }
 
+      // element tags.
+      const elements = this.system.elements;
+      const damage = actor ? actor.system.attributes.damage : null;
+      const classType = actor ? actor.system.classType : null;
+      const isItemType = ["weapon", "armor", "accessory", "item", "monsterability"].includes(this.type);
+      const tags = DamageSupporter.createChatTag(elements, damage, classType, isItemType);
+
       chatData.flags = {
         sw25: {
           formula: chatFormula,
@@ -2793,6 +2813,9 @@ export class SW25Item extends Item {
           powertype: powertype,
           target,
           targetName: targetName,
+          elements: elements,
+          damage: damage,
+          tags: tags,
         }
       };
 
@@ -2818,6 +2841,7 @@ export class SW25Item extends Item {
           apply: chatapply,
           powertype: powertype,
           targetName: targetName,
+          tags: tags,
         }
       );
 

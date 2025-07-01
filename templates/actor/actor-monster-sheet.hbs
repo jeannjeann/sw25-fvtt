@@ -51,7 +51,7 @@
             </div>
             <div class="monster-type">
               <span class="resource-label nobreak">{{localize "SW25.Monster.Type"}}:</span>
-              <span class="monster-type">{{system.type}}</span>
+              <span class="monster-type">{{#if (eq system.classType "Other")}}{{system.type}}{{else}}{{#if system.classType}}{{localize (concat "SW25.Actor.Class." system.classType)}}{{/if}}{{/if}}</span>
             </div>
           </div>
           <div class="character-fellow">
@@ -315,12 +315,12 @@
           </div>
           <div class="flexrow grid grid-10col">
             <div class="grid-span-3 property-col">
-              <label class="property--label-col" for="system.class">{{localize "SW25.Monster.Type"}}</label>
+              <label class="property--label-col" for="system.classType">{{localize "SW25.Monster.Type"}}</label>
               <div class="property">
-                <select class="property--value" name="system.class">
-                  {{selectOptions config.actorClasses selected=system.class localize=true blank="SW25.Item.None"}}
+                <select class="property--value" name="system.classType">
+                  {{selectOptions config.actorClasses selected=system.classType localize=true blank="SW25.Item.None"}}
                 </select>
-                {{#if (eq system.class "Other")}}<input class="property--value" id="{{actor._id}}system.type" type="text" name="system.type" value="{{system.type}}" data-dtype="String"/>{{/if}}
+                {{#if (eq system.classType "Other")}}<input class="property--value" id="{{actor._id}}system.type" type="text" name="system.type" value="{{system.type}}" data-dtype="String"/>{{/if}}
               </div>
             </div>
             <div class="grid-span-2 property-col">

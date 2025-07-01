@@ -54,6 +54,7 @@ export const preloadHandlebarsTemplates = async function () {
     // Item partials
     "systems/sw25/templates/item/parts/item-customs.hbs",
     "systems/sw25/templates/item/parts/item-effects.hbs",
+    "systems/sw25/templates/item/parts/item-elements.hbs",
     "systems/sw25/templates/item/parts/item-usepower.hbs",
     "systems/sw25/templates/item/parts/item-usedice.hbs",
     // Dialog

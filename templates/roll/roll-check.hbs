@@ -3,6 +3,22 @@
     {{name}}
 </div>
 {{/if}}
+{{#if (eq apply "on")}}{{#if tags}}
+    <div class="element-tags">
+        {{#if tags.condition}}
+        <div class="element-condition">{{localize (concat "SW25.Effect.Chat." tags.condition)}}</div>
+        {{/if}}        
+        {{#each tags.elements.magic}}
+        <div class="element-tag el-{{key}}">{{localize (concat "SW25.Effect.Chat." key)}}{{#if pd}}[{{localize "SW25.Item.pd"}}:{{pd}}]{{/if}}{{#if md}}[{{localize "SW25.Item.md"}}:{{md}}]{{/if}}</div>
+        {{/each}}
+        {{#each tags.elements.physical}}
+        <div class="element-tag el-{{key}}">{{localize (concat "SW25.Effect.Chat." key)}}{{#if pd}}[{{localize "SW25.Item.pd"}}:{{pd}}]{{/if}}{{#if md}}[{{localize "SW25.Item.md"}}:{{md}}]{{/if}}</div>
+        {{/each}}
+        {{#each tags.classType}}
+        <div class="element-tag el-{{key}}">{{localize (concat "SW25.Effect.Chat." key)}}{{#if pd}}[{{localize "SW25.Item.pd"}}:{{pd}}]{{/if}}{{#if md}}[{{localize "SW25.Item.md"}}:{{md}}]{{/if}}</div>
+        {{/each}}
+    </div>
+{{/if}}{{/if}}
 <div class="dice-roll" data-action="expandRoll">
     {{#if flavor}}<div class="dice-flavor">{{flavor}}</div>{{/if}}
     {{#if targetName}}<div class="dice-flavor">{{{targetName}}}</div>{{/if}}

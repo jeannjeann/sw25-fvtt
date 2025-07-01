@@ -216,6 +216,11 @@
           <input class="property--value" id="{{item._id}}system.remark" type="text" name="system.remark" value="{{system.remark}}" data-dtype="String"{{#unless system.isEdit}} disabled {{/unless}}/>
         </div>
 
+        {{!-- Elements Category --}}
+        <div class="grid-span-10">
+          {{> "systems/sw25/templates/item/parts/item-elements.hbs" isMagic=true isPhysical=true}}
+        </div>
+
         {{!-- Timing Category --}}
         <fieldset class="subcategory flexrow grid grid-10col">
           <legend class="category__title">

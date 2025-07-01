@@ -151,6 +151,13 @@
             {{selectOptions config.spellProps selected=system.prop localize=true blank="-"}}
           </select>
         </div>
+        
+        {{#if (eq system.prop "other")}}
+        {{!-- Elements Category --}}
+        <div class="grid-span-10">
+          {{> "systems/sw25/templates/item/parts/item-elements.hbs" isMagic=true isPhysical=false}}
+        </div>
+        {{/if}}
 
         {{!-- Timing Category --}}
         <fieldset class="subcategory flexrow grid grid-10col">

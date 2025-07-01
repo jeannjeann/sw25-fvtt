@@ -4,9 +4,7 @@
  * v2.1.2以前のデータを読み込み、新しい形式へとコンバートします。
  *
  */
-const versionOptions = [
-  { label: "v2.1.2 以前", value: "2.1.2" },
-];
+const versionOptions = [{ label: "v2.1.2 以前", value: "2.1.2" }];
 const storedVersionDefault = "2.1.2";
 const currentVersion = "2.1.3";
 
@@ -29,7 +27,9 @@ async function migrateItem(item, storedVersion, currentVersion) {
   if (storedVersion && isVersionBefore(storedVersion, "2.1.3")) {
     if (item.type === "spell" && !item.system.resistinfo?.type) {
       updateData.system.resistinfo = {};
-      updateData.system.resistinfo.type = item.system.hpresist ? "Vitres" : "Mndres";
+      updateData.system.resistinfo.type = item.system.hpresist
+        ? "Vitres"
+        : "Mndres";
       updateData.system.hpresist = null;
       changed = true;
     }
@@ -64,6 +64,103 @@ async function migrateItem(item, storedVersion, currentVersion) {
       updateData.system.resist = null;
       changed = true;
     }
+
+    const prop = item.system?.prop;
+    if (typeof prop === "string") {
+      let clearElements = {};
+      let propElementMap = {};
+
+      if (["spell", "magicalsong", "phasearea"].includes(item.type)) {
+        clearElements = {
+          "system.elements.type": "",
+          "system.elements.magic.earth": false,
+          "system.elements.magic.ice": false,
+          "system.elements.magic.fire": false,
+          "system.elements.magic.wind": false,
+          "system.elements.magic.thunder": false,
+          "system.elements.magic.energy": false,
+          "system.elements.magic.cut": false,
+          "system.elements.magic.impact": false,
+          "system.elements.magic.poison": false,
+          "system.elements.magic.disease": false,
+          "system.elements.magic.curse": false,
+          "system.elements.magic.mental": false,
+          "system.elements.magic.mentalw": false,
+          "system.elements.magic.healing": false,
+          "system.elements.physical.blade": false,
+          "system.elements.physical.blow": false,
+          "system.elements.physical.mithril": false,
+        };
+
+        propElementMap = {
+          earth: { "system.elements.magic.earth": true },
+          ice: { "system.elements.magic.ice": true },
+          fire: { "system.elements.magic.fire": true },
+          wind: { "system.elements.magic.wind": true },
+          thunder: { "system.elements.magic.thunder": true },
+          energy: { "system.elements.magic.energy": true },
+          cut: { "system.elements.magic.cut": true },
+          impact: { "system.elements.magic.impact": true },
+          poison: { "system.elements.magic.poison": true },
+          disease: { "system.elements.magic.disease": true },
+          mental: { "system.elements.magic.mental": true },
+          mentalw: { "system.elements.magic.mentalw": true },
+          curse: { "system.elements.magic.curse": true },
+          curseMental: {
+            "system.elements.type": "or",
+            "system.elements.magic.curse": true,
+            "system.elements.magic.mental": true,
+          },
+          mentalPoison: {
+            "system.elements.type": "or",
+            "system.elements.magic.mental": true,
+            "system.elements.magic.poison": true,
+          },
+          fandw: {
+            "system.elements.type": "and",
+            "system.elements.magic.fire": true,
+            "system.elements.magic.wind": true,
+          },
+          iandt: {
+            "system.elements.type": "and",
+            "system.elements.magic.ice": true,
+            "system.elements.magic.thunder": true,
+          },
+          other: {},
+        };
+      }
+
+      if (item.type === "weapon") {
+        clearElements = {
+          "system.elements.physical.blade": false,
+          "system.elements.physical.blow": false,
+        };
+
+        propElementMap = {
+          blade: { "system.elements.physical.blade": true },
+          blow: { "system.elements.physical.blow": true },
+          both: {
+            "system.elements.physical.blade": true,
+            "system.elements.physical.blow": true,
+          },
+          other: {},
+        };
+      }
+
+      if (Object.keys(clearElements).length > 0) {
+        updateData.system = updateData.system || {};
+        updateData.system.elements = mergeObject({}, clearElements, {
+          inplace: false,
+        });
+
+        const propData = propElementMap[prop] || {};
+        for (const [path, value] of Object.entries(propData)) {
+          setProperty(updateData, path, value);
+        }
+
+        changed = true;
+      }
+    }
   }
 
   return changed ? updateData : null;
@@ -80,6 +177,43 @@ async function migrateActor(actor, storedVersion, currentVersion) {
         main: { bg: "#000000", text: "#ffffff" },
         sub: { bg: "#dad8cc", text: "#000000" },
       };
+      changed = true;
+    }
+
+    if (actor.type === "monster") {
+      const classKeys = [
+        "Barbarous",
+        "Animal",
+        "Plant",
+        "Undead",
+        "MagicCreature",
+        "Machine",
+        "Eidolon",
+        "Fairie",
+        "Daemon",
+        "Human",
+        "Other",
+      ];
+
+      const localizedType = actor.system?.type;
+      let matchedKey = null;
+
+      if (localizedType) {
+        for (const key of classKeys) {
+          const localizedName = game.i18n.localize(`SW25.Actor.Class.${key}`);
+          if (localizedType === localizedName) {
+            matchedKey = key;
+            break;
+          }
+        }
+      }
+
+      if (!matchedKey) {
+        matchedKey = "Other";
+      }
+
+      updateData.system = updateData.system || {};
+      updateData.system.classType = matchedKey;
       changed = true;
     }
   }
@@ -113,7 +247,7 @@ function createProgressBar(labelText) {
     color: "white",
     zIndex: 10000,
     borderRadius: "5px",
-    fontFamily: "Arial, sans-serif"
+    fontFamily: "Arial, sans-serif",
   });
 
   const label = document.createElement("div");
@@ -136,12 +270,14 @@ function removeProgressBar(container) {
   if (container && container.remove) container.remove();
 }
 
-const packs = game.packs.filter(p =>
+const packs = game.packs.filter((p) =>
   ["Item", "Actor"].includes(p.documentName)
 );
 
 if (packs.length === 0) {
-  ui.notifications.warn("アイテムまたはアクターのコンペンディウムが見つかりません。");
+  ui.notifications.warn(
+    "アイテムまたはアクターのコンペンディウムが見つかりません。"
+  );
   return;
 }
 
@@ -152,15 +288,25 @@ new Dialog({
       <div class="form-group">
         <label>辞典:</label>
         <select name="compendium" style="width: 100%">
-          ${packs.map(p => `<option value="${p.collection}">${p.metadata.label}</option>`).join("")}
+          ${packs
+            .map(
+              (p) =>
+                `<option value="${p.collection}">${p.metadata.label}</option>`
+            )
+            .join("")}
         </select>
       </div>
       <div class="form-group" style="margin-top: 10px;">
         <label>辞典のバージョン:</label>
         <select name="storedVersion" style="width: 100%">
-          ${versionOptions.map(v =>
-            `<option value="${v.value}" ${v.value === storedVersionDefault ? "selected" : ""}>${v.label}</option>`
-          ).join("")}
+          ${versionOptions
+            .map(
+              (v) =>
+                `<option value="${v.value}" ${
+                  v.value === storedVersionDefault ? "selected" : ""
+                }>${v.label}</option>`
+            )
+            .join("")}
         </select>
       </div>
     </form>
@@ -178,23 +324,32 @@ new Dialog({
             return ui.notifications.error("辞典が取得できませんでした。");
 
           if (pack.metadata.locked) {
-            ui.notifications.warn("選択された辞典はロックされています。ロックを解除してください。");
+            ui.notifications.warn(
+              "選択された辞典はロックされています。ロックを解除してください。"
+            );
             return;
           }
 
           const documents = await pack.getDocuments();
           const docType = pack.documentName;
-          const { container, bar, label } = createProgressBar("マイグレーション進行中");
+          const { container, bar, label } =
+            createProgressBar("マイグレーション進行中");
 
           let count = 0;
           for (let i = 0; i < documents.length; i++) {
             const doc = documents[i];
             bar.value = i / documents.length;
-            label.textContent = `マイグレーション中: ${i + 1} / ${documents.length}`;
+            label.textContent = `マイグレーション中: ${i + 1} / ${
+              documents.length
+            }`;
 
             let updated = false;
             if (docType === "Item") {
-              const update = await migrateItem(doc, storedVersion, currentVersion);
+              const update = await migrateItem(
+                doc,
+                storedVersion,
+                currentVersion
+              );
               if (update) {
                 await doc.update(update);
                 updated = true;
@@ -211,12 +366,12 @@ new Dialog({
 
           setTimeout(() => removeProgressBar(container), 5000);
         })();
-      }
+      },
     },
     cancel: {
       icon: '<i class="fas fa-times"></i>',
-      label: "キャンセル"
-    }
+      label: "キャンセル",
+    },
   },
-  default: "migrate"
+  default: "migrate",
 }).render(true);

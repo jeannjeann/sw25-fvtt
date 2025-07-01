@@ -211,6 +211,13 @@
           <input class="property--value" id="{{item._id}}system.pet" type="text" name="system.pet" value="{{system.pet}}" data-dtype="String"{{#unless system.isEdit}} disabled {{/unless}}/>
         </div>
         <div class="grid-span-4"></div>
+        
+        {{#if (eq system.prop "")}}
+        {{!-- Elements Category --}}
+        <div class="grid-span-10">
+          {{> "systems/sw25/templates/item/parts/item-elements.hbs" isMagic=true isPhysical=false}}
+        </div>
+        {{/if}}
 
         {{!-- Timing Category --}}
         <fieldset class="subcategory flexrow grid grid-10col">

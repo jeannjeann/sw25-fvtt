@@ -10,6 +10,7 @@ import { actionRoll } from "../helpers/actionroll.mjs";
 import { targetRollDialog, targetSelectDialog } from "../helpers/dialogs.mjs";
 import { SW25 } from "../helpers/config.mjs";
 import { Util } from "../helpers/utils.mjs";
+import { DamageSupporter } from "../helpers/damagesupport.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -933,7 +934,11 @@ export class SW25ActorSheet extends ActorSheet {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
-
+    const itemId =
+      dataset.itemid ??
+      event.currentTarget.closest("[data-item-id]")?.dataset.itemId ??
+      null;
+      
     // Handle item rolls.
     if (dataset.rollType) {
       if (dataset.rollType == "item") {
@@ -1020,6 +1025,13 @@ export class SW25ActorSheet extends ActorSheet {
         };
       }
 
+      const item = itemId ? this.actor.items.get(itemId) : null;
+      const elements = item ? item.system.elements : null;
+      const damage = this.actor ? this.actor.system.attributes.damage : null;
+      const classType = this.actor ? this.actor.system.classType : null;
+      const isItemType = item ? ["weapon", "armor", "accessory", "item"].includes(item.type) : false;
+      const tags = DamageSupporter.createChatTag(elements, damage, classType, isItemType);
+
       chatData.flags = {
         sw25: {
           total: roll.total,
@@ -1033,6 +1045,9 @@ export class SW25ActorSheet extends ActorSheet {
           target,
           targetName: targetName,
           resist: resistData,
+          elements: elements,
+          damage: damage,
+          tags: tags,
         },
       };
 
@@ -1050,6 +1065,7 @@ export class SW25ActorSheet extends ActorSheet {
           resusetext: chatresuse,
           targetName: targetName,
           resist: resistData,
+          tags: tags,
         }
       );
 
@@ -1122,7 +1138,10 @@ export class SW25ActorSheet extends ActorSheet {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
-
+    const itemId =
+      dataset.itemid ??
+      event.currentTarget.closest("[data-item-id]")?.dataset.itemId ??
+      null;
     const formula = dataset.roll;
     const powertype = dataset.powertype ? dataset.powertype.split(",") : "";
     const powertable = dataset.pt.split(",");
@@ -1213,6 +1232,13 @@ export class SW25ActorSheet extends ActorSheet {
       targetName = targetName + ``;
     }
 
+    const item = itemId ? this.actor.items.get(itemId) : null;
+    const elements = item ? item.system.elements : null;
+    const damage = this.actor ? this.actor.system.attributes.damage : null;
+    const classType = this.actor ? this.actor.system.classType : null;
+    const isItemType = item ? ["weapon", "armor", "accessory", "item"].includes(item.type) : false;
+    const tags = DamageSupporter.createChatTag(elements, damage, classType, isItemType);
+
     chatData.flags = {
       sw25: {
         formula: chatFormula,
@@ -1239,9 +1265,12 @@ export class SW25ActorSheet extends ActorSheet {
         powertype: powertype,
         target,
         targetName: targetName,
+        elements: elements,
+        damage: damage,
+        tags: tags,
       },
     };
-
+    
     chatData.content = await renderTemplate(
       "systems/sw25/templates/roll/roll-power.hbs",
       {
@@ -1264,6 +1293,7 @@ export class SW25ActorSheet extends ActorSheet {
         apply: chatapply,
         powertype: powertype,
         targetName: targetName,
+        tags: tags,
       }
     );
 
@@ -1499,7 +1529,17 @@ export class SW25ActorSheet extends ActorSheet {
       : this.actor.system.udname
       ? this.actor.system.udname
       : game.i18n.localize("SW25.Monster.Unidentifiedmon");
-    monsterName += `(${this.actor.system.type})`;
+
+    let typeName;
+    const classType = this.actor.system.classType;
+    const type = this.actor.system.type;
+
+    if (!classType || classType === "Other") {
+      typeName = type;
+    } else {
+      typeName = game.i18n.localize(`SW25.Actor.Class.${classType}`);
+    }
+    monsterName += `(${typeName})`;
     targetValue = this.actor.system.popularity;
     targetValue += !isNaN(Number(this.actor.system.weakpoint))
       ? "/" + this.actor.system.weakpoint
@@ -1532,7 +1572,7 @@ export class SW25ActorSheet extends ActorSheet {
       {
         checkName: checkName,
         message: message,
-        difficulty: `@UUID[Actor.${actorId}](${this.actor.system.type})`,
+        difficulty: `@UUID[Actor.${actorId}](${typeName})`,
         targetValue: targetValue,
         mod: modifier,
       }
@@ -1566,7 +1606,18 @@ export class SW25ActorSheet extends ActorSheet {
       : this.actor.system.udname
       ? this.actor.system.udname
       : game.i18n.localize("SW25.Monster.Unidentifiedmon");
-    monsterName += `(${this.actor.system.type})`;
+
+    let typeName;
+    const classType = this.actor.system.classType;
+    const type = this.actor.system.type;
+
+    if (!classType || classType === "Other") {
+      typeName = type;
+    } else {
+      typeName = game.i18n.localize(`SW25.Actor.Class.${classType}`);
+    }
+    monsterName += `(${typeName})`;
+
     targetValue = this.actor.system.preemptive;
     let message = game.i18n.localize("SW25.Monster.Preemptive");
 
@@ -1593,7 +1644,7 @@ export class SW25ActorSheet extends ActorSheet {
       {
         checkName: checkName,
         message: message,
-        difficulty: `@UUID[Actor.${actorId}](${this.actor.system.type})`,
+        difficulty: `@UUID[Actor.${actorId}](${typeName})`,
         targetValue: targetValue,
         mod: modifier,
       }

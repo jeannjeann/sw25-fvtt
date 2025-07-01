@@ -339,7 +339,7 @@
                   <div class="common-value">{{system.itemhitbase}}</div>
                   <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
                 </div>
-                <div class="powerrollable common-display attack-display" data-roll="{{system.itempowerformula}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Power"}})" data-pt="{{system.itempowertable}}" data-apply="{{system.itemapplypower}}" data-powertype="{{system.itempowertype}}">
+                <div class="powerrollable common-display attack-display" data-roll="{{system.itempowerformula}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Power"}})" data-pt="{{system.itempowertable}}" data-apply="{{system.itemapplypower}}" data-powertype="{{system.itempowertype}}" data-itemid="{{system.itemid}}">
                   <div class="common-label">{{localize "SW25.Item.Power"}}</div>
                   <div class="common-value-s">k{{system.itempower}}{{#if system.itemcvalue}}@{{system.itemcvalue}}{{/if}}{{#if system.itempowerbase}}+{{system.itempowerbase}}{{/if}}</div>
                   <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
@@ -844,9 +844,9 @@
               <input class="property--value" id="{{actor._id}}system.attributes.faith" type="text" name="system.attributes.faith" value="{{system.attributes.faith}}" data-dtype="String"{{#unless system.isEdit}} disabled{{/unless}}/>
             </div>
             <div class="grid-span-2 property-col">
-              <label class="property--label-col" for="system.class">{{localize "SW25.Actor.Type"}}</label>
-              <select class="property--value" name="system.class"{{#unless system.isEdit}} disabled{{/unless}}>
-                {{selectOptions config.actorClasses selected=system.class localize=true blank="SW25.Item.None"}}
+              <label class="property--label-col" for="system.classType">{{localize "SW25.Actor.Type"}}</label>
+              <select class="property--value" name="system.classType"{{#unless system.isEdit}} disabled{{/unless}}>
+                {{selectOptions config.actorClasses selected=system.classType localize=true blank="SW25.Item.None"}}
               </select>
             </div>
             <div class="grid-span-2" style="text-align: center;">

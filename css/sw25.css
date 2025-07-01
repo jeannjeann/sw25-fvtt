@@ -3302,3 +3302,148 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
 .sw25 .spell-abyssal-display {
   background: linear-gradient(180deg, rgba(var(--spell-abyssal-color), 1), rgba(255, 255, 255, 1));
 }
+
+.element-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.element-tag,
+.element-condition {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  padding: 4px 8px;
+  border-radius:  20%;
+  text-align: center;
+  font-size: 0.75em;
+  display: inline-block;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.el-Barbarous,
+.el-Animal,
+.el-Plant,
+.el-Undead,
+.el-MagicCreature,
+.el-Machine,
+.el-Eidolon,
+.el-Fairie,
+.el-Daemon,
+.el-Human,
+.el-Other {
+  background: rgba(230, 255, 230, 1);
+}
+
+.el-earth,
+.el-ice,
+.el-fire,
+.el-wind,
+.el-thunder,
+.el-energy,
+.el-cut,
+.el-impact,
+.el-poison,
+.el-disease,
+.el-curse,
+.el-mental,
+.el-mentalw,
+.el-healing {
+  background-color: rgba(245, 230, 255, 1);
+}
+.el-blade,
+.el-blow,
+.el-mithril {
+  background-color: rgba(230, 230, 255, 1);
+}
+
+.dice-flavor {
+  flex: 0 0 100%;
+}
+
+.damage-detailtable {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1em;
+}
+
+.damage-header, .damage-row {
+  display: table-row;
+}
+
+.damage-header {
+  background-color: rgba(0,0,0,0.15);
+}
+
+.damage-detailtable .damage-row:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.damage-cell {
+  display: table-cell;
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  text-align: center;
+}
+
+.damage-value {
+  font-weight: bold;
+}
+
+.damage-total {
+  font-weight: bold;
+  font-size: 1.1em;
+  text-align: right;
+}
+
+.damage-summary {
+  display: grid;
+  grid-template-columns:  1fr 24px;
+  gap: 6px;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.3);
+  font-weight: bold;
+  color: #002255;
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.acordion-icon {
+  display: block;
+  position: relative;
+  width: 16px;
+  transform-origin: center 43%;
+  transition: transform 0.4s;
+
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 10px;
+    height: 3px;
+    background-color: #000060;
+  }
+  &::before {
+    left: 0;
+    transform: rotate(45deg);
+  }
+  &::after {
+    right: 0;
+    transform: rotate(-45deg);
+  }
+}
+
+.damage-details[open] .icon {
+  transform: rotate(180deg);
+}
+
+.damage-contents {
+  background-color: rgba(230, 230, 255, 0.2);
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+}

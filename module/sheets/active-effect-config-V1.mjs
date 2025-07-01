@@ -46,6 +46,22 @@ export class SW25ActiveEffectConfigV1 extends ActiveEffectConfig {
         change.keyClassification = "feature";
       } else if (change.keyname in context.effectOptions.powertable) {
         change.keyClassification = "powertable";
+      } else if (change.keyname in context.effectOptions.classPdamage) {
+        change.keyClassification = "classPdamage";
+      } else if (change.keyname in context.effectOptions.classPdecay) {
+        change.keyClassification = "classPdecay";
+      } else if (change.keyname in context.effectOptions.elementPdamage) {
+        change.keyClassification = "elementPdamage";
+      } else if (change.keyname in context.effectOptions.elementPdecay) {
+        change.keyClassification = "elementPdecay";
+      } else if (change.keyname in context.effectOptions.classMdamage) {
+        change.keyClassification = "classMdamage";
+      } else if (change.keyname in context.effectOptions.classMdecay) {
+        change.keyClassification = "classMdecay";
+      } else if (change.keyname in context.effectOptions.elementMdamage) {
+        change.keyClassification = "elementMdamage";
+      } else if (change.keyname in context.effectOptions.elementMdecay) {
+        change.keyClassification = "elementMdecay";
       } else if (change.keyname.startsWith("effect.checkinputmod.")) {
         change.keyClassification = "checkname";
         change.checkname = change.key.replace(/^system\.effect\.checkinputmod\./, "");
