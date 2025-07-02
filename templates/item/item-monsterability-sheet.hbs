@@ -23,7 +23,12 @@
       </span>
       <div class="header__subtitle--overview">{{system.remark}}</div>
     </section>
-    <section class="header__activate"></section>
+    <section class="header__activate">
+      <div class="header__checkbox">
+        <input class="checkbox--hidden" id="{{item._id}}system.equip" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
+        <label class="checkbox--label" for="{{item._id}}system.equip">{{localize "SW25.Item.Activation"}}</label>
+      </div>
+    </section>
     <section class="togglearea">
       <label class="togglearea__btn">
         <input id="{{item._id}}isEdit" type="checkbox" name="system.isEdit" {{#if system.isEdit}}checked{{/if}} data-dtype="Boolean"/>

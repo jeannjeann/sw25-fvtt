@@ -2647,8 +2647,8 @@ export class SW25Item extends Item {
       const elements = this.system.elements;
       const damage = actor ? actor.system.attributes.damage : null;
       const classType = actor ? actor.system.classType : null;
-      const isItemType = ["weapon", "armor", "accessory", "item", "monsterability"].includes(this.type);
-      const tags = DamageSupporter.createChatTag(elements, damage, classType, isItemType);
+      const isWeapon = DamageSupporter.getWeaponAttributes(this);
+      const tags = DamageSupporter.createChatTag(elements, damage, classType, isWeapon);
 
       chatData.flags = {
         sw25: {
@@ -2784,8 +2784,8 @@ export class SW25Item extends Item {
       const elements = this.system.elements;
       const damage = actor ? actor.system.attributes.damage : null;
       const classType = actor ? actor.system.classType : null;
-      const isItemType = ["weapon", "armor", "accessory", "item", "monsterability"].includes(this.type);
-      const tags = DamageSupporter.createChatTag(elements, damage, classType, isItemType);
+      const isWeapon = DamageSupporter.getWeaponAttributes(this);
+      const tags = DamageSupporter.createChatTag(elements, damage, classType, isWeapon);
 
       chatData.flags = {
         sw25: {

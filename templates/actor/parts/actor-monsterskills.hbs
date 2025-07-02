@@ -14,6 +14,13 @@
   {{#each enhancearts as |item id|}}
     <li class='item' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
+        <div class="item-equip">
+          {{#if system.useequip}}
+          <label class="equip-toggle">
+            <input class="eq-change" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
+          </label>
+          {{/if}}
+        </div>
         <div class='item-name'>
           <div class='item-image'>
             <a class='rollable' data-roll-type='item'>
@@ -76,6 +83,13 @@
   {{#each magicalsongs as |item id|}}
     <li class='item' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
+        <div class="item-equip">
+          {{#if system.useequip}}
+          <label class="equip-toggle">
+            <input class="eq-change" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
+          </label>
+          {{/if}}
+        </div>
         <div class='item-name'>
           <div class='item-image'>
             <a class='rollable' data-roll-type='item'>
@@ -154,6 +168,13 @@
   {{#each tactics as |item id|}}
     <li class='item' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
+        <div class="item-equip">
+          {{#if system.useequip}}
+          <label class="equip-toggle">
+            <input class="eq-change" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
+          </label>
+          {{/if}}
+        </div>
         <div class='item-name'>
           <div class='item-image'>
             <a class='rollable' data-roll-type='item'>
@@ -229,6 +250,13 @@
   {{#each otherfeature as |item id|}}
     <li class='item' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
+        <div class="item-equip">
+          {{#if system.useequip}}
+          <label class="equip-toggle">
+            <input class="eq-change" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
+          </label>
+          {{/if}}
+        </div>
         <div class='item-name'>
           <div class='item-image'>
             <a class='rollable' data-roll-type='item'>

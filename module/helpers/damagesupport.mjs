@@ -237,4 +237,19 @@ export class DamageSupporter {
     result.total = total;
     return result;
   }
+  
+  static getWeaponAttributes(item) {
+    if (!item) return false;
+    let isWeapon = ["weapon", "armor", "accessory", "item"].includes(item.type);
+    if (item.type == "monsterability") {
+        if (
+          item.system.label1 == game.i18n.localize("SW25.Config.MonHit") &&
+          item.system.label2 == game.i18n.localize("SW25.Config.MonDmg") &&
+          item.system.label3 == game.i18n.localize("SW25.Config.MonDge") 
+        ) {
+          isWeapon = true;
+        }
+    }
+    return isWeapon;
+  }
 }
