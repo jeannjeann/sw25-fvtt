@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2.1.5
+- bug fix
+
 ## 2.1.4
 - bug fix
 

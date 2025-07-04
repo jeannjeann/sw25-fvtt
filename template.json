@@ -682,7 +682,7 @@
       "efallskmod": 0
     },
     "raceability": {
-      "templates": ["base"]
+      "templates": ["base", "roll"]
     },
     "language": {
       "templates": ["base"],
