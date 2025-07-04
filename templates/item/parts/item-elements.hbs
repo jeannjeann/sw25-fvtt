@@ -82,6 +82,10 @@
             <input class="checkbox--hidden" id="{{item._id}}system.elements.physical.blow" type="checkbox" name="system.elements.physical.blow" data-dtype="Boolean" {{#if system.elements.physical.blow}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
             <label class="checkbox--label" for="{{item._id}}system.elements.physical.blow">{{localize "SW25.Item.Weapon.Blow"}}</label>
           </div>
+          <div class="element-gun grid-span-2">
+            <input class="checkbox--hidden" id="{{item._id}}system.elements.physical.gun" type="checkbox" name="system.elements.physical.gun" data-dtype="Boolean" {{#if system.elements.physical.gun}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.elements.physical.gun">{{localize "SW25.Item.Weapon.Bullet"}}</label>
+          </div>
           <div class="element-mithril grid-span-2">
             <input class="checkbox--hidden" id="{{item._id}}system.elements.physical.mithril" type="checkbox" name="system.elements.physical.mithril" data-dtype="Boolean" {{#if system.elements.physical.mithril}} checked {{/if}}{{#unless system.isEdit}} disabled{{/unless}}/>
             <label class="checkbox--label" for="{{item._id}}system.elements.physical.mithril">{{localize "SW25.Item.Weapon.Mithril"}}</label>

@@ -363,7 +363,8 @@
         "Gun": "Gun",
         "Hit": "Acc.",
         "Dmod": "Add'l Dmg",
-        "Range": "Range"
+        "Range": "Range",
+        "Bullet": "Bullet"
       },
       "Armor": {
         "Dodge": "Eva.",
@@ -637,7 +638,7 @@
         "Timing": "Use timing",
         "Resource": "Resource Setting",
 
-        "PhysicalProp": "Physical Prop Setting",
+        "PhysicalProp": "Weapon Prop Setting",
         "Element": "Magic Prop Setting",
         "Check": "Check Setting",
         "Item": "Item Setting",
@@ -980,6 +981,7 @@
         "healing": "healing",
         "blade": "blade",
         "blow": "blow",
+        "gun": "bullet",
         "mithril": "mithril",
         "Damage": {
           "Details": "Details",

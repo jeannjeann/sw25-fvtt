@@ -68,6 +68,8 @@
   --spell-druid-color: 255, 230, 255;
   --spell-daemon-color: 255, 230, 255;
   --spell-abyssal-color: 255, 230, 255;
+
+  --sw25-font-modesto: "Modesto Condensed", "Palatino Linotype", serif;
 }
 
 /* Global styles */
@@ -2258,7 +2260,7 @@ body, .sw25cs__body__sidebar {
 
 	display: grid;
 	grid-template-areas:
-		"img name level"
+		"img title level"
 		"img overview overview"
     "img roll roll";
 	grid-template-rows: 75px 25px auto;
@@ -2313,9 +2315,24 @@ body, .sw25cs__body__sidebar {
   object-fit: contain; 
 }
 
-.sw25pc .header__name {
-	grid-area: name;
+.sw25pc .header__title {
+	grid-area: title;
   margin-top: 10px;
+  font-family: var(--sw25-font-modesto);
+}
+
+.sw25pc .header__title .header__title--name {
+  position: relative;
+  height: 50px;
+  padding: 0px 0px 0px 20px;
+  margin: 5px 0;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(var(--main-bg-color), 1);
+  border-right : solid 2px rgba(var(--main-text-color), 0.5) ;
+  border-bottom : solid 2px rgba(var(--main-text-color), 0.5) ;
+  border-radius: 30px 0 0 30px;
+  color: rgba(var(--main-text-color), 1);
+  background: linear-gradient(180deg, rgba(var(--main-bg-color), 1), rgba(var(--main-bg-color), 0.1));
 }
 
 .sw25pc .header__level {
@@ -2363,7 +2380,6 @@ body, .sw25cs__body__sidebar {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: black;
   font-size: 2.5rem;
   font-weight: bold;
   color: rgb(var(--main-bg-color));
@@ -3354,6 +3370,7 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
 }
 .el-blade,
 .el-blow,
+.el-gun,
 .el-mithril {
   background-color: rgba(230, 230, 255, 1);
 }

@@ -240,16 +240,26 @@ export class DamageSupporter {
   
   static getWeaponAttributes(item) {
     if (!item) return false;
-    let isWeapon = ["weapon", "armor", "accessory", "item"].includes(item.type);
+    let isWeapon = ["weapon"].includes(item.type);
+    
     if (item.type == "monsterability") {
         if (
-          item.system.label1 == game.i18n.localize("SW25.Config.MonHit") &&
-          item.system.label2 == game.i18n.localize("SW25.Config.MonDmg") &&
-          item.system.label3 == game.i18n.localize("SW25.Config.MonDge") 
+          item.system.label1 == game.i18n.localize("SW25.Config.MonDmg") ||
+          item.system.label2 == game.i18n.localize("SW25.Config.MonDmg") ||
+          item.system.label3 == game.i18n.localize("SW25.Config.MonDmg") 
         ) {
           isWeapon = true;
         }
     }
+
+    if (item.type != "weapon") {
+      if (item.system.elements?.physical?.blade == true ||
+        item.system.elements?.physical?.blow == true ||
+        item.system.elements?.physical?.gun == true){
+          isWeapon = true;
+        }
+    }
+
     return isWeapon;
   }
 }

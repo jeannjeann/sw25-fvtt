@@ -363,7 +363,8 @@
         "Gun": "ガン",
         "Hit": "命中",
         "Dmod": "追加D",
-        "Range": "射程"
+        "Range": "射程",
+        "Bullet": "弾丸"
       },
       "Armor": {
         "Dodge": "回避",
@@ -637,7 +638,7 @@
         "Timing": "使用タイミング",
         "Resource": "リソース設定",
 
-        "PhysicalProp": "物理属性設定",
+        "PhysicalProp": "武器属性設定",
         "Element": "魔法属性設定",
         "Check": "判定設定",
         "Item": "アイテム設定",
@@ -980,6 +981,7 @@
         "healing": "回復効果",
         "blade": "刃武器",
         "blow": "打撃武器",
+        "gun": "弾丸",
         "mithril": "銀製武器",
         "Damage": {
           "Details": "詳細を表示",

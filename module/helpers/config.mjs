@@ -524,6 +524,7 @@ SW25.Effect = {
     "attributes.damage.physical.element.magic.healing": "SW25.Item.Healing",
     "attributes.damage.physical.element.physical.blade": "SW25.Item.Weapon.Blade",
     "attributes.damage.physical.element.physical.blow": "SW25.Item.Weapon.Blow",
+    "attributes.damage.physical.element.physical.gun": "SW25.Item.Weapon.Bullet",
     "attributes.damage.physical.element.physical.mithril": "SW25.Item.Weapon.Mithril",
   },
   elementPdecay: {
@@ -543,6 +544,7 @@ SW25.Effect = {
     "attributes.decay.physical.element.magic.healing": "SW25.Item.Healing",
     "attributes.decay.physical.element.physical.blade": "SW25.Item.Weapon.Blade",
     "attributes.decay.physical.element.physical.blow": "SW25.Item.Weapon.Blow",
+    "attributes.decay.physical.element.physical.gun": "SW25.Item.Weapon.Bullet",
     "attributes.decay.physical.element.physical.mithril": "SW25.Item.Weapon.Mithril",
   },
   classMdamage: {
@@ -588,6 +590,7 @@ SW25.Effect = {
     "attributes.damage.magic.element.magic.healing": "SW25.Item.Healing",
     "attributes.damage.magic.element.physical.blade": "SW25.Item.Weapon.Blade",
     "attributes.damage.magic.element.physical.blow": "SW25.Item.Weapon.Blow",
+    "attributes.damage.magic.element.physical.gun": "SW25.Item.Weapon.Bullet",
     "attributes.damage.magic.element.physical.mithril": "SW25.Item.Weapon.Mithril",
   },
   elementMdecay: {
@@ -607,6 +610,7 @@ SW25.Effect = {
     "attributes.decay.magic.element.magic.healing": "SW25.Item.Healing",
     "attributes.decay.magic.element.physical.blade": "SW25.Item.Weapon.Blade",
     "attributes.decay.magic.element.physical.blow": "SW25.Item.Weapon.Blow",
+    "attributes.decay.magic.element.physical.gun": "SW25.Item.Weapon.Bullet",
     "attributes.decay.magic.element.physical.mithril": "SW25.Item.Weapon.Mithril",
   },
 };
