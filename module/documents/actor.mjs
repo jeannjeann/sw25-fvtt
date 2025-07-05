@@ -111,10 +111,17 @@ export class SW25Actor extends Actor {
       Number(systemData.mp.mpmod) +
       Number(systemData.mp.efmpmod);
     systemData.attributes.move.limited = 3;
+    systemData.armorDedicated = this.items.some(item =>
+      item.type === "armor" &&
+      item.system.equip === true &&
+      item.system.dedicated === true &&
+      (item.system.category === "nonmetalarmor" || item.system.category === "metalarmor")
+    );
     systemData.attributes.move.normal =
       Number(systemData.abilities.agi.value) +
       Number(systemData.attributes.move.movemod) +
-      Number(systemData.attributes.move.efmovemod);
+      Number(systemData.attributes.move.efmovemod) +
+      (systemData.armorDedicated ? 2 : 0);
     systemData.attributes.move.max =
       Number(systemData.attributes.move.normal) * 3;
     if (systemData.attributes.move.normal < 3) {
@@ -179,10 +186,28 @@ export class SW25Actor extends Actor {
     systemData.barempp = 0;
     systemData.baredreduce = 0;
     systemData.skillagidodge = 0;
+    systemData.shieldDedicated = this.items.some(item =>
+      item.type === "armor" &&
+      item.system.equip === true &&
+      item.system.dedicated === true &&
+      item.system.category === "shield"
+    );
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.dodgeskill) {
-          systemData.skillagidodge = Number(item.system.skillbase.aginef);
+          const dodgeAgimod = Math.floor(
+            (systemData.abilities.dex.racevalue +
+              systemData.abilities.agi.valuebase +
+              systemData.abilities.agi.valuegrowth +
+              systemData.abilities.agi.valuemodify +
+              systemData.abilities.agi.efvaluemodify +
+              (systemData.shieldDedicated ? 2 : 0)) /
+              6 +
+              Number(systemData.abilities.agi.efmodify)
+          );
+          systemData.skillagidodge = Number(item.system.skilllevel) +
+            Number(dodgeAgimod) +
+            Number(item.system.skillmod);
         }
       }
     });
@@ -233,7 +258,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.scskill) {
-          systemData.scbase = item.system.skillbase.intnef;
+          systemData.scbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -249,7 +274,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.cnskill) {
-          systemData.cnbase = item.system.skillbase.intnef;
+          systemData.cnbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -265,7 +290,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.wzskill) {
-          systemData.wzbase = item.system.skillbase.intnef;
+          systemData.wzbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -281,7 +306,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.prskill) {
-          systemData.prbase = item.system.skillbase.intnef;
+          systemData.prbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -297,7 +322,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.mtskill) {
-          systemData.mtbase = item.system.skillbase.intnef;
+          systemData.mtbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -313,7 +338,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.frskill) {
-          systemData.frbase = item.system.skillbase.intnef;
+          systemData.frbase = item.system.skillbase.invoke;
           let skillLevel = item.system.skilllevel ? item.system.skilllevel : 0;
 
           let fairyCount = 0;
@@ -366,7 +391,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.drskill) {
-          systemData.drbase = item.system.skillbase.intnef;
+          systemData.drbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -382,7 +407,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.dmskill) {
-          systemData.dmbase = item.system.skillbase.intnef;
+          systemData.dmbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -398,7 +423,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.abskill) {
-          systemData.abbase = item.system.skillbase.intnef;
+          systemData.abbase = item.system.skillbase.invoke;
         }
       }
     });

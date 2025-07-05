@@ -260,6 +260,10 @@ export class SW25Item extends Item {
       Number(systemData.efallskmod);
     systemData.skillbase.intnef =
       Number(systemData.skilllevel) +
+      Number(intmod) +
+      Number(systemData.skillmod);
+    systemData.skillbase.invoke =
+      Number(systemData.skilllevel) +
       Number(invokemod) +
       Number(systemData.skillmod);
     const mndmod = Math.floor(
