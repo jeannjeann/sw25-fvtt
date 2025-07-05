@@ -137,7 +137,13 @@ Hooks.once("init", function () {
  * migration hook.
  */
 Hooks.once("ready", async () => {
+
   if (game.user.isGM) {
+
+    // multiple GM treatment
+    const isActiveGM = game.user.isGM && game.user.id === game.users.activeGM?.id;
+    if (!isActiveGM) return;
+
     const currentVersion = game.system.version;
     const storedVersion = game.settings.get("sw25", "systemMigrationVersion");
 
@@ -968,6 +974,12 @@ Hooks.once("ready", async function () {
 
   // createActor hook
   Hooks.on("createActor", async (actor, options, userId) => {
+    if (!game.user.isGM) return;
+
+    // multiple GM treatment
+    const isActiveGM = game.user.isGM && game.user.id === game.users.activeGM?.id;
+    if (!isActiveGM) return;
+
     // Default item data
     let itemData = [];
     let resvit = false;
@@ -1123,6 +1135,10 @@ Hooks.once("ready", async function () {
   // Item update hook
   Hooks.on("updateItem", async (item, updateData, options, userId) => {
     if (!game.user.isGM) return;
+
+    // multiple GM treatment
+    const isActiveGM = game.user.isGM && game.user.id === game.users.activeGM?.id;
+    if (!isActiveGM) return;
 
     // Linking equip and effect
     if (updateData.system && updateData.system.hasOwnProperty("equip")) {
