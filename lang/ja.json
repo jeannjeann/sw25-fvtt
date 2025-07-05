@@ -249,6 +249,7 @@
       "MagicItem": "魔法のアイテム",
       "HonorItem": "名誉アイテム",
       "Selfbuff": "自己バフ",
+      "Invoker": "技能アイテム専用化",
       "Usepower": "威力表使用",
       "Usedice": "判定使用",
       "UseAmmunition": "矢弾消費",
