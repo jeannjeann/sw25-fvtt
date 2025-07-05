@@ -22,6 +22,7 @@ import { actionRoll } from "./helpers/actionroll.mjs";
 import { rollreq } from "./helpers/rollrequest.mjs";
 import { targetRollDialog, targetSelectDialog } from "./helpers/dialogs.mjs";
 import { preparePolyglot } from "./helpers/sw25languageprovider.mjs";
+import { Migrator } from "./helpers/migrator.mjs";
 
 // Export variable.
 export const rpt = {};
@@ -112,8 +113,47 @@ Hooks.once("init", function () {
     }
   );
 
+  // migration setting.
+  game.settings.register("sw25", "systemMigrationVersion", {
+    name: "System Migration Version",
+    scope: "world",
+    config: false,
+    type: String,
+    default: "0.0.0",
+  });
+
+  Actor.prototype.migrateSystemData = function (currentVersion, storedVersion) {
+    return Migrator.migrateActor(this, currentVersion, storedVersion);
+  };
+  Item.prototype.migrateSystemData = function (currentVersion, storedVersion) {
+    return Migrator.migrateItem(this, currentVersion, storedVersion);
+  };
+
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
+});
+
+/**
+ * migration hook.
+ */
+Hooks.once("ready", async () => {
+
+  if (game.user.isGM) {
+
+    // multiple GM treatment
+    const isActiveGM = game.user.isGM && game.user.id === game.users.activeGM?.id;
+    if (!isActiveGM) return;
+
+    const currentVersion = game.system.version;
+    const storedVersion = game.settings.get("sw25", "systemMigrationVersion");
+
+    if (Migrator.isVersionBefore(storedVersion, currentVersion)) {
+      ui.notifications.info(game.i18n.localize("SW25.StartMigration"));
+      await Migrator.migrateWorld(storedVersion, currentVersion);
+      await game.settings.set("sw25", "systemMigrationVersion", currentVersion);
+      ui.notifications.info(game.i18n.localize("SW25.CompleteMigration"));
+    }
+  }
 });
 
 /**
@@ -164,7 +204,7 @@ Hooks.on("updateCombat", async (combat, changes, options, userId) => {
       let label =
         actor.name + "(" + game.i18n.localize("SW25.TurnendEffect") + ")";
 
-      let chatData = {
+      let chatData = {  
         speaker: speaker,
         flavor: label,
         rollMode: rollMode,
@@ -317,6 +357,115 @@ Handlebars.registerHelper("localizePhasetype", function (phasetype) {
       return game.i18n.localize("SW25.Item.Phasearea.Jin");
   }
   return "-";
+});
+
+Handlebars.registerHelper("localizeStatus", function (ability) {
+  switch (ability) {
+    case "dex":
+      return game.i18n.localize("SW25.Ability.Dex.long");
+    case "agi":
+      return game.i18n.localize("SW25.Ability.Agi.long");
+    case "str":
+      return game.i18n.localize("SW25.Ability.Str.long");
+    case "vit":
+      return game.i18n.localize("SW25.Ability.Vit.long");
+    case "int":
+      return game.i18n.localize("SW25.Ability.Int.long");
+    case "mnd":
+      return game.i18n.localize("SW25.Ability.Mnd.long");
+  }
+  return "-";
+});
+
+Handlebars.registerHelper("localizeResistType", function (type, input) {
+  switch (type) {
+    case "Dodge":
+      return game.i18n.localize("SW25.Resist.Check.Dodge");
+    case "Vitres":
+      return game.i18n.localize("SW25.Resist.Check.Vitres");
+    case "Mndres":
+      return game.i18n.localize("SW25.Resist.Check.Mndres");
+    case "input":
+      return input;
+  }
+  return "-";
+});
+
+Handlebars.registerHelper("localizeResourceType", function (type) {
+  switch (type) {
+    case "none":
+      return game.i18n.localize("SW25.Item.Resource.Types.None");
+    case "note":
+      return game.i18n.localize("SW25.Item.Resource.Types.Note");
+    case "material":
+      return game.i18n.localize("SW25.Item.Resource.Types.Material");
+    case "lifeline":
+      return game.i18n.localize("SW25.Item.Resource.Types.Lifeline");
+    case "tacspower":
+      return game.i18n.localize("SW25.Item.Resource.Types.Tacspower");
+    case "magitech":
+      return game.i18n.localize("SW25.Item.Resource.Types.Magitech");
+    case "abyssex":
+      return game.i18n.localize("SW25.Item.Resource.Types.AbyssEx");
+  }
+  return "-";
+});
+
+Handlebars.registerHelper("backgroundStyleFromMaterialcards", function(system) {
+  const map = {
+    green: "rgb(var(--material-green-color))",
+    red: "rgb(var(--material-red-color))",
+    gold: "rgb(var(--material-gold-color))",
+    black: "rgb(var(--material-black-color))",
+    white: "rgb(var(--material-white-color))",
+  };
+
+  const colors = Object.entries(map)
+    .filter(([key]) => system[key])
+    .map(([, color]) => color);
+
+  if (colors.length === 1) {
+    return `background-color: ${colors[0]};`;
+  } else if (colors.length > 1) {
+    return `background: linear-gradient(90deg, ${colors.join(",")});`;
+  } else {
+    return "";
+  }
+});
+
+Handlebars.registerHelper("resistAttributes", function(type, resistinfo, hpresist) {
+  const info = resistinfo || {};
+  const resistHp = hpresist ?? false;
+
+  let resist = "";
+  let result = "";
+
+  if (info?.type) {
+    if (info.type === "input") {
+      resist = info.input ?? "";
+    } else {
+      resist = game.i18n.localize(`SW25.Resist.Check.${info.type}`);
+    }
+  } else {
+    if (type === "weapon") {
+      resist = game.i18n.localize("SW25.Resist.Check.Dodge");
+    } else if (type === "spell") {
+      resist = resistHp
+        ? game.i18n.localize("SW25.Resist.Check.Vitres")
+        : game.i18n.localize("SW25.Resist.Check.Mndres");
+    }
+  }
+
+  if (info.result) {
+    result = info.result;
+  }
+
+  let html = `data-resist="${resist}"`;
+  if (result) {
+    html += ` data-resistresult="${result}"`;
+  }
+
+  return new Handlebars.SafeString(html);
 });
 
 /* -------------------------------------------- */
@@ -665,7 +814,6 @@ Hooks.once("ready", async function () {
   const ptParser = new DOMParser();
   const ptHtmlString = ptPage.text.content;
   const ptDoc = ptParser.parseFromString(ptHtmlString, "text/html");
-
   const ptDivs = ptDoc.querySelectorAll("div.pt-item");
   let power = "";
 
@@ -792,7 +940,7 @@ Hooks.once("ready", async function () {
         displayBars = 0;
     }
 
-    if (actor._stats.compendiumSource || options._stats.compendiumSource) {
+    if (actor._stats?.compendiumSource || options._stats?.compendiumSource) {
       displayName = actor.prototypeToken.hasOwnProperty("displayName")
         ? actor.prototypeToken.displayName
         : displayName;
@@ -826,6 +974,12 @@ Hooks.once("ready", async function () {
 
   // createActor hook
   Hooks.on("createActor", async (actor, options, userId) => {
+    if (!game.user.isGM) return;
+
+    // multiple GM treatment
+    const isActiveGM = game.user.isGM && game.user.id === game.users.activeGM?.id;
+    if (!isActiveGM) return;
+
     // Default item data
     let itemData = [];
     let resvit = false;
@@ -981,6 +1135,10 @@ Hooks.once("ready", async function () {
   // Item update hook
   Hooks.on("updateItem", async (item, updateData, options, userId) => {
     if (!game.user.isGM) return;
+
+    // multiple GM treatment
+    const isActiveGM = game.user.isGM && game.user.id === game.users.activeGM?.id;
+    if (!isActiveGM) return;
 
     // Linking equip and effect
     if (updateData.system && updateData.system.hasOwnProperty("equip")) {

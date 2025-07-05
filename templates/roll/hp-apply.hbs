@@ -9,7 +9,12 @@
 {{/if}}
 <div class="flexrow flex-group-center grid grid-4col nogapmargin">
     <div class="grid-span-3" style="text-align: center;">
+    {{#if isView}}
         HP<span style="color: #862020; font-weight: bold; font-size: 1.5em;"> {{targetHP}}</span>
         >>><span style="color: #862020; font-weight: bold; font-size: 1.5em;"> {{resultHP}}</span>
+    {{/if}}
+    </div>
+    <div>
+        <button style="font-size: 0.8em;" class="buttonclick" data-buttontype="buttonhpcancel"><span style="color: #0f6f0f;"><i class="fa-solid fa-arrow-rotate-left"></i></span>{{localize "SW25.Item.Spell.Cancel"}}</button>
     </div>
 </div>

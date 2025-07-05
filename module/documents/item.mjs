@@ -1,5 +1,7 @@
 import { powerRoll } from "../helpers/powerroll.mjs";
 import { mpCost, hpCost } from "../helpers/mpcost.mjs";
+import { DamageSupporter } from "../helpers/damagesupport.mjs";
+
 import {
   effectVitResPC,
   effectMndResPC,
@@ -241,6 +243,16 @@ export class SW25Item extends Item {
         6 +
         Number(actorData.abilities.int.efmodify)
     );
+    const invokemod = Math.floor(
+      (actorData.abilities.int.racevalue +
+        actorData.abilities.int.valuebase +
+        actorData.abilities.int.valuegrowth +
+        actorData.abilities.int.valuemodify +
+        actorData.abilities.int.efvaluemodify + 
+        (systemData.dedicated ? 2 : 0)) /
+        6 +
+        Number(actorData.abilities.int.efmodify)
+    );
     systemData.skillbase.int =
       Number(systemData.skilllevel) +
       Number(intmod) +
@@ -249,6 +261,10 @@ export class SW25Item extends Item {
     systemData.skillbase.intnef =
       Number(systemData.skilllevel) +
       Number(intmod) +
+      Number(systemData.skillmod);
+    systemData.skillbase.invoke =
+      Number(systemData.skilllevel) +
+      Number(invokemod) +
       Number(systemData.skillmod);
     const mndmod = Math.floor(
       (actorData.abilities.int.racevalue +
@@ -397,18 +413,26 @@ export class SW25Item extends Item {
         case effectVitResPC:
           if (actorData.effect.vitres)
             systemData.efckmod = Number(actorData.effect.vitres);
+          else 
+            systemData.efckmod = 0;
           break;
         case effectMndResPC:
           if (actorData.effect.mndres)
             systemData.efckmod = Number(actorData.effect.mndres);
+          else 
+            systemData.efckmod = 0;
           break;
         case effectInitPC:
           if (actorData.effect.init)
             systemData.efckmod = Number(actorData.effect.init);
+          else 
+            systemData.efckmod = 0;
           break;
         case effectMKnowPC:
           if (actorData.effect.mknow)
             systemData.efckmod = Number(actorData.effect.mknow);
+          else 
+            systemData.efckmod = 0;
           break;
         default:
           systemData.efckmod = 0;
@@ -434,8 +458,9 @@ export class SW25Item extends Item {
           ? Number(actorData.effect.package?.know)
           : 0;
       }
+      systemData.efckmod += Number(actorData.effect.checkinputmod?.[itemData.name] ?? 0);
     }
-
+    
     systemData.checkbase =
       Number(systemData.checkmod) +
       Number(systemData.checkfixmod) +
@@ -463,7 +488,11 @@ export class SW25Item extends Item {
     }
 
     // Roll Setting
-    if (systemData.checkmethod == "normal") systemData.formula = "2d6";
+    if (systemData.checkmethod == "normal"){
+      systemData.formula = "2d6";
+      if (systemData.customdice == true)
+        systemData.formula = systemData.customformula;
+    }
     if (systemData.checkmethod == "dice")
       systemData.formula = systemData.customformula;
     if (systemData.checkmethod == "power") {
@@ -496,6 +525,9 @@ export class SW25Item extends Item {
     else pharmtool = systemData.pharmtool;
     if (systemData.powup == null || systemData.powup == 0) powup = 0;
     else powup = systemData.powup;
+    
+    let powmod = actorData?.attributes?.powertablemod?.[itemData.type] || 0;
+    powmod += Number(actorData.attributes?.powertablemod?.all) || 0;
 
     systemData.powertable = [
       systemData.power,
@@ -518,6 +550,7 @@ export class SW25Item extends Item {
       criticalray,
       pharmtool,
       powup,
+      powmod,
     ];
 
     // Sheet refresh
@@ -577,11 +610,17 @@ export class SW25Item extends Item {
       systemData.skilllist = [];
     }
 
+    const isSkillItem = ["spell", "magicalsong", "alchemytech"].includes(this.type);;
     let checklevelmod = 0;
     let checklevelmod1 = 0;
     let checklevelmod2 = 0;
     let checklevelmod3 = 0;
     let powerlevelmod = 0;
+    let checkDedicated = false;
+    let checkDedicated1 = false;
+    let checkDedicated2 = false;
+    let checkDedicated3 = false;
+    let powerDedicated = false;
     actoritemData.forEach((item) => {
       if (item.type != "skill") return;
       if (!systemData.skilllist.includes(item)) {
@@ -599,6 +638,7 @@ export class SW25Item extends Item {
       }
       if (systemData.checkskill == item.name) {
         checklevelmod = Number(item.system.skilllevel);
+        checkDedicated = isSkillItem && item.system.dedicated;
       }
       if (systemData.checkskill1 == "adv") {
         if (
@@ -612,6 +652,7 @@ export class SW25Item extends Item {
       }
       if (systemData.checkskill1 == item.name) {
         checklevelmod1 = Number(item.system.skilllevel);
+        checkDedicated1 = isSkillItem && item.system.dedicated;
       }
       if (systemData.checkskill2 == "adv") {
         if (
@@ -625,6 +666,7 @@ export class SW25Item extends Item {
       }
       if (systemData.checkskill2 == item.name) {
         checklevelmod2 = Number(item.system.skilllevel);
+        checkDedicated2 = isSkillItem && item.system.dedicated;
       }
       if (systemData.checkskill3 == "adv") {
         if (
@@ -638,6 +680,7 @@ export class SW25Item extends Item {
       }
       if (systemData.checkskill3 == item.name) {
         checklevelmod3 = Number(item.system.skilllevel);
+        checkDedicated3 = isSkillItem && item.system.dedicated;
       }
       if (systemData.powerskill == "adv") {
         if (
@@ -651,8 +694,23 @@ export class SW25Item extends Item {
       }
       if (systemData.powerskill == item.name) {
         powerlevelmod = Number(item.system.skilllevel);
+        powerDedicated = isSkillItem && item.system.dedicated;
       }
     });
+
+    if (itemData.actor?.type === "monster") {
+      let monlevel = Number(actorData.monlevel);
+      if (systemData.checkskill == "adv")
+        checklevelmod = monlevel;
+      if (systemData.checkskill1 == "adv")
+        checklevelmod1 = monlevel;
+      if (systemData.checkskill2 == "adv")
+        checklevelmod2 = monlevel;
+      if (systemData.checkskill3 == "adv")
+        checklevelmod3 = monlevel;
+      if (systemData.powerskill == "adv")
+        powerlevelmod = monlevel;
+    }
 
     if (!Array.isArray(systemData.itemlist)) {
       systemData.itemlist = [];
@@ -690,7 +748,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.dex?.valuegrowth ?? 0) +
             (actorData.abilities?.dex?.valuemodify ?? 0) +
             (actorData.abilities?.dex?.efvaluemodify ?? 0) +
-            dedicatedDex) /
+            dedicatedDex +
+            (checkDedicated ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.dex?.efmodify ?? 0)
         );
@@ -700,7 +759,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.agi?.valuebase ?? 0) +
             (actorData.abilities?.agi?.valuegrowth ?? 0) +
             (actorData.abilities?.agi?.valuemodify ?? 0) +
-            (actorData.abilities?.agi?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.agi?.efvaluemodify ?? 0) +
+            (checkDedicated ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.agi?.efmodify ?? 0)
         );
@@ -710,7 +770,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.str?.valuebase ?? 0) +
             (actorData.abilities?.str?.valuegrowth ?? 0) +
             (actorData.abilities?.str?.valuemodify ?? 0) +
-            (actorData.abilities?.str?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.str?.efvaluemodify ?? 0) +
+            (checkDedicated ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.str?.efmodify ?? 0)
         );
@@ -720,7 +781,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.vit?.valuebase ?? 0) +
             (actorData.abilities?.vit?.valuegrowth ?? 0) +
             (actorData.abilities?.vit?.valuemodify ?? 0) +
-            (actorData.abilities?.vit?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.vit?.efvaluemodify ?? 0) +
+            (checkDedicated ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.vit?.efmodify ?? 0)
         );
@@ -730,7 +792,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.int?.valuebase ?? 0) +
             (actorData.abilities?.int?.valuegrowth ?? 0) +
             (actorData.abilities?.int?.valuemodify ?? 0) +
-            (actorData.abilities?.int?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.int?.efvaluemodify ?? 0) +
+            (checkDedicated ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.int?.efmodify ?? 0)
         );
@@ -740,7 +803,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.mnd?.valuebase ?? 0) +
             (actorData.abilities?.mnd?.valuegrowth ?? 0) +
             (actorData.abilities?.mnd?.valuemodify ?? 0) +
-            (actorData.abilities?.mnd?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.mnd?.efvaluemodify ?? 0) +
+            (checkDedicated ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.mnd?.efmodify ?? 0)
         );
@@ -750,7 +814,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.dex?.valuebase ?? 0) +
             (actorData.abilities?.dex?.valuegrowth ?? 0) +
             (actorData.abilities?.dex?.valuemodify ?? 0) +
-            (actorData.abilities?.dex?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.dex?.efvaluemodify ?? 0) +
+            (powerDedicated ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.dex?.efmodify ?? 0)
         );
@@ -760,7 +825,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.agi?.valuebase ?? 0) +
             (actorData.abilities?.agi?.valuegrowth ?? 0) +
             (actorData.abilities?.agi?.valuemodify ?? 0) +
-            (actorData.abilities?.agi?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.agi?.efvaluemodify ?? 0) +
+            (powerDedicated ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.agi?.efmodify ?? 0)
         );
@@ -770,7 +836,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.str?.valuebase ?? 0) +
             (actorData.abilities?.str?.valuegrowth ?? 0) +
             (actorData.abilities?.str?.valuemodify ?? 0) +
-            (actorData.abilities?.str?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.str?.efvaluemodify ?? 0) +
+            (powerDedicated ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.str?.efmodify ?? 0)
         );
@@ -780,7 +847,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.vit?.valuebase ?? 0) +
             (actorData.abilities?.vit?.valuegrowth ?? 0) +
             (actorData.abilities?.vit?.valuemodify ?? 0) +
-            (actorData.abilities?.vit?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.vit?.efvaluemodify ?? 0) +
+            (powerDedicated ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.vit?.efmodify ?? 0)
         );
@@ -790,7 +858,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.int?.valuebase ?? 0) +
             (actorData.abilities?.int?.valuegrowth ?? 0) +
             (actorData.abilities?.int?.valuemodify ?? 0) +
-            (actorData.abilities?.int?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.int?.efvaluemodify ?? 0) +
+            (powerDedicated ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.int?.efmodify ?? 0)
         );
@@ -800,7 +869,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.mnd?.valuebase ?? 0) +
             (actorData.abilities?.mnd?.valuegrowth ?? 0) +
             (actorData.abilities?.mnd?.valuemodify ?? 0) +
-            (actorData.abilities?.mnd?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.mnd?.efvaluemodify ?? 0) +
+            (powerDedicated ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.mnd?.efmodify ?? 0)
         );
@@ -816,7 +886,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.dex?.valuebase ?? 0) +
             (actorData.abilities?.dex?.valuegrowth ?? 0) +
             (actorData.abilities?.dex?.valuemodify ?? 0) +
-            (actorData.abilities?.dex?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.dex?.efvaluemodify ?? 0) +
+            (checkDedicated1 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.dex?.efmodify ?? 0)
         );
@@ -826,7 +897,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.agi?.valuebase ?? 0) +
             (actorData.abilities?.agi?.valuegrowth ?? 0) +
             (actorData.abilities?.agi?.valuemodify ?? 0) +
-            (actorData.abilities?.agi?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.agi?.efvaluemodify ?? 0) +
+            (checkDedicated1 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.agi?.efmodify ?? 0)
         );
@@ -836,7 +908,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.str?.valuebase ?? 0) +
             (actorData.abilities?.str?.valuegrowth ?? 0) +
             (actorData.abilities?.str?.valuemodify ?? 0) +
-            (actorData.abilities?.str?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.str?.efvaluemodify ?? 0) +
+            (checkDedicated1 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.str?.efmodify ?? 0)
         );
@@ -846,7 +919,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.vit?.valuebase ?? 0) +
             (actorData.abilities?.vit?.valuegrowth ?? 0) +
             (actorData.abilities?.vit?.valuemodify ?? 0) +
-            (actorData.abilities?.vit?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.vit?.efvaluemodify ?? 0) +
+            (checkDedicated1 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.vit?.efmodify ?? 0)
         );
@@ -856,7 +930,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.int?.valuebase ?? 0) +
             (actorData.abilities?.int?.valuegrowth ?? 0) +
             (actorData.abilities?.int?.valuemodify ?? 0) +
-            (actorData.abilities?.int?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.int?.efvaluemodify ?? 0) +
+            (checkDedicated1 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.int?.efmodify ?? 0)
         );
@@ -866,7 +941,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.mnd?.valuebase ?? 0) +
             (actorData.abilities?.mnd?.valuegrowth ?? 0) +
             (actorData.abilities?.mnd?.valuemodify ?? 0) +
-            (actorData.abilities?.mnd?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.mnd?.efvaluemodify ?? 0) +
+            (checkDedicated1 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.mnd?.efmodify ?? 0)
         );
@@ -876,7 +952,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.dex?.valuebase ?? 0) +
             (actorData.abilities?.dex?.valuegrowth ?? 0) +
             (actorData.abilities?.dex?.valuemodify ?? 0) +
-            (actorData.abilities?.dex?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.dex?.efvaluemodify ?? 0) +
+            (checkDedicated2 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.dex?.efmodify ?? 0)
         );
@@ -886,7 +963,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.agi?.valuebase ?? 0) +
             (actorData.abilities?.agi?.valuegrowth ?? 0) +
             (actorData.abilities?.agi?.valuemodify ?? 0) +
-            (actorData.abilities?.agi?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.agi?.efvaluemodify ?? 0) +
+            (checkDedicated2 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.agi?.efmodify ?? 0)
         );
@@ -896,7 +974,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.str?.valuebase ?? 0) +
             (actorData.abilities?.str?.valuegrowth ?? 0) +
             (actorData.abilities?.str?.valuemodify ?? 0) +
-            (actorData.abilities?.str?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.str?.efvaluemodify ?? 0) +
+            (checkDedicated2 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.str?.efmodify ?? 0)
         );
@@ -906,7 +985,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.vit?.valuebase ?? 0) +
             (actorData.abilities?.vit?.valuegrowth ?? 0) +
             (actorData.abilities?.vit?.valuemodify ?? 0) +
-            (actorData.abilities?.vit?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.vit?.efvaluemodify ?? 0) +
+            (checkDedicated2 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.vit?.efmodify ?? 0)
         );
@@ -916,7 +996,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.int?.valuebase ?? 0) +
             (actorData.abilities?.int?.valuegrowth ?? 0) +
             (actorData.abilities?.int?.valuemodify ?? 0) +
-            (actorData.abilities?.int?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.int?.efvaluemodify ?? 0) +
+            (checkDedicated2 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.int?.efmodify ?? 0)
         );
@@ -926,7 +1007,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.mnd?.valuebase ?? 0) +
             (actorData.abilities?.mnd?.valuegrowth ?? 0) +
             (actorData.abilities?.mnd?.valuemodify ?? 0) +
-            (actorData.abilities?.mnd?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.mnd?.efvaluemodify ?? 0) +
+            (checkDedicated2 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.mnd?.efmodify ?? 0)
         );
@@ -936,7 +1018,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.dex?.valuebase ?? 0) +
             (actorData.abilities?.dex?.valuegrowth ?? 0) +
             (actorData.abilities?.dex?.valuemodify ?? 0) +
-            (actorData.abilities?.dex?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.dex?.efvaluemodify ?? 0) +
+            (checkDedicated3 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.dex?.efmodify ?? 0)
         );
@@ -946,7 +1029,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.agi?.valuebase ?? 0) +
             (actorData.abilities?.agi?.valuegrowth ?? 0) +
             (actorData.abilities?.agi?.valuemodify ?? 0) +
-            (actorData.abilities?.agi?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.agi?.efvaluemodify ?? 0) +
+            (checkDedicated3 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.agi?.efmodify ?? 0)
         );
@@ -956,7 +1040,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.str?.valuebase ?? 0) +
             (actorData.abilities?.str?.valuegrowth ?? 0) +
             (actorData.abilities?.str?.valuemodify ?? 0) +
-            (actorData.abilities?.str?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.str?.efvaluemodify ?? 0) +
+            (checkDedicated3 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.str?.efmodify ?? 0)
         );
@@ -966,7 +1051,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.vit?.valuebase ?? 0) +
             (actorData.abilities?.vit?.valuegrowth ?? 0) +
             (actorData.abilities?.vit?.valuemodify ?? 0) +
-            (actorData.abilities?.vit?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.vit?.efvaluemodify ?? 0) +
+            (checkDedicated3 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.vit?.efmodify ?? 0)
         );
@@ -976,7 +1062,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.int?.valuebase ?? 0) +
             (actorData.abilities?.int?.valuegrowth ?? 0) +
             (actorData.abilities?.int?.valuemodify ?? 0) +
-            (actorData.abilities?.int?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.int?.efvaluemodify ?? 0) +
+            (checkDedicated3 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.int?.efmodify ?? 0)
         );
@@ -986,7 +1073,8 @@ export class SW25Item extends Item {
             (actorData.abilities?.mnd?.valuebase ?? 0) +
             (actorData.abilities?.mnd?.valuegrowth ?? 0) +
             (actorData.abilities?.mnd?.valuemodify ?? 0) +
-            (actorData.abilities?.mnd?.efvaluemodify ?? 0)) /
+            (actorData.abilities?.mnd?.efvaluemodify ?? 0) +
+            (checkDedicated3 ? 2 : 0)) /
             6 +
             Number(actorData.abilities?.mnd?.efmodify ?? 0)
         );
@@ -1000,20 +1088,20 @@ export class SW25Item extends Item {
     systemData.checkbase1 =
       Number(systemData.checkbasemod1) +
       Number(systemData.checkmod1) +
-      Number(checklevelmod1) +
-      Number(checkabimod1);
+      Number(checklevelmod1 ?? 0) +
+      Number(checkabimod1 ?? 0);
     systemData.checkbasefix1 = Number(systemData.checkbase1) + 7;
     systemData.checkbase2 =
       Number(systemData.checkbasemod2) +
       Number(systemData.checkmod2) +
-      Number(checklevelmod2) +
-      Number(checkabimod2);
+      Number(checklevelmod2 ?? 0) +
+      Number(checkabimod2 ?? 0);
     systemData.checkbasefix2 = Number(systemData.checkbase2) + 7;
     systemData.checkbase3 =
       Number(systemData.checkbasemod3) +
       Number(systemData.checkmod3) +
-      Number(checklevelmod3) +
-      Number(checkabimod3);
+      Number(checklevelmod3 ?? 0) +
+      Number(checkabimod3 ?? 0);
     systemData.checkbasefix3 = Number(systemData.checkbase3) + 7;
 
     // prepare apply button
@@ -1059,6 +1147,7 @@ export class SW25Item extends Item {
     }
 
     if (itemData.type == "raceability") {
+      systemData.hpcost = systemData.basehpcost;
       const result =
         Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
       systemData.mpcost =
@@ -1100,6 +1189,7 @@ export class SW25Item extends Item {
       systemData.powerbase =
         Number(systemData.powerbase) + Number(systemData.efallmgpmod);
 
+      systemData.hpcost = systemData.basehpcost;
       switch (systemData.type) {
         case "sorcerer":
           systemData.checkbase =
@@ -1296,6 +1386,7 @@ export class SW25Item extends Item {
     }
 
     if (itemData.type == "barbarousskill") {
+      systemData.hpcost = systemData.basehpcost;
       systemData.mpcost = Number(systemData.basempcost);
     }
 
@@ -1308,6 +1399,7 @@ export class SW25Item extends Item {
     }
 
     if (itemData.type == "otherfeature") {
+      systemData.hpcost = systemData.basehpcost;
       systemData.mpcost =
         Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
       if (systemData.mpcost < 1) systemData.mpcost = 1;
@@ -1497,15 +1589,15 @@ export class SW25Item extends Item {
         switch (i) {
           case 1:
             systemData.checkbase1 +=
-              Number(checklevelmod1) + Number(checkabimod1);
+              Number(checklevelmod1 ?? 0) + Number(checkabimod1 ?? 0);
             break;
           case 2:
             systemData.checkbase2 +=
-              Number(checklevelmod2) + Number(checkabimod2);
+              Number(checklevelmod2 ?? 0) + Number(checkabimod2 ?? 0);
             break;
           case 3:
             systemData.checkbase3 +=
-              Number(checklevelmod3) + Number(checkabimod3);
+              Number(checklevelmod3 ?? 0) + Number(checkabimod3 ?? 0);
             break;
         }
         systemData[`checkbasefix${i}`] =
@@ -1598,6 +1690,7 @@ export class SW25Item extends Item {
           Number(powerabimod) +
           Number(systemData.efmod);
       }
+      systemData.hpcost = systemData.basehpcost;
       const result =
         Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
       systemData.mpcost =
@@ -1712,6 +1805,9 @@ export class SW25Item extends Item {
     else pharmtool = systemData.pharmtool;
     if (systemData.powup == null || systemData.powup == 0) powup = 0;
     else powup = systemData.powup;
+    
+    let powmod = actorData.attributes?.powertablemod?.[itemData.type] || 0;
+    powmod += Number(actorData.attributes?.powertablemod?.all) || 0;
 
     systemData.powertable = [
       systemData.power,
@@ -1734,6 +1830,7 @@ export class SW25Item extends Item {
       criticalray,
       pharmtool,
       powup,
+      powmod,
     ];
 
     // Sheet refresh
@@ -1749,8 +1846,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-    const actorData = itemData.actor.system;
-    const actoritemData = itemData.actor.items;
     systemData.typename = 
       (systemData.type != "" && systemData.type != null)
         ? game.i18n.localize(`SW25.Item.Item.${systemData.type.capitalize()}`)
@@ -1798,8 +1893,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-    const actorData = itemData.actor.system;
-    const actoritemData = itemData.actor.items;
 
     // Quantity limit
     if (systemData.qmax || systemData.qmax == 0) {
@@ -1955,11 +2048,6 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
-
     systemData.accpartname = 
       (systemData.accpart != "" && systemData.accpart != null)
         ? game.i18n.localize(`SW25.Item.Accessory.${systemData.accpart.capitalize()}`)
@@ -1975,11 +2063,6 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
-
     systemData.categoryname = 
       (systemData.category != "" && systemData.category != null)
         ? game.i18n.localize(`SW25.Item.Armor.${systemData.category.capitalize()}`)
@@ -1991,11 +2074,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
 
     systemData.typename = 
       (systemData.type != "" && systemData.type != null)
@@ -2030,11 +2108,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
 
     systemData.typename = 
       (systemData.type != "" && systemData.type != null)
@@ -2073,11 +2146,6 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
-
     systemData.resistname = 
       (systemData.resist != "" && systemData.resist != null)
         ? game.i18n.localize(`SW25.Item.${systemData.resist.capitalize()}`)
@@ -2095,11 +2163,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
 
     systemData.typename = 
       (systemData.type != "" && systemData.type != null)
@@ -2121,11 +2184,6 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
-
     systemData.typename = 
       (systemData.type != "" && systemData.type != null)
         ? game.i18n.localize(`SW25.Item.Tactics.${systemData.type.capitalize()}`)
@@ -2144,11 +2202,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
 
     systemData.resistname = 
       (systemData.resist != "" && systemData.resist != null)
@@ -2297,11 +2350,6 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-
-    if (itemData.actor !== null) {
-      const actorData = itemData.actor.system;
-      const actoritemData = itemData.actor.items;
-    }
 
     // result setting
     switch (systemData.actiondice) {
@@ -2482,7 +2530,7 @@ export class SW25Item extends Item {
   }
   async rollExec(targetTokens) {
     const item = this;
-
+    const actor = this.actor || null;
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     const rollMode = game.settings.get("core", "rollMode");
@@ -2650,6 +2698,13 @@ export class SW25Item extends Item {
         targetName = targetName + ``;
       }
 
+      // element tags.
+      const elements = this.system.elements;
+      const damage = actor ? actor.system.attributes.damage : null;
+      const classType = actor ? actor.system.classType : null;
+      const isWeapon = DamageSupporter.getWeaponAttributes(this);
+      const tags = DamageSupporter.createChatTag(elements, damage, classType, isWeapon);
+
       chatData.flags = {
         sw25: {
           total: chatTotal,
@@ -2661,6 +2716,9 @@ export class SW25Item extends Item {
           checktype: checktype,
           target,
           targetName: targetName,
+          elements: elements,
+          damage: damage,
+          tags: tags,
         }
       };
 
@@ -2675,6 +2733,7 @@ export class SW25Item extends Item {
           apply: chatapply,
           checktype: checktype,
           targetName: targetName,
+          tags: tags,
         }
       );
 
@@ -2776,6 +2835,13 @@ export class SW25Item extends Item {
         targetName = targetName + ``;
       }
 
+      // element tags.
+      const elements = this.system.elements;
+      const damage = actor ? actor.system.attributes.damage : null;
+      const classType = actor ? actor.system.classType : null;
+      const isWeapon = DamageSupporter.getWeaponAttributes(this);
+      const tags = DamageSupporter.createChatTag(elements, damage, classType, isWeapon);
+
       chatData.flags = {
         sw25: {
           formula: chatFormula,
@@ -2802,6 +2868,9 @@ export class SW25Item extends Item {
           powertype: powertype,
           target,
           targetName: targetName,
+          elements: elements,
+          damage: damage,
+          tags: tags,
         }
       };
 
@@ -2827,6 +2896,7 @@ export class SW25Item extends Item {
           apply: chatapply,
           powertype: powertype,
           targetName: targetName,
+          tags: tags,
         }
       );
 

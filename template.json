@@ -272,7 +272,18 @@
       "lt": 0,
       "cr": 0,
       "lootmod": 0,
-      "eflootmod": 0
+      "eflootmod": 0,
+      "color": {
+        "main": {
+          "bg": "#000000",
+          "text": "#ffffff"
+        },
+        "sub": {
+          "bg": "#efe6d8",
+          "text": "#000000"
+        }
+      },
+      "class": "Human"
     },
     "npc": {
       "templates": ["base", "fellow"],

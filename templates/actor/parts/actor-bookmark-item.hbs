@@ -1,0 +1,169 @@
+<li class="bookmark__item item" data-item-id='{{item._id}}'>
+<section class="bookmark__item-display tooltip {{item.type}}{{#if (eq item.type "spell")}}-{{item.system.type}}{{/if}}-display">
+
+  {{!-- label setting --}}
+  <div class="bookmark__item-display--label">
+    {{item.name}}
+  </div>
+
+  {{!-- item image --}}
+  <div class='bookmark__item-display--image'>
+    <a class='rollable' data-roll-type='item'>
+      <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
+    </a>
+  </div>
+
+  {{!-- resource area --}}
+  <div class="bookmark__item-display--resource">
+    {{#if system.hpcost}}
+      <span class='hpcost' data-cost="{{item.system.hpcost}}" data-max="{{item.system.maxhpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
+        HP:{{system.hpcost}}{{#if system.maxhpcost}} ({{system.maxhpcost}}){{/if}}
+      </span>
+    {{/if}}
+
+    {{#if system.mpcost}}
+      <span class='mpcost' data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
+        MP:{{system.mpcost}}
+      </span>
+    {{/if}}
+
+    {{#if (eq type "magicalsong")}}
+      <div class='flexrow flex-group-center'>
+      {{#if (eq system.type "song")}}
+        <div class="notesget">{{#unless (eq system.upget 0)}}<i class="fa-solid fa-arrow-turn-up"></i>{{system.upget}}{{/unless}}{{#unless (eq system.downget 0)}}<i class="fa-solid fa-arrow-turn-down"></i>{{system.downget}}{{/unless}}{{#unless (eq system.charmget 0)}}<i class="fa-regular fa-heart"></i>{{system.charmget}}{{/unless}}</div>
+        <div class="notesaddget" style="flex-glow: 2; white-space:nowrap;">{{#unless (eq system.upadd 0)}}<i class="fa-solid fa-arrow-turn-up"></i>{{system.upadd}}{{/unless}}{{#unless (eq system.downadd 0)}}<i class="fa-solid fa-arrow-turn-down"></i>{{system.downadd}}{{/unless}}{{#unless (eq system.charmadd 0)}}<i class="fa-regular fa-heart"></i>{{system.charmadd}}{{/unless}}({{system.singpoint}})</div>
+      {{/if}}
+      {{#if (eq system.type "final")}}
+        <div class="notescost">{{#unless (eq system.upcost 0)}}<i class="fa-solid fa-arrow-turn-up"></i>{{system.upcost}}{{/unless}}{{#unless (eq system.downcost 0)}}<i class="fa-solid fa-arrow-turn-down"></i>{{system.downcost}}{{/unless}}{{#unless (eq system.charmcost 0)}}<i class="fa-regular fa-heart"></i>{{system.charmcost}}{{/unless}}</div>
+      {{/if}}
+      </div>
+    {{/if}}
+
+    {{#if (eq type "alchemytech")}}
+      <div class='flexrow flex-group-center' style="{{backgroundStyleFromMaterialcards system}}">
+        <div class="materialcardcost">B</div>
+        <div class="materialcardcost">A</div>
+        <div class="materialcardcost">S</div>
+        <div class="materialcardcost">SS</div>
+      </div>
+    {{/if}}
+
+    {{#if (eq type "phasearea")}}
+      <div class='flexrow flex-group-center'>
+        {{system.typename}} : {{system.mincost}}{{#unless (eq system.maxcost 0)}} - {{system.maxcost}}{{/unless}}
+      </div>
+    {{/if}}
+
+    {{#if (eq type "tactics")}}
+      <div class='flexrow flex-group-center'>
+        {{#if system.get}}<div class="tacspowerget">+{{system.get}}</div>{{/if}}
+        {{#if system.cost}}<div class="tacspowercost">-{{system.cost}}</div>{{/if}}
+      </div>
+    {{/if}}
+
+    {{#if (eq type "resource")}}
+      <div class='flexrow flex-group-center'>
+        {{system.quantity}}{{#if system.qmax}} / {{system.qmax}}{{/if}}
+      </div>
+    {{/if}}
+
+    {{#if (eq type "check")}}
+      <div class='item-checkmod'>
+        <label class="mod-label"><i class="fa-solid fa-angles-up"></i></label>
+        <input class="cm-change" style="max-width: 60%; height: 1.5em;" type="text" name="checkmodInput" value="{{item.system.checkmod}}" data-dtype="Number"/>
+      </div>
+    {{/if}}
+    
+    {{#if (eq type "skill")}}
+      <div class='item-checkmod'>
+        L{{item.system.skilllevel}}
+        <label class="mod-label"><i class="fa-solid fa-angles-up"></i></label>
+        <input class="sc-change" style="max-width: 30%; height: 1.5em;" type="text" name="skillModInput" value="{{item.system.skillmod}}" data-dtype="Number"/>
+      </div>
+    {{/if}}
+  </div>
+
+  {{!-- contents area --}}
+  <div class="bookmark__item-display--contents">
+  {{#if system.usedice}}
+    <div class="item-button rollable usedice" data-roll="{{item.system.checkformula}}+{{item.system.checkbase}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.resistinfo system.hpresist}}>
+      <i class="fa-solid fa-dice"></i>
+    </div>
+  {{/if}}
+
+  {{#if system.usepower}}
+    <div class="item-button powerrollable usepower" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{localize "SW25.Item.Power"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}" data-powertype="{{system.powerTypesButton}}">
+      <i class="fa-solid fa-meteor"></i>
+    </div>
+  {{/if}}
+
+  {{#if system.useeffect}}
+    <div class="item-button applyeffect useeffect">
+      <i class="fa-solid fa-hand-sparkles"></i>
+    </div>
+  {{/if}}
+
+  {{#if (eq type "phasearea")}}
+    <div class="item-button usephasearea">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+    </div>
+  {{/if}}
+
+
+  {{#if (eq type "resource")}}
+    <div class='item-quantity item-prop flexrow flex-group-center' style="flex-shrink:0; flex-basis: 40px;">
+      <a class="quantity-button" data-action="decrease" data-property="item.system.quantity">
+        <i class="fas fa-minus"></i>
+      </a>
+      <input class="qt-change" type="text" name="quantityInput" value="{{item.system.quantity}}" data-dtype="Number"/>
+      <a class="quantity-button" data-action="increase" data-property="item.system.quantity">
+        <i class="fas fa-plus"></i>
+      </a>
+  </div>
+  {{/if}}
+
+  {{#if (eq type "check")}}
+    {{#if (eq system.checkmethod "power")}}
+    <span class='item-button item-checkbase align-center powerrollable resource-label item-element' data-roll="{{item.system.formula}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applypower}}" data-powertype="{{item.system.powerTypesButton}}">
+    {{else}}
+    <span class='item-button item-checkbase align-center rollable resource-label item-element' data-roll="{{item.system.formula}}+{{item.system.checkbase}}" data-label="{{item.name}}" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applycheck}}" data-checktype="{{item.system.checkTypesButton}}" {{resistAttributes type system.resistinfo}}
+    {{/if}}>
+      <i class="fa-solid fa-dice" style="color: #ffffff; font-size: 1.1em;"></i>
+    </span>
+    <span style="font-size:1.3em">{{item.system.checkbase}}</span>
+  {{/if}}
+
+  {{#if (eq type "skill")}}
+    <span class='item-checklabel align-center rollable item-element' data-roll="2d6+{{item.system.skillbase.dex}}" data-label="{{item.name}}+{{localize "SW25.Ability.Dex.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">
+      D:{{item.system.skillbase.dex}}
+    </span>
+    <span class='item-checklabel align-center rollable item-element' data-roll="2d6+{{item.system.skillbase.agi}}" data-label="{{item.name}}+{{localize "SW25.Ability.Agi.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">
+      A:{{item.system.skillbase.agi}}
+    </span>
+    <span class='item-checklabel align-center rollable item-element' data-roll="2d6+{{item.system.skillbase.str}}" data-label="{{item.name}}+{{localize "SW25.Ability.Str.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">
+      S:{{item.system.skillbase.str}}
+    </span>
+    <span class='item-checklabel align-center rollable item-element' data-roll="2d6+{{item.system.skillbase.vit}}" data-label="{{item.name}}+{{localize "SW25.Ability.Vit.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">
+      V:{{item.system.skillbase.vit}}
+    </span>
+    <span class='item-checklabel align-center rollable item-element' data-roll="2d6+{{item.system.skillbase.int}}" data-label="{{item.name}}+{{localize "SW25.Ability.Int.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">
+      I:{{item.system.skillbase.int}}
+    </span>
+    <span class='item-checklabel align-center rollable item-element' data-roll="2d6+{{item.system.skillbase.mnd}}" data-label="{{item.name}}+{{localize "SW25.Ability.Mnd.long"}}{{localize "SW25.Ability.Bonus"}}" data-checktype="">
+      M:{{item.system.skillbase.mnd}}
+    </span>
+  {{/if}}
+
+  {{#if system.useequip}}
+  <div class="item-equip">
+    <label class="equip-toggle">
+      <input class="eq-change" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
+    </label>
+  </div>
+  {{/if}}
+  </div>
+  <span class="item-tooltip">{{item.name}}</span>
+  <span class="icon icon-top"><i class="fa-solid fa-bookmark"></i></span>
+  <span class="changebookmark"><i class="fa-solid fa-xmark"></i></span>
+</section>
+</li>

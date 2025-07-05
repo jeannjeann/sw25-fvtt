@@ -85,6 +85,10 @@
             {{selectOptions config.skillTypes selected=system.skilltype localize=true blank="-"}}
           </select>
         </span>
+        <div class="grid-span-3">
+          <input class="checkbox--hidden" id="{{item._id}}system.dedicated" type="checkbox" name="system.dedicated" data-dtype="Boolean" {{#if system.dedicated}} checked {{/if}}/>
+          <label class="checkbox--label" for="{{item._id}}system.dedicated">{{localize "SW25.Item.Invoker"}}</label>
+        </div>
       </div>
     </div>
 

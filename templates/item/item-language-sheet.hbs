@@ -1,24 +1,38 @@
 <form class="{{cssClass}}" autocomplete="off">
-  <header class="sheet-header">
-    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
-    <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
-      <div class="grid grid-6col flex-group-center nogapmargin">
-        <div class="resource">
-          <label for="{{item._id}}system.conversation"><b>{{localize "SW25.Item.Language.Conversation"}}</b></label><br>
-          <input id="{{item._id}}system.conversation" type="checkbox" name="system.conversation" data-dtype="Boolean" {{#if system.conversation}} checked {{/if}}/></span>
-        </div>
-        <div class="resource">
-          <label for="{{item._id}}system.reading" for="system.reading"><b>{{localize "SW25.Item.Language.Reading"}}</b></label><br>
-          <input id="{{item._id}}system.reading" type="checkbox" name="system.reading" data-dtype="Boolean" {{#if system.reading}} checked {{/if}}/></span>
-        </div>
-
+<section class="sw25item">
+  <header class="header">
+    <section class="header__img">
+      <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    </section>
+    <section class="header__title">
+      <h1 class="charname">
+        {{#if system.isEdit}}
+          <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+        {{else}}
+          {{item.name}}
+        {{/if}}
+      </h1>
+    </section>
+    <section class="header__subtitle">
+      <div class="header__checkbox">
+        <input class="checkbox--hidden" id="{{item._id}}system.conversation" type="checkbox" name="system.conversation" data-dtype="Boolean" {{#if system.conversation}} checked {{/if}}/>
+        <label class="checkbox--label" for="{{item._id}}system.conversation">{{localize "SW25.Item.Language.Conversation"}}</label>
+        <input class="checkbox--hidden" id="{{item._id}}system.reading" type="checkbox" name="system.reading" data-dtype="Boolean" {{#if system.reading}} checked {{/if}}/>
+        <label class="checkbox--label" for="{{item._id}}system.reading">{{localize "SW25.Item.Language.Reading"}}</label>
       </div>
-    </div>
+    </section>
+    <section class="header__activate"></section>
+    <section class="togglearea">
+      <label class="togglearea__btn">
+        <input id="{{item._id}}isEdit" type="checkbox" name="system.isEdit" {{#if system.isEdit}}checked{{/if}} data-dtype="Boolean"/>
+        <div class="togglearea__btn--slider"><i class="fa-solid fa-wrench"></i></div>
+      </label>
+    </section>
   </header>
 
+  <main class="main">
   {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
+  <nav class="sheet-tabs tabs" data-group="primary" style="margin: 0px;">
     <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
   </nav>
 
@@ -26,9 +40,9 @@
   <section class="sheet-body">
 
     {{!-- Description Tab --}}
-    <div class="tab" data-group="primary" data-tab="description">
+    <section class="tab" data-group="primary" data-tab="description" style="height: 100%;">
       {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
-    </div>
-
-  </section>
+    </section>
+  </main>
+</section>
 </form>

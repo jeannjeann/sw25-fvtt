@@ -2,6 +2,7 @@
 import { powerRoll } from "./powerroll.mjs";
 import { mpCost, hpCost } from "./mpcost.mjs";
 import { targetRollDialog, targetSelectDialog } from "../helpers/dialogs.mjs";
+import { DamageSupporter } from "../helpers/damagesupport.mjs";
 
 /**
  * Execute  chat button click event and return the result.
@@ -9,7 +10,7 @@ import { targetRollDialog, targetSelectDialog } from "../helpers/dialogs.mjs";
 export async function chatButton(chatMessage, buttonType) {
   const actorId = chatMessage.speaker.actor;
   const actor = game.actors.get(actorId);
-  const itemId = chatMessage.flags.sw25.itemid;
+  const itemId = chatMessage.flags?.sw25?.itemid;
   const item = actor ? actor.items.get(itemId) : null;
 
   // Item roll button
@@ -192,6 +193,9 @@ export async function chatButton(chatMessage, buttonType) {
       else pharmtool = item.system.pharmtool;
       if (item.system.powup == null || item.system.powup == 0) powup = 0;
       else powup = item.system.powup;
+      
+      let powmod = actor.system.attributes?.powertablemod?.[itemData.type] || 0;
+      powmod += Number(actor.system.attributes?.powerroll?.all) || 0;
 
       item.system.powertable = [
         item.system.power,
@@ -214,6 +218,7 @@ export async function chatButton(chatMessage, buttonType) {
         criticalray,
         pharmtool,
         powup,
+        powmod,
       ];
     }
 
@@ -532,6 +537,9 @@ export async function chatButton(chatMessage, buttonType) {
             aftermod: aftermod,
             powertype: chatMessage.flags.sw25.powertype,
             targetName: chatMessage.flags.sw25.targetName,
+            elements: chatMessage.flags.sw25.elements,
+            damage: chatMessage.flags.sw25.damage,
+            tags: chatMessage.flags.sw25.tags,
           },
         },
         content: await renderTemplate(
@@ -557,6 +565,7 @@ export async function chatButton(chatMessage, buttonType) {
             apply: chatMessage.flags.sw25.apply,
             powertype: chatMessage.flags.sw25.powertype,
             targetName: chatMessage.flags.sw25.targetName,
+            tags: chatMessage.flags.sw25.tags,
           }
         ),
       };
@@ -588,6 +597,9 @@ export async function chatButton(chatMessage, buttonType) {
             aftermod: aftermod,
             powertype: chatMessage.flags.sw25.powertype,
             targetName: chatMessage.flags.sw25.targetName,
+            elements: chatMessage.flags.sw25.elements,
+            damage: chatMessage.flags.sw25.damage,
+            tags: chatMessage.flags.sw25.tags,
           },
         },
         content: await renderTemplate(
@@ -613,6 +625,7 @@ export async function chatButton(chatMessage, buttonType) {
             apply: chatMessage.flags.sw25.apply,
             powertype: chatMessage.flags.sw25.powertype,
             targetName: chatMessage.flags.sw25.targetName,
+            tags: chatMessage.flags.sw25.tags,
           }
         ),
       };
@@ -656,6 +669,9 @@ export async function chatButton(chatMessage, buttonType) {
             aftermod: aftermod,
             powertype: chatMessage.flags.sw25.powertype,
             targetName: chatMessage.flags.sw25.targetName,
+            elements: chatMessage.flags.sw25.elements,
+            damage: chatMessage.flags.sw25.damage,
+            tags: chatMessage.flags.sw25.tags,
           },
         },
         content: await renderTemplate(
@@ -681,6 +697,7 @@ export async function chatButton(chatMessage, buttonType) {
             apply: chatMessage.flags.sw25.apply,
             powertype: chatMessage.flags.sw25.powertype,
             targetName: chatMessage.flags.sw25.targetName,
+            tags: chatMessage.flags.sw25.tags,
           }
         ),
       };
@@ -708,6 +725,9 @@ export async function chatButton(chatMessage, buttonType) {
             aftermod: aftermod,
             powertype: chatMessage.flags.sw25.powertype,
             targetName: chatMessage.flags.sw25.targetName,
+            elements: chatMessage.flags.sw25.elements,
+            damage: chatMessage.flags.sw25.damage,
+            tags: chatMessage.flags.sw25.tags,
           },
         },
         content: await renderTemplate(
@@ -733,6 +753,7 @@ export async function chatButton(chatMessage, buttonType) {
             apply: chatMessage.flags.sw25.apply,
             powertype: chatMessage.flags.sw25.powertype,
             targetName: chatMessage.flags.sw25.targetName,
+            tags: chatMessage.flags.sw25.tags,
           }
         ),
       };
@@ -770,6 +791,9 @@ export async function chatButton(chatMessage, buttonType) {
             aftermod: aftermod,
             powertype: chatMessage.flags.sw25.powertype,
             targetName: chatMessage.flags.sw25.targetName,
+            elements: chatMessage.flags.sw25.elements,
+            damage: chatMessage.flags.sw25.damage,
+            tags: chatMessage.flags.sw25.tags,
           },
         },
         content: await renderTemplate(
@@ -795,6 +819,7 @@ export async function chatButton(chatMessage, buttonType) {
             apply: chatMessage.flags.sw25.apply,
             powertype: chatMessage.flags.sw25.powertype,
             targetName: chatMessage.flags.sw25.targetName,
+            tags: chatMessage.flags.sw25.tags,
           }
         ),
       };
@@ -821,6 +846,9 @@ export async function chatButton(chatMessage, buttonType) {
             total: chatMessage.flags.sw25.orgtotal,
             aftermod: aftermod,
             powertype: chatMessage.flags.sw25.powertype,
+            elements: chatMessage.flags.sw25.elements,
+            damage: chatMessage.flags.sw25.damage,
+            tags: chatMessage.flags.sw25.tags,
           },
         },
         content: await renderTemplate(
@@ -845,6 +873,7 @@ export async function chatButton(chatMessage, buttonType) {
             shownoc: chatMessage.flags.sw25.shownoc,
             apply: chatMessage.flags.sw25.apply,
             powertype: chatMessage.flags.sw25.powertype,
+            tags: chatMessage.flags.sw25.tags,
           }
         ),
       };
@@ -902,6 +931,9 @@ export async function chatButton(chatMessage, buttonType) {
           aftermod: aftermod,
           powertype: chatMessage.flags.sw25.powertype,
           targetName: chatMessage.flags.sw25.targetName,
+          elements: chatMessage.flags.sw25.elements,
+          damage: chatMessage.flags.sw25.damage,
+          tags: chatMessage.flags.sw25.tags,
         },
       },
       content: await renderTemplate(
@@ -928,6 +960,7 @@ export async function chatButton(chatMessage, buttonType) {
           apply: chatMessage.flags.sw25.apply,
           powertype: chatMessage.flags.sw25.powertype,
           targetName: chatMessage.flags.sw25.targetName,
+          tags: chatMessage.flags.sw25.tags,
         }
       ),
     };
@@ -988,6 +1021,9 @@ export async function chatButton(chatMessage, buttonType) {
           aftermod: aftermod,
           powertype: chatMessage.flags.sw25.powertype,
           targetName: chatMessage.flags.sw25.targetName,
+          elements: chatMessage.flags.sw25.elements,
+          damage: chatMessage.flags.sw25.damage,
+          tags: chatMessage.flags.sw25.tags,
         },
       },
       content: await renderTemplate(
@@ -1014,6 +1050,7 @@ export async function chatButton(chatMessage, buttonType) {
           apply: chatMessage.flags.sw25.apply,
           powertype: chatMessage.flags.sw25.powertype,
           targetName: chatMessage.flags.sw25.targetName,
+          tags: chatMessage.flags.sw25.tags,
         }
       ),
     };
@@ -1059,6 +1096,9 @@ export async function chatButton(chatMessage, buttonType) {
             fumble: chatFumble,
             checktype: chatMessage.flags.sw25.checktype,
             targetName: chatMessage.flags.sw25.targetName,
+            elements: chatMessage.flags.sw25.elements,
+            damage: chatMessage.flags.sw25.damage,
+            tags: chatMessage.flags.sw25.tags,
           },
         },
         content: await renderTemplate(
@@ -1074,12 +1114,8 @@ export async function chatButton(chatMessage, buttonType) {
             apply: chatMessage.flags.sw25.apply,
             checktype: chatMessage.flags.sw25.checktype,
             targetName: chatMessage.flags.sw25.targetName,
-            resist: chatMessage.flags.sw25.resist
-              ? {
-                  name: chatMessage.flags.sw25.resist.name,
-                  result: chatMessage.flags.sw25.resist.result,
-                }
-              : null,
+            resist: chatMessage.flags.sw25.resist,
+            tags: chatMessage.flags.sw25.tags,
           }
         ),
       };
@@ -1111,6 +1147,9 @@ export async function chatButton(chatMessage, buttonType) {
             fumble: chatFumble,
             checktype: chatMessage.flags.sw25.checktype,
             targetName: chatMessage.flags.sw25.targetName,
+            elements: chatMessage.flags.sw25.elements,
+            damage: chatMessage.flags.sw25.damage,
+            tags: chatMessage.flags.sw25.tags,
           },
         },
         content: await renderTemplate(
@@ -1126,12 +1165,8 @@ export async function chatButton(chatMessage, buttonType) {
             apply: chatMessage.flags.sw25.apply,
             checktype: chatMessage.flags.sw25.checktype,
             targetName: chatMessage.flags.sw25.targetName,
-            resist: chatMessage.flags.sw25.resist
-              ? {
-                  name: chatMessage.flags.sw25.resist.name,
-                  result: chatMessage.flags.sw25.resist.result,
-                }
-              : null,
+            resist: chatMessage.flags.sw25.resist,
+            tags: chatMessage.flags.sw25.tags,
           }
         ),
       };
@@ -1231,6 +1266,9 @@ export async function chatButton(chatMessage, buttonType) {
           aftermod: aftermod,
           checktype: chatMessage.flags.sw25.checktype,
           targetName: chatMessage.flags.sw25.targetName,
+          elements: chatMessage.flags.sw25.elements,
+          damage: chatMessage.flags.sw25.damage,
+          tags: chatMessage.flags.sw25.tags,
         },
       },
       content: await renderTemplate(
@@ -1247,12 +1285,8 @@ export async function chatButton(chatMessage, buttonType) {
           spell: chatMessage.flags.sw25.spell,
           checktype: chatMessage.flags.sw25.checktype,
           targetName: chatMessage.flags.sw25.targetName,
-          resist: chatMessage.flags.sw25.resist
-            ? {
-                name: chatMessage.flags.sw25.resist.name,
-                result: chatMessage.flags.sw25.resist.result,
-              }
-            : null,
+          resist: chatMessage.flags.sw25.resist,
+          tags: chatMessage.flags.sw25.tags,
         }
       ),
     };
@@ -1350,6 +1384,12 @@ export async function chatButton(chatMessage, buttonType) {
       let resultValue = chatMessage.flags.sw25.total;
       let differenceValue = 0;
 
+      const decay = targetActor.system.attributes?.decay || null;
+      const targetClass = targetActor.system.classType;
+      const tags = chatMessage.flags.sw25.tags;
+      const result = DamageSupporter.calcDamage(resultValue, tags, decay, targetClass, buttonType);
+      resultValue = result ? result.total : resultValue;
+
       if (buttonType == "buttonpd") {
         resultHP = targetHP - Math.max(0, resultValue - targetPP);
         differenceValue = targetHP - resultHP;
@@ -1420,6 +1460,7 @@ export async function chatButton(chatMessage, buttonType) {
             type: buttonType,
             beforeValue: beforeValue,
             afterValue: afterValue,
+            result: result,
           },
         },
       };
@@ -1433,6 +1474,7 @@ export async function chatButton(chatMessage, buttonType) {
           beforeValue: beforeValue,
           afterValue: afterValue,
           isView: isView,
+          result: result,
         }
       );
 
@@ -1647,6 +1689,51 @@ export async function chatButton(chatMessage, buttonType) {
     mpCost(token, cost, name, type, meta, chat, base);
   }
 
+  if (buttonType == "buttonhpcancel") {
+    let token = canvas.tokens.get(chatMessage.flags.sw25.tokenId);
+    let cost = chatMessage.flags.sw25.cost;
+    let name = chatMessage.flags.sw25.name;
+    let type = chatMessage.flags.sw25.type;
+    let meta = 0;
+    let chat = chatMessage;
+    let base = chatMessage.flags.sw25.base;
+
+    // Apply HP cost
+    if (game.user.isGM) {
+      actor.update({
+        "system.hp.value": base,
+      });
+    } else {
+      game.socket.emit("system.sw25", {
+        method: "applyHp",
+        targetToken: chatMessage.flags.sw25.tokenId,
+        resultHP: base,
+      });
+    }
+
+    // Apply ChatMessage
+    let label =
+      name +
+      " (" +
+      cost +
+      " " +
+      game.i18n.localize("SW25.Item.Spell.Cancel") +
+      ")";
+
+    let chatData = {
+      flavor: label,
+    };
+    
+    chatData.content = await renderTemplate(
+      "systems/sw25/templates/roll/hp-apply.hbs",
+      {
+        targetHP: base,
+        resultHP: base,
+      }
+    );
+    await chat.update(chatData);
+  }
+
   if (buttonType == "buttonmpcancel") {
     let token = canvas.tokens.get(chatMessage.flags.sw25.tokenId);
     let cost = chatMessage.flags.sw25.cost;
@@ -1784,6 +1871,7 @@ export async function chatButton(chatMessage, buttonType) {
       const selectActor = token.actor;
       const rollData = selectActor.getRollData();
 
+      let name = token.name;
       let checkItem = "";
       let checkName = flags.sw25.checkName;
       let checkbase;
@@ -2001,6 +2089,7 @@ export async function chatButton(chatMessage, buttonType) {
       chatData.content = await renderTemplate(
         "systems/sw25/templates/roll/roll-check.hbs",
         {
+          name: name,
           formula: chatFormula,
           tooltip: await roll.getTooltip(),
           total: chatTotal,

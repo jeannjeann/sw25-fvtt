@@ -43,6 +43,8 @@ FVTT用ソード・ワールド2.5ゲームシステム
 
 このシステムはBoilerplateテンプレートをベースにしています。
 
+このシステムは、Apache License 2.0に基づいて許諾されているMingCute Icon（https://www.mingcute.com/）を使用しています。 (C) 2025 MingCute Design.
+
 ## 検証環境
 - OS:Windows 10
 - ブラウザ:GoogleChrome
