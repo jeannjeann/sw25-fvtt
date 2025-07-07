@@ -1,4 +1,5 @@
 import { effectInitPC } from "../sw25.mjs";
+import { PT } from "../helpers/powerroll.mjs";
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
@@ -85,11 +86,11 @@ export class SW25Actor extends Actor {
 
     for (let [key, ability] of Object.entries(systemData.abilities)) {
       ability.value =
-        ability.racevalue +
-        ability.valuebase +
-        ability.valuegrowth +
-        ability.valuemodify +
-        ability.efvaluemodify;
+        Number(ability.racevalue) +
+        Number(ability.valuebase) +
+        Number(ability.valuegrowth) +
+        Number(ability.valuemodify) +
+        Number(ability.efvaluemodify);
       ability.mod = Math.floor(ability.value / 6) + Number(ability.efmodify);
       ability.advbase =
         Number(ability.mod) +
@@ -110,10 +111,17 @@ export class SW25Actor extends Actor {
       Number(systemData.mp.mpmod) +
       Number(systemData.mp.efmpmod);
     systemData.attributes.move.limited = 3;
+    systemData.armorDedicated = this.items.some(item =>
+      item.type === "armor" &&
+      item.system.equip === true &&
+      item.system.dedicated === true &&
+      (item.system.category === "nonmetalarmor" || item.system.category === "metalarmor")
+    );
     systemData.attributes.move.normal =
       Number(systemData.abilities.agi.value) +
       Number(systemData.attributes.move.movemod) +
-      Number(systemData.attributes.move.efmovemod);
+      Number(systemData.attributes.move.efmovemod) +
+      (systemData.armorDedicated ? 2 : 0);
     systemData.attributes.move.max =
       Number(systemData.attributes.move.normal) * 3;
     if (systemData.attributes.move.normal < 3) {
@@ -159,13 +167,14 @@ export class SW25Actor extends Actor {
           if (systemData.attributes.efwphalfmod)
             systemData.itempowerbase += systemData.attributes.efwphalfmod;
           systemData.itempowertable = item.system.powertable;
-          systemData.itempowertable[16] += systemData.lt;
-          systemData.itempowertable[16] += Number(systemData?.attributes?.ltmod) || 0;
-          if (!/^f\d+$/.test(systemData.itempowertable[17])) {
-            systemData.itempowertable[17] =
-              Number(systemData.itempowertable[17]) + systemData.cr
-            systemData.itempowertable[17] += Number(systemData?.attributes?.crmod) || 0;
+          systemData.itempowertable[PT.LETHALTECH] += systemData.lt;
+          systemData.itempowertable[PT.LETHALTECH] += Number(systemData?.attributes?.ltmod) || 0;
+          if (!/^f\d+$/.test(systemData.itempowertable[PT.CRITICALRAY])) {
+            systemData.itempowertable[PT.CRITICALRAY] =
+              Number(systemData.itempowertable[PT.CRITICALRAY]) + systemData.cr
+            systemData.itempowertable[PT.CRITICALRAY] += Number(systemData?.attributes?.crmod) || 0;
           }
+          systemData.itemid = item.id;
         }
       }
     });
@@ -177,10 +186,28 @@ export class SW25Actor extends Actor {
     systemData.barempp = 0;
     systemData.baredreduce = 0;
     systemData.skillagidodge = 0;
+    systemData.shieldDedicated = this.items.some(item =>
+      item.type === "armor" &&
+      item.system.equip === true &&
+      item.system.dedicated === true &&
+      item.system.category === "shield"
+    );
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.dodgeskill) {
-          systemData.skillagidodge = Number(item.system.skillbase.aginef);
+          const dodgeAgimod = Math.floor(
+            (systemData.abilities.dex.racevalue +
+              systemData.abilities.agi.valuebase +
+              systemData.abilities.agi.valuegrowth +
+              systemData.abilities.agi.valuemodify +
+              systemData.abilities.agi.efvaluemodify +
+              (systemData.shieldDedicated ? 2 : 0)) /
+              6 +
+              Number(systemData.abilities.agi.efmodify)
+          );
+          systemData.skillagidodge = Number(item.system.skilllevel) +
+            Number(dodgeAgimod) +
+            Number(item.system.skillmod);
         }
       }
     });
@@ -231,7 +258,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.scskill) {
-          systemData.scbase = item.system.skillbase.intnef;
+          systemData.scbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -247,7 +274,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.cnskill) {
-          systemData.cnbase = item.system.skillbase.intnef;
+          systemData.cnbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -263,7 +290,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.wzskill) {
-          systemData.wzbase = item.system.skillbase.intnef;
+          systemData.wzbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -279,7 +306,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.prskill) {
-          systemData.prbase = item.system.skillbase.intnef;
+          systemData.prbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -295,7 +322,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.mtskill) {
-          systemData.mtbase = item.system.skillbase.intnef;
+          systemData.mtbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -311,26 +338,26 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.frskill) {
-          systemData.frbase = item.system.skillbase.intnef;
+          systemData.frbase = item.system.skillbase.invoke;
           let skillLevel = item.system.skilllevel ? item.system.skilllevel : 0;
 
           let fairyCount = 0;
-          if(systemData.attributes.fairy.earth){
+          if(systemData.attributes.fairy?.earth){
             fairyCount++;
           }
-          if(systemData.attributes.fairy.water){
+          if(systemData.attributes.fairy?.water){
             fairyCount++;
           }
-          if(systemData.attributes.fairy.fire){
+          if(systemData.attributes.fairy?.fire){
             fairyCount++;
           }
-          if(systemData.attributes.fairy.wind){
+          if(systemData.attributes.fairy?.wind){
             fairyCount++;
           }
-          if(systemData.attributes.fairy.light){
+          if(systemData.attributes.fairy?.light){
             fairyCount++;
           }
-          if(systemData.attributes.fairy.dark){
+          if(systemData.attributes.fairy?.dark){
             fairyCount++;
           }
 
@@ -364,7 +391,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.drskill) {
-          systemData.drbase = item.system.skillbase.intnef;
+          systemData.drbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -380,7 +407,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.dmskill) {
-          systemData.dmbase = item.system.skillbase.intnef;
+          systemData.dmbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -396,7 +423,7 @@ export class SW25Actor extends Actor {
     this.items.forEach((item) => {
       if (item.type == "skill") {
         if (item.name == systemData.abskill) {
-          systemData.abbase = item.system.skillbase.intnef;
+          systemData.abbase = item.system.skillbase.invoke;
         }
       }
     });
@@ -417,387 +444,19 @@ export class SW25Actor extends Actor {
       itemEffects.push(...item.effects);
     });
     let allEffects = [...actorEffects, ...itemEffects];
-    let activeEffects = allEffects.filter(
-      (effect) => effect.disabled === false
-    );
 
-    let effectsChange = activeEffects.map((effect) => {
-      return effect.changes.map((change) => {
-        return {
-          key: change.key,
-          value: Number(change.value),
-          mode: change.mode,
-        };
-      });
-    }).flat();
+    let modParams = this._getModParams(allEffects);
 
-    let totalhitmod = null;
-    let totaldmod = null;
-    let totalcmod = null;
-    let totalspcmod = null;
-    let totallt = null;
-    let totalcr = null;
-    let totalwphalfmod = null;
-    let totalsphalfmod = null;
-    let totaldodgemod = null;
-    let totalppmod = null;
-    let totalmppmod = null;
-    let totaldreduce = null;
-    let totalmovemod = null;
-    let totalhpregenmod = null;
-    let totalmpregenmod = null;
-    let totalvitres = null;
-    let totalmndres = null;
-    let totalinit = null;
-    let totalmknow = null;
-    let totalallck = null;
-    let totalallsk = null;
-    let totalhpmod = null;
-    let totalmpmod = null;
-    let totaldex = null;
-    let totalagi = null;
-    let totalstr = null;
-    let totalvit = null;
-    let totalint = null;
-    let totalmnd = null;
-    let totaldexmod = null;
-    let totalagimod = null;
-    let totalstrmod = null;
-    let totalvitmod = null;
-    let totalintmod = null;
-    let totalmndmod = null;
-    let totalscmod = null;
-    let totalcnmod = null;
-    let totalwzmod = null;
-    let totalprmod = null;
-    let totalmtmod = null;
-    let totalfrmod = null;
-    let totaldrmod = null;
-    let totaldmmod = null;
-    let totalabmod = null;
-    let totalscckmod = null;
-    let totalcnckmod = null;
-    let totalwzckmod = null;
-    let totalprckmod = null;
-    let totalmtckmod = null;
-    let totalfrckmod = null;
-    let totaldrckmod = null;
-    let totaldmckmod = null;
-    let totalabckmod = null;
-    let totalscpwmod = null;
-    let totalcnpwmod = null;
-    let totalwzpwmod = null;
-    let totalprpwmod = null;
-    let totalmtpwmod = null;
-    let totalfrpwmod = null;
-    let totaldrpwmod = null;
-    let totaldmpwmod = null;
-    let totalabpwmod = null;
-    let totalallmgp = null;
-    let totalallmck = null;
-    let totalallmpw = null;
-    let totalmpsc = null;
-    let totalmpcn = null;
-    let totalmpwz = null;
-    let totalmppr = null;
-    let totalmpmt = null;
-    let totalmpfr = null;
-    let totalmpdr = null;
-    let totalmpdm = null;
-    let totalmpab = null;
-    let totalmpall = null;
-    let totalmsckmod = null;
-    let totalmspwmod = null;
-    let totalatckmod = null;
-    let totalewckmod = null;
-    let totalewpwmod = null;
-    let totallootmod = null;
-    let totalfinechkmod = null;
-    let totalmovechkmod = null;
-    let totalobsechkmod = null;
-    let totalknowchkmod = null;
-    
-    const processingRules = [
-      { key:"system.attributes.efhitmod", target:"totalhitmod" },
-      { key:"system.attributes.efdmod", target:"totaldmod" },
-      { key:"system.effect.efcvalue", target:"totalcmod" },
-      { key:"system.effect.efspellcvalue", target:"totalspcmod" },
-      { key:"system.lt", target:"totallt" },
-      { key:"system.cr", target:"totalcr" },
-      { key:"system.attributes.efwphalfmod", target:"totalwphalfmod" },
-      { key:"system.attributes.efsphalfmod", target:"totalsphalfmod" },
-      { key:"system.attributes.efdodgemod", target:"totaldodgemod" },
-      { key:"system.attributes.efppmod", target:"totalppmod" },
-      { key:"system.attributes.efmppmod", target:"totalmppmod" },
-      { key:"system.attributes.efdreduce", target:"totaldreduce" },
-      { key:"system.attributes.move.efmovemod", target:"totalmovemod" },
-      { key:"system.attributes.turnend.hpregenmod", target:"totalhpregenmod" },
-      { key:"system.attributes.turnend.mpregenmod", target:"totalmpregenmod" },
-      { key:"system.effect.vitres", target:"totalvitres" },
-      { key:"system.effect.mndres", target:"totalmndres" },
-      { key:"system.effect.init", target:"totalinit" },
-      { key:"system.effect.mknow", target:"totalmknow" },
-      { key:"system.effect.allck", target:"totalallck" },
-      { key:"system.effect.allsk", target:"totalallsk" },
-      { key:"system.hp.efhpmod", target:"totalhpmod" },
-      { key:"system.mp.efmpmod", target:"totalmpmod" },
-      { key:"system.abilities.dex.efvaluemodify", target:"totaldex" },
-      { key:"system.abilities.agi.efvaluemodify", target:"totalagi" },
-      { key:"system.abilities.str.efvaluemodify", target:"totalstr" },
-      { key:"system.abilities.vit.efvaluemodify", target:"totalvit" },
-      { key:"system.abilities.int.efvaluemodify", target:"totalint" },
-      { key:"system.abilities.mnd.efvaluemodify", target:"totalmnd" },
-      { key:"system.abilities.dex.efmodify", target:"totaldexmod" },
-      { key:"system.abilities.agi.efmodify", target:"totalagimod" },
-      { key:"system.abilities.str.efmodify", target:"totalstrmod" },
-      { key:"system.abilities.vit.efmodify", target:"totalvitmod" },
-      { key:"system.abilities.int.efmodify", target:"totalintmod" },
-      { key:"system.abilities.mnd.efmodify", target:"totalmndmod" },
-      { key:"system.attributes.efscmod", target:"totalscmod" },
-      { key:"system.attributes.efcnmod", target:"totalcnmod" },
-      { key:"system.attributes.efwzmod", target:"totalwzmod" },
-      { key:"system.attributes.efprmod", target:"totalprmod" },
-      { key:"system.attributes.efmtmod", target:"totalmtmod" },
-      { key:"system.attributes.effrmod", target:"totalfrmod" },
-      { key:"system.attributes.efdrmod", target:"totaldrmod" },
-      { key:"system.attributes.efdmmod", target:"totaldmmod" },
-      { key:"system.attributes.efabmod", target:"totalabmod" },
-      { key:"system.attributes.efscckmod", target:"totalscckmod" },
-      { key:"system.attributes.efcnckmod", target:"totalcnckmod" },
-      { key:"system.attributes.efwzckmod", target:"totalwzckmod" },
-      { key:"system.attributes.efprckmod", target:"totalprckmod" },
-      { key:"system.attributes.efmtckmod", target:"totalmtckmod" },
-      { key:"system.attributes.effrckmod", target:"totalfrckmod" },
-      { key:"system.attributes.efdrckmod", target:"totaldrckmod" },
-      { key:"system.attributes.efdmckmod", target:"totaldmckmod" },
-      { key:"system.attributes.efabckmod", target:"totalabckmod" },
-      { key:"system.attributes.efscpwmod", target:"totalscpwmod" },
-      { key:"system.attributes.efcnpwmod", target:"totalcnpwmod" },
-      { key:"system.attributes.efwzpwmod", target:"totalwzpwmod" },
-      { key:"system.attributes.efprpwmod", target:"totalprpwmod" },
-      { key:"system.attributes.efmtpwmod", target:"totalmtpwmod" },
-      { key:"system.attributes.effrpwmod", target:"totalfrpwmod" },
-      { key:"system.attributes.efdrpwmod", target:"totaldrpwmod" },
-      { key:"system.attributes.efdmpwmod", target:"totaldmpwmod" },
-      { key:"system.attributes.efabpwmod", target:"totalabpwmod" },
-      { key:"system.effect.allmgp", target:"totalallmgp" },
-      { key:"system.attributes.efmpsc", target:"totalmpsc" },
-      { key:"system.attributes.efmpcn", target:"totalmpcn" },
-      { key:"system.attributes.efmpwz", target:"totalmpwz" },
-      { key:"system.attributes.efmppr", target:"totalmppr" },
-      { key:"system.attributes.efmpmt", target:"totalmpmt" },
-      { key:"system.attributes.efmpfr", target:"totalmpfr" },
-      { key:"system.attributes.efmpdr", target:"totalmpdr" },
-      { key:"system.attributes.efmpdm", target:"totalmpdm" },
-      { key:"system.attributes.efmpab", target:"totalmpab" },
-      { key:"system.attributes.efmpall", target:"totalmpall" },
-      { key:"system.attributes.efmckall", target:"totalallmck" },
-      { key:"system.attributes.efmpwall", target:"totalallmpw" },
-      { key:"system.attributes.efmsckmod", target:"totalmsckmod" },
-      { key:"system.attributes.efmspwmod", target:"totalmspwmod" },
-      { key:"system.attributes.efatckmod", target:"totalatckmod" },
-      { key:"system.attributes.efewckmod", target:"totalewckmod" },
-      { key:"system.attributes.efewpwmod", target:"totalewpwmod" },
-      { key:"system.eflootmod", target:"totallootmod" },
-      { key:"system.effect.package.fine", target:"totalfinechkmod" },
-      { key:"system.effect.package.move", target:"totalmovechkmod" },
-      { key:"system.effect.package.obse", target:"totalobsechkmod" },
-      { key:"system.effect.package.know", target:"totalknowchkmod" }
-    ];
-    let ruleMap = Object.fromEntries(
-      processingRules.map((rule) => [rule.key, rule])
-    );
-    effectsChange.sort((a, b) => a.mode - b.mode);
-    effectsChange.forEach((effects) => {
-
-      let rule = ruleMap[effects.key];
-      if (rule) {
-        let value = Number(effects.value);
-        switch (effects.mode) {
-          case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
-            eval(`${rule.target} *= ${value}`);
-            break;
-
-          case CONST.ACTIVE_EFFECT_MODES.ADD:
-            eval(`${rule.target} += ${value}`);
-            break;
-  
-          case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
-            eval(`${rule.target} = ${value}`);
-            break;
-  
-          case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
-          case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
-          case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
-            //未実装
-            break;
-  
-          default:
-            break;
+    for (let [key, entry] of Object.entries(modParams)) {
+      if (typeof entry.value === "number") {
+        if (entry.value > 0) {
+          entry.value = `+${entry.value}`;
+        } else {
+          entry.value = `${entry.value}`;
         }
       }
-    });
-
-    systemData.totalhitmod = totalhitmod;
-    systemData.totaldmod = totaldmod;
-    systemData.totalcmod = totalcmod;
-    systemData.totalspcmod = totalspcmod;
-    systemData.totallt = totallt;
-    systemData.totalcr = totalcr;
-    systemData.totalwphalfmod = totalwphalfmod;
-    systemData.totalsphalfmod = totalsphalfmod;
-    systemData.totaldodgemod = totaldodgemod;
-    systemData.totalppmod = totalppmod;
-    systemData.totalmppmod = totalmppmod;
-    systemData.totaldreduce = totaldreduce;
-    systemData.totalmovemod = totalmovemod;
-    systemData.totalhpregenmod = totalhpregenmod;
-    systemData.totalmpregenmod = totalmpregenmod;
-    systemData.totalvitres = totalvitres;
-    systemData.totalmndres = totalmndres;
-    systemData.totalinit = totalinit;
-    systemData.totalmknow = totalmknow;
-    systemData.totalallck = totalallck;
-    systemData.totalallsk = totalallsk;
-    systemData.totalhpmod = totalhpmod;
-    systemData.totalmpmod = totalmpmod;
-    systemData.totaldex = totaldex;
-    systemData.totalagi = totalagi;
-    systemData.totalstr = totalstr;
-    systemData.totalvit = totalvit;
-    systemData.totalint = totalint;
-    systemData.totalmnd = totalmnd;
-    systemData.totaldexmod = totaldexmod;
-    systemData.totalagimod = totalagimod;
-    systemData.totalstrmod = totalstrmod;
-    systemData.totalvitmod = totalvitmod;
-    systemData.totalintmod = totalintmod;
-    systemData.totalmndmod = totalmndmod;
-    systemData.totalscmod = totalscmod;
-    systemData.totalcnmod = totalcnmod;
-    systemData.totalwzmod = totalwzmod;
-    systemData.totalprmod = totalprmod;
-    systemData.totalmtmod = totalmtmod;
-    systemData.totalfrmod = totalfrmod;
-    systemData.totaldrmod = totaldrmod;
-    systemData.totaldmmod = totaldmmod;
-    systemData.totalabmod = totalabmod;
-    systemData.totalscckmod = totalscckmod;
-    systemData.totalcnckmod = totalcnckmod;
-    systemData.totalwzckmod = totalwzckmod;
-    systemData.totalprckmod = totalprckmod;
-    systemData.totalmtckmod = totalmtckmod;
-    systemData.totalfrckmod = totalfrckmod;
-    systemData.totaldrckmod = totaldrckmod;
-    systemData.totaldmckmod = totaldmckmod;
-    systemData.totalabckmod = totalabckmod;
-    systemData.totalscpwmod = totalscpwmod;
-    systemData.totalcnpwmod = totalcnpwmod;
-    systemData.totalwzpwmod = totalwzpwmod;
-    systemData.totalprpwmod = totalprpwmod;
-    systemData.totalmtpwmod = totalmtpwmod;
-    systemData.totalfrpwmod = totalfrpwmod;
-    systemData.totaldrpwmod = totaldrpwmod;
-    systemData.totaldmpwmod = totaldmpwmod;
-    systemData.totalabpwmod = totalabpwmod;
-    systemData.totalallmgp = totalallmgp;
-    systemData.totalallmck = totalallmck;
-    systemData.totalallmpw = totalallmpw;
-    systemData.totalmpsc = totalmpsc;
-    systemData.totalmpcn = totalmpcn;
-    systemData.totalmpwz = totalmpwz;
-    systemData.totalmppr = totalmppr;
-    systemData.totalmpmt = totalmpmt;
-    systemData.totalmpfr = totalmpfr;
-    systemData.totalmpdr = totalmpdr;
-    systemData.totalmpdm = totalmpdm;
-    systemData.totalmpab = totalmpab;
-    systemData.totalmpall = totalmpall;
-    systemData.totalmsckmod = totalmsckmod;
-    systemData.totalmspwmod = totalmspwmod;
-    systemData.totalatckmod = totalatckmod;
-    systemData.totalewckmod = totalewckmod;
-    systemData.totalewpwmod = totalewpwmod;
-    systemData.totallootmod = totallootmod;
-    systemData.totalfinechkmod = totalfinechkmod;
-    systemData.totalmovechkmod = totalmovechkmod;
-    systemData.totalobsechkmod = totalobsechkmod;
-    systemData.totalknowchkmod = totalknowchkmod;
-    if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
-    if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
-    if (totalcmod > 0) systemData.totalcmod = "+" + totalcmod;
-    if (totalspcmod > 0) systemData.totalspcmod = "+" + totalspcmod;
-    if (totallt > 0) systemData.totallt = "+" + totallt;
-    if (totalcr > 0) systemData.totalcr = "+" + totalcr;
-    if (totalwphalfmod > 0) systemData.totalwphalfmod = "+" + totalwphalfmod;
-    if (totalsphalfmod > 0) systemData.totalsphalfmod = "+" + totalsphalfmod;
-    if (totaldodgemod > 0) systemData.totaldodgemod = "+" + totaldodgemod;
-    if (totalppmod > 0) systemData.totalppmod = "+" + totalppmod;
-    if (totalmppmod > 0) systemData.totalmppmod = "+" + totalmppmod;
-    if (totaldreduce > 0) systemData.totaldreduce = "+" + totaldreduce;
-    if (totalmovemod > 0) systemData.totalmovemod = "+" + totalmovemod;
-    if (totalhpregenmod > 0) systemData.totalhpregenmod = "+" + totalhpregenmod;
-    if (totalmpregenmod > 0) systemData.totalmpregenmod = "+" + totalmpregenmod;
-    if (totalvitres > 0) systemData.totalvitres = "+" + totalvitres;
-    if (totalmndres > 0) systemData.totalmndres = "+" + totalmndres;
-    if (totalinit > 0) systemData.totalinit = "+" + totalinit;
-    if (totalmknow > 0) systemData.totalmknow = "+" + totalmknow;
-    if (totalallck > 0) systemData.totalallck = "+" + totalallck;
-    if (totalallsk > 0) systemData.totalallsk = "+" + totalallsk;
-    if (totalhpmod > 0) systemData.totalhpmod = "+" + totalhpmod;
-    if (totalmpmod > 0) systemData.totalmpmod = "+" + totalmpmod;
-    if (totaldex > 0) systemData.totaldex = "+" + totaldex;
-    if (totalagi > 0) systemData.totalagi = "+" + totalagi;
-    if (totalstr > 0) systemData.totalstr = "+" + totalstr;
-    if (totalvit > 0) systemData.totalvit = "+" + totalvit;
-    if (totalint > 0) systemData.totalint = "+" + totalint;
-    if (totalmnd > 0) systemData.totalmnd = "+" + totalmnd;
-    if (totaldexmod > 0) systemData.totaldexmod = "+" + totaldexmod;
-    if (totalagimod > 0) systemData.totalagimod = "+" + totalagimod;
-    if (totalstrmod > 0) systemData.totalstrmod = "+" + totalstrmod;
-    if (totalvitmod > 0) systemData.totalvitmod = "+" + totalvitmod;
-    if (totalintmod > 0) systemData.totalintmod = "+" + totalintmod;
-    if (totalmndmod > 0) systemData.totalmndmod = "+" + totalmndmod;
-    if (totalscmod > 0) systemData.totalscmod = "+" + totalscmod;
-    if (totalcnmod > 0) systemData.totalcnmod = "+" + totalcnmod;
-    if (totalwzmod > 0) systemData.totalwzmod = "+" + totalwzmod;
-    if (totalprmod > 0) systemData.totalprmod = "+" + totalprmod;
-    if (totalmtmod > 0) systemData.totalmtmod = "+" + totalmtmod;
-    if (totalfrmod > 0) systemData.totalfrmod = "+" + totalfrmod;
-    if (totaldrmod > 0) systemData.totaldrmod = "+" + totaldrmod;
-    if (totaldmmod > 0) systemData.totaldmmod = "+" + totaldmmod;
-    if (totalabmod > 0) systemData.totalabmod = "+" + totalabmod;
-    if (totalscckmod > 0) systemData.totalscckmod = "+" + totalscckmod;
-    if (totalcnckmod > 0) systemData.totalcnckmod = "+" + totalcnckmod;
-    if (totalwzckmod > 0) systemData.totalwzckmod = "+" + totalwzckmod;
-    if (totalprckmod > 0) systemData.totalprckmod = "+" + totalprckmod;
-    if (totalmtckmod > 0) systemData.totalmtckmod = "+" + totalmtckmod;
-    if (totalfrckmod > 0) systemData.totalfrckmod = "+" + totalfrckmod;
-    if (totaldrckmod > 0) systemData.totaldrckmod = "+" + totaldrckmod;
-    if (totaldmckmod > 0) systemData.totaldmckmod = "+" + totaldmckmod;
-    if (totalabckmod > 0) systemData.totalabckmod = "+" + totalabckmod;
-    if (totalscpwmod > 0) systemData.totalscpwmod = "+" + totalscpwmod;
-    if (totalcnpwmod > 0) systemData.totalcnpwmod = "+" + totalcnpwmod;
-    if (totalwzpwmod > 0) systemData.totalwzpwmod = "+" + totalwzpwmod;
-    if (totalprpwmod > 0) systemData.totalprpwmod = "+" + totalprpwmod;
-    if (totalmtpwmod > 0) systemData.totalmtpwmod = "+" + totalmtpwmod;
-    if (totalfrpwmod > 0) systemData.totalfrpwmod = "+" + totalfrpwmod;
-    if (totaldrpwmod > 0) systemData.totaldrpwmod = "+" + totaldrpwmod;
-    if (totaldmpwmod > 0) systemData.totaldmpwmod = "+" + totaldmpwmod;
-    if (totalabpwmod > 0) systemData.totalabpwmod = "+" + totalabpwmod;
-    if (totalallmgp > 0) systemData.totalallmgp = "+" + totalallmgp;
-    if (totalallmck > 0) systemData.totalallmck = "+" + totalallmck;
-    if (totalallmpw > 0) systemData.totalallmpw = "+" + totalallmpw;
-    if (totalmsckmod > 0) systemData.totalmsckmod = "+" + totalmsckmod;
-    if (totalmspwmod > 0) systemData.totalmspwmod = "+" + totalmspwmod;
-    if (totalatckmod > 0) systemData.totalatckmod = "+" + totalatckmod;
-    if (totalewckmod > 0) systemData.totalewckmod = "+" + totalewckmod;
-    if (totalewpwmod > 0) systemData.totalewpwmod = "+" + totalewpwmod;
-    if (totallootmod > 0) systemData.totallootmod = "+" + totallootmod;
-    if (totalfinechkmod > 0) systemData.totalfinechkmod = "+" + totalfinechkmod;
-    if (totalmovechkmod > 0) systemData.totalmovechkmod = "+" + totalmovechkmod;
-    if (totalobsechkmod > 0) systemData.totalobsechkmod = "+" + totalobsechkmod;
-    if (totalknowchkmod > 0) systemData.totalknowchkmod = "+" + totalknowchkmod;
+    }
+    systemData.modParams = modParams;
 
     // Set initiative formula
     systemData.initiativeFormula = "2d6";
@@ -1016,12 +675,12 @@ export class SW25Actor extends Actor {
       Number(systemData.hpbase) +
       Number(systemData.hp.hpmod) +
       Number(systemData.hp.efhpmod) +
-      Math.floor((systemData.abilities?.vit?.efvaluemodify ?? 0) / 6);
+      Math.floor((systemData.abilities?.vit?.efvaluemodify ?? 0));
     systemData.mp.max =
       Number(systemData.mpbase) +
       Number(systemData.mp.mpmod) +
       Number(systemData.mp.efmpmod) +
-      Math.floor((systemData.abilities?.mnd?.efvaluemodify ?? 0) / 6);
+      Math.floor((systemData.abilities?.mnd?.efvaluemodify ?? 0));
     systemData.pp =
       Number(systemData.ppbase) +
       Number(systemData.attributes.ppmod) +
@@ -1056,381 +715,242 @@ export class SW25Actor extends Actor {
       itemEffects.push(...item.effects);
     });
     let allEffects = [...actorEffects, ...itemEffects];
-    let activeEffects = allEffects.filter(
-      (effect) => effect.disabled === false
-    );
 
-    let effectsChange = activeEffects.map((effect) => {
-      return effect.changes.map((change) => {
-        return {
-          key: change.key,
-          value: Number(change.value),
-          mode: change.mode,
-        };
-      });
-    }).flat();
-
-    let totalhitmod = null;
-    let totaldmod = null;
-    let totalcmod = null;
-    let totalspcmod = null;
-    let totallt = null;
-    let totalcr = null;
-    let totalwphalfmod = null;
-    let totalsphalfmod = null;
-    let totaldodgemod = null;
-    let totalppmod = null;
-    let totalmppmod = null;
-    let totaldreduce = null;
-    let totalmovemod = null;
-    let totalhpregenmod = null;
-    let totalmpregenmod = null;
-    let totalvitres = null;
-    let totalmndres = null;
-    let totalinit = null;
-    let totalmknow = null;
-    let totalallck = null;
-    let totalallsk = null;
-    let totalhpmod = null;
-    let totalmpmod = null;
-    let totaldex = null;
-    let totalagi = null;
-    let totalstr = null;
-    let totalvit = null;
-    let totalint = null;
-    let totalmnd = null;
-    let totaldexmod = null;
-    let totalagimod = null;
-    let totalstrmod = null;
-    let totalvitmod = null;
-    let totalintmod = null;
-    let totalmndmod = null;
-    let totalscmod = null;
-    let totalcnmod = null;
-    let totalwzmod = null;
-    let totalprmod = null;
-    let totalmtmod = null;
-    let totalfrmod = null;
-    let totaldrmod = null;
-    let totaldmmod = null;
-    let totalabmod = null;
-    let totalscckmod = null;
-    let totalcnckmod = null;
-    let totalwzckmod = null;
-    let totalprckmod = null;
-    let totalmtckmod = null;
-    let totalfrckmod = null;
-    let totaldrckmod = null;
-    let totaldmckmod = null;
-    let totalabckmod = null;
-    let totalscpwmod = null;
-    let totalcnpwmod = null;
-    let totalwzpwmod = null;
-    let totalprpwmod = null;
-    let totalmtpwmod = null;
-    let totalfrpwmod = null;
-    let totaldrpwmod = null;
-    let totaldmpwmod = null;
-    let totalabpwmod = null;
-    let totalallmgp = null;
-    let totalallmck = null;
-    let totalallmpw = null;
-    let totalmpsc = null;
-    let totalmpcn = null;
-    let totalmpwz = null;
-    let totalmppr = null;
-    let totalmpmt = null;
-    let totalmpfr = null;
-    let totalmpdr = null;
-    let totalmpdm = null;
-    let totalmpab = null;
-    let totalmpall = null;
-    let totalmsckmod = null;
-    let totalmspwmod = null;
-    let totalatckmod = null;
-    let totalewckmod = null;
-    let totalewpwmod = null;
-    let totallootmod = null;
-    const processingRules = [
-      { key: "system.attributes.efhitmod", target: "totalhitmod" },
-      { key: "system.attributes.efdmod", target: "totaldmod" },
-      { key: "system.effect.efcvalue", target: "totalcmod" },
-      { key: "system.effect.efspellcvalue", target: "totalspcmod" },
-      { key: "system.lt", target: "totallt" },
-      { key: "system.cr", target: "totalcr" },
-      { key: "system.attributes.efwphalfmod", target: "totalwphalfmod" },
-      { key: "system.attributes.efsphalfmod", target: "totalsphalfmod" },
-      { key: "system.attributes.efdodgemod", target: "totaldodgemod" },
-      { key: "system.attributes.efppmod", target: "totalppmod" },
-      { key: "system.attributes.efmppmod", target: "totalmppmod" },
-      { key: "system.attributes.efdreduce", target: "totaldreduce" },
-      { key: "system.attributes.move.efmovemod", target: "totalmovemod" },
-      { key: "system.attributes.turnend.hpregenmod", target: "totalhpregenmod" },
-      { key: "system.attributes.turnend.mpregenmod", target: "totalmpregenmod" },
-      { key: "system.effect.vitres", target: "totalvitres" },
-      { key: "system.effect.mndres", target: "totalmndres" },
-      { key: "system.effect.init", target: "totalinit" },
-      { key: "system.effect.mknow", target: "totalmknow" },
-      { key: "system.effect.allck", target: "totalallck" },
-      { key: "system.effect.allsk", target: "totalallsk" },
-      { key: "system.hp.efhpmod", target: "totalhpmod" },
-      { key: "system.mp.efmpmod", target: "totalmpmod" },
-      { key: "system.abilities.dex.efvaluemodify", target: "totaldex" },
-      { key: "system.abilities.agi.efvaluemodify", target: "totalagi" },
-      { key: "system.abilities.str.efvaluemodify", target: "totalstr" },
-      { key: "system.abilities.vit.efvaluemodify", target: "totalvit" },
-      { key: "system.abilities.int.efvaluemodify", target: "totalint" },
-      { key: "system.abilities.mnd.efvaluemodify", target: "totalmnd" },
-      { key: "system.abilities.dex.efmodify", target: "totaldexmod" },
-      { key: "system.abilities.agi.efmodify", target: "totalagimod" },
-      { key: "system.abilities.str.efmodify", target: "totalstrmod" },
-      { key: "system.abilities.vit.efmodify", target: "totalvitmod" },
-      { key: "system.abilities.int.efmodify", target: "totalintmod" },
-      { key: "system.abilities.mnd.efmodify", target: "totalmndmod" },
-      { key: "system.attributes.efscmod", target: "totalscmod" },
-      { key: "system.attributes.efcnmod", target: "totalcnmod" },
-      { key: "system.attributes.efwzmod", target: "totalwzmod" },
-      { key: "system.attributes.efprmod", target: "totalprmod" },
-      { key: "system.attributes.efmtmod", target: "totalmtmod" },
-      { key: "system.attributes.effrmod", target: "totalfrmod" },
-      { key: "system.attributes.efdrmod", target: "totaldrmod" },
-      { key: "system.attributes.efdmmod", target: "totaldmmod" },
-      { key: "system.attributes.efabmod", target: "totalabmod" },
-      { key: "system.attributes.efscckmod", target: "totalscckmod" },
-      { key: "system.attributes.efcnckmod", target: "totalcnckmod" },
-      { key: "system.attributes.efwzckmod", target: "totalwzckmod" },
-      { key: "system.attributes.efprckmod", target: "totalprckmod" },
-      { key: "system.attributes.efmtckmod", target: "totalmtckmod" },
-      { key: "system.attributes.effrckmod", target: "totalfrckmod" },
-      { key: "system.attributes.efdrckmod", target: "totaldrckmod" },
-      { key: "system.attributes.efdmckmod", target: "totaldmckmod" },
-      { key: "system.attributes.efabckmod", target: "totalabckmod" },
-      { key: "system.attributes.efscpwmod", target: "totalscpwmod" },
-      { key: "system.attributes.efcnpwmod", target: "totalcnpwmod" },
-      { key: "system.attributes.efwzpwmod", target: "totalwzpwmod" },
-      { key: "system.attributes.efprpwmod", target: "totalprpwmod" },
-      { key: "system.attributes.efmtpwmod", target: "totalmtpwmod" },
-      { key: "system.attributes.effrpwmod", target: "totalfrpwmod" },
-      { key: "system.attributes.efdrpwmod", target: "totaldrpwmod" },
-      { key: "system.attributes.efdmpwmod", target: "totaldmpwmod" },
-      { key: "system.attributes.efabpwmod", target: "totalabpwmod" },
-      { key: "system.effect.allmgp", target: "totalallmgp" },
-      { key: "system.attributes.efmpsc", target: "totalmpsc" },
-      { key: "system.attributes.efmpcn", target: "totalmpcn" },
-      { key: "system.attributes.efmpwz", target: "totalmpwz" },
-      { key: "system.attributes.efmppr", target: "totalmppr" },
-      { key: "system.attributes.efmpmt", target: "totalmpmt" },
-      { key: "system.attributes.efmpfr", target: "totalmpfr" },
-      { key: "system.attributes.efmpdr", target: "totalmpdr" },
-      { key: "system.attributes.efmpdm", target: "totalmpdm" },
-      { key: "system.attributes.efmpab", target: "totalmpab" },
-      { key: "system.attributes.efmpall", target: "totalmpall" },
-      { key: "system.attributes.efmckall", target: "totalallmck" },
-      { key: "system.attributes.efmpwall", target: "totalallmpw" },
-      { key: "system.attributes.efmsckmod", target: "totalmsckmod" },
-      { key: "system.attributes.efmspwmod", target: "totalmspwmod" },
-      { key: "system.attributes.efatckmod", target: "totalatckmod" },
-      { key: "system.attributes.efewckmod", target: "totalewckmod" },
-      { key: "system.attributes.efewpwmod", target: "totalewpwmod" },
-      { key: "system.eflootmod", target: "totallootmod" }
-    ];
-    let ruleMap = Object.fromEntries(
-      processingRules.map((rule) => [rule.key, rule])
-    );
-    effectsChange.sort((a, b) => a.mode - b.mode);
-    effectsChange.forEach((effects) => {
-      let rule = ruleMap[effects.key];
-      if (rule) {
-        let value = Number(effects.value);
-        switch (effects.mode) {
-          case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
-            eval(`${rule.target} *= ${value}`);
-            break;
-
-          case CONST.ACTIVE_EFFECT_MODES.ADD:
-            eval(`${rule.target} += ${value}`);
-            break;
-  
-          case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
-            eval(`${rule.target} = ${value}`);
-            break;
-  
-          case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
-          case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
-          case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
-            //未実装
-            break;
-  
-          default:
-            break;
-        }
-      }
-    });
+    let modParams = this._getModParams(allEffects);
 
     // Convert Status Monster Parameter.
-    totalhitmod += Math.floor((totaldex ?? 0) / 6) + (totaldexmod ?? 0);
-    totaldmod += Math.floor((totalstr ?? 0) / 6) + (totalstrmod ?? 0);
-    totaldodgemod += Math.floor((totalagi ?? 0) / 6) + (totalagimod ?? 0);
-    totalvitres += Math.floor((totalvit ?? 0) / 6) + (totalvitmod ?? 0);
-    totalmndres += Math.floor((totalmnd ?? 0) / 6) + (totalmndmod ?? 0);
-    totalmovemod += (totalagi ?? 0);
-    totalinit += Math.floor((totalagi ?? 0) / 6) + (totalagimod ?? 0);
-    totalhpmod += (totalvit ?? 0);
-    totalmpmod += (totalmnd ?? 0);
-    totalallmgp += Math.floor((totalint ?? 0) / 6) + (totalintmod ?? 0);
-    
-    systemData.totalhitmod = totalhitmod;
-    systemData.totaldmod = totaldmod;
-    systemData.totalcmod = totalcmod;
-    systemData.totalspcmod = totalspcmod;
-    systemData.totallt = totallt;
-    systemData.totalcr = totalcr;
-    systemData.totalwphalfmod = totalwphalfmod;
-    systemData.totalsphalfmod = totalsphalfmod;
-    systemData.totaldodgemod = totaldodgemod;
-    systemData.totalppmod = totalppmod;
-    systemData.totalmppmod = totalmppmod;
-    systemData.totaldreduce = totaldreduce;
-    systemData.totalmovemod = totalmovemod;
-    systemData.totalhpregenmod = totalhpregenmod;
-    systemData.totalmpregenmod = totalmpregenmod;
-    systemData.totalvitres = totalvitres;
-    systemData.totalmndres = totalmndres;
-    systemData.totalinit = totalinit;
-    systemData.totalmknow = totalmknow;
-    systemData.totalallck = totalallck;
-    systemData.totalallsk = totalallsk;
-    systemData.totalhpmod = totalhpmod;
-    systemData.totalmpmod = totalmpmod;
-    systemData.totaldex = totaldex;
-    systemData.totalagi = totalagi;
-    systemData.totalstr = totalstr;
-    systemData.totalvit = totalvit;
-    systemData.totalint = totalint;
-    systemData.totalmnd = totalmnd;
-    systemData.totaldexmod = totaldexmod;
-    systemData.totalagimod = totalagimod;
-    systemData.totalstrmod = totalstrmod;
-    systemData.totalvitmod = totalvitmod;
-    systemData.totalintmod = totalintmod;
-    systemData.totalmndmod = totalmndmod;
-    systemData.totalscmod = totalscmod;
-    systemData.totalcnmod = totalcnmod;
-    systemData.totalwzmod = totalwzmod;
-    systemData.totalprmod = totalprmod;
-    systemData.totalmtmod = totalmtmod;
-    systemData.totalfrmod = totalfrmod;
-    systemData.totaldrmod = totaldrmod;
-    systemData.totaldmmod = totaldmmod;
-    systemData.totalabmod = totalabmod;
-    systemData.totalscckmod = totalscckmod;
-    systemData.totalcnckmod = totalcnckmod;
-    systemData.totalwzckmod = totalwzckmod;
-    systemData.totalprckmod = totalprckmod;
-    systemData.totalmtckmod = totalmtckmod;
-    systemData.totalfrckmod = totalfrckmod;
-    systemData.totaldrckmod = totaldrckmod;
-    systemData.totaldmckmod = totaldmckmod;
-    systemData.totalabckmod = totalabckmod;
-    systemData.totalscpwmod = totalscpwmod;
-    systemData.totalcnpwmod = totalcnpwmod;
-    systemData.totalwzpwmod = totalwzpwmod;
-    systemData.totalprpwmod = totalprpwmod;
-    systemData.totalmtpwmod = totalmtpwmod;
-    systemData.totalfrpwmod = totalfrpwmod;
-    systemData.totaldrpwmod = totaldrpwmod;
-    systemData.totaldmpwmod = totaldmpwmod;
-    systemData.totalabpwmod = totalabpwmod;
-    systemData.totalallmgp = totalallmgp;
-    systemData.totalallmck = totalallmck;
-    systemData.totalallmpw = totalallmpw;
-    systemData.totalmpsc = totalmpsc;
-    systemData.totalmpcn = totalmpcn;
-    systemData.totalmpwz = totalmpwz;
-    systemData.totalmppr = totalmppr;
-    systemData.totalmpmt = totalmpmt;
-    systemData.totalmpfr = totalmpfr;
-    systemData.totalmpdr = totalmpdr;
-    systemData.totalmpdm = totalmpdm;
-    systemData.totalmpab = totalmpab;
-    systemData.totalmpall = totalmpall;
-    systemData.totalmsckmod = totalmsckmod;
-    systemData.totalmspwmod = totalmspwmod;
-    systemData.totalatckmod = totalatckmod;
-    systemData.totalewckmod = totalewckmod;
-    systemData.totalewpwmod = totalewpwmod;
-    systemData.totallootmod = totallootmod;
-    if (totalhitmod > 0) systemData.totalhitmod = "+" + totalhitmod;
-    if (totaldmod > 0) systemData.totaldmod = "+" + totaldmod;
-    if (totalcmod > 0) systemData.totalcmod = "+" + totalcmod;
-    if (totalspcmod > 0) systemData.totalspcmod = "+" + totalspcmod;
-    if (totallt > 0) systemData.totallt = "+" + totallt;
-    if (totalcr > 0) systemData.totalcr = "+" + totalcr;
-    if (totalwphalfmod > 0) systemData.totalwphalfmod = "+" + totalwphalfmod;
-    if (totalsphalfmod > 0) systemData.totalsphalfmod = "+" + totalsphalfmod;
-    if (totaldodgemod > 0) systemData.totaldodgemod = "+" + totaldodgemod;
-    if (totalppmod > 0) systemData.totalppmod = "+" + totalppmod;
-    if (totalmppmod > 0) systemData.totalmppmod = "+" + totalmppmod;
-    if (totaldreduce > 0) systemData.totaldreduce = "+" + totaldreduce;
-    if (totalmovemod > 0) systemData.totalmovemod = "+" + totalmovemod;
-    if (totalhpregenmod > 0) systemData.totalhpregenmod = "+" + totalhpregenmod;
-    if (totalmpregenmod > 0) systemData.totalmpregenmod = "+" + totalmpregenmod;
-    if (totalvitres > 0) systemData.totalvitres = "+" + totalvitres;
-    if (totalmndres > 0) systemData.totalmndres = "+" + totalmndres;
-    if (totalinit > 0) systemData.totalinit = "+" + totalinit;
-    if (totalmknow > 0) systemData.totalmknow = "+" + totalmknow;
-    if (totalallck > 0) systemData.totalallck = "+" + totalallck;
-    if (totalallsk > 0) systemData.totalallsk = "+" + totalallsk;
-    if (totalhpmod > 0) systemData.totalhpmod = "+" + totalhpmod;
-    if (totalmpmod > 0) systemData.totalmpmod = "+" + totalmpmod;
-    if (totaldex > 0) systemData.totaldex = "+" + totaldex;
-    if (totalagi > 0) systemData.totalagi = "+" + totalagi;
-    if (totalstr > 0) systemData.totalstr = "+" + totalstr;
-    if (totalvit > 0) systemData.totalvit = "+" + totalvit;
-    if (totalint > 0) systemData.totalint = "+" + totalint;
-    if (totalmnd > 0) systemData.totalmnd = "+" + totalmnd;
-    if (totaldexmod > 0) systemData.totaldexmod = "+" + totaldexmod;
-    if (totalagimod > 0) systemData.totalagimod = "+" + totalagimod;
-    if (totalstrmod > 0) systemData.totalstrmod = "+" + totalstrmod;
-    if (totalvitmod > 0) systemData.totalvitmod = "+" + totalvitmod;
-    if (totalintmod > 0) systemData.totalintmod = "+" + totalintmod;
-    if (totalmndmod > 0) systemData.totalmndmod = "+" + totalmndmod;
-    if (totalscmod > 0) systemData.totalscmod = "+" + totalscmod;
-    if (totalcnmod > 0) systemData.totalcnmod = "+" + totalcnmod;
-    if (totalwzmod > 0) systemData.totalwzmod = "+" + totalwzmod;
-    if (totalprmod > 0) systemData.totalprmod = "+" + totalprmod;
-    if (totalmtmod > 0) systemData.totalmtmod = "+" + totalmtmod;
-    if (totalfrmod > 0) systemData.totalfrmod = "+" + totalfrmod;
-    if (totaldrmod > 0) systemData.totaldrmod = "+" + totaldrmod;
-    if (totaldmmod > 0) systemData.totaldmmod = "+" + totaldmmod;
-    if (totalabmod > 0) systemData.totalabmod = "+" + totalabmod;
-    if (totalscckmod > 0) systemData.totalscckmod = "+" + totalscckmod;
-    if (totalcnckmod > 0) systemData.totalcnckmod = "+" + totalcnckmod;
-    if (totalwzckmod > 0) systemData.totalwzckmod = "+" + totalwzckmod;
-    if (totalprckmod > 0) systemData.totalprckmod = "+" + totalprckmod;
-    if (totalmtckmod > 0) systemData.totalmtckmod = "+" + totalmtckmod;
-    if (totalfrckmod > 0) systemData.totalfrckmod = "+" + totalfrckmod;
-    if (totaldrckmod > 0) systemData.totaldrckmod = "+" + totaldrckmod;
-    if (totaldmckmod > 0) systemData.totaldmckmod = "+" + totaldmckmod;
-    if (totalabckmod > 0) systemData.totalabckmod = "+" + totalabckmod;
-    if (totalscpwmod > 0) systemData.totalscpwmod = "+" + totalscpwmod;
-    if (totalcnpwmod > 0) systemData.totalcnpwmod = "+" + totalcnpwmod;
-    if (totalwzpwmod > 0) systemData.totalwzpwmod = "+" + totalwzpwmod;
-    if (totalprpwmod > 0) systemData.totalprpwmod = "+" + totalprpwmod;
-    if (totalmtpwmod > 0) systemData.totalmtpwmod = "+" + totalmtpwmod;
-    if (totalfrpwmod > 0) systemData.totalfrpwmod = "+" + totalfrpwmod;
-    if (totaldrpwmod > 0) systemData.totaldrpwmod = "+" + totaldrpwmod;
-    if (totaldmpwmod > 0) systemData.totaldmpwmod = "+" + totaldmpwmod;
-    if (totalabpwmod > 0) systemData.totalabpwmod = "+" + totalabpwmod;
-    if (totalallmgp > 0) systemData.totalallmgp = "+" + totalallmgp;
-    if (totalallmck > 0) systemData.totalallmck = "+" + totalallmck;
-    if (totalallmpw > 0) systemData.totalallmpw = "+" + totalallmpw;
-    if (totalmsckmod > 0) systemData.totalmsckmod = "+" + totalmsckmod;
-    if (totalmspwmod > 0) systemData.totalmspwmod = "+" + totalmspwmod;
-    if (totalatckmod > 0) systemData.totalatckmod = "+" + totalatckmod;
-    if (totalewckmod > 0) systemData.totalewckmod = "+" + totalewckmod;
-    if (totalewpwmod > 0) systemData.totalewpwmod = "+" + totalewpwmod;
-    if (totallootmod > 0) systemData.totallootmod = "+" + totallootmod;
+    // convert dex
+    if (modParams.totaldex && typeof modParams.totaldex.value === "number") {
+      const dex = modParams.totaldex.value;
+      const bonus = Math.floor(dex / 6);
+
+      if(modParams.totalhitmod)
+        modParams.totalhitmod.value += bonus;
+      else
+        modParams.totalhitmod = {
+          label: `${game.i18n.localize("SW25.Effect.HitMod")}`,
+          value: bonus,
+        };
+
+      delete modParams.totaldex;
+    }
+    if (modParams.totaldexmod && typeof modParams.totaldexmod.value === "number") {
+      const bonus = Number(modParams.totaldexmod.value);
+
+      if(modParams.totalhitmod)
+        modParams.totalhitmod.value += bonus;
+      else
+        modParams.totalhitmod = {
+          label: `${game.i18n.localize("SW25.Effect.HitMod")}`,
+          value: bonus,
+        };
+
+      delete modParams.totaldexmod;
+    }
+
+    // convert str
+    if (modParams.totalstr && typeof modParams.totalstr.value === "number") {
+      const param = modParams.totalstr.value;
+      const bonus = Math.floor(param / 6);
+
+      if(modParams.totaldmod)
+        modParams.totaldmod.value += bonus;
+      else
+        modParams.totaldmod = {
+          label: `${game.i18n.localize("SW25.Effect.DamageMod")}`,
+          value: bonus,
+        };
+
+      delete modParams.totalstr;
+    }
+    if (modParams.totalstrmod && typeof modParams.totalstrmod.value === "number") {
+      const bonus = Number(modParams.totalstrmod.value);
+
+      if(modParams.totaldmod)
+        modParams.totaldmod.value += bonus;
+      else
+        modParams.totaldmod = {
+          label: `${game.i18n.localize("SW25.Effect.DamageMod")}`,
+          value: bonus,
+        };
+
+      delete modParams.totalstrmod;
+    }
+
+    // convert agi
+    if (modParams.totalagi && typeof modParams.totalagi.value === "number") {
+      const param = modParams.totalagi.value;
+      const bonus = Math.floor(param / 6);
+
+      if(modParams.totaldodgemod)
+        modParams.totaldodgemod.value += bonus;
+      else
+        modParams.totaldodgemod = {
+          label: `${game.i18n.localize("SW25.Effect.DodgeMod")}`,
+          value: bonus,
+        };
+
+      if(modParams.totalmovemod)
+        modParams.totalmovemod.value += param;
+      else
+        modParams.totalmovemod = {
+          label: `${game.i18n.localize("SW25.Effect.MoveMod")}`,
+          value: param,
+        };
+
+      if(modParams.totalinit)
+        modParams.totalinit.value += bonus;
+      else
+        modParams.totalinit = {
+          label: `${game.i18n.localize("SW25.Config.Init")}`,
+          value: bonus,
+        };
+
+      delete modParams.totalagi;
+    }
+    if (modParams.totalagimod && typeof modParams.totalagimod.value === "number") {
+      const bonus = Number(modParams.totalagimod.value);
+
+      if(modParams.totaldodgemod)
+        modParams.totaldodgemod.value += bonus;
+      else
+        modParams.totaldodgemod = {
+          label: `${game.i18n.localize("SW25.Effect.DodgeMod")}`,
+          value: bonus,
+        };
+
+      if(modParams.totalmovemod)
+        modParams.totalmovemod.value += bonus;
+      else
+        modParams.totalmovemod = {
+          label: `${game.i18n.localize("SW25.Effect.MoveMod")}`,
+          value: bonus,
+        };
+
+      if(modParams.totalinit)
+        modParams.totalinit.value += bonus;
+      else
+        modParams.totalinit = {
+          label: `${game.i18n.localize("SW25.Config.Init")}`,
+          value: bonus,
+        };
+
+      delete modParams.totalagimod;
+    }
+
+    // convert vit
+    if (modParams.totalvit && typeof modParams.totalvit.value === "number") {
+      const param = modParams.totalvit.value;
+      const bonus = Math.floor(param / 6);
+
+      if(modParams.totalvitres)
+        modParams.totalvitres.value += bonus;
+      else
+        modParams.totalvitres = {
+          label: `${game.i18n.localize("SW25.Config.ResVit")}`,
+          value: bonus,
+        };
+
+      if(modParams.totalhpmod)
+        modParams.totalhpmod.value += param;
+      else
+        modParams.totalhpmod = {
+          label: `${game.i18n.localize("SW25.Effect.HpMod")}`,
+          value: param,
+        };
+
+      delete modParams.totalvit;
+    }
+    if (modParams.totalvitmod && typeof modParams.totalvitmod.value === "number") {
+      const bonus = Number(modParams.totalvitmod.value);
+
+      if(modParams.totalvitres)
+        modParams.totalvitres.value += bonus;
+      else
+        modParams.totalvitres = {
+          label: `${game.i18n.localize("SW25.Config.ResVit")}`,
+          value: bonus,
+        };
+
+      delete modParams.totalvitmod;
+    }
+
+    // convert int
+    if (modParams.totalint && typeof modParams.totalint.value === "number") {
+      const param = modParams.totalint.value;
+      const bonus = Math.floor(param / 6);
+
+      if(modParams.totalallmgp)
+        modParams.totalallmgp.value += bonus;
+      else
+        modParams.totalallmgp = {
+          label: `${game.i18n.localize("SW25.Config.AllMgp")}`,
+          value: bonus,
+        };
+
+      delete modParams.totalint;
+    }
+    if (modParams.totalintmod && typeof modParams.totalintmod.value === "number") {
+      const bonus = Number(modParams.totalintmod.value);
+
+      if(modParams.totalallmgp)
+        modParams.totalallmgp.value += bonus;
+      else
+        modParams.totalallmgp = {
+          label: `${game.i18n.localize("SW25.Config.AllMgp")}`,
+          value: bonus,
+        };
+
+      delete modParams.totalintmod;
+    }
+
+    // convert mnd
+    if (modParams.totalmnd && typeof modParams.totalmnd.value === "number") {
+      const param = modParams.totalmnd.value;
+      const bonus = Math.floor(param / 6);
+
+      if(modParams.totalmndres)
+        modParams.totalmndres.value += bonus;
+      else
+        modParams.totalmndres = {
+          label: `${game.i18n.localize("SW25.Config.ResMnd")}`,
+          value: bonus,
+        };
+      if(modParams.totalmpmod)
+        modParams.totalmpmod.value += param;
+      else
+        modParams.totalmpmod = {
+          label: `${game.i18n.localize("SW25.Effect.MpMod")}`,
+          value: param,
+        };
+
+      delete modParams.totalmnd;
+    }
+    if (modParams.totalmndmod && typeof modParams.totalmndmod.value === "number") {
+      const bonus = Number(modParams.totalmndmod.value);
+
+      if(modParams.totalmndres)
+        modParams.totalmndres.value += bonus;
+      else
+        modParams.totalmndres = {
+          label: `${game.i18n.localize("SW25.Config.ResMnd")}`,
+          value: bonus,
+        };
+
+      delete modParams.totalmndmod;
+    }
+
+    // normalize
+    for (let [key, entry] of Object.entries(modParams)) {
+      if (typeof entry.value === "number") {
+        if (entry.value > 0) {
+          entry.value = `+${entry.value}`;
+        } else {
+          entry.value = `${entry.value}`;
+        }
+      }
+    }
+    systemData.modParams = modParams;
 
     // Set initiative formula
     systemData.initiativeFormula = String(systemData.preemptive);
@@ -1505,5 +1025,217 @@ export class SW25Actor extends Actor {
     }
 
     // Process additional Monster data here.
+  }
+
+  _splitEffectKey(effectKey) {
+    const keyPrefixes = [
+      "system.attributes.damage.physical.classType.",
+      "system.attributes.decay.physical.classType.",
+      "system.attributes.damage.physical.element.",
+      "system.attributes.decay.physical.element.",
+      "system.attributes.damage.magic.classType.",
+      "system.attributes.decay.magic.classType.",
+      "system.attributes.damage.magic.element.",
+      "system.attributes.decay.magic.element.",
+      "system.effect.checkinputmod.",
+    ];
+    for (const prefix of keyPrefixes) {
+      if (effectKey.startsWith(prefix)) {
+        return {
+          keyA: prefix,
+          keyB: effectKey.slice(prefix.length)
+        };
+      }
+    }
+    return null;
+  }
+
+  _getModParams(allEffects){
+    let activeEffects = allEffects.filter(
+      (effect) => effect.disabled === false
+    );
+    let effectsChange = activeEffects.map((effect) => {
+      return effect.changes.map((change) => {
+        return {
+          key: change.key,
+          value: Number(change.value),
+          mode: change.mode,
+        };
+      });
+    }).flat();
+
+    const processingRules = [
+      { key: "system.attributes.efhitmod", target: "totalhitmod", localize: "overview" },
+      { key: "system.attributes.efdmod", target: "totaldmod", localize: "overview" },
+      { key: "system.effect.efcvalue", target: "totalcmod", localize: "overview" },
+      { key: "system.effect.efspellcvalue", target: "totalspcmod", localize: "overview" },
+      { key: "system.lt", target: "totallt", localize: "overview" },
+      { key: "system.cr", target: "totalcr", localize: "overview" },
+      { key: "system.attributes.efwphalfmod", target: "totalwphalfmod", localize: "overview" },
+      { key: "system.attributes.efsphalfmod", target: "totalsphalfmod", localize: "overview" },
+      { key: "system.attributes.efdodgemod", target: "totaldodgemod", localize: "overview" },
+      { key: "system.attributes.efppmod", target: "totalppmod", localize: "overview" },
+      { key: "system.attributes.efmppmod", target: "totalmppmod", localize: "overview" },
+      { key: "system.attributes.efdreduce", target: "totaldreduce", localize: "overview" },
+      { key: "system.attributes.move.efmovemod", target: "totalmovemod", localize: "overview" },
+      { key: "system.attributes.turnend.hpregenmod", target: "totalhpregenmod", localize: "overview" },
+      { key: "system.attributes.turnend.mpregenmod", target: "totalmpregenmod", localize: "overview" },
+      { key: "system.effect.vitres", target: "totalvitres", localize: "overview" },
+      { key: "system.effect.mndres", target: "totalmndres", localize: "overview" },
+      { key: "system.effect.init", target: "totalinit", localize: "overview" },
+      { key: "system.effect.mknow", target: "totalmknow", localize: "overview" },
+      { key: "system.effect.allck", target: "totalallck", localize: "overview" },
+      { key: "system.effect.allsk", target: "totalallsk", localize: "overview" },
+      { key: "system.hp.efhpmod", target: "totalhpmod", localize: "overview" },
+      { key: "system.mp.efmpmod", target: "totalmpmod", localize: "overview" },
+      { key: "system.abilities.dex.efvaluemodify", target: "totaldex", localize: "overview" },
+      { key: "system.abilities.agi.efvaluemodify", target: "totalagi", localize: "overview" },
+      { key: "system.abilities.str.efvaluemodify", target: "totalstr", localize: "overview" },
+      { key: "system.abilities.vit.efvaluemodify", target: "totalvit", localize: "overview" },
+      { key: "system.abilities.int.efvaluemodify", target: "totalint", localize: "overview" },
+      { key: "system.abilities.mnd.efvaluemodify", target: "totalmnd", localize: "overview" },
+      { key: "system.abilities.dex.efmodify", target: "totaldexmod", localize: "overview" },
+      { key: "system.abilities.agi.efmodify", target: "totalagimod", localize: "overview" },
+      { key: "system.abilities.str.efmodify", target: "totalstrmod", localize: "overview" },
+      { key: "system.abilities.vit.efmodify", target: "totalvitmod", localize: "overview" },
+      { key: "system.abilities.int.efmodify", target: "totalintmod", localize: "overview" },
+      { key: "system.abilities.mnd.efmodify", target: "totalmndmod", localize: "overview" },
+      { key: "system.attributes.efscmod", target: "totalscmod", localize: "overview" },
+      { key: "system.attributes.efcnmod", target: "totalcnmod", localize: "overview" },
+      { key: "system.attributes.efwzmod", target: "totalwzmod", localize: "overview" },
+      { key: "system.attributes.efprmod", target: "totalprmod", localize: "overview" },
+      { key: "system.attributes.efmtmod", target: "totalmtmod", localize: "overview" },
+      { key: "system.attributes.effrmod", target: "totalfrmod", localize: "overview" },
+      { key: "system.attributes.efdrmod", target: "totaldrmod", localize: "overview" },
+      { key: "system.attributes.efdmmod", target: "totaldmmod", localize: "overview" },
+      { key: "system.attributes.efabmod", target: "totalabmod", localize: "overview" },
+      { key: "system.attributes.efscckmod", target: "totalscckmod", localize: "overview" },
+      { key: "system.attributes.efcnckmod", target: "totalcnckmod", localize: "overview" },
+      { key: "system.attributes.efwzckmod", target: "totalwzckmod", localize: "overview" },
+      { key: "system.attributes.efprckmod", target: "totalprckmod", localize: "overview" },
+      { key: "system.attributes.efmtckmod", target: "totalmtckmod", localize: "overview" },
+      { key: "system.attributes.effrckmod", target: "totalfrckmod", localize: "overview" },
+      { key: "system.attributes.efdrckmod", target: "totaldrckmod", localize: "overview" },
+      { key: "system.attributes.efdmckmod", target: "totaldmckmod", localize: "overview" },
+      { key: "system.attributes.efabckmod", target: "totalabckmod", localize: "overview" },
+      { key: "system.attributes.efscpwmod", target: "totalscpwmod", localize: "overview" },
+      { key: "system.attributes.efcnpwmod", target: "totalcnpwmod", localize: "overview" },
+      { key: "system.attributes.efwzpwmod", target: "totalwzpwmod", localize: "overview" },
+      { key: "system.attributes.efprpwmod", target: "totalprpwmod", localize: "overview" },
+      { key: "system.attributes.efmtpwmod", target: "totalmtpwmod", localize: "overview" },
+      { key: "system.attributes.effrpwmod", target: "totalfrpwmod", localize: "overview" },
+      { key: "system.attributes.efdrpwmod", target: "totaldrpwmod", localize: "overview" },
+      { key: "system.attributes.efdmpwmod", target: "totaldmpwmod", localize: "overview" },
+      { key: "system.attributes.efabpwmod", target: "totalabpwmod", localize: "overview" },
+      { key: "system.effect.allmgp", target: "totalallmgp", localize: "overview" },
+      { key: "system.attributes.efmpsc", target: "totalmpsc", localize: "overview" },
+      { key: "system.attributes.efmpcn", target: "totalmpcn", localize: "overview" },
+      { key: "system.attributes.efmpwz", target: "totalmpwz", localize: "overview" },
+      { key: "system.attributes.efmppr", target: "totalmppr", localize: "overview" },
+      { key: "system.attributes.efmpmt", target: "totalmpmt", localize: "overview" },
+      { key: "system.attributes.efmpfr", target: "totalmpfr", localize: "overview" },
+      { key: "system.attributes.efmpdr", target: "totalmpdr", localize: "overview" },
+      { key: "system.attributes.efmpdm", target: "totalmpdm", localize: "overview" },
+      { key: "system.attributes.efmpab", target: "totalmpab", localize: "overview" },
+      { key: "system.attributes.efmpall", target: "totalmpall", localize: "overview" },
+      { key: "system.attributes.efmckall", target: "totalallmck", localize: "overview" },
+      { key: "system.attributes.efmpwall", target: "totalallmpw", localize: "overview" },
+      { key: "system.attributes.efmsckmod", target: "totalmsckmod", localize: "overview" },
+      { key: "system.attributes.efmspwmod", target: "totalmspwmod", localize: "overview" },
+      { key: "system.attributes.efatckmod", target: "totalatckmod", localize: "overview" },
+      { key: "system.attributes.efewckmod", target: "totalewckmod", localize: "overview" },
+      { key: "system.attributes.efewpwmod", target: "totalewpwmod", localize: "overview" },
+      { key: "system.eflootmod", target: "totallootmod", localize: "overview" },
+      { key: "system.effect.package.fine", target: "totalfinechkmod", localize: "overview" },
+      { key: "system.effect.package.move", target: "totalmovechkmod", localize: "overview" },
+      { key: "system.effect.package.obse", target: "totalobsechkmod", localize: "overview" },
+      { key: "system.effect.package.know", target: "totalknowchkmod", localize: "overview" },
+      { key: "system.attributes.powertablemod.weapon", target: "ptmodweapon", localize: "overview" },
+      { key: "system.attributes.powertablemod.armor", target: "ptmodarmor", localize: "overview" },
+      { key: "system.attributes.powertablemod.accessory", target: "ptmodaccessory", localize: "overview" },
+      { key: "system.attributes.powertablemod.item", target: "ptmoditem", localize: "overview" },
+      { key: "system.attributes.powertablemod.spell", target: "ptmodspell", localize: "overview" },
+      { key: "system.attributes.powertablemod.enhancearts", target: "ptmodenhancearts", localize: "overview" },
+      { key: "system.attributes.powertablemod.magicalsong", target: "ptmodmagicalsong", localize: "overview" },
+      { key: "system.attributes.powertablemod.ridingtrick", target: "ptmodridingtrick", localize: "overview" },
+      { key: "system.attributes.powertablemod.alchemytech", target: "ptmodalchemytech", localize: "overview" },
+      { key: "system.attributes.powertablemod.phasearea", target: "ptmodphasearea", localize: "overview" },
+      { key: "system.attributes.powertablemod.tactics", target: "ptmodtactics", localize: "overview" },
+      { key: "system.attributes.powertablemod.infusion", target: "ptmodinfusion", localize: "overview" },
+      { key: "system.attributes.powertablemod.barbarousskill", target: "ptmodbarbarousskill", localize: "overview" },
+      { key: "system.attributes.powertablemod.essenceweave", target: "ptmodessenceweave", localize: "overview" },
+      { key: "system.attributes.powertablemod.skill", target: "ptmodskill", localize: "overview" },
+      { key: "system.attributes.powertablemod.raceability", target: "ptmodraceability", localize: "overview" },
+      { key: "system.attributes.powertablemod.otherfeature", target: "ptmodotherfeature", localize: "overview" },
+      { key: "system.attributes.powertablemod.monsterability", target: "ptmodmonsterability", localize: "overview" },
+      { key: "system.attributes.powertablemod.action", target: "ptmodaction", localize: "overview" },
+      { key: "system.attributes.powertablemod.all", target: "ptmodall", localize: "overview" },
+      { key: "system.attributes.damage.physical.classType.", target: "classPdamage", localize: "key-overview" },
+      { key: "system.attributes.decay.physical.classType.", target: "classPdecay", localize: "key-overview" },
+      { key: "system.attributes.damage.physical.element.", target: "elementPdamage", localize: "key-overview" },
+      { key: "system.attributes.decay.physical.element.", target: "elementPdecay", localize: "key-overview" },
+      { key: "system.attributes.damage.magic.classType.", target: "classMdamage", localize: "key-overview" },
+      { key: "system.attributes.decay.magic.classType.", target: "classMdecay", localize: "key-overview" },
+      { key: "system.attributes.damage.magic.element.", target: "elementMdamage", localize: "key-overview" },
+      { key: "system.attributes.decay.magic.element.", target: "elementMDecay", localize: "key-overview" },
+      { key: "system.effect.checkinputmod.", target: "checkinputmod", localize: "key" },
+    ];
+
+    let modParams = {};
+    let ruleMap = Object.fromEntries(
+      processingRules.map((rule) => [rule.key, rule])
+    );
+
+    effectsChange.sort((a, b) => a.mode - b.mode);
+    effectsChange.forEach((effects) => {
+      const keys = this._splitEffectKey(effects.key);
+      let rule = keys != null ? ruleMap[keys.keyA] : ruleMap[effects.key];
+      if (rule) {
+        let value = Number(effects.value);
+        let path = keys ? rule.target + keys.keyB.replaceAll(".", "") : rule.target;
+        let currentValue = foundry.utils.getProperty(modParams, `${path}.value`);
+        if (currentValue === undefined) {
+          currentValue = 0;
+        }
+
+        let newValue = currentValue;
+        switch (effects.mode) {
+          case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
+            newValue = Number(currentValue) * value;
+            break;
+
+          case CONST.ACTIVE_EFFECT_MODES.ADD:
+            newValue = Number(currentValue) + value;
+            break;
+  
+          case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
+            newValue = value;
+            break;
+  
+          case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
+          case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
+          case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
+            //未実装
+            break;
+  
+          default:
+            break;
+        }
+        foundry.utils.setProperty(modParams, `${path}.value`, newValue);
+        
+        if (rule.localize) {
+          let label;
+          if( rule.localize === "key" )
+            label = keys.keyB
+          else if( rule.localize === "key-overview" )
+            label = game.i18n.localize("SW25.Effect.Overview." + rule.key + keys.keyB);
+          else
+            label = game.i18n.localize("SW25.Effect.Overview." + rule.key);
+          foundry.utils.setProperty(modParams, `${path}.label`, label);
+        }
+      }
+    });
+
+    return modParams;
   }
 }

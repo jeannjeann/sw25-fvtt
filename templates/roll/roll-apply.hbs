@@ -1,4 +1,44 @@
 {{#if flavor}}<span class="flavor-text">{{flavor}}</span>{{/if}}
+{{#if result}}
+<details class="damage-details">
+    <summary class="damage-summary">{{localize "SW25.Effect.Chat.Damage.Details"}}<span class="acordion-icon"></span></summary>
+    <div class="damage-contents">
+        <label class="damage-value">{{localize "SW25.Effect.Chat.Damage.BaseDamage"}}: {{result.base}}</label>
+
+        <ul class="damage-detailtable">
+            <li class="damage-header">
+                <div class="damage-cell">{{localize "SW25.Effect.Chat.Damage.Element"}}</div>
+                <div class="damage-cell">{{localize "SW25.Effect.Chat.Damage.Bonus"}}</div>
+                <div class="damage-cell">{{localize "SW25.Effect.Chat.Damage.Decay"}}</div>
+            </li>
+            {{#each result.elementAnalysis.magic.elements}}
+            <li class="damage-row">
+                <div class="damage-cell">{{localize (concat "SW25.Effect.Chat." key)}}</div>
+                <div class="damage-cell">{{bonus}}</div>
+                <div class="damage-cell">{{decay}}</div>
+            </li>
+            {{/each}}
+            {{#each result.elementAnalysis.physical.elements}}
+            <li class="damage-row">
+                <div class="damage-cell">{{localize (concat "SW25.Effect.Chat." key)}}</div>
+                <div class="damage-cell">{{bonus}}</div>
+                <div class="damage-cell">{{decay}}</div>
+            </li>
+            {{/each}}
+        </ul>
+        <hr />
+        <label class="damage-total">{{localize "SW25.Effect.Chat.Damage.TotalDamage"}}: {{result.total}}</label>
+    </div>
+</details>
+
+<div class="element-tags">
+{{#each result.detail}}
+{{#if key}}
+<div class="element-tag el-{{key}}">{{localize (concat "SW25.Effect.Chat." key)}}{{#if value}}:{{value}}{{/if}}</div>
+{{/if}}
+{{/each}}
+</div>
+{{/if}}
 <div style="text-align: center;">
     {{#if cancel}}
         <span style="color: #333; font-weight: bold; font-size: 1.5em;">{{localize "SW25.Item.Spell.Cancel"}}</span>

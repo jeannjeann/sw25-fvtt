@@ -1,48 +1,44 @@
 <form class="{{cssClass}}" autocomplete="off">
-  <header class="sheet-header">
-    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
-    <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
-      <div class="grid grid-6col flex-group-left nogapmargin">
-        <div class="grid-span-2">
-          <b>{{localize "SW25.ActionTable"}} : </b>{{system.actiondicename}}
-        </div>
-        <div class="grid-span-2">
-          <b>{{localize "SW25.Item.Action.ActionValue"}} ({{localize "SW25.Item.Action.ActionResult"}}) : </b>{{system.actionvalue}} ({{system.actionresult}})
-        </div>
-        <div class="grid-span-2">
-          {{#if system.target}}<b>{{localize "SW25.Target"}} : </b>{{system.target}}{{/if}}
-        </div>
-        <div class="grid-span-6 textalign-left flexrow">
-          <div class="itemheader-label">
-            <span class="resource-label">{{localize "SW25.Item.Action.Dialog"}}:</span>
-          </div>
-          <div class="itemheader-value">
-            <span class="itemheader-wordwrap">{{system.dialog}}</span>
-          </div>
-        </div>
-        <div class="grid-span-6 textalign-left flexrow">
-          <div class="itemheader-label">
-            <span class="resource-label">{{localize "SW25.Item.Action.Action"}}:</span>
-          </div>
-          <div class="itemheader-value">
-            <span class="itemheader-wordwrap">{{{system.displayaction}}}</span>
-          </div>
-        </div>
-        <div class="grid-span-6 textalign-left flexrow">
-          <div class="itemheader-label">
-            <span class="resource-label">{{localize "SW25.Item.Action.ActionEffect"}}:</span>
-          </div>
-          <div class="itemheader-value">
-            <span class="itemheader-wordwrap">{{{system.displayactioneffect}}}</span>
-          </div>
-        </div>
+<section class="sw25item">
+  <header class="header">
+    <section class="header__img">
+      <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    </section>
+    <section class="header__title">
+      <h1 class="charname">
+        {{#if system.isEdit}}
+          <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+        {{else}}
+          {{> "systems/sw25/templates/helper/action-marks.hbs"}}
+          {{item.name}}
+        {{/if}}
+      </h1>
+    </section>
+    <section class="header__subtitle">
+      <span class="header__subtitle--label">{{localize "SW25.ActionTable"}} : {{system.actiondicename}}</span>
+      <div class="header__subtitle--overview">{{localize "SW25.Item.Action.ActionValue"}} ({{localize "SW25.Item.Action.ActionResult"}}) : {{system.actionvalue}} ({{system.actionresult}})</div>
+    </section>
+    <section class="header__activate">
+      <div class="header__checkbox">
+        <input class="checkbox--hidden" id="{{item._id}}system.equip" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
+        <label class="checkbox--label" for="{{item._id}}system.equip">{{localize "SW25.Item.Activation"}}</label>
       </div>
-    </div>
+      <div class="header__checkbox">
+        <input class="checkbox--hidden" id="{{item._id}}system.bookmark" type="checkbox" name="system.bookmark" data-dtype="Boolean" {{#if system.bookmark}} checked {{/if}}/>
+        <label class="checkbox--label" for="{{item._id}}system.bookmark">{{localize "SW25.Item.Bookmark"}}</label>
+      </div>
+    </section>
+    <section class="togglearea">
+      <label class="togglearea__btn">
+        <input id="{{item._id}}isEdit" type="checkbox" name="system.isEdit" {{#if system.isEdit}}checked{{/if}} data-dtype="Boolean"/>
+        <div class="togglearea__btn--slider"><i class="fa-solid fa-wrench"></i></div>
+      </label>
+    </section>
   </header>
 
+  <main class="main">
   {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
+  <nav class="sheet-tabs tabs" data-group="primary" style="margin: 0px;">
     <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
     <a class="item" data-tab="details">{{localize "SW25.Details"}}</a>
     <a class="item" data-tab="effects">{{localize "SW25.Effects"}}</a>
@@ -52,91 +48,148 @@
   <section class="sheet-body">
 
     {{!-- Description Tab --}}
-    <div class="tab" data-group="primary" data-tab="description">
+    <section class="tab" data-group="primary" data-tab="description" style="height: 100%;">
       {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
-    </div>
+    </section>
 
     {{!-- Detail Tab --}}
-    <div class="tab details" data-group="primary" data-tab="details">
-      <div class="flexcol">
-        <div class="flexrow grid grid-10col nogapmargin">
-          <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.Item.Clickitem"}}</b><br>
-            <select name="system.clickitem">
-              {{selectOptions clickitemOptions selected=system.clickitem localize=true}}
-            </select>
-          </span>
-          <span class="grid-span-4"></span>
-          <span class="grid-span-1"  style="text-align: center;"><label for="{{item._id}}system.usedice1"><b>{{localize "SW25.Item.Action.ActionValue"}}</b></label><br>
-            <input id="{{item._id}}system.usedice1" type="checkbox" name="system.usedice1" data-dtype="Boolean" {{#if system.usedice1}} checked {{/if}}/></span>
-          <span class="grid-span-1"  style="text-align: center;"><label for="{{item._id}}system.usedice"><b>{{localize "SW25.Check"}}</b></label><br>
-            <input id="{{item._id}}system.usedice" type="checkbox" name="system.usedice" data-dtype="Boolean" {{#if system.usedice}} checked {{/if}}/></span>
-          <span class="grid-span-1"  style="text-align: center;"><label for="{{item._id}}system.usepower"><b>{{localize "SW25.Item.Power"}}</b></label><br>
-            <input id="{{item._id}}system.usepower" type="checkbox" name="system.usepower" data-dtype="Boolean" {{#if system.usepower}} checked {{/if}}/></span>
-          <span class="grid-span-3" style="text-align: center;"><b>{{localize "SW25.ActionTable"}}</b><br>
-            <select name="system.actiondice">
-              {{#select system.actiondice}}
-              <option value="">-</option>
-              <option value="f1">{{localize "SW25.Fellow"}}:1-2</option>
-              <option value="f3">{{localize "SW25.Fellow"}}:3-4</option>
-              <option value="f5">{{localize "SW25.Fellow"}}:5</option>
-              <option value="f6">{{localize "SW25.Fellow"}}:6</option>
-              <option value="d1">{{localize "SW25.Daemon"}}:1</option>
-              <option value="d2">{{localize "SW25.Daemon"}}:2-3</option>
-              <option value="d4">{{localize "SW25.Daemon"}}:4-5</option>
-              <option value="d6">{{localize "SW25.Daemon"}}:6</option>
-              {{/select}}
-            </select>
-          </span>
-          {{#if system.actiondice}}
-          <span class="grid-span-1" style="text-align: center;"><b>{{localize "SW25.Item.Action.ActionResult"}}</b><br>
-            <select name="system.actionresult">
-              {{#select system.actionresult}}
-              {{#if (eq system.actiondice "f1")}}
-              <option value="7">7</option>
-              <option value="6">6</option>
-              {{/if}}
-              {{#if (eq system.actiondice "f3")}}
-              <option value="8">8</option>
-              <option value="5">5</option>
-              {{/if}}
-              {{#if (eq system.actiondice "f5")}}
-              <option value="9">9</option>
-              <option value="4">4</option>
-              {{/if}}
-              {{#if (eq system.actiondice "f6")}}
-              <option value="10">10</option>
-              <option value="3">3</option>
-              {{/if}}
-              {{#if (eq system.actiondice "d1")}}
-              <option value="8">8</option>
-              {{/if}}
-              {{#if (eq system.actiondice "d2")}}
-              <option value="8">8</option>
-              {{/if}}
-              {{#if (eq system.actiondice "d4")}}
-              <option value="9">9</option>
-              {{/if}}
-              {{#if (eq system.actiondice "d6")}}
-              <option value="10">10</option>
-              {{/if}}
-              {{/select}}
-            </select>
-          </span>
-          {{else}}
-          <span class="grid-span-1"></span>
-          {{/if}}
-          <span class="grid-span-1"></span>
-          <span class="grid-span-2" style="text-align: center;"><label for="{{item._id}}system.basempcost"><b>MP{{localize "SW25.Cost"}}</b></label><br>
-            <input id="{{item._id}}system.basempcost" style="max-width: calc(50% - 7px);" type="text" name="system.basempcost" value="{{system.basempcost}}" data-dtype="Number"/></span>
-          <span class="grid-span-3" style="text-align: center;"><label for="{{item._id}}system.target"><b>{{localize "SW25.Target"}}</b></label><br>
-            <input id="{{item._id}}system.target" style="max-width: calc(90% - 7px);" type="text" name="system.target" value="{{system.target}}" data-dtype="String"/></span>
-          <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.dialog"><b>{{localize "SW25.Item.Action.Dialog"}}</b></label><br>
-            <input id="{{item._id}}system.dialog" type="text" name="system.dialog" value="{{system.dialog}}" data-dtype="String"/></span>        
-          <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.action"><b>{{localize "SW25.Item.Action.Action"}}</b></label><br>
-            <textarea class="textarea-editor" id="{{item._id}}system.action" style="height: 26px; min-height: 26px;" data-path="action">{{system.action}}</textarea></span>
-          <span class="grid-span-10" style="text-align: left;"><label for="{{item._id}}system.actioneffect"><b>{{localize "SW25.Item.Action.ActionEffect"}}</b></label><br>
-            <textarea class="textarea-editor" id="{{item._id}}system.actioneffect" style="height: 26px; min-height: 26px;" data-path="actioneffect">{{system.actioneffect}}</textarea></span>
+    <section class="tab details" data-group="primary" data-tab="details">
+
+      {{!-- Basic Category --}}
+      <fieldset class="category flexrow grid grid-10col">
+        <legend class="category__title">
+          {{localize "SW25.Item.Field.Basic"}}
+        </legend>
+        <div class="grid-span-5 property">
+          <label class="property--label">{{localize "SW25.Item.Clickitem"}}</label>
+          <select class="property--value" name="system.clickitem"{{#unless system.isEdit}} disabled {{/unless}}>
+            {{selectOptions clickitemOptions selected=system.clickitem localize=true}}
+          </select>
         </div>
+        <div class="grid-span-5 blank"></div>
+        <div class="grid-span-10 property">
+          <label class="property--label" for="{{item._id}}system.overview">{{localize "SW25.Item.Overview"}}</label>
+          <input class="property--value" id="{{item._id}}system.overview" type="text" name="system.overview" value="{{system.overview}}" data-dtype="String"{{#unless system.isEdit}} disabled {{/unless}}/>
+        </div>
+      </fieldset>
+
+      {{!-- Action Category --}}
+      <fieldset class="category flexrow grid grid-10col">
+        <legend class="category__title">
+          {{localize "SW25.Item.Field.Action"}}
+        </legend>
+
+        <div class="grid-span-3 property">
+          <label class="property--label">{{localize "SW25.ActionTable"}}</label>
+          <select class="property--value" name="system.actiondice"{{#unless system.isEdit}} disabled {{/unless}}>
+            {{#select system.actiondice}}
+            <option value="">-</option>
+            <option value="f1">{{localize "SW25.Fellow"}}:1-2</option>
+            <option value="f3">{{localize "SW25.Fellow"}}:3-4</option>
+            <option value="f5">{{localize "SW25.Fellow"}}:5</option>
+            <option value="f6">{{localize "SW25.Fellow"}}:6</option>
+            <option value="d1">{{localize "SW25.Daemon"}}:1</option>
+            <option value="d2">{{localize "SW25.Daemon"}}:2-3</option>
+            <option value="d4">{{localize "SW25.Daemon"}}:4-5</option>
+            <option value="d6">{{localize "SW25.Daemon"}}:6</option>
+            {{/select}}
+          </select>
+        </div>
+        <div class="grid-span-2 property">
+          {{#if system.actiondice}}
+          <label class="property--label">{{localize "SW25.Item.Action.ActionResult"}}</label>
+          <select class="property--value" name="system.actionresult"{{#unless system.isEdit}} disabled {{/unless}}>
+            {{#select system.actionresult}}
+            {{#if (eq system.actiondice "f1")}}
+            <option value="7">7</option>
+            <option value="6">6</option>
+            {{/if}}
+            {{#if (eq system.actiondice "f3")}}
+            <option value="8">8</option>
+            <option value="5">5</option>
+            {{/if}}
+            {{#if (eq system.actiondice "f5")}}
+            <option value="9">9</option>
+            <option value="4">4</option>
+            {{/if}}
+            {{#if (eq system.actiondice "f6")}}
+            <option value="10">10</option>
+            <option value="3">3</option>
+            {{/if}}
+            {{#if (eq system.actiondice "d1")}}
+            <option value="8">8</option>
+            {{/if}}
+            {{#if (eq system.actiondice "d2")}}
+            <option value="8">8</option>
+            {{/if}}
+            {{#if (eq system.actiondice "d4")}}
+            <option value="9">9</option>
+            {{/if}}
+            {{#if (eq system.actiondice "d6")}}
+            <option value="10">10</option>
+            {{/if}}
+            {{/select}}
+          </select>
+          {{/if}}
+        </div>
+        <div class="grid-span-5 property">
+          <label class="property--label" for="{{item._id}}system.target">{{localize "SW25.Target"}}</label>
+          <input class="property--value" id="{{item._id}}system.target" type="text" name="system.target" value="{{system.target}}" data-dtype="String"{{#unless system.isEdit}} disabled {{/unless}}/>
+        </div>
+
+        <div class="grid-span-10 property">
+          <label class="property--label" for="{{item._id}}system.dialog">{{localize "SW25.Item.Action.Dialog"}}</label>
+          <input class="property--value" id="{{item._id}}system.dialog" type="text" name="system.dialog" value="{{system.dialog}}" data-dtype="String"{{#unless system.isEdit}} disabled {{/unless}}/>
+        </div>
+        <div class="grid-span-10 property">
+          <label class="property--label" for="{{item._id}}system.action">{{localize "SW25.Item.Action.Action"}}</label>
+          <textarea class="property--value textarea-editor" id="{{item._id}}system.action" data-path="action"{{#unless system.isEdit}} disabled {{/unless}}>{{system.action}}</textarea>
+        </div>
+        <div class="grid-span-10 property">
+          <label class="property--label" for="{{item._id}}system.actioneffect">{{localize "SW25.Item.Action.ActionEffect"}}</label>
+          <textarea class="property--value textarea-editor" id="{{item._id}}system.actioneffect" data-path="actioneffect"{{#unless system.isEdit}} disabled {{/unless}}>{{system.actioneffect}}</textarea>
+        </div>
+
+        
+        {{!-- Resource Category --}}
+        <fieldset class="subcategory flexrow grid grid-10col">
+          <legend class="category__title">
+            {{localize "SW25.Item.Field.Resource"}}
+          </legend>
+          <div class="grid-span-2 property">
+            <label class="property--label" for="{{item._id}}system.basehpcost">HP{{localize "SW25.Cost"}}</label>
+            <input class="property--value" id="{{item._id}}system.basehpcost" type="text" name="system.basehpcost" value="{{system.basehpcost}}" data-dtype="String"{{#unless system.isEdit}} disabled {{/unless}}/>
+          </div>
+          <div class="grid-span-1 property">
+            <input class="property--value" id="{{item._id}}system.maxhpcost" type="text" name="system.maxhpcost" value="{{system.maxhpcost}}" data-dtype="Number" placeholder="{{localize "SW25.Max"}}"{{#unless system.isEdit}} disabled {{/unless}}/>
+          </div>
+          <div class="grid-span-2 property">
+            <label class="property--label" for="{{item._id}}system.basempcost">MP{{localize "SW25.Cost"}}</label>
+            <input class="property--value" id="{{item._id}}system.basempcost" style="max-width: calc(50% - 7px);" type="text" name="system.basempcost" value="{{system.basempcost}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
+          </div>
+          <div class="grid-span-5"></div>
+          <div class="grid-span-7 property">
+            <label class="property--label">{{localize "SW25.Item.Resuse"}}</label>
+            <select class="property--value" name="system.resuse"{{#unless system.isEdit}} disabled {{/unless}}>
+              {{selectOptions system.itemlist selected=system.resuse valueAttr="itemId" labelAttr="itemName" blank="SW25.Item.None" localize=true}}
+            </select>
+          </div>
+          <div class="grid-span-3 property">
+            <input class="property--value" id="{{item._id}}system.resusequantity" type="text" name="system.resusequantity" value="{{system.resusequantity}}" data-dtype="Number" placeholder="{{localize "SW25.Item.Resquantity"}}"{{#unless system.isEdit}} disabled {{/unless}}/>
+            <input class="checkbox--hidden" id="{{item._id}}system.autouseres" type="checkbox" name="system.autouseres" data-dtype="Boolean" {{#if system.autouseres}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.autouseres">{{localize "SW25.Item.AutoUseres"}}</label>
+              </span>
+            </div>
+          </div>
+        </fieldset>
+      </fieldset>
+
+      {{!-- Use-ActionValue Category --}}
+      <fieldset class="category">
+        <legend class="category__title">
+          <input class="checkbox--hidden" id="{{item._id}}system.usedice1" type="checkbox" name="system.usedice1" data-dtype="Boolean" {{#if system.usedice1}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>
+          <label class="checkbox--label" for="{{item._id}}system.usedice1">{{localize "SW25.Item.Action.ActionValue"}}</label>
+        </legend>
         <div style="display: {{#if system.usedice1}}block{{else}}none{{/if}};">
           <div class="flexrow grid grid-10col">
             <span class="resource-label grid-span-2" style="text-decoration: underline;">{{localize "SW25.Item.Action.ActionValue"}}{{localize "SW25.Setting"}}</span>
@@ -216,19 +269,59 @@
           </div>
           --}}
         </div>
+      </fieldset>
+
+      {{!-- Use-dice Category --}}
+      <fieldset class="category">
+        <legend class="category__title">
+          <input class="checkbox--hidden" id="{{item._id}}system.usedice" type="checkbox" name="system.usedice" data-dtype="Boolean" {{#if system.usedice}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>
+          <label class="checkbox--label" for="{{item._id}}system.usedice">{{localize "SW25.Item.Usedice"}}</label>
+        </legend>
         <div style="display: {{#if system.usedice}}block{{else}}none{{/if}};">
           {{> "systems/sw25/templates/item/parts/item-usedice.hbs"}}
+
+        {{!-- Resist Category --}}
+        <fieldset class="subcategory flexrow grid grid-10col">
+          <legend class="category__title">
+            {{localize "SW25.Item.Field.Resist"}}
+          </legend>
+          <div class="grid-span-3 property">
+            <label class="property--label" for="{{item._id}}system.resistinfo.type">{{localize "SW25.Item.Resisttype"}}</label>
+            <select class="property--value" name="system.resistinfo.type"{{#unless system.isEdit}} disabled {{/unless}}>
+              {{selectOptions config.resistCheck selected=system.resistinfo.type localize=true blank="-"}}
+            </select>
+          </div>
+          {{#if (eq system.resistinfo.type "input")}}
+          <div class="grid-span-2 property">
+            <input class="property--value" id="{{item._id}}system.resistinfo.input" type="text" name="system.resistinfo.input" value="{{system.resistinfo.input}}" data-dtype="String" style="display: {{#if system.resistinfo.type}}block{{else}}none{{/if}};"{{#unless system.isEdit}} disabled {{/unless}}/>
+          </div>
+          {{/if}}
+          <div class="blank"></div>
+          <div class="grid-span-2 property">
+            <label class="property--label" for="{{item._id}}system.resistinfo.result">{{localize "SW25.Item.Resist"}}</label>
+            <select class="property--value" name="system.resistinfo.result"{{#unless system.isEdit}} disabled {{/unless}}>
+              {{selectOptions config.resistResult selected=system.resistinfo.result localize=true blank="-"}}
+            </select>
+          </div>
+        </fieldset>
         </div>
+      </fieldset>
+
+      {{!-- Use-power Category --}}
+      <fieldset class="category">
+        <legend class="category__title">
+          <input class="checkbox--hidden" id="{{item._id}}system.usepower" type="checkbox" name="system.usepower" data-dtype="Boolean" {{#if system.usepower}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>
+          <label class="checkbox--label" for="{{item._id}}system.usepower">{{localize "SW25.Item.Usepower"}}</label>
+        </legend>
         <div style="display: {{#if system.usepower}}block{{else}}none{{/if}};">
           {{> "systems/sw25/templates/item/parts/item-usepower.hbs"}}
         </div>
-      </div>
-    </div>
-
+      </fieldset>
+    </section>
     {{!-- Effects Tab --}}
-    <div class="tab effects" data-group="primary" data-tab="effects">
+    <section class="tab effects" data-group="primary" data-tab="effects">
       {{> "systems/sw25/templates/item/parts/item-effects.hbs"}}
-    </div>
-
-  </section>
+    </section>
+  </main>
+</section>
 </form>

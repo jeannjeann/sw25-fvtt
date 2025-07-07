@@ -43,6 +43,8 @@ export class SW25ActiveEffect extends ActiveEffect {
         if (change.keyname != "") change.key = "system." + change.keyname;
         else change.key = "";
       }
+      if (change.keyClassification == "checkname") 
+        change.key = "system.effect.checkinputmod." + change.checkname;
       return change;
     });
   }

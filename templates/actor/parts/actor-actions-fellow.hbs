@@ -1,10 +1,10 @@
 <ol class='items-list'>
   <div class='item flexrow items-header'>
-    <div class='item-quantity item-element' style="flex: 0 0 60px;">{{localize "SW25.Item.Dice"}}</div>
-    <div class='item-quantity item-element' style="flex: 0 0 60px;">{{localize "SW25.Item.Action.ActionResult"}}</div>
+    <div class='item-element' style="flex: 0 0 60px;">{{localize "SW25.Item.Dice"}}</div>
+    <div class='item-element' style="flex: 0 0 60px;">{{localize "SW25.Item.Action.ActionResult"}}</div>
     <div class='item-element' style="flex: 0 0 150px;">{{localize "SW25.Item.Action.Label"}}</div>
     <div class='item-name'>{{localize "TYPES.Item.action"}}</div>
-    <div class='item-quantity item-element' style="flex: 0 0 60px; margin-right: 10px;">{{localize "SW25.Item.Action.ActionValue"}}</div>
+    <div class='item-element' style="flex: 0 0 60px; margin-right: 10px;">{{localize "SW25.Item.Action.ActionValue"}}</div>
   </div>
   <div class="item flexrow">
     <div class="roll-actiontable rollable" data-result="1" style="flex: 0 0 60px; font-size: 24px; text-align: center;">
@@ -20,12 +20,7 @@
               <div class='item-name' style="flex: 0 0 150px;">
                 <div class='item-image'>
                   <a class='rollable' data-roll-type='item'>
-                    <img
-                      src='{{item.img}}'
-                      title='{{item.name}}'
-                      width='24'
-                      height='24'
-                    />
+                    <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
                   </a>
                 </div>
                 <h4 class="action-label">{{item.name}}</h4>
@@ -35,7 +30,7 @@
               <div class="mpcost" style="flex: 0 0 40px; display: {{#if system.mpcost}}block{{else}}none{{/if}};" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
                 <b>{{localize "SW25.Item.MPB"}}</b>
               </div>
-              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}"{{#if system.dice1.resist.type}} data-resist="{{#if (eq system.dice1.resist.type "input")}}{{system.dice1.resist.input}}{{else}}{{localize (concat "SW25.Resist.Check." system.dice1.resist.type)}}{{/if}}"{{#if system.dice1.resist.result}} data-resistresult="{{system.dice1.resist.result}}"{{/if}}{{/if}}>
+              <div class='rollable item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
                 {{system.actionvalue}} ({{system.actionresult}})
               </div>
             </div>
@@ -54,16 +49,10 @@
                   {{/if}}
                 </div>
                 <div class='item-controls' style="flex: 0 0 50px;">
-                  <a
-                    class='item-control item-edit'
-                    title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'
-                  >
+                  <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'>
                     <i class='fas fa-edit'></i>
                   </a>
-                  <a
-                    class='item-control item-delete'
-                    title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'
-                  >
+                  <a class='item-control item-delete' title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'>
                     <i class='fas fa-trash'></i>
                   </a>
                 </div>
@@ -82,12 +71,7 @@
               <div class='item-name' style="flex: 0 0 150px;">
                 <div class='item-image'>
                   <a class='rollable' data-roll-type='item'>
-                    <img
-                      src='{{item.img}}'
-                      title='{{item.name}}'
-                      width='24'
-                      height='24'
-                    />
+                    <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
                   </a>
                 </div>
                 <h4 class="action-label">{{item.name}}</h4>
@@ -97,7 +81,7 @@
               <div class="mpcost" style="flex: 0 0 40px; display: {{#if system.mpcost}}block{{else}}none{{/if}};" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
                 <b>{{localize "SW25.Item.MPB"}}</b>
               </div>
-              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}"{{#if system.dice1.resist.type}} data-resist="{{#if (eq system.dice1.resist.type "input")}}{{system.dice1.resist.input}}{{else}}{{localize (concat "SW25.Resist.Check." system.dice1.resist.type)}}{{/if}}"{{#if system.dice1.resist.result}} data-resistresult="{{system.dice1.resist.result}}"{{/if}}{{/if}}>
+              <div class='rollable item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
                 {{system.actionvalue}} ({{system.actionresult}})
               </div>
             </div>
@@ -116,16 +100,10 @@
                   {{/if}}
                 </div>
                 <div class='item-controls' style="flex: 0 0 50px;">
-                  <a
-                    class='item-control item-edit'
-                    title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'
-                  >
+                  <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'>
                     <i class='fas fa-edit'></i>
                   </a>
-                  <a
-                    class='item-control item-delete'
-                    title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'
-                  >
+                  <a class='item-control item-delete' title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'>
                     <i class='fas fa-trash'></i>
                   </a>
                 </div>
@@ -151,12 +129,7 @@
               <div class='item-name' style="flex: 0 0 150px;">
                 <div class='item-image'>
                   <a class='rollable' data-roll-type='item'>
-                    <img
-                      src='{{item.img}}'
-                      title='{{item.name}}'
-                      width='24'
-                      height='24'
-                    />
+                    <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
                   </a>
                 </div>
                 <h4 class="action-label">{{item.name}}</h4>
@@ -166,7 +139,7 @@
               <div class="mpcost" style="flex: 0 0 40px; display: {{#if system.mpcost}}block{{else}}none{{/if}};" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
                 <b>{{localize "SW25.Item.MPB"}}</b>
               </div>
-              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}"{{#if system.dice1.resist.type}} data-resist="{{#if (eq system.dice1.resist.type "input")}}{{system.dice1.resist.input}}{{else}}{{localize (concat "SW25.Resist.Check." system.dice1.resist.type)}}{{/if}}"{{#if system.dice1.resist.result}} data-resistresult="{{system.dice1.resist.result}}"{{/if}}{{/if}}>
+              <div class='rollable item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
                 {{system.actionvalue}} ({{system.actionresult}})
               </div>
             </div>
@@ -185,16 +158,10 @@
                   {{/if}}
                 </div>
                 <div class='item-controls' style="flex: 0 0 50px;">
-                  <a
-                    class='item-control item-edit'
-                    title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'
-                  >
+                  <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'>
                     <i class='fas fa-edit'></i>
                   </a>
-                  <a
-                    class='item-control item-delete'
-                    title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'
-                  >
+                  <a class='item-control item-delete' title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'>
                     <i class='fas fa-trash'></i>
                   </a>
                 </div>
@@ -213,12 +180,7 @@
               <div class='item-name' style="flex: 0 0 150px;">
                 <div class='item-image'>
                   <a class='rollable' data-roll-type='item'>
-                    <img
-                      src='{{item.img}}'
-                      title='{{item.name}}'
-                      width='24'
-                      height='24'
-                    />
+                    <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
                   </a>
                 </div>
                 <h4 class="action-label">{{item.name}}</h4>
@@ -228,7 +190,7 @@
               <div class="mpcost" style="flex: 0 0 40px; display: {{#if system.mpcost}}block{{else}}none{{/if}};" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
                 <b>{{localize "SW25.Item.MPB"}}</b>
               </div>
-              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}"{{#if system.dice1.resist.type}} data-resist="{{#if (eq system.dice1.resist.type "input")}}{{system.dice1.resist.input}}{{else}}{{localize (concat "SW25.Resist.Check." system.dice1.resist.type)}}{{/if}}"{{#if system.dice1.resist.result}} data-resistresult="{{system.dice1.resist.result}}"{{/if}}{{/if}}>
+              <div class='rollable item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
                 {{system.actionvalue}} ({{system.actionresult}})
               </div>
             </div>
@@ -247,16 +209,10 @@
                   {{/if}}
                 </div>
                 <div class='item-controls' style="flex: 0 0 50px;">
-                  <a
-                    class='item-control item-edit'
-                    title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'
-                  >
+                  <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'>
                     <i class='fas fa-edit'></i>
                   </a>
-                  <a
-                    class='item-control item-delete'
-                    title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'
-                  >
+                  <a class='item-control item-delete' title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'>
                     <i class='fas fa-trash'></i>
                   </a>
                 </div>
@@ -282,12 +238,7 @@
               <div class='item-name' style="flex: 0 0 150px;">
                 <div class='item-image'>
                   <a class='rollable' data-roll-type='item'>
-                    <img
-                      src='{{item.img}}'
-                      title='{{item.name}}'
-                      width='24'
-                      height='24'
-                    />
+                    <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
                   </a>
                 </div>
                 <h4 class="action-label">{{item.name}}</h4>
@@ -297,7 +248,7 @@
               <div class="mpcost" style="flex: 0 0 40px; display: {{#if system.mpcost}}block{{else}}none{{/if}};" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
                 <b>{{localize "SW25.Item.MPB"}}</b>
               </div>
-              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}"{{#if system.dice1.resist.type}} data-resist="{{#if (eq system.dice1.resist.type "input")}}{{system.dice1.resist.input}}{{else}}{{localize (concat "SW25.Resist.Check." system.dice1.resist.type)}}{{/if}}"{{#if system.dice1.resist.result}} data-resistresult="{{system.dice1.resist.result}}"{{/if}}{{/if}}>
+              <div class='rollable item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
                 {{system.actionvalue}} ({{system.actionresult}})
               </div>
             </div>
@@ -316,16 +267,10 @@
                   {{/if}}
                 </div>
                 <div class='item-controls' style="flex: 0 0 50px;">
-                  <a
-                    class='item-control item-edit'
-                    title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'
-                  >
+                  <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'>
                     <i class='fas fa-edit'></i>
                   </a>
-                  <a
-                    class='item-control item-delete'
-                    title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'
-                  >
+                  <a class='item-control item-delete' title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'>
                     <i class='fas fa-trash'></i>
                   </a>
                 </div>
@@ -344,12 +289,7 @@
               <div class='item-name' style="flex: 0 0 150px;">
                 <div class='item-image'>
                   <a class='rollable' data-roll-type='item'>
-                    <img
-                      src='{{item.img}}'
-                      title='{{item.name}}'
-                      width='24'
-                      height='24'
-                    />
+                    <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
                   </a>
                 </div>
                 <h4 class="action-label">{{item.name}}</h4>
@@ -359,7 +299,7 @@
               <div class="mpcost" style="flex: 0 0 40px; display: {{#if system.mpcost}}block{{else}}none{{/if}};" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
                 <b>{{localize "SW25.Item.MPB"}}</b>
               </div>
-              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}"{{#if system.dice1.resist.type}} data-resist="{{#if (eq system.dice1.resist.type "input")}}{{system.dice1.resist.input}}{{else}}{{localize (concat "SW25.Resist.Check." system.dice1.resist.type)}}{{/if}}"{{#if system.dice1.resist.result}} data-resistresult="{{system.dice1.resist.result}}"{{/if}}{{/if}}>
+              <div class='rollable item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
                 {{system.actionvalue}} ({{system.actionresult}})
               </div>
             </div>
@@ -378,16 +318,10 @@
                   {{/if}}
                 </div>
                 <div class='item-controls' style="flex: 0 0 50px;">
-                  <a
-                    class='item-control item-edit'
-                    title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'
-                  >
+                  <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'>
                     <i class='fas fa-edit'></i>
                   </a>
-                  <a
-                    class='item-control item-delete'
-                    title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'
-                  >
+                  <a class='item-control item-delete' title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'>
                     <i class='fas fa-trash'></i>
                   </a>
                 </div>
@@ -413,12 +347,7 @@
               <div class='item-name' style="flex: 0 0 150px;">
                 <div class='item-image'>
                   <a class='rollable' data-roll-type='item'>
-                    <img
-                      src='{{item.img}}'
-                      title='{{item.name}}'
-                      width='24'
-                      height='24'
-                    />
+                    <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
                   </a>
                 </div>
                 <h4 class="action-label">{{item.name}}</h4>
@@ -428,7 +357,7 @@
               <div class="mpcost" style="flex: 0 0 40px; display: {{#if system.mpcost}}block{{else}}none{{/if}};" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
                 <b>{{localize "SW25.Item.MPB"}}</b>
               </div>
-              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}"{{#if system.dice1.resist.type}} data-resist="{{#if (eq system.dice1.resist.type "input")}}{{system.dice1.resist.input}}{{else}}{{localize (concat "SW25.Resist.Check." system.dice1.resist.type)}}{{/if}}"{{#if system.dice1.resist.result}} data-resistresult="{{system.dice1.resist.result}}"{{/if}}{{/if}}>
+              <div class='rollable item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
                 {{system.actionvalue}} ({{system.actionresult}})
               </div>
             </div>
@@ -447,16 +376,10 @@
                   {{/if}}
                 </div>
                 <div class='item-controls' style="flex: 0 0 50px;">
-                  <a
-                    class='item-control item-edit'
-                    title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'
-                  >
+                  <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'>
                     <i class='fas fa-edit'></i>
                   </a>
-                  <a
-                    class='item-control item-delete'
-                    title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'
-                  >
+                  <a class='item-control item-delete' title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'>
                     <i class='fas fa-trash'></i>
                   </a>
                 </div>
@@ -475,12 +398,7 @@
               <div class='item-name' style="flex: 0 0 150px;">
                 <div class='item-image'>
                   <a class='rollable' data-roll-type='item'>
-                    <img
-                      src='{{item.img}}'
-                      title='{{item.name}}'
-                      width='24'
-                      height='24'
-                    />
+                    <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
                   </a>
                 </div>
                 <h4 class="action-label">{{item.name}}</h4>
@@ -490,7 +408,7 @@
               <div class="mpcost" style="flex: 0 0 40px; display: {{#if system.mpcost}}block{{else}}none{{/if}};" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
                 <b>{{localize "SW25.Item.MPB"}}</b>
               </div>
-              <div class='rollable item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}"{{#if system.dice1.resist.type}} data-resist="{{#if (eq system.dice1.resist.type "input")}}{{system.dice1.resist.input}}{{else}}{{localize (concat "SW25.Resist.Check." system.dice1.resist.type)}}{{/if}}"{{#if system.dice1.resist.result}} data-resistresult="{{system.dice1.resist.result}}"{{/if}}{{/if}}>
+              <div class='rollable item-prop flexrow flex-group-center' style="flex: 0 0 60px;" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{localize "SW25.Item.Action.ActionValue"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton1}}" {{resistAttributes type system.dice1.resist}}>
                 {{system.actionvalue}} ({{system.actionresult}})
               </div>
             </div>
@@ -510,25 +428,16 @@
                 </div>
                 {{#if ../isOwner}}
                   <div class='item-controls' style="flex: 0 0 50px;">
-                    <a
-                      class='item-control item-edit'
-                      title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'
-                    >
+                    <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'>
                       <i class='fas fa-edit'></i>
                     </a>
-                    <a
-                      class='item-control item-delete'
-                      title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'
-                    >
+                    <a class='item-control item-delete' title='{{localize "DOCUMENT.Delete" type=(localize "TYPES.Item.action")}}'>
                       <i class='fas fa-trash'></i>
                     </a>
                   </div>
                 {{else}}
                   <div class='item-controls' style="flex: 0 0 50px;">
-                    <a
-                      class='item-control item-edit'
-                      title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'
-                    >
+                    <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.action")}}'>
                       <i class='fa-solid fa-eye'></i>
                     </a>
                   </div>

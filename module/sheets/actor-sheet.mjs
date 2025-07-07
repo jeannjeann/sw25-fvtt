@@ -9,6 +9,8 @@ import { growthCheck } from "../helpers/growthcheck.mjs";
 import { actionRoll } from "../helpers/actionroll.mjs";
 import { targetRollDialog, targetSelectDialog } from "../helpers/dialogs.mjs";
 import { SW25 } from "../helpers/config.mjs";
+import { Util } from "../helpers/utils.mjs";
+import { DamageSupporter } from "../helpers/damagesupport.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -19,13 +21,18 @@ export class SW25ActorSheet extends ActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["sw25", "sheet", "actor"],
-      width: 700,
-      height: 600,
+      width: 800,
+      height: 700,
       tabs: [
         {
           navSelector: ".sheet-tabs",
           contentSelector: ".sheet-body",
           initial: "abilityskill",
+        },
+        {
+          navSelector: ".sidebar-tabs",
+          contentSelector: ".sidebar-body",
+          initial: "status",
         },
       ],
     });
@@ -83,6 +90,29 @@ export class SW25ActorSheet extends ActorSheet {
       // as well as any items
       this.actor.allApplicableEffects()
     );
+
+    const colorSetting = actorData.system.color
+    ? {
+        main: {
+          bg: Util.hexToRgb(actorData.system.color.main.bg),
+          text: Util.hexToRgb(actorData.system.color.main.text)
+        },
+        sub: {
+          bg: Util.hexToRgb(actorData.system.color.sub.bg),
+          text: Util.hexToRgb(actorData.system.color.sub.text)
+        }
+      }
+    : {
+        main: {
+          bg: {r:239, g:230, b:216},
+          text: {r:0, g:0, b:0},
+        },
+        sub: {
+          bg: {r:247, g:243, b:232},
+          text: {r:0, g:0, b:0},
+        }
+      }
+    context.colorSetting = colorSetting;
 
     return context;
   }
@@ -174,6 +204,7 @@ export class SW25ActorSheet extends ActorSheet {
     const tacspowers = [];
     const magitechrs = [];
     const abyssexs = [];
+    const otherfeatureresources = [];
     let materialshow = {
       all: false,
       red: false,
@@ -182,6 +213,13 @@ export class SW25ActorSheet extends ActorSheet {
       white: false,
       gold: false,
     };
+    let contentItem = {
+      vitRes: null,
+      mndRes: null,
+      monRes: null,
+      monAtk: null,
+    };
+    const bookmarks = [];
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -195,6 +233,11 @@ export class SW25ActorSheet extends ActorSheet {
         checks.push(i);
         if (i.system.showbtcheck === true) {
           battlechecks.push(i);
+        }
+        if (i.name === game.i18n.localize("SW25.Config.ResVit")){
+          contentItem.vitRes = i;
+        } else if (i.name === game.i18n.localize("SW25.Config.ResMnd")){
+          contentItem.mndRes = i;
         }
       }
       // Append to resource.
@@ -223,6 +266,8 @@ export class SW25ActorSheet extends ActorSheet {
           magitechrs.push(i);
         } else if (i.system?.resource?.type == "abyssex") {
           abyssexs.push(i);
+        } else if (i.system?.resource?.type == "otherfeature") {
+          otherfeatureresources.push(i);
         }
       }
       // Append to weapon.
@@ -351,6 +396,17 @@ export class SW25ActorSheet extends ActorSheet {
       // Append to monsterability.
       else if (i.type === "monsterability") {
         monsterabilities.push(i);
+        if (i.name === game.i18n.localize("SW25.Config.MonRes")) {
+          contentItem.monRes = i;
+        }
+        if (
+          contentItem.monAtk == null &&
+          i.system.label1 == game.i18n.localize("SW25.Config.MonHit") &&
+          i.system.label2 == game.i18n.localize("SW25.Config.MonDmg") &&
+          i.system.label3 == game.i18n.localize("SW25.Config.MonDge") 
+        ) {
+          contentItem.monAtk = i;
+        }
       }
 
       // Append to action.
@@ -409,6 +465,12 @@ export class SW25ActorSheet extends ActorSheet {
           }
         }
       }
+
+      // Append to bookmarks.
+      if (i.system.bookmark) {
+        bookmarks.push(i);
+      }
+
     }
 
     let eashow = true;
@@ -506,6 +568,20 @@ export class SW25ActorSheet extends ActorSheet {
       abshow = false;
     } else abshow = true;
 
+    const typeOrder = CONFIG.SW25.itemTypeList.map(e => e.type);
+
+    const sortedBookmarks = bookmarks.sort((a, b) => {
+      const ai = typeOrder.indexOf(a.type);
+      const bi = typeOrder.indexOf(b.type);
+
+      const aOrder = ai === -1 ? Infinity : ai;
+      const bOrder = bi === -1 ? Infinity : bi;
+
+      if (aOrder !== bOrder) return aOrder - bOrder;
+      return a.name.localeCompare(b.name, "ja");
+    });
+
+    
     // Assign and return
     context.skills = skills;
     context.checks = checks;
@@ -580,12 +656,16 @@ export class SW25ActorSheet extends ActorSheet {
     context.tacspowers = tacspowers;
     context.magitechrs = magitechrs;
     context.abyssexs = abyssexs;
+    context.otherfeatureresources = otherfeatureresources;
     context.noteshow = notes.length > 0;
     context.materialshow = materialshow;
     context.lifelineshow = lifelines.length > 0;
     context.tacspowershow = tacspowers.length > 0;
     context.magitechrshow = magitechrs.length > 0;
     context.abyssexshow = abyssexs.length > 0;
+    context.otherfeaturershow = otherfeatureresources.length > 0;
+    context.contentItem = contentItem;
+    context.bookmarks = sortedBookmarks;
   }
 
   /* -------------------------------------------- */
@@ -650,6 +730,12 @@ export class SW25ActorSheet extends ActorSheet {
     // use Phasearea.
     html.on("click", ".usephasearea", this._onUsePhasearea.bind(this));
 
+    // Lifeline add.
+    html.on("click", ".lifelineadd", this._onLifelineAdd.bind(this));
+
+    // Lifeline reset.
+    html.on("click", ".lifelinereset", this._onLifelineReset.bind(this));
+
     // Material card cost.
     html.on("click", ".materialcardcost", this._onMaterialcardCost.bind(this));
 
@@ -662,11 +748,17 @@ export class SW25ActorSheet extends ActorSheet {
     // Notes add cost.
     html.on("click", ".notesaddget", this._onNotesAddGet.bind(this));
 
+    // Notes reset.
+    html.on("click", ".notesreset", this._onNotesReset.bind(this));
+
     // Tacspower get.
     html.on("click", ".tacspowerget", this._onTacspowerGet.bind(this));
 
     // Tacspower cost.
     html.on("click", ".tacspowercost", this._onTacspowerCost.bind(this));
+
+    // Tacspower reset.
+    html.on("click", ".tacspowerreset", this._onTacspowerReset.bind(this));
 
     // Popularity roll.
     html.on("click", ".popularityrollable", this._onPopularityRoll.bind(this));
@@ -676,6 +768,26 @@ export class SW25ActorSheet extends ActorSheet {
 
     // Change Permission.
     html.on("click", ".changepermission", this._onChangePermission.bind(this));
+
+    // Change Permission.
+    html.on("click", ".changebookmark", this._onChangeBookmark.bind(this));
+
+    // bookmark-scroll
+    const outer = html.find("#bookmark-outer")[0];
+    const inner = html.find("#bookmark-inner")[0];
+    let currentOffset = 0;
+    const scrollAmount = 116;
+
+    html.find(".scroll-button.left").on("click", () => {
+      currentOffset = Math.min(currentOffset + scrollAmount, 0); // 左限界
+      inner.style.transform = `translateX(${currentOffset}px)`;
+    });
+
+    html.find(".scroll-button.right").on("click", () => {
+      const maxOffset = -(inner.scrollWidth - outer.clientWidth);
+      currentOffset = Math.max(currentOffset - scrollAmount, maxOffset); // 右限界
+      inner.style.transform = `translateX(${currentOffset}px)`;
+    });
 
     // Drag events for macros.
     if (this.actor.isOwner) {
@@ -726,6 +838,11 @@ export class SW25ActorSheet extends ActorSheet {
       await this.actor.update({ [dataPath]: !currentState });
       target.classList.toggle("checked", !currentState);
     });
+
+    const dropArea = html.find(".bookmark-drop-area");
+    if (dropArea.length > 0) {
+      dropArea.on("drop", this._onBookmarkDrop.bind(this));
+    }
   }
 
   /**
@@ -817,7 +934,11 @@ export class SW25ActorSheet extends ActorSheet {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
-
+    const itemId =
+      dataset.itemid ??
+      event.currentTarget.closest("[data-item-id]")?.dataset.itemId ??
+      null;
+      
     // Handle item rolls.
     if (dataset.rollType) {
       if (dataset.rollType == "item") {
@@ -897,13 +1018,19 @@ export class SW25ActorSheet extends ActorSheet {
       }
 
       let resistData = null;
-
       if (dataset.resist && dataset.resistresult != "none") {
         resistData = {
           name: dataset.resist,
           result: dataset.resistresult,
         };
       }
+
+      const item = itemId ? this.actor.items.get(itemId) : null;
+      const elements = item ? item.system.elements : null;
+      const damage = this.actor ? this.actor.system.attributes.damage : null;
+      const classType = this.actor ? this.actor.system.classType : null;
+      const isWeapon = DamageSupporter.getWeaponAttributes(item);
+      const tags = DamageSupporter.createChatTag(elements, damage, classType, isWeapon);
 
       chatData.flags = {
         sw25: {
@@ -918,6 +1045,9 @@ export class SW25ActorSheet extends ActorSheet {
           target,
           targetName: targetName,
           resist: resistData,
+          elements: elements,
+          damage: damage,
+          tags: tags,
         },
       };
 
@@ -935,6 +1065,7 @@ export class SW25ActorSheet extends ActorSheet {
           resusetext: chatresuse,
           targetName: targetName,
           resist: resistData,
+          tags: tags,
         }
       );
 
@@ -1007,7 +1138,10 @@ export class SW25ActorSheet extends ActorSheet {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
-
+    const itemId =
+      dataset.itemid ??
+      event.currentTarget.closest("[data-item-id]")?.dataset.itemId ??
+      null;
     const formula = dataset.roll;
     const powertype = dataset.powertype ? dataset.powertype.split(",") : "";
     const powertable = dataset.pt.split(",");
@@ -1098,6 +1232,13 @@ export class SW25ActorSheet extends ActorSheet {
       targetName = targetName + ``;
     }
 
+    const item = itemId ? this.actor.items.get(itemId) : null;
+    const elements = item ? item.system.elements : null;
+    const damage = this.actor ? this.actor.system.attributes.damage : null;
+    const classType = this.actor ? this.actor.system.classType : null;
+    const isWeapon = DamageSupporter.getWeaponAttributes(item);
+    const tags = DamageSupporter.createChatTag(elements, damage, classType, isWeapon);
+
     chatData.flags = {
       sw25: {
         formula: chatFormula,
@@ -1124,9 +1265,12 @@ export class SW25ActorSheet extends ActorSheet {
         powertype: powertype,
         target,
         targetName: targetName,
+        elements: elements,
+        damage: damage,
+        tags: tags,
       },
     };
-
+    
     chatData.content = await renderTemplate(
       "systems/sw25/templates/roll/roll-power.hbs",
       {
@@ -1149,6 +1293,7 @@ export class SW25ActorSheet extends ActorSheet {
         apply: chatapply,
         powertype: powertype,
         targetName: targetName,
+        tags: tags,
       }
     );
 
@@ -1376,9 +1521,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= actor.ownership.default) {
       isView = true;
     } else {
-      await actor.update({
-        "ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED,
-      });
+      await actor.update({"ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED});
     }
 
     let monsterName = isView
@@ -1386,7 +1529,17 @@ export class SW25ActorSheet extends ActorSheet {
       : this.actor.system.udname
       ? this.actor.system.udname
       : game.i18n.localize("SW25.Monster.Unidentifiedmon");
-    monsterName += `(${this.actor.system.type})`;
+
+    let typeName;
+    const classType = this.actor.system.classType;
+    const type = this.actor.system.type;
+
+    if (!classType || classType === "Other") {
+      typeName = type;
+    } else {
+      typeName = game.i18n.localize(`SW25.Actor.Class.${classType}`);
+    }
+    monsterName += `(${typeName})`;
     targetValue = this.actor.system.popularity;
     targetValue += !isNaN(Number(this.actor.system.weakpoint))
       ? "/" + this.actor.system.weakpoint
@@ -1419,7 +1572,7 @@ export class SW25ActorSheet extends ActorSheet {
       {
         checkName: checkName,
         message: message,
-        difficulty: `@UUID[Actor.${actorId}](${this.actor.system.type})`,
+        difficulty: `@UUID[Actor.${actorId}](${typeName})`,
         targetValue: targetValue,
         mod: modifier,
       }
@@ -1445,9 +1598,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= actor.ownership.default) {
       isView = true;
     } else {
-      await actor.update({
-        "ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED,
-      });
+      await actor.update({"ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED});
     }
 
     let monsterName = isView
@@ -1455,7 +1606,18 @@ export class SW25ActorSheet extends ActorSheet {
       : this.actor.system.udname
       ? this.actor.system.udname
       : game.i18n.localize("SW25.Monster.Unidentifiedmon");
-    monsterName += `(${this.actor.system.type})`;
+
+    let typeName;
+    const classType = this.actor.system.classType;
+    const type = this.actor.system.type;
+
+    if (!classType || classType === "Other") {
+      typeName = type;
+    } else {
+      typeName = game.i18n.localize(`SW25.Actor.Class.${classType}`);
+    }
+    monsterName += `(${typeName})`;
+
     targetValue = this.actor.system.preemptive;
     let message = game.i18n.localize("SW25.Monster.Preemptive");
 
@@ -1482,7 +1644,7 @@ export class SW25ActorSheet extends ActorSheet {
       {
         checkName: checkName,
         message: message,
-        difficulty: `@UUID[Actor.${actorId}](${this.actor.system.type})`,
+        difficulty: `@UUID[Actor.${actorId}](${typeName})`,
         targetValue: targetValue,
         mod: modifier,
       }
@@ -1572,10 +1734,11 @@ export class SW25ActorSheet extends ActorSheet {
 
     this.submit();
   }
+
   async _onQuantityButton(event) {
     event.preventDefault();
     const action = event.currentTarget.dataset.action;
-    const input = event.currentTarget.closest("li").querySelector("input");
+    const input = event.currentTarget.closest("li").querySelector("input.qt-change");
     const property = event.currentTarget.dataset.property;
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
@@ -1590,14 +1753,6 @@ export class SW25ActorSheet extends ActorSheet {
     // Check limit
     if (item.type == "resource") {
       if (item.system.qmax || item.system.qmax == 0) {
-        /*
-        if (quantity == item.system.qmax) {
-          quantity = item.system.qmax;
-          ui.notifications.warn(
-            `"${item.name}"${game.i18n.localize("SW25.isMax")}`
-          );
-        }
-        */
         if (item.system.qmax && quantity > item.system.qmax) {
           quantity = item.system.qmax;
           ui.notifications.warn(
@@ -1606,14 +1761,6 @@ export class SW25ActorSheet extends ActorSheet {
         }
       }
       if (item.system.qmin || item.system.qmin == 0) {
-        /*
-        if (quantity == item.system.qmin) {
-          quantity = item.system.qmin;
-          ui.notifications.warn(
-            `"${item.name}"${game.i18n.localize("SW25.isMin")}`
-          );
-        }
-        */
         if (item.system.qmin && quantity < item.system.qmin) {
           quantity = item.system.qmin;
           ui.notifications.warn(
@@ -1634,6 +1781,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     this.submit();
   }
+
   async _changeQuantity(event) {
     event.preventDefault();
 
@@ -1644,13 +1792,15 @@ export class SW25ActorSheet extends ActorSheet {
     let newQuantity = Number(event.currentTarget.value);
     await this._updateQuantity(item, newQuantity);
   }
+
   async _updateQuantity(item, quantity) {
     await item.update({ "system.quantity": quantity });
   }
+
   async _onSkilllevelButton(event) {
     event.preventDefault();
     const action = event.currentTarget.dataset.action;
-    const input = event.currentTarget.closest("li").querySelector("input");
+    const input = event.currentTarget.closest("li").querySelector("input.sl-change");
     const property = event.currentTarget.dataset.property;
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
@@ -1673,6 +1823,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     this.submit();
   }
+
   async _changeSkillLevel(event) {
     event.preventDefault();
 
@@ -1683,9 +1834,11 @@ export class SW25ActorSheet extends ActorSheet {
     let newSkillLevel = Number(event.currentTarget.value);
     item.update({ "system.skilllevel": newSkillLevel });
   }
+
   async _updateSkilllevel(item, skilllevel) {
     await item.update({ "system.skilllevel": skilllevel });
   }
+
   async _changeSkillMod(event) {
     event.preventDefault();
 
@@ -1700,7 +1853,7 @@ export class SW25ActorSheet extends ActorSheet {
   async _onCheckmodButton(event) {
     event.preventDefault();
     const action = event.currentTarget.dataset.action;
-    const input = event.currentTarget.closest("li").querySelector("input");
+    const input = event.currentTarget.closest("li").querySelector("input.cm-change");
     const property = event.currentTarget.dataset.property;
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
@@ -1723,6 +1876,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     this.submit();
   }
+
   async _changeCheckMod(event) {
     event.preventDefault();
 
@@ -1749,6 +1903,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (newCheckMod == 0) newCheckMod = null;
     item.update({ "system.checkmod1": newCheckMod });
   }
+
   async _updateCheckmod(item, checkmod) {
     await item.update({ "system.checkmod1": checkmod });
   }
@@ -1764,6 +1919,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (newCheckMod == 0) newCheckMod = null;
     item.update({ "system.checkmod2": newCheckMod });
   }
+  
   async _updateCheckmod(item, checkmod) {
     await item.update({ "system.checkmod2": checkmod });
   }
@@ -1779,6 +1935,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (newCheckMod == 0) newCheckMod = null;
     item.update({ "system.checkmod3": newCheckMod });
   }
+
   async _updateCheckmod(item, checkmod) {
     await item.update({ "system.checkmod3": checkmod });
   }
@@ -1794,6 +1951,7 @@ export class SW25ActorSheet extends ActorSheet {
     if (newPowerMod == 0) newPowerMod = null;
     item.update({ "system.powermod": newPowerMod });
   }
+
   async _updatePowermod(item, powermod) {
     await item.update({ "system.powermod": powermod });
   }
@@ -1808,6 +1966,7 @@ export class SW25ActorSheet extends ActorSheet {
     let newEquip = event.currentTarget.checked;
     item.update({ "system.equip": newEquip });
   }
+
   async _updateEquip(item, equip) {
     await item.update({ "system.equip": equip });
   }
@@ -1822,6 +1981,7 @@ export class SW25ActorSheet extends ActorSheet {
     let newReading = event.currentTarget.checked;
     item.update({ "system.reading": newReading });
   }
+
   async _updateReading(item, reading) {
     await item.update({ "system.reading": reading });
   }
@@ -1836,6 +1996,7 @@ export class SW25ActorSheet extends ActorSheet {
     let newConversation = event.currentTarget.checked;
     item.update({ "system.conversation": newConversation });
   }
+
   async _updateConversation(item, conversation) {
     await item.update({ "system.conversation": conversation });
   }
@@ -2323,7 +2484,8 @@ export class SW25ActorSheet extends ActorSheet {
     }
 
     // alchemitech effective change.
-    if (item.system.effectvalue.type !== "-" && item.effects) {
+    if ((item.system.effectvalue?.type && item.system.effectvalue.type !== "-")
+        && item.effects) {
       const changeValue = item.system.effectvalue[useRank];
       if (changeValue) {
         const updates = [];
@@ -2543,6 +2705,30 @@ export class SW25ActorSheet extends ActorSheet {
     }
   }
 
+  async _onNotesReset(event) {
+    event.preventDefault();
+
+    await this._updateAllResource({type: "note"}, null);
+  }
+
+  async _onLifelineReset(event) {
+    event.preventDefault();
+
+    await this._updateAllResource({type: "lifeline"}, null);
+  }
+
+  async _onLifelineAdd(event) {
+    event.preventDefault();
+
+    await this._updateAllResource({type: "lifeline"}, 1);
+  }
+
+  async _onTacspowerReset(event) {
+    event.preventDefault();
+
+    await this._updateAllResource({type: "tacspower"}, null);
+  }
+
   async _updateResource(resourceType, modifyValue, multiple = 1) {
     const result = isNaN(Number(modifyValue))
       ? 0
@@ -2568,4 +2754,144 @@ export class SW25ActorSheet extends ActorSheet {
       return;
     }
   }
+  
+  async _updateAllResource(resourceType, modifyValue, multiple = 1) {
+    const result = isNaN(Number(modifyValue))
+      ? 0
+      : Number(modifyValue) * multiple;
+
+    const resources = this.actor.items.filter((i) => {
+      if (i.type !== "resource") return false;
+
+      const res = i.system?.resource;
+      return (
+        res &&
+        Object.entries(resourceType).every(([key, value]) => res[key] === value)
+      );
+    });
+
+    if (resources.length === 0) {
+      ui.notifications.warn(game.i18n.localize("SW25.NotResource"));
+      return;
+    }
+
+    const updates = resources.map(resource => {
+      const oldVal = Number(resource.system.quantity ?? 0);
+      const newVal = modifyValue ? oldVal + Number(result) : 0;
+      return {
+        _id: resource.id,
+        system: {
+          quantity: newVal
+        }
+      };
+    });
+
+    await this.actor.updateEmbeddedDocuments("Item", updates);
+  }
+
+  async render(force = false, options = {}) {
+    let scrollPositions = this.getScrollPositions(this.element);
+
+    const rendered = await super.render(force, options);
+
+    setTimeout(() => {
+      if (this.element?.length) {
+        this.setScrollPositions(this.element, scrollPositions);
+      }
+    }, 10);
+
+    return rendered;
+  }
+
+    
+  getScrollPositions(html) {
+    const positions = {};
+    let tmpCnt = 0;
+    html.find('[data-scrollable="true"]').each((i, element) => {
+      const id = element.id || `scrollable-${i}`;
+      positions[id] = element.scrollTop;
+      tmpCnt += element.scrollTop;
+    });
+    return tmpCnt > 0 ? positions : null;
+  }
+
+  setScrollPositions(html, positions) {
+    html.find('[data-scrollable="true"]').each((i, element) => {
+      const id = element.id || `scrollable-${i}`;
+      if (positions?.[id] !== undefined) {
+        element.scrollTop = positions[id];
+      }
+    });
+  }
+  async _onBookmarkDrop(event) {
+    event.preventDefault();
+
+    const data = JSON.parse(event.originalEvent.dataTransfer.getData("text/plain"));
+    if (data.type !== "Item") return;
+
+    const droppedItem = await fromUuid(data.uuid ?? data.data?.uuid);
+    if (!droppedItem) return;
+
+    const droppedItemId = droppedItem.id;
+    const droppedItemName = droppedItem.name;
+
+    let ownedItem = this.actor.items.get(droppedItemId);
+
+    if (ownedItem) {
+      await ownedItem.update({ "system.bookmark": true });
+    } else {
+      const sameNameItem = this.actor.items.find(i => i.name === droppedItemName);
+
+      if (sameNameItem) {
+        await sameNameItem.update({ "system.bookmark": true });
+      } else {
+        const newItemData = foundry.utils.duplicate(droppedItem.toObject());
+        newItemData.system.bookmark = true;
+
+        await this.actor.createEmbeddedDocuments("Item", [newItemData]);
+      }
+    }
+  }
+
+  async _onDropItem(event, data) {
+    const isBookmarkDrop = event.target.closest(".bookmark-drop-area");
+    if (!isBookmarkDrop) {
+      return super._onDropItem(event, data);
+    }
+
+    const droppedItem = await fromUuid(data.uuid ?? data.data?.uuid);
+    if (!droppedItem) return;
+
+    const droppedItemId = droppedItem.id;
+    const droppedItemName = droppedItem.name;
+
+    let ownedItem = this.actor.items.get(droppedItemId);
+
+    if (ownedItem) {
+      await ownedItem.update({ "system.bookmark": true });
+    } else {
+      const sameNameItem = this.actor.items.find(i => i.name === droppedItemName);
+
+      if (sameNameItem) {
+        await sameNameItem.update({ "system.bookmark": true });
+      } else {
+        const newItemData = foundry.utils.duplicate(droppedItem.toObject());
+        newItemData.system.bookmark = true;
+
+        await this.actor.createEmbeddedDocuments("Item", [newItemData]);
+      }
+    }
+
+    return;
+  }
+
+  async _onChangeBookmark(event) {
+    event.preventDefault();
+    const changeItem = $(event.currentTarget);
+    const item = this.actor.items.get(
+      changeItem.parents(".item")[0].dataset.itemId
+    );
+    item.update({ "system.bookmark": !item.system.bookmark });
+  }
+
 }
