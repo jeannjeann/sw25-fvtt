@@ -406,7 +406,7 @@
         "Fairy": "Fairy",
         "Druid": "Nature",
         "Daemon": "Summoning",
-        "Abyssal": "Abyssak Magic",
+        "Abyssal": "Abyssal Magic",
         "Faith": "Classification",
         "First": "First",
         "Second": "Second",
@@ -1020,16 +1020,16 @@
     "Resist": {
       "Check": {
         "Dodge": "Dodge",
-        "Vitres": "VitRes",
-        "Mndres": "MndRes"
+        "Vitres": "Fortitude",
+        "Mndres": "Willpower"
       },
       "Result": {
         "decide": "Decide",
-        "any": "Any",
+        "any": "Optional",
         "none": "None",
-        "disappear": "Disappear",
-        "halving": "Halving",
-        "shortening": "Shortage"
+        "disappear": "Negated",
+        "halving": "Half",
+        "shortening": "Temporary"
       }
     }
   },
