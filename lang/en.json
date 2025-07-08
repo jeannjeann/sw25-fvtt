@@ -877,6 +877,7 @@
         "system.attributes.damage.physical.element.magic.healing": "Healing P-Dmg add",
         "system.attributes.damage.physical.element.physical.blade": "Blade P-Dmg add",
         "system.attributes.damage.physical.element.physical.blow": "Blow P-Dmg add",
+        "system.attributes.damage.physical.element.physical.gun": "Gun P-Dmg add",
         "system.attributes.damage.physical.element.physical.mithril": "Mithril P-Dmg add",
         "system.attributes.decay.physical.element.magic.earth": "Earth P-Dmg res",
         "system.attributes.decay.physical.element.magic.ice": "Ice P-Dmg res",
@@ -894,6 +895,7 @@
         "system.attributes.decay.physical.element.magic.healing": "Healing P-Dmg res",
         "system.attributes.decay.physical.element.physical.blade": "Blade P-Dmg res",
         "system.attributes.decay.physical.element.physical.blow": "Blow P-Dmg res",
+        "system.attributes.decay.physical.element.physical.gun": "Gun P-Dmg res",
         "system.attributes.decay.physical.element.physical.mithril": "Mithril P-Dmg res",
         "system.attributes.damage.magic.classType.Barbarous": "Barbarous M-Dmg add",
         "system.attributes.damage.magic.classType.Animal": "Animal M-Dmg add",
@@ -933,6 +935,7 @@
         "system.attributes.damage.magic.element.magic.healing": "Healing M-Dmg add",
         "system.attributes.damage.magic.element.physical.blade": "Blade M-Dmg add",
         "system.attributes.damage.magic.element.physical.blow": "Blow M-Dmg add",
+        "system.attributes.damage.magic.element.physical.gun": "Gun M-Dmg add",
         "system.attributes.damage.magic.element.physical.mithril": "Mithril M-Dmg add",
         "system.attributes.decay.magic.element.magic.earth": "Earth M-Dmg res",
         "system.attributes.decay.magic.element.magic.ice": "Ice M-Dmg res",
@@ -950,6 +953,7 @@
         "system.attributes.decay.magic.element.magic.healing": "Healing M-Dmg res",
         "system.attributes.decay.magic.element.physical.blade": "Blade M-Dmg res",
         "system.attributes.decay.magic.element.physical.blow": "Blow M-Dmg res",
+        "system.attributes.decay.magic.element.physical.gun": "Gun M-Dmg res",
         "system.attributes.decay.magic.element.physical.mithril": "Mithril M-Dmg res"
       },
       "Chat": {
