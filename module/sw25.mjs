@@ -160,6 +160,13 @@ Hooks.once("ready", async () => {
  * combat hook.
  */
 Hooks.on("updateCombat", async (combat, changes, options, userId) => {
+
+  if (!game.user.isGM) return;
+
+  // multiple GM treatment
+  const isActiveGM = game.user.isGM && game.user.id === game.users.activeGM?.id;
+  if (!isActiveGM) return;
+
   const combatant = combat.previous;
   if (!combatant) return;
 
