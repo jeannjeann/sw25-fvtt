@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 2.2.0
+- UXアップデート  by [keyslock](https://github.com/keyslock)  from [#42](https://github.com/jeannjeann/sw25-fvtt/pull/42)
+- 複数の機能追加  by [keyslock](https://github.com/keyslock)  from [#42](https://github.com/jeannjeann/sw25-fvtt/pull/42)
+- 各アイテムデータ構造変更  by [keyslock](https://github.com/keyslock)  from [#42](https://github.com/jeannjeann/sw25-fvtt/pull/42)
+- bug fix  by [keyslock](https://github.com/keyslock)  from [#42](https://github.com/jeannjeann/sw25-fvtt/pull/42)
+
+**！注意！**  アイテムデータの変更が行われており、自動または手動でのデータ変換をできるようにしています。しかし、データ破損の可能性もあるため、ワールドデータや辞典データはバックアップを行ってから導入してください。
+
+## 2.1.5
+- bug fix
+
 ## 2.1.4
 - bug fix
 
