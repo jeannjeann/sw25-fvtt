@@ -1031,6 +1031,7 @@ export class SW25ActorSheet extends ActorSheet {
       const classType = this.actor ? this.actor.system.classType : null;
       const isWeapon = DamageSupporter.getWeaponAttributes(item);
       const tags = DamageSupporter.createChatTag(elements, damage, classType, isWeapon);
+      console.log(tags);
 
       chatData.flags = {
         sw25: {
@@ -1146,7 +1147,6 @@ export class SW25ActorSheet extends ActorSheet {
     const powertype = dataset.powertype ? dataset.powertype.split(",") : "";
     const powertable = dataset.pt.split(",");
     //const powertable = dataset.pt.split(",").map(Number);
-
     let roll = await powerRoll(formula, powertable);
 
     const chatLabel = `${dataset.label}`;

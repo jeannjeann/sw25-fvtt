@@ -76,7 +76,6 @@ export async function rollreq() {
                 }
               },
             };
-
             chatData.content = "";
             let name = checkName;
             if (checkName == "di") name = inputName;

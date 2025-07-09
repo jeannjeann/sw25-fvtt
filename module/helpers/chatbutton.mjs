@@ -22,7 +22,6 @@ export async function chatButton(chatMessage, buttonType) {
     buttonType == "buttonpower"
   ) {
     const targetTokens = game.user.targets;
-
     let apply = "-";
     if (buttonType == "buttoncheck") apply = item.system.applycheck;
     if (buttonType == "buttoncheck1") apply = item.system.applycheck1;
@@ -129,28 +128,28 @@ export async function chatButton(chatMessage, buttonType) {
       else item.system.formula = "2d6";
     }
     if (buttonType == "buttoncheck1") {
-      item.system.checkbase = item.system.checkbase1;
+      item.system.checkbase1 = item.system.checkbase1;
       if (item.system.usefix1 == true) {
-        item.system.formula = 7;
+        item.system.formula1 = 7;
       } else if (item.system.customdice1 == true)
-        item.system.formula = item.system.customformula1;
-      else item.system.formula = "2d6";
+        item.system.formula1 = item.system.customformula1;
+      else item.system.formula1 = "2d6";
     }
     if (buttonType == "buttoncheck2") {
-      item.system.checkbase = item.system.checkbase2;
+      item.system.checkbase2 = item.system.checkbase2;
       if (item.system.usefix2 == true) {
-        item.system.formula = 7;
+        item.system.formula2 = 7;
       } else if (item.system.customdice2 == true)
-        item.system.formula = item.system.customformula2;
-      else item.system.formula = "2d6";
+        item.system.formula2 = item.system.customformula2;
+      else item.system.formula2 = "2d6";
     }
     if (buttonType == "buttoncheck3") {
-      item.system.checkbase = item.system.checkbase3;
-      if (item.system.usefix2 == true) {
-        item.system.formula = 7;
+      item.system.checkbase3 = item.system.checkbase3;
+      if (item.system.usefix3 == true) {
+        item.system.formula3 = 7;
       } else if (item.system.customdice3 == true)
-        item.system.formula = item.system.customformula3;
-      else item.system.formula = "2d6";
+        item.system.formula3 = item.system.customformula3;
+      else item.system.formula3 = "2d6";
     }
     if (buttonType == "buttonpower") {
       item.system.formula = "2d6";
@@ -230,6 +229,7 @@ export async function chatButton(chatMessage, buttonType) {
     let chatapply = "-";
     let checktype = item.system.checkTypesButton;
     let baseformula = item.system.formula;
+    let checkbase = "0";
 
     if (
       buttonType == "buttoncheck" ||
@@ -244,20 +244,25 @@ export async function chatButton(chatMessage, buttonType) {
         chatapply = item.system.applycheck1;
         checktype = item.system.checkTypesButton1;
         baseformula = item.system.checkformula1;
+        checkbase = item.system.checkbase1;
       } else if (buttonType == "buttoncheck2") {
         label = label + " (" + label2 + ")";
         chatapply = item.system.applycheck2;
         checktype = item.system.checkTypesButton2;
         baseformula = item.system.checkformula2;
+        checkbase = item.system.checkbase2;
       } else if (buttonType == "buttoncheck3") {
         label = label + " (" + label3 + ")";
         chatapply = item.system.applycheck3;
         checktype = item.system.checkTypesButton3;
         baseformula = item.system.checkformula3;
+        checkbase = item.system.checkbase3;
       } else {
         label = label + " (" + game.i18n.localize("SW25.Check") + ")";
         chatapply = item.system.applycheck;
         checktype = item.system.checkTypesButton;
+        baseformula = item.system.checkformula;
+        checkbase = item.system.checkbase;
       }
 
       let resuse = item.system.resuse;
@@ -284,7 +289,7 @@ export async function chatButton(chatMessage, buttonType) {
         }
       }
 
-      let formula = baseformula + "+" + item.system.checkbase;
+      let formula = baseformula + "+" + checkbase;
 
       let roll = new Roll(formula, rollData);
       await roll.evaluate();
