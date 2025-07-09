@@ -49,7 +49,7 @@
     "Other": "Other",
     "Selecthitweapon": "Select Attack Weapon",
     "Selectattackskill": "Select Attack Class",
-    "Selectdodgeskill": "Select Dodge Class",
+    "Selectdodgeskill": "Select Evasion Class",
     "Selectherbskill": "Herb Class",
     "Selectpotionskill": "Select Potion Class",
     "Selectrepairskill": "Select Repair Tool Class",
@@ -406,7 +406,7 @@
         "Fairy": "Fairy",
         "Druid": "Nature",
         "Daemon": "Summoning",
-        "Abyssal": "Abyssak Magic",
+        "Abyssal": "Abyssal Magic",
         "Faith": "Classification",
         "First": "First",
         "Second": "Second",
@@ -1019,17 +1019,17 @@
     },
     "Resist": {
       "Check": {
-        "Dodge": "Dodge",
-        "Vitres": "VitRes",
-        "Mndres": "MndRes"
+        "Dodge": "Evasion",
+        "Vitres": "Fortitude",
+        "Mndres": "Willpower"
       },
       "Result": {
-        "decide": "Decide",
-        "any": "Any",
+        "decide": "Can't",
+        "any": "Optional",
         "none": "None",
-        "disappear": "Disappear",
-        "halving": "Halving",
-        "shortening": "Shortage"
+        "disappear": "Negated",
+        "halving": "Half",
+        "shortening": "Temporary"
       }
     }
   },
