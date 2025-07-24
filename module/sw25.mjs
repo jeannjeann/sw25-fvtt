@@ -137,11 +137,10 @@ Hooks.once("init", function () {
  * migration hook.
  */
 Hooks.once("ready", async () => {
-
   if (game.user.isGM) {
-
     // multiple GM treatment
-    const isActiveGM = game.user.isGM && game.user.id === game.users.activeGM?.id;
+    const isActiveGM =
+      game.user.isGM && game.user.id === game.users.activeGM?.id;
     if (!isActiveGM) return;
 
     const currentVersion = game.system.version;
@@ -160,7 +159,6 @@ Hooks.once("ready", async () => {
  * combat hook.
  */
 Hooks.on("updateCombat", async (combat, changes, options, userId) => {
-
   if (!game.user.isGM) return;
 
   // multiple GM treatment
@@ -211,7 +209,7 @@ Hooks.on("updateCombat", async (combat, changes, options, userId) => {
       let label =
         actor.name + "(" + game.i18n.localize("SW25.TurnendEffect") + ")";
 
-      let chatData = {  
+      let chatData = {
         speaker: speaker,
         flavor: label,
         rollMode: rollMode,
@@ -418,62 +416,68 @@ Handlebars.registerHelper("localizeResourceType", function (type) {
   return "-";
 });
 
-Handlebars.registerHelper("backgroundStyleFromMaterialcards", function(system) {
-  const map = {
-    green: "rgb(var(--material-green-color))",
-    red: "rgb(var(--material-red-color))",
-    gold: "rgb(var(--material-gold-color))",
-    black: "rgb(var(--material-black-color))",
-    white: "rgb(var(--material-white-color))",
-  };
+Handlebars.registerHelper(
+  "backgroundStyleFromMaterialcards",
+  function (system) {
+    const map = {
+      green: "rgb(var(--material-green-color))",
+      red: "rgb(var(--material-red-color))",
+      gold: "rgb(var(--material-gold-color))",
+      black: "rgb(var(--material-black-color))",
+      white: "rgb(var(--material-white-color))",
+    };
 
-  const colors = Object.entries(map)
-    .filter(([key]) => system[key])
-    .map(([, color]) => color);
+    const colors = Object.entries(map)
+      .filter(([key]) => system[key])
+      .map(([, color]) => color);
 
-  if (colors.length === 1) {
-    return `background-color: ${colors[0]};`;
-  } else if (colors.length > 1) {
-    return `background: linear-gradient(90deg, ${colors.join(",")});`;
-  } else {
-    return "";
-  }
-});
-
-Handlebars.registerHelper("resistAttributes", function(type, resistinfo, hpresist) {
-  const info = resistinfo || {};
-  const resistHp = hpresist ?? false;
-
-  let resist = "";
-  let result = "";
-
-  if (info?.type) {
-    if (info.type === "input") {
-      resist = info.input ?? "";
+    if (colors.length === 1) {
+      return `background-color: ${colors[0]};`;
+    } else if (colors.length > 1) {
+      return `background: linear-gradient(90deg, ${colors.join(",")});`;
     } else {
-      resist = game.i18n.localize(`SW25.Resist.Check.${info.type}`);
-    }
-  } else {
-    if (type === "weapon") {
-      resist = game.i18n.localize("SW25.Resist.Check.Dodge");
-    } else if (type === "spell") {
-      resist = resistHp
-        ? game.i18n.localize("SW25.Resist.Check.Vitres")
-        : game.i18n.localize("SW25.Resist.Check.Mndres");
+      return "";
     }
   }
+);
 
-  if (info.result) {
-    result = info.result;
+Handlebars.registerHelper(
+  "resistAttributes",
+  function (type, resistinfo, hpresist) {
+    const info = resistinfo || {};
+    const resistHp = hpresist ?? false;
+
+    let resist = "";
+    let result = "";
+
+    if (info?.type) {
+      if (info.type === "input") {
+        resist = info.input ?? "";
+      } else {
+        resist = game.i18n.localize(`SW25.Resist.Check.${info.type}`);
+      }
+    } else {
+      if (type === "weapon") {
+        resist = game.i18n.localize("SW25.Resist.Check.Dodge");
+      } else if (type === "spell") {
+        resist = resistHp
+          ? game.i18n.localize("SW25.Resist.Check.Vitres")
+          : game.i18n.localize("SW25.Resist.Check.Mndres");
+      }
+    }
+
+    if (info.result) {
+      result = info.result;
+    }
+
+    let html = `data-resist="${resist}"`;
+    if (result) {
+      html += ` data-resistresult="${result}"`;
+    }
+
+    return new Handlebars.SafeString(html);
   }
-
-  let html = `data-resist="${resist}"`;
-  if (result) {
-    html += ` data-resistresult="${result}"`;
-  }
-
-  return new Handlebars.SafeString(html);
-});
+);
 
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
@@ -907,12 +911,20 @@ Hooks.once("ready", async function () {
   // preCreateActor hook
   Hooks.on("preCreateActor", (actor, options, userId) => {
     // Set default token
+    let displayName,
+      actorLink,
+      appendNumber,
+      prependAdjective,
+      disposition,
+      displayBars;
+    /*
     let displayName = 0;
     let actorLink = false;
     let appendNumber = false;
     let prependAdjective = false;
     let disposition = 0;
     let displayBars = 0;
+    */
     switch (actor.type) {
       case "character":
         displayName = 50;
@@ -931,20 +943,22 @@ Hooks.once("ready", async function () {
         displayBars = 0;
         break;
       case "monster":
-        displayName = 30;
+        //displayName = 30;
         actorLink = false;
-        appendNumber = true;
-        prependAdjective = true;
-        disposition = -1;
-        displayBars = 40;
+        //appendNumber = true;
+        //prependAdjective = true;
+        //disposition = -1;
+        //displayBars = 40;
         break;
       default:
+      /*
         displayName = 0;
         actorLink = false;
         appendNumber = false;
         prependAdjective = false;
         disposition = 0;
         displayBars = 0;
+      */
     }
 
     if (actor._stats?.compendiumSource || options._stats?.compendiumSource) {
@@ -984,7 +998,8 @@ Hooks.once("ready", async function () {
     if (!game.user.isGM) return;
 
     // multiple GM treatment
-    const isActiveGM = game.user.isGM && game.user.id === game.users.activeGM?.id;
+    const isActiveGM =
+      game.user.isGM && game.user.id === game.users.activeGM?.id;
     if (!isActiveGM) return;
 
     // Default item data
@@ -1144,7 +1159,8 @@ Hooks.once("ready", async function () {
     if (!game.user.isGM) return;
 
     // multiple GM treatment
-    const isActiveGM = game.user.isGM && game.user.id === game.users.activeGM?.id;
+    const isActiveGM =
+      game.user.isGM && game.user.id === game.users.activeGM?.id;
     if (!isActiveGM) return;
 
     // Linking equip and effect

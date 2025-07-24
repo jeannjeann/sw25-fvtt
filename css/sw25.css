@@ -2861,6 +2861,10 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
   gap: 2px;
 }
 
+.property-bio {
+  gap: 8px;
+}
+
 .property--label {
   flex: 0 1 auto;
   text-align: right;
