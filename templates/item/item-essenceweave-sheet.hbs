@@ -161,8 +161,19 @@
           <label class="property--label" for="{{item._id}}system.time">{{localize "SW25.Time"}}</label>
           <input class="property--value" id="{{item._id}}system.time" type="text" name="system.time" value="{{system.time}}" data-dtype="String"{{#unless system.isEdit}} disabled {{/unless}}/>
         </div>
-        <div class="grid-span-2"></div>
-
+        <div class="grid-span-3 property">
+          <label class="property--label">{{localize "SW25.Item.Prop"}}</label>
+          <select class="property--value" name="system.prop"{{#unless system.isEdit}} disabled{{/unless}}>
+            {{selectOptions config.spellProps selected=system.prop localize=true blank="-"}}
+          </select>
+        </div>
+        {{#if (eq system.prop "other")}}
+        {{!-- Elements Category --}}
+        <div class="grid-span-10">
+          {{> "systems/sw25/templates/item/parts/item-elements.hbs" isMagic=true isPhysical=true}}
+        </div>
+        {{/if}}
+        
         {{!-- Timing Category --}}
         <fieldset class="subcategory flexrow grid grid-10col">
           <legend class="category__title">
