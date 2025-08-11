@@ -681,6 +681,12 @@ export class SW25ActorSheet extends ActorSheet {
       item.sheet.render(true);
     });
 
+    // Open item details
+    html.find(".item-label").click(this._showItemDetails.bind(this));
+    html.find(".spelllist-label").click(this._showSpellList.bind(this));
+    html.find(".spell-label").click(this._showSpellDetails.bind(this));
+    html.find(".action-label").click(this._showActionDetails.bind(this));
+
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
@@ -798,12 +804,6 @@ export class SW25ActorSheet extends ActorSheet {
         li.addEventListener("dragstart", handler, false);
       });
     }
-
-    // Open item details
-    html.find(".item-label").click(this._showItemDetails.bind(this));
-    html.find(".spelllist-label").click(this._showSpellList.bind(this));
-    html.find(".spell-label").click(this._showSpellDetails.bind(this));
-    html.find(".action-label").click(this._showActionDetails.bind(this));
 
     // Change Input Area
     html.on("change", ".qt-change", this._changeQuantity.bind(this));
@@ -1031,8 +1031,7 @@ export class SW25ActorSheet extends ActorSheet {
       const classType = this.actor ? this.actor.system.classType : null;
       const isWeapon = DamageSupporter.getWeaponAttributes(item);
       const tags = DamageSupporter.createChatTag(elements, damage, classType, isWeapon);
-      console.log(tags);
-
+      
       chatData.flags = {
         sw25: {
           total: roll.total,
@@ -1423,7 +1422,8 @@ export class SW25ActorSheet extends ActorSheet {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
-    const selectedTokens = canvas.tokens.controlled;
+    const selectedTokens = await Util.getControlledActor(this.actor);
+
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
@@ -1435,7 +1435,14 @@ export class SW25ActorSheet extends ActorSheet {
     const cost = dataset.cost;
     const name = dataset.label;
     const type = dataset.type;
+    const id = dataset.id;
     const meta = 1;
+
+    if (id === token.actor.id && (type === "summon" || type === "return")){
+      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      return;
+    }
+    
     mpCost(token, cost, name, type, meta);
   }
 
@@ -1443,7 +1450,8 @@ export class SW25ActorSheet extends ActorSheet {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
-    const selectedTokens = canvas.tokens.controlled;
+    const selectedTokens = await Util.getControlledActor(this.actor);
+
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
@@ -2245,7 +2253,7 @@ export class SW25ActorSheet extends ActorSheet {
 
   async _onUsePhasearea(event) {
     event.preventDefault();
-    const selectedTokens = canvas.tokens.controlled;
+    const selectedTokens = await Util.getControlledActor(this.actor);
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
@@ -2268,7 +2276,8 @@ export class SW25ActorSheet extends ActorSheet {
   }
 
   async _applyPhasearea(item, cost) {
-    const selectedTokens = canvas.tokens.controlled;
+    const selectedTokens = await Util.getControlledActor(this.actor);
+
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
@@ -2411,7 +2420,8 @@ export class SW25ActorSheet extends ActorSheet {
 
   async _onMaterialcardCost(event) {
     event.preventDefault();
-    const selectedTokens = canvas.tokens.controlled;
+    const selectedTokens = await Util.getControlledActor(this.actor);
+
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
@@ -2537,8 +2547,8 @@ export class SW25ActorSheet extends ActorSheet {
 
   async _onNotesGet(event) {
     event.preventDefault();
+    const selectedTokens = await Util.getControlledActor(this.actor);
 
-    const selectedTokens = canvas.tokens.controlled;
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
@@ -2577,8 +2587,8 @@ export class SW25ActorSheet extends ActorSheet {
 
   async _onNotesCost(event) {
     event.preventDefault();
+    const selectedTokens = await Util.getControlledActor(this.actor);
 
-    const selectedTokens = canvas.tokens.controlled;
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
@@ -2617,8 +2627,8 @@ export class SW25ActorSheet extends ActorSheet {
 
   async _onNotesAddGet(event) {
     event.preventDefault();
+    const selectedTokens = await Util.getControlledActor(this.actor);
 
-    const selectedTokens = canvas.tokens.controlled;
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
@@ -2657,8 +2667,8 @@ export class SW25ActorSheet extends ActorSheet {
 
   async _onTacspowerGet(event) {
     event.preventDefault();
+    const selectedTokens = await Util.getControlledActor(this.actor);
 
-    const selectedTokens = canvas.tokens.controlled;
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
@@ -2682,8 +2692,8 @@ export class SW25ActorSheet extends ActorSheet {
 
   async _onTacspowerCost(event) {
     event.preventDefault();
+    const selectedTokens = await Util.getControlledActor(this.actor);
 
-    const selectedTokens = canvas.tokens.controlled;
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;

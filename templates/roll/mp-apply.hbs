@@ -1,14 +1,29 @@
 {{#if flavor}}<span class="flavor-text">{{flavor}}</span>{{/if}}
 <div class="flexrow flex-group-center grid grid-5col nogapmargin">
-    <div class="grid-span-3" style="text-align: center;">
+<div class="mpresult grid-span-4">
+    <div class="mpresult-apply">
+        <h4 class="mp-total mpresult-apply" style="flex-grow: 1">
+        <span class="buttonclick quantitychange" data-buttontype="mpdecrease">&nbsp;-&nbsp;</span>
+        <span class="mp-cost">
+            {{localize "SW25.Cost"}}:&nbsp;<span class="mp-cost-value">{{cost}}</span>
+        </span>
+        <span class="buttonclick quantitychange" data-buttontype="mpincrease">&nbsp;+&nbsp;</span>
+        </h4>
+    </div>
+</div>
+<div>
+    {{#if metaB}}<button style="font-size: 0.8em;" class="buttonclick" data-buttontype="buttonmeta"><span style="color: #862020;"><i class="fa-solid fa-xmark"></i></span>{{localize "SW25.Item.Spell.Meta"}}</button>{{/if}}
+</div>
+
+<div class="mpresult grid-span-4">
         {{#if isView}}
-        MP<span style="color: #862020; font-weight: bold; font-size: 1.5em;"> {{targetMP}}</span>
-        >>><span style="color: #862020; font-weight: bold; font-size: 1.5em;"> {{resultMP}}</span>
+        <span class="mpresult-total">
+            MP<span style="color: #862020; font-weight: bold; font-size: 1.5em;"> {{targetMP}}</span>
+            >>><span style="color: #862020; font-weight: bold; font-size: 1.5em;"> {{resultMP}}</span>
+        </span>
         {{/if}}
-    </div>
-    <div>
-        {{#if metaB}}<button style="font-size: 0.8em;" class="buttonclick" data-buttontype="buttonmeta"><span style="color: #862020;"><i class="fa-solid fa-xmark"></i></span>{{localize "SW25.Item.Spell.Meta"}}</button>{{/if}}
-    </div>
+</div>
+
     <div>
         <button style="font-size: 0.8em;" class="buttonclick" data-buttontype="buttonmpcancel"><span style="color: #0f6f0f;"><i class="fa-solid fa-arrow-rotate-left"></i></span>{{localize "SW25.Item.Spell.Cancel"}}</button>
     </div>

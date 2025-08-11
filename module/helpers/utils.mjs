@@ -31,7 +31,40 @@ export class Util {
 
     const keys = keyB.split(".");
     const lastKey = keys.pop();
-    const container = keys.reduce((o, k) => o[k] ??= {}, target);
+    const container = keys.reduce((o, k) => (o[k] ??= {}), target);
     container[lastKey] = value;
+  }
+
+  /**
+   * Get Controlled Actor or This Actor
+   */
+  static async getControlledActor(actor) {
+    let selectedTokens = canvas.tokens.controlled;
+    if (actor && selectedTokens.length === 0) {
+      selectedTokens = canvas.tokens.placeables.filter(
+        (t) => t.actor?.id === actor.id
+      );
+    }
+    return selectedTokens;
+  }
+
+  /**
+   * Get Controlled Actor or User's Actor
+   */
+  static async getControlledActorFromUser() {
+    let selectedTokens = canvas.tokens.controlled;
+    if (
+      game.settings.get("sw25", "defaultCharaAction") &&
+      game.user.character &&
+      selectedTokens.length === 0
+    ) {
+      const userActor = game.user.character;
+      if (userActor) {
+        selectedTokens = canvas.tokens.placeables.filter(
+          (t) => t.actor?.id === userActor.id
+        );
+      }
+    }
+    return selectedTokens;
   }
 }

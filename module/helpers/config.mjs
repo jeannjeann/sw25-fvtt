@@ -377,6 +377,8 @@ SW25.Effect = {
     "effect.mknow": "SW25.Config.MKnow",
     "effect.allck": "SW25.Config.AllCk",
     "effect.allsk": "SW25.Config.AllSk",
+    "effect.allsc": "SW25.Config.AllSc",
+    "effect.allac": "SW25.Config.AllAc",
     "eflootmod": "SW25.Monster.Loot",
     "effect.package.fine": "SW25.Item.Check.Packages.Finesse",
     "effect.package.move": "SW25.Item.Check.Packages.Movement",

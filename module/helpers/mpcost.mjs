@@ -1,14 +1,26 @@
 /**
  * Execute  MP cost event and return the result.
  */
-export async function mpCost(token, cost, name, type, meta, chat, base) {
+export async function mpCost(
+  token,
+  cost,
+  name,
+  type,
+  meta,
+  chat,
+  base,
+  fluc = null
+) {
   const targetTokenId = token.id;
   const actor = token.actor;
-  let targetMP = actor.system.mp.value;
-  let resultValue = cost;
+  let targetMP = base ?? actor.system.mp.value;
   let resultMP = targetMP;
   let chatResult = 0;
   let metaB = false;
+  let multi = meta ?? 1;
+  let add = fluc ?? 0;
+  let flucMes = fluc ? (add < 0 ? `${add}` : `+${add}`) : null;
+  let costValue = cost * multi + add;
   if (type == "spell") metaB = true;
   if (type == "action") metaB = true;
   let isView = false;
@@ -16,8 +28,8 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
     isView = true;
 
   // Calculate MP
-  if (targetMP - resultValue >= 0) {
-    resultMP = targetMP - resultValue;
+  if (targetMP - costValue >= 0) {
+    resultMP = targetMP - costValue;
     chatResult = resultMP;
   } else {
     resultMP = 0;
@@ -37,11 +49,24 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
     });
   }
 
+  // Cost Message.
+  let costMes =
+    cost +
+    (meta && meta > 1 ? ` x ${meta}` : "") +
+    (flucMes ? ` ${flucMes}` : "") +
+    (((meta && meta > 1) || flucMes) ? ` = ${costValue}` : "");
+
   // Chat message
-  if (meta == 1) {
+  if (meta == 1 && fluc == null) {
     const speaker = ChatMessage.getSpeaker({ actor: actor });
     const rollMode = game.settings.get("core", "rollMode");
-    let label = name + " (" + game.i18n.localize("SW25.Mp") + cost + ")";
+    let label =
+      name +
+      " (" +
+      game.i18n.localize("SW25.Mp") +
+      cost +
+      (flucMes ?? "") +
+      ")";
     let baseMP = targetMP;
 
     let chatData = {
@@ -53,8 +78,10 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
     chatData.content = await renderTemplate(
       "systems/sw25/templates/roll/mp-apply.hbs",
       {
+        cost: costValue,
         targetMP: targetMP,
         resultMP: chatResult,
+        fluc: flucMes,
         metaB: metaB,
         isView: isView,
       }
@@ -68,13 +95,21 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
         type: type,
         meta: 1,
         base: baseMP,
-      }
+        fluc: fluc,
+      },
     };
 
     ChatMessage.create(chatData);
   } else {
     let label =
-      name + " (" + game.i18n.localize("SW25.Mp") + cost + " x" + meta + ")";
+      name +
+      " (" +
+      game.i18n.localize("SW25.Mp") +
+      cost +
+      " x" +
+      meta +
+      (flucMes ?? "") +
+      ")";
     let metaB = false;
     if (type == "spell") metaB = true;
     if (type == "action") metaB = true;
@@ -85,12 +120,14 @@ export async function mpCost(token, cost, name, type, meta, chat, base) {
         sw25: {
           meta: meta,
           type: type,
-        }
+          fluc: fluc,
+        },
       },
     };
     chatData.content = await renderTemplate(
       "systems/sw25/templates/roll/mp-apply.hbs",
       {
+        cost: costMes,
         targetMP: base,
         resultMP: chatResult,
         metaB: metaB,
@@ -203,7 +240,7 @@ export async function hpCost(token, cost, max, name, type) {
       name: name,
       type: type,
       base: baseHP,
-    }
+    },
   };
 
   ChatMessage.create(chatData);

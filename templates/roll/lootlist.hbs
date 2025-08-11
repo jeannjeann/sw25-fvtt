@@ -3,5 +3,8 @@
     {{{lootlist}}}
 </div>
 <div>
-    <button class="buttonclick" data-buttontype="buttonloot">{{localize "SW25.Monster.Loot"}}{{localize "SW25.Check"}}</button>
+    <button class="buttonclick" data-buttontype="buttonloot">
+        {{localize "SW25.Monster.Loot"}}{{localize "SW25.Check"}}
+        {{#if lootCount}}({{lootCount}} {{localize "SW25.Use"}}){{/if}}
+    </button>
 </div>
