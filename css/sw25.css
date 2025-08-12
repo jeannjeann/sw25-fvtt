@@ -89,6 +89,12 @@
   cursor: pointer;
 }
 
+.rollreq:hover, .rollreq:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+
 .applyeffect:hover, .applyeffect:focus {
   color: #000;
   text-shadow: 0 0 10px red;

@@ -718,6 +718,9 @@ export class SW25ActorSheet extends ActorSheet {
     // Rollable abilities for Power Roll.
     html.on("click", ".powerrollable", this._onPowerRoll.bind(this));
 
+    // Roll request
+    html.on("click", ".rollreq", this._onRollRequest.bind(this));
+
     // Apply effect.
     html.on("click", ".applyeffect", this._onApplyEffect.bind(this));
 
@@ -1439,7 +1442,7 @@ export class SW25ActorSheet extends ActorSheet {
     const meta = 1;
 
     if (id === token.actor.id && (type === "summon" || type === "return")){
-      ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
+      ui.notifications.warn(game.i18n.localize("SW25.SummonMpwarn"));
       return;
     }
     
@@ -1510,6 +1513,49 @@ export class SW25ActorSheet extends ActorSheet {
   async _onLootRoll(event) {
     event.preventDefault();
     lootRoll(this.actor);
+  }
+
+  async _onRollRequest(event) {
+    event.preventDefault();
+
+    const dataset = event.currentTarget.dataset;
+    const checkName = dataset.label;
+    const inputName = "";
+    const refAbility = "";
+    const modifier = "";
+    const targetValue = dataset.value;
+    const method = "check";
+
+    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+
+    const message = game.i18n.localize("SW25.Monster.Return")+game.i18n.localize("SW25.Check");
+
+    let chatData = {
+      speaker: speaker,
+      flavor: checkName,
+    };
+    chatData.flags = {
+      sw25: {
+        checkName: checkName,
+        inputName: inputName,
+        refAbility: refAbility,
+        modifier: modifier,
+        targetValue: targetValue,
+        method: method,
+      },
+    };
+    chatData.content = await renderTemplate(
+      "systems/sw25/templates/roll/rollreq-card.hbs",
+      {
+        checkName: checkName,
+        message: message,
+        difficulty: game.i18n.localize("SW25.Difficulty"),
+        targetValue: targetValue,
+        mod: modifier,
+      }
+    );
+
+    ChatMessage.create(chatData);
   }
 
   async _onPopularityRoll(event) {
