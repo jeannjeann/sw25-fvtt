@@ -78,6 +78,7 @@
               <span class="mpcost" data-cost="{{system.summonmp}}" data-label="{{localize "SW25.Monster.SummonMp"}}" data-type="summon" data-id="{{actor._id}}">
               <label class="resource-label nobreak">{{localize "SW25.Monster.SummonMp"}}:</label>
               {{system.summonmp}}</span>
+              {{/if}}
             </div>
             <div class="monster-popularity popularityrollable">
               <span class="monster-label monster-small">{{localize "SW25.Monster.Popularity"}}/{{localize "SW25.Monster.Weakpoint"}} : </span>
@@ -101,7 +102,6 @@
                 <span class="rollable" data-roll="2d6+{{system.monlevel}}" data-label="{{localize "SW25.Monster.Return"}} {{localize "SW25.Failed"}}" data-pt="" data-apply="on" data-checktype="">
                 {{localize "SW25.Failed"}}
                 </span>
-                {{/if}}
               {{else}}
                 <span class="monster-label monster-small">{{localize "SW25.Monster.Move"}}: </span>
                 <span class="monster-small">{{system.move}}</span>
