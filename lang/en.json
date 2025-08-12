@@ -1013,6 +1013,7 @@
     "Config": {
       "ResVit": "Fortitude",
       "ResMnd": "Willpower",
+      "Death": "Death",
       "Init": "Initiative",
       "MKnow": "Monster Knowledge",
       "AllCk": "All Check",

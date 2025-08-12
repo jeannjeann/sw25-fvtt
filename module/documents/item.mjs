@@ -460,11 +460,11 @@ export class SW25Item extends Item {
       if (actorData.effect.allsc)
         systemData.efallscmod = Number(actorData.effect.allsc);
       else systemData.efallscmod = 0;
-
       if (
         actorData.effect.allac &&
         itemData.name != game.i18n.localize("SW25.Config.ResVit") &&
-        itemData.name != game.i18n.localize("SW25.Config.ResMnd")
+        itemData.name != game.i18n.localize("SW25.Config.ResMnd") &&
+        itemData.name != game.i18n.localize("SW25.Config.Death")
       )
         systemData.efallacmod = Number(actorData.effect.allac);
       else systemData.efallacmod = 0;

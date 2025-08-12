@@ -1013,6 +1013,7 @@
     "Config": {
       "ResVit": "生命抵抗力",
       "ResMnd": "精神抵抗力",
+      "Death": "生死",
       "Init": "先制",
       "MKnow": "魔物知識",
       "AllCk": "全判定アイテム",
