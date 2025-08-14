@@ -73,6 +73,13 @@
               <label for="{{actor._id}}weakapply" class="resource-label nobreak">{{localize "SW25.Monster.Weakness"}}:</label>
               <span class="monster-weak">{{system.weakness}}</span>
             </div>
+            <div class="monster-summon">
+              {{#if system.summonmp}}
+              <span class="mpcost" data-cost="{{system.summonmp}}" data-label="{{localize "SW25.Monster.SummonMp"}}" data-type="summon" data-id="{{actor._id}}">
+              <label class="resource-label nobreak">{{localize "SW25.Monster.SummonMp"}}:</label>
+              {{system.summonmp}}</span>
+              {{/if}}
+            </div>
             <div class="monster-popularity popularityrollable">
               <span class="monster-label monster-small">{{localize "SW25.Monster.Popularity"}}/{{localize "SW25.Monster.Weakpoint"}} : </span>
               <span class="monster-small">{{system.popularity}}/{{system.weakpoint}}</span>
@@ -82,8 +89,23 @@
               <span class="monster-small">{{system.preemptive}}</span>
             </div>
             <div class="monster-move">
-              <span class="monster-label monster-small">{{localize "SW25.Monster.Move"}}: </span>
-              <span class="monster-small">{{system.move}}</span>
+              {{#if system.toFellow}}
+                <label class="resource-label nobreak">{{localize "SW25.Monster.Return"}}:</label>
+                <span class="mpcost" data-cost="-{{system.summonmp}}" data-label="{{localize "SW25.Monster.Return"}}" data-type="return" data-id="{{actor._id}}">
+                  MP
+                </span>
+                &nbsp;/&nbsp;
+                <span class="rollreq" data-value="{{#if contentItem.monRes}}{{#with contentItem.monRes as |item|}}{{item.system.checkbasefix2}}{{/with}}{{else}}0{{/if}}" data-label="{{localize "SW25.Monster.Return"}}">
+                {{localize "SW25.Check"}}
+                </span>
+                &nbsp;/&nbsp;
+                <span class="rollable" data-roll="2d6+{{system.monlevel}}" data-label="{{localize "SW25.Monster.Return"}} {{localize "SW25.Failed"}}" data-pt="" data-apply="on" data-checktype="">
+                {{localize "SW25.Failed"}}
+                </span>
+              {{else}}
+                <span class="monster-label monster-small">{{localize "SW25.Monster.Move"}}: </span>
+                <span class="monster-small">{{system.move}}</span>
+              {{/if}}
             </div>
             {{#if system.showpt}}
               <div class="monster-corepart">
@@ -178,6 +200,7 @@
               <input class="mod-input common-display--input" id="{{actor._id}}system.attributes.mppmod" type="text" name="system.attributes.mppmod" value="{{system.attributes.mppmod}}" data-dtype="Number"/>
             </div>
           </div>
+
           {{#if contentItem.monRes}}
             {{#with contentItem.monRes as |item|}}
             <div class="common-display item resist-display" data-item-id='{{item._id}}'>
@@ -367,13 +390,17 @@
               <label class="property--label-col" for="{{actor._id}}system.move">{{localize "SW25.Monster.Move"}}</label>
               <input class="property--value" id="{{actor._id}}system.move" type="text" name="system.move" value="{{system.move}}" data-dtype="String"/>
             </div>
-            <div class="grid-span-4 property-col">
+            <div class="grid-span-5 property-col">
               <label class="property--label-col" for="{{actor._id}}system.part">{{localize "SW25.Monster.Part"}}</label>
               <input class="property--value" id="{{actor._id}}system.part" type="text" name="system.part" value="{{system.part}}" data-dtype="String"/>
             </div>
             <div class="grid-span-3 property-col">
               <label class="property--label-col" for="{{actor._id}}system.corepart">{{localize "SW25.Monster.Corepart"}}</label>
               <input class="property--value" id="{{actor._id}}system.corepart" type="text" name="system.corepart" value="{{system.corepart}}" data-dtype="String"/>
+            </div>
+            <div class="grid-span-2 property-col">
+              <label class="property--label-col" for="{{actor._id}}system.summonmp">{{localize "SW25.Monster.SummonMp"}}</label>
+              <input class="property--value" id="{{actor._id}}system.summonmp" type="text" name="system.summonmp" value="{{system.summonmp}}" data-dtype="Number"/>
             </div>
             <div class="flexcol grid-span-10">
               <label><b>{{localize "SW25.Monster.Loot"}}</b></label>

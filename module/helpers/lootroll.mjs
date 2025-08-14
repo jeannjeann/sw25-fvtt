@@ -4,6 +4,7 @@
 export async function lootRoll(actor) {
   const actorId = actor.id;
   const actorData = actor.system;
+  const actorName = actor.name;
 
   const lootlist = actorData.loot;
   const lootLines = lootlist
@@ -48,6 +49,7 @@ export async function lootRoll(actor) {
   chatData.content = await renderTemplate(
     "systems/sw25/templates/roll/lootlist.hbs",
     {
+      flavor: actorName,
       lootlist: lootlist,
     }
   );
@@ -56,6 +58,8 @@ export async function lootRoll(actor) {
     sw25: {
       actorId: actorId,
       loot: lootitems,
+      name: actorName,
+      lootlist: lootlist,
     }
   };
 

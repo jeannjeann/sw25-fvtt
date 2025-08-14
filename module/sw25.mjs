@@ -749,6 +749,15 @@ Hooks.once("ready", async function () {
     default: false,
     requiresReload: true,
   });
+  game.settings.register("sw25", "defaultCharaAction", {
+    name: game.i18n.localize("SETTING.defaultCharaAction.name"),
+    hint: game.i18n.localize("SETTING.defaultCharaAction.hint"),
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: false,
+    requiresReload: true,
+  });
 
   // Chat message button
   Hooks.on("renderChatMessage", (chatMessage, html, data) => {
@@ -960,8 +969,12 @@ Hooks.once("ready", async function () {
         displayBars = 0;
       */
     }
-
-    if (actor._stats?.compendiumSource || options._stats?.compendiumSource) {
+    if (
+      actor._stats?.compendiumSource ||
+      options._stats?.compendiumSource ||
+      actor.folder ||
+      options.folder
+    ) {
       displayName = actor.prototypeToken.hasOwnProperty("displayName")
         ? actor.prototypeToken.displayName
         : displayName;

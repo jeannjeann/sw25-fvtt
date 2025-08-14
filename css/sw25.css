@@ -89,6 +89,12 @@
   cursor: pointer;
 }
 
+.rollreq:hover, .rollreq:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+
 .applyeffect:hover, .applyeffect:focus {
   color: #000;
   text-shadow: 0 0 10px red;
@@ -2225,6 +2231,32 @@ body, .sw25cs__body__sidebar {
   background-color: hsla(50, 50%, 100%, 0.75);;
 }
 
+.sw25pc .sidebar-tabs > .item {
+  flex: 1;
+  border-bottom: 1px solid var(--color-border-dark-1);
+  cursor: pointer;
+}
+
+.sw25pc .sidebar-tabs > .item.active {
+  font-weight: bold;
+  text-shadow: none;
+  border-top: 1px solid var(--color-border-dark-1);
+  border-right: 1px solid var(--color-border-dark-1);
+  border-left: 1px solid var(--color-border-dark-1);
+  border-bottom: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.sw25 .sheet-tabs > .item.active:first-child {
+  border-top-left-radius: 0px;
+  border-left: none;
+}
+
+.sw25 .sheet-tabs > .item.active:last-child {
+  border-top-right-radius: 0px;
+  border-right: none;
+}
 #sidebar-hidden:checked ~ .sw25pc .sidebar .sidebar__contents {
   display: none;
 }
@@ -3146,13 +3178,17 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
 
 	display: grid;
 	grid-template-areas:
-		"weakness weakness owner"
+		"weakness summon owner"
 		"pupularity moving owner"
     "preemptive corepart owner";
 }
 
 .sw25 .monster-header-sub .monster-weakness {
   grid-area: weakness;
+}
+
+.sw25 .monster-header-sub .monster-summon {
+  grid-area: summon;
 }
 
 .sw25 .monster-header-sub .monster-pupularity {
@@ -3467,4 +3503,48 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
   padding: 2px;
   display: flex;
   flex-direction: column;
+}
+
+.mpresult-apply {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mpresult-total {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.mpresult .mpresult-apply{
+  flex-basis: 0%;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.mpresult .mp-cost {
+  font-size: 1.0em;
+}
+
+.mpresult .mp-cost .mp-cost-value {
+  font-size: 1.2em;
+  padding: 0 0 0 5px;
+}
+
+.mpresult .mp-total {
+  flex: 0;
+  font-weight: bold;
+  position: relative;
+  margin: 0;
+  line-height: 24px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-border-light-2);
+  border-radius: 3px;
+  box-shadow: 0 0 2px #FFF inset;
+  word-break: break-all;
+}
+
+.active-effect-sheet.active-effect-sheet .effect-change .key {
+  flex: 3;
 }

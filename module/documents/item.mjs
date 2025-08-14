@@ -1,6 +1,7 @@
 import { powerRoll } from "../helpers/powerroll.mjs";
 import { mpCost, hpCost } from "../helpers/mpcost.mjs";
 import { DamageSupporter } from "../helpers/damagesupport.mjs";
+import { Util } from "../helpers/utils.mjs";
 
 import {
   effectVitResPC,
@@ -156,6 +157,15 @@ export class SW25Item extends Item {
     await actor.update({});
     const actorData = itemData.actor.system;
 
+    // Calculate Skill check & Action check
+    if (actorData.effect?.allsc)
+      systemData.efallscmod = Number(actorData.effect.allsc);
+    else systemData.efallscmod = 0;
+
+    if (actorData.effect?.allac)
+      systemData.efallacmod = Number(actorData.effect.allac);
+    else systemData.efallacmod = 0;
+
     //Calculate SkillBase
     if (!actorData.effect) systemData.efallskmod = 0;
     else if (actorData.effect.allsk)
@@ -175,7 +185,9 @@ export class SW25Item extends Item {
       Number(systemData.skilllevel) +
       Number(dexmod) +
       Number(systemData.skillmod) +
-      Number(systemData.efallskmod);
+      Number(systemData.efallskmod) +
+      Number(systemData.efallscmod) +
+      Number(systemData.efallacmod);
     systemData.skillbase.dexnef =
       Number(systemData.skilllevel) +
       Number(dexmod) +
@@ -193,7 +205,9 @@ export class SW25Item extends Item {
       Number(systemData.skilllevel) +
       Number(agimod) +
       Number(systemData.skillmod) +
-      Number(systemData.efallskmod);
+      Number(systemData.efallskmod) +
+      Number(systemData.efallscmod) +
+      Number(systemData.efallacmod);
     systemData.skillbase.aginef =
       Number(systemData.skilllevel) +
       Number(agimod) +
@@ -211,7 +225,9 @@ export class SW25Item extends Item {
       Number(systemData.skilllevel) +
       Number(strmod) +
       Number(systemData.skillmod) +
-      Number(systemData.efallskmod);
+      Number(systemData.efallskmod) +
+      Number(systemData.efallscmod) +
+      Number(systemData.efallacmod);
     systemData.skillbase.strnef =
       Number(systemData.skilllevel) +
       Number(strmod) +
@@ -229,7 +245,9 @@ export class SW25Item extends Item {
       Number(systemData.skilllevel) +
       Number(vitmod) +
       Number(systemData.skillmod) +
-      Number(systemData.efallskmod);
+      Number(systemData.efallskmod) +
+      Number(systemData.efallscmod) +
+      Number(systemData.efallacmod);
     systemData.skillbase.vitnef =
       Number(systemData.skilllevel) +
       Number(vitmod) +
@@ -248,7 +266,7 @@ export class SW25Item extends Item {
         actorData.abilities.int.valuebase +
         actorData.abilities.int.valuegrowth +
         actorData.abilities.int.valuemodify +
-        actorData.abilities.int.efvaluemodify + 
+        actorData.abilities.int.efvaluemodify +
         (systemData.dedicated ? 2 : 0)) /
         6 +
         Number(actorData.abilities.int.efmodify)
@@ -257,7 +275,9 @@ export class SW25Item extends Item {
       Number(systemData.skilllevel) +
       Number(intmod) +
       Number(systemData.skillmod) +
-      Number(systemData.efallskmod);
+      Number(systemData.efallskmod) +
+      Number(systemData.efallscmod) +
+      Number(systemData.efallacmod);
     systemData.skillbase.intnef =
       Number(systemData.skilllevel) +
       Number(intmod) +
@@ -279,7 +299,9 @@ export class SW25Item extends Item {
       Number(systemData.skilllevel) +
       Number(mndmod) +
       Number(systemData.skillmod) +
-      Number(systemData.efallskmod);
+      Number(systemData.efallskmod) +
+      Number(systemData.efallscmod) +
+      Number(systemData.efallacmod);
     systemData.skillbase.mndnef =
       Number(systemData.skilllevel) +
       Number(mndmod) +
@@ -319,7 +341,6 @@ export class SW25Item extends Item {
     const actoritemData = itemData.actor.items;
 
     // Calculate Base Number
-
     let levelmod = 0;
     if (!Array.isArray(systemData.skilllist)) {
       systemData.skilllist = [];
@@ -413,31 +434,41 @@ export class SW25Item extends Item {
         case effectVitResPC:
           if (actorData.effect.vitres)
             systemData.efckmod = Number(actorData.effect.vitres);
-          else 
-            systemData.efckmod = 0;
+          else systemData.efckmod = 0;
           break;
         case effectMndResPC:
           if (actorData.effect.mndres)
             systemData.efckmod = Number(actorData.effect.mndres);
-          else 
-            systemData.efckmod = 0;
+          else systemData.efckmod = 0;
           break;
         case effectInitPC:
           if (actorData.effect.init)
             systemData.efckmod = Number(actorData.effect.init);
-          else 
-            systemData.efckmod = 0;
+          else systemData.efckmod = 0;
           break;
         case effectMKnowPC:
           if (actorData.effect.mknow)
             systemData.efckmod = Number(actorData.effect.mknow);
-          else 
-            systemData.efckmod = 0;
+          else systemData.efckmod = 0;
           break;
         default:
           systemData.efckmod = 0;
           break;
       }
+
+      // Calculate Skill check & Action check
+      if (actorData.effect.allsc)
+        systemData.efallscmod = Number(actorData.effect.allsc);
+      else systemData.efallscmod = 0;
+      if (
+        actorData.effect.allac &&
+        itemData.name != game.i18n.localize("SW25.Config.ResVit") &&
+        itemData.name != game.i18n.localize("SW25.Config.ResMnd") &&
+        itemData.name != game.i18n.localize("SW25.Config.Death")
+      )
+        systemData.efallacmod = Number(actorData.effect.allac);
+      else systemData.efallacmod = 0;
+
       if (actorData.effect.allck)
         systemData.efallckmod = Number(actorData.effect.allck);
 
@@ -458,14 +489,18 @@ export class SW25Item extends Item {
           ? Number(actorData.effect.package?.know)
           : 0;
       }
-      systemData.efckmod += Number(actorData.effect.checkinputmod?.[itemData.name] ?? 0);
+      systemData.efckmod += Number(
+        actorData.effect.checkinputmod?.[itemData.name] ?? 0
+      );
     }
-    
+
     systemData.checkbase =
       Number(systemData.checkmod) +
       Number(systemData.checkfixmod) +
       Number(systemData.efckmod) +
       Number(systemData.efallckmod) +
+      Number(systemData.efallscmod ?? 0) +
+      Number(systemData.efallacmod ?? 0) +
       Number(levelmod) +
       Number(abimod);
 
@@ -488,7 +523,7 @@ export class SW25Item extends Item {
     }
 
     // Roll Setting
-    if (systemData.checkmethod == "normal"){
+    if (systemData.checkmethod == "normal") {
       systemData.formula = "2d6";
       if (systemData.customdice == true)
         systemData.formula = systemData.customformula;
@@ -525,7 +560,7 @@ export class SW25Item extends Item {
     else pharmtool = systemData.pharmtool;
     if (systemData.powup == null || systemData.powup == 0) powup = 0;
     else powup = systemData.powup;
-    
+
     let powmod = actorData?.attributes?.powertablemod?.[itemData.type] || 0;
     powmod += Number(actorData.attributes?.powertablemod?.all) || 0;
 
@@ -610,7 +645,9 @@ export class SW25Item extends Item {
       systemData.skilllist = [];
     }
 
-    const isSkillItem = ["spell", "magicalsong", "alchemytech"].includes(this.type);;
+    const isSkillItem = ["spell", "magicalsong", "alchemytech"].includes(
+      this.type
+    );
     let checklevelmod = 0;
     let checklevelmod1 = 0;
     let checklevelmod2 = 0;
@@ -700,16 +737,11 @@ export class SW25Item extends Item {
 
     if (itemData.actor?.type === "monster") {
       let monlevel = Number(actorData.monlevel);
-      if (systemData.checkskill == "adv")
-        checklevelmod = monlevel;
-      if (systemData.checkskill1 == "adv")
-        checklevelmod1 = monlevel;
-      if (systemData.checkskill2 == "adv")
-        checklevelmod2 = monlevel;
-      if (systemData.checkskill3 == "adv")
-        checklevelmod3 = monlevel;
-      if (systemData.powerskill == "adv")
-        powerlevelmod = monlevel;
+      if (systemData.checkskill == "adv") checklevelmod = monlevel;
+      if (systemData.checkskill1 == "adv") checklevelmod1 = monlevel;
+      if (systemData.checkskill2 == "adv") checklevelmod2 = monlevel;
+      if (systemData.checkskill3 == "adv") checklevelmod3 = monlevel;
+      if (systemData.powerskill == "adv") powerlevelmod = monlevel;
     }
 
     if (!Array.isArray(systemData.itemlist)) {
@@ -1080,28 +1112,50 @@ export class SW25Item extends Item {
         );
     }
 
+    let allscMod = Number(actorData.effect?.allsc) || 0;
+    let allacMod = Number(actorData.effect?.allac) || 0;
+
+    const cond =
+      systemData.applycheck !== undefined &&
+      (systemData.applycheck === "-" || systemData.applycheck === false);
+    const cond1 =
+      systemData.applycheck1 !== undefined &&
+      (systemData.applycheck1 === "-" || systemData.applycheck1 === false);
+    const cond2 =
+      systemData.applycheck2 !== undefined &&
+      (systemData.applycheck2 === "-" || systemData.applycheck2 === false);
+    const cond3 =
+      systemData.applycheck3 !== undefined &&
+      (systemData.applycheck3 === "-" || systemData.applycheck3 === false);
+
     systemData.checkbase =
-      Number(systemData.checkmod) + Number(checklevelmod) + Number(checkabimod);
+      Number(systemData.checkmod ?? 0) +
+      Number(checklevelmod ?? 0) +
+      Number(checkabimod ?? 0) +
+      (cond ? allscMod + allacMod : 0);
     systemData.powerbase =
       Number(systemData.powermod) + Number(powerlevelmod) + Number(powerabimod);
 
     systemData.checkbase1 =
-      Number(systemData.checkbasemod1) +
-      Number(systemData.checkmod1) +
+      Number(systemData.checkbasemod1 ?? 0) +
+      Number(systemData.checkmod1 ?? 0) +
       Number(checklevelmod1 ?? 0) +
-      Number(checkabimod1 ?? 0);
+      Number(checkabimod1 ?? 0) +
+      (cond1 ? allscMod + allacMod : 0);
     systemData.checkbasefix1 = Number(systemData.checkbase1) + 7;
     systemData.checkbase2 =
-      Number(systemData.checkbasemod2) +
-      Number(systemData.checkmod2) +
+      Number(systemData.checkbasemod2 ?? 0) +
+      Number(systemData.checkmod2 ?? 0) +
       Number(checklevelmod2 ?? 0) +
-      Number(checkabimod2 ?? 0);
+      Number(checkabimod2 ?? 0) +
+      (cond2 ? allscMod + allacMod : 0);
     systemData.checkbasefix2 = Number(systemData.checkbase2) + 7;
     systemData.checkbase3 =
-      Number(systemData.checkbasemod3) +
-      Number(systemData.checkmod3) +
+      Number(systemData.checkbasemod3 ?? 0) +
+      Number(systemData.checkmod3 ?? 0) +
       Number(checklevelmod3 ?? 0) +
-      Number(checkabimod3 ?? 0);
+      Number(checkabimod3 ?? 0) +
+      (cond3 ? allscMod + allacMod : 0);
     systemData.checkbasefix3 = Number(systemData.checkbase3) + 7;
 
     // prepare apply button
@@ -1411,18 +1465,44 @@ export class SW25Item extends Item {
       if (!actorData.effect) {
         systemData.efmod = 0;
         systemData.efallckmod = 0;
+        systemData.efallscmod = 0;
+        systemData.efallacmod = 0;
         systemData.efallmgpmod = 0;
         actorData.effect = {
           allck: "",
+          allsc: "",
+          allac: "",
           allmgp: "",
           vitres: "",
           mndres: "",
         };
       }
+
       for (let i = 1; i <= 3; i++) {
         if (actorData.effect.allck)
           systemData.efallckmod = Number(actorData.effect.allck);
         else systemData.efallckmod = 0;
+
+        if (actorData.effect.allsc)
+          systemData.efallscmod = Number(actorData.effect.allsc);
+        else systemData.efallscmod = 0;
+
+        if (actorData.effect.allac)
+          systemData.efallacmod = Number(actorData.effect.allac);
+        else systemData.efallacmod = 0;
+
+        if (itemData.name === game.i18n.localize("SW25.Config.MonRes"))
+          systemData.efallacmod = 0;
+
+        const cond =
+          systemData[`applycheck${i}`] !== undefined &&
+          (systemData[`applycheck${i}`] === "-" ||
+            systemData[`applycheck${i}`] === false);
+        if (!cond) {
+          systemData.efallacmod = 0;
+          systemData.efallscmod = 0;
+        }
+
         if (actorData.effect.allmgp)
           systemData.efallmgpmod = Number(actorData.effect.allmgp);
         else systemData.efallmgpmod = 0;
@@ -1585,7 +1665,9 @@ export class SW25Item extends Item {
           Number(systemData[`checkbasemod${i}`]) +
           Number(systemData[`checkmod${i}`]) +
           Number(systemData.efmod) +
-          Number(systemData.efallckmod);
+          Number(systemData.efallckmod) +
+          Number(systemData.efallscmod) +
+          Number(systemData.efallacmod);
         switch (i) {
           case 1:
             systemData.checkbase1 +=
@@ -1805,7 +1887,7 @@ export class SW25Item extends Item {
     else pharmtool = systemData.pharmtool;
     if (systemData.powup == null || systemData.powup == 0) powup = 0;
     else powup = systemData.powup;
-    
+
     let powmod = actorData.attributes?.powertablemod?.[itemData.type] || 0;
     powmod += Number(actorData.attributes?.powertablemod?.all) || 0;
 
@@ -1846,8 +1928,8 @@ export class SW25Item extends Item {
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-    systemData.typename = 
-      (systemData.type != "" && systemData.type != null)
+    systemData.typename =
+      systemData.type != "" && systemData.type != null
         ? game.i18n.localize(`SW25.Item.Item.${systemData.type.capitalize()}`)
         : game.i18n.localize(`SW25.Item.Item.General`);
 
@@ -1995,9 +2077,11 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    systemData.categoryname = 
-      (systemData.category != "" && systemData.category != null)
-        ? game.i18n.localize(`SW25.Item.Weapon.${systemData.category.capitalize()}`)
+    systemData.categoryname =
+      systemData.category != "" && systemData.category != null
+        ? game.i18n.localize(
+            `SW25.Item.Weapon.${systemData.category.capitalize()}`
+          )
         : "-";
 
     systemData.usagename =
@@ -2005,8 +2089,8 @@ export class SW25Item extends Item {
         ? game.i18n.localize(`SW25.Item.Weapon.${systemData.usage}`)
         : "";
 
-    systemData.typename = 
-      (systemData.type != "" && systemData.type != null)
+    systemData.typename =
+      systemData.type != "" && systemData.type != null
         ? game.i18n.localize(`SW25.Item.Weapon.${systemData.type.capitalize()}`)
         : "";
 
@@ -2048,9 +2132,11 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    systemData.accpartname = 
-      (systemData.accpart != "" && systemData.accpart != null)
-        ? game.i18n.localize(`SW25.Item.Accessory.${systemData.accpart.capitalize()}`)
+    systemData.accpartname =
+      systemData.accpart != "" && systemData.accpart != null
+        ? game.i18n.localize(
+            `SW25.Item.Accessory.${systemData.accpart.capitalize()}`
+          )
         : "-";
 
     systemData.deffectname =
@@ -2063,9 +2149,11 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    systemData.categoryname = 
-      (systemData.category != "" && systemData.category != null)
-        ? game.i18n.localize(`SW25.Item.Armor.${systemData.category.capitalize()}`)
+    systemData.categoryname =
+      systemData.category != "" && systemData.category != null
+        ? game.i18n.localize(
+            `SW25.Item.Armor.${systemData.category.capitalize()}`
+          )
         : "-";
   }
 
@@ -2075,14 +2163,18 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    systemData.typename = 
-      (systemData.type != "" && systemData.type != null)
-        ? game.i18n.localize(`SW25.Item.Combatability.${systemData.type.capitalize()}`)
+    systemData.typename =
+      systemData.type != "" && systemData.type != null
+        ? game.i18n.localize(
+            `SW25.Item.Combatability.${systemData.type.capitalize()}`
+          )
         : "-";
 
-    systemData.condtypename = 
-      (systemData.condtype != "" && systemData.condtype != null)
-        ? game.i18n.localize(`SW25.Item.Combatability.${systemData.condtype.capitalize()}`)
+    systemData.condtypename =
+      systemData.condtype != "" && systemData.condtype != null
+        ? game.i18n.localize(
+            `SW25.Item.Combatability.${systemData.condtype.capitalize()}`
+          )
         : "-";
 
     let updateData = {
@@ -2109,18 +2201,20 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    systemData.typename = 
-      (systemData.type != "" && systemData.type != null)
-        ? game.i18n.localize(`SW25.Item.Magicalsong.${systemData.type.capitalize()}`)
+    systemData.typename =
+      systemData.type != "" && systemData.type != null
+        ? game.i18n.localize(
+            `SW25.Item.Magicalsong.${systemData.type.capitalize()}`
+          )
         : "-";
 
-    systemData.resistname = 
-      (systemData.resist != "" && systemData.resist != null)
+    systemData.resistname =
+      systemData.resist != "" && systemData.resist != null
         ? game.i18n.localize(`SW25.Item.${systemData.resist.capitalize()}`)
         : "-";
 
-    systemData.propname = 
-      (systemData.prop != "" && systemData.prop != null)
+    systemData.propname =
+      systemData.prop != "" && systemData.prop != null
         ? game.i18n.localize(`SW25.Item.${systemData.prop.capitalize()}`)
         : "-";
 
@@ -2146,8 +2240,8 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    systemData.resistname = 
-      (systemData.resist != "" && systemData.resist != null)
+    systemData.resistname =
+      systemData.resist != "" && systemData.resist != null
         ? game.i18n.localize(`SW25.Item.${systemData.resist.capitalize()}`)
         : "-";
 
@@ -2164,13 +2258,15 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    systemData.typename = 
-      (systemData.type != "" && systemData.type != null)
-        ? game.i18n.localize( `SW25.Item.Phasearea.${systemData.type.capitalize() }`)
+    systemData.typename =
+      systemData.type != "" && systemData.type != null
+        ? game.i18n.localize(
+            `SW25.Item.Phasearea.${systemData.type.capitalize()}`
+          )
         : "-";
 
-    systemData.propname = 
-      (systemData.prop != "" && systemData.prop != null)
+    systemData.propname =
+      systemData.prop != "" && systemData.prop != null
         ? game.i18n.localize(`SW25.Item.${systemData.prop.capitalize()}`)
         : "-";
 
@@ -2184,14 +2280,18 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    systemData.typename = 
-      (systemData.type != "" && systemData.type != null)
-        ? game.i18n.localize(`SW25.Item.Tactics.${systemData.type.capitalize()}`)
+    systemData.typename =
+      systemData.type != "" && systemData.type != null
+        ? game.i18n.localize(
+            `SW25.Item.Tactics.${systemData.type.capitalize()}`
+          )
         : "-";
 
-    systemData.linename = 
-      (systemData.line != "" && systemData.line != null)
-        ? game.i18n.localize(`SW25.Item.Tactics.${systemData.line.capitalize()}`)
+    systemData.linename =
+      systemData.line != "" && systemData.line != null
+        ? game.i18n.localize(
+            `SW25.Item.Tactics.${systemData.line.capitalize()}`
+          )
         : "-";
   }
 
@@ -2203,8 +2303,8 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    systemData.resistname = 
-      (systemData.resist != "" && systemData.resist != null)
+    systemData.resistname =
+      systemData.resist != "" && systemData.resist != null
         ? game.i18n.localize(`SW25.Item.${systemData.resist.capitalize()}`)
         : "-";
   }
@@ -2220,29 +2320,33 @@ export class SW25Item extends Item {
     // Make modifications to data here. For example:
     const systemData = itemData.system;
 
-    systemData.typename = 
-      (systemData.type != "" && systemData.type != null)
+    systemData.typename =
+      systemData.type != "" && systemData.type != null
         ? game.i18n.localize(`SW25.Item.Spell.${systemData.type.capitalize()}`)
         : "-";
 
-    systemData.resistname = 
-      (systemData.resist != "" && systemData.resist != null)
+    systemData.resistname =
+      systemData.resist != "" && systemData.resist != null
         ? game.i18n.localize(`SW25.Item.${systemData.resist.capitalize()}`)
         : "-";
 
-    systemData.propname = 
-      (systemData.prop != "" && systemData.prop != null)
+    systemData.propname =
+      systemData.prop != "" && systemData.prop != null
         ? game.i18n.localize(`SW25.Item.${systemData.prop.capitalize()}`)
         : "-";
 
-    systemData.fairytypename = 
-      (systemData.fairytype != "" && systemData.fairytype != null)
-        ? game.i18n.localize(`SW25.Item.Spell.${systemData.fairytype.capitalize()}`)
+    systemData.fairytypename =
+      systemData.fairytype != "" && systemData.fairytype != null
+        ? game.i18n.localize(
+            `SW25.Item.Spell.${systemData.fairytype.capitalize()}`
+          )
         : "-";
 
-    systemData.fairypropname = 
-      (systemData.fairyprop != "" && systemData.fairyprop != null)
-        ? game.i18n.localize(`SW25.Item.Spell.${systemData.fairyprop.capitalize()}`)
+    systemData.fairypropname =
+      systemData.fairyprop != "" && systemData.fairyprop != null
+        ? game.i18n.localize(
+            `SW25.Item.Spell.${systemData.fairyprop.capitalize()}`
+          )
         : "-";
 
     if (itemData.actor !== null) {
@@ -2509,7 +2613,7 @@ export class SW25Item extends Item {
           chatData.flags = {
             sw25: {
               targetMessage: chatMessageId,
-            }
+            },
           };
           chatData.content = await renderTemplate(
             "systems/sw25/templates/roll/roll-applyall.hbs",
@@ -2628,7 +2732,7 @@ export class SW25Item extends Item {
       chatData.flags = {
         sw25: {
           itemid: item._id,
-        }
+        },
       };
 
       ChatMessage.create(chatData);
@@ -2703,7 +2807,12 @@ export class SW25Item extends Item {
       const damage = actor ? actor.system.attributes.damage : null;
       const classType = actor ? actor.system.classType : null;
       const isWeapon = DamageSupporter.getWeaponAttributes(this);
-      const tags = DamageSupporter.createChatTag(elements, damage, classType, isWeapon);
+      const tags = DamageSupporter.createChatTag(
+        elements,
+        damage,
+        classType,
+        isWeapon
+      );
 
       chatData.flags = {
         sw25: {
@@ -2719,7 +2828,7 @@ export class SW25Item extends Item {
           elements: elements,
           damage: damage,
           tags: tags,
-        }
+        },
       };
 
       chatData.content = await renderTemplate(
@@ -2840,7 +2949,12 @@ export class SW25Item extends Item {
       const damage = actor ? actor.system.attributes.damage : null;
       const classType = actor ? actor.system.classType : null;
       const isWeapon = DamageSupporter.getWeaponAttributes(this);
-      const tags = DamageSupporter.createChatTag(elements, damage, classType, isWeapon);
+      const tags = DamageSupporter.createChatTag(
+        elements,
+        damage,
+        classType,
+        isWeapon
+      );
 
       chatData.flags = {
         sw25: {
@@ -2871,7 +2985,7 @@ export class SW25Item extends Item {
           elements: elements,
           damage: damage,
           tags: tags,
-        }
+        },
       };
 
       chatData.content = await renderTemplate(
@@ -2909,7 +3023,8 @@ export class SW25Item extends Item {
     }
 
     if (this.system.clickitem == "mpcost") {
-      const selectedTokens = canvas.tokens.controlled;
+      const selectedTokens = await Util.getControlledActorFromUser();
+
       if (selectedTokens.length === 0) {
         ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
         return;
@@ -2926,7 +3041,8 @@ export class SW25Item extends Item {
     }
 
     if (this.system.clickitem == "hpcost") {
-      const selectedTokens = canvas.tokens.controlled;
+      const selectedTokens = await Util.getControlledActorFromUser();
+
       if (selectedTokens.length === 0) {
         ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
         return;

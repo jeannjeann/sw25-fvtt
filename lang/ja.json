@@ -94,6 +94,7 @@
     "Multitargetwarn": "ターゲットが複数指定されています",
     "Noselectwarn": "トークンが選択されていません",
     "Multiselectwarn": "トークンが複数選択されています",
+    "SummonMpwarn": "召喚者のトークンを選択してください",
     "InputPlaceHolder": "ここに入力",
     "NotTokenwarn": "トークンが存在しません。",
 
@@ -184,6 +185,8 @@
       "Move": "移動速度",
       "Part": "部位数",
       "Corepart": "コア部位",
+      "SummonMp": "召喚MP",
+      "Return": "送還",
       "Ability": "魔物能力",
       "Observer": "データ公開",
       "Loot": "戦利品",
@@ -755,6 +758,8 @@
         "system.effect.mknow": "魔物知識",
         "system.effect.allck": "全判定アイテム",
         "system.effect.allsk": "全技能判定",
+        "system.effect.allsc": "行為判定",
+        "system.effect.allac": "行動判定",
         "system.hp.efhpmod": "最大HP修正",
         "system.mp.efmpmod": "最大MP修正",
         "system.abilities.dex.efvaluemodify": "器用度",
@@ -1008,11 +1013,14 @@
     "Config": {
       "ResVit": "生命抵抗力",
       "ResMnd": "精神抵抗力",
+      "Death": "生死",
       "Init": "先制",
       "MKnow": "魔物知識",
       "AllCk": "全判定アイテム",
       "AllSk": "全技能判定",
-      "MonRes": "01.抵抗判定",
+      "AllSc": "行為判定",
+      "AllAc": "行動判定",
+      "MonRes": "抵抗判定",
       "MonResVit": "生命",
       "MonResMnd": "精神",
       "MonWp": "武器など",
@@ -1166,6 +1174,10 @@
     "fromCompendium":{
       "name": "辞典から言語を取得",
       "hint": "Polyglotモジュール用設定。オフ：ワールド内からのみ言語リストを取得する。オン：辞典内の言語アイテムからも言語リストを取得する（辞典の言語を反映するにはワールド読み込み後、アクターの選択切り替えが必要）。デフォルト：オフ、要リロード"
+    },
+    "defaultCharaAction":{
+      "name": "アクター行動の標準設定",
+      "hint": "ロール等の標準設定。オンの場合、キャラクターの非選択時にユーザーに設定されたキャラクターを標準使用します。オン：デフォルト：オン"
     },
     "rollRequest": "ロール要求"
   },

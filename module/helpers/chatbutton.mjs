@@ -3,6 +3,7 @@ import { powerRoll } from "./powerroll.mjs";
 import { mpCost, hpCost } from "./mpcost.mjs";
 import { targetRollDialog, targetSelectDialog } from "../helpers/dialogs.mjs";
 import { DamageSupporter } from "../helpers/damagesupport.mjs";
+import { Util } from "./utils.mjs";
 
 /**
  * Execute  chat button click event and return the result.
@@ -192,7 +193,7 @@ export async function chatButton(chatMessage, buttonType) {
       else pharmtool = item.system.pharmtool;
       if (item.system.powup == null || item.system.powup == 0) powup = 0;
       else powup = item.system.powup;
-      
+
       let powmod = actor.system.attributes?.powertablemod?.[itemData.type] || 0;
       powmod += Number(actor.system.attributes?.powerroll?.all) || 0;
 
@@ -1392,7 +1393,13 @@ export async function chatButton(chatMessage, buttonType) {
       const decay = targetActor.system.attributes?.decay || null;
       const targetClass = targetActor.system.classType;
       const tags = chatMessage.flags.sw25.tags;
-      const result = DamageSupporter.calcDamage(resultValue, tags, decay, targetClass, buttonType);
+      const result = DamageSupporter.calcDamage(
+        resultValue,
+        tags,
+        decay,
+        targetClass,
+        buttonType
+      );
       resultValue = result ? result.total : resultValue;
 
       if (buttonType == "buttonpd") {
@@ -1615,7 +1622,8 @@ export async function chatButton(chatMessage, buttonType) {
   }
 
   if (buttonType == "buttonmp") {
-    const selectedTokens = canvas.tokens.controlled;
+    const selectedTokens = await Util.getControlledActorFromUser();
+
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
@@ -1632,7 +1640,8 @@ export async function chatButton(chatMessage, buttonType) {
   }
 
   if (buttonType == "buttonhp") {
-    const selectedTokens = canvas.tokens.controlled;
+    const selectedTokens = await Util.getControlledActorFromUser();
+
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
@@ -1685,13 +1694,33 @@ export async function chatButton(chatMessage, buttonType) {
     let cost = chatMessage.flags.sw25.cost;
     let name = chatMessage.flags.sw25.name;
     let type = chatMessage.flags.sw25.type;
+    let fluc = chatMessage.flags.sw25.fluc;
     let meta;
     if (chatMessage.flags.sw25.meta == false) meta = 1;
     else meta = Number(chatMessage.flags.sw25.meta) + 1;
     let chat = chatMessage;
     let base = chatMessage.flags.sw25.base;
 
-    mpCost(token, cost, name, type, meta, chat, base);
+    mpCost(token, cost, name, type, meta, chat, base, fluc);
+  }
+
+  if (buttonType == "mpdecrease" || buttonType == "mpincrease") {
+    let fluc = 0;
+    if (buttonType == "mpdecrease") fluc = -1;
+    if (buttonType == "mpincrease") fluc = 1;
+
+    if (chatMessage.flags.sw25.fluc)
+      fluc = Number(chatMessage.flags.sw25.fluc) + fluc;
+
+    let token = canvas.tokens.get(chatMessage.flags.sw25.tokenId);
+    let cost = chatMessage.flags.sw25.cost;
+    let name = chatMessage.flags.sw25.name;
+    let type = chatMessage.flags.sw25.type;
+    let meta = chatMessage.flags.sw25.meta ?? 1;
+    let chat = chatMessage;
+    let base = chatMessage.flags.sw25.base;
+
+    mpCost(token, cost, name, type, meta, chat, base, fluc);
   }
 
   if (buttonType == "buttonhpcancel") {
@@ -1728,7 +1757,7 @@ export async function chatButton(chatMessage, buttonType) {
     let chatData = {
       flavor: label,
     };
-    
+
     chatData.content = await renderTemplate(
       "systems/sw25/templates/roll/hp-apply.hbs",
       {
@@ -1793,7 +1822,8 @@ export async function chatButton(chatMessage, buttonType) {
   }
 
   if (buttonType == "buttonloot") {
-    const selectedTokens = canvas.tokens.controlled;
+    const selectedTokens = await Util.getControlledActorFromUser();
+
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;
@@ -1850,17 +1880,36 @@ export async function chatButton(chatMessage, buttonType) {
 
     ChatMessage.create(chatData);
 
+    const lootFlag = chatMessage.flags;
+    const lootCount = chatMessage.flags.sw25.lootCount
+      ? Number(chatMessage.flags.sw25.lootCount) + 1
+      : 1;
+    lootFlag.sw25.lootCount = lootCount;
+
+    const lootContent = await renderTemplate(
+      "systems/sw25/templates/roll/lootlist.hbs",
+      {
+        flavor: chatMessage.flags.sw25.name,
+        lootlist: chatMessage.flags.sw25.lootlist,
+        lootCount: lootCount,
+      }
+    );
+    await chatMessage.update({
+      content: lootContent,
+      flags: lootFlag,
+    });
+
     return roll;
   }
 
   if (buttonType == "buttonrollreq" || buttonType == "buttonresist") {
     let roll;
     const flags = chatMessage.flags;
-
     const target = flags.sw25.target;
-    const selectedTokens = target
+    let selectedTokens = target
       ? canvas.tokens.placeables.filter((token) => target.includes(token.id))
-      : canvas.tokens.controlled;
+      : await Util.getControlledActorFromUser();
+
     if (selectedTokens.length === 0) {
       ui.notifications.warn(game.i18n.localize("SW25.Noselectwarn"));
       return;

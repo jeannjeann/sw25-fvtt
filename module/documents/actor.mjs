@@ -75,6 +75,13 @@ export class SW25Actor extends Actor {
       }
     });
 
+    // Calculate Skill check & Action check
+    if (systemData.effect?.allsc) systemData.efallscmod = Number(systemData.effect.allsc);
+    else systemData.efallscmod = 0;
+
+    if (systemData.effect?.allac) systemData.efallacmod = Number(systemData.effect.allac);
+    else systemData.efallacmod = 0;
+
     // Calculate the abilities & modifier
     systemData.abilities.agi.racevalue = systemData.abilities.dex.racevalue;
     systemData.abilities.vit.racevalue = systemData.abilities.str.racevalue;
@@ -96,7 +103,9 @@ export class SW25Actor extends Actor {
         Number(ability.mod) +
         Number(systemData.attributes.advlevel.value) +
         Number(systemData.attributes.advlevel.mod) +
-        Number(systemData.efallskadvmod);
+        Number(systemData.efallskadvmod) + 
+        Number(systemData.efallscmod) + 
+        Number(systemData.efallacmod);
     }
 
     //Calculate HP & MP & Move
@@ -224,7 +233,9 @@ export class SW25Actor extends Actor {
       Number(systemData.skillagidodge) +
       Number(systemData.itemdodge) +
       Number(systemData.attributes.dodgemod) +
-      Number(systemData.attributes.efdodgemod);
+      Number(systemData.attributes.efdodgemod) +
+      (Number(systemData.effect?.allsc) || 0) +
+      (Number(systemData.effect?.allac) || 0);
     systemData.attributes.protectionpoint =
       Number(systemData.itempp) +
       Number(systemData.attributes.ppmod) +
@@ -1086,6 +1097,8 @@ export class SW25Actor extends Actor {
       { key: "system.effect.mknow", target: "totalmknow", localize: "overview" },
       { key: "system.effect.allck", target: "totalallck", localize: "overview" },
       { key: "system.effect.allsk", target: "totalallsk", localize: "overview" },
+      { key: "system.effect.allsc", target: "totalallsc", localize: "overview" },
+      { key: "system.effect.allac", target: "totalallac", localize: "overview" },
       { key: "system.hp.efhpmod", target: "totalhpmod", localize: "overview" },
       { key: "system.mp.efmpmod", target: "totalmpmod", localize: "overview" },
       { key: "system.abilities.dex.efvaluemodify", target: "totaldex", localize: "overview" },
