@@ -1,10 +1,13 @@
 # CHANGELOG
 
+## 2.3.0
+- - UXアップデート  by [keyslock](https://github.com/keyslock)  from [#47](https://github.com/jeannjeann/sw25-fvtt/pull/47)
+
 ## 2.2.2
 - bug fix
 
 ## 2.2.1
-- English localoze update  by [kuouvadis](https://github.com/kuouvadis)  from [#44](https://github.com/jeannjeann/sw25-fvtt/pull/44)
+- English localize update  by [kuouvadis](https://github.com/kuouvadis)  from [#44](https://github.com/jeannjeann/sw25-fvtt/pull/44)
 - bug fix  by [keyslock](https://github.com/keyslock)  from [#45](https://github.com/jeannjeann/sw25-fvtt/pull/45)
 
 ## 2.2.0
