@@ -3548,3 +3548,18 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
 .active-effect-sheet.active-effect-sheet .effect-change .key {
   flex: 3;
 }
+
+.chat-target {
+  text-align: right;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  line-height: 1em;
+}
+
+.chat-target .targetname {
+  font-size: 0.8em;
+  padding: 0;
+  margin: 0;
+}
