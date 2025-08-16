@@ -2603,79 +2603,6 @@ body, .sw25cs__body__sidebar {
   margin: 5px;
 }
 
-.sw25 .item-display {
-  position: relative;
-  display: inline-block;
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  padding: 4px 0px;
-  text-align: center;
-  background: #f9f9f9;
-  font-size: 0.8rem;
-  line-height: 1.4;
-  color: #000;
-}
-
-.sw25 .item-display .label {
-  display: block;
-  font-weight: bold;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 2px;
-  margin-bottom: 2px;
-  width:100px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.sw25 .item-display .contents {
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 0.7rem;
-  justify-content: center;
-}
-
-.sw25 .item-display .item-icon {
-  flex: 1 0 25px;
-  height: 25px;
-  padding: 2px;
-}
-
-.sw25 .item-display .item-button{
-  flex: 0 0 25px;
-  height: 25px;
-  background-color: #2e2e2e;
-  border-radius: 6px;
-  border: 1px solid #555;
-  text-align: center;
-  cursor: pointer;
-  padding: 2px;
-  transition: background-color 0.2s, transform 0.1s;
-}
-
-.sw25 .item-display .item-resource {
-  flex: 3 0 75px;
-  height: 25px;
-}
-
-.sw25 .item-display .icon {
-  position: absolute;
-  font-size: 0.6rem;
-  color: #555;
-  opacity: 0.8;
-  pointer-events: none;
-}
-
-.sw25 .item-display .icon-bottom {
-  right: 2px;
-  bottom: 2px;
-}
-
-.sw25 .item-display .icon-top {
-  right: 2px;
-  top: 2px;
-}
-
 .sw25 .item-tooltip {
   opacity: 0;
   visibility: hidden;
@@ -3357,6 +3284,17 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
 
 .sw25 .spell-abyssal-display {
   background: linear-gradient(180deg, rgba(var(--spell-abyssal-color), 1), rgba(255, 255, 255, 1));
+}
+
+.sw25 .skill-display .ability-roll {
+  display: grid;
+  grid-column: span 3/span 2;
+	grid-template-rows: 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  place-items: center;
 }
 
 .element-tags {
