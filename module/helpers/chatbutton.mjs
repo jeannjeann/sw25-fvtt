@@ -112,7 +112,36 @@ export async function chatButton(chatMessage, buttonType) {
     }
 
     await chatRoll();
+  } else if (buttonType == "target-select") {
+    const selectedTokens = await targetSelectDialog(chatMessage.flavor);
+    selectedTokens.forEach((token) => game.user.targets.add(token));
+    if (selectedTokens.length === 0) {
+      return;
+    }
+    const target = selectedTokens.map((target) => target.id);
+    const targetNames = selectedTokens
+      .map((target) => ">>> " + target.document.name)
+      .join("<br>");
+    const flags = chatMessage.flags;
+    const targetStr = `<span class="targetname">${targetNames}</span>`;
+
+    flags.sw25.target = target;
+    flags.sw25.targetName = targetNames;
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(chatMessage.content, 'text/html');
+
+    const button = doc.querySelector('button.buttonclick.chat-target[data-buttontype="target-select"]');
+    if (button) {
+        button.innerHTML = targetStr;
+    }
+
+    await chatMessage.update({
+      content: doc.body.innerHTML,
+      flags: flags,
+    });
   }
+
   async function chatRoll(targetTokens) {
     const label1 = item.system.label1;
     const label2 = item.system.label2;
