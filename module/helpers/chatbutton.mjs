@@ -1923,10 +1923,20 @@ export async function chatButton(chatMessage, buttonType) {
         lootCount: lootCount,
       }
     );
-    await chatMessage.update({
-      content: lootContent,
-      flags: lootFlag,
-    });
+
+    if (game.user.isGM) {
+      await chatMessage.update({
+        content: lootContent,
+        flags: lootFlag,
+      });
+    } else {
+      game.socket.emit("system.sw25", {
+        method: "updateChat",
+        id: chatMessage.id,
+        content: lootContent,
+        flags: lootFlag,
+      });
+    }
 
     return roll;
   }
