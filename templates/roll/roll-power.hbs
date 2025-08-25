@@ -1,6 +1,14 @@
+{{#if targetName}}
+    <button class="buttonclick chat-target" data-buttontype="target-select">
+        <span class="targetname">{{{targetName}}}</span>
+    </button>
+{{else}}
+    <button class="buttonclick chat-target" data-buttontype="target-select">
+        <i class="fa-solid fa-users-viewfinder"></i>
+    </button>
+{{/if}}
 <div class="dice-roll" data-action="expandRoll">
     {{#if flavor}}<div class="dice-flavor">{{flavor}}</div>{{/if}}
-    {{#if targetName}}<div class="dice-flavor">{{{targetName}}}</div>{{/if}}
     {{#if tags}}
     <div class="element-tags">
         {{#if tags.condition}}

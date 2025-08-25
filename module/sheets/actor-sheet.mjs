@@ -1523,13 +1523,16 @@ export class SW25ActorSheet extends ActorSheet {
     const inputName = "";
     const refAbility = "";
     const modifier = "";
-    const targetValue = dataset.value;
+    let targetValue = dataset.value;
     const method = "check";
-
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
 
-    const message = game.i18n.localize("SW25.Monster.Return")+game.i18n.localize("SW25.Check");
+    if( checkName == game.i18n.localize("SW25.Monster.Return") ){
+      targetValue = Number(targetValue) + 1;
+    }
 
+    const message = dataset.label+game.i18n.localize("SW25.Check")
+    
     let chatData = {
       speaker: speaker,
       flavor: checkName,
