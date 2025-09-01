@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.3.1
+- UXアップデート  by [keyslock](https://github.com/keyslock)  from [#48](https://github.com/jeannjeann/sw25-fvtt/pull/48)
+- Bug fix  by [keyslock](https://github.com/keyslock)  from [#48](https://github.com/jeannjeann/sw25-fvtt/pull/48)
+
 ## 2.3.0
 - UXアップデート  by [keyslock](https://github.com/keyslock)  from [#47](https://github.com/jeannjeann/sw25-fvtt/pull/47)
 
