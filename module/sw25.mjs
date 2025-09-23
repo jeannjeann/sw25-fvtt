@@ -755,7 +755,7 @@ Hooks.once("ready", async function () {
     scope: "world",
     config: true,
     type: Boolean,
-    default: false,
+    default: true,
     requiresReload: true,
   });
 
@@ -914,6 +914,32 @@ Hooks.once("ready", async function () {
           targetActor.createEmbeddedDocuments("ActiveEffect", [transferEffect]);
         });
       });
+    }
+
+    // Update chat
+    if (data.method == "updateChat") {
+
+      const id = data.id;
+      const content = data.content;
+      const flags = data.flags;
+
+      const chatMessage = game.messages.get(id);
+      if (!chatMessage) {
+        ui.notifications.error(`ChatMessage ${id} not found.`);
+        return;
+      }
+
+      const updateData = {};
+      if (content !== null && content !== undefined) {
+        updateData.content = content;
+      }
+      if (flags !== null && flags !== undefined) {
+        updateData.flags = flags;
+      }
+
+      if (Object.keys(updateData).length > 0) {
+        chatMessage.update(updateData);
+      }
     }
   });
 

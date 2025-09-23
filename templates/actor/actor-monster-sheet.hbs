@@ -78,6 +78,12 @@
               <span class="mpcost" data-cost="{{system.summonmp}}" data-label="{{localize "SW25.Monster.SummonMp"}}" data-type="summon" data-id="{{actor._id}}">
               <label class="resource-label nobreak">{{localize "SW25.Monster.SummonMp"}}:</label>
               {{system.summonmp}}</span>
+              {{#if system.toFellow}}
+              &nbsp;/&nbsp;
+                <span class="mpcost" data-cost="{{system.monlevel}}" data-label="{{localize "SW25.Monster.CancelMp"}}" data-type="summon" data-id="{{actor._id}}">
+                <label class="resource-label nobreak">{{localize "SW25.Monster.CancelMp"}}:</label>
+                {{system.monlevel}}</span>
+              {{/if}}
               {{/if}}
             </div>
             <div class="monster-popularity popularityrollable">
