@@ -186,6 +186,7 @@
       "Part": "Part",
       "Corepart": "Core Part",
       "SummonMp": "Summon Mp",
+      "CancelMp": "Cancel Mp",
       "Return": "Return",
       "Ability": "Ability",
       "Observer": "Reveal Data",
@@ -1174,6 +1175,10 @@
     "fromCompendium":{
       "name": "Get language from Compendium",
       "hint": "Configuration for Polyglot module. Off: Get language list only from within the world. On: Get language list from language items in the compendium as well (actor re-selection must be required after loading the world to reflect the compendium language). Default: Off, require reload"
+    },
+    "defaultCharaAction":{
+      "name": "Actor Roll Setting",
+      "hint": "Default settings for roles, etc. If on, the character set by the user will be used as the default when no character is selected. Default: On, requires reload"
     },
     "rollRequest": "Request Roll"
   },

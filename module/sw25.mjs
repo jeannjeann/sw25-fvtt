@@ -925,6 +925,7 @@ Hooks.once("ready", async function () {
 
       const chatMessage = game.messages.get(id);
       if (!chatMessage) {
+        ui.notifications.error(`ChatMessage ${id} not found.`);
         return;
       }
 
