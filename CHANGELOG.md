@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2.3.2
+- loot count bug fix & daemon cancel Mp add  by [keyslock](https://github.com/keyslock)  from [#49](https://github.com/jeannjeann/sw25-fvtt/pull/49)
+
 ## 2.3.1
 - UXアップデート  by [keyslock](https://github.com/keyslock)  from [#48](https://github.com/jeannjeann/sw25-fvtt/pull/48)
 - Bug fix  by [keyslock](https://github.com/keyslock)  from [#48](https://github.com/jeannjeann/sw25-fvtt/pull/48)
