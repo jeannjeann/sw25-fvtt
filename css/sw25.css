@@ -68,6 +68,7 @@
   --spell-druid-color: 255, 230, 255;
   --spell-daemon-color: 255, 230, 255;
   --spell-abyssal-color: 255, 230, 255;
+  --spell-bibliomancer-color: 255, 230, 255;
 
   --sw25-font-modesto: "Modesto Condensed", "Palatino Linotype", serif;
 }
@@ -3284,6 +3285,9 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
 
 .sw25 .spell-abyssal-display {
   background: linear-gradient(180deg, rgba(var(--spell-abyssal-color), 1), rgba(255, 255, 255, 1));
+}
+.sw25 .spell-bibliomancer-display {
+  background: linear-gradient(180deg, rgba(var(--spell-bibliomancer-color), 1), rgba(255, 255, 255, 1));
 }
 
 .sw25 .skill-display .ability-roll {

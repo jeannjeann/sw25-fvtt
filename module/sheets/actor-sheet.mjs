@@ -178,6 +178,7 @@ export class SW25ActorSheet extends ActorSheet {
     const druid = [];
     const daemon = [];
     const abyssal = [];
+    const bibliomancer = [];
     const monsterabilities = [];
     const actions = [];
     const actionsf17 = [];
@@ -390,6 +391,9 @@ export class SW25ActorSheet extends ActorSheet {
         }
         if (i.system.type === "abyssal") {
           abyssal.push(i);
+        }        
+        if (i.system.type === "bibliomancer") {
+          bibliomancer.push(i);
         }
       }
 
@@ -568,6 +572,11 @@ export class SW25ActorSheet extends ActorSheet {
       abshow = false;
     } else abshow = true;
 
+    let bmshow = true;
+    if (bibliomancer.length == 0) {
+      bmshow = false;
+    } else bmshow = true;
+
     const typeOrder = CONFIG.SW25.itemTypeList.map(e => e.type);
 
     const sortedBookmarks = bookmarks.sort((a, b) => {
@@ -636,6 +645,8 @@ export class SW25ActorSheet extends ActorSheet {
     context.dmshow = dmshow;
     context.abyssal = abyssal;
     context.abshow = abshow;
+    context.bibliomancer = bibliomancer;
+    context.bmshow = bmshow;
     context.monsterabilities = monsterabilities;
     context.actions = actions;
     context.actionsf17 = actionsf17;

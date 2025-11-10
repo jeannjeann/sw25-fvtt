@@ -447,6 +447,22 @@ export class SW25Actor extends Actor {
       Number(systemData.attributes.abpower) +
       Number(systemData.attributes.efabckmod) +
       Number(systemData.attributes.efmckall);
+    this.items.forEach((item) => {
+      if (item.type == "skill") {
+        if (item.name == systemData.bmskill) {
+          systemData.bmbase = item.system.skillbase.invoke;
+        }
+      }
+    });
+    systemData.attributes.bmpower =
+      Number(systemData.bmbase) ?? 0 +
+      Number(systemData.attributes.bmmod) ?? 0 +
+      Number(systemData.attributes.efbmmod) ?? 0 +
+      Number(systemData.efallmgpacmod) ?? 0;
+    systemData.attributes.bmcast =
+      Number(systemData.attributes.bmpower) ?? 0 +
+      Number(systemData.attributes.efbmckmod) ?? 0 +
+      Number(systemData.attributes.efmckall) ?? 0;
 
     // Calculate active effect
     let actorEffects = actorData.effects;
@@ -1122,6 +1138,7 @@ export class SW25Actor extends Actor {
       { key: "system.attributes.efdrmod", target: "totaldrmod", localize: "overview" },
       { key: "system.attributes.efdmmod", target: "totaldmmod", localize: "overview" },
       { key: "system.attributes.efabmod", target: "totalabmod", localize: "overview" },
+      { key: "system.attributes.efbmmod", target: "totalbmmod", localize: "overview" },
       { key: "system.attributes.efscckmod", target: "totalscckmod", localize: "overview" },
       { key: "system.attributes.efcnckmod", target: "totalcnckmod", localize: "overview" },
       { key: "system.attributes.efwzckmod", target: "totalwzckmod", localize: "overview" },
@@ -1131,6 +1148,7 @@ export class SW25Actor extends Actor {
       { key: "system.attributes.efdrckmod", target: "totaldrckmod", localize: "overview" },
       { key: "system.attributes.efdmckmod", target: "totaldmckmod", localize: "overview" },
       { key: "system.attributes.efabckmod", target: "totalabckmod", localize: "overview" },
+      { key: "system.attributes.efbmckmod", target: "totalbmckmod", localize: "overview" },
       { key: "system.attributes.efscpwmod", target: "totalscpwmod", localize: "overview" },
       { key: "system.attributes.efcnpwmod", target: "totalcnpwmod", localize: "overview" },
       { key: "system.attributes.efwzpwmod", target: "totalwzpwmod", localize: "overview" },
@@ -1140,6 +1158,7 @@ export class SW25Actor extends Actor {
       { key: "system.attributes.efdrpwmod", target: "totaldrpwmod", localize: "overview" },
       { key: "system.attributes.efdmpwmod", target: "totaldmpwmod", localize: "overview" },
       { key: "system.attributes.efabpwmod", target: "totalabpwmod", localize: "overview" },
+      { key: "system.attributes.efbmpwmod", target: "totalbmpwmod", localize: "overview" },
       { key: "system.effect.allmgp", target: "totalallmgp", localize: "overview" },
       { key: "system.attributes.efmpsc", target: "totalmpsc", localize: "overview" },
       { key: "system.attributes.efmpcn", target: "totalmpcn", localize: "overview" },
@@ -1150,6 +1169,7 @@ export class SW25Actor extends Actor {
       { key: "system.attributes.efmpdr", target: "totalmpdr", localize: "overview" },
       { key: "system.attributes.efmpdm", target: "totalmpdm", localize: "overview" },
       { key: "system.attributes.efmpab", target: "totalmpab", localize: "overview" },
+      { key: "system.attributes.efmpbm", target: "totalmpbm", localize: "overview" },
       { key: "system.attributes.efmpall", target: "totalmpall", localize: "overview" },
       { key: "system.attributes.efmckall", target: "totalallmck", localize: "overview" },
       { key: "system.attributes.efmpwall", target: "totalallmpw", localize: "overview" },

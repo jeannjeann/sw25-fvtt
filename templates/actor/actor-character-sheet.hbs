@@ -779,6 +779,31 @@
         </div>
       </div>
       {{/if}}
+      {{#if bmshow}}
+      <div class="item">
+        <div class="grid grid-12col">
+          <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Bibliomancer"}}</span>
+          <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.bmcast}}" data-label="{{localize "SW25.Item.Spell.Bibliomancer"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.bmpower}}</span>
+          <span class="grid-span-2"></span>
+          <span class="grid-span-4" style="text-align: right;">
+            <select name="system.bmskill">
+              {{#select system.bmskill}}
+              <option value="-">{{localize "SW25.Selectspellskill"}}</option>
+              {{#each skills as |item id|}}
+              <option value="{{item.name}}">{{item.name}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </span>
+          <span class="grid-span-2" style="text-align: right;"><label for="{{actor._id}}system.attributes.bmmod"><i class="fa-solid fa-angles-up"></i></label><input id="{{actor._id}}system.attributes.bmmod" style="max-width: calc(70% - 7px); text-align: center;" type="text" name="system.attributes.bmmod" value="{{system.attributes.bmmod}}" data-dtype="Number"/></span>
+        </div>
+        <div class="spelllist-description">
+          <div>
+            {{> "systems/sw25/templates/actor/parts/actor-spells-bibliomancer.hbs"}}
+          </div>
+        </div>
+      </div>
+      {{/if}}
       <div class="margin-m" style="display: flex; align-items: center;">
         <input type="checkbox" id="{{actor._id}}system.attributes.showspell" name="system.attributes.showspell" data-dtype="Boolean" {{#if system.attributes.showspell}} checked {{/if}}/>
         <label for="{{actor._id}}system.attributes.showspell">{{localize "SW25.Attributes.Showspell"}}</label>

@@ -41,6 +41,7 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/sw25/templates/actor/parts/actor-spells-druid.hbs",
     "systems/sw25/templates/actor/parts/actor-spells-daemon.hbs",
     "systems/sw25/templates/actor/parts/actor-spells-abyssal.hbs",
+    "systems/sw25/templates/actor/parts/actor-spells-bibliomancer.hbs",
     "systems/sw25/templates/actor/parts/actor-effects.hbs",
     "systems/sw25/templates/actor/parts/actor-monsterabilities.hbs",
     "systems/sw25/templates/actor/parts/actor-monsterspells.hbs",
