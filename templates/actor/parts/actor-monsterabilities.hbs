@@ -43,8 +43,11 @@
           <b>{{item.system.labelmonpow}}:k{{item.system.power}}{{#if item.system.totalcvalue}}@{{item.system.totalcvalue}}{{/if}}{{#if item.system.powerbase}}+{{item.system.powerbase}}{{/if}}</b>
         </div>
           <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if system.usepower}}block{{else}}none{{/if}};"><input class="pm-change" type="text" name="checkmodInput" value="{{item.system.powermod}}" data-dtype="Number"/></div>
-        <div class="applyeffect" style="flex: 0 0 40px; display: {{#if system.useeffect}}block{{else}}none{{/if}};">
-          <b>{{localize "SW25.Item.EffectB"}}</b>
+        <div class="execitemmacro tooltip usemacro applybutton" style="display: {{#if item.flags.itemacro}}{{#if item.flags.itemacro.macro}}{{#if item.flags.itemacro.macro.command}}block{{else}}none{{/if}}{{else}}none{{/if}}{{else}}none{{/if}};">
+            <i class="fa-solid fa-code"></i><span class="tooltip-top">{{localize "SW25.Item.MacroB"}}</span>
+        </div>
+        <div class="applyeffect tooltip useeffect applybutton" style="display: {{#if system.useeffect}}block{{else}}none{{/if}};">
+            <i class="fa-solid fa-hand-sparkles"></i><span class="tooltip-top">{{localize "SW25.Item.EffectB"}}</span>
         </div>
         {{#if system.hpcost}}
         <div class='hpcost item-prop' style="flex: 0 0 {{#if system.maxhpcost}}80px{{else}}40px{{/if}};" data-cost="{{item.system.hpcost}}" data-max="{{item.system.maxhpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">

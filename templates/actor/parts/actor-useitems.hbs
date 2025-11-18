@@ -1,3 +1,6 @@
+<div class="execitemmacro tooltip usemacro applybutton" style="display: {{#if item.flags.itemacro}}{{#if item.flags.itemacro.macro}}{{#if item.flags.itemacro.macro.command}}block{{else}}none{{/if}}{{else}}none{{/if}}{{else}}none{{/if}};">
+    <i class="fa-solid fa-code"></i><span class="tooltip-top">{{localize "SW25.Item.MacroB"}}</span>
+</div>
 <div class="rollable tooltip usedice applybutton" style="display: {{#if system.usedice}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula}}+{{item.system.checkbase}}" data-label="{{item.name}} ({{localize "SW25.Check"}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.resistinfo system.hpresist}}>
     <i class="fa-solid fa-dice"></i><span class="tooltip-top">{{localize "SW25.Item.CheckB"}}</span>
 </div>

@@ -723,6 +723,9 @@ export class SW25ActorSheet extends ActorSheet {
       onManageActiveEffect(ev, document);
     });
 
+    // exec Item Macro.
+    html.on("click", ".execitemmacro", this._onItemMacro.bind(this));
+    
     // Rollable abilities.
     html.on("click", ".rollable", this._onRoll.bind(this));
 
@@ -886,6 +889,26 @@ export class SW25ActorSheet extends ActorSheet {
 
     // Finally, create the item!
     return await Item.create(itemData, { parent: this.actor });
+  }
+
+  /**
+   * Handle clickable rolls.
+   * @param {Event} event   The originating click event
+   * @private
+   */
+  async _onItemMacro(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+    const itemId =
+      dataset.itemid ??
+      event.currentTarget.closest("[data-item-id]")?.dataset.itemId ??
+      null;
+      
+    // Handle item macro.
+    const item = this.actor.items.get(itemId);
+    if (!item) return;
+    item.executeMacro(event);
   }
 
   /**

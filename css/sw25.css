@@ -24,6 +24,7 @@
   --material-black-color: 153, 153, 153;
   --material-white-color: 238, 238, 238;
 
+  --usemacro-color: 160, 140, 210;
   --usedice-color: 110, 180, 240;
   --usepower-color: 234, 85, 50;
   --useeffect-color: 208, 127, 255;
@@ -76,6 +77,12 @@
 /* Global styles */
 .window-app {
   font-family: "Roboto", sans-serif;
+}
+
+.execitemmacro:hover, .execitemmacro:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
 }
 
 .rollable:hover, .rollable:focus {
@@ -1988,17 +1995,23 @@ input.weakapply[type="checkbox"] {
   transition: background-color 0.2s, transform 0.1s;
 }
 
+.sw25 .item .usemacro i,
 .sw25 .item .usedice i,
 .sw25 .item .usepower i,
 .sw25 .item .useeffect i {
   pointer-events: none;
 }
 
+.sw25 .item .usemacro:hover,
 .sw25 .item .usedice:hover,
 .sw25 .item .usepower:hover,
 .sw25 .item .useeffect:hover {
   background-color: #444;
   transform: translateY(-1px);
+}
+
+.sw25 .item .usemacro {
+  color: rgb(var(--usemacro-color));
 }
 
 .sw25 .item .usedice {
@@ -2229,24 +2242,30 @@ body, .sw25cs__body__sidebar {
 }
 
 .sw25pc .sidebar-tabs {
-  background-color: hsla(50, 50%, 100%, 0.75);;
+  background-color: hsla(50, 50%, 100%, 0.75);
 }
 
 .sw25pc .sidebar-tabs > .item {
   flex: 1;
+  background: rgba(var(--sub-bg-color), 0.50);
   border-bottom: 1px solid var(--color-border-dark-1);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   cursor: pointer;
 }
 
 .sw25pc .sidebar-tabs > .item.active {
   font-weight: bold;
   text-shadow: none;
+  background: rgba(var(--sub-bg-color), 1.00);
   border-top: 1px solid var(--color-border-dark-1);
   border-right: 1px solid var(--color-border-dark-1);
   border-left: 1px solid var(--color-border-dark-1);
   border-bottom: none;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .sw25 .sheet-tabs > .item.active:first-child {
@@ -2790,7 +2809,7 @@ input[type=checkbox]:checked+.checkbox--label::after {
   transform-origin: center right;
   border-right: 2px solid #FF0001;
   border-bottom: 2px solid #FF0001;
-  opacity: 0; /* 透明 */
+  opacity: 0;
 }
 
 input[type=checkbox]:disabled + .checkbox--label {

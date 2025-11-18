@@ -114,7 +114,7 @@ export async function chatButton(chatMessage, buttonType) {
     await chatRoll();
   } else if (buttonType == "target-select") {
     const selectedTokens = await targetSelectDialog(chatMessage.flavor);
-    selectedTokens.forEach((token) => game.user.targets.add(token));
+    
     if (selectedTokens.length === 0) {
       return;
     }
