@@ -3524,3 +3524,63 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
   padding: 0;
   margin: 0;
 }
+
+.token-check-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 2px;
+}
+
+.token-check-wrap input[type="checkbox"] {
+  display: none;
+}
+
+.token-check-wrap .token-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  filter: grayscale(100%);
+  transition: filter 0.2s ease;
+}
+
+.friendly-token input[type="checkbox"]:checked + label .token-icon {
+  border-color: rgba(0,0,255,1);
+  background-color: rgba(20,100,255,0.5);
+  filter: none;
+}
+
+.neutral-token input[type="checkbox"]:checked + label .token-icon {
+  border-color: rgba(185,255,0,1);
+  background-color: rgba(205,255,20,0.5);
+  filter: none;
+}
+
+.hostile-token input[type="checkbox"]:checked + label .token-icon {
+  border-color: rgba(255,0,0,1);
+  background-color: rgba(255,100,20,0.5);
+  filter: none;
+}
+
+.token-check-wrap label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.friendly-token input[type="checkbox"]:checked + label {
+  color: rgb(0,0,255);
+  filter: none;
+}
+
+.neutral-token input[type="checkbox"]:checked + label {
+  color: rgb(185,255,0);
+  filter: none;
+}
+
+.hostile-token input[type="checkbox"]:checked + label {
+  color: rgb(255,0,0);
+  filter: none;
+}

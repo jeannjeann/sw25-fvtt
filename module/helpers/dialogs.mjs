@@ -62,6 +62,9 @@ export async function targetSelectDialog(title) {
   };
 
   tokens.forEach((token) => {
+    // invisible check.
+    if (!game.user.isGM && token.document.hidden) return;
+    
     switch (token.document.disposition) {
       case 1:
         categories.friendly.push(token);
@@ -87,10 +90,14 @@ export async function targetSelectDialog(title) {
         <span class="selectable">${title}</span>
       </legend>`;
     category.forEach((token) => {
+      console.log(token);
       box += `
-        <div>
-          <input type="checkbox" id="token-${token.id}" name="${categoryId}" value="${token.id}" />
-          <label for="token-${token.id}" style="font-weight: normal;">${token.name}</label>
+        <div class="token-check-wrap ${categoryId}-token">
+          <input type="checkbox" id="token-${token.id}" name="${categoryId}" value="${token.id}">
+          <label for="token-${token.id}">
+            <img src="${token.document.texture.src}" class="token-icon">
+            ${token.name}
+          </label>
         </div>`;
     });
     box += `</fieldset>`;
