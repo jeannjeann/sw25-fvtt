@@ -674,7 +674,7 @@
         <div class="grid grid-12col">
           <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Magitech"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.mtcast}}" data-label="{{localize "SW25.Item.Spell.Magitech"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.mtpower}}</span>
-          <span class="rollable resource-label-l grid-span-2" style="text-align: center;" data-resusequantity={{system.resusequantity}} data-resuse="{{system.resuse}}" data-roll="{{system.itemhitformula}}+{{system.itemhitbase}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Weapon.Hit"}})" data-pt="{{system.itempowertable}}" data-apply="{{system.itemapplycheck}}" data-checktype="{{system.itemchecktype}}">{{localize "SW25.Item.Weapon.Hit"}} : {{system.itemhitbase}}</span>
+          <span class="rollable resource-label-l grid-span-2" style="text-align: center;" data-resusequantity={{system.resusequantity}} data-resuse="{{system.resuse}}" data-roll="{{system.itemhitformula}}+{{system.itemhitbase}}" data-label="{{system.itemname}} ({{localize "SW25.Item.Weapon.Hit"}})" data-pt="{{system.itempowertable}}" data-apply="{{system.itemapplycheck}}" data-checktype="{{system.itemchecktype}}" data-resist="{{localize "SW25.Resist.Check.Dodge"}}" data-resistresult="disappear">{{localize "SW25.Item.Weapon.Hit"}} : {{system.itemhitbase}}</span>
           <span class="grid-span-4" style="text-align: right;">
             <select name="system.mtskill">
               {{selectOptions skills selected=system.mtskill valueAttr="name" labelAttr="name" localize=true blank="SW25.Selectspellskill"}}
