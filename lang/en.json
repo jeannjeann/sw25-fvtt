@@ -89,6 +89,7 @@
     "And": "And",
     "Or": "Or",
     "TargetSelect": "Select Target",
+    "SelectAll": "Select All",
 
     "Notargetwarn": "No targets selected.",
     "Multitargetwarn": "Multi targets selected.",

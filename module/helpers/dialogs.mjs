@@ -106,6 +106,13 @@ export async function targetSelectDialog(title) {
 
   const content = `
     <div style="width: 100%;">
+      <div class="select-all-wrap" style="margin-bottom:6px;">
+        <label style="cursor:pointer;">
+          <input type="checkbox" id="select-all-toggle">
+          <strong>${game.i18n.localize("SW25.SelectAll")}</strong>
+        </label>
+      </div>
+
       ${createCategoryBox(
         categories.friendly,
         game.i18n.localize("SW25.Disposition.Friendly"),
@@ -185,7 +192,22 @@ export async function targetSelectDialog(title) {
       addToggleHandler("neutral");
       addToggleHandler("hostile");
 
-      // ダイアログの横幅を調整
+      const allCheckboxes = html.find('input[type="checkbox"][id^="token-"]');
+      const selectAll = html.find("#select-all-toggle");
+
+      const updateSelectAllState = () => {
+        const checkedCount = allCheckboxes.filter(":checked").length;
+        selectAll.prop("checked", checkedCount === allCheckboxes.length);
+      };
+
+      updateSelectAllState();
+
+      selectAll.on("change", () => {
+        const checked = selectAll.is(":checked");
+        allCheckboxes.prop("checked", checked).trigger("change");
+      });
+
+      // set dialog width
       html[0].style.width = "500px";
     });
   });

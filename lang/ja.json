@@ -89,6 +89,7 @@
     "And": "かつ",
     "Or": "または",
     "TargetSelect": "ターゲット選択",
+    "SelectAll": "全て選択／解除",
 
     "Notargetwarn": "ターゲットが指定されていません",
     "Multitargetwarn": "ターゲットが複数指定されています",
