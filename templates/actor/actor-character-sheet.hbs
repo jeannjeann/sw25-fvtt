@@ -784,7 +784,17 @@
         <div class="grid grid-12col">
           <span class="spelllist-label resource-label-l grid-span-2">{{localize "SW25.Item.Spell.Bibliomancer"}}</span>
           <span class="rollable resource-label-l grid-span-2" data-roll="2d6+{{system.attributes.bmcast}}" data-label="{{localize "SW25.Item.Spell.Bibliomancer"}}" data-pt="" data-spell="on" data-apply="-" data-checktype="" data-apply="-" data-checktype="">{{localize "SW25.Attributes.Magicpower"}} : {{system.attributes.bmpower}}</span>
-          <span class="grid-span-2"></span>
+          <span class="grid-span-2">
+            {{#if system.attributes.bibRankEquip}}
+            <div class="biblio-ready">
+              <label class="biblio-rank">R1<br>{{lookup system.attributes.bibRankEquip 1}}/{{lookup system.attributes.bibRankMax 1}}</label>
+              <label class="biblio-rank">R2<br>{{lookup system.attributes.bibRankEquip 2}}/{{lookup system.attributes.bibRankMax 2}}</label>
+              <label class="biblio-rank">R3<br>{{lookup system.attributes.bibRankEquip 3}}/{{lookup system.attributes.bibRankMax 3}}</label>
+              <label class="biblio-rank">R4<br>{{lookup system.attributes.bibRankEquip 4}}/{{lookup system.attributes.bibRankMax 4}}</label>
+              <label class="biblio-rank">R5<br>{{lookup system.attributes.bibRankEquip 5}}/{{lookup system.attributes.bibRankMax 5}}</label>
+            </div>
+            {{/if}}
+          </span>
           <span class="grid-span-4" style="text-align: right;">
             <select name="system.bmskill">
               {{#select system.bmskill}}

@@ -34,7 +34,13 @@
     <section class="header__activate">
       <div class="header__checkbox">
         <input class="checkbox--hidden" id="{{item._id}}system.equip" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
-        <label class="checkbox--label" for="{{item._id}}system.equip">{{localize "SW25.Item.Activation"}}</label>
+        <label class="checkbox--label" for="{{item._id}}system.equip">
+          {{#if (eq system.type "bibliomancer")}}
+            {{localize "SW25.Item.Ready"}}
+          {{else}}
+            {{localize "SW25.Item.Activation"}}
+          {{/if}}
+        </label>
       </div>
       <div class="header__checkbox">
         <input class="checkbox--hidden" id="{{item._id}}system.bookmark" type="checkbox" name="system.bookmark" data-dtype="Boolean" {{#if system.bookmark}} checked {{/if}}/>
@@ -147,7 +153,7 @@
           {{localize "SW25.Item.Field.Spell"}}
         </legend>
         <div class="grid-span-2 property">
-          <label class="property--label" for="{{item._id}}system.level">{{#if (eq system.type "fairy")}}{{localize "SW25.Item.Rank"}}{{else}}{{localize "SW25.Level"}}{{/if}}</label>
+          <label class="property--label" for="{{item._id}}system.level">{{#if (or (eq system.type "fairy") (eq system.type "bibliomancer"))}}{{localize "SW25.Item.Rank"}}{{else}}{{localize "SW25.Level"}}{{/if}}</label>
           <input class="property--value" id="{{item._id}}system.level" style="max-width: calc(50% - 7px);" type="text" name="system.level" value="{{system.level}}" data-dtype="Number"{{#unless system.isEdit}} disabled{{/unless}}/>
         </div>
         <div class="grid-span-2 property">

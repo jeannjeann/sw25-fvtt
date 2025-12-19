@@ -451,6 +451,7 @@ export class SW25Actor extends Actor {
       if (item.type == "skill") {
         if (item.name == systemData.bmskill) {
           systemData.bmbase = item.system.skillbase.invoke;
+          systemData.bmlv = item.system.skilllevel;
         }
       }
     });
@@ -463,6 +464,32 @@ export class SW25Actor extends Actor {
       Number(systemData.attributes.bmpower) ?? 0 +
       Number(systemData.attributes.efbmckmod) ?? 0 +
       Number(systemData.attributes.efmckall) ?? 0;
+
+    systemData.attributes.bibRankMax = [0,0,0,0,0,0];
+    if(systemData.bmlv){
+      let remain = Math.max(0, systemData.bmlv);
+
+      for (let rank = 1; rank <= 5; rank++) {
+        if (remain <= 0) break;
+
+        const add = Math.min(3, remain);
+        systemData.attributes.bibRankMax[rank] = add;
+        remain -= add;
+      }
+    }
+
+    systemData.attributes.bibRankEquip = [0,0,0,0,0,0];
+    const bmItems = actorData.items.filter(i =>
+      i.system?.type === "bibliomancer" &&
+      i.system?.equip === true &&
+      Number.isInteger(i.system?.level) &&
+      i.system.level >= 1 &&
+      i.system.level <= 5
+    );
+
+    for (const item of bmItems) {
+      systemData.attributes.bibRankEquip[item.system.level]++;
+    }
 
     // Calculate active effect
     let actorEffects = actorData.effects;

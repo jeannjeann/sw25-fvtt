@@ -1669,6 +1669,23 @@ input.weakapply[type="checkbox"] {
   font-size: 0.7em;
 }
 
+.biblio-ready {
+  display: grid;
+  grid-column: span 5/span 5;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0px 0;
+  padding: 0;
+  place-items: center;
+}
+
+.biblio-rank {
+  width: 100%;
+  border: 1px solid #000;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 0.6em;
+}
+
 .session-result-title {
   font-size: 0.8em;
   text-align: center;
