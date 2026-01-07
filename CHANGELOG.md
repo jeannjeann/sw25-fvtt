@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.4.0
+- ビブリオマンサー対応  by [keyslock](https://github.com/keyslock)  from [#50](https://github.com/jeannjeann/sw25-fvtt/pull/50)
+- UXアップデート  by [keyslock](https://github.com/keyslock)  from [#50](https://github.com/jeannjeann/sw25-fvtt/pull/50)
+
 ## 2.3.2
 - loot count bug fix & daemon cancel Mp add  by [keyslock](https://github.com/keyslock)  from [#49](https://github.com/jeannjeann/sw25-fvtt/pull/49)
 
