@@ -22,6 +22,7 @@ import {
   effectDrpMon,
   effectDmpMon,
   effectAbpMon,
+  effectBmpMon,
 } from "../sw25.mjs";
 import { targetRollDialog } from "../helpers/dialogs.mjs";
 
@@ -1239,9 +1240,9 @@ export class SW25Item extends Item {
         systemData.efallmgpmod = Number(actorData.effect.allmgp);
       else systemData.efallmgpmod = 0;
       systemData.checkbase =
-        Number(systemData.checkbase) + Number(systemData.efallmgpmod);
+        Number(systemData.checkbase) ?? 0 + Number(systemData.efallmgpmod);
       systemData.powerbase =
-        Number(systemData.powerbase) + Number(systemData.efallmgpmod);
+        Number(systemData.powerbase) ?? 0 + Number(systemData.efallmgpmod);
 
       systemData.hpcost = systemData.basehpcost;
       switch (systemData.type) {
@@ -1414,6 +1415,25 @@ export class SW25Item extends Item {
             Number(systemData.basempcost) -
             Number(actorData.attributes.efmpab) -
             Number(actorData.attributes.efmpall);
+          if (systemData.mpcost < 1) systemData.mpcost = 1;
+          break;
+        case "bibliomancer":
+          systemData.checkbase =
+            Number(systemData.checkbase) ?? 0 +
+            Number(actorData.attributes.bmmod) ?? 0 +
+            Number(actorData.attributes.efbmmod) ?? 0 +
+            Number(actorData.attributes.efbmckmod) ?? 0 +
+            Number(actorData.attributes.efmckall) ?? 0;
+          systemData.powerbase =
+            Number(systemData.powerbase) ?? 0 +
+            Number(actorData.attributes.bmmod) ?? 0 +
+            Number(actorData.attributes.efbmmod) ?? 0 +
+            Number(actorData.attributes.efbmpwmod) ?? 0 +
+            Number(actorData.attributes.efmpwall) ?? 0;
+          systemData.mpcost =
+            Number(systemData.basempcost) ?? 0 -
+            Number(actorData.attributes.efmpbm) ?? 0 -
+            Number(actorData.attributes.efmpall) ?? 0;
           if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         default:
@@ -1657,6 +1677,18 @@ export class SW25Item extends Item {
             systemData.efmod += Number(actorData.abilities?.int?.efmodify ?? 0);
             systemData.efallckmod = 0;
             break;
+          case effectBmpMon:
+            if (actorData.attributes.efbmmod)
+              systemData.efmod =
+                Number(actorData.attributes.efbmmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efmod += Math.floor(
+              (actorData.abilities?.int?.efvaluemodify ?? 0) / 6
+            );
+            systemData.efmod += Number(actorData.abilities?.int?.efmodify ?? 0);
+            systemData.efallckmod = 0;
+            break;
           default:
             systemData.efmod = 0;
             break;
@@ -1758,6 +1790,14 @@ export class SW25Item extends Item {
             if (actorData.attributes.efabmod)
               systemData.efmod =
                 Number(actorData.attributes.efabmod) +
+                Number(systemData.efallmgpmod);
+            else systemData.efmod = Number(systemData.efallmgpmod);
+            systemData.efallckmod = 0;
+            break;
+          case effectBmpMon:
+            if (actorData.attributes.efbmmod)
+              systemData.efmod =
+                Number(actorData.attributes.efbmmod) +
                 Number(systemData.efallmgpmod);
             else systemData.efmod = Number(systemData.efallmgpmod);
             systemData.efallckmod = 0;
@@ -2441,6 +2481,16 @@ export class SW25Item extends Item {
           if (systemData.checkabi == "") systemData.checkabi = "int";
           if (systemData.powerskill == "")
             systemData.powerskill = actorData.abskill;
+          if (systemData.powerabi == "") systemData.powerabi = "int";
+        }
+      }
+      if (systemData.type == "bibliomancer") {
+        if (actorData.bmskill != "") {
+          if (systemData.checkskill == "")
+            systemData.checkskill = actorData.bmskill;
+          if (systemData.checkabi == "") systemData.checkabi = "int";
+          if (systemData.powerskill == "")
+            systemData.powerskill = actorData.bmskill;
           if (systemData.powerabi == "") systemData.powerabi = "int";
         }
       }

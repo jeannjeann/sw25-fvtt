@@ -9,6 +9,13 @@
               <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
             </a>
           </div>
+          {{#if (eq system.type "bibliomancer")}}
+          <div class="item-equip">
+            <label class="equip-toggle">
+              <input class="eq-change" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
+            </label>
+          </div>
+          {{/if}}
           {{#if (eq system.fairytype "propfairy")}}
           <span class="{{system.fairyprop}}"><i class="fa-solid fa-gem"></i></span>
           {{/if}}

@@ -203,7 +203,8 @@ SW25.spellTypes = {
   fairy: "SW25.Item.Spell.Fairy",
   druid: "SW25.Item.Spell.Druid",
   daemon: "SW25.Item.Spell.Daemon",
-  abyssal: "SW25.Item.Spell.Abyssal"
+  abyssal: "SW25.Item.Spell.Abyssal",
+  bibliomancer: "SW25.Item.Spell.Bibliomancer"
 };
 
 SW25.spellResists = {
@@ -411,6 +412,7 @@ SW25.Effect = {
     "attributes.efdrmod": "SW25.Effect.DrMod",
     "attributes.efdmmod": "SW25.Effect.DmMod",
     "attributes.efabmod": "SW25.Effect.AbMod",
+    "attributes.efbmmod": "SW25.Effect.BmMod",
     "effect.allmgp": "SW25.Config.AllMgp"
   },
   magicckroll: {
@@ -423,6 +425,7 @@ SW25.Effect = {
     "attributes.efdrckmod": "SW25.Effect.DrMod",
     "attributes.efdmckmod": "SW25.Effect.DmMod",
     "attributes.efabckmod": "SW25.Effect.AbMod",
+    "attributes.efbmckmod": "SW25.Effect.BmMod",
     "attributes.efmckall": "SW25.Item.All"
   },
   magicpwroll: {
@@ -435,6 +438,7 @@ SW25.Effect = {
     "attributes.efdrpwmod": "SW25.Effect.DrMod",
     "attributes.efdmpwmod": "SW25.Effect.DmMod",
     "attributes.efabpwmod": "SW25.Effect.AbMod",
+    "attributes.efbmpwmod": "SW25.Effect.BmMod",
     "attributes.efmpwall": "SW25.Item.All"
   },
   mpsave: {
@@ -447,6 +451,7 @@ SW25.Effect = {
     "attributes.efmpdr": "SW25.Effect.DrMod",
     "attributes.efmpdm": "SW25.Effect.DmMod",
     "attributes.efmpab": "SW25.Effect.AbMod",
+    "attributes.efmpbm": "SW25.Effect.BmMod",
     "attributes.efmpall": "SW25.Item.All"
   },
   feature: {

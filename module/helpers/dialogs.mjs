@@ -62,6 +62,9 @@ export async function targetSelectDialog(title) {
   };
 
   tokens.forEach((token) => {
+    // invisible check.
+    if (!game.user.isGM && token.document.hidden) return;
+    
     switch (token.document.disposition) {
       case 1:
         categories.friendly.push(token);
@@ -87,10 +90,14 @@ export async function targetSelectDialog(title) {
         <span class="selectable">${title}</span>
       </legend>`;
     category.forEach((token) => {
+      console.log(token);
       box += `
-        <div>
-          <input type="checkbox" id="token-${token.id}" name="${categoryId}" value="${token.id}" />
-          <label for="token-${token.id}" style="font-weight: normal;">${token.name}</label>
+        <div class="token-check-wrap ${categoryId}-token">
+          <input type="checkbox" id="token-${token.id}" name="${categoryId}" value="${token.id}">
+          <label for="token-${token.id}">
+            <img src="${token.document.texture.src}" class="token-icon">
+            ${token.name}
+          </label>
         </div>`;
     });
     box += `</fieldset>`;
@@ -99,6 +106,13 @@ export async function targetSelectDialog(title) {
 
   const content = `
     <div style="width: 100%;">
+      <div class="select-all-wrap" style="margin-bottom:6px;">
+        <label style="cursor:pointer;">
+          <input type="checkbox" id="select-all-toggle">
+          <strong>${game.i18n.localize("SW25.SelectAll")}</strong>
+        </label>
+      </div>
+
       ${createCategoryBox(
         categories.friendly,
         game.i18n.localize("SW25.Disposition.Friendly"),
@@ -178,7 +192,22 @@ export async function targetSelectDialog(title) {
       addToggleHandler("neutral");
       addToggleHandler("hostile");
 
-      // ダイアログの横幅を調整
+      const allCheckboxes = html.find('input[type="checkbox"][id^="token-"]');
+      const selectAll = html.find("#select-all-toggle");
+
+      const updateSelectAllState = () => {
+        const checkedCount = allCheckboxes.filter(":checked").length;
+        selectAll.prop("checked", checkedCount === allCheckboxes.length);
+      };
+
+      updateSelectAllState();
+
+      selectAll.on("change", () => {
+        const checked = selectAll.is(":checked");
+        allCheckboxes.prop("checked", checked).trigger("change");
+      });
+
+      // set dialog width
       html[0].style.width = "500px";
     });
   });
