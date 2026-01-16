@@ -233,6 +233,7 @@
       "EffectB": "버프",
       "CostB": "소비",
       "MPB": "MP",
+      "MacroB": "매크로",
       "Clickitem": "아이콘 클릭 시",
       "All": "모두",
       "Powerroll": "위력 롤",
@@ -444,7 +445,8 @@
         "Cancel": "취소",
         "ExCost": "소비 확장 소재",
         "ExTime": "확장 시간",
-        "Expansion": "확장 효과"
+        "Expansion": "확장 효과",
+        "SpecialFumble": "특수 실패 값"
       },
       "Enhancearts": {
       },
