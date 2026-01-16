@@ -1,13 +1,13 @@
 <ol class='items-list'>
   {{#if tacspowershow}}
     <div class='item flexrow items-header'>
-      <div class='item-name'>{{localize "TYPES.Item.tactics"}}</div>
+      <div class='item-name'><i class="ps_drum"></i>{{localize "TYPES.Item.tactics"}}</div>
     </div>
     <div class='item flexrow ability-resource'>
       <div class='resources'>
         <div class="ability-label">
           <div class="tacspowerreset left-position" data-tooltip="{{localize "SW25.Reset" type=(localize "SW25.Item.Resource.Types.Tacspower")}}"><i class="fa-solid fa-arrow-rotate-left"></i></div>
-          {{localize "SW25.Item.Tactics.Tacspower"}}
+          <i class="ps_camp"></i>{{localize "SW25.Item.Tactics.Tacspower"}}
         </div>
         {{#each tacspowers as |item id|}}
           <li class='item' data-item-id='{{item._id}}'>
@@ -47,7 +47,7 @@
     </div>
   {{/if}}
   <li class='item flexrow items-header'>
-    <div class='item-name'>{{#if tacspowershow}}{{localize "SW25.Item.Name"}}{{else}}{{localize "TYPES.Item.tactics"}}{{/if}}</div>
+    <div class='item-name'>{{#if tacspowershow}}<i class="ps_drum"></i>{{localize "SW25.Item.Name"}}{{else}}<i class="ps_drum"></i>{{localize "TYPES.Item.tactics"}}{{/if}}</div>
     <div class='item-element sidebar-hidden' style="flex: 0 0 90px;">{{localize "SW25.Condition"}}</div>
     <div class='item-element' style="flex: 0 0 80px;">{{localize "SW25.Item.Tactics.Line"}}({{localize "SW25.Item.Tactics.Rank"}})</div>
     <div class='item-element' style="flex: 0 0 30px;">{{localize "SW25.Item.Tactics.Get"}}</div>

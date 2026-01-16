@@ -15,7 +15,7 @@
   --fairy-ice-color: 155, 189, 236;
   --fairy-fire-color: 232, 151, 159;
   --fairy-wind-color: 155, 228, 159;
-  --fairy-light-color: 231, 227, 234;
+  --fairy-light-color: 254, 255, 220;
   --fairy-dark-color: 156, 151, 159;
 
   --material-green-color: 171, 243, 200;
@@ -815,6 +815,63 @@ progress.mp-bar::-moz-progress-bar {
   font-weight: bold;
   font-size: 1.2em;
 }
+.sw25 .spell-header-icon {
+  font-size: 2.0em;
+}
+.sw25 .spell-header-u {
+  align-items: flex-end;
+}
+.sw25 .spell__header {
+  position: relative;
+
+	display: grid;
+	grid-template-areas:
+		"icon option option option option"
+		"icon title power skill mod";
+	grid-template-rows: auto auto;
+	grid-template-columns: 50px 1fr 1fr 2fr 80px;
+
+  border-left: 5px inset rgba(var(--main-text-color), 1.0);
+  border-top: 2px inset rgba(var(--main-text-color), 0.5);
+  padding-left: 3px;
+  margin-top: 5px;
+}
+.sw25 .spell__header--icon {
+	grid-area: icon;
+  position: relative;
+
+  font-size: 3.0em;
+}
+.sw25 .spell__header--option {
+	grid-area: option;
+  position: relative;
+}
+.sw25 .spell__header--title {
+	grid-area: title;
+  position: relative;
+
+  font-weight: bold;
+  margin-top: 5px;
+}
+.sw25 .spell__header--power {
+	grid-area: power;
+  position: relative;
+
+  font-weight: bold;
+  margin-top: 5px;
+}
+.sw25 .spell__header--skill {
+	grid-area: skill;
+  position: relative;
+  text-align: right;
+  margin-top: 5px;
+}
+.sw25 .spell__header--mod {
+	grid-area: mod;
+  position: relative;
+  text-align: right;
+  margin-top: 5px;
+}
 .sw25 .items-header {
   height: 28px;
   margin: 2px 0;
@@ -1018,7 +1075,7 @@ progress.mp-bar::-moz-progress-bar {
 
 .sw25 .sheet-header .header-fields .character-details input,
 .sw25 .sheet-header .header-fields .character-details textarea{
-    border:  0;
+  border:  0;
   background: none;
 }
 
@@ -1526,18 +1583,8 @@ input.weakapply[type="checkbox"] {
   cursor: pointer;
 }
 
-.fairy-checkbox {
-  display: grid;
-  grid-column: span 6/span 6;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: var(--spacing-sm);
-  margin: 0px 0;
-  padding: 0;
-  place-items: center;
-}
-
 .fairy-contract {
-  width: 20px;
+  width: 35px;
   border: 1px solid #000;
   border-radius: 5px;
   text-align: center;
@@ -1608,7 +1655,7 @@ input.weakapply[type="checkbox"] {
 }
 
 .fairylight {
-  color: rgb(var(--fairy-ice-color));
+  color: rgb(var(--fairy-light-color));
   background-color: #000000;
   padding: 0 0.3em;
   border: 0px solid #000;
@@ -1665,17 +1712,67 @@ input.weakapply[type="checkbox"] {
   100% { background-position: 100% 50%; }
 }
 
-.fairy-rank {
-  font-size: 0.7em;
+.magitech-header {
+  grid-area: option;
+  position: relative;
 }
 
-.biblio-ready {
+.fairytamer-header {
+  grid-area: option;
+  position: relative;
+
+	display: grid;
+	grid-template-areas:"ftcontract ftrank";
+	grid-template-columns: 1fr 150px;
+  gap: 5px;
+}
+
+.fairytamer-contract {
+  grid-area: ftcontract;
+  position: relative;
+
   display: grid;
-  grid-column: span 5/span 5;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--spacing-sm);
   margin: 0px 0;
   padding: 0;
   place-items: center;
+}
+
+.fairytamer-rank {
+  grid-area: ftrank;
+  position: relative;
+
+  font-size: 0.8em;
+}
+
+.biblio-header {
+  grid-area: option;
+  position: relative;
+
+	display: grid;
+	grid-template-areas:"bmready bmsp";
+	grid-template-columns: 1fr 150px;
+  gap: 5px;
+}
+
+.biblio-ready {
+  grid-area: bmready;
+  position: relative;
+
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--spacing-sm);
+  margin: 0px 0;
+  padding: 0;
+  place-items: center;
+}
+
+.biblio-special {
+  grid-area: bmsp;
+  position: relative;
+
+  font-size: 0.8em;
 }
 
 .biblio-rank {
@@ -1683,7 +1780,7 @@ input.weakapply[type="checkbox"] {
   border: 1px solid #000;
   border-radius: 5px;
   text-align: center;
-  font-size: 0.6em;
+  font-size: 0.8em;
 }
 
 .session-result-title {
@@ -2959,24 +3056,6 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
   text-align: right !important;
 }
 
-.icon-stack {
-  position: relative;
-  display: inline-block;
-  width: 1.2em;
-  height: 1.2em;
-}
-
-.icon-stack i {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  line-height: 1.2em;
-  font-size: 1.2em;
-}
-
 .text-icon {
   display: inline-flex;
   align-items: center;
@@ -3125,7 +3204,7 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
 
 .sw25pc .main .items-header,
 .sw25pc .sidebar .items-header {
-  background: linear-gradient(180deg, rgba(var(--main-bg-color), 0.4), rgba(var(--main-bg-color), 0.1));
+  background: linear-gradient(180deg, rgba(var(--main-bg-color), 0.7), rgba(var(--main-bg-color), 0.4));
 }
 
 .sw25pc .itemselect {

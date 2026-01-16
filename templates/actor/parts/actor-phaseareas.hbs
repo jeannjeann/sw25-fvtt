@@ -1,13 +1,13 @@
 <ol class='items-list'>
   {{#if lifelineshow}}
     <div class='item flexrow items-header'>
-      <div class='item-name'>{{localize "TYPES.Item.phasearea"}}</div>
+      <div class='item-name'><i class="ps_phase"></i>{{localize "TYPES.Item.phasearea"}}</div>
     </div>
     <div class='item flexrow ability-resource'>
       <div class='resources'>
         <div class="ability-label">
           <div class="lifelinereset left-position" data-tooltip="{{localize "SW25.Reset" type=(localize "SW25.Item.Resource.Types.Lifeline")}}"><i class="fa-solid fa-arrow-rotate-left"></i></div>
-          {{localize "SW25.Item.Phasearea.Lifeline"}}
+          <i class="ps_phase"></i>{{localize "SW25.Item.Phasearea.Lifeline"}}
           <div class="lifelineadd right-position" data-tooltip="{{localize "SW25.Add" type=(localize "SW25.Item.Resource.Types.Lifeline")}}"><i class="fa-solid fa-arrow-rotate-right"></i></div>
         </div>
         {{#each lifelines as |item id|}}
@@ -50,7 +50,7 @@
     </div>
   {{/if}}
   <li class='item flexrow items-header'>
-    <div class='item-name'>{{#if lifelineshow}}{{localize "SW25.Item.Name"}}{{else}}{{localize "TYPES.Item.phasearea"}}{{/if}}</div>
+    <div class='item-name'>{{#if lifelineshow}}{{localize "SW25.Item.Name"}}{{else}}<i class="ps_phase"></i>{{localize "TYPES.Item.phasearea"}}{{/if}}</div>
     <div class='item-element' style="flex: 0 0 70px;">{{localize "SW25.Cost"}}</div>
     <div class='item-element sidebar-hidden' style="flex: 0 0 100px;">{{localize "SW25.Time"}}</div>
     <div class='item-element sidebar-hidden' style="flex: 0 0 80px;">{{localize "SW25.Item.Prop"}}</div>

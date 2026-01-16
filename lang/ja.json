@@ -233,6 +233,7 @@
       "EffectB": "バフ",
       "CostB": "消費",
       "MPB": "MP",
+      "MacroB": "マクロ",
       "Clickitem": "アイコンクリック時",
       "All": "すべて",
       "Powerroll": "威力ロール",
@@ -444,7 +445,8 @@
         "Cancel": "取消",
         "ExCost": "消費拡張素材",
         "ExTime": "拡張時間",
-        "Expansion": "拡張効果"
+        "Expansion": "拡張効果",
+        "SpecialFumble": "特殊失敗値"
       },
       "Enhancearts": {
       },
