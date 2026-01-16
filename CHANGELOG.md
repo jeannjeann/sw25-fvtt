@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 2.4.1
+- Korean support  by [CC8788](https://github.com/CC8788)
+
+## 2.4.0
+- ビブリオマンサー対応  by [keyslock](https://github.com/keyslock)  from [#50](https://github.com/jeannjeann/sw25-fvtt/pull/50)
+- UXアップデート  by [keyslock](https://github.com/keyslock)  from [#50](https://github.com/jeannjeann/sw25-fvtt/pull/50)
+
+## 2.3.2
+- loot count bug fix & daemon cancel Mp add  by [keyslock](https://github.com/keyslock)  from [#49](https://github.com/jeannjeann/sw25-fvtt/pull/49)
+
+## 2.3.1
+- UXアップデート  by [keyslock](https://github.com/keyslock)  from [#48](https://github.com/jeannjeann/sw25-fvtt/pull/48)
+- Bug fix  by [keyslock](https://github.com/keyslock)  from [#48](https://github.com/jeannjeann/sw25-fvtt/pull/48)
+
 ## 2.3.0
 - UXアップデート  by [keyslock](https://github.com/keyslock)  from [#47](https://github.com/jeannjeann/sw25-fvtt/pull/47)
 

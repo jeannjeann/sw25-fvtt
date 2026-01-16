@@ -25,6 +25,7 @@ FVTT用ソード・ワールド2.5ゲームシステム
 ## 対応言語
 - 日本語（[Jean.N](https://github.com/jeannjeann)）
 - English ([kuouvadis](https://github.com/kuouvadis))
+- Korean ([CC8788](https://github.com/CC8788))
 
 ## 作者
 - [Jean.N](https://github.com/jeannjeann)
