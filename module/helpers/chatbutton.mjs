@@ -2063,6 +2063,8 @@ export async function chatButton(chatMessage, buttonType) {
         flagMod = `+ ${flagMod}`;
       }
 
+      if (checkbase == 0) checkbase = "";
+
       let formula =
         item || checkName == game.i18n.localize("SW25.Resist.Check.Dodge")
           ? checkformula + checkbase + flagMod

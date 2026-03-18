@@ -1213,6 +1213,18 @@ export class SW25Item extends Item {
           : result;
     }
 
+    if (itemData.type == "combatability") {
+      systemData.hpcost = systemData.basehpcost;
+      const result =
+        Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
+      systemData.mpcost =
+        isNaN(result) || systemData.basempcost == null
+          ? null
+          : result <= 0
+          ? 1
+          : result;
+    }
+
     if (itemData.type == "weapon") {
       systemData.checkbase =
         Number(systemData.checkbase) +
