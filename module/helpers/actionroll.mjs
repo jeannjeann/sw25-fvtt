@@ -74,7 +74,7 @@ export async function actionRoll(element, actor) {
   }
   
   const canceldialog = actorData.canceldialog;
-  chatData.content = await renderTemplate(
+  chatData.content = await (foundry.applications?.handlebars?.renderTemplate ?? renderTemplate)(
     "systems/sw25/templates/roll/roll-action.hbs",
     {
       total: total,

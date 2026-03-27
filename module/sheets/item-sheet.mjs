@@ -8,7 +8,7 @@ import { SW25 } from "../helpers/config.mjs";
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
  */
-export class SW25ItemSheet extends ItemSheet {
+export class SW25ItemSheet extends (foundry.appv1?.sheets?.ItemSheet ?? ItemSheet) {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -327,6 +327,39 @@ export class SW25ItemSheet extends ItemSheet {
 
     // Prepare active effects for easier access
     context.effects = prepareActiveEffectCategories(this.item.effects);
+
+    context.clickitemOptions = {
+      all: game.i18n.localize("SW25.Item.All"),
+      description: game.i18n.localize("SW25.Item.Onlydescription"),
+      dice1: `${game.i18n.localize("SW25.Check")} 1`,
+      dice2: `${game.i18n.localize("SW25.Check")} 2`,
+      dice3: `${game.i18n.localize("SW25.Check")} 3`,
+      power: game.i18n.localize("SW25.Item.Powerroll"),
+    };
+
+    context.actiondiceOptions = {
+      "": "-",
+      f1: `${game.i18n.localize("SW25.Fellow")}:1-2`,
+      f3: `${game.i18n.localize("SW25.Fellow")}:3-4`,
+      f5: `${game.i18n.localize("SW25.Fellow")}:5`,
+      f6: `${game.i18n.localize("SW25.Fellow")}:6`,
+      d1: `${game.i18n.localize("SW25.Daemon")}:1`,
+      d2: `${game.i18n.localize("SW25.Daemon")}:2-3`,
+      d4: `${game.i18n.localize("SW25.Daemon")}:4-5`,
+      d6: `${game.i18n.localize("SW25.Daemon")}:6`,
+    };
+
+    const resultMap = {
+      f1: { 7: "7", 6: "6" },
+      f3: { 8: "8", 5: "5" },
+      f5: { 9: "9", 4: "4" },
+      f6: { 10: "10", 3: "3" },
+      d1: { 8: "8" },
+      d2: { 8: "8" },
+      d4: { 9: "9" },
+      d6: { 10: "10" },
+    };
+    context.actionresultOptions = resultMap[context.system?.actiondice] ?? {};
 
     return context;
   }

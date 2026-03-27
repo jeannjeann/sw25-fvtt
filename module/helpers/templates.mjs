@@ -4,7 +4,7 @@
  * @return {Promise}
  */
 export const preloadHandlebarsTemplates = async function () {
-  return loadTemplates([
+  return (foundry.applications?.handlebars?.loadTemplates ?? loadTemplates)([
     // Actor partials.
     "systems/sw25/templates/actor/parts/actor-skills.hbs",
     "systems/sw25/templates/actor/parts/actor-checks.hbs",

@@ -48,7 +48,6 @@ export class SW25Actor extends Actor {
 
     // Make modifications to data here. For example:
     const systemData = actorData.system;
-    await this.update({});
 
     //Calcurate Exp & AdvLevel & MgLevel
     this.items.forEach((item) => {
@@ -542,10 +541,6 @@ export class SW25Actor extends Actor {
       }
     });
     systemData.attributes.langlist = languages.join(", ");
-
-    // Sheet refresh
-    if (actorData.sheet.rendered)
-      await actorData.sheet.render(true, { focus: false });
   }
 
   /**
@@ -555,7 +550,6 @@ export class SW25Actor extends Actor {
     if (actorData.type !== "npc") return;
 
     const systemData = actorData.system;
-    await this.update({});
 
     // Visible data trigger
     const userId = game.user.id;
@@ -691,10 +685,6 @@ export class SW25Actor extends Actor {
       systemData.attributes.languages.read = lang;
     }
     systemData.attributes.langlist = systemData.language;
-
-    // Sheet refresh
-    if (actorData.sheet.rendered)
-      await actorData.sheet.render(true, { focus: false });
   }
 
   /**
@@ -704,7 +694,6 @@ export class SW25Actor extends Actor {
     if (actorData.type !== "monster") return;
 
     const systemData = actorData.system;
-    await this.update({});
 
     // Visible data trigger
     const userId = game.user.id;
@@ -1017,10 +1006,6 @@ export class SW25Actor extends Actor {
       systemData.attributes.languages.conv = lang;
       systemData.attributes.languages.read = lang;
     }
-
-    // Sheet refresh
-    if (actorData.sheet.rendered)
-      await actorData.sheet.render(true, { focus: false });
   }
 
   /**

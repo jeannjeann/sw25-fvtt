@@ -1954,13 +1954,6 @@ export class SW25Item extends Item {
       powup,
       powmod,
     ];
-
-    // Sheet refresh
-    await actor.update({});
-    if (actor.sheet.rendered) await actor.sheet.render(true, { focus: false });
-    await itemData.update({});
-    if (itemData.sheet.rendered)
-      await itemData.sheet.render(true, { focus: false });
   }
 
   _prepareItemData(itemData) {

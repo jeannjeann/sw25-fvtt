@@ -382,34 +382,19 @@
               <div class="grid-span-3 nobreak">
                 <i class="mgc_knife_fill"></i>
                 <select name="system.hitweapon">
-                  {{#select system.hitweapon}}
-                  <option value="-">{{localize "SW25.Selecthitweapon"}}</option>
-                  {{#each battleweapons as |item id|}}
-                  <option value="{{item.name}}">{{item.name}}</option>
-                  {{/each}}
-                  {{/select}}
+                  {{selectOptions battleweapons selected=system.hitweapon valueAttr="name" labelAttr="name" blank="SW25.Selecthitweapon"}}
                 </select>
               </div>
               <div class="grid-span-3 nobreak">
                 <i class="fa-solid fa-bullseye"></i>
                 <select name="system.attackskill">
-                  {{#select system.attackskill}}
-                  <option value="-">{{localize "SW25.Selectattackskill"}}</option>
-                  {{#each skills as |item id|}}
-                  <option value="{{item.name}}">{{item.name}}</option>
-                  {{/each}}
-                  {{/select}}
+                  {{selectOptions skills selected=system.attackskill valueAttr="name" labelAttr="name" blank="SW25.Selectattackskill"}}
                 </select>
               </div>
               <div class="grid-span-3 nobreak">
                 <i class="fa-solid fa-wind"></i>
                 <select name="system.dodgeskill">
-                  {{#select system.dodgeskill}}
-                  <option value="-">{{localize "SW25.Selectdodgeskill"}}</option>
-                  {{#each skills as |item id|}}
-                  <option value="{{item.name}}">{{item.name}}</option>
-                  {{/each}}
-                  {{/select}}
+                  {{selectOptions skills selected=system.dodgeskill valueAttr="name" labelAttr="name" blank="SW25.Selectdodgeskill"}}
                 </select>
               </div>
               <div>

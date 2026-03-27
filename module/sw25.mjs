@@ -82,19 +82,25 @@ Hooks.once("init", function () {
   CONFIG.ActiveEffect.legacyTransferral = false;
 
   // Register sheet application classes
-  Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("sw25", SW25ActorSheet, {
+  const _Actors = foundry.documents?.collections?.Actors ?? Actors;
+  const _Items = foundry.documents?.collections?.Items ?? Items;
+  const _ActorSheet = foundry.appv1?.sheets?.ActorSheet ?? ActorSheet;
+  const _ItemSheet = foundry.appv1?.sheets?.ItemSheet ?? ItemSheet;
+  const _DocumentSheetConfig = foundry.applications?.apps?.DocumentSheetConfig ?? DocumentSheetConfig;
+  const _ActiveEffectConfig = foundry.applications?.sheets?.ActiveEffectConfig ?? ActiveEffectConfig;
+  _Actors.unregisterSheet("core", _ActorSheet);
+  _Actors.registerSheet("sw25", SW25ActorSheet, {
     makeDefault: true,
     label: "SW25.SheetLabels.Actor",
   });
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("sw25", SW25ItemSheet, {
+  _Items.unregisterSheet("core", _ItemSheet);
+  _Items.registerSheet("sw25", SW25ItemSheet, {
     makeDefault: true,
     label: "SW25.SheetLabels.Item",
   });
 
   // Register Active effect sheet Class
-  DocumentSheetConfig.unregisterSheet(ActiveEffect, "core", ActiveEffectConfig);
+  _DocumentSheetConfig.unregisterSheet(ActiveEffect, "core", _ActiveEffectConfig);
 
   if (foundry.utils.isNewerVersion(game.version, "13")) {
     // v13 or newer
@@ -104,7 +110,7 @@ Hooks.once("init", function () {
     SW25ActiveEffectConfig = SW25ActiveEffectConfigV1;
   }
 
-  DocumentSheetConfig.registerSheet(
+  _DocumentSheetConfig.registerSheet(
     ActiveEffect,
     "sw25",
     SW25ActiveEffectConfig,
@@ -775,7 +781,8 @@ Hooks.once("ready", async function () {
   });
 
   // Chat message button
-  Hooks.on("renderChatMessage", (chatMessage, html, data) => {
+  Hooks.on("renderChatMessageHTML", (chatMessage, html, data) => {
+    html = $(html);
     html.find(".buttonclick").click(function () {
       const button = $(this);
       const buttonType = button.data("buttontype");
