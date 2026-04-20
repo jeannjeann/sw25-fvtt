@@ -34,11 +34,9 @@
             </div>
           {{else}}
             <div class="item-equip">
-              {{#if system.useequip}}
-              <label class="equip-toggle">
-                <input class="eq-change" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
-              </label>
-              {{/if}}
+              <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.resource")}}'>
+                <i class='fas fa-edit'></i>
+              </a>
             </div>
           {{/if}}
         {{else}}

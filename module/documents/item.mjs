@@ -1201,7 +1201,9 @@ export class SW25Item extends Item {
       if (systemData.pwmrbt) systemData.powerTypesButton.push("mr");
     }
 
-    if (itemData.type == "raceability") {
+    if (itemData.type == "raceability" || itemData.type == "combatability"
+        || itemData.type == "accessory" || itemData.type == "armor"
+        || itemData.type == "item") {
       systemData.hpcost = systemData.basehpcost;
       const result =
         Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
@@ -1232,6 +1234,15 @@ export class SW25Item extends Item {
         actorData.attributes.efwphalfmod != 0
       )
         systemData.listpowerbase += Number(actorData.attributes.efwphalfmod);
+      systemData.hpcost = systemData.basehpcost;
+      const result =
+        Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
+      systemData.mpcost =
+        isNaN(result) || systemData.basempcost == null
+          ? null
+          : result <= 0
+          ? 1
+          : result;
     }
 
     if (itemData.type == "spell") {

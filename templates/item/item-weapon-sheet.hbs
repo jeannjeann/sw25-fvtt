@@ -10,15 +10,12 @@
           <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
         {{else}}
           {{#if system.isMagicitem}}
-          <span class="icon-stack">
-            <i class="mgc_diamond_square_fill"></i>
-            <i class="mgc_quill_pen_line" style="color: #ffffff"></i>
-          </span>
+          <i class="ps_magic-item"></i>
           {{/if}}
           {{item.name}}
-          {{#if (eq system.type "blade")}}<i class="mgc_sword_line"></i>{{/if}}
-          {{#if (eq system.type "blow")}}<i class="mgc_auction_line"></i>{{/if}}
-          {{#if (eq system.type "both")}}<i class="mgc_sword_line"></i><i class="mgc_auction_line"></i>{{/if}}
+          {{#if (eq system.type "blade")}}<i class="ps_slash"></i>{{/if}}
+          {{#if (eq system.type "blow")}}<i class="ps_blow"></i>{{/if}}
+          {{#if (eq system.type "both")}}<i class="ps_slash"></i><i class="ps_blow"></i>{{/if}}
         {{/if}}
       </h1>
     </section>

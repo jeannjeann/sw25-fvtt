@@ -1,0 +1,204 @@
+/*
+ * Modified version of Planes_Semiotike CSS
+ * Changes made by [sw25-fvtt], 2026
+ */
+@font-face {
+  font-family: 'Planes_Semiotike';
+  src:  url('MingCute.eot?bysiq1');
+  src:  url('Planes_Semiotike.otf?bysiq1') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="ps_"], [class*=" ps_"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'Planes_Semiotike' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ps_parts:before {
+  content: "\26AB";
+}
+
+.ps_constant:before {
+  content: "\26AA";
+}
+
+.ps_main:before {
+  content: "\25B6";
+}
+
+.ps_aux:before {
+  content: "\23E9";
+}
+
+.ps_prep:before {
+  content: "\1F53C";
+}
+
+.ps_decla:before {
+  content: "\1F4AC";
+}
+
+.ps_exaltation:before {
+  content: "\2934";
+}
+
+.ps_sedation:before {
+  content: "\2935";
+}
+
+.ps_fascination:before {
+  content: "\1F90D";
+}
+
+.ps_first-sect:before {
+  content: "\2020";
+}
+
+.ps_second-sect:before {
+  content: "\2021";
+}
+
+.ps_slash:before {
+  content: "\1F5E1";
+}
+
+.ps_blow:before {
+  content: "\1F528";
+}
+
+.ps_magic-item:before {
+  content: "\1FA84";
+}
+
+.ps_vagrants:before {
+  content: "\1F250";
+}
+
+.ps_battledancer:before {
+  content: "\1FAAD";
+}
+
+.ps_alfreim:before {
+  content: "\1F192";
+}
+
+.ps_terrastia:before {
+  content: "\1F193";
+}
+
+.ps_speciality:before {
+  content: "\1F194";
+}
+
+.ps_rare-item:before {
+  content: "\1F195";
+}
+
+.ps_sorcerer:before {
+  content: "\1F9D9";
+}
+
+.ps_conjurer:before {
+  content: "\1F525";
+}
+
+.ps_wizard:before {
+  content: "\1F441";
+}
+
+.ps_priest:before {
+  content: "\2728";
+}
+
+.ps_magitech:before {
+  content: "\2699";
+}
+
+.ps_fairytamer:before {
+  content: "\1F48E";
+}
+
+.ps_druid:before {
+  content: "\1F33F";
+}
+
+.ps_daemonruler:before {
+  content: "\1F47F";
+}
+
+.ps_abyssgazer:before {
+  content: "\2666";
+}
+
+.ps_bibliomancer:before {
+  content: "\1F4D6";
+}
+
+.ps_enhancer:before {
+  content: "\1F4AA";
+}
+
+.ps_song:before {
+  content: "\1FA89";
+}
+
+.ps_finale:before {
+  content: "\1FA88";
+}
+
+.ps_ridingtrick:before {
+  content: "\1F434";
+}
+
+.ps_alchemy:before {
+  content: "\1F0CF";
+}
+
+.ps_phase:before {
+  content: "\262F";
+}
+
+.ps_drum:before {
+  content: "\1F4E2";
+}
+
+.ps_camp:before {
+  content: "\1F4E3";
+}
+
+.ps_mystic:before {
+  content: "\1F52E";
+}
+
+.ps_artisan:before {
+  content: "\26A1";
+}
+
+.ps_aristocracy:before {
+  content: "\1F6E1";
+}
+
+.ps_weave:before {
+  content: "\1FAF4";
+}
+
+.ps_physical:before {
+  content: "\1FABD";
+}
+
+.ps_planes:before {
+  content: "\1F300";
+}
+

@@ -1,7 +1,7 @@
 <ol class='items-list'>
   {{#if materialshow.all}}
     <div class='item flexrow items-header'>
-      <div class='item-name'>{{localize "TYPES.Item.alchemytech"}}</div>
+      <div class='item-name'><i class="ps_alchemy"></i>{{localize "TYPES.Item.alchemytech"}}</div>
     </div>
     <div class='item flexrow'>
       <div class='items-list materialcard'>
@@ -623,7 +623,7 @@
     </div>
   {{/if}}
   <li class='item flexrow items-header'>
-    <div class='item-name'>{{#if materialshow.all}}{{localize "SW25.Item.Name"}}{{else}}{{localize "TYPES.Item.alchemytech"}}{{/if}}</div>
+    <div class='item-name'>{{#if materialshow.all}}{{localize "SW25.Item.Name"}}{{else}}<i class="ps_alchemy"></i>{{localize "TYPES.Item.alchemytech"}}{{/if}}</div>
     <div class='item-element' style="flex: 0 0 120px;">{{localize "SW25.Cost"}}</div>
     <div class='item-element sidebar-hidden' style="flex: 0 0 120px;">{{localize "SW25.Rangeshape"}}</div>
     <div class='item-element sidebar-hidden' style="flex: 0 0 40px;">{{localize "SW25.Item.Resist"}}</div>
@@ -640,7 +640,7 @@
         <div class='item-name'>
           <div class='item-image'>
             <a class='rollable' data-roll-type='item'>
-              <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
+              <img class="roll-icon icon-bg" src='{{item.img}}' title='{{item.name}}'/>
             </a>
           </div>
           {{> "systems/sw25/templates/helper/action-marks.hbs"}}
