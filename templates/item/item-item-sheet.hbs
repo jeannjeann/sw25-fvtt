@@ -173,6 +173,38 @@
         <div class="grid-span-10">
           {{> "systems/sw25/templates/item/parts/item-elements.hbs" isMagic=true isPhysical=true}}
         </div>
+        
+        {{!-- Resource Category --}}
+        <fieldset class="subcategory flexrow grid grid-10col">
+          <legend class="category__title">
+            {{localize "SW25.Item.Field.Resource"}}
+          </legend>
+          <div class="grid-span-2 property">
+            <label class="property--label" for="{{item._id}}system.basehpcost">HP{{localize "SW25.Cost"}}</label>
+            <input class="property--value" id="{{item._id}}system.basehpcost" type="text" name="system.basehpcost" value="{{system.basehpcost}}" data-dtype="String"{{#unless system.isEdit}} disabled {{/unless}}/>
+          </div>
+          <div class="grid-span-1 property">
+            <input class="property--value" id="{{item._id}}system.maxhpcost" type="text" name="system.maxhpcost" value="{{system.maxhpcost}}" data-dtype="Number" placeholder="{{localize "SW25.Max"}}"{{#unless system.isEdit}} disabled {{/unless}}/>
+          </div>
+          <div class="grid-span-2 property">
+            <label class="property--label" for="{{item._id}}system.basempcost">MP{{localize "SW25.Cost"}}</label>
+            <input class="property--value" id="{{item._id}}system.basempcost" style="max-width: calc(50% - 7px);" type="text" name="system.basempcost" value="{{system.basempcost}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
+          </div>
+          <div class="grid-span-5"></div>
+          <div class="grid-span-7 property">
+            <label class="property--label">{{localize "SW25.Item.Resuse"}}</label>
+            <select class="property--value" name="system.resuse"{{#unless system.isEdit}} disabled {{/unless}}>
+              {{selectOptions system.itemlist selected=system.resuse valueAttr="itemId" labelAttr="itemName" blank="SW25.Item.None" localize=true}}
+            </select>
+          </div>
+          <div class="grid-span-3 property">
+            <input class="property--value" id="{{item._id}}system.resusequantity" type="text" name="system.resusequantity" value="{{system.resusequantity}}" data-dtype="Number" placeholder="{{localize "SW25.Item.Resquantity"}}"{{#unless system.isEdit}} disabled {{/unless}}/>
+            <input class="checkbox--hidden" id="{{item._id}}system.autouseres" type="checkbox" name="system.autouseres" data-dtype="Boolean" {{#if system.autouseres}} checked {{/if}}{{#unless system.isEdit}} disabled {{/unless}}/>
+            <label class="checkbox--label" for="{{item._id}}system.autouseres">{{localize "SW25.Item.AutoUseres"}}</label>
+              </span>
+            </div>
+          </div>
+        </fieldset>
       </fieldset>
 
       {{!-- Use-dice Category --}}

@@ -3078,9 +3078,8 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
   flex: 10 0 0;
 }
 
-.roll-icon {
-  width: 24px;
-  height: 24px;
+.icon-bg {
+  background-color:rgba(var(--main-bg-color),1.0);
 }
 
 .bookmark__item {
