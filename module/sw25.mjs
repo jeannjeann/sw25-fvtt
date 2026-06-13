@@ -773,7 +773,33 @@ Hooks.once("ready", async function () {
     default: true,
     requiresReload: true,
   });
-
+  game.settings.register("sw25", "colorSettingFriendly", {
+    name: game.i18n.localize("SETTING.colorSettingFriendly.name"),
+    hint: game.i18n.localize("SETTING.colorSettingFriendly.hint"),
+    scope: "client",
+    config: true,
+    type: String,
+    default: "#5FAF6B",
+    color: true 
+  });
+  game.settings.register("sw25", "colorSettingNeutral", {
+    name: game.i18n.localize("SETTING.colorSettingNeutral.name"),
+    hint: game.i18n.localize("SETTING.colorSettingNeutral.hint"),
+    scope: "client",
+    config: true,
+    type: String,
+    default: "#D4C26A",
+    color: true 
+  });
+  game.settings.register("sw25", "colorSettingHostile", {
+    name: game.i18n.localize("SETTING.colorSettingHostile.name"),
+    hint: game.i18n.localize("SETTING.colorSettingHostile.hint"),
+    scope: "client",
+    config: true,
+    type: String,
+    default: "#D96A6A",
+    color: true 
+  });
   // Chat message button
   Hooks.on("renderChatMessage", (chatMessage, html, data) => {
     html.find(".buttonclick").click(function () {
@@ -1302,6 +1328,48 @@ Hooks.on("renderSW25ItemSheet", (app, html, data) => {
     updateData[displaypath] = displaycontent;
     await app.object.update(updateData);
   });
+});
+
+// setting hook
+Hooks.on("renderSettingsConfig", (app, html) => {
+  const inputF = html.find('input[name="sw25.colorSettingFriendly"]');
+
+  if (inputF.length) {
+    const colorInput = $(`<input type="color">`);
+    colorInput.val(inputF.val());
+
+    colorInput.on("input", (e) => {
+      inputF.val(e.target.value);
+    });
+
+    inputF.after(colorInput);
+  }
+  
+  const inputN = html.find('input[name="sw25.colorSettingNeutral"]');
+
+  if (inputN.length) {
+    const colorInput = $(`<input type="color">`);
+    colorInput.val(inputN.val());
+
+    colorInput.on("input", (e) => {
+      inputN.val(e.target.value);
+    });
+
+    inputN.after(colorInput);
+  }
+  
+  const inputH = html.find('input[name="sw25.colorSettingHostile"]');
+
+  if (inputH.length) {
+    const colorInput = $(`<input type="color">`);
+    colorInput.val(inputH.val());
+
+    colorInput.on("input", (e) => {
+      inputH.val(e.target.value);
+    });
+
+    inputH.after(colorInput);
+  }
 });
 
 // Polyglot support

@@ -88,33 +88,69 @@ export class SW25ActorSheet extends ActorSheet {
     context.effects = prepareActiveEffectCategories(
       // A generator that returns all effects stored on the actor
       // as well as any items
-      this.actor.allApplicableEffects()
+      this.actor.allApplicableEffects(),
     );
 
-    const colorSetting = actorData.system.color
-    ? {
-        main: {
-          bg: Util.hexToRgb(actorData.system.color.main.bg),
-          text: Util.hexToRgb(actorData.system.color.main.text)
-        },
-        sub: {
-          bg: Util.hexToRgb(actorData.system.color.sub.bg),
-          text: Util.hexToRgb(actorData.system.color.sub.text)
-        }
-      }
-    : {
-        main: {
-          bg: {r:239, g:230, b:216},
-          text: {r:0, g:0, b:0},
-        },
-        sub: {
-          bg: {r:247, g:243, b:232},
-          text: {r:0, g:0, b:0},
-        }
-      }
+    let colorSetting;
+
+    if (actorData.type === "character") {
+      colorSetting = actorData.system.color
+        ? {
+            main: {
+              bg: Util.hexToRgb(actorData.system.color.main.bg),
+              text: Util.hexToRgb(actorData.system.color.main.text),
+            },
+            sub: {
+              bg: Util.hexToRgb(actorData.system.color.sub.bg),
+              text: Util.hexToRgb(actorData.system.color.sub.text),
+            },
+          }
+        : {
+            main: {
+              bg: { r: 239, g: 230, b: 216 },
+              text: { r: 0, g: 0, b: 0 },
+            },
+            sub: {
+              bg: { r: 247, g: 243, b: 232 },
+              text: { r: 0, g: 0, b: 0 },
+            },
+          };
+    } else {
+      const disposition = this._getDisposition();
+      const key = this._getDispositionSettingKey(disposition);
+      const hex = game.settings.get("sw25", key);
+      colorSetting = Util.buildDispositionTheme(hex);
+    }
     context.colorSetting = colorSetting;
 
     return context;
+  }
+
+  // TODO:fix
+  _getDispositionSettingKey(disposition) {
+    if (disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY)
+      return "colorSettingFriendly";
+
+    if (disposition === CONST.TOKEN_DISPOSITIONS.HOSTILE)
+      return "colorSettingHostile";
+
+    return "colorSettingNeutral";
+  }
+
+  _getDisposition() {
+    let token = this.token;
+
+    if (!token) {
+      return this.actor.prototypeToken?.disposition ?? CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+    }
+
+    // Token or TokenDocument 両対応
+    const disposition =
+      token.document?.disposition ??
+      token.disposition ??
+      CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+
+    return disposition;
   }
 
   /**
@@ -235,9 +271,9 @@ export class SW25ActorSheet extends ActorSheet {
         if (i.system.showbtcheck === true) {
           battlechecks.push(i);
         }
-        if (i.name === game.i18n.localize("SW25.Config.ResVit")){
+        if (i.name === game.i18n.localize("SW25.Config.ResVit")) {
           contentItem.vitRes = i;
-        } else if (i.name === game.i18n.localize("SW25.Config.ResMnd")){
+        } else if (i.name === game.i18n.localize("SW25.Config.ResMnd")) {
           contentItem.mndRes = i;
         }
       }
@@ -391,7 +427,7 @@ export class SW25ActorSheet extends ActorSheet {
         }
         if (i.system.type === "abyssal") {
           abyssal.push(i);
-        }        
+        }
         if (i.system.type === "bibliomancer") {
           bibliomancer.push(i);
         }
@@ -407,7 +443,7 @@ export class SW25ActorSheet extends ActorSheet {
           contentItem.monAtk == null &&
           i.system.label1 == game.i18n.localize("SW25.Config.MonHit") &&
           i.system.label2 == game.i18n.localize("SW25.Config.MonDmg") &&
-          i.system.label3 == game.i18n.localize("SW25.Config.MonDge") 
+          i.system.label3 == game.i18n.localize("SW25.Config.MonDge")
         ) {
           contentItem.monAtk = i;
         }
@@ -474,7 +510,6 @@ export class SW25ActorSheet extends ActorSheet {
       if (i.system.bookmark) {
         bookmarks.push(i);
       }
-
     }
 
     let eashow = true;
@@ -577,7 +612,7 @@ export class SW25ActorSheet extends ActorSheet {
       bmshow = false;
     } else bmshow = true;
 
-    const typeOrder = CONFIG.SW25.itemTypeList.map(e => e.type);
+    const typeOrder = CONFIG.SW25.itemTypeList.map((e) => e.type);
 
     const sortedBookmarks = bookmarks.sort((a, b) => {
       const ai = typeOrder.indexOf(a.type);
@@ -590,7 +625,6 @@ export class SW25ActorSheet extends ActorSheet {
       return a.name.localeCompare(b.name, "ja");
     });
 
-    
     // Assign and return
     context.skills = skills;
     context.checks = checks;
@@ -725,7 +759,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     // exec Item Macro.
     html.on("click", ".execitemmacro", this._onItemMacro.bind(this));
-    
+
     // Rollable abilities.
     html.on("click", ".rollable", this._onRoll.bind(this));
 
@@ -904,7 +938,7 @@ export class SW25ActorSheet extends ActorSheet {
       dataset.itemid ??
       event.currentTarget.closest("[data-item-id]")?.dataset.itemId ??
       null;
-      
+
     // Handle item macro.
     const item = this.actor.items.get(itemId);
     if (!item) return;
@@ -957,7 +991,7 @@ export class SW25ActorSheet extends ActorSheet {
           {
             apply: dataset.apply,
             checktype: checktype,
-          }
+          },
         );
 
         ChatMessage.create(chatData);
@@ -975,7 +1009,7 @@ export class SW25ActorSheet extends ActorSheet {
       dataset.itemid ??
       event.currentTarget.closest("[data-item-id]")?.dataset.itemId ??
       null;
-      
+
     // Handle item rolls.
     if (dataset.rollType) {
       if (dataset.rollType == "item") {
@@ -1008,14 +1042,14 @@ export class SW25ActorSheet extends ActorSheet {
           if (resuseitemquantity < resusequantity) {
             ui.notifications.warn(
               game.i18n.localize("SW25.Item.Noresquantitiywarn") +
-                resuseitem.name
+                resuseitem.name,
             );
             return;
           }
           if (remainingquantity < min) {
             ui.notifications.warn(
               game.i18n.localize("SW25.Item.Noresquantitiywarn") +
-                resuseitem.name
+                resuseitem.name,
             );
             return;
           }
@@ -1067,8 +1101,13 @@ export class SW25ActorSheet extends ActorSheet {
       const damage = this.actor ? this.actor.system.attributes.damage : null;
       const classType = this.actor ? this.actor.system.classType : null;
       const isWeapon = DamageSupporter.getWeaponAttributes(item);
-      const tags = DamageSupporter.createChatTag(elements, damage, classType, isWeapon);
-      
+      const tags = DamageSupporter.createChatTag(
+        elements,
+        damage,
+        classType,
+        isWeapon,
+      );
+
       chatData.flags = {
         sw25: {
           total: roll.total,
@@ -1103,7 +1142,7 @@ export class SW25ActorSheet extends ActorSheet {
           targetName: targetName,
           resist: resistData,
           tags: tags,
-        }
+        },
       );
 
       let chatMessageId;
@@ -1161,7 +1200,7 @@ export class SW25ActorSheet extends ActorSheet {
           {
             apply: dataset.apply,
             powertype: powertype,
-          }
+          },
         );
 
         ChatMessage.create(chatData);
@@ -1273,7 +1312,12 @@ export class SW25ActorSheet extends ActorSheet {
     const damage = this.actor ? this.actor.system.attributes.damage : null;
     const classType = this.actor ? this.actor.system.classType : null;
     const isWeapon = DamageSupporter.getWeaponAttributes(item);
-    const tags = DamageSupporter.createChatTag(elements, damage, classType, isWeapon);
+    const tags = DamageSupporter.createChatTag(
+      elements,
+      damage,
+      classType,
+      isWeapon,
+    );
 
     chatData.flags = {
       sw25: {
@@ -1306,7 +1350,7 @@ export class SW25ActorSheet extends ActorSheet {
         tags: tags,
       },
     };
-    
+
     chatData.content = await renderTemplate(
       "systems/sw25/templates/roll/roll-power.hbs",
       {
@@ -1330,7 +1374,7 @@ export class SW25ActorSheet extends ActorSheet {
         powertype: powertype,
         targetName: targetName,
         tags: tags,
-      }
+      },
     );
 
     let chatMessageId;
@@ -1345,7 +1389,7 @@ export class SW25ActorSheet extends ActorSheet {
     event.preventDefault();
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
     const orgActor = this.actor.name;
     const orgId = this.actor._id;
@@ -1449,7 +1493,7 @@ export class SW25ActorSheet extends ActorSheet {
       {
         targetActorName: chatActorName,
         transferEffectName: chatEffectName,
-      }
+      },
     );
 
     ChatMessage.create(chatData);
@@ -1475,11 +1519,11 @@ export class SW25ActorSheet extends ActorSheet {
     const id = dataset.id;
     const meta = 1;
 
-    if (id === token.actor.id && (type === "summon" || type === "return")){
+    if (id === token.actor.id && (type === "summon" || type === "return")) {
       ui.notifications.warn(game.i18n.localize("SW25.SummonMpwarn"));
       return;
     }
-    
+
     mpCost(token, cost, name, type, meta);
   }
 
@@ -1521,13 +1565,15 @@ export class SW25ActorSheet extends ActorSheet {
       if (resuseitem) {
         if (resuseitemquantity < resusequantity) {
           ui.notifications.warn(
-            game.i18n.localize("SW25.Item.Noresquantitiywarn") + resuseitem.name
+            game.i18n.localize("SW25.Item.Noresquantitiywarn") +
+              resuseitem.name,
           );
           return;
         }
         if (remainingquantity < min) {
           ui.notifications.warn(
-            game.i18n.localize("SW25.Item.Noresquantitiywarn") + resuseitem.name
+            game.i18n.localize("SW25.Item.Noresquantitiywarn") +
+              resuseitem.name,
           );
           return;
         }
@@ -1561,12 +1607,12 @@ export class SW25ActorSheet extends ActorSheet {
     const method = "check";
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
 
-    if( checkName == game.i18n.localize("SW25.Monster.Return") ){
+    if (checkName == game.i18n.localize("SW25.Monster.Return")) {
       targetValue = Number(targetValue) + 1;
     }
 
-    const message = dataset.label+game.i18n.localize("SW25.Check")
-    
+    const message = dataset.label + game.i18n.localize("SW25.Check");
+
     let chatData = {
       speaker: speaker,
       flavor: checkName,
@@ -1589,7 +1635,7 @@ export class SW25ActorSheet extends ActorSheet {
         difficulty: game.i18n.localize("SW25.Difficulty"),
         targetValue: targetValue,
         mod: modifier,
-      }
+      },
     );
 
     ChatMessage.create(chatData);
@@ -1612,14 +1658,16 @@ export class SW25ActorSheet extends ActorSheet {
     if (CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= actor.ownership.default) {
       isView = true;
     } else {
-      await actor.update({"ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED});
+      await actor.update({
+        "ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED,
+      });
     }
 
     let monsterName = isView
       ? this.actor.name
       : this.actor.system.udname
-      ? this.actor.system.udname
-      : game.i18n.localize("SW25.Monster.Unidentifiedmon");
+        ? this.actor.system.udname
+        : game.i18n.localize("SW25.Monster.Unidentifiedmon");
 
     let typeName;
     const classType = this.actor.system.classType;
@@ -1637,7 +1685,7 @@ export class SW25ActorSheet extends ActorSheet {
       : "";
 
     let message = `${game.i18n.localize(
-      "SW25.Monster.Popularity"
+      "SW25.Monster.Popularity",
     )}/${game.i18n.localize("SW25.Monster.Weakpoint")}`;
 
     const speaker = isView
@@ -1666,7 +1714,7 @@ export class SW25ActorSheet extends ActorSheet {
         difficulty: `@UUID[Actor.${actorId}](${typeName})`,
         targetValue: targetValue,
         mod: modifier,
-      }
+      },
     );
 
     ChatMessage.create(chatData);
@@ -1689,14 +1737,16 @@ export class SW25ActorSheet extends ActorSheet {
     if (CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER <= actor.ownership.default) {
       isView = true;
     } else {
-      await actor.update({"ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED});
+      await actor.update({
+        "ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED,
+      });
     }
 
     let monsterName = isView
       ? this.actor.name
       : this.actor.system.udname
-      ? this.actor.system.udname
-      : game.i18n.localize("SW25.Monster.Unidentifiedmon");
+        ? this.actor.system.udname
+        : game.i18n.localize("SW25.Monster.Unidentifiedmon");
 
     let typeName;
     const classType = this.actor.system.classType;
@@ -1738,7 +1788,7 @@ export class SW25ActorSheet extends ActorSheet {
         difficulty: `@UUID[Actor.${actorId}](${typeName})`,
         targetValue: targetValue,
         mod: modifier,
-      }
+      },
     );
 
     ChatMessage.create(chatData);
@@ -1829,11 +1879,13 @@ export class SW25ActorSheet extends ActorSheet {
   async _onQuantityButton(event) {
     event.preventDefault();
     const action = event.currentTarget.dataset.action;
-    const input = event.currentTarget.closest("li").querySelector("input.qt-change");
+    const input = event.currentTarget
+      .closest("li")
+      .querySelector("input.qt-change");
     const property = event.currentTarget.dataset.property;
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
 
     let quantity = parseInt(input.value);
@@ -1847,7 +1899,7 @@ export class SW25ActorSheet extends ActorSheet {
         if (item.system.qmax && quantity > item.system.qmax) {
           quantity = item.system.qmax;
           ui.notifications.warn(
-            `"${item.name}"${game.i18n.localize("SW25.isAlreadyMax")}`
+            `"${item.name}"${game.i18n.localize("SW25.isAlreadyMax")}`,
           );
         }
       }
@@ -1855,7 +1907,7 @@ export class SW25ActorSheet extends ActorSheet {
         if (item.system.qmin && quantity < item.system.qmin) {
           quantity = item.system.qmin;
           ui.notifications.warn(
-            `"${item.name}"${game.i18n.localize("SW25.isAlreadyMin")}`
+            `"${item.name}"${game.i18n.localize("SW25.isAlreadyMin")}`,
           );
         }
       }
@@ -1878,7 +1930,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
     let newQuantity = Number(event.currentTarget.value);
     await this._updateQuantity(item, newQuantity);
@@ -1891,11 +1943,13 @@ export class SW25ActorSheet extends ActorSheet {
   async _onSkilllevelButton(event) {
     event.preventDefault();
     const action = event.currentTarget.dataset.action;
-    const input = event.currentTarget.closest("li").querySelector("input.sl-change");
+    const input = event.currentTarget
+      .closest("li")
+      .querySelector("input.sl-change");
     const property = event.currentTarget.dataset.property;
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
 
     let skilllevel = parseInt(input.value);
@@ -1920,7 +1974,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
     let newSkillLevel = Number(event.currentTarget.value);
     item.update({ "system.skilllevel": newSkillLevel });
@@ -1935,7 +1989,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
     let newSkillMod = Number(event.currentTarget.value);
     if (newSkillMod == 0) newSkillMod = null;
@@ -1944,11 +1998,13 @@ export class SW25ActorSheet extends ActorSheet {
   async _onCheckmodButton(event) {
     event.preventDefault();
     const action = event.currentTarget.dataset.action;
-    const input = event.currentTarget.closest("li").querySelector("input.cm-change");
+    const input = event.currentTarget
+      .closest("li")
+      .querySelector("input.cm-change");
     const property = event.currentTarget.dataset.property;
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
 
     let checkmod = parseInt(input.value);
@@ -1973,7 +2029,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
     let newCheckMod = Number(event.currentTarget.value);
     if (newCheckMod == 0) newCheckMod = null;
@@ -1988,7 +2044,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
     let newCheckMod = Number(event.currentTarget.value);
     if (newCheckMod == 0) newCheckMod = null;
@@ -2004,13 +2060,13 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
     let newCheckMod = Number(event.currentTarget.value);
     if (newCheckMod == 0) newCheckMod = null;
     item.update({ "system.checkmod2": newCheckMod });
   }
-  
+
   async _updateCheckmod(item, checkmod) {
     await item.update({ "system.checkmod2": checkmod });
   }
@@ -2020,7 +2076,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
     let newCheckMod = Number(event.currentTarget.value);
     if (newCheckMod == 0) newCheckMod = null;
@@ -2036,7 +2092,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
     let newPowerMod = Number(event.currentTarget.value);
     if (newPowerMod == 0) newPowerMod = null;
@@ -2052,7 +2108,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
     let newEquip = event.currentTarget.checked;
     item.update({ "system.equip": newEquip });
@@ -2067,7 +2123,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
     let newReading = event.currentTarget.checked;
     item.update({ "system.reading": newReading });
@@ -2082,7 +2138,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
     let newConversation = event.currentTarget.checked;
     item.update({ "system.conversation": newConversation });
@@ -2107,7 +2163,7 @@ export class SW25ActorSheet extends ActorSheet {
     event.preventDefault();
     const dataset = event.currentTarget.dataset;
     const data = JSON.parse(
-      event.originalEvent.dataTransfer.getData("text/plain")
+      event.originalEvent.dataTransfer.getData("text/plain"),
     );
     const item = await fromUuid(data.uuid);
     if (!item) return;
@@ -2232,17 +2288,17 @@ export class SW25ActorSheet extends ActorSheet {
         ${createCategoryBox(
           categories.friendly,
           game.i18n.localize("SW25.Disposition.Friendly"),
-          "friendly"
+          "friendly",
         )}
         ${createCategoryBox(
           categories.neutral,
           game.i18n.localize("SW25.Disposition.Neutral"),
-          "neutral"
+          "neutral",
         )}
         ${createCategoryBox(
           categories.hostile,
           game.i18n.localize("SW25.Disposition.Hostile"),
-          "hostile"
+          "hostile",
         )}
       </div>`;
 
@@ -2260,16 +2316,16 @@ export class SW25ActorSheet extends ActorSheet {
 
             if (selectedIds.length === 0) {
               return ui.notifications.warn(
-                game.i18n.localize("SW25.Notargetwarn")
+                game.i18n.localize("SW25.Notargetwarn"),
               );
             }
 
             const selectedTokens = canvas.tokens.placeables.filter((token) =>
-              selectedIds.includes(token.id)
+              selectedIds.includes(token.id),
             );
             const targetTokenId = Array.from(
               selectedTokens,
-              (target) => target.id
+              (target) => target.id,
             );
 
             if (game.user.isGM) {
@@ -2347,7 +2403,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
     let cost = item.system.mincost ? item.system.mincost : 0;
 
@@ -2410,14 +2466,14 @@ export class SW25ActorSheet extends ActorSheet {
       (i) =>
         i.type === "resource" &&
         i.system?.resource?.type === "lifeline" &&
-        i.system?.resource?.lifelinetype === item.system.type
+        i.system?.resource?.lifelinetype === item.system.type,
     );
 
     if (!resource) {
       ui.notifications.warn(
         game.i18n.localize("SW25.NotResource") +
           ":" +
-          game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`)
+          game.i18n.localize(`SW25.Item.Phasearea.${lifeline}`),
       );
     } else {
       let oldVal = resource.system.quantity ? resource.system.quantity : 0;
@@ -2459,7 +2515,7 @@ export class SW25ActorSheet extends ActorSheet {
       {
         targetActorName: chatActorName,
         transferEffectName: chatEffectName,
-      }
+      },
     );
 
     ChatMessage.create(chatData);
@@ -2486,7 +2542,7 @@ export class SW25ActorSheet extends ActorSheet {
             const cost = parseInt(html.find("#number").val());
             if (isNaN(cost)) {
               ui.notifications.error(
-                game.i18n.localize("SW25.Item.Spell.Cancel")
+                game.i18n.localize("SW25.Item.Spell.Cancel"),
               );
               return;
             }
@@ -2515,7 +2571,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
 
     const useRank = event.target.textContent.trim().toLowerCase();
@@ -2540,7 +2596,7 @@ export class SW25ActorSheet extends ActorSheet {
           i.type === "resource" &&
           i.system?.resource?.type === "material" &&
           i.system?.resource?.materialtype === card.color &&
-          i.system?.resource?.materialrank === useRank
+          i.system?.resource?.materialrank === useRank,
       );
 
       let name =
@@ -2577,8 +2633,11 @@ export class SW25ActorSheet extends ActorSheet {
     }
 
     // alchemitech effective change.
-    if ((item.system.effectvalue?.type && item.system.effectvalue.type !== "-")
-        && item.effects) {
+    if (
+      item.system.effectvalue?.type &&
+      item.system.effectvalue.type !== "-" &&
+      item.effects
+    ) {
       const changeValue = item.system.effectvalue[useRank];
       if (changeValue) {
         const updates = [];
@@ -2622,7 +2681,7 @@ export class SW25ActorSheet extends ActorSheet {
       {
         name: name,
         materialcards: materialcards,
-      }
+      },
     );
 
     ChatMessage.create(chatData);
@@ -2642,7 +2701,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
 
     if (item.system.upget) {
@@ -2682,7 +2741,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
 
     if (item.system.upcost) {
@@ -2722,7 +2781,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
 
     if (item.system.upadd) {
@@ -2762,7 +2821,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
 
     if (item.system.get) {
@@ -2787,7 +2846,7 @@ export class SW25ActorSheet extends ActorSheet {
 
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
 
     if (item.system.cost) {
@@ -2801,25 +2860,25 @@ export class SW25ActorSheet extends ActorSheet {
   async _onNotesReset(event) {
     event.preventDefault();
 
-    await this._updateAllResource({type: "note"}, null);
+    await this._updateAllResource({ type: "note" }, null);
   }
 
   async _onLifelineReset(event) {
     event.preventDefault();
 
-    await this._updateAllResource({type: "lifeline"}, null);
+    await this._updateAllResource({ type: "lifeline" }, null);
   }
 
   async _onLifelineAdd(event) {
     event.preventDefault();
 
-    await this._updateAllResource({type: "lifeline"}, 1);
+    await this._updateAllResource({ type: "lifeline" }, 1);
   }
 
   async _onTacspowerReset(event) {
     event.preventDefault();
 
-    await this._updateAllResource({type: "tacspower"}, null);
+    await this._updateAllResource({ type: "tacspower" }, null);
   }
 
   async _updateResource(resourceType, modifyValue, multiple = 1) {
@@ -2847,7 +2906,7 @@ export class SW25ActorSheet extends ActorSheet {
       return;
     }
   }
-  
+
   async _updateAllResource(resourceType, modifyValue, multiple = 1) {
     const result = isNaN(Number(modifyValue))
       ? 0
@@ -2868,14 +2927,14 @@ export class SW25ActorSheet extends ActorSheet {
       return;
     }
 
-    const updates = resources.map(resource => {
+    const updates = resources.map((resource) => {
       const oldVal = Number(resource.system.quantity ?? 0);
       const newVal = modifyValue ? oldVal + Number(result) : 0;
       return {
         _id: resource.id,
         system: {
-          quantity: newVal
-        }
+          quantity: newVal,
+        },
       };
     });
 
@@ -2896,7 +2955,6 @@ export class SW25ActorSheet extends ActorSheet {
     return rendered;
   }
 
-    
   getScrollPositions(html) {
     const positions = {};
     let tmpCnt = 0;
@@ -2919,7 +2977,9 @@ export class SW25ActorSheet extends ActorSheet {
   async _onBookmarkDrop(event) {
     event.preventDefault();
 
-    const data = JSON.parse(event.originalEvent.dataTransfer.getData("text/plain"));
+    const data = JSON.parse(
+      event.originalEvent.dataTransfer.getData("text/plain"),
+    );
     if (data.type !== "Item") return;
 
     const droppedItem = await fromUuid(data.uuid ?? data.data?.uuid);
@@ -2933,7 +2993,9 @@ export class SW25ActorSheet extends ActorSheet {
     if (ownedItem) {
       await ownedItem.update({ "system.bookmark": true });
     } else {
-      const sameNameItem = this.actor.items.find(i => i.name === droppedItemName);
+      const sameNameItem = this.actor.items.find(
+        (i) => i.name === droppedItemName,
+      );
 
       if (sameNameItem) {
         await sameNameItem.update({ "system.bookmark": true });
@@ -2963,7 +3025,9 @@ export class SW25ActorSheet extends ActorSheet {
     if (ownedItem) {
       await ownedItem.update({ "system.bookmark": true });
     } else {
-      const sameNameItem = this.actor.items.find(i => i.name === droppedItemName);
+      const sameNameItem = this.actor.items.find(
+        (i) => i.name === droppedItemName,
+      );
 
       if (sameNameItem) {
         await sameNameItem.update({ "system.bookmark": true });
@@ -2982,9 +3046,8 @@ export class SW25ActorSheet extends ActorSheet {
     event.preventDefault();
     const changeItem = $(event.currentTarget);
     const item = this.actor.items.get(
-      changeItem.parents(".item")[0].dataset.itemId
+      changeItem.parents(".item")[0].dataset.itemId,
     );
     item.update({ "system.bookmark": !item.system.bookmark });
   }
-
 }

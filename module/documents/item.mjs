@@ -1430,21 +1430,21 @@ export class SW25Item extends Item {
           break;
         case "bibliomancer":
           systemData.checkbase =
-            Number(systemData.checkbase) ?? 0 +
-            Number(actorData.attributes.bmmod) ?? 0 +
-            Number(actorData.attributes.efbmmod) ?? 0 +
-            Number(actorData.attributes.efbmckmod) ?? 0 +
-            Number(actorData.attributes.efmckall) ?? 0;
+            Number(systemData.checkbase) +
+            Number(actorData.attributes.bmmod) +
+            Number(actorData.attributes.efbmmod) +
+            Number(actorData.attributes.efbmckmod) +
+            Number(actorData.attributes.efmckall);
           systemData.powerbase =
-            Number(systemData.powerbase) ?? 0 +
-            Number(actorData.attributes.bmmod) ?? 0 +
-            Number(actorData.attributes.efbmmod) ?? 0 +
-            Number(actorData.attributes.efbmpwmod) ?? 0 +
-            Number(actorData.attributes.efmpwall) ?? 0;
+            Number(systemData.powerbase) +
+            Number(actorData.attributes.bmmod) +
+            Number(actorData.attributes.efbmmod) +
+            Number(actorData.attributes.efbmpwmod) +
+            Number(actorData.attributes.efmpwall);
           systemData.mpcost =
-            Number(systemData.basempcost) ?? 0 -
-            Number(actorData.attributes.efmpbm) ?? 0 -
-            Number(actorData.attributes.efmpall) ?? 0;
+            Number(systemData.basempcost) -
+            Number(actorData.attributes.efmpbm) -
+            Number(actorData.attributes.efmpall);
           if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         default:

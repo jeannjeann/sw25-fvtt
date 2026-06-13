@@ -764,11 +764,6 @@ progress.mp-bar::-moz-progress-bar {
   color: var(--base-text-color, #000000);
 }
 
-.sw25pc {
-  background-color: var(--background-color, #dad8cc);
-  color: var(--base-text-color, #000000);
-  }
-
 .sw25 .sheet-body input:hover,
 .sw25 .sheet-body select:hover,
 .sw25 .sheet-body textarea:hover {
@@ -1237,25 +1232,25 @@ progress.mp-bar::-moz-progress-bar {
   font-size: 105%;
   font-weight: bold;
 }
-.sw25 .sheet-header .header-fields .monster-parameters {
+.sw25monster .header .monster-parameters {
   height: 70%;
 }
 
-.sw25 .sheet-header .header-fields .monster-parameters .flexrow {
+.sw25monster .header .monster-parameters .flexrow {
   align-content: center;
 }
-.sw25 .sheet-header .header-fields .monster-parameters .monster-pp,
-.sw25 .sheet-header .header-fields .monster-parameters .monster-mpp{
+.sw25monster .header .monster-parameters .monster-pp,
+.sw25monster .header .monster-parameters .monster-mpp{
   flex: 0 0 50px;
   text-align: center;
   margin-right: 5px;
   margin-left: 5px;
 }
-.sw25 .sheet-header .header-fields .monster-parameters .monster-blank{
+.sw25monster .header .monster-parameters .monster-blank{
   flex: 1;
 }
-.sw25 .sheet-header .header-fields .monster-parameters .monster-loot,
-.sw25 .sheet-header .header-fields .monster-parameters .monster-observer{
+.sw25monster .header .monster-loot,
+.sw25monster .header .monster-observer{
   display: flex;
   flex: 0 0 80px;
   align-items: center;
@@ -2308,6 +2303,9 @@ body, .sw25cs__body__sidebar {
 	grid-template-rows: auto 1fr 100px;
 	grid-template-columns: 250px 1fr;
   height: 100%;
+
+  background-color: var(--background-color, #dad8cc);
+  color: var(--base-text-color, #000000);
 }
 
 .sw25pc .sidebar-body {
@@ -2458,7 +2456,8 @@ body, .sw25cs__body__sidebar {
   overflow: hidden;
 }
 
-.sw25pc .header__img {
+.sw25pc .header__img,
+.sw25monster .header__img {
 	grid-area: img;
   position: relative;
 
@@ -2471,7 +2470,8 @@ body, .sw25cs__body__sidebar {
   padding: 5px;
 }
 
-.sw25pc .header__img .profile-img {
+.sw25pc .header__img .profile-img,
+.sw25monster .header__img .profile-img {
   height: 100%;
   max-height: 120px;
   width: 100%;
@@ -2557,7 +2557,8 @@ body, .sw25cs__body__sidebar {
   font-style: normal;
 }
 
-.sw25pc .header__fellow {
+.sw25pc .header__fellow ,
+.sw25monster .header__fellow{
   flex:initial;
   text-align: center;
   margin: 5px 5px 0 0;
@@ -2618,25 +2619,29 @@ body, .sw25cs__body__sidebar {
   flex: 4 0 100px;
 }
 
-.sw25pc .header__resources {
+.sw25pc .header__resources,
+.sw25monster .header__resources {
   margin: 0 var(--spacing-xs);
   position: relative;
   margin-top: -12%;
 }
 
-.sw25pc .header .header-fields .resources.grid {
+.sw25pc .header .header-fields .resources.grid,
+.sw25monster .header .header-fields .resources.grid {
   grid-template-columns: 24px 1fr auto;
   gap: 0 var(--spacing-xs);
   margin: 0;
 }
 
-.sw25pc .header__resources label {
+.sw25pc .header__resources label,
+.sw25monster .header__resources label  {
   height: var(--form-field-height);
   line-height: var(--form-field-height);
   vertical-align: middle;
 }
 
-.sw25pc .header__resources .current-max-resource {
+.sw25pc .header__resources .current-max-resource,
+.sw25monster .header__resources .current-max-resource {
   display: inline-block;
   position: absolute;
   left: 50%;
@@ -2645,7 +2650,12 @@ body, .sw25cs__body__sidebar {
   color: white;
 }
 
-.sw25pc .header__resources input {
+.sw25monster .header__resources .resources_mod {
+  text-align: right;
+}
+
+.sw25pc .header__resources input,
+.sw25monster .header__resources input {
   border: 0;
   background: none;
 }
@@ -2654,7 +2664,8 @@ body, .sw25cs__body__sidebar {
 .sw25pc .header select:hover {
   box-shadow: 0 0 5px var(--color-shadow-primary);
 }
-.sw25pc .header__resources .current-max-resource input {
+.sw25pc .header__resources .current-max-resource input,
+.sw25monster .header__resources .current-max-resource input {
   color: white;
 }
 
@@ -2662,11 +2673,13 @@ body, .sw25cs__body__sidebar {
   vertical-align: middle;
 }
 
-.sw25pc .header__resources input {
+.sw25pc .header__resources input,
+.sw25monster .header__resources input {
   text-align: center;
   vertical-align: middle;
 }
-.sw25pc .header__resources .resources input[type="number"] {
+.sw25pc .header__resources .resources input[type="number"],
+.sw25monster .header__resources .resources input[type="number"] {
   width: 2rem;
   text-align: right;
 }
@@ -2871,6 +2884,128 @@ body, .sw25cs__body__sidebar {
 
 .sw25item .textarea-editor{
   min-height: 2.5em;
+}
+
+.sw25monster {
+  --main-bg-color: 239, 230, 216;
+  --main-text-color: 0, 0, 0;
+  --sub-bg-color: 247, 243, 232;
+  --sub-text-color: 0, 0, 0;
+  --background-color: 218, 216, 204;
+  --base-text-color: #000000;
+
+  display: grid;
+	grid-template-areas:
+		"header"
+		"main";
+	grid-template-rows: auto 1fr;
+	grid-template-columns: 1fr;
+  height: 100%;
+
+  background: rgba(var(--main-bg-color), 0.1);
+  color: var(--base-text-color, #000000);
+  overflow: hidden;
+  min-height: 0;
+}
+
+.sw25monster .header {
+	grid-area: header;
+  position: relative;
+  min-height: 0;
+
+  background: linear-gradient(180deg, rgba(var(--main-bg-color), 1), rgba(var(--main-bg-color), 0.1)); color:rgba(var(--main-text-color), 1);
+
+	display: grid;
+	grid-template-areas:
+		"img title level"
+		"img overview overview"
+    "img roll roll";
+	grid-template-rows: 75px 75px auto;
+	grid-template-columns: 160px 1fr 150px;
+}
+
+.sw25monster .header__title {
+	grid-area: title;
+  margin-top: 10px;
+  align-self: center;
+}
+
+.sw25monster .header__level {
+	grid-area: level;
+  display: flex;
+}
+
+.sw25monster .header__roll {
+	grid-area: roll;
+  display: flex;
+}
+
+.sw25monster .header__overview {
+	grid-area: overview;
+	position: relative;
+
+	display: grid;
+	grid-template-areas:
+		"weakness summon owner"
+		"pupularity moving owner"
+    "preemptive corepart owner";
+}
+
+.sw25monster .header__overview .monster-weakness {
+  grid-area: weakness;
+}
+
+.sw25monster .header__overview .monster-summon {
+  grid-area: summon;
+}
+
+.sw25monster .header__overview .monster-pupularity {
+  grid-area: pupularity;
+}
+
+.sw25monster .header__overview .monster-preemptive {
+  grid-area: preemptive;
+}
+
+.sw25monster .header__overview .monster-move {
+  grid-area: moving;
+}
+
+.sw25monster .header__overview .monster-corepart {
+  grid-area: corepart;
+}
+
+.sw25monster .header__overview .monster-owner {
+  grid-area: owner;
+}
+
+.sw25monster .main {
+	grid-area: main;
+  height: 100%;
+  padding: 0 0 0 0;
+  margin: 0 0.5em 0 1em;
+/* 
+  display: grid;
+	grid-template-areas:
+		"tabs"
+		"content";
+	grid-template-rows: auto 1fr;
+	grid-template-columns: 1fr; */
+  
+  overflow: hidden;
+  min-height: 0;
+}
+
+.sw25monster .main .sheet-tabs {
+	grid-area: tabs;
+  position: sticky;
+}
+
+.sw25monster  .main .sheet-body {
+	grid-area: content;
+
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .checkbox--hidden {
@@ -3213,44 +3348,6 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
   gap: var(--spacing-sm);
   margin: 10px 5px;
   padding: 5px;
-}
-
-.sw25 .monster-header-sub {
-	position: relative;
-
-	display: grid;
-	grid-template-areas:
-		"weakness summon owner"
-		"pupularity moving owner"
-    "preemptive corepart owner";
-}
-
-.sw25 .monster-header-sub .monster-weakness {
-  grid-area: weakness;
-}
-
-.sw25 .monster-header-sub .monster-summon {
-  grid-area: summon;
-}
-
-.sw25 .monster-header-sub .monster-pupularity {
-  grid-area: pupularity;
-}
-
-.sw25 .monster-header-sub .monster-preemptive {
-  grid-area: preemptive;
-}
-
-.sw25 .monster-header-sub .monster-move {
-  grid-area: moving;
-}
-
-.sw25 .monster-header-sub .monster-corepart {
-  grid-area: corepart;
-}
-
-.sw25 .monster-header-sub .monster-owner {
-  grid-area: owner;
 }
 
 .sw25 .attack-display {

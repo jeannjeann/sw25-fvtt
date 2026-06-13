@@ -1973,10 +1973,26 @@ export async function chatButton(chatMessage, buttonType) {
       if (checkName == "di") checkName = flags.sw25.inputName;
 
       if (selectActor.type == "character") {
-        for (const item of selectActor.items) {
-          if (item.type == flags.sw25.method && checkName == item.name) {
-            checkItem = item;
-            break;
+
+        if (checkName.includes("/") || checkName.includes(",")) {
+          const names = checkName.split(/[\/,]/).map(s => s.trim()).filter(Boolean);
+
+          checkItem = selectActor.items
+            .filter(item =>
+              item.type === flags.sw25.method &&
+              names.includes(item.name)
+            )
+            .sort((a, b) =>
+              (b.system.skillbase?.[flags.sw25.refAbility] ?? 0) -
+              (a.system.skillbase?.[flags.sw25.refAbility] ?? 0)
+            )[0];
+
+        } else {
+          for (const item of selectActor.items) {
+            if (item.type === flags.sw25.method && checkName === item.name) {
+              checkItem = item;
+              break;
+            }
           }
         }
       } else if (selectActor.type == "monster") {
