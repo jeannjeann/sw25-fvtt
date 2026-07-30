@@ -78,6 +78,7 @@ export class SW25ActiveEffectConfigV1 extends ActiveEffectConfig {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
+    html = $(html);
 
     html
       .find(".select-keyClassification")

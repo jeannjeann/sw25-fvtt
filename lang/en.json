@@ -1,6 +1,5 @@
 {
   "SW25": {
-
     "Setting": "Setting",
     "Message": "Message",
     "StraightRoll": "Straight Roll",
@@ -19,7 +18,7 @@
     "Adventure": "Adventure",
     "Status": "Status",
     "Items": "Items",
-    "Mymoney" :"Money",
+    "Mymoney": "Money",
     "Features": "Features",
     "Spells": "Spells",
     "Effects": "Effects",
@@ -90,7 +89,6 @@
     "Or": "Or",
     "TargetSelect": "Select Target",
     "SelectAll": "Select All",
-
     "Notargetwarn": "No targets selected.",
     "Multitargetwarn": "Multi targets selected.",
     "Noselectwarn": "No Token selected.",
@@ -98,30 +96,67 @@
     "SummonMpwarn": "Select the summoner token.",
     "InputPlaceHolder": "Input here.",
     "NotTokenwarn": "No Token in canvas.",
-    
     "StartMigration": "Start data migration...",
     "CompleteMigration": "Migration completed!",
-
     "RevealMonsterData": "Reveal Monster Data",
-
     "NotResource": "Resource is not found.",
     "InputPhaseareaPoint": "Input use Qi.",
-
     "TurnendEffect": "Turn end effect",
-
     "Disposition": {
       "Friendly": "Friendly",
       "Neutral": "Neutral",
       "Hostile": "Hostile"
     },
-
     "CharacterName": "Character Name",
     "SwitchImage": "Switch to {image}",
     "ActorImage": "Actor Image",
     "TokenImage": "Token Image",
     "Hp": "HP",
     "Mp": "MP",
-    "Race": "Race",
+    "Race": {
+      "Human": "Human",
+      "Elf": "Elf",
+      "Dwarf": "Dwarf",
+      "Runefolk": "Runefolk",
+      "Nightmare": "Nightmare",
+      "Tabbit": "Tabbit",
+      "Grassrunner": "Grassrunner",
+      "Leprechaun": "Leprechaun",
+      "Shadow": "Shadow",
+      "Soleil": "Soleil",
+      "Alv": "Alv",
+      "Lildraken": "Lildraken",
+      "Valkyrie": "Valkyrie",
+      "Spriggan": "Spriggan",
+      "Meria": "Meria",
+      "Tiens": "Tiens",
+      "Dhampir": "Dhampir",
+      "Abyssborn": "Abyssborn",
+      "Arbor": "Arbor",
+      "BabaYaga": "Baba Yaga",
+      "Basilisk": "Basilisk",
+      "BrokenDrake": "Broken Drake",
+      "Centaur": "Centaur",
+      "DarkDwarf": "Dark Dwarf",
+      "DarkTroll": "Dark Troll",
+      "Dawn": "Dawn",
+      "Diablo": "Diablo",
+      "Drake": "Drake",
+      "Fey": "Fey",
+      "Fluorite": "Fluorite",
+      "Kobold": "Kobold",
+      "Lamia": "Lamia",
+      "Lizardman": "Lizardman",
+      "Lycanthrope": "Lycanthrope",
+      "Lykant": "Lykant",
+      "MagitechAngel": "Magitech Angel",
+      "Miakis": "Miakis",
+      "Newman": "Newman",
+      "Scissorscorpion": "Scissorscorpion",
+      "Sentian": "Sentian",
+      "Vulcan": "Vulcan",
+      "Weakling": "Weakling"
+    },
     "Biography": "Biography",
     "Languages": "Languages",
     "Attributes": {
@@ -144,20 +179,50 @@
       "Normalmove": "Normal Move",
       "Maxmove": "Max Move",
       "Limitedmove": "Limited Move",
-      "Protectionpoint": { "long": "DEF", "abbr": "DEF" },
-      "Magicprotection": { "long": "MDEF", "abbr": "MDEF" },
+      "Protectionpoint": {
+        "long": "DEF",
+        "abbr": "DEF"
+      },
+      "Magicprotection": {
+        "long": "MDEF",
+        "abbr": "MDEF"
+      },
       "Showfeature": "Show Empty Groups",
       "Showspell": "Show All Spell",
       "Showaction": "Show All Action",
       "Magicpower": "MPwr"
     },
     "Ability": {
-      "Dex": { "long": "Dexterity", "abbr": "dex", "die": "⚀" },
-      "Agi": { "long": "Agility", "abbr": "agi", "die": "⚁" },
-      "Str": { "long": "Strength", "abbr": "str", "die": "⚂" },
-      "Vit": { "long": "Vitality", "abbr": "vit", "die": "⚃" },
-      "Int": { "long": "Intelligence", "abbr": "int", "die": "⚄" },
-      "Mnd": { "long": "Spirit", "abbr": "spi", "die": "⚅" },
+      "Dex": {
+        "long": "Dexterity",
+        "abbr": "dex",
+        "die": "⚀"
+      },
+      "Agi": {
+        "long": "Agility",
+        "abbr": "agi",
+        "die": "⚁"
+      },
+      "Str": {
+        "long": "Strength",
+        "abbr": "str",
+        "die": "⚂"
+      },
+      "Vit": {
+        "long": "Vitality",
+        "abbr": "vit",
+        "die": "⚃"
+      },
+      "Int": {
+        "long": "Intelligence",
+        "abbr": "int",
+        "die": "⚄"
+      },
+      "Mnd": {
+        "long": "Spirit",
+        "abbr": "spi",
+        "die": "⚅"
+      },
       "Growth": "Growth",
       "Modify": "Modify",
       "Technique": "Skill",
@@ -260,7 +325,7 @@
       "UseAmmunition": "Ammunition",
       "AutoUseres": "Auto Use",
       "Resuse": "Resource Name",
-      "Resquantity": "Quantity", 
+      "Resquantity": "Quantity",
       "Dice": "Dice ",
       "Customdice": "Custom Dice",
       "Formula": "Roll Formula",
@@ -335,8 +400,7 @@
       "Healing": "Healing",
       "Premise": "Prerequisite",
       "Part": "Applicable Part",
-      "Weapn": {
-      },
+      "Weapn": {},
       "Weapon": {
         "Type": "Type",
         "Blade": "Edged",
@@ -430,7 +494,7 @@
         "Fairywind": "Wind",
         "Fairylight": "Light",
         "Fairydark": "Dark",
-        "FairyContract":{
+        "FairyContract": {
           "Rank": "Rank",
           "Earth": "Ea",
           "Water": "Wa",
@@ -446,8 +510,7 @@
         "ExTime": "Expansion Time",
         "Expansion": "Expansion Effect"
       },
-      "Enhancearts": {
-      },
+      "Enhancearts": {},
       "Magicalsong": {
         "Song": "Spellsong",
         "Final": "Finale",
@@ -492,7 +555,7 @@
         "Jin": "Spirit"
       },
       "Tactics": {
-        "Tacspower" :"Edge",
+        "Tacspower": "Edge",
         "Drum": "Strategem",
         "Camp": "Maneuver",
         "Line": "Type",
@@ -583,8 +646,7 @@
         "Otherskill": "Other Class",
         "Commonskill": "Common Class"
       },
-      "Raceability": {
-      },
+      "Raceability": {},
       "Language": {
         "Conversation": "Speak",
         "Reading": "Read"
@@ -630,7 +692,7 @@
         "BasicResult": "Basic Info",
         "SwordResult": "Sword Calc",
         "CharaResult": "Fumble Calc",
-        "CustomResult" : "Custom Info",
+        "CustomResult": "Custom Info",
         "Result": {
           "Label": "Session Result",
           "Remainder": "Remainder",
@@ -640,12 +702,11 @@
           "Value": "Value"
         }
       },
-      "Field" : {
+      "Field": {
         "Basic": "Basic Setting",
         "Resist": "Resist Setting",
         "Timing": "Use timing",
         "Resource": "Resource Setting",
-
         "PhysicalProp": "Weapon Prop Setting",
         "Element": "Magic Prop Setting",
         "Check": "Check Setting",
@@ -1054,7 +1115,6 @@
       }
     }
   },
-
   "TYPES": {
     "Actor": {
       "character": "Player Character",
@@ -1088,108 +1148,107 @@
       "session": "Session"
     }
   },
-
   "SETTING": {
-    "effectVitResPC":{
+    "effectVitResPC": {
       "name": "Item name of Fortitude",
       "hint": "Fortitude effect target settings (for Player Character), default and when omitted : ",
       "default": "Fortitude"
     },
-    "effectMndResPC":{
+    "effectMndResPC": {
       "name": "Item name of Willpower",
       "hint": "Willpower effect target settings (for Player Character), default and when omitted : ",
       "default": "Willpower"
     },
-    "effectInitPC":{
+    "effectInitPC": {
       "name": "Item name of Initiative",
       "hint": "Initiative effect target and initiative fomula settings (for Player Character), default and when omitted : ",
       "default": "Initiative"
     },
-    "effectMKnowPC":{
+    "effectMKnowPC": {
       "name": "Item name of Monster Knowledge",
       "hint": "Monster Knowledge effect target settings (for Player Character), default and when omitted : ",
       "default": "Monster Knowledge"
     },
-    "effectVitResMon":{
+    "effectVitResMon": {
       "name": "Label of Fortitude",
       "hint": "Fortitude effect target settings (for Monster), default and when omitted : ",
       "default": "Fortitude"
     },
-    "effectMndResMon":{
+    "effectMndResMon": {
       "name": "Label of Willpower",
       "hint": "Willpower effect target settings (for Monster), default and when omitted : ",
       "default": "Willpower"
     },
-    "effectHitMon":{
+    "effectHitMon": {
       "name": "Label of Accuracy",
       "hint": "Accuracy effect target settings (for Monster), default and when omitted : ",
       "default": "Accuracy"
     },
-    "effectDmgMon":{
+    "effectDmgMon": {
       "name": "Label of Damage",
       "hint": "Damage effect target settings (for Monster), default and when omitted : ",
       "default": "Damage"
     },
-    "effectDodgeMon":{
+    "effectDodgeMon": {
       "name": "Label of Evasion",
       "hint": "Evasion effect target settings (for Monster), default and when omitted : ",
       "default": "Evasion"
     },
-    "effectScpMon":{
+    "effectScpMon": {
       "name": "Label of Truespeech Spell",
       "hint": "Truespeech Spell effect target settings (for Monster), default and when omitted : ",
       "default": "TruespeechMP"
     },
-    "effectCnpMon":{
+    "effectCnpMon": {
       "name": "Label of Spiritualism Spell",
       "hint": "Spiritualism Spell effect target settings (for Monster), default and when omitted : ",
       "default": "SpiritualismMP"
     },
-    "effectWzpMon":{
+    "effectWzpMon": {
       "name": "Label of Deep Magic Spell",
       "hint": "Deep Magic Spell effect target settings (for Monster), default and when omitted : ",
       "default": "DeepMagicMP"
     },
-    "effectPrpMon":{
+    "effectPrpMon": {
       "name": "Label of Divine Spell",
       "hint": "Divine Spell effect target settings (for Monster), default and when omitted : ",
       "default": "DivineMP"
     },
-    "effectMtpMon":{
+    "effectMtpMon": {
       "name": "Label of Magitech Spell",
       "hint": "Magitech Spell effect target settings (for Monster), default and when omitted : ",
       "default": "MagitechMP"
     },
-    "effectFrpMon":{
+    "effectFrpMon": {
       "name": "Label of Fairy Spell",
       "hint": "Fairy Spell effect target settings (for Monster), default and when omitted : ",
       "default": "FairyMP"
     },
-    "effectDrpMon":{
+    "effectDrpMon": {
       "name": "Label of Nature Spell",
       "hint": "Nature Spell effect target settings (for Monster), default and when omitted : ",
       "default": "NatureMP"
     },
-    "effectDmpMon":{
+    "effectDmpMon": {
       "name": "Label of Summoning Art",
       "hint": "Summoning Art effect target settings (for Monster), default and when omitted : ",
       "default": "SummoningMP"
     },
-    "effectAbpMon":{
+    "effectAbpMon": {
       "name": "Label of Abyssal Magic",
       "hint": "Abyssal Magic effect target settings (for Monster), default and when omitted : ",
       "default": "AbyssalMP"
     },
-    "effectBmpMon":{
+    "effectBmpMon": {
       "name": "Label of Secrets",
       "hint": "Secrets effect target settings (for Monster), default and when omitted : ",
       "default": "SecretsMP"
     },
-    "fromCompendium":{
+    "fromCompendium": {
       "name": "Get language from Compendium",
       "hint": "Configuration for Polyglot module. Off: Get language list only from within the world. On: Get language list from language items in the compendium as well (actor re-selection must be required after loading the world to reflect the compendium language). Default: Off, require reload"
     },
-    "defaultCharaAction":{
+    "defaultCharaAction": {
       "name": "Actor Roll Setting",
       "hint": "Default settings for roles, etc. If on, the character set by the user will be used as the default when no character is selected. Default: On, requires reload"
     },

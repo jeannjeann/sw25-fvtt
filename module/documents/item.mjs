@@ -150,12 +150,11 @@ export class SW25Item extends Item {
     this._prepareSessionData(itemData);
   }
 
-  async _prepareSkillData(itemData, actor) {
+  _prepareSkillData(itemData, actor) {
     if (itemData.type !== "skill") return;
 
     // Make modifications to data here. For example:
     const systemData = itemData.system;
-    await actor.update({});
     const actorData = itemData.actor.system;
 
     // Calculate Skill check & Action check
@@ -327,13 +326,9 @@ export class SW25Item extends Item {
       systemData.skillexp = expB[systemData.skilllevel];
     }
 
-    // Sheet refresh
-    await itemData.update({});
-    if (itemData.sheet.rendered)
-      await itemData.sheet.render(true, { focus: false });
   }
 
-  async _prepareCheckData(itemData, actor) {
+  _prepareCheckData(itemData, actor) {
     if (itemData.type !== "check") return;
 
     // Make modifications to data here. For example:
@@ -366,7 +361,6 @@ export class SW25Item extends Item {
       }
     });
 
-    await actor.update({});
     let abimod = 0;
     if (systemData.checkabi == "dex")
       abimod = Math.floor(
@@ -589,15 +583,9 @@ export class SW25Item extends Item {
       powmod,
     ];
 
-    // Sheet refresh
-    await actor.update({});
-    if (actor.sheet.rendered) await actor.sheet.render(true, { focus: false });
-    await itemData.update({});
-    if (itemData.sheet.rendered)
-      await itemData.sheet.render(true, { focus: false });
   }
 
-  async _prepareItemRollData(itemData, actor) {
+  _prepareItemRollData(itemData, actor) {
     if (
       itemData.type !== "skill" &&
       itemData.type !== "weapon" &&
@@ -765,7 +753,6 @@ export class SW25Item extends Item {
 
     if (systemData.resuse == "") systemData.autouseres = false;
 
-    await actor.update({});
     let checkabimod = 0;
     let checkabimod1 = 0;
     let checkabimod2 = 0;
@@ -1955,12 +1942,6 @@ export class SW25Item extends Item {
       powmod,
     ];
 
-    // Sheet refresh
-    await actor.update({});
-    if (actor.sheet.rendered) await actor.sheet.render(true, { focus: false });
-    await itemData.update({});
-    if (itemData.sheet.rendered)
-      await itemData.sheet.render(true, { focus: false });
   }
 
   _prepareItemData(itemData) {
@@ -2010,7 +1991,7 @@ export class SW25Item extends Item {
       }
     }
   }
-  async _prepareResourceData(itemData, actor) {
+  _prepareResourceData(itemData, actor) {
     if (itemData.type !== "resource") return;
 
     // Make modifications to data here. For example:
@@ -2103,12 +2084,6 @@ export class SW25Item extends Item {
       systemData.resource.isAbyssEx = false;
     }
 
-    // Sheet refresh
-    await actor.update({});
-    if (actor.sheet.rendered) await actor.sheet.render(true, { focus: false });
-    await itemData.update({});
-    if (itemData.sheet.rendered)
-      await itemData.sheet.render(true, { focus: false });
   }
 
   _prepareWeaponData(itemData) {
@@ -2217,20 +2192,9 @@ export class SW25Item extends Item {
           )
         : "-";
 
-    let updateData = {
-      constant: false,
-      main: false,
-      decla: false,
-    };
-
-    if (systemData.type === "allways") {
-      updateData.constant = true;
-    } else if (systemData.type === "declaration") {
-      updateData.decla = true;
-    } else if (systemData.type === "mainop") {
-      updateData.main = true;
-    }
-    itemData.update({ system: updateData });
+    systemData.constant = systemData.type === "allways";
+    systemData.decla = systemData.type === "declaration";
+    systemData.main = systemData.type === "mainop";
   }
 
   _prepareEnhanceartsData(itemData) {}

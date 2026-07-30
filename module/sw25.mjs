@@ -238,6 +238,17 @@ Hooks.on("updateCombat", async (combat, changes, options, userId) => {
 /*  Handlebars Helpers                          */
 /* -------------------------------------------- */
 
+// The core {{select}} helper was removed in Foundry v14. Provide our own so the
+// sheet templates keep working on v12 through v14.
+Handlebars.registerHelper("select", function (selected, options) {
+  const escaped = Handlebars.escapeExpression(selected ?? "").replace(
+    /[.*+?^${}()|[\]\\]/g,
+    "\\$&"
+  );
+  const rgx = new RegExp(` value=["']${escaped}["']`);
+  return options.fn(this).replace(rgx, "$& selected");
+});
+
 // If you need to add Handlebars helpers, here is a useful example:
 Handlebars.registerHelper("toLowerCase", function (str) {
   return str.toLowerCase();
@@ -776,6 +787,7 @@ Hooks.once("ready", async function () {
 
   // Chat message button
   Hooks.on("renderChatMessage", (chatMessage, html, data) => {
+    html = $(html);
     html.find(".buttonclick").click(function () {
       const button = $(this);
       const buttonType = button.data("buttontype");
@@ -1278,6 +1290,7 @@ Hooks.on("getSceneControlButtons", function (controls) {
 
 // textarea edit hook
 Hooks.on("renderSW25ActorSheet", (app, html, data) => {
+  html = $(html);
   html.find(".textarea-editor").on("blur", async (event) => {
     const textarea = $(event.currentTarget);
     const path = "system." + textarea.data("path");
@@ -1291,6 +1304,7 @@ Hooks.on("renderSW25ActorSheet", (app, html, data) => {
   });
 });
 Hooks.on("renderSW25ItemSheet", (app, html, data) => {
+  html = $(html);
   html.find(".textarea-editor").on("blur", async (event) => {
     const textarea = $(event.currentTarget);
     const path = "system." + textarea.data("path");

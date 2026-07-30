@@ -130,13 +130,15 @@ export class Migrator {
 
         if (Object.keys(clearElements).length > 0) {
           updateData.system = updateData.system || {};
-          updateData.system.elements = mergeObject({}, clearElements, {
-            inplace: false,
-          });
+          updateData.system.elements = foundry.utils.mergeObject(
+            {},
+            clearElements,
+            { inplace: false }
+          );
 
           const propData = propElementMap[prop] || {};
           for (const [path, value] of Object.entries(propData)) {
-            setProperty(updateData, path, value);
+            foundry.utils.setProperty(updateData, path, value);
           }
 
           changed = true;

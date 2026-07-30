@@ -95,7 +95,12 @@
         <div class="character-details-secondary textalign-center flexrow">
           <div class="character-race">
             <label for="{{actor._id}}race" class="resource-label">{{localize "SW25.Race"}}</label> 
-            <input id="{{actor._id}}race" type="text" name="system.race" value="{{system.race}}" placeholder="Race" data-dtype="String"/>
+            <input id="{{actor._id}}race" type="text" name="system.race" value="{{system.race}}" list="{{actor._id}}race-list" placeholder="Race" data-dtype="String"/>
+            <datalist id="{{actor._id}}race-list">
+              {{#each config.races as |name key|}}
+                <option value="{{localize name}}">{{localize name}}</option>
+              {{/each}}
+            </datalist>
           </div>
           <div class="character-age">
             <label for="{{actor._id}}age" class="resource-label">{{localize "SW25.Attributes.Age"}}</label>

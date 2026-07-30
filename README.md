@@ -3,6 +3,7 @@
 ![Foundry v11](https://img.shields.io/badge/foundry-v11-green)
 ![Foundry v12](https://img.shields.io/badge/foundry-v12-green)
 ![Foundry v13](https://img.shields.io/badge/foundry-v13-green)
+![Foundry v14](https://img.shields.io/badge/foundry-v14-green)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X415YUSP)
 [![OFUSE](https://img.shields.io/badge/OFUSE-9cf.svg?style=for-the-badge)](https://ofuse.me/o?uid=81619)
@@ -26,6 +27,7 @@ FVTT用ソード・ワールド2.5ゲームシステム
 - 日本語（[Jean.N](https://github.com/jeannjeann)）
 - English ([kuouvadis](https://github.com/kuouvadis))
 - Korean ([CC8788](https://github.com/CC8788))
+- Español ([EduardoJGilA](https://github.com/EduardoJGilA))
 
 ## 作者
 - [Jean.N](https://github.com/jeannjeann)
@@ -36,6 +38,7 @@ FVTT用ソード・ワールド2.5ゲームシステム
 - [keyslock](https://github.com/keyslock)
 - [Airamhh](https://github.com/Airamhh)
 - [Ryotai](https://github.com/ryotai-trpg)
+- [EduardoJGilA](https://github.com/EduardoJGilA)
 
 ## 権利表記
 [MITライセンス](LICENSE.txt)

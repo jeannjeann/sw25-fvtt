@@ -171,6 +171,7 @@ export async function targetSelectDialog(title) {
 
     // category name click hook
     Hooks.once("renderDialog", (app, html) => {
+      html = $(html);
       const addToggleHandler = (categoryId) => {
         const toggle = html.find(`#${categoryId}-toggle`);
         const checkboxes = html.find(`input[name="${categoryId}"]`);

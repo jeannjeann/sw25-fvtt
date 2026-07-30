@@ -85,7 +85,12 @@
     <section class="header__overview">
       {{#if system.isEdit}}
         <div class="header__overview--race">
-          <input class="header--input" id="{{actor._id}}race" type="text" name="system.race" value="{{system.race}}" placeholder="{{localize "SW25.Race"}}" data-dtype="String" data-tooltip="{{localize "SW25.Race"}}"/>
+          <input class="header--input" id="{{actor._id}}race" type="text" name="system.race" value="{{system.race}}" list="{{actor._id}}race-list" placeholder="{{localize "SW25.Race"}}" data-dtype="String" data-tooltip="{{localize "SW25.Race"}}"/>
+          <datalist id="{{actor._id}}race-list">
+            {{#each config.races as |name key|}}
+              <option value="{{localize name}}">{{localize name}}</option>
+            {{/each}}
+          </datalist>
         </div>
         <div class="header__overview--gender">
           <input class="header--input" id="{{actor._id}}gender" type="text" name="system.attributes.gender" value="{{system.attributes.gender}}" placeholder="{{localize "SW25.Attributes.Gender"}}" data-dtype="String" data-tooltip="{{localize "SW25.Attributes.Gender"}}"/>

@@ -53,6 +53,7 @@ export async function rollreq() {
         buttonloot: {
           label: game.i18n.localize("SETTING.rollRequest"),
           callback: async (html) => {
+            html = $(html);
             const message = html.find('[name="message"]').val();
             const checkName = html.find('[name="checkname"]').val();
             const inputName = html.find('[name="inputcheckname"]').val();
@@ -115,6 +116,7 @@ export async function rollreq() {
       },
       default: "buttonloot",
       render: (html) => {
+        html = $(html);
         html.find('input[name="method"]').change(async (event) => {
           method = event.target.value;
           checkname = html.find('[name="checkname"]').val();

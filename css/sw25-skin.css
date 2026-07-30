@@ -1,0 +1,422 @@
+/* =====================================================================
+   Sword World 2.5 — Raxia Dark Fantasy Theme (High Contrast Edition)
+   ===================================================================== */
+
+/* Base Root Variables */
+.sw25,
+.sw25pc,
+.sw25item {
+  --main-bg-color: 28, 25, 42;      /* Deep midnight indigo */
+  --main-text-color: 240, 237, 250; /* Crisp light violet-white */
+  --sub-bg-color: 36, 32, 54;       /* Panel card indigo */
+  --sub-text-color: 230, 226, 245; 
+  --background-color: #151322;      /* Window body dark background */
+  --base-text-color: #f0edfa;
+}
+
+/* Sheet Window Content Background */
+.sw25.sheet.actor .window-content,
+.sw25.sheet.item .window-content,
+.sw25pc {
+  background-color: #151322 !important;
+  color: #f0edfa !important;
+  font-family: var(--font-primary, "Signika", sans-serif);
+}
+
+/* Global Text Fallback Override for Dark Theme */
+.sw25,
+.sw25pc,
+.sw25item,
+.sw25 .window-content {
+  color: #f0edfa;
+}
+
+/* Header Styling */
+.sw25pc .header {
+  background: linear-gradient(135deg, #242036 0%, #1a1728 100%) !important;
+  border-bottom: 2px solid #4a3e6b;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  padding: 8px;
+}
+
+/* Character Name Title Box */
+.sw25pc .header__title .header__title--name {
+  background: linear-gradient(90deg, #322b4d 0%, #201b33 100%) !important;
+  border-left: 4px solid #f0c060 !important;
+  border-right: 1px solid #4a3e6b !important;
+  border-bottom: 1px solid #4a3e6b !important;
+  border-radius: 6px !important;
+  color: #fce8ad !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+}
+
+.sw25pc .header__title .header__title--name input,
+.sw25 .sheet-header h1.charname input {
+  color: #fce8ad !important;
+  background: transparent !important;
+  font-weight: bold;
+}
+
+/* Character Overview (Race / Gender / Age / Honor) */
+.sw25pc .header__overview,
+.sw25pc .header__overview * {
+  color: #d1c9e8 !important;
+}
+
+.sw25pc .header__overview input {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid #4a3e6b !important;
+  color: #ffffff !important;
+  border-radius: 4px;
+}
+
+/* Adventurer Level Badge */
+.sw25pc .header__level--value {
+  color: #fce8ad !important;
+  text-shadow: 0 0 8px rgba(240, 192, 96, 0.5), 0 2px 4px #000 !important;
+  -webkit-text-stroke: 1px #594214 !important;
+}
+
+/* Resource Bars (HP & MP) */
+.sw25pc .hp-bar::-webkit-progress-bar,
+.sw25pc .hp-progress-bar progress {
+  background-color: #2a1b24 !important;
+  border-radius: 4px;
+}
+.sw25pc .hp-bar::-webkit-progress-value {
+  background: linear-gradient(90deg, #d93856, #f05470) !important;
+  border-radius: 4px;
+}
+.sw25pc .hp-bar::-moz-progress-bar {
+  background: linear-gradient(90deg, #d93856, #f05470) !important;
+  border-radius: 4px;
+}
+
+.sw25pc .mp-bar::-webkit-progress-bar,
+.sw25pc .mp-progress-bar progress {
+  background-color: #182238 !important;
+  border-radius: 4px;
+}
+.sw25pc .mp-bar::-webkit-progress-value {
+  background: linear-gradient(90deg, #2b7af0, #42a5f5) !important;
+  border-radius: 4px;
+}
+.sw25pc .mp-bar::-moz-progress-bar {
+  background: linear-gradient(90deg, #2b7af0, #42a5f5) !important;
+  border-radius: 4px;
+}
+
+.sw25pc .current-max-resource input {
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: #ffffff !important;
+  border: 1px solid #4a3e6b !important;
+  border-radius: 3px;
+}
+
+/* Derived Stat Cards (DEF, MDEF, Fortitude, Willpower, Movement) */
+.sw25 .common-display {
+  background: #242036 !important;
+  border: 1px solid #4a3e6b !important;
+  border-radius: 6px !important;
+  color: #f0edfa !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+.sw25 .common-display .common-label {
+  border-bottom: 1px solid #3c3459 !important;
+  color: #f0c060 !important;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.sw25 .common-display .common-value,
+.sw25 .common-display .common-value-s {
+  color: #ffffff !important;
+  font-weight: bold;
+}
+
+.sw25 .deffence-display { border-color: #3b7ca8 !important; }
+.sw25 .resist-display { border-color: #b05c5c !important; }
+.sw25 .move-display { border-color: #8c5cb0 !important; }
+
+/* Fumble Adjuster Box */
+.sw25pc .property-col,
+.sw25pc .adjustable-container {
+  background: #242036 !important;
+  border: 1px solid #4a3e6b !important;
+  border-radius: 6px;
+  color: #f0edfa !important;
+}
+.sw25pc .adjustment-button {
+  background: #322b4d !important;
+  color: #f0c060 !important;
+  border-radius: 4px;
+}
+
+/* Sidebar & Main Scrollable Containers */
+.sw25pc .sidebar-body,
+.sw25pc .sheet-body {
+  background-color: #191626 !important;
+  color: #f0edfa !important;
+}
+
+/* Sidebar Navigation Tabs */
+.sw25pc .sidebar-tabs {
+  background-color: #151322 !important;
+  border-bottom: 1px solid #4a3e6b !important;
+}
+
+.sw25pc .sidebar-tabs > .item {
+  background: #201b33 !important;
+  color: #bfa8e6 !important;
+  border: 1px solid #3c3459 !important;
+  border-bottom: none !important;
+  border-radius: 6px 6px 0 0 !important;
+  transition: all 0.2s ease;
+}
+
+.sw25pc .sidebar-tabs > .item.active {
+  background: #2e2747 !important;
+  color: #f0c060 !important;
+  border-color: #f0c060 !important;
+  font-weight: bold;
+}
+
+/* Abilities Grid Section */
+.sw25 .abilities {
+  background: #201b33;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #3c3459;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sw25 .abilities .grid-5col {
+  gap: 4px;
+  align-items: center;
+}
+
+.sw25 .abilities .resource-label-s,
+.sw25 .abilities .growth-label {
+  color: #d1c5f0 !important;
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+
+.sw25 .abilities input.resource-input,
+.sw25 .abilities input.racevalue-input {
+  background: #141220 !important;
+  border: 1px solid #4a3e6b !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+  text-align: center;
+}
+
+.sw25 .abilities .resource-label.flexlarge {
+  color: #f0c060 !important;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.sw25 .abilities .ability-mod {
+  background: #2e2344 !important;
+  border: 1px solid #6b4c9a !important;
+  color: #fce8ad !important;
+  border-radius: 6px !important;
+  font-weight: bold;
+  padding: 2px 4px;
+  text-align: center;
+}
+
+.sw25 .roll-ability-check.growth-button {
+  background: linear-gradient(135deg, #382c54, #271e3d) !important;
+  border: 1px solid #6b4c9a !important;
+  color: #f0c060 !important;
+  border-radius: 6px !important;
+  padding: 6px !important;
+  font-weight: bold;
+  margin-top: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.sw25 .roll-ability-check.growth-button:hover {
+  background: linear-gradient(135deg, #4c3b70, #362954) !important;
+  border-color: #f0c060 !important;
+  color: #ffffff !important;
+}
+
+/* Horizontal Main Sheet Tabs Navigation */
+.sw25pc .tab-switcher {
+  background: #1e1930 !important;
+  border: 1px solid #4a3e6b !important;
+  border-radius: 0 8px 8px 0 !important;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5) !important;
+  padding: 4px 2px !important;
+}
+
+.sw25pc .tab-switcher > .tab-label {
+  background: #26203d !important;
+  color: #bfa8e6 !important;
+  border: 1px solid #3c3459 !important;
+  border-radius: 6px !important;
+  margin-bottom: 4px !important;
+  transition: all 0.2s ease !important;
+}
+
+.sw25pc .tab-switcher > .tab-label:hover {
+  background: #362e54 !important;
+  color: #ffffff !important;
+}
+
+.sw25pc .tab-switcher > .tab-label.active {
+  background: linear-gradient(135deg, #593c78, #3b2752) !important;
+  color: #f0c060 !important;
+  border-color: #f0c060 !important;
+  box-shadow: 0 0 8px rgba(240, 192, 96, 0.4) !important;
+}
+
+/* =====================================================================
+   HIGH-CONTRAST ITEM LISTS, TABLES, AND EXPANDED DETAILS OVERRIDES
+   ===================================================================== */
+
+/* Tables (Classes, Check Skills, Weapons, Armors) */
+.sw25pc table {
+  background: #1c182b !important;
+  border: 1px solid #4a3e6b !important;
+  border-radius: 6px !important;
+  overflow: hidden;
+}
+
+.sw25pc table thead th,
+.sw25pc table tr.header,
+.sw25pc table th {
+  background: #2a2240 !important;
+  color: #f0c060 !important;
+  border-bottom: 2px solid #4a3e6b !important;
+  font-weight: bold;
+}
+
+.sw25pc table tbody td,
+.sw25pc table tr.item,
+.sw25pc table td * {
+  color: #f0edfa !important;
+  border-bottom: 1px solid #2e2644 !important;
+}
+
+.sw25pc table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+
+.sw25pc table tbody tr:hover {
+  background: rgba(240, 192, 96, 0.1) !important;
+}
+
+/* Items List Headers & Item Rows */
+.sw25 .items-header,
+.sw25 .items-list .items-header {
+  background: #2a2240 !important;
+  border: 1px solid #4a3e6b !important;
+  border-radius: 4px;
+}
+
+.sw25 .items-header > *,
+.sw25 .items-header .item-name,
+.sw25 .items-list .items-header > * {
+  color: #f0c060 !important;
+  font-weight: bold;
+}
+
+.sw25 .items-list,
+.sw25 .items-list .item,
+.sw25 .items-list .item .item-name,
+.sw25 .items-list .item .item-name *,
+.sw25 .items-list .item-name h3,
+.sw25 .items-list .item-name h4,
+.sw25 .items-list .item-name a,
+.sw25 .items-list .item-prop,
+.sw25 .items-list .item-controls a,
+.sw25 .items-list .item-controls i {
+  color: #f0edfa !important;
+}
+
+.sw25 .items-list .item {
+  border-bottom: 1px solid #2e2644 !important;
+}
+
+.sw25 .items-list .item:hover {
+  background: rgba(240, 192, 96, 0.06) !important;
+}
+
+/* Category & Subcategory Frame Headers */
+.sw25pc .category,
+.sw25item .category,
+.sw25pc .subcategory,
+.sw25item .subcategory {
+  background: #1c182b !important;
+  border: 1px solid #4a3e6b !important;
+  border-radius: 6px;
+}
+
+.sw25pc .category__title,
+.sw25item .category__title,
+.sw25pc .subcategory__title,
+.sw25item .subcategory__title {
+  color: #f0c060 !important;
+  font-weight: bold;
+}
+
+/* Descriptions, Summaries, Spell Details & Race Ability Expanded Details */
+.sw25 .spelllist-description,
+.sw25 .spelllist-description *,
+.sw25 .item-description,
+.sw25 .item-description *,
+.sw25 .raceability-description,
+.sw25 .raceability-description *,
+.sw25 .item-summary,
+.sw25 .item-summary *,
+.sw25 .item-summary .item-properties span,
+.sw25 .item-summary p,
+.sw25 .item-summary div {
+  color: #e2dbf8 !important;
+}
+
+/* Section Labels & EXP Header */
+.sw25 .spelllist-label,
+.sw25 .resource-label,
+.sw25 .resource-label-l,
+.sw25 .resource-label-s,
+.sw25 .exp-display,
+.sw25 .exp-display * {
+  color: #f0c060 !important;
+  font-weight: bold;
+}
+
+/* Input, Select, Textarea controls */
+.sw25 input[type="text"],
+.sw25 input[type="number"],
+.sw25 select,
+.sw25 textarea,
+.sw25pc input[type="text"],
+.sw25pc input[type="number"],
+.sw25pc select,
+.sw25pc textarea {
+  background-color: #141220 !important;
+  color: #ffffff !important;
+  border: 1px solid #4a3e6b !important;
+  border-radius: 4px !important;
+}
+
+.sw25 input:focus,
+.sw25 select:focus,
+.sw25 textarea:focus {
+  border-color: #f0c060 !important;
+  box-shadow: 0 0 6px rgba(240, 192, 96, 0.4) !important;
+}
+
+/* Rollable text hover effect */
+.sw25 .rollable:hover {
+  color: #f0c060 !important;
+  text-shadow: 0 0 8px rgba(240, 192, 96, 0.6) !important;
+  cursor: pointer;
+}

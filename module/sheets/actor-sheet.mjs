@@ -684,6 +684,7 @@ export class SW25ActorSheet extends ActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
+    html = $(html);
 
     // Render the item sheet for viewing/editing prior to the editable check.
     html.on("click", ".item-edit", (ev) => {
@@ -850,7 +851,8 @@ export class SW25ActorSheet extends ActorSheet {
     html.find(".fairy-contract").on("click", async (ev) => {
       const target = ev.currentTarget;
       const dataPath = target.dataset.path;
-      const currentState = getProperty(this.actor, dataPath) || false;
+      const currentState =
+        foundry.utils.getProperty(this.actor, dataPath) || false;
 
       await this.actor.update({ [dataPath]: !currentState });
       target.classList.toggle("checked", !currentState);
@@ -2310,6 +2312,7 @@ export class SW25ActorSheet extends ActorSheet {
     dialog.render(true);
 
     Hooks.once("renderDialog", (app, html) => {
+      html = $(html);
       const addToggleHandler = (categoryId) => {
         const toggle = html.find(`#${categoryId}-toggle`);
         const checkboxes = html.find(`input[name="${categoryId}"]`);

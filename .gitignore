@@ -1,0 +1,6 @@
+# Rulebook PDFs and other source material — never commit, never publish.
+*.pdf
+
+# Scratch / extraction output
+/scratch/
+/extract/

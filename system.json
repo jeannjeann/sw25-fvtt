@@ -18,14 +18,14 @@
       "thumbnail": "systems/sw25/assets/sw25fvtt.png"
     }
   ],
-  "version": "2.4.1",
+  "version": "2.5.0",
   "compatibility": {
     "minimum": "12",
-    "verified": "12.343",
-    "maximum": "13"
+    "verified": "14",
+    "maximum": "15"
   },
   "esmodules": ["module/sw25.mjs"],
-  "styles": ["css/sw25.css", "fonts/MingCute/MingCute.css"],
+  "styles": ["css/sw25.css", "css/sw25-skin.css", "fonts/MingCute/MingCute.css"],
   "languages": [
     {
       "lang": "en",
@@ -41,6 +41,11 @@
       "lang": "ko",
       "name": "한국어(Korean)",
       "path": "lang/ko.json"
+    },
+    {
+      "lang": "es",
+      "name": "Español",
+      "path": "lang/es.json"
     }
   ],
   "packs": [
@@ -85,8 +90,8 @@
     }
   ],
   "socket": true,
-  "manifest": "https://github.com/jeannjeann/sw25-fvtt/releases/download/2.4.1/system.json",
-  "download": "https://github.com/jeannjeann/sw25-fvtt/releases/download/2.4.1/system.zip",
+  "manifest": "https://raw.githubusercontent.com/EduardoJGilA/sw25-fvtt/dev/system.json",
+  "download": "https://github.com/EduardoJGilA/sw25-fvtt/archive/refs/heads/dev.zip",
   "background": "systems/sw25/assets/sw25fvtt.png",
   "grid": {
     "distance": 1,
