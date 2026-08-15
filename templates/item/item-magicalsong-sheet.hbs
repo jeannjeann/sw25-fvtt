@@ -73,7 +73,7 @@
             {{localize "SW25.Item.Magicalsong.Cond"}}
           </div>
           <div class="overview--value">
-            {{#unless (eq system.upcond 0)}} <i class="fa-solid fa-arrow-turn-up"></i>{{system.upcond}}{{/unless}}{{#unless (eq system.downcond 0)}} <i class="fa-solid fa-arrow-turn-down"></i>{{system.downcond}}{{/unless}}{{#unless (eq system.charmcond 0)}} <i class="fa-regular fa-heart"></i>{{system.charmcond}}{{/unless}}
+            {{#unless (eq system.upcond 0)}} <i class="ps_exaltation"></i>{{system.upcond}}{{/unless}}{{#unless (eq system.downcond 0)}} <i class="ps_sedation"></i>{{system.downcond}}{{/unless}}{{#unless (eq system.charmcond 0)}} <i class="ps_fascination"></i>{{system.charmcond}}{{/unless}}
           </div>
         </div>
         <div class="grid-span-2 overview">
@@ -97,7 +97,7 @@
             {{localize "SW25.Item.Magicalsong.Get"}}
           </div>
           <div class="overview--value">
-            {{#unless (eq system.upget 0)}} <i class="fa-solid fa-arrow-turn-up"></i>{{system.upget}}{{/unless}}{{#unless (eq system.downget 0)}} <i class="fa-solid fa-arrow-turn-down"></i>{{system.downget}}{{/unless}}{{#unless (eq system.charmget 0)}} <i class="fa-regular fa-heart"></i>{{system.charmget}}{{/unless}}
+            {{#unless (eq system.upget 0)}} <i class="ps_exaltation"></i>{{system.upget}}{{/unless}}{{#unless (eq system.downget 0)}} <i class="ps_sedation"></i>{{system.downget}}{{/unless}}{{#unless (eq system.charmget 0)}} <i class="ps_fascination"></i>{{system.charmget}}{{/unless}}
           </div>
         </div>
         <div class="grid-span-2 overview">
@@ -113,7 +113,7 @@
             {{localize "SW25.Adding"}}
           </div>
           <div class="overview--value">
-            {{#unless (eq system.upadd 0)}} <i class="fa-solid fa-arrow-turn-up"></i>{{system.upadd}}{{/unless}}{{#unless (eq system.downadd 0)}} <i class="fa-solid fa-arrow-turn-down"></i>{{system.downadd}}{{/unless}}{{#unless (eq system.charmadd 0)}} <i class="fa-regular fa-heart"></i>{{system.charmadd}}{{/unless}}
+            {{#unless (eq system.upadd 0)}} <i class="ps_exaltation"></i>{{system.upadd}}{{/unless}}{{#unless (eq system.downadd 0)}} <i class="ps_sedation"></i>{{system.downadd}}{{/unless}}{{#unless (eq system.charmadd 0)}} <i class="ps_fascination"></i>{{system.charmadd}}{{/unless}}
           </div>
         </div>
         {{/if}}
@@ -123,7 +123,7 @@
             {{localize "SW25.Cost"}}
           </div>
           <div class="overview--value">
-            {{#unless (eq system.upcost 0)}} <i class="fa-solid fa-arrow-turn-up"></i>{{system.upcost}}{{/unless}}{{#unless (eq system.downcost 0)}} <i class="fa-solid fa-arrow-turn-down"></i>{{system.downcost}}{{/unless}}{{#unless (eq system.charmcost 0)}} <i class="fa-regular fa-heart"></i>{{system.charmcost}}{{/unless}}
+            {{#unless (eq system.upcost 0)}} <i class="ps_exaltation"></i>{{system.upcost}}{{/unless}}{{#unless (eq system.downcost 0)}} <i class="ps_sedation"></i>{{system.downcost}}{{/unless}}{{#unless (eq system.charmcost 0)}} <i class="ps_fascination"></i>{{system.charmcost}}{{/unless}}
           </div>
         </div>
         <div class="grid-span-2 overview">
@@ -282,15 +282,15 @@
                 {{localize "SW25.Item.Magicalsong.Get"}}
               </legend>
               <div class="property-col">
-                <label class="property--label-col" for="{{item._id}}system.upget"><i class="fa-solid fa-arrow-turn-up"></i></label>
+                <label class="property--label-col" for="{{item._id}}system.upget"><i class="ps_exaltation"></i></label>
                 <input class="property--value" id="{{item._id}}system.upget" type="text" name="system.upget" value="{{system.upget}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
               </div>
               <div class="property-col">
-                <label class="property--label-col" for="{{item._id}}system.downget"><i class="fa-solid fa-arrow-turn-down"></i></label>
+                <label class="property--label-col" for="{{item._id}}system.downget"><i class="ps_sedation"></i></label>
                 <input class="property--value" id="{{item._id}}system.downget" type="text" name="system.downget" value="{{system.downget}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
               </div>
               <div class="property-col">
-                <label class="property--label-col" for="{{item._id}}system.charmget"><i class="fa-regular fa-heart"></i></label>
+                <label class="property--label-col" for="{{item._id}}system.charmget"><i class="ps_fascination"></i></label>
                 <input class="property--value" id="{{item._id}}system.charmget" type="text" name="system.charmget" value="{{system.charmget}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
               </div>
             </fieldset>
@@ -299,15 +299,15 @@
                 {{localize "SW25.Adding"}}
               </legend>
               <div class="property-col">
-                <label class="property--label-col" for="{{item._id}}system.upget"><i class="fa-solid fa-arrow-turn-up"></i></label>
+                <label class="property--label-col" for="{{item._id}}system.upget"><i class="ps_exaltation"></i></label>
                 <input class="property--value" id="{{item._id}}system.upadd" type="text" name="system.upadd" value="{{system.upadd}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
               </div>
               <div class="property-col">
-                <label class="property--label-col" for="{{item._id}}system.downget"><i class="fa-solid fa-arrow-turn-down"></i></label>
+                <label class="property--label-col" for="{{item._id}}system.downget"><i class="ps_sedation"></i></label>
                 <input class="property--value" id="{{item._id}}system.downadd" type="text" name="system.downadd" value="{{system.downadd}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
               </div>
               <div class="property-col">
-                <label class="property--label-col" for="{{item._id}}system.charmget"><i class="fa-regular fa-heart"></i></label>
+                <label class="property--label-col" for="{{item._id}}system.charmget"><i class="ps_fascination"></i></label>
                 <input class="property--value" id="{{item._id}}system.charmadd" type="text" name="system.charmadd" value="{{system.charmadd}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
               </div>
               <div class="property-col">
@@ -320,15 +320,15 @@
                 {{localize "SW25.Item.Magicalsong.Cond"}}
               </legend>
               <div class="property-col">
-                <label class="property--label-col" for="{{item._id}}system.upget"><i class="fa-solid fa-arrow-turn-up"></i></label>
+                <label class="property--label-col" for="{{item._id}}system.upget"><i class="ps_exaltation"></i></label>
                 <input class="property--value" id="{{item._id}}system.upcond" type="text" name="system.upcond" value="{{system.upcond}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
               </div>
               <div class="property-col">
-                <label class="property--label-col" for="{{item._id}}system.downget"><i class="fa-solid fa-arrow-turn-down"></i></label>
+                <label class="property--label-col" for="{{item._id}}system.downget"><i class="ps_sedation"></i></label>
                 <input class="property--value" id="{{item._id}}system.downcond" type="text" name="system.downcond" value="{{system.downcond}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
               </div>
               <div class="property-col">
-                <label class="property--label-col" for="{{item._id}}system.charmget"><i class="fa-regular fa-heart"></i></label>
+                <label class="property--label-col" for="{{item._id}}system.charmget"><i class="ps_fascination"></i></label>
                 <input class="property--value" id="{{item._id}}system.charmcond" type="text" name="system.charmcond" value="{{system.charmcond}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
               </div>
             </fieldset>
@@ -340,15 +340,15 @@
                 {{localize "SW25.Item.Magicalsong.Cost"}}
               </legend>
               <div class="property-col">
-                <label class="property--label-col" for="{{item._id}}system.upcost"><i class="fa-solid fa-arrow-turn-up"></i></label>
+                <label class="property--label-col" for="{{item._id}}system.upcost"><i class="ps_exaltation"></i></label>
                 <input class="property--value" id="{{item._id}}system.upcost" type="text" name="system.upcost" value="{{system.upcost}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
               </div>
               <div class="property-col">
-                <label class="property--label-col" for="{{item._id}}system.downcost"><i class="fa-solid fa-arrow-turn-down"></i></label>
+                <label class="property--label-col" for="{{item._id}}system.downcost"><i class="ps_sedation"></i></label>
                 <input class="property--value" id="{{item._id}}system.downcost" type="text" name="system.downcost" value="{{system.downcost}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
               </div>
               <div class="property-col">
-                <label class="property--label-col" for="{{item._id}}system.charmcost"><i class="fa-regular fa-heart"></i></label>
+                <label class="property--label-col" for="{{item._id}}system.charmcost"><i class="ps_fascination"></i></label>
                 <input class="property--value" id="{{item._id}}system.charmcost" type="text" name="system.charmcost" value="{{system.charmcost}}" data-dtype="Number"{{#unless system.isEdit}} disabled {{/unless}}/>
               </div>
             </fieldset>

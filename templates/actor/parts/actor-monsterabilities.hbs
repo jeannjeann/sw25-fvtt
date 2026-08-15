@@ -12,9 +12,9 @@
     <li class='item' data-item-id='{{item._id}}'>
       <div class="flexrow flex-group-center">
         <div class="item-equip">
-          {{#if system.useequip}}
+          {{#if item.system.useequip}}
           <label class="equip-toggle">
-            <input class="eq-change" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if system.equip}} checked {{/if}}/>
+            <input class="eq-change" type="checkbox" name="system.equip" data-dtype="Boolean" {{#if item.system.equip}} checked {{/if}}/>
           </label>
           {{/if}}
         </div>
@@ -27,39 +27,39 @@
           {{> "systems/sw25/templates/helper/action-marks.hbs"}}
           <h4 class="item-label">{{item.name}}</h4>
         </div>
-        <div class="rollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usedice1}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{item.system.label1}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.dice1.resist}}>
+        <div class="rollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if item.system.usedice1}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{item.system.label1}})" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applycheck1}}" data-checktype="{{item.system.checkTypesButton}}" {{resistAttributes type item.system.dice1.resist}}>
           <b>{{item.system.label1}}:{{item.system.checkbase1}}({{item.system.checkbasefix1}})</b>
         </div>
-          <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if system.usedice1}}block{{else}}none{{/if}};"><input class="cm1-change" type="text" name="checkmodInput" value="{{item.system.checkmod1}}" data-dtype="Number"/></div>
-        <div class="rollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{item.system.label2}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.dice2.resist}}>
+          <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if item.system.usedice1}}block{{else}}none{{/if}};"><input class="cm1-change" type="text" name="checkmodInput" value="{{item.system.checkmod1}}" data-dtype="Number"/></div>
+        <div class="rollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if item.system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{item.system.label2}})" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applycheck2}}" data-checktype="{{item.system.checkTypesButton}}" {{resistAttributes type item.system.dice2.resist}}>
           <b>{{item.system.label2}}:{{item.system.checkbase2}}({{item.system.checkbasefix2}})</b>
         </div>
-          <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if system.usedice2}}block{{else}}none{{/if}};"><input class="cm2-change" type="text" name="checkmodInput" value="{{item.system.checkmod2}}" data-dtype="Number"/></div>
-        <div class="rollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usedice3}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula3}}+{{item.system.checkbase3}}" data-label="{{item.name}} ({{item.system.label3}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck3}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.dice3.resist}}>
+          <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if item.system.usedice2}}block{{else}}none{{/if}};"><input class="cm2-change" type="text" name="checkmodInput" value="{{item.system.checkmod2}}" data-dtype="Number"/></div>
+        <div class="rollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if item.system.usedice3}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula3}}+{{item.system.checkbase3}}" data-label="{{item.name}} ({{item.system.label3}})" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applycheck3}}" data-checktype="{{item.system.checkTypesButton}}" {{resistAttributes type item.system.dice3.resist}}>
           <b>{{item.system.label3}}:{{item.system.checkbase3}}({{item.system.checkbasefix3}})</b>
         </div>
-          <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if system.usedice3}}block{{else}}none{{/if}};"><input class="cm3-change" type="text" name="checkmodInput" value="{{item.system.checkmod3}}" data-dtype="Number"/></div>
-        <div class="powerrollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{item.system.labelmonpow}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applypower}}" data-powertype="{{system.powerTypesButton}}">
+          <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if item.system.usedice3}}block{{else}}none{{/if}};"><input class="cm3-change" type="text" name="checkmodInput" value="{{item.system.checkmod3}}" data-dtype="Number"/></div>
+        <div class="powerrollable" style="flex: 0 0 auto; margin-left: 10px; display: {{#if item.system.usepower}}block{{else}}none{{/if}};" data-roll="{{item.system.powerformula}}" data-label="{{item.name}} ({{item.system.labelmonpow}})" data-pt="{{item.system.powertable}}" data-apply="{{item.system.applypower}}" data-powertype="{{item.system.powerTypesButton}}">
           <b>{{item.system.labelmonpow}}:k{{item.system.power}}{{#if item.system.totalcvalue}}@{{item.system.totalcvalue}}{{/if}}{{#if item.system.powerbase}}+{{item.system.powerbase}}{{/if}}</b>
         </div>
-          <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if system.usepower}}block{{else}}none{{/if}};"><input class="pm-change" type="text" name="checkmodInput" value="{{item.system.powermod}}" data-dtype="Number"/></div>
+          <div class='item-checkmod item-prop input' style="flex: 0 0 40px; display: {{#if item.system.usepower}}block{{else}}none{{/if}};"><input class="pm-change" type="text" name="checkmodInput" value="{{item.system.powermod}}" data-dtype="Number"/></div>
         <div class="execitemmacro tooltip usemacro applybutton" style="display: {{#if item.flags.itemacro}}{{#if item.flags.itemacro.macro}}{{#if item.flags.itemacro.macro.command}}block{{else}}none{{/if}}{{else}}none{{/if}}{{else}}none{{/if}};">
             <i class="fa-solid fa-code"></i><span class="tooltip-top">{{localize "SW25.Item.MacroB"}}</span>
         </div>
-        <div class="applyeffect tooltip useeffect applybutton" style="display: {{#if system.useeffect}}block{{else}}none{{/if}};">
+        <div class="applyeffect tooltip useeffect applybutton" style="display: {{#if item.system.useeffect}}block{{else}}none{{/if}};">
             <i class="fa-solid fa-hand-sparkles"></i><span class="tooltip-top">{{localize "SW25.Item.EffectB"}}</span>
         </div>
-        {{#if system.hpcost}}
-        <div class='hpcost item-prop' style="flex: 0 0 {{#if system.maxhpcost}}80px{{else}}40px{{/if}};" data-cost="{{item.system.hpcost}}" data-max="{{item.system.maxhpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
-          <b>HP:{{system.hpcost}}{{#if system.maxhpcost}} ({{system.maxhpcost}}){{/if}}</b>
+        {{#if item.system.hpcost}}
+        <div class='hpcost item-prop' style="flex: 0 0 {{#if item.system.maxhpcost}}80px{{else}}40px{{/if}};" data-cost="{{item.system.hpcost}}" data-max="{{item.system.maxhpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
+          <b>HP:{{item.system.hpcost}}{{#if item.system.maxhpcost}} ({{item.system.maxhpcost}}){{/if}}</b>
         </div>
         {{/if}}
-        {{#if system.mpcost}}
+        {{#if item.system.mpcost}}
         <div class="mpcost item-prop" style="flex: 0 0 40px;" data-cost="{{item.system.mpcost}}" data-label="{{item.name}}" data-type="{{item.type}}">
-          <b>MP:{{system.mpcost}}</b>
+          <b>MP:{{item.system.mpcost}}</b>
         </div>
         {{/if}}
-        <div style="flex: 0 0 auto; margin-left: 10px; display: {{#if system.remark}}block{{else}}none{{/if}};"><b>{{item.system.remark}}</b></div>
+        <div style="flex: 0 0 auto; margin-left: 10px; display: {{#if item.system.remark}}block{{else}}none{{/if}};"><b>{{item.system.remark}}</b></div>
         {{#if ../isOwner}}
           <div class='item-controls'>
             <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=(localize "TYPES.Item.monsterability")}}'>
@@ -81,7 +81,7 @@
         <div class="flexrow">
           <div style="flex: 0 0 60px;"></div>
           <div style="font-size: 0.8em;">
-            {{{system.description}}}
+            {{{item.system.description}}}
           </div>
           <div style="flex: 0 0 50px;"></div>
         </div>

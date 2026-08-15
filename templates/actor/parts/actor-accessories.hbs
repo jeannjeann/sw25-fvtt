@@ -22,11 +22,12 @@
         <div class='item-name'>
           <div class='item-image'>
             <a class='rollable' data-roll-type='item'>
-              <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
+              <img class="roll-icon icon-bg" src='{{item.img}}' title='{{item.name}}'/>
             </a>
           </div>
           <h4 class="item-label">{{item.name}}</h4>{{#if item.system.dedicated}} ({{localize "SW25.Item.Dedicated"}}{{item.system.deffectname}}){{/if}}
         </div>
+        {{> "systems/sw25/templates/actor/parts/actor-usecosts.hbs" item=item}}
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
         <div style="text-align: center; flex: 0 0 80px;">
           {{item.system.accpartname}}

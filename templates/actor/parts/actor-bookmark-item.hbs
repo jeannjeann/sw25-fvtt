@@ -9,7 +9,7 @@
   {{!-- item image --}}
   <div class='bookmark__item-display--image'>
     <a class='rollable' data-roll-type='item'>
-      <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
+      <img class="roll-icon icon-bg" src='{{item.img}}' title='{{item.name}}'/>
     </a>
   </div>
 
@@ -42,11 +42,11 @@
     {{#if (eq type "magicalsong")}}
       <div class='flexrow flex-group-center'>
       {{#if (eq system.type "song")}}
-        <div class="notesget">{{#unless (eq system.upget 0)}}<i class="fa-solid fa-arrow-turn-up"></i>{{system.upget}}{{/unless}}{{#unless (eq system.downget 0)}}<i class="fa-solid fa-arrow-turn-down"></i>{{system.downget}}{{/unless}}{{#unless (eq system.charmget 0)}}<i class="fa-regular fa-heart"></i>{{system.charmget}}{{/unless}}</div>
-        <div class="notesaddget" style="flex-glow: 2; white-space:nowrap;">{{#unless (eq system.upadd 0)}}<i class="fa-solid fa-arrow-turn-up"></i>{{system.upadd}}{{/unless}}{{#unless (eq system.downadd 0)}}<i class="fa-solid fa-arrow-turn-down"></i>{{system.downadd}}{{/unless}}{{#unless (eq system.charmadd 0)}}<i class="fa-regular fa-heart"></i>{{system.charmadd}}{{/unless}}({{system.singpoint}})</div>
+        <div class="notesget">{{#unless (eq system.upget 0)}}<i class="ps_exaltation"></i>{{system.upget}}{{/unless}}{{#unless (eq system.downget 0)}}<i class="ps_sedation"></i>{{system.downget}}{{/unless}}{{#unless (eq system.charmget 0)}}<i class="ps_fascination"></i>{{system.charmget}}{{/unless}}</div>
+        <div class="notesaddget" style="flex-glow: 2; white-space:nowrap;">{{#unless (eq system.upadd 0)}}<i class="ps_exaltation"></i>{{system.upadd}}{{/unless}}{{#unless (eq system.downadd 0)}}<i class="ps_sedation"></i>{{system.downadd}}{{/unless}}{{#unless (eq system.charmadd 0)}}<i class="ps_fascination"></i>{{system.charmadd}}{{/unless}}({{system.singpoint}})</div>
       {{/if}}
       {{#if (eq system.type "final")}}
-        <div class="notescost">{{#unless (eq system.upcost 0)}}<i class="fa-solid fa-arrow-turn-up"></i>{{system.upcost}}{{/unless}}{{#unless (eq system.downcost 0)}}<i class="fa-solid fa-arrow-turn-down"></i>{{system.downcost}}{{/unless}}{{#unless (eq system.charmcost 0)}}<i class="fa-regular fa-heart"></i>{{system.charmcost}}{{/unless}}</div>
+        <div class="notescost">{{#unless (eq system.upcost 0)}}<i class="ps_exaltation"></i>{{system.upcost}}{{/unless}}{{#unless (eq system.downcost 0)}}<i class="ps_sedation"></i>{{system.downcost}}{{/unless}}{{#unless (eq system.charmcost 0)}}<i class="ps_fascination"></i>{{system.charmcost}}{{/unless}}</div>
       {{/if}}
       </div>
     {{/if}}

@@ -1,6 +1,6 @@
 <ol class='items-list'>
   <li class='item flexrow items-header'>
-    <div class='item-name'>{{localize "TYPES.Item.essenceweave"}}</div>
+    <div class='item-name'><i class="ps_weave"></i>{{localize "TYPES.Item.essenceweave"}}</div>
     <div class='item-element sidebar-hidden' style="flex: 0 0 60px;">{{localize "SW25.Target"}}</div>
     <div class='item-element sidebar-hidden' style="flex: 0 0 60px;">{{localize "SW25.Rangeshape"}}</div>
     <div class='item-element sidebar-hidden' style="flex: 0 0 100px;">{{localize "SW25.Time"}}</div>
@@ -19,7 +19,7 @@
         <div class='item-name'>
           <div class='item-image'>
             <a class='rollable' data-roll-type='item'>
-              <img class="roll-icon" src='{{item.img}}' title='{{item.name}}'/>
+              <img class="roll-icon icon-bg" src='{{item.img}}' title='{{item.name}}'/>
             </a>
           </div>
           {{> "systems/sw25/templates/helper/action-marks.hbs"}}

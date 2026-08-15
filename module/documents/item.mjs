@@ -121,13 +121,6 @@ export class SW25Item extends Item {
     const systemData = itemData.system;
     const flags = itemData.flags || {};
     const actor = itemData.actor ? game.actors.get(itemData.actor._id) : null;
-    if (actor) {
-      this._prepareSkillData(itemData, actor);
-      this._prepareCheckData(itemData, actor);
-      this._prepareItemRollData(itemData, actor);
-      this._prepareResourceData(itemData, actor);
-      this._prepareLanguageData(itemData, actor);
-    }
     this._prepareWeaponData(itemData);
     this._prepareArmorData(itemData);
     this._prepareAccessoryData(itemData);
@@ -148,6 +141,13 @@ export class SW25Item extends Item {
     this._prepareMonsterabilityData(itemData);
     this._prepareActionData(itemData);
     this._prepareSessionData(itemData);
+    if (actor) {
+      this._prepareSkillData(itemData, actor);
+      this._prepareCheckData(itemData, actor);
+      this._prepareItemRollData(itemData, actor);
+      this._prepareResourceData(itemData, actor);
+      this._prepareLanguageData(itemData, actor);
+    }
   }
 
   async _prepareSkillData(itemData, actor) {
@@ -674,6 +674,7 @@ export class SW25Item extends Item {
             checklevelmod = item.system.skilllevel;
         }
       }
+
       if (systemData.checkskill == item.name) {
         checklevelmod = Number(item.system.skilllevel);
         checkDedicated = isSkillItem && item.system.dedicated;
@@ -1201,7 +1202,9 @@ export class SW25Item extends Item {
       if (systemData.pwmrbt) systemData.powerTypesButton.push("mr");
     }
 
-    if (itemData.type == "raceability") {
+    if (itemData.type == "raceability" || itemData.type == "combatability"
+        || itemData.type == "accessory" || itemData.type == "armor"
+        || itemData.type == "item") {
       systemData.hpcost = systemData.basehpcost;
       const result =
         Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
@@ -1232,6 +1235,15 @@ export class SW25Item extends Item {
         actorData.attributes.efwphalfmod != 0
       )
         systemData.listpowerbase += Number(actorData.attributes.efwphalfmod);
+      systemData.hpcost = systemData.basehpcost;
+      const result =
+        Number(systemData.basempcost) - Number(actorData.attributes.efmpall);
+      systemData.mpcost =
+        isNaN(result) || systemData.basempcost == null
+          ? null
+          : result <= 0
+          ? 1
+          : result;
     }
 
     if (itemData.type == "spell") {
@@ -1419,21 +1431,21 @@ export class SW25Item extends Item {
           break;
         case "bibliomancer":
           systemData.checkbase =
-            Number(systemData.checkbase) ?? 0 +
-            Number(actorData.attributes.bmmod) ?? 0 +
-            Number(actorData.attributes.efbmmod) ?? 0 +
-            Number(actorData.attributes.efbmckmod) ?? 0 +
-            Number(actorData.attributes.efmckall) ?? 0;
+            Number(systemData.checkbase) +
+            Number(actorData.attributes.bmmod) +
+            Number(actorData.attributes.efbmmod) +
+            Number(actorData.attributes.efbmckmod) +
+            Number(actorData.attributes.efmckall);
           systemData.powerbase =
-            Number(systemData.powerbase) ?? 0 +
-            Number(actorData.attributes.bmmod) ?? 0 +
-            Number(actorData.attributes.efbmmod) ?? 0 +
-            Number(actorData.attributes.efbmpwmod) ?? 0 +
-            Number(actorData.attributes.efmpwall) ?? 0;
+            Number(systemData.powerbase) +
+            Number(actorData.attributes.bmmod) +
+            Number(actorData.attributes.efbmmod) +
+            Number(actorData.attributes.efbmpwmod) +
+            Number(actorData.attributes.efmpwall);
           systemData.mpcost =
-            Number(systemData.basempcost) ?? 0 -
-            Number(actorData.attributes.efmpbm) ?? 0 -
-            Number(actorData.attributes.efmpall) ?? 0;
+            Number(systemData.basempcost) -
+            Number(actorData.attributes.efmpbm) -
+            Number(actorData.attributes.efmpall);
           if (systemData.mpcost < 1) systemData.mpcost = 1;
           break;
         default:

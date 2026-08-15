@@ -233,6 +233,7 @@
       "EffectB": "バフ",
       "CostB": "消費",
       "MPB": "MP",
+      "MacroB": "マクロ",
       "Clickitem": "アイコンクリック時",
       "All": "すべて",
       "Powerroll": "威力ロール",
@@ -444,7 +445,8 @@
         "Cancel": "取消",
         "ExCost": "消費拡張素材",
         "ExTime": "拡張時間",
-        "Expansion": "拡張効果"
+        "Expansion": "拡張効果",
+        "SpecialFumble": "特殊失敗値"
       },
       "Enhancearts": {
       },
@@ -1192,6 +1194,18 @@
     "defaultCharaAction":{
       "name": "アクター行動の標準設定",
       "hint": "ロール等の標準設定。オンの場合、キャラクターの非選択時にユーザーに設定されたキャラクターを標準使用します。デフォルト：オン、要リロード"
+    },
+    "colorSettingFriendly":{
+      "name": "背景色設定（友好）",
+      "hint": "友好キャラクターシートの背景色設定。デフォルト及び省略時：緑"
+    },
+    "colorSettingNeutral":{
+      "name": "背景色設定（中立）",
+      "hint": "中立キャラクターシートの背景色設定。デフォルト及び省略時：黄"
+    },
+    "colorSettingHostile":{
+      "name": "背景色設定（敵対）",
+      "hint": "敵対キャラクターシートの背景色設定。デフォルト及び省略時：赤"
     },
     "rollRequest": "ロール要求"
   },

@@ -233,6 +233,7 @@
       "EffectB": "<EFF>",
       "CostB": "<RES>",
       "MPB": "<MP>",
+      "MacroB": "<Macro>",
       "Clickitem": "Icon Click",
       "All": "Everything",
       "Powerroll": "Power Roll",
@@ -444,7 +445,8 @@
         "Cancel": "Cancel",
         "ExCost": "Expansion Materials",
         "ExTime": "Expansion Time",
-        "Expansion": "Expansion Effect"
+        "Expansion": "Expansion Effect",
+        "SpecialFumble": "Sp-Fumble"
       },
       "Enhancearts": {
       },
