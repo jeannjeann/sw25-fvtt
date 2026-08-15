@@ -126,15 +126,14 @@ export class SW25ActorSheet extends ActorSheet {
     return context;
   }
 
-  // TODO:fix
   _getDispositionSettingKey(disposition) {
-    if (disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY)
+    if (disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY){
       return "colorSettingFriendly";
-
-    if (disposition === CONST.TOKEN_DISPOSITIONS.HOSTILE)
+    } else if (disposition === CONST.TOKEN_DISPOSITIONS.HOSTILE){
       return "colorSettingHostile";
-
-    return "colorSettingNeutral";
+    } else {
+      return "colorSettingNeutral";
+    }
   }
 
   _getDisposition() {
@@ -144,7 +143,6 @@ export class SW25ActorSheet extends ActorSheet {
       return this.actor.prototypeToken?.disposition ?? CONST.TOKEN_DISPOSITIONS.NEUTRAL;
     }
 
-    // Token or TokenDocument 両対応
     const disposition =
       token.document?.disposition ??
       token.disposition ??

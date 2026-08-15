@@ -90,7 +90,6 @@ export async function targetSelectDialog(title) {
         <span class="selectable">${title}</span>
       </legend>`;
     category.forEach((token) => {
-      console.log(token);
       box += `
         <div class="token-check-wrap ${categoryId}-token">
           <input type="checkbox" id="token-${token.id}" name="${categoryId}" value="${token.id}">

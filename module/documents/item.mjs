@@ -121,13 +121,6 @@ export class SW25Item extends Item {
     const systemData = itemData.system;
     const flags = itemData.flags || {};
     const actor = itemData.actor ? game.actors.get(itemData.actor._id) : null;
-    if (actor) {
-      this._prepareSkillData(itemData, actor);
-      this._prepareCheckData(itemData, actor);
-      this._prepareItemRollData(itemData, actor);
-      this._prepareResourceData(itemData, actor);
-      this._prepareLanguageData(itemData, actor);
-    }
     this._prepareWeaponData(itemData);
     this._prepareArmorData(itemData);
     this._prepareAccessoryData(itemData);
@@ -148,6 +141,13 @@ export class SW25Item extends Item {
     this._prepareMonsterabilityData(itemData);
     this._prepareActionData(itemData);
     this._prepareSessionData(itemData);
+    if (actor) {
+      this._prepareSkillData(itemData, actor);
+      this._prepareCheckData(itemData, actor);
+      this._prepareItemRollData(itemData, actor);
+      this._prepareResourceData(itemData, actor);
+      this._prepareLanguageData(itemData, actor);
+    }
   }
 
   async _prepareSkillData(itemData, actor) {
@@ -674,6 +674,7 @@ export class SW25Item extends Item {
             checklevelmod = item.system.skilllevel;
         }
       }
+
       if (systemData.checkskill == item.name) {
         checklevelmod = Number(item.system.skilllevel);
         checkDedicated = isSkillItem && item.system.dedicated;

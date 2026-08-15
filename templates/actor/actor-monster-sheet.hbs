@@ -11,29 +11,29 @@
           {{#unless system.toFellow}}
           <div class="hpbar">
             <div class="hp-progress-bar">
-              <progress class="hp-bar grid-span-3" value="{{system.hp.value}}" max="{{system.hp.max}}"></progress>
+              <progress class="hp-bar grid-span-3" value="{{actor.system.hp.value}}" max="{{actor.system.hp.max}}"></progress>
                 <div class="current-max-resource nobreak">
-                  <input id="{{actor._id}}hp" type="number" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
-                  <span class="inline-block">/ {{system.hp.max}}</span>
+                  <input id="{{actor._id}}hp" type="number" name="system.hp.value" value="{{actor.system.hp.value}}" data-dtype="Number"/>
+                  <span class="inline-block">/ {{actor.system.hp.max}}</span>
                 </div>
             </div>
           </div>
           <div class="resources_mod">
             <i class="fa-solid fa-angles-up"></i>
-            <input id="{{actor._id}}hpmod" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
+            <input id="{{actor._id}}hpmod" type="number" name="system.hp.hpmod" value="{{actor.system.hp.hpmod}}" data-dtype="Number"/>
           </div>
           <div class="mpbar">
             <div class="mp-progress-bar">
-              <progress class="mp-bar grid-span-3" value="{{system.mp.value}}" max="{{system.mp.max}}"></progress>
+              <progress class="mp-bar grid-span-3" value="{{actor.system.mp.value}}" max="{{actor.system.mp.max}}"></progress>
                 <div class="current-max-resource nobreak">
-                  <input id="{{actor._id}}mp" type="number" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
-                  <span class="inline-block">/ {{system.mp.max}}</span>
+                  <input id="{{actor._id}}mp" type="number" name="system.mp.value" value="{{actor.system.mp.value}}" data-dtype="Number"/>
+                  <span class="inline-block">/ {{actor.system.mp.max}}</span>
                 </div>
             </div>
           </div>
           <div class="resources_mod">
             <i class="fa-solid fa-angles-up"></i>
-            <input id="{{actor._id}}mpmod" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
+            <input id="{{actor._id}}mpmod" type="number" name="system.mp.mpmod" value="{{actor.system.mp.mpmod}}" data-dtype="Number"/>
           </div>
           {{/unless}}
           {{#if system.toFellow}}
@@ -65,7 +65,7 @@
       <div class="monster-level inline-block level-container">
         <i class="fas fa-bolt"></i>
         <span class="nobreak level-label">{{localize "SW25.Monlevel"}}:</span>
-        <span class="monster-lvl level-value">{{system.monlevel}}</span>
+        <span class="monster-lvl level-value">{{actor.system.monlevel}}</span>
       </div>
     </div>
 
@@ -268,10 +268,10 @@
             {{> "systems/sw25/templates/actor/parts/actor-monsterabilities.hbs"}}
           </div>
           <div class="margin-m" style="display: flex; align-items: center;">
-            <input type="checkbox" id="{{actor._id}}system.usespell" name="system.usespell" data-dtype="Boolean" {{#if system.usespell}} checked {{/if}}/>
+            <input type="checkbox" id="{{actor._id}}system.usespell" name="system.usespell" data-dtype="Boolean" {{#if actor.system.usespell}} checked {{/if}}/>
             <label for="{{actor._id}}system.usespell">{{localize "SW25.Monster.Usespell"}}</label>
           </div>
-          {{#if system.usespell}}
+          {{#if actor.system.usespell}}
           <div>
             {{> "systems/sw25/templates/actor/parts/actor-monsterspells.hbs"}}
           </div>
