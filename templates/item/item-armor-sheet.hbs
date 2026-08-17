@@ -10,10 +10,7 @@
           <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
         {{else}}
           {{#if system.isMagicitem}}
-          <span class="icon-stack">
-            <i class="mgc_diamond_square_fill"></i>
-            <i class="mgc_quill_pen_line" style="color: #ffffff"></i>
-          </span>
+          <i class="ps_magic-item"></i>
           {{/if}}
           {{item.name}}
         {{/if}}

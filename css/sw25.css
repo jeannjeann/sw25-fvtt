@@ -15,7 +15,7 @@
   --fairy-ice-color: 155, 189, 236;
   --fairy-fire-color: 232, 151, 159;
   --fairy-wind-color: 155, 228, 159;
-  --fairy-light-color: 231, 227, 234;
+  --fairy-light-color: 254, 255, 220;
   --fairy-dark-color: 156, 151, 159;
 
   --material-green-color: 171, 243, 200;
@@ -764,11 +764,6 @@ progress.mp-bar::-moz-progress-bar {
   color: var(--base-text-color, #000000);
 }
 
-.sw25pc {
-  background-color: var(--background-color, #dad8cc);
-  color: var(--base-text-color, #000000);
-  }
-
 .sw25 .sheet-body input:hover,
 .sw25 .sheet-body select:hover,
 .sw25 .sheet-body textarea:hover {
@@ -814,6 +809,63 @@ progress.mp-bar::-moz-progress-bar {
 .sw25 .resource-label-l {
   font-weight: bold;
   font-size: 1.2em;
+}
+.sw25 .spell-header-icon {
+  font-size: 2.0em;
+}
+.sw25 .spell-header-u {
+  align-items: flex-end;
+}
+.sw25 .spell__header {
+  position: relative;
+
+	display: grid;
+	grid-template-areas:
+		"icon option option option option"
+		"icon title power skill mod";
+	grid-template-rows: auto auto;
+	grid-template-columns: 50px 1fr 1fr 2fr 80px;
+
+  border-left: 5px inset rgba(var(--main-text-color), 1.0);
+  border-top: 2px inset rgba(var(--main-text-color), 0.5);
+  padding-left: 3px;
+  margin-top: 5px;
+}
+.sw25 .spell__header--icon {
+	grid-area: icon;
+  position: relative;
+
+  font-size: 3.0em;
+}
+.sw25 .spell__header--option {
+	grid-area: option;
+  position: relative;
+}
+.sw25 .spell__header--title {
+	grid-area: title;
+  position: relative;
+
+  font-weight: bold;
+  margin-top: 5px;
+}
+.sw25 .spell__header--power {
+	grid-area: power;
+  position: relative;
+
+  font-weight: bold;
+  margin-top: 5px;
+}
+.sw25 .spell__header--skill {
+	grid-area: skill;
+  position: relative;
+  text-align: right;
+  margin-top: 5px;
+}
+.sw25 .spell__header--mod {
+	grid-area: mod;
+  position: relative;
+  text-align: right;
+  margin-top: 5px;
 }
 .sw25 .items-header {
   height: 28px;
@@ -1018,7 +1070,7 @@ progress.mp-bar::-moz-progress-bar {
 
 .sw25 .sheet-header .header-fields .character-details input,
 .sw25 .sheet-header .header-fields .character-details textarea{
-    border:  0;
+  border:  0;
   background: none;
 }
 
@@ -1180,25 +1232,25 @@ progress.mp-bar::-moz-progress-bar {
   font-size: 105%;
   font-weight: bold;
 }
-.sw25 .sheet-header .header-fields .monster-parameters {
+.sw25monster .header .monster-parameters {
   height: 70%;
 }
 
-.sw25 .sheet-header .header-fields .monster-parameters .flexrow {
+.sw25monster .header .monster-parameters .flexrow {
   align-content: center;
 }
-.sw25 .sheet-header .header-fields .monster-parameters .monster-pp,
-.sw25 .sheet-header .header-fields .monster-parameters .monster-mpp{
+.sw25monster .header .monster-parameters .monster-pp,
+.sw25monster .header .monster-parameters .monster-mpp{
   flex: 0 0 50px;
   text-align: center;
   margin-right: 5px;
   margin-left: 5px;
 }
-.sw25 .sheet-header .header-fields .monster-parameters .monster-blank{
+.sw25monster .header .monster-parameters .monster-blank{
   flex: 1;
 }
-.sw25 .sheet-header .header-fields .monster-parameters .monster-loot,
-.sw25 .sheet-header .header-fields .monster-parameters .monster-observer{
+.sw25monster .header .monster-loot,
+.sw25monster .header .monster-observer{
   display: flex;
   flex: 0 0 80px;
   align-items: center;
@@ -1526,18 +1578,8 @@ input.weakapply[type="checkbox"] {
   cursor: pointer;
 }
 
-.fairy-checkbox {
-  display: grid;
-  grid-column: span 6/span 6;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: var(--spacing-sm);
-  margin: 0px 0;
-  padding: 0;
-  place-items: center;
-}
-
 .fairy-contract {
-  width: 20px;
+  width: 35px;
   border: 1px solid #000;
   border-radius: 5px;
   text-align: center;
@@ -1608,7 +1650,7 @@ input.weakapply[type="checkbox"] {
 }
 
 .fairylight {
-  color: rgb(var(--fairy-ice-color));
+  color: rgb(var(--fairy-light-color));
   background-color: #000000;
   padding: 0 0.3em;
   border: 0px solid #000;
@@ -1665,17 +1707,67 @@ input.weakapply[type="checkbox"] {
   100% { background-position: 100% 50%; }
 }
 
-.fairy-rank {
-  font-size: 0.7em;
+.magitech-header {
+  grid-area: option;
+  position: relative;
 }
 
-.biblio-ready {
+.fairytamer-header {
+  grid-area: option;
+  position: relative;
+
+	display: grid;
+	grid-template-areas:"ftcontract ftrank";
+	grid-template-columns: 1fr 150px;
+  gap: 5px;
+}
+
+.fairytamer-contract {
+  grid-area: ftcontract;
+  position: relative;
+
   display: grid;
-  grid-column: span 5/span 5;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--spacing-sm);
   margin: 0px 0;
   padding: 0;
   place-items: center;
+}
+
+.fairytamer-rank {
+  grid-area: ftrank;
+  position: relative;
+
+  font-size: 0.8em;
+}
+
+.biblio-header {
+  grid-area: option;
+  position: relative;
+
+	display: grid;
+	grid-template-areas:"bmready bmsp";
+	grid-template-columns: 1fr 150px;
+  gap: 5px;
+}
+
+.biblio-ready {
+  grid-area: bmready;
+  position: relative;
+
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--spacing-sm);
+  margin: 0px 0;
+  padding: 0;
+  place-items: center;
+}
+
+.biblio-special {
+  grid-area: bmsp;
+  position: relative;
+
+  font-size: 0.8em;
 }
 
 .biblio-rank {
@@ -1683,7 +1775,7 @@ input.weakapply[type="checkbox"] {
   border: 1px solid #000;
   border-radius: 5px;
   text-align: center;
-  font-size: 0.6em;
+  font-size: 0.8em;
 }
 
 .session-result-title {
@@ -2211,6 +2303,9 @@ body, .sw25cs__body__sidebar {
 	grid-template-rows: auto 1fr 100px;
 	grid-template-columns: 250px 1fr;
   height: 100%;
+
+  background-color: var(--background-color, #dad8cc);
+  color: var(--base-text-color, #000000);
 }
 
 .sw25pc .sidebar-body {
@@ -2361,7 +2456,8 @@ body, .sw25cs__body__sidebar {
   overflow: hidden;
 }
 
-.sw25pc .header__img {
+.sw25pc .header__img,
+.sw25monster .header__img {
 	grid-area: img;
   position: relative;
 
@@ -2374,7 +2470,8 @@ body, .sw25cs__body__sidebar {
   padding: 5px;
 }
 
-.sw25pc .header__img .profile-img {
+.sw25pc .header__img .profile-img,
+.sw25monster .header__img .profile-img {
   height: 100%;
   max-height: 120px;
   width: 100%;
@@ -2460,7 +2557,8 @@ body, .sw25cs__body__sidebar {
   font-style: normal;
 }
 
-.sw25pc .header__fellow {
+.sw25pc .header__fellow ,
+.sw25monster .header__fellow{
   flex:initial;
   text-align: center;
   margin: 5px 5px 0 0;
@@ -2521,25 +2619,29 @@ body, .sw25cs__body__sidebar {
   flex: 4 0 100px;
 }
 
-.sw25pc .header__resources {
+.sw25pc .header__resources,
+.sw25monster .header__resources {
   margin: 0 var(--spacing-xs);
   position: relative;
   margin-top: -12%;
 }
 
-.sw25pc .header .header-fields .resources.grid {
+.sw25pc .header .header-fields .resources.grid,
+.sw25monster .header .header-fields .resources.grid {
   grid-template-columns: 24px 1fr auto;
   gap: 0 var(--spacing-xs);
   margin: 0;
 }
 
-.sw25pc .header__resources label {
+.sw25pc .header__resources label,
+.sw25monster .header__resources label  {
   height: var(--form-field-height);
   line-height: var(--form-field-height);
   vertical-align: middle;
 }
 
-.sw25pc .header__resources .current-max-resource {
+.sw25pc .header__resources .current-max-resource,
+.sw25monster .header__resources .current-max-resource {
   display: inline-block;
   position: absolute;
   left: 50%;
@@ -2548,7 +2650,12 @@ body, .sw25cs__body__sidebar {
   color: white;
 }
 
-.sw25pc .header__resources input {
+.sw25monster .header__resources .resources_mod {
+  text-align: right;
+}
+
+.sw25pc .header__resources input,
+.sw25monster .header__resources input {
   border: 0;
   background: none;
 }
@@ -2557,7 +2664,8 @@ body, .sw25cs__body__sidebar {
 .sw25pc .header select:hover {
   box-shadow: 0 0 5px var(--color-shadow-primary);
 }
-.sw25pc .header__resources .current-max-resource input {
+.sw25pc .header__resources .current-max-resource input,
+.sw25monster .header__resources .current-max-resource input {
   color: white;
 }
 
@@ -2565,11 +2673,13 @@ body, .sw25cs__body__sidebar {
   vertical-align: middle;
 }
 
-.sw25pc .header__resources input {
+.sw25pc .header__resources input,
+.sw25monster .header__resources input {
   text-align: center;
   vertical-align: middle;
 }
-.sw25pc .header__resources .resources input[type="number"] {
+.sw25pc .header__resources .resources input[type="number"],
+.sw25monster .header__resources .resources input[type="number"] {
   width: 2rem;
   text-align: right;
 }
@@ -2776,6 +2886,128 @@ body, .sw25cs__body__sidebar {
   min-height: 2.5em;
 }
 
+.sw25monster {
+  --main-bg-color: 239, 230, 216;
+  --main-text-color: 0, 0, 0;
+  --sub-bg-color: 247, 243, 232;
+  --sub-text-color: 0, 0, 0;
+  --background-color: 218, 216, 204;
+  --base-text-color: #000000;
+
+  display: grid;
+	grid-template-areas:
+		"header"
+		"main";
+	grid-template-rows: auto 1fr;
+	grid-template-columns: 1fr;
+  height: 100%;
+
+  background: rgba(var(--main-bg-color), 0.1);
+  color: var(--base-text-color, #000000);
+  overflow: hidden;
+  min-height: 0;
+}
+
+.sw25monster .header {
+	grid-area: header;
+  position: relative;
+  min-height: 0;
+
+  background: linear-gradient(180deg, rgba(var(--main-bg-color), 1), rgba(var(--main-bg-color), 0.1)); color:rgba(var(--main-text-color), 1);
+
+	display: grid;
+	grid-template-areas:
+		"img title level"
+		"img overview overview"
+    "img roll roll";
+	grid-template-rows: 75px 75px auto;
+	grid-template-columns: 160px 1fr 150px;
+}
+
+.sw25monster .header__title {
+	grid-area: title;
+  margin-top: 10px;
+  align-self: center;
+}
+
+.sw25monster .header__level {
+	grid-area: level;
+  display: flex;
+}
+
+.sw25monster .header__roll {
+	grid-area: roll;
+  display: flex;
+}
+
+.sw25monster .header__overview {
+	grid-area: overview;
+	position: relative;
+
+	display: grid;
+	grid-template-areas:
+		"weakness summon owner"
+		"pupularity moving owner"
+    "preemptive corepart owner";
+}
+
+.sw25monster .header__overview .monster-weakness {
+  grid-area: weakness;
+}
+
+.sw25monster .header__overview .monster-summon {
+  grid-area: summon;
+}
+
+.sw25monster .header__overview .monster-pupularity {
+  grid-area: pupularity;
+}
+
+.sw25monster .header__overview .monster-preemptive {
+  grid-area: preemptive;
+}
+
+.sw25monster .header__overview .monster-move {
+  grid-area: moving;
+}
+
+.sw25monster .header__overview .monster-corepart {
+  grid-area: corepart;
+}
+
+.sw25monster .header__overview .monster-owner {
+  grid-area: owner;
+}
+
+.sw25monster .main {
+	grid-area: main;
+  height: 100%;
+  padding: 0 0 0 0;
+  margin: 0 0.5em 0 1em;
+/* 
+  display: grid;
+	grid-template-areas:
+		"tabs"
+		"content";
+	grid-template-rows: auto 1fr;
+	grid-template-columns: 1fr; */
+  
+  overflow: hidden;
+  min-height: 0;
+}
+
+.sw25monster .main .sheet-tabs {
+	grid-area: tabs;
+  position: sticky;
+}
+
+.sw25monster  .main .sheet-body {
+	grid-area: content;
+
+  overflow-y: auto;
+  min-height: 0;
+}
+
 .checkbox--hidden {
   position: absolute;
   width: 1px;
@@ -2959,24 +3191,6 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
   text-align: right !important;
 }
 
-.icon-stack {
-  position: relative;
-  display: inline-block;
-  width: 1.2em;
-  height: 1.2em;
-}
-
-.icon-stack i {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  line-height: 1.2em;
-  font-size: 1.2em;
-}
-
 .text-icon {
   display: inline-flex;
   align-items: center;
@@ -2999,9 +3213,8 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
   flex: 10 0 0;
 }
 
-.roll-icon {
-  width: 24px;
-  height: 24px;
+.icon-bg {
+  background-color:rgba(var(--main-bg-color),1.0);
 }
 
 .bookmark__item {
@@ -3125,7 +3338,7 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
 
 .sw25pc .main .items-header,
 .sw25pc .sidebar .items-header {
-  background: linear-gradient(180deg, rgba(var(--main-bg-color), 0.4), rgba(var(--main-bg-color), 0.1));
+  background: linear-gradient(180deg, rgba(var(--main-bg-color), 0.7), rgba(var(--main-bg-color), 0.4));
 }
 
 .sw25pc .itemselect {
@@ -3135,44 +3348,6 @@ input[type=checkbox]:disabled + .checkbox--label:focus {
   gap: var(--spacing-sm);
   margin: 10px 5px;
   padding: 5px;
-}
-
-.sw25 .monster-header-sub {
-	position: relative;
-
-	display: grid;
-	grid-template-areas:
-		"weakness summon owner"
-		"pupularity moving owner"
-    "preemptive corepart owner";
-}
-
-.sw25 .monster-header-sub .monster-weakness {
-  grid-area: weakness;
-}
-
-.sw25 .monster-header-sub .monster-summon {
-  grid-area: summon;
-}
-
-.sw25 .monster-header-sub .monster-pupularity {
-  grid-area: pupularity;
-}
-
-.sw25 .monster-header-sub .monster-preemptive {
-  grid-area: preemptive;
-}
-
-.sw25 .monster-header-sub .monster-move {
-  grid-area: moving;
-}
-
-.sw25 .monster-header-sub .monster-corepart {
-  grid-area: corepart;
-}
-
-.sw25 .monster-header-sub .monster-owner {
-  grid-area: owner;
 }
 
 .sw25 .attack-display {

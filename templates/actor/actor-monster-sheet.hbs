@@ -1,492 +1,491 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+<section class="sw25monster" style="--main-bg-color:{{colorSetting.main.bg.r}},{{colorSetting.main.bg.g}},{{colorSetting.main.bg.b}}; --main-text-color:{{colorSetting.main.text.r}},{{colorSetting.main.text.g}},{{colorSetting.main.text.b}}; --sub-bg-color:{{colorSetting.sub.bg.r}},{{colorSetting.sub.bg.g}},{{colorSetting.sub.bg.b}}; --sub-text-color:{{colorSetting.sub.text.r}},{{colorSetting.sub.text.g}},{{colorSetting.sub.text.b}}; --background-color:{{system.color.sub.bg}}; --base-text-color:{{system.color.sub.text}};">
 
   {{#unless system.limited}}
   {{!-- Sheet Header --}}
-  <header class="sheet-header">
-    <div class="monster-details textalign-center">
+  <header class="header">
+    <section class="header__img">
       <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-      <div class="header-resources">
+      <div class="header__resources">
         <div class="resources flexcol">
           {{#unless system.toFellow}}
           <div class="hpbar">
             <div class="hp-progress-bar">
-              <progress class="hp-bar grid-span-3" value="{{system.hp.value}}" max="{{system.hp.max}}"></progress>
-              <div class="current-max-resource nobreak">
-                <input id="{{actor._id}}hp" type="number" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
-                <span class="inline-block">/ {{system.hp.max}}</span>
-              </div>
-            </div>
-            <div class="hpmod nobreak" style="font-size: 0.7rem; display: flex; align-items: center; justify-content: end; height: 20px;">
-              <label for="{{actor._id}}hpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-              <input id="{{actor._id}}hpmod" style="height: 80%;" type="number" name="system.hp.hpmod" value="{{system.hp.hpmod}}" data-dtype="Number"/>
+              <progress class="hp-bar grid-span-3" value="{{actor.system.hp.value}}" max="{{actor.system.hp.max}}"></progress>
+                <div class="current-max-resource nobreak">
+                  <input id="{{actor._id}}hp" type="number" name="system.hp.value" value="{{actor.system.hp.value}}" data-dtype="Number"/>
+                  <span class="inline-block">/ {{actor.system.hp.max}}</span>
+                </div>
             </div>
           </div>
-          {{/unless}}
+          <div class="resources_mod">
+            <i class="fa-solid fa-angles-up"></i>
+            <input id="{{actor._id}}hpmod" type="number" name="system.hp.hpmod" value="{{actor.system.hp.hpmod}}" data-dtype="Number"/>
+          </div>
           <div class="mpbar">
             <div class="mp-progress-bar">
-              <progress class="mp-bar grid-span-3" value="{{system.mp.value}}" max="{{system.mp.max}}"></progress>
-              <div class="current-max-resource nobreak">
-                <input id="{{actor._id}}mp" type="number" name="system.mp.value" value="{{system.mp.value}}" data-dtype="Number"/>
-                
-                <span class="inline-block">/ {{system.mp.max}}</span>
-              </div>
-            </div>
-            <div class="mpmod nobreak" style="font-size: 0.7rem; display: flex; align-items: center; justify-content: end; height: 20px;">
-              <label for="{{actor._id}}mpmod" class="resource-label">{{localize "SW25.Modifier"}}: </label>
-              <input id="{{actor._id}}mpmod" style="height: 80%;" type="number" name="system.mp.mpmod" value="{{system.mp.mpmod}}" data-dtype="Number"/>
+              <progress class="mp-bar grid-span-3" value="{{actor.system.mp.value}}" max="{{actor.system.mp.max}}"></progress>
+                <div class="current-max-resource nobreak">
+                  <input id="{{actor._id}}mp" type="number" name="system.mp.value" value="{{actor.system.mp.value}}" data-dtype="Number"/>
+                  <span class="inline-block">/ {{actor.system.mp.max}}</span>
+                </div>
             </div>
           </div>
+          <div class="resources_mod">
+            <i class="fa-solid fa-angles-up"></i>
+            <input id="{{actor._id}}mpmod" type="number" name="system.mp.mpmod" value="{{actor.system.mp.mpmod}}" data-dtype="Number"/>
+          </div>
+          {{/unless}}
           {{#if system.toFellow}}
           <div class="roll-actiontable action-button rollable"><i class="fas fa-dice-d6"></i>{{localize "SW25.ActionRoll"}}</div>
           {{/if}}
         </div>
       </div>
-    </div>
-    <div class="header-fields flexrow">
-      <div class="character-details">
-        <div class="character-details-primary flexrow">
-          <div class="flexcol">
-            <div class="character-name fontsize14">
-              <input id="{{actor._id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
-            </div>
-            <div class="monster-type">
-              <span class="resource-label nobreak">{{localize "SW25.Monster.Type"}}:</span>
-              <span class="monster-type">{{#if (eq system.classType "Other")}}{{system.type}}{{else}}{{#if system.classType}}{{localize (concat "SW25.Actor.Class." system.classType)}}{{/if}}{{/if}}</span>
-            </div>
-          </div>
-          <div class="character-fellow">
-            <label for="{{actor._id}}fellow" class="resource-label">{{localize "SW25.Daemon"}}</label> <br>
-            <label for="{{actor._id}}fellow"><i class="{{#if system.toFellow}}fas fa-toggle-on{{else}}fas fa-toggle-off{{/if}}"></i></label>
-            <input id="{{actor._id}}fellow" style="display: none;" type="checkbox" name="system.toFellow" {{#if system.toFellow}}checked{{/if}} data-dtype="Boolean"/>
-          </div>
-          <div class="monster-level inline-block level-container">
-            <i class="fas fa-bolt"></i>
-            <span class="nobreak level-label">{{localize "SW25.Monlevel"}}:</span>
-            <span class="monster-lvl level-value">{{system.monlevel}}</span>
-          </div>
-        </div>
-        <hr>
-        <div class="character-details-secondary monster-parameters flexcol">
-          <div class="monster-header-sub">
-            <div class="monster-weakness">
-              <input id="{{actor._id}}weakapply" type="checkbox" name="system.weakapply" {{checked system.weakapply}} data-dtype="Boolean" class="weakapply" />
-              <label for="{{actor._id}}weakapply" class="resource-label nobreak">{{localize "SW25.Monster.Weakness"}}:</label>
-              <span class="monster-weak">{{system.weakness}}</span>
-            </div>
-            <div class="monster-summon">
-              {{#if system.summonmp}}
-              <span class="mpcost" data-cost="{{system.summonmp}}" data-label="{{localize "SW25.Monster.SummonMp"}}" data-type="summon" data-id="{{actor._id}}">
-              <label class="resource-label nobreak">{{localize "SW25.Monster.SummonMp"}}:</label>
-              {{system.summonmp}}</span>
-              {{#if system.toFellow}}
-              &nbsp;/&nbsp;
-                <span class="mpcost" data-cost="{{system.monlevel}}" data-label="{{localize "SW25.Monster.CancelMp"}}" data-type="summon" data-id="{{actor._id}}">
-                <label class="resource-label nobreak">{{localize "SW25.Monster.CancelMp"}}:</label>
-                {{system.monlevel}}</span>
-              {{/if}}
-              {{/if}}
-            </div>
-            <div class="monster-popularity popularityrollable">
-              <span class="monster-label monster-small">{{localize "SW25.Monster.Popularity"}}/{{localize "SW25.Monster.Weakpoint"}} : </span>
-              <span class="monster-small">{{system.popularity}}/{{system.weakpoint}}</span>
-            </div>
-            <div class="monster-preemptive preemptiverollable">
-              <span class="monster-label monster-small">{{localize "SW25.Monster.Preemptive"}}: </span>
-              <span class="monster-small">{{system.preemptive}}</span>
-            </div>
-            <div class="monster-move">
-              {{#if system.toFellow}}
-                <label class="resource-label nobreak">{{localize "SW25.Monster.Return"}}:</label>
-                <span class="mpcost" data-cost="-{{system.summonmp}}" data-label="{{localize "SW25.Monster.Return"}}" data-type="return" data-id="{{actor._id}}">
-                  MP
-                </span>
-                &nbsp;/&nbsp;
-                <span class="rollreq" data-value="{{#if contentItem.monRes}}{{#with contentItem.monRes as |item|}}{{item.system.checkbasefix2}}{{/with}}{{else}}0{{/if}}" data-label="{{localize "SW25.Monster.Return"}}">
-                {{localize "SW25.Check"}}
-                </span>
-                &nbsp;/&nbsp;
-                <span class="rollable" data-roll="2d6+{{system.monlevel}}" data-label="{{localize "SW25.Monster.Return"}} {{localize "SW25.Failed"}}" data-pt="" data-apply="on" data-checktype="">
-                {{localize "SW25.Failed"}}
-                </span>
-              {{else}}
-                <span class="monster-label monster-small">{{localize "SW25.Monster.Move"}}: </span>
-                <span class="monster-small">{{system.move}}</span>
-              {{/if}}
-            </div>
-            {{#if system.showpt}}
-              <div class="monster-corepart">
-                <span class="monster-label monster-small">{{localize "SW25.Monster.Corepart"}}: </span>
-                <span class="monster-small">{{system.corepart}}</span>
-              </div>
-            {{/if}}
-            {{#if isOwner}}
-              <div class="grid-span-1 flexrow monster-owner">
-                <div class="monster-observer">
-                  <span class="monster-label changepermission">{{localize "SW25.Monster.Observer"}}<br><i class="fa-solid fa-arrows-to-eye"></i></span>
-                </div>
-                <div class="monster-loot">
-                  <span class="monster-label lootrollable">{{localize "SW25.Monster.Loot"}}<br><i class="fa-solid fa-web-awesome"></i></span>
-                </div>
-              </div>
-            {{else}}
-              <div class="grid-span-1 flexrow monster-owner"></div>
-            {{/if}}
-          </div>
+    </section>
 
-          <hr>
-          <div class="monster-parameters character-details-secondary flexrow">
-
-          {{#if contentItem.monAtk}}
-            {{#with contentItem.monAtk as |item|}}
-            <div class="common-display item attack-display" data-item-id='{{item._id}}'>
-              <span class="rollable" style="display: {{#if system.usedice1}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{item.system.label1}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.dice1.resist}}>
-                <div class="common-label">{{item.system.label1}}</div>
-                <div class="common-value">{{item.system.checkbase1}}({{item.system.checkbasefix1}})</div>
-                <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
-              </span>
-              <div class="tooltip mod-content">
-                <label class="mod-label">
-                  <i class="fa-solid fa-angles-up"></i><span class="tooltip-top">{{localize "SW25.Effect.HitMod"}}</span></label>
-                  <input class="cm1-change common-display--input" type="text" name="checkmodInput" value="{{item.system.checkmod1}}" data-dtype="Number"/>
-              </div>
-            </div>
-            <div class="common-display item attack-display" data-item-id='{{item._id}}'>
-              <span class="rollable" style="display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{item.system.label2}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.dice2.resist}}>
-                <div class="common-label">{{item.system.label2}}</div>
-                <div class="common-value">{{item.system.checkbase2}}({{item.system.checkbasefix2}})</div>
-                <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
-              </span>
-              <div class="tooltip mod-content">
-                <label class="mod-label">
-                  <i class="fa-solid fa-angles-up"></i><span class="tooltip-top">{{localize "SW25.Config.MonDmg"}}{{localize "SW25.Modifier"}}</span></label>
-                  <input class="cm2-change common-display--input" type="text" name="checkmodInput" value="{{item.system.checkmod2}}" data-dtype="Number"/>
-              </div>
-            </div>
-            <div class="common-display item deffence-display" data-item-id='{{item._id}}'>
-              <span class="rollable" style="display: {{#if system.usedice3}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula3}}+{{item.system.checkbase3}}" data-label="{{item.name}} ({{item.system.label3}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck3}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.dice3.resist}}>
-                <div class="common-label">{{item.system.label3}}</div>
-                <div class="common-value">{{item.system.checkbase3}}({{item.system.checkbasefix3}})</div>
-                <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
-              </span>
-              <div class="tooltip mod-content">
-                <label class="mod-label">
-                  <i class="fa-solid fa-angles-up"></i><span class="tooltip-top">{{localize "SW25.Effect.DodgeMod"}}</span></label>
-                  <input class="cm3-change common-display--input" type="text" name="checkmodInput" value="{{item.system.checkmod3}}" data-dtype="Number"/>
-              </div>
-            </div>
-            {{/with}}
-          {{else}}
-            <div class="common-display">
-            <div class="common-label">{{localize "SW25.Config.MonHit"}}</div>
-            <div class="common-value"> - </div>
-            </div>
-            <div class="common-display">
-            <div class="common-label">{{localize "SW25.Config.MonDmg"}}</div>
-            <div class="common-value"> - </div>
-            </div>
-            <div class="common-display">
-            <div class="common-label">{{localize "SW25.Config.MonDge"}}</div>
-            <div class="common-value"> - </div>
-            </div>
-          {{/if}}
-
-          <div class="common-display deffence-display">
-            <div class="common-label">{{localize "SW25.Attributes.Protectionpoint.long"}}</div>
-            <div class="common-value">{{system.pp}}{{#if system.baredreduce}} ({{system.barepp}}+{{system.baredreduce}}){{/if}}</div>
-            <div class="tooltip mod-content">
-              <label class="mod-label" for="{{actor._id}}system.attributes.ppmod"><i class="fa-solid fa-shield"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-top">{{localize "SW25.Effect.PpMod"}}</span></label>
-              <input class="mod-input common-display--input" id="{{actor._id}}system.attributes.ppmod" type="text" name="system.attributes.ppmod" value="{{system.attributes.ppmod}}" data-dtype="Number"/>
-            </div>
-          </div>
-          <div class="common-display deffence-display">
-            <div class="common-label">{{localize "SW25.Attributes.Magicprotection.long"}}</div>
-            <div class="common-value">{{system.mpp}}{{#if system.baredreduce}} ({{system.barempp}}+{{system.baredreduce}}){{/if}}</div>
-            <div class="tooltip mod-content">
-              <label class="mod-label" for="{{actor._id}}system.attributes.mppmod"><i class="fa-solid fa-star-of-david"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-top">{{localize "SW25.Effect.MppMod"}}</span></label>
-              <input class="mod-input common-display--input" id="{{actor._id}}system.attributes.mppmod" type="text" name="system.attributes.mppmod" value="{{system.attributes.mppmod}}" data-dtype="Number"/>
-            </div>
-          </div>
-
-          {{#if contentItem.monRes}}
-            {{#with contentItem.monRes as |item|}}
-            <div class="common-display item resist-display" data-item-id='{{item._id}}'>
-              <span class="rollable" style="display: {{#if system.usedice1}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{item.system.label1}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.dice1.resist}}>
-                <div class="common-label">{{item.system.label1}}</div>
-                <div class="common-value">{{item.system.checkbase1}}({{item.system.checkbasefix1}})</div>
-                <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
-              </span>
-              <div class="tooltip mod-content">
-                <label class="mod-label">
-                  <i class="fa-solid fa-angles-up"></i><span class="tooltip-top">{{localize "SW25.Config.ResVit"}}{{localize "SW25.Modifier"}}</span></label>
-                  <input class="cm1-change common-display--input" type="text" name="checkmodInput" value="{{item.system.checkmod1}}" data-dtype="Number"/>
-              </div>
-            </div>
-            <div class="common-display item resist-display" data-item-id='{{item._id}}'>
-              <span class="rollable" style="display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{item.system.label2}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.dice2.resist}}>
-                <div class="common-label">{{item.system.label2}}</div>
-                <div class="common-value">{{item.system.checkbase2}}({{item.system.checkbasefix2}})</div>
-                <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
-              </span>
-              <div class="tooltip mod-content">
-                <label class="mod-label">
-                  <i class="fa-solid fa-angles-up"></i><span class="tooltip-top">{{localize "SW25.Config.ResMnd"}}{{localize "SW25.Modifier"}}</span></label>
-                  <input class="cm2-change common-display--input" type="text" name="checkmodInput" value="{{item.system.checkmod2}}" data-dtype="Number"/>
-              </div>
-            </div>
-            {{/with}}
-          {{else}}
-            <div class="common-display">
-            <div class="common-label">{{localize "SW25.Config.ResVit"}}</div>
-            <div class="common-value"> - </div>
-            </div>
-            <div class="common-display">
-            <div class="common-label">{{localize "SW25.Config.ResMnd"}}</div>
-            <div class="common-value"> - </div>
-            </div>
-          {{/if}}
-          </div>
-          <hr>
-        </div>
+    <div class="header__title">
+      <div class="character-name fontsize14">
+        <input style="color:rgba(var(--main-text-color), 1)" id="{{actor._id}}name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+      </div>
+      <div class="monster-type">
+        <span class="resource-label nobreak">{{localize "SW25.Monster.Type"}}:</span>
+        <span class="monster-type">{{#if (eq system.classType "Other")}}{{system.type}}{{else}}{{#if system.classType}}{{localize (concat "SW25.Actor.Class." system.classType)}}{{/if}}{{/if}}</span>
       </div>
     </div>
-  </header>
 
-  {{#unless system.toFellow}}
-    {{!-- Sheet Tab Navigation --}}
+    <div class="header__level">
+      <div class="header__fellow" data-tooltip="{{localize "SW25.Daemon"}}">
+        <label for="{{actor._id}}fellow" class="resource-label"><i class="ps_daemonruler"></i></label> <br>
+        <div class="toggle-area">
+          <label class="common-toggle">
+            <input id="{{actor._id}}fellow" type="checkbox" name="system.toFellow" {{#if system.toFellow}}checked{{/if}} data-dtype="Boolean"/>
+          </label>
+        </div>
+      </div>
+      <div class="monster-level inline-block level-container">
+        <i class="fas fa-bolt"></i>
+        <span class="nobreak level-label">{{localize "SW25.Monlevel"}}:</span>
+        <span class="monster-lvl level-value">{{actor.system.monlevel}}</span>
+      </div>
+    </div>
+
+    <div class="header__overview">
+      <div class="monster-weakness">
+        <input id="{{actor._id}}weakapply" type="checkbox" name="system.weakapply" {{checked system.weakapply}} data-dtype="Boolean" class="weakapply" />
+        <label for="{{actor._id}}weakapply" class="resource-label nobreak">{{localize "SW25.Monster.Weakness"}}:</label>
+        <span class="monster-weak">{{system.weakness}}</span>
+      </div>
+      <div class="monster-summon">
+        {{#if system.summonmp}}
+        <span class="mpcost" data-cost="{{system.summonmp}}" data-label="{{localize "SW25.Monster.SummonMp"}}" data-type="summon" data-id="{{actor._id}}">
+        <label class="resource-label nobreak">{{localize "SW25.Monster.SummonMp"}}:</label>
+        {{system.summonmp}}</span>
+        {{#if system.toFellow}}
+        &nbsp;/&nbsp;
+          <span class="mpcost" data-cost="{{system.monlevel}}" data-label="{{localize "SW25.Monster.CancelMp"}}" data-type="summon" data-id="{{actor._id}}">
+          <label class="resource-label nobreak">{{localize "SW25.Monster.CancelMp"}}:</label>
+          {{system.monlevel}}</span>
+        {{/if}}
+        {{/if}}
+      </div>
+      <div class="monster-popularity popularityrollable">
+        <span class="monster-label monster-small">{{localize "SW25.Monster.Popularity"}}/{{localize "SW25.Monster.Weakpoint"}} : </span>
+        <span class="monster-small">{{system.popularity}}/{{system.weakpoint}}</span>
+      </div>
+      <div class="monster-preemptive preemptiverollable">
+        <span class="monster-label monster-small">{{localize "SW25.Monster.Preemptive"}}: </span>
+        <span class="monster-small">{{system.preemptive}}</span>
+      </div>
+      <div class="monster-move">
+        {{#if system.toFellow}}
+          <label class="resource-label nobreak">{{localize "SW25.Monster.Return"}}:</label>
+          <span class="mpcost" data-cost="-{{system.summonmp}}" data-label="{{localize "SW25.Monster.Return"}}" data-type="return" data-id="{{actor._id}}">
+            MP
+          </span>
+          &nbsp;/&nbsp;
+          <span class="rollreq" data-value="{{#if contentItem.monRes}}{{#with contentItem.monRes as |item|}}{{item.system.checkbasefix2}}{{/with}}{{else}}0{{/if}}" data-label="{{localize "SW25.Monster.Return"}}">
+          {{localize "SW25.Check"}}
+          </span>
+          &nbsp;/&nbsp;
+          <span class="rollable" data-roll="2d6+{{system.monlevel}}" data-label="{{localize "SW25.Monster.Return"}} {{localize "SW25.Failed"}}" data-pt="" data-apply="on" data-checktype="">
+          {{localize "SW25.Failed"}}
+          </span>
+        {{else}}
+          <span class="monster-label monster-small">{{localize "SW25.Monster.Move"}}: </span>
+          <span class="monster-small">{{system.move}}</span>
+        {{/if}}
+      </div>
+      {{#if system.showpt}}
+        <div class="monster-corepart">
+          <span class="monster-label monster-small">{{localize "SW25.Monster.Corepart"}}: </span>
+          <span class="monster-small">{{system.corepart}}</span>
+        </div>
+      {{/if}}
+      {{#if isOwner}}
+        <div class="grid-span-1 flexrow monster-owner">
+          <div class="monster-observer">
+            <span class="monster-label changepermission">{{localize "SW25.Monster.Observer"}}<br><i class="fa-solid fa-arrows-to-eye"></i></span>
+          </div>
+          <div class="monster-loot">
+            <span class="monster-label lootrollable">{{localize "SW25.Monster.Loot"}}<br><i class="fa-solid fa-web-awesome"></i></span>
+          </div>
+        </div>
+      {{else}}
+        <div class="grid-span-1 flexrow monster-owner"></div>
+      {{/if}}
+    </div>
+    
+    <div class="header__roll">
+      <div class="monster-parameters character-details-secondary flexrow">
+      {{#if contentItem.monAtk}}
+        {{#with contentItem.monAtk as |item|}}
+        <div class="common-display item attack-display" data-item-id='{{item._id}}'>
+          <span class="rollable" style="display: {{#if system.usedice1}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{item.system.label1}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.dice1.resist}}>
+            <div class="common-label">{{item.system.label1}}</div>
+            <div class="common-value">{{item.system.checkbase1}}({{item.system.checkbasefix1}})</div>
+            <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
+          </span>
+          <div class="tooltip mod-content">
+            <label class="mod-label">
+              <i class="fa-solid fa-angles-up"></i><span class="tooltip-top">{{localize "SW25.Effect.HitMod"}}</span></label>
+              <input class="cm1-change common-display--input" type="text" name="checkmodInput" value="{{item.system.checkmod1}}" data-dtype="Number"/>
+          </div>
+        </div>
+        <div class="common-display item attack-display" data-item-id='{{item._id}}'>
+          <span class="rollable" style="display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{item.system.label2}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.dice2.resist}}>
+            <div class="common-label">{{item.system.label2}}</div>
+            <div class="common-value">{{item.system.checkbase2}}({{item.system.checkbasefix2}})</div>
+            <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
+          </span>
+          <div class="tooltip mod-content">
+            <label class="mod-label">
+              <i class="fa-solid fa-angles-up"></i><span class="tooltip-top">{{localize "SW25.Config.MonDmg"}}{{localize "SW25.Modifier"}}</span></label>
+              <input class="cm2-change common-display--input" type="text" name="checkmodInput" value="{{item.system.checkmod2}}" data-dtype="Number"/>
+          </div>
+        </div>
+        <div class="common-display item deffence-display" data-item-id='{{item._id}}'>
+          <span class="rollable" style="display: {{#if system.usedice3}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula3}}+{{item.system.checkbase3}}" data-label="{{item.name}} ({{item.system.label3}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck3}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.dice3.resist}}>
+            <div class="common-label">{{item.system.label3}}</div>
+            <div class="common-value">{{item.system.checkbase3}}({{item.system.checkbasefix3}})</div>
+            <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
+          </span>
+          <div class="tooltip mod-content">
+            <label class="mod-label">
+              <i class="fa-solid fa-angles-up"></i><span class="tooltip-top">{{localize "SW25.Effect.DodgeMod"}}</span></label>
+              <input class="cm3-change common-display--input" type="text" name="checkmodInput" value="{{item.system.checkmod3}}" data-dtype="Number"/>
+          </div>
+        </div>
+        {{/with}}
+      {{else}}
+        <div class="common-display">
+        <div class="common-label">{{localize "SW25.Config.MonHit"}}</div>
+        <div class="common-value"> - </div>
+        </div>
+        <div class="common-display">
+        <div class="common-label">{{localize "SW25.Config.MonDmg"}}</div>
+        <div class="common-value"> - </div>
+        </div>
+        <div class="common-display">
+        <div class="common-label">{{localize "SW25.Config.MonDge"}}</div>
+        <div class="common-value"> - </div>
+        </div>
+      {{/if}}
+
+      <div class="common-display deffence-display">
+        <div class="common-label">{{localize "SW25.Attributes.Protectionpoint.long"}}</div>
+        <div class="common-value">{{system.pp}}{{#if system.baredreduce}} ({{system.barepp}}+{{system.baredreduce}}){{/if}}</div>
+        <div class="tooltip mod-content">
+          <label class="mod-label" for="{{actor._id}}system.attributes.ppmod"><i class="fa-solid fa-shield"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-top">{{localize "SW25.Effect.PpMod"}}</span></label>
+          <input class="mod-input common-display--input" id="{{actor._id}}system.attributes.ppmod" type="text" name="system.attributes.ppmod" value="{{system.attributes.ppmod}}" data-dtype="Number"/>
+        </div>
+      </div>
+      <div class="common-display deffence-display">
+        <div class="common-label">{{localize "SW25.Attributes.Magicprotection.long"}}</div>
+        <div class="common-value">{{system.mpp}}{{#if system.baredreduce}} ({{system.barempp}}+{{system.baredreduce}}){{/if}}</div>
+        <div class="tooltip mod-content">
+          <label class="mod-label" for="{{actor._id}}system.attributes.mppmod"><i class="fa-solid fa-star-of-david"></i><i class="fa-solid fa-angles-up"></i><span class="tooltip-top">{{localize "SW25.Effect.MppMod"}}</span></label>
+          <input class="mod-input common-display--input" id="{{actor._id}}system.attributes.mppmod" type="text" name="system.attributes.mppmod" value="{{system.attributes.mppmod}}" data-dtype="Number"/>
+        </div>
+      </div>
+
+      {{#if contentItem.monRes}}
+        {{#with contentItem.monRes as |item|}}
+        <div class="common-display item resist-display" data-item-id='{{item._id}}'>
+          <span class="rollable" style="display: {{#if system.usedice1}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula1}}+{{item.system.checkbase1}}" data-label="{{item.name}} ({{item.system.label1}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck1}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.dice1.resist}}>
+            <div class="common-label">{{item.system.label1}}</div>
+            <div class="common-value">{{item.system.checkbase1}}({{item.system.checkbasefix1}})</div>
+            <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
+          </span>
+          <div class="tooltip mod-content">
+            <label class="mod-label">
+              <i class="fa-solid fa-angles-up"></i><span class="tooltip-top">{{localize "SW25.Config.ResVit"}}{{localize "SW25.Modifier"}}</span></label>
+              <input class="cm1-change common-display--input" type="text" name="checkmodInput" value="{{item.system.checkmod1}}" data-dtype="Number"/>
+          </div>
+        </div>
+        <div class="common-display item resist-display" data-item-id='{{item._id}}'>
+          <span class="rollable" style="display: {{#if system.usedice2}}block{{else}}none{{/if}};" data-roll="{{item.system.checkformula2}}+{{item.system.checkbase2}}" data-label="{{item.name}} ({{item.system.label2}})" data-pt="{{item.system.powertable}}" data-apply="{{system.applycheck2}}" data-checktype="{{system.checkTypesButton}}" {{resistAttributes type system.dice2.resist}}>
+            <div class="common-label">{{item.system.label2}}</div>
+            <div class="common-value">{{item.system.checkbase2}}({{item.system.checkbasefix2}})</div>
+            <div class="common-icon icon-top"><i class="fa-solid fa-dice"></i></div>
+          </span>
+          <div class="tooltip mod-content">
+            <label class="mod-label">
+              <i class="fa-solid fa-angles-up"></i><span class="tooltip-top">{{localize "SW25.Config.ResMnd"}}{{localize "SW25.Modifier"}}</span></label>
+              <input class="cm2-change common-display--input" type="text" name="checkmodInput" value="{{item.system.checkmod2}}" data-dtype="Number"/>
+          </div>
+        </div>
+        {{/with}}
+      {{else}}
+        <div class="common-display">
+        <div class="common-label">{{localize "SW25.Config.ResVit"}}</div>
+        <div class="common-value"> - </div>
+        </div>
+        <div class="common-display">
+        <div class="common-label">{{localize "SW25.Config.ResMnd"}}</div>
+        <div class="common-value"> - </div>
+        </div>
+      {{/if}}
+      </div>
+    </div>
+
+  </header>
+  <main class="main">
+    {{#unless system.toFellow}}
+      {{!-- Sheet Tab Navigation --}}
+      <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="ability">{{localize "SW25.Monster.Ability"}}</a>
+        <a class="item" data-tab="effects">{{localize "SW25.Effects"}}</a>
+        <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
+        <a class="item" data-tab="details">{{localize "SW25.Details"}}</a>
+      </nav>
+
+      {{!-- Sheet Body --}}
+      <section class="sheet-body">
+
+        {{!-- Owned Ability Tab --}}
+        <div class="tab ability" data-group="primary" data-tab="ability">
+          <div>
+            {{> "systems/sw25/templates/actor/parts/actor-monsterabilities.hbs"}}
+          </div>
+          <div class="margin-m" style="display: flex; align-items: center;">
+            <input type="checkbox" id="{{actor._id}}system.usespell" name="system.usespell" data-dtype="Boolean" {{#if actor.system.usespell}} checked {{/if}}/>
+            <label for="{{actor._id}}system.usespell">{{localize "SW25.Monster.Usespell"}}</label>
+          </div>
+          {{#if actor.system.usespell}}
+          <div>
+            {{> "systems/sw25/templates/actor/parts/actor-monsterspells.hbs"}}
+          </div>
+          <div>
+            {{> "systems/sw25/templates/actor/parts/actor-monsterskills.hbs"}}
+          </div>
+          {{/if}}
+        </div>
+
+        {{!-- Active Effects Tab --}}
+        <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+          <div class="flexcol margin-l gap-m">
+            <div class="resource-label-l">{{localize "SW25.Effect.TotalEffects"}}</div>
+            <div class="grid grid-4col">
+              {{#each system.modParams}}
+                <div class="effective--label">{{label}}: {{value}}</div>
+              {{/each}}
+            </div>
+          </div>
+          <div>
+            {{> "systems/sw25/templates/actor/parts/actor-effects.hbs"}}
+          </div>
+        </div>
+
+        {{!-- Biography Tab --}}
+        <div class="tab biography" data-group="primary" data-tab="description">
+          <div>
+            {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
+          </div>
+          <hr>
+          <div>
+            <b>{{localize "SW25.Monster.Loot"}}</b><br>
+            {{{system.loot}}}
+          </div>
+        </div>
+
+        {{!-- Owned Details Tab --}}
+        <div class="tab items" data-group="primary" data-tab="details">
+          <div class="flexcol">
+            <div class="flexrow grid grid-5col gap-s">
+              <div class="grid-span-1 flex-group-center nogapmargin">
+                <div class="grid grid-2col nogapmargin">
+                  <div class="grid-span-2 property-col">
+                    <label class="property--label-col" for="{{actor._id}}system.monlevel">{{localize "SW25.Monlevel"}}</label>
+                    <input class="property--value" id="{{actor._id}}system.monlevel" type="text" name="system.monlevel" value="{{system.monlevel}}" data-dtype="Number"/>
+                  </div>
+                  <div class="property-col">
+                    <label class="property--label-col" for="{{actor._id}}system.hpbase">{{localize "SW25.Max"}}{{localize "SW25.Hp"}}</label>
+                    <input class="property--value" id="{{actor._id}}system.hpbase" type="text" name="system.hpbase" value="{{system.hpbase}}" data-dtype="Number"/>
+                  </div>
+                  <div class="property-col">
+                    <label class="property--label-col" for="{{actor._id}}system.mpbase">{{localize "SW25.Max"}}{{localize "SW25.Mp"}}</label>
+                    <input class="property--value" id="{{actor._id}}system.mpbase" type="text" name="system.mpbase" value="{{system.mpbase}}" data-dtype="Number"/>
+                  </div>
+                  <div class="property-col">
+                    <label class="property--label-col" for="{{actor._id}}system.ppbase">{{localize "SW25.Attributes.Protectionpoint.abbr"}}</label>
+                    <input class="property--value" id="{{actor._id}}system.ppbase" type="text" name="system.ppbase" value="{{system.ppbase}}" data-dtype="Number"/>
+                  </div>
+                  <div class="property-col">
+                    <label class="property--label-col" for="{{actor._id}}system.mppbase">{{localize "SW25.Attributes.Magicprotection.abbr"}}</label>
+                    <input class="property--value" id="{{actor._id}}system.mppbase" type="text" name="system.mppbase" value="{{system.mppbase}}" data-dtype="Number"/>
+                  </div>
+                </div>
+              </div>
+              <div class="grid-span-4">
+                <label for="{{actori._id}}system.overview"><b>{{localize "SW25.Overview"}}</b></label><br>
+                <textarea class="textarea-editor" id="{{actori._id}}system.overview" style="width: 100%; height: 120px;" data-path="overview">{{system.overview}}</textarea>
+              </div>
+            </div>
+            <div class="flexrow grid grid-10col">
+              <div class="grid-span-3 property-col">
+                <label class="property--label-col" for="system.classType">{{localize "SW25.Monster.Type"}}</label>
+                <div class="property">
+                  <select class="property--value" name="system.classType">
+                    {{selectOptions config.actorClasses selected=system.classType localize=true blank="SW25.Item.None"}}
+                  </select>
+                  {{#if (eq system.classType "Other")}}<input class="property--value" id="{{actor._id}}system.type" type="text" name="system.type" value="{{system.type}}" data-dtype="String"/>{{/if}}
+                </div>
+              </div>
+              <div class="grid-span-2 property-col">
+                <label class="property--label-col" for="{{actor._id}}system.intelligence">{{localize "SW25.Monster.Intelligence"}}</label>
+                <input class="property--value" id="{{actor._id}}system.intelligence" type="text" name="system.intelligence" value="{{system.intelligence}}" data-dtype="String"/>
+              </div>
+              <div class="grid-span-2 property-col">
+                <label class="property--label-col" for="{{actor._id}}system.perception">{{localize "SW25.Monster.Perception"}}</label>
+                <input class="property--value" id="{{actor._id}}system.perception" type="text" name="system.perception" value="{{system.perception}}" data-dtype="String"/>
+              </div>
+              <div class="grid-span-2 property-col">
+                <label class="property--label-col" for="{{actor._id}}system.reaction">{{localize "SW25.Monster.Reaction"}}</label>
+                <input class="property--value" id="{{actor._id}}system.reaction" type="text" name="system.reaction" value="{{system.reaction}}" data-dtype="String"/>
+              </div>
+              <div class="property-col">
+                <label class="property--label-col" for="{{actor._id}}system.impurity">{{localize "SW25.Monster.Impurity"}}</label>
+                <input class="property--value" id="{{actor._id}}system.impurity" type="text" name="system.impurity" value="{{system.impurity}}" data-dtype="Number"/>
+              </div>
+
+              <div class="grid-span-5 property-col">
+                <label class="property--label-col" for="{{actor._id}}system.language">{{localize "SW25.Monster.Language"}}</label>
+                <input class="property--value" id="{{actor._id}}system.language" type="text" name="system.language" value="{{system.language}}" data-dtype="String"/>
+              </div>
+              <div class="grid-span-4 property-col">
+                <label class="property--label-col" for="{{actor._id}}system.habitat">{{localize "SW25.Monster.Habitat"}}</label>
+                <input class="property--value" id="{{actor._id}}system.habitat" type="text" name="system.habitat" value="{{system.habitat}}" data-dtype="String"/>
+              </div>
+              <div></div>
+              <div class="grid-span-2 property-col">
+                <label class="property--label-col">{{localize "SW25.Monster.Popularity"}} / {{localize "SW25.Monster.Weakpoint"}}</label>
+                <div class="property">
+                  <input class="property--value" type="text" name="system.popularity" value="{{system.popularity}}" data-dtype="Number"/>/<input class="property--value" type="text" name="system.weakpoint" value="{{system.weakpoint}}" data-dtype="Number"/>
+                </div>
+              </div>
+              <div class="grid-span-4 property-col">
+                <label class="property--label-col" for="{{actor._id}}system.weakness">{{localize "SW25.Monster.Weakness"}}</label>
+                <input class="property--value" id="{{actor._id}}system.weakness" type="text" name="system.weakness" value="{{system.weakness}}" data-dtype="String"/>
+              </div>
+              <div style="text-align: center;">
+                <label class="property--label-col" for="{{actor._id}}system.preemptive">{{localize "SW25.Monster.Preemptive"}}</label>
+                <input class="property--value" id="{{actor._id}}system.preemptive" type="text" name="system.preemptive" value="{{system.preemptive}}" data-dtype="Number"/>
+              </div>
+              <div class="grid-span-3 property-col">
+                <label class="property--label-col" for="{{actor._id}}system.move">{{localize "SW25.Monster.Move"}}</label>
+                <input class="property--value" id="{{actor._id}}system.move" type="text" name="system.move" value="{{system.move}}" data-dtype="String"/>
+              </div>
+              <div class="grid-span-5 property-col">
+                <label class="property--label-col" for="{{actor._id}}system.part">{{localize "SW25.Monster.Part"}}</label>
+                <input class="property--value" id="{{actor._id}}system.part" type="text" name="system.part" value="{{system.part}}" data-dtype="String"/>
+              </div>
+              <div class="grid-span-3 property-col">
+                <label class="property--label-col" for="{{actor._id}}system.corepart">{{localize "SW25.Monster.Corepart"}}</label>
+                <input class="property--value" id="{{actor._id}}system.corepart" type="text" name="system.corepart" value="{{system.corepart}}" data-dtype="String"/>
+              </div>
+              <div class="grid-span-2 property-col">
+                <label class="property--label-col" for="{{actor._id}}system.summonmp">{{localize "SW25.Monster.SummonMp"}}</label>
+                <input class="property--value" id="{{actor._id}}system.summonmp" type="text" name="system.summonmp" value="{{system.summonmp}}" data-dtype="Number"/>
+              </div>
+              <div class="flexcol grid-span-10">
+                <label><b>{{localize "SW25.Monster.Loot"}}</b></label>
+                <div style="border: 1px solid gray; padding: 2px; border-radius: 5px;">
+                  {{editor system.loot target="system.loot" rollData=rollData button=true owner=owner editable=editable}}
+                </div>
+              </div>
+          </div>
+            {{#if system.isgm}}
+            <div class="flexcol margin-m">
+              <div><b>{{localize "SW25.Gminfo"}}</b></div>
+              <span style="text-align: left;"><label for="{{actor._id}}system.udname">{{localize "SW25.Unidentifiedname"}}</label><input id="{{actor._id}}system.udname" style="max-width: calc(50% - 7px); text-align: left;" type="text" name="system.udname" value="{{system.udname}}" data-dtype="String"/></span>
+              <div>{{editor system.gminfo target="system.gminfo" rollData=rollData button=true owner=owner editable=editable}}</div>
+            </div>
+            {{/if}}
+          </div>
+        </div>
+
+      </section>
+      {{/unless}}
+
+    {{#if system.toFellow}}
+    {{!-- Fellow Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
-      <a class="item" data-tab="ability">{{localize "SW25.Monster.Ability"}}</a>
-      <a class="item" data-tab="effects">{{localize "SW25.Effects"}}</a>
-      <a class="item" data-tab="description">{{localize "SW25.Description"}}</a>
-      <a class="item" data-tab="details">{{localize "SW25.Details"}}</a>
+      <a class="item" data-tab="fellowAction">{{localize "SW25.ActionTable"}}</a>
+      <a class="item" data-tab="fellowSetting">{{localize "SW25.Setting"}}</a>
     </nav>
 
-    {{!-- Sheet Body --}}
+    {{!-- Fellow Sheet Body --}}
     <section class="sheet-body">
 
-      {{!-- Owned Ability Tab --}}
-      <div class="tab ability" data-group="primary" data-tab="ability">
-        <div>
-          {{> "systems/sw25/templates/actor/parts/actor-monsterabilities.hbs"}}
+      {{!-- Fellow Action Tab --}}
+      <div class="tab fellowAction flexcol" data-group="primary" data-tab="fellowAction">
+        {{#if (eq system.tabletype "fellow")}}
+        <div class="flexcol margin-s">
+          <div>
+            {{> "systems/sw25/templates/actor/parts/actor-actions-fellow.hbs"}}
+          </div>
         </div>
+        {{/if}}
+        {{#if (eq system.tabletype "daemon")}}
+        <div class="flexcol margin-s">
+          <div>
+            {{> "systems/sw25/templates/actor/parts/actor-actions-daemon.hbs"}}
+          </div>
+        </div>
+        {{/if}}
         <div class="margin-m" style="display: flex; align-items: center;">
-          <input type="checkbox" id="{{actor._id}}system.usespell" name="system.usespell" data-dtype="Boolean" {{#if system.usespell}} checked {{/if}}/>
-          <label for="{{actor._id}}system.usespell">{{localize "SW25.Monster.Usespell"}}</label>
+          <input type="checkbox" id="{{actor._id}}system.attributes.showaction" name="system.attributes.showaction" data-dtype="Boolean" {{#if system.attributes.showaction}} checked {{/if}}/>
+          <label for="{{actor._id}}system.attributes.showaction">{{localize "SW25.Attributes.Showaction"}}</label>
         </div>
-        {{#if system.usespell}}
-        <div>
-          {{> "systems/sw25/templates/actor/parts/actor-monsterspells.hbs"}}
-        </div>
-        <div>
-          {{> "systems/sw25/templates/actor/parts/actor-monsterskills.hbs"}}
+        {{#if system.attributes.showaction}}
+        <div class="flexcol margin-s">
+          <div>
+            {{> "systems/sw25/templates/actor/parts/actor-actions.hbs"}}
+          </div>
         </div>
         {{/if}}
       </div>
 
-      {{!-- Active Effects Tab --}}
-      <div class="tab effects flexcol" data-group="primary" data-tab="effects">
-        <div class="flexcol margin-l gap-m">
-          <div class="resource-label-l">{{localize "SW25.Effect.TotalEffects"}}</div>
-          <div class="grid grid-4col">
-            {{#each system.modParams}}
-              <div class="effective--label">{{label}}: {{value}}</div>
-            {{/each}}
-          </div>
-        </div>
-        <div>
-          {{> "systems/sw25/templates/actor/parts/actor-effects.hbs"}}
-        </div>
-      </div>
-
-      {{!-- Biography Tab --}}
-      <div class="tab biography" data-group="primary" data-tab="description">
-        <div>
-          {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
-        </div>
-        <hr>
-        <div>
-          <b>{{localize "SW25.Monster.Loot"}}</b><br>
-          {{{system.loot}}}
+      {{!-- Fellow Setting Tab --}}
+      <div class="tab fellowSetting flexcol" data-group="primary" data-tab="fellowSetting">
+        <div class="grid grid-10col margin-s">
+          <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Action.TableType"}}</b><br>
+            <select name="system.tabletype">
+              {{selectOptions config.fellowTypes selected=system.tabletype localize=true}}
+            </select>
+          </span>
+          <span class="grid-span-8"></span>
+          <span class="grid-span-10" style="text-align: left;"><label for="{{actor._id}}system.canceldialog"><b>{{localize "SW25.CancelDialog"}}</b></label><br>
+          <input id="{{actor._id}}system.canceldialog" type="text" name="system.canceldialog" value="{{system.canceldialog}}" data-dtype="String"/></span>        
         </div>
       </div>
-
-      {{!-- Owned Details Tab --}}
-      <div class="tab items" data-group="primary" data-tab="details">
-        <div class="flexcol">
-          <div class="flexrow grid grid-5col gap-s">
-            <div class="grid-span-1 flex-group-center nogapmargin">
-              <div class="grid grid-2col nogapmargin">
-                <div class="grid-span-2 property-col">
-                  <label class="property--label-col" for="{{actor._id}}system.monlevel">{{localize "SW25.Monlevel"}}</label>
-                  <input class="property--value" id="{{actor._id}}system.monlevel" type="text" name="system.monlevel" value="{{system.monlevel}}" data-dtype="Number"/>
-                </div>
-                <div class="property-col">
-                  <label class="property--label-col" for="{{actor._id}}system.hpbase">{{localize "SW25.Max"}}{{localize "SW25.Hp"}}</label>
-                  <input class="property--value" id="{{actor._id}}system.hpbase" type="text" name="system.hpbase" value="{{system.hpbase}}" data-dtype="Number"/>
-                </div>
-                <div class="property-col">
-                  <label class="property--label-col" for="{{actor._id}}system.mpbase">{{localize "SW25.Max"}}{{localize "SW25.Mp"}}</label>
-                  <input class="property--value" id="{{actor._id}}system.mpbase" type="text" name="system.mpbase" value="{{system.mpbase}}" data-dtype="Number"/>
-                </div>
-                <div class="property-col">
-                  <label class="property--label-col" for="{{actor._id}}system.ppbase">{{localize "SW25.Attributes.Protectionpoint.abbr"}}</label>
-                  <input class="property--value" id="{{actor._id}}system.ppbase" type="text" name="system.ppbase" value="{{system.ppbase}}" data-dtype="Number"/>
-                </div>
-                <div class="property-col">
-                  <label class="property--label-col" for="{{actor._id}}system.mppbase">{{localize "SW25.Attributes.Magicprotection.abbr"}}</label>
-                  <input class="property--value" id="{{actor._id}}system.mppbase" type="text" name="system.mppbase" value="{{system.mppbase}}" data-dtype="Number"/>
-                </div>
-              </div>
-            </div>
-            <div class="grid-span-4">
-              <label for="{{actori._id}}system.overview"><b>{{localize "SW25.Overview"}}</b></label><br>
-              <textarea class="textarea-editor" id="{{actori._id}}system.overview" style="width: 100%; height: 120px;" data-path="overview">{{system.overview}}</textarea>
-            </div>
-          </div>
-          <div class="flexrow grid grid-10col">
-            <div class="grid-span-3 property-col">
-              <label class="property--label-col" for="system.classType">{{localize "SW25.Monster.Type"}}</label>
-              <div class="property">
-                <select class="property--value" name="system.classType">
-                  {{selectOptions config.actorClasses selected=system.classType localize=true blank="SW25.Item.None"}}
-                </select>
-                {{#if (eq system.classType "Other")}}<input class="property--value" id="{{actor._id}}system.type" type="text" name="system.type" value="{{system.type}}" data-dtype="String"/>{{/if}}
-              </div>
-            </div>
-            <div class="grid-span-2 property-col">
-              <label class="property--label-col" for="{{actor._id}}system.intelligence">{{localize "SW25.Monster.Intelligence"}}</label>
-              <input class="property--value" id="{{actor._id}}system.intelligence" type="text" name="system.intelligence" value="{{system.intelligence}}" data-dtype="String"/>
-            </div>
-            <div class="grid-span-2 property-col">
-              <label class="property--label-col" for="{{actor._id}}system.perception">{{localize "SW25.Monster.Perception"}}</label>
-              <input class="property--value" id="{{actor._id}}system.perception" type="text" name="system.perception" value="{{system.perception}}" data-dtype="String"/>
-            </div>
-            <div class="grid-span-2 property-col">
-              <label class="property--label-col" for="{{actor._id}}system.reaction">{{localize "SW25.Monster.Reaction"}}</label>
-              <input class="property--value" id="{{actor._id}}system.reaction" type="text" name="system.reaction" value="{{system.reaction}}" data-dtype="String"/>
-            </div>
-            <div class="property-col">
-              <label class="property--label-col" for="{{actor._id}}system.impurity">{{localize "SW25.Monster.Impurity"}}</label>
-              <input class="property--value" id="{{actor._id}}system.impurity" type="text" name="system.impurity" value="{{system.impurity}}" data-dtype="Number"/>
-            </div>
-
-            <div class="grid-span-5 property-col">
-              <label class="property--label-col" for="{{actor._id}}system.language">{{localize "SW25.Monster.Language"}}</label>
-              <input class="property--value" id="{{actor._id}}system.language" type="text" name="system.language" value="{{system.language}}" data-dtype="String"/>
-            </div>
-            <div class="grid-span-4 property-col">
-              <label class="property--label-col" for="{{actor._id}}system.habitat">{{localize "SW25.Monster.Habitat"}}</label>
-              <input class="property--value" id="{{actor._id}}system.habitat" type="text" name="system.habitat" value="{{system.habitat}}" data-dtype="String"/>
-            </div>
-            <div></div>
-            <div class="grid-span-2 property-col">
-              <label class="property--label-col">{{localize "SW25.Monster.Popularity"}} / {{localize "SW25.Monster.Weakpoint"}}</label>
-              <div class="property">
-                <input class="property--value" type="text" name="system.popularity" value="{{system.popularity}}" data-dtype="Number"/>/<input class="property--value" type="text" name="system.weakpoint" value="{{system.weakpoint}}" data-dtype="Number"/>
-              </div>
-            </div>
-            <div class="grid-span-4 property-col">
-              <label class="property--label-col" for="{{actor._id}}system.weakness">{{localize "SW25.Monster.Weakness"}}</label>
-              <input class="property--value" id="{{actor._id}}system.weakness" type="text" name="system.weakness" value="{{system.weakness}}" data-dtype="String"/>
-            </div>
-            <div style="text-align: center;">
-              <label class="property--label-col" for="{{actor._id}}system.preemptive">{{localize "SW25.Monster.Preemptive"}}</label>
-              <input class="property--value" id="{{actor._id}}system.preemptive" type="text" name="system.preemptive" value="{{system.preemptive}}" data-dtype="Number"/>
-            </div>
-            <div class="grid-span-3 property-col">
-              <label class="property--label-col" for="{{actor._id}}system.move">{{localize "SW25.Monster.Move"}}</label>
-              <input class="property--value" id="{{actor._id}}system.move" type="text" name="system.move" value="{{system.move}}" data-dtype="String"/>
-            </div>
-            <div class="grid-span-5 property-col">
-              <label class="property--label-col" for="{{actor._id}}system.part">{{localize "SW25.Monster.Part"}}</label>
-              <input class="property--value" id="{{actor._id}}system.part" type="text" name="system.part" value="{{system.part}}" data-dtype="String"/>
-            </div>
-            <div class="grid-span-3 property-col">
-              <label class="property--label-col" for="{{actor._id}}system.corepart">{{localize "SW25.Monster.Corepart"}}</label>
-              <input class="property--value" id="{{actor._id}}system.corepart" type="text" name="system.corepart" value="{{system.corepart}}" data-dtype="String"/>
-            </div>
-            <div class="grid-span-2 property-col">
-              <label class="property--label-col" for="{{actor._id}}system.summonmp">{{localize "SW25.Monster.SummonMp"}}</label>
-              <input class="property--value" id="{{actor._id}}system.summonmp" type="text" name="system.summonmp" value="{{system.summonmp}}" data-dtype="Number"/>
-            </div>
-            <div class="flexcol grid-span-10">
-              <label><b>{{localize "SW25.Monster.Loot"}}</b></label>
-              <div style="border: 1px solid gray; padding: 2px; border-radius: 5px;">
-                {{editor system.loot target="system.loot" rollData=rollData button=true owner=owner editable=editable}}
-              </div>
-            </div>
-        </div>
-          {{#if system.isgm}}
-          <div class="flexcol margin-m">
-            <div><b>{{localize "SW25.Gminfo"}}</b></div>
-            <span style="text-align: left;"><label for="{{actor._id}}system.udname">{{localize "SW25.Unidentifiedname"}}</label><input id="{{actor._id}}system.udname" style="max-width: calc(50% - 7px); text-align: left;" type="text" name="system.udname" value="{{system.udname}}" data-dtype="String"/></span>
-            <div>{{editor system.gminfo target="system.gminfo" rollData=rollData button=true owner=owner editable=editable}}</div>
-          </div>
-          {{/if}}
-        </div>
-      </div>
-
+    </main>
     </section>
-    {{/unless}}
-
-  {{#if system.toFellow}}
-  {{!-- Fellow Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="fellowAction">{{localize "SW25.ActionTable"}}</a>
-    <a class="item" data-tab="fellowSetting">{{localize "SW25.Setting"}}</a>
-  </nav>
-
-  {{!-- Fellow Sheet Body --}}
-  <section class="sheet-body">
-
-    {{!-- Fellow Action Tab --}}
-    <div class="tab fellowAction flexcol" data-group="primary" data-tab="fellowAction">
-      {{#if (eq system.tabletype "fellow")}}
-      <div class="flexcol margin-s">
-        <div>
-          {{> "systems/sw25/templates/actor/parts/actor-actions-fellow.hbs"}}
-        </div>
-      </div>
-      {{/if}}
-      {{#if (eq system.tabletype "daemon")}}
-      <div class="flexcol margin-s">
-        <div>
-          {{> "systems/sw25/templates/actor/parts/actor-actions-daemon.hbs"}}
-        </div>
-      </div>
-      {{/if}}
-      <div class="margin-m" style="display: flex; align-items: center;">
-        <input type="checkbox" id="{{actor._id}}system.attributes.showaction" name="system.attributes.showaction" data-dtype="Boolean" {{#if system.attributes.showaction}} checked {{/if}}/>
-        <label for="{{actor._id}}system.attributes.showaction">{{localize "SW25.Attributes.Showaction"}}</label>
-      </div>
-      {{#if system.attributes.showaction}}
-      <div class="flexcol margin-s">
-        <div>
-          {{> "systems/sw25/templates/actor/parts/actor-actions.hbs"}}
-        </div>
-      </div>
-      {{/if}}
-    </div>
-
-    {{!-- Fellow Setting Tab --}}
-    <div class="tab fellowSetting flexcol" data-group="primary" data-tab="fellowSetting">
-      <div class="grid grid-10col margin-s">
-        <span class="grid-span-2" style="text-align: center;"><b>{{localize "SW25.Item.Action.TableType"}}</b><br>
-          <select name="system.tabletype">
-            {{selectOptions config.fellowTypes selected=system.tabletype localize=true}}
-          </select>
-        </span>
-        <span class="grid-span-8"></span>
-        <span class="grid-span-10" style="text-align: left;"><label for="{{actor._id}}system.canceldialog"><b>{{localize "SW25.CancelDialog"}}</b></label><br>
-        <input id="{{actor._id}}system.canceldialog" type="text" name="system.canceldialog" value="{{system.canceldialog}}" data-dtype="String"/></span>        
-      </div>
-    </div>
-
-  </section>
-  {{/if}}
+    {{/if}}
   {{/unless}}
 
   {{#if system.limited}}
-  <header class="sheet-header">
+  <header class="header">
     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
     <div class="header-fields">
       <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
@@ -499,5 +498,5 @@
     </div>
   </header>
   {{/if}}
-
+</section>
 </form>

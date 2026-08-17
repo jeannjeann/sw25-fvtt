@@ -20,6 +20,7 @@
           </div>
           <h4 class="item-label">{{item.name}}</h4>
         </div>
+        {{> "systems/sw25/templates/actor/parts/actor-usecosts.hbs" item=item}}
         {{> "systems/sw25/templates/actor/parts/actor-useitems.hbs" item=item}}
         <div class='item-quantity item-prop flexrow flex-group-center' style="flex: 0 0 60px;">
           <a class="quantity-button" data-action="decrease" data-property="item.system.quantity">

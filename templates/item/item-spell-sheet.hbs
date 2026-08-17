@@ -10,8 +10,8 @@
           <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
         {{else}}
           {{> "systems/sw25/templates/helper/action-marks.hbs"}}
-          {{#if (eq system.faith "first")}}†{{/if}}
-          {{#if (eq system.faith "second")}}‡{{/if}}
+          {{#if (eq system.faith "first")}}<i class="ps_first-sect"></i>{{/if}}
+          {{#if (eq system.faith "second")}}<i class="ps_second-sect"></i>{{/if}}
           {{item.name}}
         {{/if}}
       </h1>
